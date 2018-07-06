@@ -1,0 +1,7 @@
+os: WMF 5
+
+#disable MSBuild
+build: off
+
+build_script:
+  - ps: . .\.Build.ps1 -ResolveDependency
