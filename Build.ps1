@@ -6,6 +6,9 @@ Param (
     [switch]
     $ResolveDependency,
 
+    [switch]
+    $DownloadDscResources,
+
     [String]
     $BuildOutput = "BuildOutput",
 
@@ -13,19 +16,19 @@ Param (
     $GalleryRepository,
 
     [Uri]
-    $GalleryProxy,
-
-    [Switch]
-    $ForceEnvironmentVariables = [switch]$true,
-
-    $MergeList = @('enum*', [PSCustomObject]@{Name = 'class*'; order = {(Import-PowerShellDataFile .\SampleModule\Classes\classes.psd1).order.indexOf($_.BaseName)}}, 'priv*', 'pub*'),
-    
-    $CodeCoverageThreshold = 90
+    $GalleryProxy
 )
 
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
 $buildModulesPath = Join-Path -Path $BuildOutput -ChildPath Modules
-$ProjectPath = $PSScriptRoot
+$projectPath = $PSScriptRoot
+$timeStamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
+$psVersion = $PSVersionTable.PSVersion.Major
+$lines = '----------------------------------------------------------------------'
+
+if (-not (Get-Module -Name PackageManagement)) {
+    Import-Module -Name PackageManagement #import it before the PSModulePath is changed prevents PowerShell from loading it
+}
 
 if (-not (Test-Path -Path $buildModulesPath)) {
     $null = mkdir -Path $buildModulesPath -Force
@@ -41,11 +44,11 @@ if (-not (Get-Module -Name InvokeBuild -ListAvailable) -and -not $ResolveDepende
 }
 
 if ($ResolveDependency) {
-    . $PSScriptRoot/.build/BuildHelpers/Resolve-Dependency.ps1
+    . $PSScriptRoot/Build/BuildHelpers/Resolve-Dependency.ps1
     Resolve-Dependency
 }
 
-Get-ChildItem -Path "$PSScriptRoot/.build/" -Recurse -Include *.ps1 |
+Get-ChildItem -Path "$PSScriptRoot/Build/" -Recurse -Include *.ps1 |
     ForEach-Object {
     Write-Verbose "Importing file $($_.BaseName)"
     try {
@@ -68,22 +71,18 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 
     return
 }
-task . Clean_BuildOutput
 
-#task PSModulePath_BuildModules {
-#    if (!([System.IO.Path]::IsPathRooted($BuildOutput)))
-#    {
-#        $BuildOutput = Join-Path -Path $ProjectPath -ChildPath $BuildOutput
-#    }
+task . ClearBuildOutput,
+Init,
+SetPsModulePath,
+CopyModule,
+Test
+
+
+task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
+
 #
-#    $configurationPath = Join-Path -Path $ProjectPath -ChildPath $ConfigurationsFolder
-#    $resourcePath = Join-Path -Path $ProjectPath -ChildPath $ResourcesFolder
-#    $buildModulesPath = Join-Path -Path $BuildOutput -ChildPath Modules
-#        
-#    Set-PSModulePath -ModuleToLeaveLoaded $ModuleToLeaveLoaded -PathsToSet @($configurationPath, $resourcePath, $buildModulesPath)
-#}
-#
-#task . Clean_BuildOutput
+#task . ClearBuildOutput
 #
 #task Download_All_Dependencies -if ($DownloadResourcesAndConfigurations -or $Tasks -contains 'Download_All_Dependencies') Download_DSC_Configurations, Download_DSC_Resources -Before PSModulePath_BuildModules
 

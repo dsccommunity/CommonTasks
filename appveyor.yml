@@ -4,4 +4,4 @@ os: WMF 5
 build: off
 
 build_script:
-  - ps: . .\.Build.ps1 -ResolveDependency
+  - ps: . .\Build.ps1 -ResolveDependency

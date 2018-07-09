@@ -1,6 +1,6 @@
 @{
     # Script module or binary module file associated with this manifest.
-    RootModule           = 'Registry.schema.psm1'
+    RootModule           = 'RegistryValues.schema.psm1'
 
     # Version number of this module.
     ModuleVersion        = '0.0.1'
@@ -21,5 +21,5 @@
     RequiredModules      = @('PSDesiredStateConfiguration')
 
     # DSC resources to export from this module
-    DscResourcesToExport = @('Registry')
+    DscResourcesToExport = @('RegistryValues')
 }

@@ -1,15 +1,15 @@
-Configuration Registry {
+Configuration RegistryValues {
     Param(
         [Parameter(Mandatory)]
-        [hashtable[]]$RegistryValues
+        [hashtable[]]$Values
     )
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    foreach ($registryValue in $RegistryValues) {
+    foreach ($value in $values) {
         #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
-        $executionName = $registryValue.Key + '\' + $registryValue.ValueName
-        (Get-DscSplattedResource -ResourceName Registry -ExecutionName $executionName -Properties $registryValue -NoInvoke).Invoke($registryValue)
+        $executionName = $value.Key + '\' + $value.ValueName
+        (Get-DscSplattedResource -ResourceName Registry -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
 
         <#
         Registry r {
@@ -21,5 +21,4 @@ Configuration Registry {
         }
         #>
     }
-
 }

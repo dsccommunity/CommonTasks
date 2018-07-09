@@ -53,7 +53,7 @@ Below are ideas I think worth discussing and suggestions of implementation. Plea
 
 ```
 SHAREDDSCCONFIG
-│   .build.ps1
+│   Build.ps1
 │   .gitignore
 │   .kitchen.yml
 │   appveyor.yml
@@ -183,8 +183,8 @@ Doing so would allow to have functions to lookup for Configuration Data from the
 The root of the tree would be similar to a module root tree where you have supporting files for, say, the CI/CD integration.
 
 In this example, I'm illustrating the idea with:
-- a .Build.ps1 that defines the build workflow by composing tasks (see [SampleModule](https://github.com/gaelcolas/SampleModule))
-- a .build/ folder, which includes the minimum tasks to bootstrap + custom ones
+- a Build.ps1 that defines the build workflow by composing tasks (see [SampleModule](https://github.com/gaelcolas/SampleModule))
+- a Build/ folder, which includes the minimum tasks to bootstrap + custom ones
 - the .gitignore where folders like BuildOutput or kitchen specific files are added (`module/`)
 - the [Dependencies.psd1](./Dependencies.psd1), so that the build process can use [PSDepend](https://github.com/RamblingCookieMonster/PSDepend/) to pull any prerequisites to build that project
 - the test-kitchen configuration file (omitting the driver, so that it can be set on a global/local config based on the user's environment/platform)

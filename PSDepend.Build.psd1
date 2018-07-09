@@ -1,11 +1,15 @@
 @{
-    PSDependOptions  = @{
-        AddToPath  = $True
-        Target     = 'BuildOutput\Modules'
+    PSDependOptions   = @{
+        AddToPath = $True
+        Target    = 'BuildOutput\Modules'
     }
 
-    InvokeBuild      = 'latest'
-    Pester           = 'latest'
-    PSScriptAnalyzer = 'latest'
-    PSDeploy         = 'latest'
+    BuildHelpers      = 'latest'
+    InvokeBuild       = 'latest'
+    Pester            = 'latest'
+    PSScriptAnalyzer  = 'latest'
+    PSDeploy          = 'latest'
+    Datum             = 'latest'
+    ProtectedData     = 'latest'
+    'powershell-yaml' = 'latest'
 }
