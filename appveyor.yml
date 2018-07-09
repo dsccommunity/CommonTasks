@@ -5,3 +5,9 @@ build: off
 
 build_script:
   - ps: . .\Build.ps1 -ResolveDependency
+
+environment:
+  APPVEYOR_RDP_PASSWORD: Somepass1
+
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
