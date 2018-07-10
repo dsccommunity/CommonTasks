@@ -7,16 +7,19 @@ function Set-PSModulePath {
         $PathsToSet = @()
     )
 
-    if(Get-Module PSDesiredStateConfiguration) {
-        Remove-Module -Force PSDesiredStateConfiguration
+    if (Get-Module -Name PSDesiredStateConfiguration) {
+        Remove-Module -Name PSDesiredStateConfiguration -Force
     }
 
-    $Env:PSModulePath = Join-Path -Path $PShome -ChildPath Modules
+    $env:PSModulePath = Join-Path -Path $PSHOME -ChildPath Modules
+    $programFilesPath = Join-Path -Path ([System.Environment]::GetFolderPath('ProgramFiles')) -ChildPath 'WindowsPowerShell\Modules'
+    $env:PSModulePath += ";$programFilesPath"
+
     Get-Module | Where-Object { $_.Name -notin $ModuleToLeaveLoaded } | Remove-Module -Force
 
     $PathsToSet.Foreach{
         if ($_ -notin ($env:PSModulePath -split ';')) {
-            $env:PSModulePath = "$_;$($Env:PSModulePath)"
+            $env:PSModulePath = "$_;$($env:PSModulePath)"
         }
     }
 }
