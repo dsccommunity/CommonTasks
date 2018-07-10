@@ -1,8 +1,8 @@
 Task Deploy {
-    Write-Host "Starting deployment with files inside $ProjectRoot"
+    Write-Host "Starting deployment with files inside $ProjectPath"
 
     $Params = @{
-        Path    = $ProjectRoot
+        Path    = $ProjectPath
         Force   = $true
         Recurse = $false
         Verbose = $true
