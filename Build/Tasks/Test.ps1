@@ -10,7 +10,7 @@ Task Test {
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
     # Run Script Analyzer
     $start = Get-Date
-    If ($env:BHBuildSystem -eq 'AppVeyor') {
+    if ($env:BHBuildSystem -eq 'AppVeyor') {
         Add-AppveyorTest -Name "PSScriptAnalyzer" -Outcome Running
     }
     $scriptAnalyerResults = Invoke-ScriptAnalyzer -Path (Join-Path -Path $env:BHProjectPath -ChildPath $ENV:BHProjectName) -Recurse -Severity Error -ErrorAction SilentlyContinue
@@ -38,14 +38,11 @@ Task Test {
     $testResults = Invoke-Pester -Path "$(property BHPSModulePath)\Tests" -PassThru -OutputFormat NUnitXml -OutputFile "$(property BHBuildOutput)\Pester\$testFileName"
 
     # In Appveyor?  Upload our tests! #Abstract this into a function?
-    If ($env:BHBuildSystem -eq 'AppVeyor')
+    if ($env:BHBuildSystem -eq 'AppVeyor')
     {
         (New-Object 'System.Net.WebClient').UploadFile(
-            "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)",
-            "$ProjectRoot\$TestFile" )
+            "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", "$(property BHBuildOutput)\Pester\$testFileName")
     }
-
-    #Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
 
     # Failed tests?
     # Need to tell psake or it will proceed to the deployment. Danger!
