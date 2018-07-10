@@ -1,16 +1,28 @@
+environment:
+  NuGetApiKey:
+    secure: tAdUQmRiZ270LOPN8SwbjISLfu6ldDTw6LWvdtsk+pQR7r5bJnGrG8Ntyt87edJ/
+
+version: 1.1.{build}
+
+skip_tags: true
+skip_branch_with_pr: true
+skip_commits:
+  message: /updated readme.*|update readme.*s/
+
+image: Visual Studio 2017
+
 os: WMF 5
 
-#disable MSBuild
 build: off
 
 build_script:
   - ps: . .\Build.ps1 -ResolveDependency
 
-environment:
-  APPVEYOR_RDP_PASSWORD: Somepass1
+#environment:
+#  APPVEYOR_RDP_PASSWORD: Somepass1
 
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
