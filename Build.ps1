@@ -76,8 +76,8 @@ task . ClearBuildOutput,
 Init,
 SetPsModulePath,
 CopyModule,
-Test
-
+Test,
+Deploy
 
 task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
 
