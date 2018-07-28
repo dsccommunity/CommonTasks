@@ -1,6 +1,5 @@
 Configuration FilesAndFolders {
     Param(
-        [Parameter(Mandatory)]
         [hashtable[]]$Items
     )
     

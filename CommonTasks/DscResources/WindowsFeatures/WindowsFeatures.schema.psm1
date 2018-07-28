@@ -1,6 +1,5 @@
 Configuration WindowsFeatures {
     Param(
-        [Parameter(Mandatory)]
         [string[]]$Name
     )
     
