@@ -1,5 +1,6 @@
 Configuration RegistryValues {
     Param(
+        [Parameter(Mandatory)]
         [hashtable[]]$Values
     )
     
