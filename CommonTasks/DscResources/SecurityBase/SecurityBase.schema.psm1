@@ -1,33 +1,27 @@
 Configuration SecurityBase {
     Param(
-        [ValidateSet(1, 2, 3)]
-        [Parameter(Mandatory)]
-        [int]$SecurityLevel
+        [ValidateSet('DC', 'SqlServer', 'MemberServer', 'JumpServer')]
+        [string]$SystemType
     )
     
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, ComputerManagementDsc
 
-    $lmCompatibilityLevel = switch ($SecurityLevel) {
-        1 { 3 }
-        2 { 4 }
-        3 { 5 }
+    xRegistry LmCompatibilityLevel5 {
+        Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
+        ValueName = 'LmCompatibilityLevel'
+        ValueData = 5
+        ValueType = 'Dword'
+        Ensure    = 'Present'
     }
 
-    if ($SecurityLevel -ge 2) {
-        Registry DisableLmHash {
-            Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
-            ValueName = 'NoLmHash'
-            ValueData = 1
-            ValueType = 'Dword'
-            Ensure    = 'Present'
-        }
+    PowerShellExecutionPolicy ExecutionPolicyAllSigned {
+        ExecutionPolicyScope = 'LocalMachine'
+        ExecutionPolicy      = 'RemoteSigned'
+    }
 
-        Registry LmCompatibilityLevel {
-            Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
-            ValueName = 'LmCompatibilityLevel'
-            ValueData = $lmCompatibilityLevel
-            ValueType = 'Dword'
-            Ensure    = 'Present'
-        }
+    xWindowsFeature DisableSmbV1
+    {
+        Name = 'FS-SMB1'
+        Ensure = 'Absent'
     }
 }

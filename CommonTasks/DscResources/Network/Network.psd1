@@ -1,12 +1,12 @@
 @{
     # Script module or binary module file associated with this manifest.
-    RootModule           = 'RegistryValues.schema.psm1'
+    RootModule           = 'Network.schema.psm1'
 
     # Version number of this module.
     ModuleVersion        = '0.0.1'
 
     # ID used to uniquely identify this module
-    GUID                 = '2aab897b-85c4-4643-8928-67892348dd1a'
+    GUID                 = '197e8e36-8686-4135-9d16-72d0dbfafee9'
 
     # Author of this module
     Author               = 'NA'
@@ -21,5 +21,5 @@
     RequiredModules      = @('xPSDesiredStateConfiguration')
 
     # DSC resources to export from this module
-    DscResourcesToExport = @('RegistryValues')
+    DscResourcesToExport = @('Network')
 }

@@ -6,7 +6,7 @@
     ModuleVersion        = '0.0.1'
 
     # ID used to uniquely identify this module
-    GUID                 = '06f7eb99-05a9-4476-8530-e4d28030fe70'
+    GUID                 = 'cb8a795a-b1c1-468d-a841-a24c50c0611b'
 
     # Author of this module
     Author               = 'NA'
@@ -18,7 +18,7 @@
     Copyright            = 'NA'
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules      = @('PSDesiredStateConfiguration')
+    RequiredModules      = @('xPSDesiredStateConfiguration')
 
     # DSC resources to export from this module
     DscResourcesToExport = @('WindowsFeatures')

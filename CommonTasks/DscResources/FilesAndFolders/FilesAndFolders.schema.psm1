@@ -1,5 +1,6 @@
 Configuration FilesAndFolders {
     Param(
+        [Parameter(Mandatory)]
         [hashtable[]]$Items
     )
     
@@ -12,6 +13,7 @@ Configuration FilesAndFolders {
             $item.Ensure = 'Present'
         }
 
-        (Get-DscSplattedResource -ResourceName File -ExecutionName $item.DestinationPath -Properties $item -NoInvoke).Invoke($item)
+        $executionName = $item.DestinationPath -replace ':', ''
+        (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

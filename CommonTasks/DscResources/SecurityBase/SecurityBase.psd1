@@ -18,7 +18,7 @@
     Copyright            = 'NA'
 
     # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules      = @('PSDesiredStateConfiguration')
+    RequiredModules      = @('xPSDesiredStateConfiguration')
 
     # DSC resources to export from this module
     DscResourcesToExport = @('SecurityBase')
