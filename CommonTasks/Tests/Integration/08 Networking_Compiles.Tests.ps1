@@ -6,20 +6,21 @@ Import-Module -Name  $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name Datum
 
-Describe 'FileAndFolder DSC Resource compiles' -Tags 'FunctionalQuality' {
+Describe 'Networking DSC Resource compiles' -Tags 'FunctionalQuality' {
+    It 'Networking Compiles' {
+        configuration Config_Network {
 
-    It 'FileAndFolder Compiles' {
-        configuration Config_FilesAndFolders {
-    
             Import-DscResource -ModuleName CommonTasks
         
-            node localhost_FilesAndFolders {
-                FilesAndFolders filesAndFolders {
-                    Items = $ConfigurationData.FilesAndFolders.Items
+            node localhost_Network {
+                Network network {
+                    NetworkZone = 1
+                    MtuSize = 1360
+                    DnsServer = '1.1.1.1', '2.2.2.2'
                 }
             }
         }
         
-        { Config_FilesAndFolders -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
     }
 }
