@@ -4,7 +4,7 @@ Configuration WindowsFeatures {
         [string[]]$Name
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
 
     $ensure = 'Present'
     foreach ($n in $Name) {

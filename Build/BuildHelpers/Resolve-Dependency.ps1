@@ -20,7 +20,6 @@ function Resolve-Dependency
             $providerBootstrapParams.Add('Proxy', $GalleryProxy)
         }
         $null = Install-PackageProvider @providerBootstrapParams
-        #Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
     }
         
     Write-Verbose -Message 'BootStrapping PSDepend'

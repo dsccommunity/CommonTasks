@@ -1,10 +1,11 @@
 Configuration SecurityBase {
     Param(
-        [ValidateSet('DC', 'SqlServer', 'MemberServer', 'JumpServer')]
-        [string]$SystemType
+        [ValidateSet('DC', 'SqlServer', 'Baseline', 'JumpServer', 'HyperV')]
+        [string]$Role
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, ComputerManagementDsc
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 5.2.0.0
 
     xRegistry LmCompatibilityLevel5 {
         Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
@@ -19,9 +20,8 @@ Configuration SecurityBase {
         ExecutionPolicy      = 'RemoteSigned'
     }
 
-    xWindowsFeature DisableSmbV1
-    {
-        Name = 'FS-SMB1'
+    xWindowsFeature DisableSmbV1 {
+        Name   = 'FS-SMB1'
         Ensure = 'Absent'
     }
 }

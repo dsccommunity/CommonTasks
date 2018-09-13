@@ -4,7 +4,9 @@ Configuration ConfigurationBase {
         [string]$SystemType
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, cMicrosoftUpdate
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    #Removing cMicrosoftUpdate and configuration items as long as the module is not on the PSGallery
+    #Import-DscResource -ModuleName cMicrosoftUpdate -ModuleVersion 0.0.0.1
 
     xRegistry EnableRdp {
         Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server'
@@ -14,25 +16,25 @@ Configuration ConfigurationBase {
         Ensure    = 'Present'
     }
 
-    cWSUSEnable WSUSEnabled {
-        Enable = 'True'
-    }
+    #cWSUSEnable WSUSEnabled {
+    #    Enable = 'True'
+    #}
 
-    cWSUSSetServer WSUSServer
-    {
-        Url    = 'SomeServer'
-        Ensure = 'Present'
-    }
+    #cWSUSSetServer WSUSServer
+    #{
+    #    Url    = 'SomeServer'
+    #    Ensure = 'Present'
+    #}
 
-    cWSUSInstallDay WSUSInstallDay
-    {
-        Day    = 'Tuesday'
-        Ensure = 'Present'
-    }
+    #cWSUSInstallDay WSUSInstallDay
+    #{
+    #    Day    = 'Tuesday'
+    #    Ensure = 'Present'
+    #}
 
-    cWSUSInstallTime WSUSInstallTime
-    {
-        Time   = 5
-        Ensure = 'Present'
-    }
+    #cWSUSInstallTime WSUSInstallTime
+    #{
+    #    Time   = 5
+    #    Ensure = 'Present'
+    #}
 }

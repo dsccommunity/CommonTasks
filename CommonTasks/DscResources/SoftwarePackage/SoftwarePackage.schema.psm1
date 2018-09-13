@@ -4,7 +4,7 @@ Configuration SoftwarePackage {
         [hashtable[]]$Package
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
 
     foreach ($p in $Package) {
         $p.Ensure = 'Present'
@@ -12,8 +12,7 @@ Configuration SoftwarePackage {
         {
             $p.ProductId = ''
         }
-
-        #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
+        
         $executionName = $p.Name -replace '\(|\)|\.| ', ''
         (Get-DscSplattedResource -ResourceName xPackage -ExecutionName $executionName -Properties $p -NoInvoke).Invoke($p)
     }
