@@ -8,7 +8,7 @@ Get-Module | Format-Table -Property Name, Version | Out-String | Write-Host
 
 Get-PackageProvider PowerShellGet | Format-Table -Property Name,Version | Out-String | Write-Host
 Write-Host "Calling 'Import-PackageProvider PowerShellGet -Force'"
-Import-PackageProvider PowerShellGet -Force
+Import-PackageProvider PowerShellGet -MinimumVersion 2.0.0.0 -Force
 Get-PackageProvider PowerShellGet | Format-Table -Property Name,Version | Out-String | Write-Host
 Write-Host
 
