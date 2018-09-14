@@ -15,9 +15,9 @@ task ClearBuildOutput {
     if (-not [System.IO.Path]::IsPathRooted($BuildOutput)) {
         $BuildOutput = Join-Path -Path $ProjectPath.FullName -ChildPath $BuildOutput
     }
-    if (Test-Path $BuildOutput) {
+    if (Test-Path -Path $BuildOutput) {
         "Removing $BuildOutput\*"
-        Get-ChildItem -Path .\BuildOutput\ -Exclude Modules, README.md | Remove-Item -Force -Recurse -ErrorAction Stop
+        Get-ChildItem -Path $BuildOutput -Exclude Modules, README.md | Remove-Item -Force -Recurse -ErrorAction Stop
     }
 }
 
@@ -27,5 +27,5 @@ task ClearModules {
         $BuildOutput = Join-Path -Path $ProjectPath.FullName -ChildPath $BuildOutput
     }
     "Removing $BuildOutput\*"
-    Get-ChildItem -Path .\BuildOutput\ | Remove-Item -Force -Recurse -ErrorAction Stop
+    Get-ChildItem -Path $BuildOutput | Remove-Item -Force -Recurse -ErrorAction Stop
 }
