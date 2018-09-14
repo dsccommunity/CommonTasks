@@ -13,7 +13,7 @@
     Datum                        = 'latest'
     ProtectedData                = 'latest'
     'powershell-yaml'            = 'latest'
-    powershellget                = 'latest' 
+    PowershellGet                = 'latest' 
 
     #DSC Resources
     xPSDesiredStateConfiguration = '8.4.0.0'
