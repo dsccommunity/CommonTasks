@@ -1,16 +1,4 @@
-Get-Module | Format-Table -Property Name, Version | Out-String | Write-Host
-Write-Host "Removing PowerShellGet and PackageManagement"
-Write-Host
-
-Remove-Module -Name PowerShellGet, PackageManagement -Force -ErrorAction SilentlyContinue
-Import-Module -Name PackageManagement, PowerShellGet
-Get-Module | Format-Table -Property Name, Version | Out-String | Write-Host
-
-Get-PackageProvider PowerShellGet | Format-Table -Property Name,Version | Out-String | Write-Host
-Write-Host "Calling 'Import-PackageProvider PowerShellGet -Force'"
 Import-PackageProvider PowerShellGet -MinimumVersion 2.0.0.0 -Force
-Get-PackageProvider PowerShellGet | Format-Table -Property Name,Version | Out-String | Write-Host
-Write-Host
 
 if (
     (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
@@ -40,6 +28,7 @@ if (
     (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
     $env:BHBuildSystem -eq 'AppVeyor'
 ) {
+    Write-Host "Creating build with version '$($env:APPVEYOR_BUILD_VERSION)'"
     Deploy DeveloperBuild {
         By AppVeyorModule {
             FromSource (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName)
