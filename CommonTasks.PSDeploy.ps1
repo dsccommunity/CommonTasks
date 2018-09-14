@@ -1,3 +1,11 @@
+Get-Module | Out-String | Write-Host
+Write-Host "Removing PowerShellGet and PackageManagement"
+Write-Host
+Remove-Module -Name PowerShellGet
+Remove-Module -Name PackageManagement
+Get-Module | Out-String | Write-Host
+Write-Host
+
 if (
     (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
     $env:BHBuildSystem -ne 'Unknown' -and
