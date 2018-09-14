@@ -11,7 +11,7 @@ task SetPsModulePath {
     $moduleToLeaveLoaded = 'InvokeBuild', 'PSReadline', 'PackageManagement', 'ISESteroids'
     $pathToSet = $buildModulesPath #, $env:BHBuildOutput
     if ($env:BHBuildSystem -eq 'AppVeyor') {
-        $pathToSet += 'C:\Program Files\AppVeyor\BuildAgent\Modules'
+        $pathToSet += ';C:\Program Files\AppVeyor\BuildAgent\Modules'
     }
 
     Set-PSModulePath -ModuleToLeaveLoaded $moduleToLeaveLoaded -PathsToSet $pathToSet
