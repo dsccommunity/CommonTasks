@@ -1,6 +1,6 @@
 Configuration SecurityBase {
     Param(
-        [ValidateSet('DC', 'SqlServer', 'Baseline', 'JumpServer', 'HyperV')]
+        [ValidateSet('DC', 'SqlServer', 'Baseline', 'JumpServer', 'HyperV', 'WebServer', 'FileServer')]
         [string]$Role
     )
     
