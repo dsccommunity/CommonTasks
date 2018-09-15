@@ -1,11 +1,3 @@
-param (
-    [string]
-    $TestFile, # = (property TestFile '')
-
-    [string]
-    $x
-)
-
 Task Test {
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
     # Run Script Analyzer
