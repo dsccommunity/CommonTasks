@@ -24,7 +24,7 @@ else {
 
 # Publish to AppVeyor if we're in AppVeyor
 if (
-    (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
+    (Join-Path -Path $env:BHProjectPath -ChildPath $env:BHProjectName) -and
     $env:BHBuildSystem -eq 'AppVeyor'
 ) {
     Write-Host "Creating build with version '$($env:APPVEYOR_BUILD_VERSION)'"
