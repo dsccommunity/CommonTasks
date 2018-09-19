@@ -3,14 +3,10 @@ if (-not (Get-PackageProvider -Name PowerShellGet | Where-Object Version -ge 2.0
     Import-PackageProvider PowerShellGet -MinimumVersion 2.0.0.0 -Force
 }
 
-if (
-    (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
-    $env:BHBuildSystem -ne 'Unknown' -and
-    $env:BHBranchName -eq "master"
-) {
+if ($env:BHBuildSystem -ne 'Unknown' -and $env:BHBranchName -eq "master") {
     Deploy Module {
         By PSGalleryModule {
-            FromSource (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName)
+            FromSource "$($env:BHBuildOutput)\Modules\$($env:BHProjectName)"
             To PSGallery
             WithOptions @{
                 ApiKey = $ENV:NugetApiKey
@@ -28,7 +24,7 @@ else {
 
 # Publish to AppVeyor if we're in AppVeyor
 if (
-    (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName) -and
+    (Join-Path -Path $env:BHProjectPath -ChildPath $env:BHProjectName) -and
     $env:BHBuildSystem -eq 'AppVeyor'
 ) {
     Write-Host "Creating build with version '$($env:APPVEYOR_BUILD_VERSION)'"
