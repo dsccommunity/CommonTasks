@@ -23,14 +23,11 @@ else {
 }
 
 # Publish to AppVeyor if we're in AppVeyor
-if (
-    (Join-Path -Path $env:BHProjectPath -ChildPath $env:BHProjectName) -and
-    $env:BHBuildSystem -eq 'AppVeyor'
-) {
+if ($env:BHBuildSystem -eq 'AppVeyor') {
     Write-Host "Creating build with version '$($env:APPVEYOR_BUILD_VERSION)'"
     Deploy DeveloperBuild {
         By AppVeyorModule {
-            FromSource (Join-Path -Path $ENV:BHProjectPath -ChildPath $ENV:BHProjectName)
+            FromSource "$($env:BHBuildOutput)\Modules\$($env:BHProjectName)"
             To AppVeyor
             WithOptions @{
                 Version = $env:APPVEYOR_BUILD_VERSION
