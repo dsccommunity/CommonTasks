@@ -1,11 +1,3 @@
-param (
-    #[string]
-    #$TestFile, #= (property TestFile '')
-
-    #[string]
-    #$x
-)
-
 Task Init {
     if (-not $env:BHProjectName) {
         Set-BuildEnvironment
