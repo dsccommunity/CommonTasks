@@ -6,6 +6,6 @@ Task Init {
     $lines
     Set-Location -Path $ProjectPath
     "Build System Details:"
-    Get-Item ENV:BH*
+    Get-Item -Path env:BH*
     "`n"
 }

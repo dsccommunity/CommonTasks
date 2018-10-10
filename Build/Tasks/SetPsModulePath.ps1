@@ -15,4 +15,9 @@ task SetPsModulePath {
     }
 
     Set-PSModulePath -ModuleToLeaveLoaded $moduleToLeaveLoaded -PathsToSet $pathToSet
+
+    "`n"
+    "PSModulePath:"
+    $env:PSModulePath -split ';'
+    "`n"
 }
