@@ -14,6 +14,17 @@ if ($env:BHBuildSystem -eq 'AppVeyor' -and $env:BHBranchName -eq "master") {
         }
     }
 }
+elseif ($env:BUILD_REPOSITORY_PROVIDER -eq 'TfsGit' -and $env:BUILD_SOURCEBRANCHNAME -eq "master") {
+    Deploy Module {
+        By PSGalleryModule {
+            FromSource "$($env:BHBuildOutput)\Modules\$($env:BHProjectName)"
+            To PowerShell
+            WithOptions @{
+                ApiKey = 'install@contoso.com:Somepass1'
+            }
+        }
+    }
+}
 else {
     "Skipping deployment: To deploy, ensure that...`n" +
     "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
