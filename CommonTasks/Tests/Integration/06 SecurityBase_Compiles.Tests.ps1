@@ -21,4 +21,9 @@ Describe 'SecurityBase DSC Resource compiles' -Tags 'FunctionalQuality' {
         
         { Config_SecurityBase -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
     }
+
+    It 'SecurityBase should have created a mof file' {
+        $mofFile = Get-Item -Path .\localhost_SecurityBase.mof -ErrorAction SilentlyContinue
+        $mofFile | Should -BeOfType System.IO.FileInfo        
+    }
 }
