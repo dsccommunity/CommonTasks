@@ -21,7 +21,7 @@ Task Test {
     }
 
     # Gather test results. Store them in a variable and file
-    $testFileName = "TestResults_Integration_PS$($PSVersion)_$($timeStamp).xml"
+    $testFileName = "TestResults.xml"
     $testResultPath = "$(property BHBuildOutput)\Pester"
     if (-not (Test-Path -Path $testResultPath))
     {
@@ -36,11 +36,11 @@ Task Test {
             "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", "$(property BHBuildOutput)\Pester\$testFileName")
     }
 
-    # Failed tests?
-    # Need to tell psake or it will proceed to the deployment. Danger!
-    if ($TestResults.FailedCount -gt 0)
+    assert ($testResults.FailedCount -eq 0)
+    if ($testResults.FailedCount -gt 0)
     {
         Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
+        
     }
     "`n"
 }
