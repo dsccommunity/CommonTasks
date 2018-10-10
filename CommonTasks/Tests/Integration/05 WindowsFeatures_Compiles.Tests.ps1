@@ -19,11 +19,11 @@ Describe 'WindowsFeatures DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_WindowsFeatures -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_WindowsFeatures -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'WindowsFeatures should have created a mof file' {
-        $mofFile = Get-Item -Path .\localhost_WindowsFeatures.mof -ErrorAction SilentlyContinue
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WindowsFeatures.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }

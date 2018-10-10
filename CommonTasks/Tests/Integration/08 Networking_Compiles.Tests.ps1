@@ -21,11 +21,11 @@ Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'Network should have created a mof file' {
-        $mofFile = Get-Item -Path .\localhost_Network.mof -ErrorAction SilentlyContinue
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_Network.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }

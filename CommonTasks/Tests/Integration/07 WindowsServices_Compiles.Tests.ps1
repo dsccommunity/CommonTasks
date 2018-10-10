@@ -19,11 +19,11 @@ Describe 'WindowsServices DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_WindowsServices -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_WindowsServices -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'WindowsServices should have created a mof file' {
-        $mofFile = Get-Item -Path .\localhost_WindowsServices.mof -ErrorAction SilentlyContinue
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WindowsServices.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }
