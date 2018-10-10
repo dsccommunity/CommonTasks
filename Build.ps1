@@ -66,17 +66,23 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
         Invoke-Build ?
     }
     else {
+        $PSBoundParameters.Remove('Tasks') | Out-Null
         Invoke-Build -Tasks $Tasks -File $MyInvocation.MyCommand.Path @PSBoundParameters
     }
 
     return
 }
 
-task . ClearBuildOutput,
-Init,
-SetPsModulePath,
-CopyModule,
-Test,
-Deploy
+if (-not $Tasks) {
+    task . ClearBuildOutput,
+    Init,
+    SetPsModulePath,
+    CopyModule,
+    Test,
+    Deploy
 
-task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
+    task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
+}
+else {
+    task . $Tasks
+}
