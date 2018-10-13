@@ -1,23 +1,18 @@
-﻿$moduleName = 'CommonTasks'
-$repositoryName = 'PowerShell'
-Describe "$moduleName is available on the gallery" -Tags 'FunctionalQuality' {
+﻿#take the first trusted gallery to test against, otherwise the PSGallery. This is sufficient for this demo
+$repository = Get-PSRepository | Where-Object InstallationPolicy -eq Trusted -ErrorAction SilentlyContinue | Select-Object -First 1
+if (-not $repository)
+{
+    $repository = Get-PSRepository -Name PSGallery
+}
+$repositoryName = $repository.Name
+$moduleName = 'CommonTasks'
+
+Describe "Module '$moduleName' is available on the repository '$repositoryName'" -Tags 'FunctionalQuality' {
     It 'Can be found' {
         Find-Module -Name $moduleName -Repository $repositoryName | Should Not BeNullOrEmpty
     }
 
-    It 'Can be installed' {
+    It "Module '$moduleName' can be installed" {
         { Install-Module -Name $moduleName -Repository $repositoryName } | Should Not Throw
     }
-
-    It 'Offers as least one DSC Resource' {
-        Get-DscResource -Module $moduleName | Should Not BeNullOrEmpty
-    }
-
-    AfterAll {
-        if (Get-InstalledModule -Name $moduleName -ErrorAction SilentlyContinue) {
-            Uninstall-Module -Name $moduleName
-        }
-    }
-
 }
-
