@@ -2,7 +2,7 @@ $configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName
 $moduleName = $env:BHProjectName
 
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name  $env:BHProjectName -ErrorAction Stop
+Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name Datum
 
