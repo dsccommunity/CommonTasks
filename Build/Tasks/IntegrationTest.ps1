@@ -1,4 +1,4 @@
-Task Test {
+Task IntegrationTest {
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
     # Run Script Analyzer
     $start = Get-Date
@@ -19,12 +19,12 @@ Task Test {
     }
 
     # Gather test results. Store them in a variable and file
-    $testFileName = "TestResults.xml"
+    $testFileName = "IntegrationTestResults.xml"
     $testResultPath = "$(property BHBuildOutput)\Pester"
     if (-not (Test-Path -Path $testResultPath)) {
         mkdir -Path $testResultPath -ErrorAction SilentlyContinue | Out-Null
     }
-    $testResults = Invoke-Pester -Path "$(property BHPSModulePath)\Tests" -PassThru -OutputFormat NUnitXml -OutputFile "$(property BHBuildOutput)\Pester\$testFileName"
+    $testResults = Invoke-Pester -Path "$(property BHPSModulePath)\Tests\Integration" -PassThru -OutputFormat NUnitXml -OutputFile "$(property BHBuildOutput)\Pester\$testFileName"
 
     # In Appveyor?  Upload our tests! #Abstract this into a function?
     if ($env:BHBuildSystem -eq 'AppVeyor') {

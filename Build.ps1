@@ -78,8 +78,9 @@ if (-not $Tasks) {
     Init,
     SetPsModulePath,
     CopyModule,
-    Test,
-    Deploy
+    IntegrationTest,
+    Deploy,
+    AcceptanceTest
 
     task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
 }

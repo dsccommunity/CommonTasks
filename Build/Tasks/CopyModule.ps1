@@ -6,12 +6,14 @@ task CopyModule {
     }
     elseif ($env:BHBuildSystem -eq 'VSTS') {
         $currentVersion = Get-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion
+        
+        $newVersion = $currentVersion.Split('.')
+        $newVersion[-1] = $env:BHBuildNumber
+        $newVersion = $newVersion -join '.'
 
-        $currentVersion = $currentVersion.Split('.')
-        $currentVersion[-1] = $env:BHBuildNumber
-        $currentVersion = $currentVersion -join '.'
+        Write-Build Green "Current version is '$currentVersion', new version will be '$newVersion'"
 
-        Update-Metadata -Path $env:BHPSModuleManifest -Verbose -Value $currentVersion
+        Update-Metadata -Path $env:BHPSModuleManifest -Verbose -Value $newVersion
     }
 
     Write-Build Green "Copy folder '$projectPath\CommonTasks' to '$buildOutput'" Green

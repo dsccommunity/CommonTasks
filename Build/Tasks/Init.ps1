@@ -1,6 +1,12 @@
 Task Init {
     if (-not $env:BHProjectName) {
-        Set-BuildEnvironment
+        try {
+            Set-BuildEnvironment
+            
+        }
+        catch {
+            Write-Host "Error calling 'Set-BuildEnvironment'. The task will probably fail if in build."
+        }
     }
 
     $lines
