@@ -9,13 +9,13 @@ Param (
     [switch]
     $DownloadDscResources,
 
-    [String]
+    [string]
     $BuildOutput = "BuildOutput",
 
-    [String[]]
-    $GalleryRepository,
+    [string]
+    $GalleryRepository = 'PSGallery',
 
-    [Uri]
+    [uri]
     $GalleryProxy
 )
 
@@ -25,6 +25,12 @@ $projectPath = $PSScriptRoot
 $timeStamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
 $psVersion = $PSVersionTable.PSVersion.Major
 $lines = '----------------------------------------------------------------------'
+
+#changing the path is required to make PSDepend run without internet connection. It is required to download nutget.exe once first:
+#Invoke-WebRequest -Uri 'https://aka.ms/psget-nugetexe' -OutFile C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction Stop
+$pathElements = $env:Path -split ';'
+$pathElements += 'C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet'
+$env:Path = $pathElements -join ';'
 
 if (-not (Get-Module -Name PackageManagement)) {
     Import-Module -Name PackageManagement #import it before the PSModulePath is changed prevents PowerShell from loading it
@@ -43,11 +49,7 @@ if (-not (Get-Module -Name InvokeBuild -ListAvailable) -and -not $ResolveDepende
     return
 }
 
-if ($ResolveDependency) {
-    . $PSScriptRoot/Build/BuildHelpers/Resolve-Dependency.ps1
-    Resolve-Dependency
-}
-
+#importing all resources from .build directory
 Get-ChildItem -Path "$PSScriptRoot/Build/" -Recurse -Include *.ps1 |
     ForEach-Object {
     Write-Verbose "Importing file $($_.BaseName)"
@@ -55,6 +57,11 @@ Get-ChildItem -Path "$PSScriptRoot/Build/" -Recurse -Include *.ps1 |
         . $_.FullName
     }
     catch { }
+}
+
+if ($ResolveDependency) {
+    . $PSScriptRoot/Build/BuildHelpers/Resolve-Dependency.ps1
+    Resolve-Dependency
 }
 
 if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
