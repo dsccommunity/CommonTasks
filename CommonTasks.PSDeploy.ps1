@@ -1,8 +1,3 @@
-if (-not (Get-PackageProvider -Name PowerShellGet | Where-Object Version -ge 2.0.0.0))
-{
-    Import-PackageProvider PowerShellGet -MinimumVersion 2.0.0.0 -Force
-}
-
 if ($env:BHBuildSystem -eq 'AppVeyor' -and $env:BHBranchName -eq "master") {
     Deploy Module {
         By PSGalleryModule {

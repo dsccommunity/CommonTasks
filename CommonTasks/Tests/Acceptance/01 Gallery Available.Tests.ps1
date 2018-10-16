@@ -13,6 +13,6 @@ Describe "Module '$moduleName' is available on the repository '$repositoryName'"
     }
 
     It "Module '$moduleName' can be installed" {
-        { Install-Module -Name $moduleName -Repository $repositoryName } | Should Not Throw
+        { Install-Module -Name $moduleName -Repository $repositoryName -Scope CurrentUser } | Should Not Throw
     }
 }
