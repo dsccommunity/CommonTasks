@@ -1,5 +1,8 @@
 Task AcceptanceTest {
+
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
+
+    Start-Sleep -Seconds 30 #to wait until the module is available in the gallery
 
     if ($env:BHBuildSystem -eq 'AppVeyor' -and $env:BHBranchName -eq "master") {
         $sourcePath = "$($env:BHBuildOutput)\Modules\$($env:BHProjectName)"
