@@ -13,7 +13,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Version'
         ValueData = $Version
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -22,7 +22,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Environment'
         ValueData = $Environment
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -31,7 +31,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'GitCommitId'
         ValueData = (git show | Select-Object -First 1).Substring(7)
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -40,7 +40,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'BuildDate'
         ValueData = Get-Date
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
