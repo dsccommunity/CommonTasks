@@ -13,7 +13,7 @@ Configuration Network {
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
-    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 6.1.0.0
+    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 6.2.0.0
 
     xScript SetMtuSize {
         GetScript  = {
