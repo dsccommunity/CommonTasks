@@ -2,12 +2,12 @@ $configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName
 $moduleName = $env:BHProjectName
 
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name  $env:BHProjectName -ErrorAction Stop
+Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name Datum
 
-Describe 'Networking DSC Resource compiles' -Tags 'FunctionalQuality' {
-    It 'Networking Compiles' {
+Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
+    It 'Network Compiles' {
         configuration Config_Network {
 
             Import-DscResource -ModuleName CommonTasks
@@ -21,6 +21,11 @@ Describe 'Networking DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+    }
+
+    It 'Network should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_Network.mof -ErrorAction SilentlyContinue
+        $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }

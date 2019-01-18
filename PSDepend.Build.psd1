@@ -1,7 +1,11 @@
 @{
     PSDependOptions              = @{
-        AddToPath = $True
-        Target    = 'BuildOutput\Modules'
+        AddToPath      = $true
+        Target         = 'BuildOutput\Modules'
+        DependencyType = 'PSGalleryModule'
+        Parameters     = @{
+            Repository = 'PSGallery'
+        }
     }
 
     #Modules

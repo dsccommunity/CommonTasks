@@ -2,13 +2,13 @@ $configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName
 $moduleName = $env:BHProjectName
 
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name  $env:BHProjectName -ErrorAction Stop
+Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name Datum
 
-Describe 'FileAndFolder DSC Resource compiles' -Tags 'FunctionalQuality' {
+Describe 'FilesAndFolders DSC Resource compiles' -Tags 'FunctionalQuality' {
 
-    It 'FileAndFolder Compiles' {
+    It 'FilesAndFolders Compiles' {
         configuration Config_FilesAndFolders {
     
             Import-DscResource -ModuleName CommonTasks
@@ -20,6 +20,11 @@ Describe 'FileAndFolder DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_FilesAndFolders -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_FilesAndFolders -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+    }
+
+    It 'FilesAndFolders should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_FilesAndFolders.mof -ErrorAction SilentlyContinue
+        $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }

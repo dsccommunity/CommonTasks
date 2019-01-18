@@ -1,9 +1,9 @@
 @{
-    RootModule           = 'SoftwarePackage.schema.psm1'
+    RootModule           = 'DscTagging.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
-    GUID                 = '0245e22a-4b66-44e6-ba2b-1aa8df37ef67'
+    GUID                 = 'c25304c4-f319-4963-ba13-4a77ee15f151'
 
     Author               = 'NA'
 
@@ -15,5 +15,5 @@
     #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
     #)
 
-    DscResourcesToExport = @('SoftwarePackage')
+    DscResourcesToExport = @('DscTagging')
 }

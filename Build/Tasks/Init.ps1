@@ -1,19 +1,17 @@
-param (
-    #[string]
-    #$TestFile, #= (property TestFile '')
-
-    #[string]
-    #$x
-)
-
 Task Init {
     if (-not $env:BHProjectName) {
-        Set-BuildEnvironment
+        try {
+            Set-BuildEnvironment
+            
+        }
+        catch {
+            Write-Host "Error calling 'Set-BuildEnvironment'. The task will probably fail if in build."
+        }
     }
 
     $lines
     Set-Location -Path $ProjectPath
     "Build System Details:"
-    Get-Item ENV:BH*
+    Get-Item -Path env:BH*
     "`n"
 }

@@ -4,6 +4,11 @@
             NodeName                    = 'localhost_WindowsServices'
             PSDscAllowPlainTextPassword = $true
             PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
+            NodeName                    = 'localhost_DscTagging'
+            Environment                 = 'Dev'
         }
     )
 

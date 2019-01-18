@@ -2,7 +2,7 @@ $configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName
 $moduleName = $env:BHProjectName
 
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name  $env:BHProjectName -ErrorAction Stop
+Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name Datum
 
@@ -19,6 +19,11 @@ Describe 'RegistryValues DSC Resource compiles' -Tags 'FunctionalQuality' {
             }
         }
         
-        { Config_RegistryValues -ConfigurationData $configData -OutputPath $env:BHBuildOutput\ -ErrorAction Stop } | Should -Not -Throw
+        { Config_RegistryValues -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+    }
+
+    It 'RegistryValues should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_RegistryValues.mof -ErrorAction SilentlyContinue
+        $mofFile | Should -BeOfType System.IO.FileInfo        
     }
 }
