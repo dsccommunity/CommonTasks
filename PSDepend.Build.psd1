@@ -17,6 +17,6 @@
 
     #DSC Resources
     xPSDesiredStateConfiguration = '8.4.0.0'
-    ComputerManagementDsc        = '5.2.0.0'
-    NetworkingDsc                = '6.1.0.0'
+    ComputerManagementDsc        = '6.1.0.0'
+    NetworkingDsc                = '6.3.0.0'
 }
