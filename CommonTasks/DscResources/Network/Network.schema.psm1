@@ -6,14 +6,10 @@ Configuration Network {
         [Parameter(Mandatory)]
         [int]$MtuSize,
 
-        [Parameter(Mandatory)]
-        [string[]]$DnsServer,
-
         [string]$InterfaceAlias = 'Ethernet'
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
-    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 6.3.0.0
 
     xScript SetMtuSize {
         GetScript  = {
@@ -39,27 +35,5 @@ Configuration Network {
         SetScript  = {
             Set-NetIPInterface -InterfaceAlias $using:InterfaceAlias -NlMtuBytes $using:MtuSize
         }
-    }
-
-    DnsServerAddress DnsServers {
-        InterfaceAlias = 'Ethernet'
-        AddressFamily  = 'IPv4'
-        Address        = $DnsServer
-    }
-
-    NetAdapterName DisableEthernet2Adapter {
-        Name    = 'Ethernet 2'
-        NewName = 'Ethernet 2'
-        Status  = 'Disabled'
-    }
-
-    NetBios DisableNetBios {
-        InterfaceAlias = 'Ethernet'
-        Setting        = 'Disable'
-    }
-
-    WinsSetting DisableLmhostsLookup {
-        EnableLmHosts    = $false
-        IsSingleInstance = 'Yes'
     }
 }
