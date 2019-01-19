@@ -54,11 +54,11 @@ Configuration DscTagging {
         Recurse         = $true 
     }
     
-    JeaEndPoint EndPoint {
-        EndpointName    = "DscDiagnostics"
-        RoleDefinitions = "@{ 'NT AUTHORITY\Authenticated Users' = @{ RoleCapabilities = 'DscDiagnosticsRead' } }"
-        Ensure          = 'Present'
-        #TranscriptDirectory = “$env:ProgramFiles\WindowsPowerShell\Modules\DscDiagnostics\Transcripts”
-        DependsOn       = '[File]DscDiagnosticsRoleCapabilities'
-    }
+    #JeaEndPoint EndPoint {
+    #    EndpointName    = "DscDiagnostics"
+    #    RoleDefinitions = "@{ 'NT AUTHORITY\Authenticated Users' = @{ RoleCapabilities = 'DscDiagnosticsRead' } }"
+    #    Ensure          = 'Present'
+    #    #TranscriptDirectory = “$env:ProgramFiles\WindowsPowerShell\Modules\DscDiagnostics\Transcripts”
+    #    DependsOn       = '[File]DscDiagnosticsRoleCapabilities'
+    #}
 }
