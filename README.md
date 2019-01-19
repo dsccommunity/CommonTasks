@@ -1,5 +1,12 @@
-# Shared Dsc Configurations
-[![Build status](https://ci.appveyor.com/api/projects/status/63pvwjs2waifgty8?svg=true)](https://ci.appveyor.com/project/gaelcolas/shareddscconfig)
+# CommonTasks
+Build | Status | Last Commit | Latest Release
+--- | --- | --- | ---
+Develop | [![Build status dev](https://ci.appveyor.com/api/projects/status/9yynk81k3k05nasp/branch/develop?svg=true)](https://ci.appveyor.com/project/automatedlab/commontasks) | [![GitHub last commit](https://img.shields.io/github/last-commit/AutomatedLab/commontasks/dev.svg)](https://github.com/AutomatedLab/commontasks/tree/dev/)
+Master | [![Build status](https://ci.appveyor.com/api/projects/status/9yynk81k3k05nasp/branch/master?svg=true)](https://ci.appveyor.com/project/automatedlab/commontasks) | [![GitHub last commit](https://img.shields.io/github/last-commit/AutomatedLab/commontasks/master.svg)](https://github.com/AutomatedLab/commontasks/tree/master/) | [![GitHub release](https://img.shields.io/github/release/AutomatedLab/commontasks.svg)](https://github.com/AutomatedLab/commontasks/releases)[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/commontasks.svg)](https://www.powershellgallery.com/packages/CommonTasks/)
+
+[![GitHub issues](https://img.shields.io/github/issues/AutomatedLab/commontasks.svg)](https://github.com/AutomatedLab/commontasks/issues)
+[![Downloads](https://img.shields.io/github/downloads/AutomatedLab/commontasks/total.svg?label=Downloads&maxAge=999)](https://github.com/AutomatedLab/commontasks/releases)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/commontasks.svg)](https://www.powershellgallery.com/packages/commontasks/)
 
 This project is intended to suggest a new structure for sharing DSC Configuration, taking most of the ideas from [Michael Greene](https://github.com/mgreenegit/) in [the dscconfigurations repo](https://github.com/powershell/dscconfigurations).
 
