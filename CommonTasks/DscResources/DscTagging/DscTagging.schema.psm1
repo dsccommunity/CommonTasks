@@ -13,7 +13,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Version'
         ValueData = $Version
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -22,7 +22,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Environment'
         ValueData = $Environment
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -31,7 +31,7 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'GitCommitId'
         ValueData = (git show | Select-Object -First 1).Substring(7)
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -40,8 +40,25 @@ Configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'BuildDate'
         ValueData = Get-Date
-        ValueType = 'Dword'
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
+
+    File DscDiagnosticsRoleCapabilities {
+        SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
+        DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
+        Checksum        = 'SHA-1'
+        Ensure          = "Present" 
+        Type            = 'Directory'
+        Recurse         = $true 
+    }
+    
+    #JeaEndPoint EndPoint {
+    #    EndpointName    = "DscDiagnostics"
+    #    RoleDefinitions = "@{ 'NT AUTHORITY\Authenticated Users' = @{ RoleCapabilities = 'DscDiagnosticsRead' } }"
+    #    Ensure          = 'Present'
+    #    #TranscriptDirectory = “$env:ProgramFiles\WindowsPowerShell\Modules\DscDiagnostics\Transcripts”
+    #    DependsOn       = '[File]DscDiagnosticsRoleCapabilities'
+    #}
 }

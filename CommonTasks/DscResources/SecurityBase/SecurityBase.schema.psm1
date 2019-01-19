@@ -5,7 +5,7 @@ Configuration SecurityBase {
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
-    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 6.0.0.0
+    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 6.1.0.0
 
     xRegistry LmCompatibilityLevel5 {
         Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'

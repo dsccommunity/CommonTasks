@@ -1,5 +1,5 @@
 @{
-    AllNodes        = @(
+    AllNodes               = @(
         @{
             NodeName                    = 'localhost_WindowsServices'
             PSDscAllowPlainTextPassword = $true
@@ -7,12 +7,12 @@
             Environment                 = 'Dev'
         }
         @{
-            NodeName                    = 'localhost_DscTagging'
-            Environment                 = 'Dev'
+            NodeName    = 'localhost_DscTagging'
+            Environment = 'Dev'
         }
     )
 
-    FilesAndFolders = @{
+    FilesAndFolders        = @{
         Items = @(
             @{
                 DestinationPath = 'C:\Test.txt'
@@ -32,11 +32,11 @@
         )
     }
 
-    WindowsFeatures = @{
+    WindowsFeatures        = @{
         Name = 'XPS-Viewer', '-Web-Server'
     }
 
-    RegistryValues  = @{
+    RegistryValues         = @{
         Values = @(
             @{
                 Key       = 'HKLM:\SOFTWARE\Microsoft\Rpc\Internet'
@@ -49,11 +49,11 @@
         )
     }
 
-    SecurityBase    = @{
+    SecurityBase           = @{
         SecurityLevel = 2
     }
 
-    WindowsServices = @{
+    WindowsServices        = @{
         Services = @(
             @{
                 Name        = 'Dummy1'
@@ -76,5 +76,28 @@
                 Ensure      = 'Present'
             }
         )
+    }
+
+    XmlData                = @(
+        @{ 
+            Path       = 'D:\web.config'
+            Ensure     = 'Present'
+            XPath      = '/configuration/appSettings/Test1/Test2'
+            Attributes = @{ TestValue1 = '1234' }
+        }
+    )
+
+    NetworkIpConfiguration = @{
+        IpAddress      = '10.0.0.1'
+        Prefix         = 8
+        Gateway        = '10.0.0.254'
+        DnsServer      = '10.1.1.1', '10.1.1.2'
+        InterfaceAlias = 'Ethernet'
+        DisableNetbios = $true
+    }   
+    
+    Network = @{
+        NetworkZone = 1
+        MtuSize = 1360
     }
 }

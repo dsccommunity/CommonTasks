@@ -11,16 +11,15 @@ Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
         configuration Config_Network {
 
             Import-DscResource -ModuleName CommonTasks
-        
+
             node localhost_Network {
                 Network network {
-                    NetworkZone = 1
-                    MtuSize = 1360
-                    DnsServer = '1.1.1.1', '2.2.2.2'
+                    NetworkZone = $ConfigurationData.Network.NetworkZone
+                    MtuSize     = $ConfigurationData.Network.MtuSize
                 }
             }
         }
-        
+
         { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
