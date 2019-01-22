@@ -14,7 +14,7 @@
     Pester                       = 'latest'
     PSScriptAnalyzer             = 'latest'
     PSDeploy                     = 'latest'
-    Datum                        = 'latest'
+    Datum                        = '0.0.35'
     ProtectedData                = 'latest'
     'powershell-yaml'            = 'latest'
     PowershellGet                = 'latest'
