@@ -4,26 +4,26 @@ $moduleName = $env:BHProjectName
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
 Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
-Import-Module -Name Datum
+Import-Module -Name DscBuildHelpers
 
 Describe 'WindowsServices DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'WindowsFeatures Compiles' {
         configuration Config_WindowsFeatures {
 
             Import-DscResource -ModuleName CommonTasks
-        
+
             node localhost_WindowsServices {
                 WindowsFeatures xwindowsFeatures {
                     Name = $ConfigurationData.WindowsFeatures.Name
                 }
             }
         }
-        
+
         { Config_WindowsFeatures -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'WindowsServices should have created a mof file' {
         $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WindowsServices.mof -ErrorAction SilentlyContinue
-        $mofFile | Should -BeOfType System.IO.FileInfo        
+        $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }
