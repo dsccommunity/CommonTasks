@@ -4,14 +4,14 @@ $moduleName = $env:BHProjectName
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
 Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
-Import-Module -Name Datum
+Import-Module -Name DscBuildHelpers
 
 Describe 'NetworkIpConfiguration DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'NetworkIpConfiguration Compiles' {
         configuration Config_NetworkIpConfiguration {
 
             Import-DscResource -ModuleName CommonTasks
-        
+
             node localhost_NetworkIpConfiguration {
                 NetworkIpConfiguration ipConfiguration {
                     IpAddress      = $ConfigurationData.NetworkIpConfiguration.IpAddress
@@ -23,7 +23,7 @@ Describe 'NetworkIpConfiguration DSC Resource compiles' -Tags 'FunctionalQuality
                 }
             }
         }
-        
+
         { Config_NetworkIpConfiguration -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 

@@ -4,26 +4,26 @@ $moduleName = $env:BHProjectName
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
 Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
-Import-Module -Name Datum
+Import-Module -Name DscBuildHelpers
 
 Describe 'SecurityBase DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'SecurityBase Compiles' {
         configuration Config_SecurityBase {
 
             Import-DscResource -ModuleName CommonTasks
-        
+
             node localhost_SecurityBase {
                 SecurityBase securityBase {
                     Role = 'SqlServer'
                 }
             }
         }
-        
+
         { Config_SecurityBase -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'SecurityBase should have created a mof file' {
         $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_SecurityBase.mof -ErrorAction SilentlyContinue
-        $mofFile | Should -BeOfType System.IO.FileInfo        
+        $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }
