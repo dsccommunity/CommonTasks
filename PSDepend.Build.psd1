@@ -14,10 +14,9 @@
     Pester                       = 'latest'
     PSScriptAnalyzer             = 'latest'
     PSDeploy                     = 'latest'
-    Datum                        = 'latest'
     ProtectedData                = 'latest'
-    'powershell-yaml'            = 'latest'
-    PowershellGet                = 'latest' 
+    PowershellGet                = 'latest'
+    DscBuildHelpers              = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '8.4.0.0'

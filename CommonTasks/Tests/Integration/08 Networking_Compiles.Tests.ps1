@@ -4,7 +4,7 @@ $moduleName = $env:BHProjectName
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
 Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
-Import-Module -Name Datum
+Import-Module -Name DscBuildHelpers
 
 Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'Network Compiles' {
@@ -25,6 +25,6 @@ Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
 
     It 'Network should have created a mof file' {
         $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_Network.mof -ErrorAction SilentlyContinue
-        $mofFile | Should -BeOfType System.IO.FileInfo        
+        $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }

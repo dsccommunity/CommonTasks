@@ -4,21 +4,21 @@ $moduleName = $env:BHProjectName
 Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
 Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
-Import-Module -Name Datum
+Import-Module -Name DscBuildHelpers
 
 Describe 'XmlContent DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'XmlContent Compiles' {
         configuration Config_XmlContent {
 
             Import-DscResource -ModuleName CommonTasks
-        
+
             node localhost_XmlContent {
                 XmlContent xml {
                     XmlData = $ConfigurationData.XmlData
                 }
             }
         }
-        
+
         { Config_XmlContent -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
