@@ -6,8 +6,9 @@ Configuration DscTagging {
         [Parameter(Mandatory)]
         [string]$Environment
     )
-    
+
     Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xRegistry DscVersion {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
