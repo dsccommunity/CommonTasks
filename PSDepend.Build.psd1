@@ -15,7 +15,6 @@
     PSScriptAnalyzer             = 'latest'
     PSDeploy                     = 'latest'
     ProtectedData                = 'latest'
-    PowershellGet                = 'latest'
     DscBuildHelpers              = 'latest'
 
     #DSC Resources
