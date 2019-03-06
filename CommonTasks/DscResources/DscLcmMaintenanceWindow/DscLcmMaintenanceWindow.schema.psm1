@@ -4,7 +4,7 @@ Configuration DscLcmMaintenanceWindow {
         [hashtable[]]$MaintenanceWindow
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     foreach ($window in $MaintenanceWindow.GetEnumerator())

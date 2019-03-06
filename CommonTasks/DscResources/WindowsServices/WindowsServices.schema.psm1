@@ -4,7 +4,7 @@ Configuration WindowsServices {
         [hashtable[]]$Services
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
 
     foreach ($service in $Services) {
         $service.Credential = New-Object pscredential('Install', ('Somepass1' | ConvertTo-SecureString -AsPlainText -Force))

@@ -4,7 +4,7 @@ Configuration ConfigurationBase {
         [string]$SystemType
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
     #Removing cMicrosoftUpdate and configuration items as long as the module is not on the PSGallery
     #Import-DscResource -ModuleName cMicrosoftUpdate -ModuleVersion 0.0.0.1
 

@@ -17,8 +17,8 @@ Configuration NetworkIpConfiguration {
         [switch]$DisableNetbios
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.4.0.0
-    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 6.3.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
+    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 7.0.0.0
 
     $ip = "$($IpAddress)/$($Prefix)"
     IPAddress NetworkIp {
