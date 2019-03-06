@@ -1,6 +1,6 @@
 $dscLcmPostponeScript = @'
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
-Start-Transcript -Path "$path\LcmController.log" -Append
+Start-Transcript -Path "$path\LcmPostpone.log" -Append
 
 $currentLcmSettings = Get-DscLocalConfigurationManager
 $maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) #44640)
@@ -41,7 +41,7 @@ Stop-Transcript
 
 $dscLcmControlScript = @'
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
-Start-Transcript -Path "$path\LcmPostpone.log" -Append
+Start-Transcript -Path "$path\LcmController.log" -Append
 
 $namespace = 'root/Microsoft/Windows/DesiredStateConfiguration'
 $className = 'MSFT_DSCLocalConfigurationManager'
