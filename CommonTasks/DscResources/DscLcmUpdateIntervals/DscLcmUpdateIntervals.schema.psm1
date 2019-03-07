@@ -155,7 +155,7 @@ Write-Host
 if ($doConsistencyCheck) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        #Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop
+        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop
         $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastConsistencyCheck -Value (Get-Date) -Type String -Force
     }
@@ -170,7 +170,7 @@ else {
 if ($doRefresh) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags'5' (Pull and Consistency Check)."
     try {
-        #Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop
+        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop
         $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
     }
