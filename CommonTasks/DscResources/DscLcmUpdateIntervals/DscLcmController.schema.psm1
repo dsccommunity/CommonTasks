@@ -184,7 +184,7 @@ else {
 Stop-Transcript
 '@
 
-Configuration DscLcmUpdateIntervals {
+Configuration DscLcmController {
     Param(
         [Parameter(Mandatory)]
         [timespan]$ConsistencyCheckInterval,
