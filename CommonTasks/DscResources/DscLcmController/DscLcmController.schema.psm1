@@ -56,7 +56,6 @@ $currentTime = Get-Date
 $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmControl\MaintenanceWindows
 $consistencyCheckIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name ConsistencyCheckIntervalOverride
 $refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name RefreshIntervalOverride
-$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name MaintenanceWindowOverride 
 
 [datetime]$lastConsistencyCheck = try {
     Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name LastConsistencyCheck
@@ -74,23 +73,30 @@ catch {
 }
 [timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name RefreshInterval
 
-$inMaintenanceWindow = foreach ($maintenanceWindow in $maintenanceWindows) {
-    Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
-    [datetime]$maintenanceWindowStartTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowStartTime
-    [timespan]$maintenanceWindowTimespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowTimespan
-    [datetime]$maintenanceWindowEndTime = $maintenanceWindowStartTime + $maintenanceWindowTimespan
+$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name MaintenanceWindowOverride 
+if ($maintenanceWindows) {
+    $inMaintenanceWindow = foreach ($maintenanceWindow in $maintenanceWindows) {
+        Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
+        [datetime]$maintenanceWindowStartTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowStartTime
+        [timespan]$maintenanceWindowTimespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowTimespan
+        [datetime]$maintenanceWindowEndTime = $maintenanceWindowStartTime + $maintenanceWindowTimespan
 
-    Write-Host "Maintenance window: $($maintenanceWindowStartTime) - $($maintenanceWindowEndTime)."
-    if ($currentTime -gt $maintenanceWindowStartTime -and $currentTime -lt $maintenanceWindowEndTime) {
-        Write-Host "Current time '$currentTime' is in maintenance window '$($maintenanceWindow.PSChildName)'"
+        Write-Host "Maintenance window: $($maintenanceWindowStartTime) - $($maintenanceWindowEndTime)."
+        if ($currentTime -gt $maintenanceWindowStartTime -and $currentTime -lt $maintenanceWindowEndTime) {
+            Write-Host "Current time '$currentTime' is in maintenance window '$($maintenanceWindow.PSChildName)'"
 
-        Write-Host "IN MAINTENANCE WINDOW: Setting 'inMaintenanceWindow' to 'true' as the current time is in a maintanence windows."
-        $true
-        break
+            Write-Host "IN MAINTENANCE WINDOW: Setting 'inMaintenanceWindow' to 'true' as the current time is in a maintanence windows."
+            $true
+            break
+        }
+        else {
+            Write-Host "Current time '$currentTime' is not in maintenance window '$($maintenanceWindow.PSChildName)'"
+        }
     }
-    else {
-        Write-Host "Current time '$currentTime' is not in maintenance window '$($maintenanceWindow.PSChildName)'"
-    }
+}
+else {
+    Write-Host "No maintenance windows defined. Setting 'inMaintenanceWindow' to 'true'."
+    $inMaintenanceWindow = $true
 }
 Write-Host
 
@@ -184,7 +190,7 @@ else {
 Stop-Transcript
 '@
 
-Configuration DscLcmUpdateIntervals {
+Configuration DscLcmController {
     Param(
         [Parameter(Mandatory)]
         [timespan]$ConsistencyCheckInterval,

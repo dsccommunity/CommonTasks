@@ -1,5 +1,5 @@
 @{
-    AllNodes               = @(
+    AllNodes                = @(
         @{
             NodeName                    = 'localhost_WindowsServices'
             PSDscAllowPlainTextPassword = $true
@@ -12,7 +12,7 @@
         }
     )
 
-    FilesAndFolders        = @{
+    FilesAndFolders         = @{
         Items = @(
             @{
                 DestinationPath = 'C:\Test.txt'
@@ -32,11 +32,11 @@
         )
     }
 
-    WindowsFeatures        = @{
+    WindowsFeatures         = @{
         Name = 'XPS-Viewer', '-Web-Server'
     }
 
-    RegistryValues         = @{
+    RegistryValues          = @{
         Values = @(
             @{
                 Key       = 'HKLM:\SOFTWARE\Microsoft\Rpc\Internet'
@@ -49,11 +49,11 @@
         )
     }
 
-    SecurityBase           = @{
+    SecurityBase            = @{
         SecurityLevel = 2
     }
 
-    WindowsServices        = @{
+    WindowsServices         = @{
         Services = @(
             @{
                 Name        = 'Dummy1'
@@ -78,7 +78,7 @@
         )
     }
 
-    XmlData                = @(
+    XmlData                 = @(
         @{ 
             Path       = 'D:\web.config'
             Ensure     = 'Present'
@@ -87,7 +87,7 @@
         }
     )
 
-    NetworkIpConfiguration = @{
+    NetworkIpConfiguration  = @{
         IpAddress      = '10.0.0.1'
         Prefix         = 8
         Gateway        = '10.0.0.254'
@@ -96,8 +96,32 @@
         DisableNetbios = $true
     }   
     
-    Network = @{
+    Network                 = @{
         NetworkZone = 1
-        MtuSize = 1360
+        MtuSize     = 1360
+    }
+
+    DscLcmMaintenanceWindow = @{
+        MaintenanceWindow = @(
+            @{
+                Name                       = 'MW-1'
+                MaintenanceWindowStartTime = '00:30:00'
+                MaintenanceWindowTimespan  = '02:00:00'
+            }
+            @{
+                Name                       = 'MW-2'
+                MaintenanceWindowStartTime = '04:00:00'
+                MaintenanceWindowTimespan  = '01:00:00'
+            }
+        )
+    }
+
+    DscLcmController        = @{
+        ConsistencyCheckInterval         = '02:00:00'
+        ConsistencyCheckIntervalOverride = $false
+        RefreshInterval                  = '04:00:00'
+        RefreshIntervalOverride          = $false
+        ControllerInterval               = '00:15:00'
+        MaintenanceWindowOverride        = $false
     }
 }

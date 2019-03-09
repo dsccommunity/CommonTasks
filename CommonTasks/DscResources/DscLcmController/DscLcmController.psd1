@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'DscLcmUpdateIntervals.schema.psm1'
+    RootModule           = 'DscLcmController.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -15,5 +15,5 @@
     #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
     #)
 
-    DscResourcesToExport = @('DscLcmUpdateIntervals')
+    DscResourcesToExport = @('DscLcmController')
 }
