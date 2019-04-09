@@ -208,8 +208,8 @@ Configuration DscLcmController {
         [bool]$MaintenanceWindowOverride
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
-    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 6.2.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 6.3.0.0
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xRegistry DscLcmControl_ConsistencyCheckInterval {

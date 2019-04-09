@@ -9,8 +9,8 @@ Configuration Network {
         [string]$InterfaceAlias = 'Ethernet'
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.5.0.0
-    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 7.0.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 7.1.0.0
 
     xScript SetMtuSize {
         GetScript  = {
