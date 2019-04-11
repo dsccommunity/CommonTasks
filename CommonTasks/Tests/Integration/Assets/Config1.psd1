@@ -124,4 +124,43 @@
         ControllerInterval               = '00:15:00'
         MaintenanceWindowOverride        = $false
     }
+
+    WebApplicationPools     = @{
+        Items = @(
+            @{
+                Name = 'TestAppPool1'
+            }
+        )
+    }
+
+    WebApplications         = @{
+        Items = @(
+            @{
+                Name         = 'TestAppPool1'
+                PhysicalPath = 'C:\InetPub\WebApplication1'
+                WebAppPool   = 'TestAppPool1'
+                Website      = 'TestSite1'
+            }
+        )
+    }
+
+    Websites                = @{
+        Items = @(
+            @{
+                Name            = 'TestSite1'
+                ApplicationPool = 'TestAppPool1'
+            }
+        )
+    }
+
+    WebVirtualDirectories   = @{
+        Items = @(
+            @{
+                Name           = 'VirtualDirectory1'
+                PhysicalPath   = 'C:\InetPub\VirtualDirectory1'
+                WebApplication = 'Somepass1'
+                Website        = 'TestSite1'
+            }
+        )
+    }
 }
