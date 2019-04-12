@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'WebApplication.schema.psm1'
+    RootModule           = 'WebApplications.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -13,5 +13,5 @@
 
     #RequiredModules      = @('PSDesiredStateConfiguration')
 
-    DscResourcesToExport = @('WebApplication')
+    DscResourcesToExport = @('WebApplications')
 }

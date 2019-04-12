@@ -1,4 +1,4 @@
-Configuration Website {
+Configuration WebApplications {
     Param(
         [Parameter(Mandatory)]
         [hashtable[]]$Items
@@ -13,6 +13,6 @@ Configuration Website {
         }
 
         $executionName = $item.Name
-        (Get-DscSplattedResource -ResourceName xWebsite -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName xWebApplication -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

@@ -101,7 +101,7 @@
         MtuSize     = 1360
     }
 
-    DscLcmMaintenanceWindow = @{
+    DscLcmMaintenanceWindows = @{
         MaintenanceWindow = @(
             @{
                 Name                       = 'MW-1'
@@ -129,6 +129,9 @@
         Items = @(
             @{
                 Name = 'TestAppPool1'
+            },
+            @{
+                Name = 'TestAppPool2'
             }
         )
     }
@@ -136,15 +139,15 @@
     WebApplications         = @{
         Items = @(
             @{
-                Name         = 'TestAppPool1'
-                PhysicalPath = 'C:\InetPub\WebApplication1'
-                WebAppPool   = 'TestAppPool1'
-                Website      = 'TestSite1'
+                Name         = 'TestApp1'
+                PhysicalPath = 'C:\InetPub\WebApplications1'
+                WebAppPool   = 'TestApp1'
+                WebSite      = 'TestSite1'
             }
         )
     }
 
-    Websites                = @{
+    WebSites                = @{
         Items = @(
             @{
                 Name            = 'TestSite1'
@@ -158,22 +161,28 @@
             @{
                 Name           = 'VirtualDirectory1'
                 PhysicalPath   = 'C:\InetPub\VirtualDirectory1'
-                WebApplication = 'Somepass1'
-                Website        = 'TestSite1'
+                WebApplication = 'TestApp1'
+                WebSite        = 'TestSite1'
+            },
+            @{
+                Name           = 'VirtualDirectory2'
+                PhysicalPath   = 'C:\InetPub\VirtualDirectory2'
+                WebApplication = 'TestApp1'
+                WebSite        = 'TestSite1'
             }
         )
     }
 
-    SoftwarePackages = @{
+    SoftwarePackages        = @{
         Packages = @(
             @{
-                Name = 'Software One'
-                Path = '\\Server\Share\SoftwareOne\SoftwareOne.msi'
+                Name      = 'Software One'
+                Path      = '\\Server\Share\SoftwareOne\SoftwareOne.msi'
                 ProductId = 'aa859ee6-4f64-439a-85c0-bc1207886cb6'
             },
             @{
-                Name = 'Software Two'
-                Path = '\\Server\Share\SoftwareOne\SoftwareTwo.msi'
+                Name      = 'Software Two'
+                Path      = '\\Server\Share\SoftwareOne\SoftwareTwo.msi'
                 ProductId = '734f1912-01b1-4f50-8bba-9c3f8912ee8d'
             }
         )
