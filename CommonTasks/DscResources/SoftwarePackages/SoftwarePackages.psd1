@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'SoftwarePackage.schema.psm1'
+    RootModule           = 'SoftwarePackages.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -15,5 +15,5 @@
     #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
     #)
 
-    DscResourcesToExport = @('SoftwarePackage')
+    DscResourcesToExport = @('SoftwarePackages')
 }
