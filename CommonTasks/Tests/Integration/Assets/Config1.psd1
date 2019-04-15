@@ -1,5 +1,5 @@
 @{
-    AllNodes                = @(
+    AllNodes                 = @(
         @{
             NodeName                    = 'localhost_WindowsServices'
             PSDscAllowPlainTextPassword = $true
@@ -12,7 +12,7 @@
         }
     )
 
-    FilesAndFolders         = @{
+    FilesAndFolders          = @{
         Items = @(
             @{
                 DestinationPath = 'C:\Test.txt'
@@ -32,11 +32,11 @@
         )
     }
 
-    WindowsFeatures         = @{
+    WindowsFeatures          = @{
         Name = 'XPS-Viewer', '-Web-Server'
     }
 
-    RegistryValues          = @{
+    RegistryValues           = @{
         Values = @(
             @{
                 Key       = 'HKLM:\SOFTWARE\Microsoft\Rpc\Internet'
@@ -49,11 +49,15 @@
         )
     }
 
-    SecurityBase            = @{
+    SecurityBase             = @{
         SecurityLevel = 2
     }
 
-    WindowsServices         = @{
+    ConfigurationBase        = @{
+        SystemType = 'MemberServer'
+    }
+
+    WindowsServices          = @{
         Services = @(
             @{
                 Name        = 'Dummy1'
@@ -78,7 +82,7 @@
         )
     }
 
-    XmlData                 = @(
+    XmlData                  = @(
         @{ 
             Path       = 'D:\web.config'
             Ensure     = 'Present'
@@ -87,7 +91,7 @@
         }
     )
 
-    NetworkIpConfiguration  = @{
+    NetworkIpConfiguration   = @{
         IpAddress      = '10.0.0.1'
         Prefix         = 8
         Gateway        = '10.0.0.254'
@@ -96,7 +100,7 @@
         DisableNetbios = $true
     }   
     
-    Network                 = @{
+    Network                  = @{
         NetworkZone = 1
         MtuSize     = 1360
     }
@@ -116,7 +120,7 @@
         )
     }
 
-    DscLcmController        = @{
+    DscLcmController         = @{
         ConsistencyCheckInterval         = '02:00:00'
         ConsistencyCheckIntervalOverride = $false
         RefreshInterval                  = '04:00:00'
@@ -125,7 +129,7 @@
         MaintenanceWindowOverride        = $false
     }
 
-    WebApplicationPools     = @{
+    WebApplicationPools      = @{
         Items = @(
             @{
                 Name = 'TestAppPool1'
@@ -136,7 +140,7 @@
         )
     }
 
-    WebApplications         = @{
+    WebApplications          = @{
         Items = @(
             @{
                 Name         = 'TestApp1'
@@ -147,7 +151,7 @@
         )
     }
 
-    WebSites                = @{
+    WebSites                 = @{
         Items = @(
             @{
                 Name            = 'TestSite1'
@@ -156,7 +160,7 @@
         )
     }
 
-    WebVirtualDirectories   = @{
+    WebVirtualDirectories    = @{
         Items = @(
             @{
                 Name           = 'VirtualDirectory1'
@@ -173,7 +177,7 @@
         )
     }
 
-    SoftwarePackages        = @{
+    SoftwarePackages         = @{
         Packages = @(
             @{
                 Name      = 'Software One'
