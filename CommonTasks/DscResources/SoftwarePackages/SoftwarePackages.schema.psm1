@@ -1,4 +1,4 @@
-Configuration SoftwarePackage {
+Configuration SoftwarePackages {
     Param(
         [Parameter(Mandatory)]
         [hashtable[]]$Package

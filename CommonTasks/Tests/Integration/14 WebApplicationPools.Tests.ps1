@@ -6,24 +6,24 @@ Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name DscBuildHelpers
 
-Describe 'WebApplicationPool DSC Resource compiles' -Tags 'FunctionalQuality' {
-    It 'WebApplicationPool Compiles' {
-        configuration Config_WebApplicationPool {
+Describe 'WebApplicationPools DSC Resource compiles' -Tags 'FunctionalQuality' {
+    It 'WebApplicationPools Compiles' {
+        configuration Config_WebApplicationPools {
 
             Import-DscResource -ModuleName CommonTasks
 
-            node localhost_WebApplicationPool {
-                WebApplicationPool applicationPool {
+            node localhost_WebApplicationPools {
+                WebApplicationPools applicationPool {
                     Items = $ConfigurationData.WebApplicationPools.Items
                 }
             }
         }
 
-        { Config_WebApplicationPool -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_WebApplicationPools -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
-    It 'WebApplicationPool should have created a mof file' {
-        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WebApplicationPool.mof -ErrorAction SilentlyContinue
+    It 'WebApplicationPools should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WebApplicationPools.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }

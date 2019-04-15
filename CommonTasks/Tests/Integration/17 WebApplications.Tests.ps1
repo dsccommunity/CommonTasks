@@ -6,24 +6,24 @@ Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name DscBuildHelpers
 
-Describe 'WebApplication DSC Resource compiles' -Tags 'FunctionalQuality' {
-    It 'WebApplication Compiles' {
-        configuration Config_WebApplication {
+Describe 'WebApplications DSC Resource compiles' -Tags 'FunctionalQuality' {
+    It 'WebApplications Compiles' {
+        configuration Config_WebApplications {
 
             Import-DscResource -ModuleName CommonTasks
 
-            node localhost_WebApplication {
-                WebApplication application {
+            node localhost_WebApplications {
+                WebApplications application {
                     Items = $ConfigurationData.WebApplications.Items
                 }
             }
         }
 
-        { Config_WebApplication -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_WebApplications -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
-    It 'WebApplication should have created a mof file' {
-        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WebApplication.mof -ErrorAction SilentlyContinue
+    It 'WebApplications should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_WebApplications.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }

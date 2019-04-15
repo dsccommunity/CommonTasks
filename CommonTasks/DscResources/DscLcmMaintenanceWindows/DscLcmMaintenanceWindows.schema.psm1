@@ -1,4 +1,4 @@
-Configuration DscLcmMaintenanceWindow {
+Configuration DscLcmMaintenanceWindows {
     Param(
         [Parameter(Mandatory)]
         [hashtable[]]$MaintenanceWindow

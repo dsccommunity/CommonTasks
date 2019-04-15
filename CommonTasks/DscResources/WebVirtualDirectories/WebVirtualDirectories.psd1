@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'WebVirtualDirectory.schema.psm1'
+    RootModule           = 'WebVirtualDirectories.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -13,5 +13,5 @@
 
     #RequiredModules      = @('PSDesiredStateConfiguration')
 
-    DscResourcesToExport = @('WebVirtualDirectory')
+    DscResourcesToExport = @('WebVirtualDirectories')
 }

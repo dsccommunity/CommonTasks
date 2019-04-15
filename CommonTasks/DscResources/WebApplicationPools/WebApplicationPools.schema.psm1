@@ -1,4 +1,4 @@
-Configuration WebApplicationPool {
+Configuration WebApplicationPools {
     Param(
         [Parameter(Mandatory)]
         [hashtable[]]$Items

@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'DscLcmMaintenanceWindow.schema.psm1'
+    RootModule           = 'DscLcmMaintenanceWindows.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -15,5 +15,5 @@
     #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
     #)
 
-    DscResourcesToExport = @('DscLcmMaintenanceWindow')
+    DscResourcesToExport = @('DscLcmMaintenanceWindows')
 }

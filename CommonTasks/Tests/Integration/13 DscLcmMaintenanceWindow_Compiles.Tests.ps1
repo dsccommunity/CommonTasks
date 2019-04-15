@@ -6,24 +6,24 @@ Import-Module -Name $env:BHProjectName -ErrorAction Stop
 
 Import-Module -Name DscBuildHelpers
 
-Describe 'DscLcmMaintenanceWindow DSC Resource compiles' -Tags 'FunctionalQuality' {
-    It 'DscLcmMaintenanceWindow Compiles' {
-        configuration Config_DscLcmMaintenanceWindow {
+Describe 'DscLcmMaintenanceWindows DSC Resource compiles' -Tags 'FunctionalQuality' {
+    It 'DscLcmMaintenanceWindows Compiles' {
+        configuration Config_DscLcmMaintenanceWindows {
 
             Import-DscResource -ModuleName CommonTasks
 
-            node localhost_DscLcmMaintenanceWindow {
-                DscLcmMaintenanceWindow controller {
-                    MaintenanceWindow = $ConfigurationData.DscLcmMaintenanceWindow.MaintenanceWindow
+            node localhost_DscLcmMaintenanceWindows {
+                DscLcmMaintenanceWindows controller {
+                    MaintenanceWindow = $ConfigurationData.DscLcmMaintenanceWindows.MaintenanceWindow
                 }
             }
         }
 
-        { Config_DscLcmMaintenanceWindow -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_DscLcmMaintenanceWindows -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
-    It 'DscLcmMaintenanceWindow should have created a mof file' {
-        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_DscLcmMaintenanceWindow.mof -ErrorAction SilentlyContinue
+    It 'DscLcmMaintenanceWindows should have created a mof file' {
+        $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_DscLcmMaintenanceWindows.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }

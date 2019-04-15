@@ -1,5 +1,5 @@
 @{
-    AllNodes                = @(
+    AllNodes                 = @(
         @{
             NodeName                    = 'localhost_WindowsServices'
             PSDscAllowPlainTextPassword = $true
@@ -12,7 +12,7 @@
         }
     )
 
-    FilesAndFolders         = @{
+    FilesAndFolders          = @{
         Items = @(
             @{
                 DestinationPath = 'C:\Test.txt'
@@ -32,11 +32,11 @@
         )
     }
 
-    WindowsFeatures         = @{
+    WindowsFeatures          = @{
         Name = 'XPS-Viewer', '-Web-Server'
     }
 
-    RegistryValues          = @{
+    RegistryValues           = @{
         Values = @(
             @{
                 Key       = 'HKLM:\SOFTWARE\Microsoft\Rpc\Internet'
@@ -49,11 +49,15 @@
         )
     }
 
-    SecurityBase            = @{
+    SecurityBase             = @{
         SecurityLevel = 2
     }
 
-    WindowsServices         = @{
+    ConfigurationBase        = @{
+        SystemType = 'MemberServer'
+    }
+
+    WindowsServices          = @{
         Services = @(
             @{
                 Name        = 'Dummy1'
@@ -78,7 +82,7 @@
         )
     }
 
-    XmlData                 = @(
+    XmlData                  = @(
         @{ 
             Path       = 'D:\web.config'
             Ensure     = 'Present'
@@ -87,7 +91,7 @@
         }
     )
 
-    NetworkIpConfiguration  = @{
+    NetworkIpConfiguration   = @{
         IpAddress      = '10.0.0.1'
         Prefix         = 8
         Gateway        = '10.0.0.254'
@@ -96,12 +100,12 @@
         DisableNetbios = $true
     }   
     
-    Network                 = @{
+    Network                  = @{
         NetworkZone = 1
         MtuSize     = 1360
     }
 
-    DscLcmMaintenanceWindow = @{
+    DscLcmMaintenanceWindows = @{
         MaintenanceWindow = @(
             @{
                 Name                       = 'MW-1'
@@ -116,7 +120,7 @@
         )
     }
 
-    DscLcmController        = @{
+    DscLcmController         = @{
         ConsistencyCheckInterval         = '02:00:00'
         ConsistencyCheckIntervalOverride = $false
         RefreshInterval                  = '04:00:00'
@@ -125,26 +129,29 @@
         MaintenanceWindowOverride        = $false
     }
 
-    WebApplicationPools     = @{
+    WebApplicationPools      = @{
         Items = @(
             @{
                 Name = 'TestAppPool1'
+            },
+            @{
+                Name = 'TestAppPool2'
             }
         )
     }
 
-    WebApplications         = @{
+    WebApplications          = @{
         Items = @(
             @{
-                Name         = 'TestAppPool1'
-                PhysicalPath = 'C:\InetPub\WebApplication1'
-                WebAppPool   = 'TestAppPool1'
-                Website      = 'TestSite1'
+                Name         = 'TestApp1'
+                PhysicalPath = 'C:\InetPub\WebApplications1'
+                WebAppPool   = 'TestApp1'
+                WebSite      = 'TestSite1'
             }
         )
     }
 
-    Websites                = @{
+    WebSites                 = @{
         Items = @(
             @{
                 Name            = 'TestSite1'
@@ -153,13 +160,34 @@
         )
     }
 
-    WebVirtualDirectories   = @{
+    WebVirtualDirectories    = @{
         Items = @(
             @{
                 Name           = 'VirtualDirectory1'
                 PhysicalPath   = 'C:\InetPub\VirtualDirectory1'
-                WebApplication = 'Somepass1'
-                Website        = 'TestSite1'
+                WebApplication = 'TestApp1'
+                WebSite        = 'TestSite1'
+            },
+            @{
+                Name           = 'VirtualDirectory2'
+                PhysicalPath   = 'C:\InetPub\VirtualDirectory2'
+                WebApplication = 'TestApp1'
+                WebSite        = 'TestSite1'
+            }
+        )
+    }
+
+    SoftwarePackages         = @{
+        Packages = @(
+            @{
+                Name      = 'Software One'
+                Path      = '\\Server\Share\SoftwareOne\SoftwareOne.msi'
+                ProductId = 'aa859ee6-4f64-439a-85c0-bc1207886cb6'
+            },
+            @{
+                Name      = 'Software Two'
+                Path      = '\\Server\Share\SoftwareOne\SoftwareTwo.msi'
+                ProductId = '734f1912-01b1-4f50-8bba-9c3f8912ee8d'
             }
         )
     }
