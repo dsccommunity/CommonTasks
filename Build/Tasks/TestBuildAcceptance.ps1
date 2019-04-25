@@ -1,4 +1,4 @@
-Task AcceptanceTest {
+Task TestBuildAcceptance {
 
     "`n`tSTATUS: Testing with PowerShell $PSVersion"
 
