@@ -46,6 +46,15 @@ Configuration DscTagging {
         Force     = $true
     }
 
+    xRegistry DscBuildNumber {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+        ValueName = 'BuildNumber'
+        ValueData = ">>$($env:BHBuildNumber)<<" #the format supports finding the BuildNumber without using a MOF parser 
+        ValueType = 'String'
+        Ensure    = 'Present'
+        Force     = $true
+    }        
+
     File DscDiagnosticsRoleCapabilities {
         SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
         DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
