@@ -55,14 +55,14 @@ Configuration DscTagging {
         Force     = $true
     }        
 
-    File DscDiagnosticsRoleCapabilities {
-        SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
-        DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
-        Checksum        = 'SHA-1'
-        Ensure          = "Present" 
-        Type            = 'Directory'
-        Recurse         = $true 
-    }
+    #File DscDiagnosticsRoleCapabilities {
+    #    SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
+    #    DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
+    #    Checksum        = 'SHA-1'
+    #    Ensure          = "Present" 
+    #    Type            = 'Directory'
+    #    Recurse         = $true 
+    #}
     
     #JeaEndPoint EndPoint {
     #    EndpointName    = "DscDiagnostics"
