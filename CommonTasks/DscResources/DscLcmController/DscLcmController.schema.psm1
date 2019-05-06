@@ -5,20 +5,20 @@ Start-Transcript -Path "$path\LcmPostpone.log" -Append
 $currentLcmSettings = Get-DscLocalConfigurationManager
 $maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) #44640)
 {
-    #44639 #value must be changed in order to reset the LCM timer
+    44639 #value must be changed in order to reset the LCM timer
 }
 else
 {
-    #44640 #minutes for 31 days
+    44640 #minutes for 31 days
 }
 
 $maxRefreshInterval = if ($currentLcmSettings.RefreshFrequencyMins -eq 30) #44640)
 {
-    #44639 #value must be changed in order to reset the LCM timer
+    44639 #value must be changed in order to reset the LCM timer
 }
 else
 {
-    #44640 #minutes for 31 days
+    44640 #minutes for 31 days
 }
 
 $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
