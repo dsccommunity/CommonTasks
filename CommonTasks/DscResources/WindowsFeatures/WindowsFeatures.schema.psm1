@@ -8,9 +8,13 @@ Configuration WindowsFeatures {
 
     $ensure = 'Present'
     foreach ($n in $Name) {
+
         if ($n[0] -in '-', '+') {
             if ($n[0] -eq '-') {
                 $ensure = 'Absent'
+            }
+            else {
+                $ensure = 'Present'
             }
             $n = $n.Substring(1)
         }
