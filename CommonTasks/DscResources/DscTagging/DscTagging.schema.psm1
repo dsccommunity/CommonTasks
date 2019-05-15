@@ -46,14 +46,23 @@ Configuration DscTagging {
         Force     = $true
     }
 
-    File DscDiagnosticsRoleCapabilities {
-        SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
-        DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
-        Checksum        = 'SHA-1'
-        Ensure          = "Present" 
-        Type            = 'Directory'
-        Recurse         = $true 
-    }
+    xRegistry DscBuildNumber {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+        ValueName = 'BuildNumber'
+        ValueData = ">>$($env:BHBuildNumber)<<" #the format supports finding the BuildNumber without using a MOF parser 
+        ValueType = 'String'
+        Ensure    = 'Present'
+        Force     = $true
+    }        
+
+    #File DscDiagnosticsRoleCapabilities {
+    #    SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
+    #    DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
+    #    Checksum        = 'SHA-1'
+    #    Ensure          = "Present" 
+    #    Type            = 'Directory'
+    #    Recurse         = $true 
+    #}
     
     #JeaEndPoint EndPoint {
     #    EndpointName    = "DscDiagnostics"

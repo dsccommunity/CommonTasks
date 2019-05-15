@@ -5,22 +5,21 @@ Start-Transcript -Path "$path\LcmPostpone.log" -Append
 $currentLcmSettings = Get-DscLocalConfigurationManager
 $maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) #44640)
 {
-    31 #44639 #value must be changed in order to reset the LCM timer
+    44639 #value must be changed in order to reset the LCM timer
 }
 else
 {
-    30 #44640 #minutes for 31 days
+    44640 #minutes for 31 days
 }
 
 $maxRefreshInterval = if ($currentLcmSettings.RefreshFrequencyMins -eq 30) #44640)
 {
-    31 #44639 #value must be changed in order to reset the LCM timer
+    44639 #value must be changed in order to reset the LCM timer
 }
 else
 {
-    30 #44640 #minutes for 31 days
+    44640 #minutes for 31 days
 }
-
 
 $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
 $mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -PassThru
@@ -35,6 +34,8 @@ $content = $content -replace $pattern, ('$1 {0}$3' -f $maxRefreshInterval)
 $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
 Set-DscLocalConfigurationManager -Path $metaMofFolder -Verbose
+
+"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmSummery.log"
 
 Stop-Transcript
 '@
@@ -187,6 +188,8 @@ if ($doRefresh) {
 else {
     Write-Host "NO ACTION: 'doRefresh' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '5' (Pull and Consistency Check)."
 }
+
+"$(Get-Date) - LcmController: doConsistencyCheck = '$doConsistencyCheck', doRefresh = '$doRefresh'" | Add-Content -Path "$path\LcmSummery.log"
 Stop-Transcript
 '@
 
