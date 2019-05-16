@@ -3,21 +3,17 @@ $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationD
 Start-Transcript -Path "$path\LcmPostpone.log" -Append
 
 $currentLcmSettings = Get-DscLocalConfigurationManager
-$maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) #44640)
-{
+$maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) { #44640)
     44639 #value must be changed in order to reset the LCM timer
 }
-else
-{
+else {
     44640 #minutes for 31 days
 }
 
-$maxRefreshInterval = if ($currentLcmSettings.RefreshFrequencyMins -eq 30) #44640)
-{
+$maxRefreshInterval = if ($currentLcmSettings.RefreshFrequencyMins -eq 30) { #44640)
     44639 #value must be changed in order to reset the LCM timer
 }
-else
-{
+else {
     44640 #minutes for 31 days
 }
 
@@ -35,14 +31,17 @@ $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
 Set-DscLocalConfigurationManager -Path $metaMofFolder -Verbose
 
-"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmSummery.log"
+"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummery.log"
 
 Stop-Transcript
 '@
 
 $dscLcmControlScript = @'
+$writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name WriteTranscripts
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
-Start-Transcript -Path "$path\LcmController.log" -Append
+if ($writeTranscripts) {
+    Start-Transcript -Path "$path\LcmController.log" -Append
+}
 
 $namespace = 'root/Microsoft/Windows/DesiredStateConfiguration'
 $className = 'MSFT_DSCLocalConfigurationManager'
@@ -114,6 +113,8 @@ if ($configurationMode -eq 'ApplyAndAutoCorrect' -and $inMaintenanceWindow) {
     $doConsistencyCheck = $true
 }
 elseif ($configurationMode -in 'ApplyAndMonitor', 'MonitorOnly') {
+    Write-Host
+    Write-Host "Setting 'doConsistencyCheck' to 'true' as the LCM is in '$((Get-DscLocalConfigurationManager).ConfigurationMode)' mode"
     $doConsistencyCheck = $true
 }
 
@@ -122,7 +123,7 @@ $doRefresh = $inMaintenanceWindow
 #Consistency Check 
 $nextConsistencyCheck = $lastConsistencyCheck + $consistencyCheckInterval
 Write-Host ""
-Write-Host "The previous consistency check was done on '$lastConsistencyCheck', the next one will not triggered before '$nextConsistencyCheck'. ConsistencyCheckInterval is $consistencyCheckInterval."
+Write-Host "The previous consistency check was done on '$lastConsistencyCheck', the next one will not be triggered before '$nextConsistencyCheck'. ConsistencyCheckInterval is $consistencyCheckInterval."
 if ($currentTime -gt $nextConsistencyCheck) {
     Write-Host 'It is time to trigger a consistency check per the defined interval.'
     $doConsistencyCheck = $doConsistencyCheck -band 1
@@ -162,7 +163,7 @@ Write-Host
 if ($doConsistencyCheck) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop
+        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
         $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastConsistencyCheck -Value (Get-Date) -Type String -Force
     }
@@ -177,7 +178,7 @@ else {
 if ($doRefresh) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags'5' (Pull and Consistency Check)."
     try {
-        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop
+        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop | Out-Null
         $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
     }
@@ -189,8 +190,25 @@ else {
     Write-Host "NO ACTION: 'doRefresh' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '5' (Pull and Consistency Check)."
 }
 
-"$(Get-Date) - LcmController: doConsistencyCheck = '$doConsistencyCheck', doRefresh = '$doRefresh'" | Add-Content -Path "$path\LcmSummery.log"
-Stop-Transcript
+$logItem = [pscustomobject]@{
+    CurrentTime                      = Get-Date
+    InMaintenanceWindow              = [int]$inMaintenanceWindow
+    DoConsistencyCheck               = $doConsistencyCheck
+    DoRefresh                        = $doRefresh
+
+    LastConsistencyCheck             = $lastConsistencyCheck
+    ConsistencyCheckInterval         = $consistencyCheckInterval
+    ConsistencyCheckIntervalOverride = $consistencyCheckIntervalOverride
+
+    LastRefresh                      = $lastRefresh
+    RefreshInterval                  = $refreshInterval
+    RefreshIntervalOverride          = $refreshIntervalOverride
+    
+} | Export-Csv -Path "$path\LcmControlSummery.txt" -Append
+
+if ($writeTranscripts) {
+    Stop-Transcript
+}
 '@
 
 Configuration DscLcmController {
@@ -208,7 +226,9 @@ Configuration DscLcmController {
         [Parameter(Mandatory)]
         [timespan]$ControllerInterval,
 
-        [bool]$MaintenanceWindowOverride
+        [bool]$MaintenanceWindowOverride,
+
+        [bool]$WriteTranscripts
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
@@ -228,7 +248,7 @@ Configuration DscLcmController {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
         ValueName = 'ConsistencyCheckIntervalOverride'
         ValueData = [int]$ConsistencyCheckIntervalOverride
-        ValueType = 'DWORD'
+        ValueType = 'DWord'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -246,7 +266,7 @@ Configuration DscLcmController {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
         ValueName = 'RefreshIntervalOverride'
         ValueData = [int]$RefreshIntervalOverride
-        ValueType = 'DWORD'
+        ValueType = 'DWord'
         Ensure    = 'Present'
         Force     = $true
     }
@@ -264,50 +284,55 @@ Configuration DscLcmController {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
         ValueName = 'MaintenanceWindowOverride'
         ValueData = [int]$MaintenanceWindowOverride
-        ValueType = 'DWORD'
+        ValueType = 'DWord'
         Ensure    = 'Present'
         Force     = $true
     }
 
-    File DscLcmPostponeScript
-    {
-        Ensure = 'Present'
-        Type = 'File'
-        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmPostpone.ps1'
-        Contents = $dscLcmPostponeScript
-    }
-    
-    ScheduledTask DscPostponeTask
-    {
-        DependsOn                 = '[File]DscLcmPostponeScript'
-        TaskName                  = 'DscLcmPostpone'
-        TaskPath                  = '\DscController'
-        ActionExecutable          = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
-        ActionArguments           = '-File C:\ProgramData\Dsc\LcmController\LcmPostpone.ps1'
-        ScheduleType              = 'Once'
-        RepeatInterval            = $ControllerInterval
-        RepetitionDuration        = 'Indefinitely'
-        StartTime                 = (Get-Date)
+    xRegistry DscLcmControl_WriteTranscripts {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        ValueName = 'WriteTranscripts'
+        ValueData = [int]$WriteTranscripts
+        ValueType = 'DWord'
+        Ensure    = 'Present'
+        Force     = $true
     }
 
-    File DscLcmControlScript
-    {
-        Ensure = 'Present'
-        Type = 'File'
-        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
-        Contents = $dscLcmControlScript
+    File DscLcmPostponeScript {
+        Ensure          = 'Present'
+        Type            = 'File'
+        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmPostpone.ps1'
+        Contents        = $dscLcmPostponeScript
     }
     
-    ScheduledTask DscControlTask
-    {
-        DependsOn                 = '[File]DscLcmControlScript'
-        TaskName                  = 'DscLcmControl'
-        TaskPath                  = '\DscController'
-        ActionExecutable          = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
-        ActionArguments           = '-File C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
-        ScheduleType              = 'Once'
-        RepeatInterval            = $ControllerInterval
-        RepetitionDuration        = 'Indefinitely'
-        StartTime                 = (Get-Date)
+    ScheduledTask DscPostponeTask {
+        DependsOn          = '[File]DscLcmPostponeScript'
+        TaskName           = 'DscLcmPostpone'
+        TaskPath           = '\DscController'
+        ActionExecutable   = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
+        ActionArguments    = '-File C:\ProgramData\Dsc\LcmController\LcmPostpone.ps1'
+        ScheduleType       = 'Once'
+        RepeatInterval     = $ControllerInterval
+        RepetitionDuration = 'Indefinitely'
+        StartTime          = (Get-Date)
+    }
+
+    File DscLcmControlScript {
+        Ensure          = 'Present'
+        Type            = 'File'
+        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
+        Contents        = $dscLcmControlScript
+    }
+    
+    ScheduledTask DscControlTask {
+        DependsOn          = '[File]DscLcmControlScript'
+        TaskName           = 'DscLcmControl'
+        TaskPath           = '\DscController'
+        ActionExecutable   = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
+        ActionArguments    = '-File C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
+        ScheduleType       = 'Once'
+        RepeatInterval     = $ControllerInterval
+        RepetitionDuration = 'Indefinitely'
+        StartTime          = (Get-Date)
     }  
 }
