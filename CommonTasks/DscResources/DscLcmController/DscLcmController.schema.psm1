@@ -160,6 +160,8 @@ else {
 }
 Write-Host
 
+$consistencyCheckErrors = $false
+$refreshErrors = $false
 if ($doConsistencyCheck) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
@@ -169,6 +171,7 @@ if ($doConsistencyCheck) {
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
+        $consistencyCheckErrors = $true
     }
 }
 else {
@@ -184,6 +187,7 @@ if ($doRefresh) {
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
+        $refreshErrors = $true
     }
 }
 else {
@@ -199,10 +203,12 @@ $logItem = [pscustomobject]@{
     LastConsistencyCheck             = $lastConsistencyCheck
     ConsistencyCheckInterval         = $consistencyCheckInterval
     ConsistencyCheckIntervalOverride = $consistencyCheckIntervalOverride
+    ConsistencyCheckErrors           = $consistencyCheckErrors
 
     LastRefresh                      = $lastRefresh
     RefreshInterval                  = $refreshInterval
     RefreshIntervalOverride          = $refreshIntervalOverride
+    RefreshErrors                    = $refreshErrors
     
 } | Export-Csv -Path "$path\LcmControlSummery.txt" -Append
 
