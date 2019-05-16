@@ -4,7 +4,7 @@ Configuration RegistryValues {
         [hashtable[]]$Values
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($value in $values) {
         $executionName = ($value.Key + '\' + $value.ValueName) -replace ' ', ''

@@ -231,8 +231,8 @@ Configuration DscLcmController {
         [bool]$WriteTranscripts
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
-    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 6.4.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName ComputerManagementDsc
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xRegistry DscLcmControl_ConsistencyCheckInterval {
