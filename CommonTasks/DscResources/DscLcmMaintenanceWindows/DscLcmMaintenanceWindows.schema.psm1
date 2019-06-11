@@ -28,3 +28,13 @@ Configuration DscLcmMaintenanceWindows {
         }
     }
 }
+
+<#
+                                    Daily       Weekly      Monthly
+- StartTime                         x           x           x
+- Timespan                          x           x           x
+- Weekly, Daily, Monthly            Daily       Weekly      Monthly
+- DayOfWeek                                     x           x
+- Interval                          3           2           2
+- On (1st, 2nd, 3rd, 4th, last                              x
+#>
