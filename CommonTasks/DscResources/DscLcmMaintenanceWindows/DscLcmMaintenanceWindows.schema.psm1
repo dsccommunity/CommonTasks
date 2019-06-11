@@ -9,19 +9,19 @@ Configuration DscLcmMaintenanceWindows {
 
     foreach ($window in $MaintenanceWindow.GetEnumerator())
     {
-        xRegistry "MaintenanceWindowStartTime_$($window.Name)" {
+        xRegistry "StartTime_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
-            ValueName = 'MaintenanceWindowStartTime'
-            ValueData = $window.MaintenanceWindowStartTime
+            ValueName = 'StartTime'
+            ValueData = $window.StartTime
             ValueType = 'String'
             Ensure    = 'Present'
             Force     = $true
         }
 
-        xRegistry "MaintenanceWindowTimespan_$($window.Name)" {
+        xRegistry "Timespan_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
-            ValueName = 'MaintenanceWindowTimespan'
-            ValueData = $window.MaintenanceWindowTimespan
+            ValueName = 'Timespan'
+            ValueData = $window.Timespan
             ValueType = 'String'
             Ensure    = 'Present'
             Force     = $true
