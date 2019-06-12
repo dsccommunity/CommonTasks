@@ -31,7 +31,7 @@ $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
 Set-DscLocalConfigurationManager -Path $metaMofFolder -Verbose
 
-"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummary.log"
+"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummery.log"
 
 Stop-Transcript
 '@
@@ -77,12 +77,12 @@ $maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmCo
 if ($maintenanceWindows) {
     $inMaintenanceWindow = foreach ($maintenanceWindow in $maintenanceWindows) {
         Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
-        [datetime]$maintenanceWindowStartTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowStartTime
-        [timespan]$maintenanceWindowTimespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name MaintenanceWindowTimespan
-        [datetime]$maintenanceWindowEndTime = $maintenanceWindowStartTime + $maintenanceWindowTimespan
+        [datetime]$startTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name StartTime
+        [timespan]$timespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name Timespan
+        [datetime]$endTime = $startTime + $timespan
 
-        Write-Host "Maintenance window: $($maintenanceWindowStartTime) - $($maintenanceWindowEndTime)."
-        if ($currentTime -gt $maintenanceWindowStartTime -and $currentTime -lt $maintenanceWindowEndTime) {
+        Write-Host "Maintenance window: $($startTime) - $($endTime)."
+        if ($currentTime -gt $startTime -and $currentTime -lt $endTime) {
             Write-Host "Current time '$currentTime' is in maintenance window '$($maintenanceWindow.PSChildName)'"
 
             Write-Host "IN MAINTENANCE WINDOW: Setting 'inMaintenanceWindow' to 'true' as the current time is in a maintanence windows."
@@ -210,7 +210,7 @@ $logItem = [pscustomobject]@{
     RefreshIntervalOverride          = $refreshIntervalOverride
     RefreshErrors                    = $refreshErrors
     
-} | Export-Csv -Path "$path\LcmControlSummary.txt" -Append
+} | Export-Csv -Path "$path\LcmControlSummery.txt" -Append
 
 if ($writeTranscripts) {
     Stop-Transcript
