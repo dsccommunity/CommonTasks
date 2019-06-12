@@ -31,7 +31,7 @@ $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
 Set-DscLocalConfigurationManager -Path $metaMofFolder -Verbose
 
-"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummery.log"
+"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummary.log"
 
 Stop-Transcript
 '@
@@ -210,7 +210,7 @@ $logItem = [pscustomobject]@{
     RefreshIntervalOverride          = $refreshIntervalOverride
     RefreshErrors                    = $refreshErrors
     
-} | Export-Csv -Path "$path\LcmControlSummery.txt" -Append
+} | Export-Csv -Path "$path\LcmControlSummary.txt" -Append
 
 if ($writeTranscripts) {
     Stop-Transcript
