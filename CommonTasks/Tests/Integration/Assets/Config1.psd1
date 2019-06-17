@@ -108,14 +108,16 @@
     DscLcmMaintenanceWindows = @{
         MaintenanceWindow = @(
             @{
-                Name                       = 'MW-1'
-                MaintenanceWindowStartTime = '00:30:00'
-                MaintenanceWindowTimespan  = '02:00:00'
+                Mode      = 'Daily'
+                Name      = 'MW-1'
+                StartTime = '00:30:00'
+                Timespan  = '02:00:00'
             }
             @{
-                Name                       = 'MW-2'
-                MaintenanceWindowStartTime = '04:00:00'
-                MaintenanceWindowTimespan  = '01:00:00'
+                Mode      = 'Daily'
+                Name      = 'MW-2'
+                StartTime = '04:00:00'
+                Timespan  = '01:00:00'
             }
         )
     }
