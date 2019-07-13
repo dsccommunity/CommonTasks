@@ -18,10 +18,11 @@
     DscBuildHelpers              = 'latest'
 
     #DSC Resources
-    xPSDesiredStateConfiguration = '8.6.0.0'
-    ComputerManagementDsc        = '6.3.0.0'
-    NetworkingDsc                = '7.1.0.0'
-    JeaDsc                       = '0.6.2'
+    xPSDesiredStateConfiguration = '8.8.0.0'
+    ComputerManagementDsc        = '6.4.0.0'
+    NetworkingDsc                = '7.3.0.0'
+    JeaDsc                       = '0.6.5'
     XmlContentDsc                = '0.0.1'
-    xWebAdministration           = '2.5.0.0'
+    xWebAdministration           = '2.6.0.0'
+
 }

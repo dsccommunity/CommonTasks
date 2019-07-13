@@ -4,7 +4,7 @@ Configuration SoftwarePackages {
         [hashtable[]]$Package
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($p in $Package) {
         $p.Ensure = 'Present'

@@ -4,24 +4,51 @@ Configuration DscLcmMaintenanceWindows {
         [hashtable[]]$MaintenanceWindow
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    foreach ($window in $MaintenanceWindow.GetEnumerator())
-    {
-        xRegistry "MaintenanceWindowStartTime_$($window.Name)" {
+    $on = '1st', '2nd', '3rd', '4th', 'last'
+    $daysOfWeek = [System.Enum]::GetNames([System.DayOfWeek])
+
+    foreach ($window in $MaintenanceWindow.GetEnumerator()) {
+        
+        if ($window.DayOfWeek) {
+            if ($window.DayOfWeek -notin $daysOfWeek) {
+                Write-Error "DayOfWeek '$($window.DayOfWeek)' of maintenance window '$($window.Name)' is not in the supported range ('$($daysOfWeek -join ', ')')."
+            }
+        }
+
+        if ($window.On) {
+            if ($window.On -notin $on) {
+                Write-Error "Property 'On' set to '$($window.On)' of maintenance window '$($window.Name)' is not in the supported range ('$($on -join ', ')')."
+            }
+        }
+    }
+
+    foreach ($window in $MaintenanceWindow.GetEnumerator()) {
+    
+        xRegistry "StartTime_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
-            ValueName = 'MaintenanceWindowStartTime'
-            ValueData = $window.MaintenanceWindowStartTime
+            ValueName = 'StartTime'
+            ValueData = $window.StartTime
             ValueType = 'String'
             Ensure    = 'Present'
             Force     = $true
         }
 
-        xRegistry "MaintenanceWindowTimespan_$($window.Name)" {
+        xRegistry "Timespan_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
-            ValueName = 'MaintenanceWindowTimespan'
-            ValueData = $window.MaintenanceWindowTimespan
+            ValueName = 'Timespan'
+            ValueData = $window.Timespan
+            ValueType = 'String'
+            Ensure    = 'Present'
+            Force     = $true
+        }
+
+        xRegistry "On_$($window.Name)" {
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            ValueName = 'On'
+            ValueData = $window.On
             ValueType = 'String'
             Ensure    = 'Present'
             Force     = $true

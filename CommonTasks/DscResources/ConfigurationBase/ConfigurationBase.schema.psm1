@@ -4,9 +4,9 @@ Configuration ConfigurationBase {
         [string]$SystemType
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.6.0.0
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
     #Removing cMicrosoftUpdate and configuration items as long as the module is not on the PSGallery
-    #Import-DscResource -ModuleName cMicrosoftUpdate -ModuleVersion 0.0.0.1
+    #Import-DscResource -ModuleName cMicrosoftUpdate
 
     xRegistry EnableRdp {
         Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server'
