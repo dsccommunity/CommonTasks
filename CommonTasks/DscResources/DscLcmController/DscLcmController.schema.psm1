@@ -79,7 +79,21 @@ if ($maintenanceWindows) {
         Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
         [datetime]$startTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name StartTime
         [timespan]$timespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name Timespan
+        [string]$dayOfWeek = try {
+            Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name DayOfWeek
+        }
+        catch { }
         [datetime]$endTime = $startTime + $timespan
+
+        if ($dayOfWeek) {
+            if ((Get-Date).DayOfWeek -ne $dayOfWeek) {
+                Write-Host "DayOfWeek is set to '$dayOfWeek'. Current day of week is '$((Get-Date).DayOfWeek)', maintenance window does not apply"
+                continue
+            }
+            else {
+                Write-Host "Maintenance Window is configured for week day '$dayOfWeek' which is the current day of week."
+            }
+        }
 
         Write-Host "Maintenance window: $($startTime) - $($endTime)."
         if ($currentTime -gt $startTime -and $currentTime -lt $endTime) {
