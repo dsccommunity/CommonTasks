@@ -26,7 +26,6 @@ Configuration DscLcmMaintenanceWindows {
     }
 
     foreach ($window in $MaintenanceWindow.GetEnumerator()) {
-        Write-Host "Maintenance Window '$($window.Name)'"
 
         xRegistry "StartTime_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
