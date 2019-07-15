@@ -45,6 +45,15 @@ Configuration DscLcmMaintenanceWindows {
             Force     = $true
         }
 
+        xRegistry "DayOfWeek_$($window.Name)" {
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            ValueName = 'DayOfWeek'
+            ValueData = $window.DayOfWeek
+            ValueType = 'String'
+            Ensure    = 'Present'
+            Force     = $true
+        }
+
         xRegistry "On_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
             ValueName = 'On'
