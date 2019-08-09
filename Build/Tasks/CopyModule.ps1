@@ -4,7 +4,7 @@ task CopyModule {
     if ($env:BHBuildSystem -eq 'AppVeyor') {
         Update-Metadata -Path $env:BHPSModuleManifest -Verbose -Value $env:APPVEYOR_BUILD_VERSION
     }
-    elseif ($env:BHBuildSystem -eq 'VSTS') {
+    elseif ($env:BHBuildSystem -in 'VSTS', 'Azure Pipelines') {
         $currentVersion = Get-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion
         
         $newVersion = $currentVersion.Split('.')
