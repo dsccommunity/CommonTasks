@@ -28,7 +28,7 @@ Configuration DscLcmMaintenanceWindows {
     foreach ($window in $MaintenanceWindow.GetEnumerator()) {
     
         xRegistry "StartTime_$($window.Name)" {
-            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"
             ValueName = 'StartTime'
             ValueData = $window.StartTime
             ValueType = 'String'
@@ -37,7 +37,7 @@ Configuration DscLcmMaintenanceWindows {
         }
 
         xRegistry "Timespan_$($window.Name)" {
-            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"
             ValueName = 'Timespan'
             ValueData = $window.Timespan
             ValueType = 'String'
@@ -46,7 +46,7 @@ Configuration DscLcmMaintenanceWindows {
         }
 
         xRegistry "DayOfWeek_$($window.Name)" {
-            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"
             ValueName = 'DayOfWeek'
             ValueData = $window.DayOfWeek
             ValueType = 'String'
@@ -55,7 +55,7 @@ Configuration DscLcmMaintenanceWindows {
         }
 
         xRegistry "On_$($window.Name)" {
-            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl\MaintenanceWindows\$($window.Name)"
+            Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"
             ValueName = 'On'
             ValueData = $window.On
             ValueType = 'String'

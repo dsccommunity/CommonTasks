@@ -1,6 +1,9 @@
 $dscLcmPostponeScript = @'
+$writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name WriteTranscripts
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
-Start-Transcript -Path "$path\LcmPostpone.log" -Append
+if ($writeTranscripts) {
+    Start-Transcript -Path "$path\LcmPostpone.log" -Append
+}
 
 $currentLcmSettings = Get-DscLocalConfigurationManager
 $maxConsistencyCheckInterval = if ($currentLcmSettings.ConfigurationModeFrequencyMins -eq 30) { #44640)
@@ -37,7 +40,7 @@ Stop-Transcript
 '@
 
 $dscLcmControlScript = @'
-$writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name WriteTranscripts
+$writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name WriteTranscripts
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
 if ($writeTranscripts) {
     Start-Transcript -Path "$path\LcmController.log" -Append
@@ -53,27 +56,27 @@ $inMaintenanceWindow = $false
 
 $currentTime = Get-Date
 
-$maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmControl\MaintenanceWindows
-$consistencyCheckIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name ConsistencyCheckIntervalOverride
-$refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name RefreshIntervalOverride
+$maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows
+$consistencyCheckIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name ConsistencyCheckIntervalOverride
+$refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshIntervalOverride
 
 [datetime]$lastConsistencyCheck = try {
-    Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name LastConsistencyCheck
+    Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name LastConsistencyCheck
 }
 catch {
     Get-Date -Date 0
 }
-[timespan]$consistencyCheckInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name ConsistencyCheckInterval
+[timespan]$consistencyCheckInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name ConsistencyCheckInterval
 
 [datetime]$lastRefresh = try {
-    Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name lastRefresh
+    Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name lastRefresh
 }
 catch {
     Get-Date -Date 0
 }
-[timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name RefreshInterval
+[timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshInterval
 
-$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmControl -Name MaintenanceWindowOverride 
+$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowOverride 
 if ($maintenanceWindows) {
     $inMaintenanceWindow = foreach ($maintenanceWindow in $maintenanceWindows) {
         Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
@@ -180,7 +183,7 @@ if ($doConsistencyCheck) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
-        $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
+        $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastConsistencyCheck -Value (Get-Date) -Type String -Force
     }
     catch {
@@ -196,7 +199,7 @@ if ($doRefresh) {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags'5' (Pull and Consistency Check)."
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop | Out-Null
-        $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmControl
+        $dscLcmControl = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmControl.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
     }
     catch {
@@ -256,7 +259,7 @@ Configuration DscLcmController {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xRegistry DscLcmControl_ConsistencyCheckInterval {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'ConsistencyCheckInterval'
         ValueData = $ConsistencyCheckInterval
         ValueType = 'String'
@@ -265,7 +268,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_ConsistencyCheckIntervalOverride {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'ConsistencyCheckIntervalOverride'
         ValueData = [int]$ConsistencyCheckIntervalOverride
         ValueType = 'DWord'
@@ -274,7 +277,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_RefreshInterval {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'RefreshInterval'
         ValueData = $RefreshInterval
         ValueType = 'String'
@@ -283,7 +286,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_RefreshIntervalOverride {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'RefreshIntervalOverride'
         ValueData = [int]$RefreshIntervalOverride
         ValueType = 'DWord'
@@ -292,7 +295,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_ControllerInterval {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'ControllerInterval'
         ValueData = $ControllerInterval
         ValueType = 'String'
@@ -301,7 +304,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_MaintenanceWindowOverride {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'MaintenanceWindowOverride'
         ValueData = [int]$MaintenanceWindowOverride
         ValueType = 'DWord'
@@ -310,7 +313,7 @@ Configuration DscLcmController {
     }
 
     xRegistry DscLcmControl_WriteTranscripts {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmControl'
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'WriteTranscripts'
         ValueData = [int]$WriteTranscripts
         ValueType = 'DWord'
@@ -340,16 +343,16 @@ Configuration DscLcmController {
     File DscLcmControlScript {
         Ensure          = 'Present'
         Type            = 'File'
-        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
+        DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmController.ps1'
         Contents        = $dscLcmControlScript
     }
     
     ScheduledTask DscControlTask {
         DependsOn          = '[File]DscLcmControlScript'
-        TaskName           = 'DscLcmControl'
+        TaskName           = 'DscLcmController'
         TaskPath           = '\DscController'
         ActionExecutable   = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
-        ActionArguments    = '-File C:\ProgramData\Dsc\LcmController\LcmControl.ps1'
+        ActionArguments    = '-File C:\ProgramData\Dsc\LcmController\LcmController.ps1'
         ScheduleType       = 'Once'
         RepeatInterval     = $ControllerInterval
         RepetitionDuration = 'Indefinitely'
