@@ -14,7 +14,7 @@ Describe 'SecurityBase DSC Resource compiles' -Tags 'FunctionalQuality' {
 
             node localhost_SecurityBase {
                 SecurityBase securityBase {
-                    Role = 'SqlServer'
+                    Role = 'Baseline'
                 }
             }
         }
