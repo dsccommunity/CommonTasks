@@ -19,6 +19,7 @@ Describe 'DscLcmController DSC Resource compiles' -Tags 'FunctionalQuality' {
                     RefreshInterval                  = $ConfigurationData.DscLcmController.RefreshInterval
                     RefreshIntervalOverride          = $ConfigurationData.DscLcmController.RefreshIntervalOverride
                     ControllerInterval               = $ConfigurationData.DscLcmController.ControllerInterval
+                    PostponeInterval                 = $ConfigurationData.DscLcmController.PostponeInterval
                     MaintenanceWindowOverride        = $ConfigurationData.DscLcmController.MaintenanceWindowOverride
                 }
             }

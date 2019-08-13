@@ -21,7 +21,13 @@ else {
 }
 
 $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
-$mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -PassThru
+
+if (Test-Path -Path C:\Windows\System32\Configuration\MetaConfig.mof) {
+    $mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -Force -PassThru
+}
+else {
+    $mofFile = Get-Item -Path "$path\MetaMof\localhost.meta.mof" -ErrorAction Stop
+}
 $content = Get-Content -Path $mofFile.FullName -Raw -Encoding Unicode
 
 $pattern = '(ConfigurationModeFrequencyMins +=)( +\d+)(;)'
@@ -49,6 +55,7 @@ if ($writeTranscripts) {
 $namespace = 'root/Microsoft/Windows/DesiredStateConfiguration'
 $className = 'MSFT_DSCLocalConfigurationManager'
 
+$now = Get-Date
 $configurationMode = (Get-DscLocalConfigurationManager).ConfigurationMode
 $doConsistencyCheck = $false
 $doRefresh = $false
@@ -82,11 +89,15 @@ if ($maintenanceWindows) {
         Write-Host "Reading maintenance window '$($maintenanceWindow.PSChildName)'"
         [datetime]$startTime = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name StartTime
         [timespan]$timespan = Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name Timespan
+        [datetime]$endTime = $startTime + $timespan
         [string]$dayOfWeek = try {
             Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name DayOfWeek
         }
         catch { }
-        [datetime]$endTime = $startTime + $timespan
+        [string]$on = try {
+            Get-ItemPropertyValue -Path $maintenanceWindow.PSPath -Name On
+        }
+        catch { }
 
         if ($dayOfWeek) {
             if ((Get-Date).DayOfWeek -ne $dayOfWeek) {
@@ -95,6 +106,41 @@ if ($maintenanceWindows) {
             }
             else {
                 Write-Host "Maintenance Window is configured for week day '$dayOfWeek' which is the current day of week."
+            }
+        }
+
+        if ($on) {
+            
+            $daysOfWeek = [System.Enum]::GetNames([System.DayOfWeek])
+
+            if ($on -ne 'last')
+            {
+                $on = [int][string]$on[0]
+            }
+
+            $daysInMonth = [datetime]::DaysInMonth($now.Year, $now.Month)
+            $daysInMonth = for ($i = 1; $i -le $daysInMonth; $i++) 
+            {
+                Get-Date -Date $now -Day $i
+            }
+
+            $daysInMonth = $daysInMonth | Where-Object { $_.DayOfWeek -eq $dayOfWeek }
+
+            $daysInMonth = if ($on -eq 'last')
+            {
+                $daysInMonth | Select-Object -Last 1
+            }
+            else
+            {
+                $daysInMonth | Select-Object -Index ($on - 1)
+            }
+
+            if ($daysInMonth.ToShortDateString() -ne $now.ToShortDateString()) {
+                Write-Host "Today is not the '$on' $dayOfWeek in the current month"
+                continue
+            }
+            else {
+                Write-Host "The LCM is supposed to run on the '$on' $dayOfWeek which applies to today"
             }
         }
 
@@ -249,6 +295,9 @@ Configuration DscLcmController {
         [Parameter(Mandatory)]
         [timespan]$ControllerInterval,
 
+        [Parameter(Mandatory)]
+        [timespan]$PostponeInterval,
+
         [bool]$MaintenanceWindowOverride,
 
         [bool]$WriteTranscripts
@@ -262,6 +311,15 @@ Configuration DscLcmController {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'ConsistencyCheckInterval'
         ValueData = $ConsistencyCheckInterval
+        ValueType = 'String'
+        Ensure    = 'Present'
+        Force     = $true
+    }
+
+    xRegistry DscLcmControl_PostponeInterval {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
+        ValueName = 'PostponeInterval'
+        ValueData = $PostponeInterval
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
@@ -335,7 +393,7 @@ Configuration DscLcmController {
         ActionExecutable   = 'C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe'
         ActionArguments    = '-File C:\ProgramData\Dsc\LcmController\LcmPostpone.ps1'
         ScheduleType       = 'Once'
-        RepeatInterval     = $ControllerInterval
+        RepeatInterval     = $PostponeInterval
         RepetitionDuration = 'Indefinitely'
         StartTime          = (Get-Date)
     }

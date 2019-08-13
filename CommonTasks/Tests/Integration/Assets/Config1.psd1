@@ -54,7 +54,7 @@
     }
 
     ConfigurationBase        = @{
-        SystemType = 'MemberServer'
+        SystemType = 'Baseline'
     }
 
     WindowsServices          = @{
@@ -128,6 +128,7 @@
         RefreshInterval                  = '04:00:00'
         RefreshIntervalOverride          = $false
         ControllerInterval               = '00:15:00'
+        PostponeInterval                 = '168:00:00'
         MaintenanceWindowOverride        = $false
     }
 

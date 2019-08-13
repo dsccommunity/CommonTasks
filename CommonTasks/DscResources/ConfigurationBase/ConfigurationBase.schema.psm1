@@ -1,12 +1,10 @@
 Configuration ConfigurationBase {
     Param(
-        [ValidateSet('DC', 'SqlServer', 'MemberServer', 'JumpServer')]
+        [ValidateSet('Baseline', 'WebServer', 'FileServer')]
         [string]$SystemType
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    #Removing cMicrosoftUpdate and configuration items as long as the module is not on the PSGallery
-    #Import-DscResource -ModuleName cMicrosoftUpdate
 
     xRegistry EnableRdp {
         Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server'
@@ -15,26 +13,4 @@ Configuration ConfigurationBase {
         ValueType = 'Dword'
         Ensure    = 'Present'
     }
-
-    #cWSUSEnable WSUSEnabled {
-    #    Enable = 'True'
-    #}
-
-    #cWSUSSetServer WSUSServer
-    #{
-    #    Url    = 'SomeServer'
-    #    Ensure = 'Present'
-    #}
-
-    #cWSUSInstallDay WSUSInstallDay
-    #{
-    #    Day    = 'Tuesday'
-    #    Ensure = 'Present'
-    #}
-
-    #cWSUSInstallTime WSUSInstallTime
-    #{
-    #    Time   = 5
-    #    Ensure = 'Present'
-    #}
 }
