@@ -123,13 +123,14 @@
     }
 
     DscLcmController         = @{
-        ConsistencyCheckInterval         = '02:00:00'
-        ConsistencyCheckIntervalOverride = $false
-        RefreshInterval                  = '04:00:00'
-        RefreshIntervalOverride          = $false
-        ControllerInterval               = '00:15:00'
-        PostponeInterval                 = '168:00:00'
-        MaintenanceWindowOverride        = $false
+        MaintenanceWindowMode       = 'AutoCorrect'
+        MonitorInterval             = '02:00:00'
+        AutoCorrectInterval         = '00:15:00'
+        AutoCorrectIntervalOverride = $false
+        RefreshInterval             = '04:00:00'
+        RefreshIntervalOverride     = $false
+        ControllerInterval          = '00:15:00'
+        MaintenanceWindowOverride   = $false
     }
 
     WebApplicationPools      = @{

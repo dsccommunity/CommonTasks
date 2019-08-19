@@ -14,13 +14,14 @@ Describe 'DscLcmController DSC Resource compiles' -Tags 'FunctionalQuality' {
 
             node localhost_DscLcmController {
                 DscLcmController controller {
-                    ConsistencyCheckInterval         = $ConfigurationData.DscLcmController.ConsistencyCheckInterval
-                    ConsistencyCheckIntervalOverride = $ConfigurationData.DscLcmController.ConsistencyCheckIntervalOverride
-                    RefreshInterval                  = $ConfigurationData.DscLcmController.RefreshInterval
-                    RefreshIntervalOverride          = $ConfigurationData.DscLcmController.RefreshIntervalOverride
-                    ControllerInterval               = $ConfigurationData.DscLcmController.ControllerInterval
-                    PostponeInterval                 = $ConfigurationData.DscLcmController.PostponeInterval
-                    MaintenanceWindowOverride        = $ConfigurationData.DscLcmController.MaintenanceWindowOverride
+                    MaintenanceWindowMode       = $ConfigurationData.DscLcmController.MaintenanceWindowMode
+                    MonitorInterval             = $ConfigurationData.DscLcmController.MonitorInterval
+                    AutoCorrectInterval         = $ConfigurationData.DscLcmController.AutoCorrectInterval
+                    AutoCorrectIntervalOverride = $ConfigurationData.DscLcmController.AutoCorrectIntervalOverride
+                    RefreshInterval             = $ConfigurationData.DscLcmController.RefreshInterval
+                    RefreshIntervalOverride     = $ConfigurationData.DscLcmController.RefreshIntervalOverride
+                    ControllerInterval          = $ConfigurationData.DscLcmController.ControllerInterval
+                    MaintenanceWindowOverride   = $ConfigurationData.DscLcmController.MaintenanceWindowOverride
                 }
             }
         }
