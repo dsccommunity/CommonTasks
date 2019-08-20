@@ -24,5 +24,6 @@
     JeaDsc                       = '0.6.5'
     XmlContentDsc                = '0.0.1'
     xWebAdministration           = '2.7.0.0'
+    SecurityPolicyDsc            = '2.9.0.0'
 
 }
