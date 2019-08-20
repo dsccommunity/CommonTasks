@@ -33,16 +33,7 @@ Configuration SecurityBase {
     
     #FileServer
     if ($Role -eq 'FileServer') {
-        xRegistry LmCompatibilityLevel5 {
-            Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
-            ValueName = 'LmCompatibilityLevel'
-            ValueData = 5
-            ValueType = 'Dword'
-            Ensure    = 'Present'
-            Force     = $true
-        }
-
-        SecurityOption SecOptions {
+        SecurityOption SecOptionsFileServer {
             Name = 'Web Server Secutiry options'
             Interactive_logon_Message_title_for_users_attempting_to_log_on = 'Secure File Server'
             Interactive_logon_Message_text_for_users_attempting_to_log_on = 'Your are logging on to a secure file server'
@@ -52,16 +43,7 @@ Configuration SecurityBase {
 
     #Web Server
     if ($Role -eq 'WebServer') {
-        xRegistry LmCompatibilityLevel4 {
-            Key       = 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa'
-            ValueName = 'LmCompatibilityLevel'
-            ValueData = 4
-            ValueType = 'Dword'
-            Ensure    = 'Present'
-            Force     = $true
-        }
-
-        SecurityOption SecOptions {
+        SecurityOption SecOptionsWebServer {
             Name = 'Web Server Secutiry options'
             Interactive_logon_Message_title_for_users_attempting_to_log_on = 'Secure Web Server'
             Interactive_logon_Message_text_for_users_attempting_to_log_on = 'Your are logging on to a secure web server'
