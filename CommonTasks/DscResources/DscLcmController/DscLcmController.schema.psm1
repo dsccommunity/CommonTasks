@@ -226,12 +226,13 @@ function Start-AutoCorrect {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
-        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:autoCorrectErrors = $true
     }
+
+    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
 }
 
 function Start-Monitor {
@@ -239,12 +240,13 @@ function Start-Monitor {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
-        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:monitorErrors = $true
     }
+
+    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
 }
 
 function Start-Refresh {
@@ -252,12 +254,13 @@ function Start-Refresh {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
-        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:refreshErrors = $true
     }
+
+    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
 }
 
 function Test-StartDscMonitor {
