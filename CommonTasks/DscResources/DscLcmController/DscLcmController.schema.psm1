@@ -46,7 +46,7 @@ function Set-LcmPostpone {
     
     Set-DscLocalConfigurationManager -Path $metaMofFolder
     
-    "$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummery.log"
+    "$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummary.log"
     
     Set-ItemProperty -Path $dscLcmController.PSPath -Name LastLcmPostpone -Value (Get-Date) -Type String -Force
 }
@@ -160,8 +160,7 @@ function Set-LcmMode {
     $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
     
     Set-DscLocalConfigurationManager -Path $metaMofFolder
-    
-    #"$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummery.log"
+
     Write-Host "LCM put into '$Mode' mode"
 }
 
