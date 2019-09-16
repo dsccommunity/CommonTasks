@@ -6,9 +6,6 @@ Param (
     [switch]
     $ResolveDependency,
 
-    [switch]
-    $DownloadDscResources,
-
     [string]
     $BuildOutput = "BuildOutput",
 
@@ -88,8 +85,6 @@ if (-not $Tasks) {
     IntegrationTest,
     Deploy,
     TestReleaseAcceptance
-
-    task DownloadDscResources -if ($DownloadDscResources) -Before SetPsModulePath
  
 }
 else {
