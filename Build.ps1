@@ -90,11 +90,12 @@ if (-not $Tasks) {
     TestReleaseAcceptance
 
     task DownloadDscResources -if ($DownloadDscResources) -Before SetPsModulePath
-
-    Write-Host "Running the folling tasks:" -ForegroundColor Magenta
-    ${*}.All[-1].Jobs | ForEach-Object { "`t$_" } | Write-Host
-    Write-Host 
+ 
 }
 else {
     task . $Tasks
 }
+
+Write-Host "Running the folling tasks:" -ForegroundColor Magenta
+${*}.All[-1].Jobs | ForEach-Object { "`t$_" } | Write-Host
+Write-Host
