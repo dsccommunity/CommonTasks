@@ -53,7 +53,7 @@ steps:
       ArtifactType: Container
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Build Folder'
+    displayName: 'Publish Artifact: Build Folder'
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)'
       ArtifactName: 'SourcesDirectory'
