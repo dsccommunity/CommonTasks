@@ -81,13 +81,13 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 }
 
 if (-not $Tasks) {
-    task . ClearBuildOutput,
-    Init,
+    task . Init,
+    CleanBuildOutput,
     SetPsModulePath,
     CopyModule,
     IntegrationTest,
     Deploy,
-    TestBuildAcceptance
+    TestReleaseAcceptance
 
     task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
 }
