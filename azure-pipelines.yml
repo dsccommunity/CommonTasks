@@ -10,7 +10,7 @@ workspace:
     clean: all
 
 variables:
-  GalleryUri: 'http://apull01.contoso.com/nuget/PowerShell'
+  GalleryUri: 'http://dscpull01.contoso.com/nuget/PowerShell'
 
 steps:
   - task: PowerShell@2
@@ -46,7 +46,7 @@ steps:
       failTaskOnFailedTests: true
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: $(Build.Repository.Name) Module'
+    displayName: 'Publish Artifact: Module'
     inputs:
       PathtoPublish: '$(Build.SourcesDirectory)\BuildOutput\Modules\$(Build.Repository.Name)'
       ArtifactName: $(Build.Repository.Name)
