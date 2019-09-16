@@ -1,0 +1,59 @@
+name: $(BuildID)
+
+trigger:
+- '*'
+
+pool:
+  name: Default
+
+workspace:
+    clean: all
+
+variables:
+  GalleryUri: 'http://apull01.contoso.com/nuget/PowerShell'
+
+steps:
+  - task: PowerShell@2
+    displayName: Register PowerShell Gallery
+    inputs:
+      targetType: inline
+      script: |
+        #always make sure the local PowerShell Gallery is registered correctly
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        $uri = '$(GalleryUri)'
+        $name = 'PowerShell'
+        $r = Get-PSRepository -Name $name -ErrorAction SilentlyContinue
+        if (-not $r -or $r.SourceLocation -ne $uri -or $r.PublishLocation -ne $uri) {
+            Write-Host "The Source or PublishLocation of the repository '$name' is not correct or the repository is not registered"
+            Unregister-PSRepository -Name $name -ErrorAction SilentlyContinue
+            Register-PSRepository -Name $name -SourceLocation $uri -PublishLocation $uri -InstallationPolicy Trusted
+            Get-PSRepository
+        }
+      errorActionPreference: stop
+    
+  - task: PowerShell@2
+    displayName: 'Execute build.ps1'
+    inputs:
+      targetType: filePath
+      filePath: .\Build.ps1
+      arguments: -ResolveDependency -GalleryRepository PowerShell
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Integration Test Results'
+    inputs:
+      testResultsFormat: NUnit
+      testResultsFiles: '**/IntegrationTestResults.xml'
+      failTaskOnFailedTests: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: $(Build.Repository.Name) Module'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)\BuildOutput\Modules\$(Build.Repository.Name)'
+      ArtifactName: $(Build.Repository.Name)
+      ArtifactType: Container
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Build Folder'
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)'
+      ArtifactName: 'SourcesDirectory'
