@@ -20,7 +20,7 @@ build_script:
   - ps: |
       Write-Host '-------------------------------------------------' -ForegroundColor Green
       Write-Host 'Environment variables' -ForegroundColor Green
-      dir env: | Write-Host
+      dir env: | Out-String | Write-Host
       Write-Host '-------------------------------------------------' -ForegroundColor Green
       . .\Build.ps1 -ResolveDependency
 
