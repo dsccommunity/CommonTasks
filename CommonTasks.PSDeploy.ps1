@@ -16,7 +16,7 @@ elseif ($env:BUILD_REPOSITORY_PROVIDER -eq 'TfsGit' -and $env:BUILD_SOURCEBRANCH
             FromSource "$($env:AGENT_RELEASEDIRECTORY)\$($env:BUILD_DEFINITIONNAME)\SourcesDirectory\BuildOutput\Modules\$($env:BUILD_REPOSITORY_NAME)"
             To PowerShell
             WithOptions @{
-                ApiKey = 'install@contoso.com:Somepass1'
+                ApiKey = $env:NugetApiKey
                 Force = $true
             }
         }
