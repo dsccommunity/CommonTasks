@@ -5,9 +5,9 @@ Task IntegrationTest {
     if ($env:BHBuildSystem -eq 'AppVeyor') {
         Add-AppveyorTest -Name "PSScriptAnalyzer" -Outcome Running
     }
-    $scriptAnalyerResults = Invoke-ScriptAnalyzer -Path (Join-Path -Path $env:BHProjectPath -ChildPath $ENV:BHProjectName) -Recurse -Severity Error -ErrorAction SilentlyContinue
+    $scriptAnalyerResults = Invoke-ScriptAnalyzer -Path (Join-Path -Path $env:BHProjectPath -ChildPath $env:BHProjectName) -Recurse -Severity Error -ErrorAction SilentlyContinue
     $end = Get-Date
-    $duration = [long]($end - $start).TotalMilliSeconds
+    $duration = ($end - $start).TotalMilliSeconds
     
     if ($scriptAnalyerResults -and $ENV:BHBuildSystem -eq 'AppVeyor') {
         Add-AppveyorMessage -Message "PSScriptAnalyzer output contained one or more result(s) with 'Error' severity." -Category Error

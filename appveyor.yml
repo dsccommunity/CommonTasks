@@ -17,7 +17,12 @@ os: WMF 5
 build: off
 
 build_script:
-  - ps: . .\Build.ps1 -ResolveDependency
+  - ps: |
+      Write-Host '-------------------------------------------------' -ForegroundColor Green
+      Write-Host 'Environment variables' -ForegroundColor Green
+      dir env: | Out-String | Write-Host
+      Write-Host '-------------------------------------------------' -ForegroundColor Green
+      . .\Build.ps1 -ResolveDependency
 
 #init:
 #  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

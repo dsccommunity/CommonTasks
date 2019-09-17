@@ -195,4 +195,10 @@
             }
         )
     }
+
+    ComputerSettings         = @{
+        TimeZone    = 'Fiji Standard Time'
+        Name        = 'TestSercer'
+        Description = 'This is a test server'
+    }
 }

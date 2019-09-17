@@ -6,9 +6,6 @@ Param (
     [switch]
     $ResolveDependency,
 
-    [switch]
-    $DownloadDscResources,
-
     [string]
     $BuildOutput = "BuildOutput",
 
@@ -50,7 +47,7 @@ if (-not (Get-Module -Name InvokeBuild -ListAvailable) -and -not $ResolveDepende
 }
 
 #importing all resources from .build directory
-Get-ChildItem -Path "$PSScriptRoot/Build/" -Recurse -Include *.ps1 |
+Get-ChildItem -Path "$PSScriptRoot/Build" -Recurse -Include *.ps1 |
     ForEach-Object {
     Write-Verbose "Importing file $($_.BaseName)"
     try {
@@ -81,16 +78,19 @@ if ($MyInvocation.ScriptName -notlike '*Invoke-Build.ps1') {
 }
 
 if (-not $Tasks) {
-    task . ClearBuildOutput,
-    Init,
+    task . Init,
+    CleanBuildOutput,
     SetPsModulePath,
     CopyModule,
     IntegrationTest,
     Deploy,
-    TestBuildAcceptance
-
-    task Download_All_Dependencies -if ($DownloadDscResources -or $Tasks -contains 'Download_All_Dependencies') DownloadDscResources -Before SetPsModulePath
+    TestReleaseAcceptance
+ 
 }
 else {
     task . $Tasks
 }
+
+Write-Host "Running the folling tasks:" -ForegroundColor Magenta
+${*}.All[-1].Jobs | ForEach-Object { "`t$_" } | Write-Host
+Write-Host
