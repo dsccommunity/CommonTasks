@@ -36,7 +36,7 @@ steps:
     inputs:
       targetType: filePath
       filePath: .\Build.ps1
-      arguments: -ResolveDependency -GalleryRepository PowerShell
+      arguments: -Tasks Init, CleanBuildOutput, SetPsModulePath, CopyModule, IntegrationTest -ResolveDependency -GalleryRepository PowerShell
 
   - task: PublishTestResults@2
     displayName: 'Publish Integration Test Results'
