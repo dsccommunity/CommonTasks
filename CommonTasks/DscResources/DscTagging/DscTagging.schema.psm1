@@ -10,6 +10,14 @@ Configuration DscTagging {
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
+    $gitCommitId = git log -n 1 *>&1
+    if ($gitCommitId -like '*fatal*') {
+        'NoGitRepo'
+    }
+    else {
+        $gitCommitId[0].Substring(7)
+    }
+
     xRegistry DscVersion {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Version'
@@ -31,7 +39,7 @@ Configuration DscTagging {
     xRegistry DscGitCommitId {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'GitCommitId'
-        ValueData = (git show | Select-Object -First 1).Substring(7)
+        ValueData = $gitCommitId
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
