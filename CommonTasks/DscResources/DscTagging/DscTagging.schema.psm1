@@ -11,7 +11,7 @@ Configuration DscTagging {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     $gitCommitId = git log -n 1 *>&1
-    if ($gitCommitId -like '*fatal*') {
+    $gitCommitId = if ($gitCommitId -like '*fatal*') {
         'NoGitRepo'
     }
     else {
