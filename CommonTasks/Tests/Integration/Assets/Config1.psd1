@@ -201,4 +201,31 @@
         Name        = 'TestSercer'
         Description = 'This is a test server'
     }
+
+    FirewallProfiles               = @{
+        Profile     = 'Private'
+        Enabled = $true
+    }
+
+    FirewallRules               = @{
+        Rules = @(
+            @{
+                Name= 'ANY-ANYTest'
+                DisplayName= 'ANY-ANYTest'
+                Enabled = $True
+                Description = 'Allow All Inbound trafic'
+                Direction = 'Inbound'
+                Profile = 'Any'
+                Action = 'Allow'
+                LocalPort = 'any'
+                RemotePort = 'any'
+                Protocol = 'any'
+            }
+        )
+    }
+
+
+
 }
+
+
