@@ -15,7 +15,6 @@ Describe 'FirewallProfiles DSC Resource compiles' -Tags 'FunctionalQuality' {
             node localhost_FirewallProfiles {
                 FirewallProfiles settings {
                     Profile = $ConfigurationData.FirewallProfiles.Profile
-                    Enabled = $ConfigurationData.FirewallProfiles.Enabled
                 }
             }
         }

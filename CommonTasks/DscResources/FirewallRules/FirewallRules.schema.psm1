@@ -12,7 +12,5 @@ Configuration FirewallRules {
         (Get-DscSplattedResource -ResourceName Firewall -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
     
-
-
 }
 

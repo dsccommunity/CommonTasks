@@ -198,32 +198,45 @@
 
     ComputerSettings         = @{
         TimeZone    = 'Fiji Standard Time'
-        Name        = 'TestSercer'
+        NodeName    = 'TestServer'
         Description = 'This is a test server'
     }
 
-    FirewallProfiles               = @{
-        Profile     = 'Private'
-        Enabled = $true
+    CmdbUpdate               = @{
+        Rack     = 123
+        RackSlot = 456
     }
 
-    FirewallRules               = @{
-        Rules = @(
+    FirewallProfiles         = @{
+        Profile = @(
             @{
-                Name= 'ANY-ANYTest'
-                DisplayName= 'ANY-ANYTest'
-                Enabled = $True
-                Description = 'Allow All Inbound trafic'
-                Direction = 'Inbound'
-                Profile = 'Any'
-                Action = 'Allow'
-                LocalPort = 'any'
-                RemotePort = 'any'
-                Protocol = 'any'
+                Name                    = 'Private'
+                Enabled                 = $True
+                DefaultInboundAction    = 'Block'
+                DefaultOutboundAction   = 'Allow'
+                AllowInboundRules       = 'True'
+                AllowLocalFirewallRules = 'False'
+
             }
         )
     }
 
+    FirewallRules            = @{
+        Rules = @(
+            @{
+                Name        = 'ANY-ANYTest'
+                DisplayName = 'ANY-ANYTest'
+                Enabled     = $True
+                Description = 'Allow All Inbound trafic'
+                Direction   = 'Inbound'
+                Profile     = 'Any'
+                Action      = 'Allow'
+                LocalPort   = 'any'
+                RemotePort  = 'any'
+                Protocol    = 'any'
+            }
+        )
+    }
 
 
 }
