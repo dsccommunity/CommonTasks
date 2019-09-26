@@ -198,7 +198,42 @@
 
     ComputerSettings         = @{
         TimeZone    = 'Fiji Standard Time'
-        Name        = 'TestSercer'
+        Name        = 'TestServer'
         Description = 'This is a test server'
     }
+
+    FirewallProfiles         = @{
+        Profile = @(
+            @{
+                Name                    = 'Private'
+                Enabled                 = $True
+                DefaultInboundAction    = 'Block'
+                DefaultOutboundAction   = 'Allow'
+                AllowInboundRules       = 'True'
+                AllowLocalFirewallRules = 'False'
+
+            }
+        )
+    }
+
+    FirewallRules            = @{
+        Rules = @(
+            @{
+                Name        = 'ANY-ANYTest'
+                DisplayName = 'ANY-ANYTest'
+                Enabled     = $True
+                Description = 'Allow All Inbound trafic'
+                Direction   = 'Inbound'
+                Profile     = 'Any'
+                Action      = 'Allow'
+                LocalPort   = 'any'
+                RemotePort  = 'any'
+                Protocol    = 'any'
+            }
+        )
+    }
+
+
 }
+
+
