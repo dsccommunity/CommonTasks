@@ -7,9 +7,10 @@ Configuration FirewallRules {
     Import-DscResource -ModuleName NetworkingDsc
 
         
-    foreach ($value in $Rules) {
-        $executionName = ($value.Name + '\' + $value.ValueName) -replace ' ', ''
-        (Get-DscSplattedResource -ResourceName Firewall -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
+    foreach ($item in $Rules) {
+        $executionName = "Firewall_$($item.Name)"
+        Write-Host "'$executionName'"
+        (Get-DscSplattedResource -ResourceName Firewall -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
     
 }

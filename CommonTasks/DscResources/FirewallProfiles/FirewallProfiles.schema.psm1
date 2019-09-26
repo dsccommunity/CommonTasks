@@ -8,9 +8,10 @@ Configuration FirewallProfiles {
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
 
-    foreach ($value in $Profile) {
-        $executionName = ($value.Name + '\' + $value.ValueName) -replace ' ', ''
-        (Get-DscSplattedResource -ResourceName FirewallProfile -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
+    foreach ($item in $Profile) {
+        $executionName = "FirewallProfile_$($item.Name)"
+        Write-Host "'$executionName'"
+        (Get-DscSplattedResource -ResourceName FirewallProfile -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
   
 }
