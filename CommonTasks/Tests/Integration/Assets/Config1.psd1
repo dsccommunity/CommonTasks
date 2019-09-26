@@ -198,13 +198,8 @@
 
     ComputerSettings         = @{
         TimeZone    = 'Fiji Standard Time'
-        NodeName    = 'TestServer'
+        Name        = 'TestServer'
         Description = 'This is a test server'
-    }
-
-    CmdbUpdate               = @{
-        Rack     = 123
-        RackSlot = 456
     }
 
     FirewallProfiles         = @{
