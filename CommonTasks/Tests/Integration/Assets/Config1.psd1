@@ -206,12 +206,11 @@
         Profile = @(
             @{
                 Name                    = 'Private'
-                Enabled                 = $True
+                Enabled                 = 'True'
                 DefaultInboundAction    = 'Block'
                 DefaultOutboundAction   = 'Allow'
                 AllowInboundRules       = 'True'
                 AllowLocalFirewallRules = 'False'
-
             }
         )
     }
@@ -219,20 +218,19 @@
     FirewallRules            = @{
         Rules = @(
             @{
-                Name        = 'ANY-ANYTest'
-                DisplayName = 'ANY-ANYTest'
-                Enabled     = $True
-                Description = 'Allow All Inbound trafic'
+                Name        = 'Any-AnyTest'
+                DisplayName = 'Any-Any Test'
+                Enabled     = 'True'
+                Description = 'Allow All Inbound Trafic'
                 Direction   = 'Inbound'
                 Profile     = 'Any'
                 Action      = 'Allow'
-                LocalPort   = 'any'
-                RemotePort  = 'any'
-                Protocol    = 'any'
+                LocalPort   = 'Any'
+                RemotePort  = 'Any'
+                Protocol    = 'Any'
             }
         )
     }
-
 
 }
 
