@@ -112,7 +112,7 @@ function Test-InMaintenanceWindow {
 
                 Write-Host "IN MAINTENANCE WINDOW: Setting 'inMaintenanceWindow' to 'true' as the current time is in a maintanence windows."
                 $true
-                break
+               break
             }
             else {
                 Write-Host "Current time '$currentTime' is not in maintenance window '$($maintenanceWindow.PSChildName)'"
@@ -176,11 +176,11 @@ function Test-StartDscAutoCorrect {
         }
         else {
             if ($autoCorrectIntervalOverride) {
-                Write-Host "OVERRIDE: It is NOT time to trigger a consistency check per the defined interval but 'ConsistencyCheckIntervalOverride' is enabled."
+                Write-Host "OVERRIDE: It is NOT time to trigger an AutoCorrect per the defined interval but 'AutoCorrectIntervalOverride' is enabled."
                 $doAutoCorrect = $true
             }
             else {
-                Write-Host 'It is NOT time to trigger a consistency check per the defined interval.'
+                Write-Host 'It is NOT time to trigger an AutoCorrect per the defined interval.'
                 $doAutoCorrect = $false
             }
         }
@@ -420,7 +420,7 @@ $logItem = [pscustomobject]@{
 
 if ($writeTranscripts) {
     Stop-Transcript
-}
+} 
 '@
 
 Configuration DscLcmController {
