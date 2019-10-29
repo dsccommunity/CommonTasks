@@ -25,8 +25,32 @@ Configuration DscLcmMaintenanceWindows {
         }
     }
 
+    Script MaintenanceWindowsCheck {
+        TestScript = {
+            try {
+                $existingWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows -ErrorAction Stop | Select-Object -ExpandProperty PSChildName
+                $diff = Compare-Object -ReferenceObject $existingWindows -DifferenceObject $using:MaintenanceWindow.Name
+                [bool]-not $diff
+        
+            }
+            catch {
+                $false
+            }
+        }
+        SetScript = {
+            Write-Verbose 'There is a difference in the maintainance window definition. Removing currently configured maintenance windows.'
+            Remove-Item -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows -Force -Recurse -ErrorAction SilentlyContinue
+        }
+
+        GetScript = {
+            @{
+                Result = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows -ErrorAction SilentlyContinue | Select-Object -ExpandProperty PSChildName
+            }
+        }
+    }
+
     foreach ($window in $MaintenanceWindow.GetEnumerator()) {
-    
+
         xRegistry "StartTime_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"
             ValueName = 'StartTime'
