@@ -88,6 +88,7 @@ Configuration DscTagging {
         Force     = $true
     }
 
+    <#
     $visibleFunctions = 'Test-DscConfiguration', 'Get-DscConfigurationVersion', 'Update-DscConfiguration', 'Get-DscLcmControllerSummary'
     $functionDefinitions = @()
     foreach ($visibleFunction in $visibleFunctions) {
@@ -115,4 +116,5 @@ Configuration DscTagging {
         HungRegistrationTimeout = 30
         SessionType = 'RestrictedRemoteServer'
     }
+    #>
 }
