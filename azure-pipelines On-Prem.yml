@@ -20,13 +20,17 @@ steps:
       script: |
         #always make sure the local PowerShell Gallery is registered correctly
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-        $uri = '$(GalleryUri)'
+         $uri = '$(GalleryUri)'
         $name = 'PowerShell'
+        $domain = '$(Domain)'
+        $userName = '$(UserName)'
+        $password = '$(Password)'
+        $cred = New-Object pscredential("$domain\$userName", ($password | ConvertTo-SecureString -AsPlainText -Force))
         $r = Get-PSRepository -Name $name -ErrorAction SilentlyContinue
         if (-not $r -or $r.SourceLocation -ne $uri -or $r.PublishLocation -ne $uri) {
             Write-Host "The Source or PublishLocation of the repository '$name' is not correct or the repository is not registered"
             Unregister-PSRepository -Name $name -ErrorAction SilentlyContinue
-            Register-PSRepository -Name $name -SourceLocation $uri -PublishLocation $uri -InstallationPolicy Trusted
+            Register-PSRepository -Name $name -SourceLocation $uri -PublishLocation $uri -InstallationPolicy Trusted -Credential $cred -Force
             Get-PSRepository
         }
       errorActionPreference: stop
