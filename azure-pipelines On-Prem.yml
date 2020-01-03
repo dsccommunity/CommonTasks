@@ -10,7 +10,10 @@ workspace:
     clean: all
 
 variables:
-  GalleryUri: 'http://dscpull01.contoso.com/nuget/PowerShell'
+  GalleryUri: ggggg #will be replaced during lab deployment
+  Domain: ddddd #will be replaced during lab deployment
+  UserName: uuuuu #will be replaced during lab deployment
+  Password: ppppp #will be replaced during lab deployment
 
 steps:
   - task: PowerShell@2
