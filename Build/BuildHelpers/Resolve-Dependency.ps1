@@ -12,8 +12,8 @@ function Resolve-Dependency {
         if ($PSBoundParameters.ContainsKey('Verbose')) {
             $providerBootstrapParams.Add('Verbose', $Verbose)
         }
-        if ($GalleryProxy) {
-            $providerBootstrapParams.Add('Proxy', $GalleryProxy)
+        if ($RepositoryProxy) {
+            $providerBootstrapParams.Add('Proxy', $RepositoryProxy)
         }
         $null = Install-PackageProvider @providerBootstrapParams
     }
@@ -29,14 +29,14 @@ function Resolve-Dependency {
         if ($PSBoundParameters.ContainsKey('verbose')) {
             $installPSDependParams.Add('Verbose', $Verbose)
         }
-        if ($GalleryRepository) {
-            $installPSDependParams.Add('Repository', $GalleryRepository)
+        if ($Repository) {
+            $installPSDependParams.Add('Repository', $Repository)
         }
-        if ($GalleryProxy) {
-            $installPSDependParams.Add('Proxy', $GalleryProxy)
+        if ($RepositoryProxy) {
+            $installPSDependParams.Add('Proxy', $RepositoryProxy)
         }
-        if ($GalleryCredential) {
-            $installPSDependParams.Add('ProxyCredential', $GalleryCredential)
+        if ($RepositoryCredential) {
+            $installPSDependParams.Add('ProxyCredential', $RepositoryCredential)
         }
         Save-Module @installPSDependParams
     }
@@ -49,6 +49,6 @@ function Resolve-Dependency {
         $psDependParams.Add('Verbose', $Verbose)
     }
     Import-Module -Name PSDepend
-    Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $GalleryRepository
+    Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $Repository
     Write-Verbose 'Project Bootstrapped, returning to Invoke-Build'
 }

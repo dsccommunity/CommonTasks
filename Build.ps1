@@ -10,10 +10,10 @@ Param (
     $BuildOutput = "BuildOutput",
 
     [string]
-    $GalleryRepository = 'PSGallery',
+    $Repository = 'PSGallery',
 
     [uri]
-    $GalleryProxy
+    $RepositoryProxy
 )
 
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
