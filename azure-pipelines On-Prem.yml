@@ -10,7 +10,7 @@ workspace:
     clean: all
 
 variables:
-  GalleryUri: ggggg #will be replaced during lab deployment
+  RepositoryUri: ggggg #will be replaced during lab deployment
   Domain: ddddd #will be replaced during lab deployment
   UserName: uuuuu #will be replaced during lab deployment
   Password: ppppp #will be replaced during lab deployment
@@ -23,7 +23,7 @@ steps:
       script: |
         #always make sure the local PowerShell Gallery is registered correctly
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-        $uri = '$(GalleryUri)'
+        $uri = '$(RepositoryUri)'
         $name = 'PowerShell'
         $domain = '$(Domain)'
         $userName = '$(UserName)'
@@ -43,7 +43,7 @@ steps:
     inputs:
       targetType: filePath
       filePath: .\Build.ps1
-      arguments: -Tasks Init, CleanBuildOutput, SetPsModulePath, CopyModule, IntegrationTest -ResolveDependency -GalleryRepository PowerShell
+      arguments: -Tasks Init, CleanBuildOutput, SetPsModulePath, CopyModule, IntegrationTest -ResolveDependency -Repository PowerShell
 
   - task: PublishTestResults@2
     displayName: 'Publish Integration Test Results'
