@@ -7,6 +7,12 @@
             Environment                 = 'Dev'
         }
         @{
+            NodeName                    = 'localhost_ChocolateyPackages'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
             NodeName    = 'localhost_DscTagging'
             Environment = 'Dev'
         }
@@ -192,6 +198,25 @@
                 Name      = 'Software Two'
                 Path      = '\\Server\Share\SoftwareOne\SoftwareTwo.msi'
                 ProductId = '734f1912-01b1-4f50-8bba-9c3f8912ee8d'
+            }
+        )
+    }
+
+    ChocolateyPackages       = @{
+        Packages = @(
+            @{
+                Name              = 'notepadplusplus'
+                Ensure            = 'Present'
+                Version           = '1.0'
+                ChocolateyOptions = @{ Source = 'SomeFeed' }
+                Credential        = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            },
+            @{
+                Name              = 'winrar'
+                Ensure            = 'Present'
+                Version           = '1.0'
+                ChocolateyOptions = @{ Source = 'SomeFeed' }
+                Credential        = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
             }
         )
     }
