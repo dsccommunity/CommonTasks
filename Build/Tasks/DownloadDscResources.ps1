@@ -7,6 +7,6 @@ task DownloadDscResources {
             Confirm = $false
             Target  = $buildModulesPath
         }
-        Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $GalleryRepository
+        Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $Repository
     }
 }

@@ -7,8 +7,8 @@ Task Init {
             Set-BuildEnvironment -Path $ProjectPath
         }
         catch {
-            Write-Host "Error calling 'Set-BuildEnvironment'. The task will probably fail if in build."
-            Write-Host "The error was: $($_.Exception.Message)"
+            Write-Host "Error calling 'Set-BuildEnvironment'."
+            throw $_
         }
     }
 

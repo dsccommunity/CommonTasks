@@ -1,3 +1,27 @@
+function Get-DscConfigurationVersion
+{
+    New-Object -TypeName PSObject -Property @{
+        Version = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscTagging -Name Version
+        Environment = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscTagging -Name Environment
+        GitCommitId = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscTagging -Name GitCommitId
+        BuildDate = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscTagging -Name BuildDate
+    }
+}
+
+function Test-DscConfiguration {
+    PSDesiredStateConfiguration\Test-DscConfiguration -Detailed -Verbose
+}
+
+function Update-DscConfiguration {
+    PSDesiredStateConfiguration\Update-DscConfiguration -Wait -Verbose
+}
+
+function Get-DscLcmControllerSummary {
+    Import-Csv -Path C:\ProgramData\Dsc\LcmController\LcmControllerSummary.txt
+}
+
+#-------------------------------------------------------------------------------------------
+
 Configuration DscTagging {
     Param(
         [Parameter(Mandatory)]
@@ -9,6 +33,15 @@ Configuration DscTagging {
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName JeaDsc
+
+    $gitCommitId = git log -n 1 *>&1
+    $gitCommitId = if ($gitCommitId -like '*fatal*') {
+        'NoGitRepo'
+    }
+    else {
+        $gitCommitId[0].Substring(7)
+    }
 
     xRegistry DscVersion {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
@@ -31,7 +64,7 @@ Configuration DscTagging {
     xRegistry DscGitCommitId {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'GitCommitId'
-        ValueData = (git show | Select-Object -First 1).Substring(7)
+        ValueData = $gitCommitId
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
@@ -53,22 +86,35 @@ Configuration DscTagging {
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
-    }        
+    }
 
-    #File DscDiagnosticsRoleCapabilities {
-    #    SourcePath      = '\\DSCPull01\JEA\DscDiagnostics'
-    #    DestinationPath = "C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics"
-    #    Checksum        = 'SHA-1'
-    #    Ensure          = "Present" 
-    #    Type            = 'Directory'
-    #    Recurse         = $true 
-    #}
+    <#
+    $visibleFunctions = 'Test-DscConfiguration', 'Get-DscConfigurationVersion', 'Update-DscConfiguration', 'Get-DscLcmControllerSummary'
+    $functionDefinitions = @()
+    foreach ($visibleFunction in $visibleFunctions) {
+        $functionDefinitions += @{
+            Name = $visibleFunction
+            ScriptBlock = (Get-Command -Name $visibleFunction).ScriptBlock
+        } | ConvertTo-Expression
+    }
+
+    JeaRoleCapabilities ReadDiagnosticsRole
+    {
+        Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnostics.psrc'
+        VisibleCmdlets = "@{ Name = 'Get-Date'; Parameters = @{ Name = 'Day' } }"
+        VisibleFunctions = $visibleFunctions
+        FunctionDefinitions = $functionDefinitions
+        PSDesiredStateConfiguration\Test-DscConfiguration
+    }
     
-    #JeaEndPoint EndPoint {
-    #    EndpointName    = "DscDiagnostics"
-    #    RoleDefinitions = "@{ 'NT AUTHORITY\Authenticated Users' = @{ RoleCapabilities = 'DscDiagnosticsRead' } }"
-    #    Ensure          = 'Present'
-    #    #TranscriptDirectory = “$env:ProgramFiles\WindowsPowerShell\Modules\DscDiagnostics\Transcripts”
-    #    DependsOn       = '[File]DscDiagnosticsRoleCapabilities'
-    #}
+    JeaSessionConfiguration DscEndpoint
+    {
+        Ensure = 'Present'
+        DependsOn = '[JeaRoleCapabilities]ReadDiagnosticsRole'
+        EndpointName = 'DSC'
+        RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
+        HungRegistrationTimeout = 30
+        SessionType = 'RestrictedRemoteServer'
+    }
+    #>
 }

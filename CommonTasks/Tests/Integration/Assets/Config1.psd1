@@ -7,6 +7,12 @@
             Environment                 = 'Dev'
         }
         @{
+            NodeName                    = 'localhost_ChocolateyPackages'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
             NodeName    = 'localhost_DscTagging'
             Environment = 'Dev'
         }
@@ -196,9 +202,61 @@
         )
     }
 
+    ChocolateyPackages       = @{
+        Packages = @(
+            @{
+                Name              = 'notepadplusplus'
+                Ensure            = 'Present'
+                Version           = '1.0'
+                ChocolateyOptions = @{ Source = 'SomeFeed' }
+                Credential        = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            },
+            @{
+                Name              = 'winrar'
+                Ensure            = 'Present'
+                Version           = '1.0'
+                ChocolateyOptions = @{ Source = 'SomeFeed' }
+                Credential        = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            }
+        )
+    }
+
     ComputerSettings         = @{
         TimeZone    = 'Fiji Standard Time'
-        Name        = 'TestSercer'
+        Name        = 'TestServer'
         Description = 'This is a test server'
     }
+
+    FirewallProfiles         = @{
+        Profile = @(
+            @{
+                Name                    = 'Private'
+                Enabled                 = 'True'
+                DefaultInboundAction    = 'Block'
+                DefaultOutboundAction   = 'Allow'
+                AllowInboundRules       = 'True'
+                AllowLocalFirewallRules = 'False'
+            }
+        )
+    }
+
+    FirewallRules            = @{
+        Rules = @(
+            @{
+                Name        = 'Any-AnyTest'
+                DisplayName = 'Any-Any Test'
+                Enabled     = 'True'
+                Description = 'Allow All Inbound Trafic'
+                Direction   = 'Inbound'
+                Profile     = 'Any'
+                Action      = 'Allow'
+                LocalPort   = 'Any'
+                RemotePort  = 'Any'
+                Protocol    = 'Any'
+            }
+        )
+    }
+
 }
+
+
