@@ -26,6 +26,6 @@
     xWebAdministration           = '3.1.1'
     SecurityPolicyDsc            = '2.10.0.0'
     StorageDsc                   = '4.9.0.0'
-    Chocolatey                   = '0.0.77'
+    Chocolatey                   = '0.0.79'
 
 }
