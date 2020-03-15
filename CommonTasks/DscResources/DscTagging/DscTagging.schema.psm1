@@ -88,7 +88,6 @@ Configuration DscTagging {
         Force     = $true
     }
 
-    <#
     $visibleFunctions = 'Test-DscConfiguration', 'Get-DscConfigurationVersion', 'Update-DscConfiguration', 'Get-DscLcmControllerSummary'
     $functionDefinitions = @()
     foreach ($visibleFunction in $visibleFunctions) {
@@ -100,21 +99,17 @@ Configuration DscTagging {
 
     JeaRoleCapabilities ReadDiagnosticsRole
     {
-        Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnostics.psrc'
-        VisibleCmdlets = "@{ Name = 'Get-Date'; Parameters = @{ Name = 'Day' } }"
+        Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole .psrc'
         VisibleFunctions = $visibleFunctions
         FunctionDefinitions = $functionDefinitions
-        PSDesiredStateConfiguration\Test-DscConfiguration
     }
     
     JeaSessionConfiguration DscEndpoint
     {
         Ensure = 'Present'
         DependsOn = '[JeaRoleCapabilities]ReadDiagnosticsRole'
-        EndpointName = 'DSC'
+        Name = 'DSC'
         RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
-        HungRegistrationTimeout = 30
         SessionType = 'RestrictedRemoteServer'
     }
-    #>
 }
