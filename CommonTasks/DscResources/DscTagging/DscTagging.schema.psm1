@@ -20,6 +20,10 @@ function Get-DscLcmControllerSummary {
     Import-Csv -Path C:\ProgramData\Dsc\LcmController\LcmControllerSummary.txt
 }
 
+function Start-DscConfiguration {
+    PSDesiredStateConfiguration\Start-DscConfiguration -UseExisting -Wait -Verbose
+}
+
 #-------------------------------------------------------------------------------------------
 
 Configuration DscTagging {
@@ -88,7 +92,7 @@ Configuration DscTagging {
         Force     = $true
     }
 
-    $visibleFunctions = 'Test-DscConfiguration', 'Get-DscConfigurationVersion', 'Update-DscConfiguration', 'Get-DscLcmControllerSummary'
+    $visibleFunctions = 'Test-DscConfiguration', 'Get-DscConfigurationVersion', 'Update-DscConfiguration', 'Get-DscLcmControllerSummary', 'Start-DscConfiguration'
     $functionDefinitions = @()
     foreach ($visibleFunction in $visibleFunctions) {
         $functionDefinitions += @{
@@ -99,7 +103,7 @@ Configuration DscTagging {
 
     JeaRoleCapabilities ReadDiagnosticsRole
     {
-        Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole .psrc'
+        Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole.psrc'
         VisibleFunctions = $visibleFunctions
         FunctionDefinitions = $functionDefinitions
     }
@@ -111,5 +115,6 @@ Configuration DscTagging {
         Name = 'DSC'
         RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
         SessionType = 'RestrictedRemoteServer'
+        ModulesToImport = 'PSDesiredStateConfiguration'
     }
 }
