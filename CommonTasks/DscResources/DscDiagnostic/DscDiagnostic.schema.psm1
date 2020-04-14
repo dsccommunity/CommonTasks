@@ -39,7 +39,7 @@ Configuration DscDiagnostic {
         } | ConvertTo-Expression
     }
 
-    JeaRoleCapabilities ReadDiagnosticsRole
+    JeaRoleCapabilities ReadDiagnosticRole
     {
         Path = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole.psrc'
         VisibleFunctions = $visibleFunctions
