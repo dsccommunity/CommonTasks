@@ -27,7 +27,6 @@ function Get-DscLcmControllerSettings {
 function Test-DscConfiguration {
     PSDesiredStateConfiguration\Test-DscConfiguration -Detailed -Verbose
 }
-
 function Update-DscConfiguration {
     PSDesiredStateConfiguration\Update-DscConfiguration -Wait -Verbose
 }
@@ -35,7 +34,6 @@ function Update-DscConfiguration {
 function Get-DscLocalConfigurationManager {
     PSDesiredStateConfiguration\Get-DscLocalConfigurationManager
 }
-
 function Get-DscLcmControllerSummary {
     param(
         [switch]$AutoCorrect,
@@ -79,7 +77,6 @@ function Start-DscConfiguration {
 function Get-DscOperationalEventLog {
     Get-WinEvent -LogName "Microsoft-Windows-Dsc/Operational"    
 }
-
 function Get-DscTraceInformation {
 
     param (
@@ -137,7 +134,7 @@ Configuration DscDiagnostic {
     JeaSessionConfiguration DscEndpoint
     {
         Ensure          = 'Present'
-        DependsOn       = '[JeaRoleCapabilities]ReadDiagnosticsRole'
+        DependsOn       = '[JeaRoleCapabilities]ReadDiagnosticRole'
         Name            = 'DSC'
         RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
         SessionType     = 'RestrictedRemoteServer'
