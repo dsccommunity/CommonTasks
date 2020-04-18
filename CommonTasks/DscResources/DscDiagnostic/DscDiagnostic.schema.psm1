@@ -1,3 +1,15 @@
+function Stop-DscLocalConfigurationManager {
+    #usually the process consuming the most memory is the DSC LCM
+    $p = Get-Process -Name WmiPrvSE -IncludeUserName |
+    Where-Object UserName -eq 'NT AUTHORITY\SYSTEM' |
+    Sort-Object -Property WS -Descending |
+    Select-Object -First 1
+
+    Write-Host "The LCM is running un process with $($p.Id) consuming $([System.Math]::Round($p.WS / 1MB, 2))MB of memory (Working Set)."
+    $p | Stop-Process -Force
+    Write-Host 'The LCM process was killed'
+}
+
 function Get-DscConfigurationVersion {
     $key = Get-Item HKLM:\SOFTWARE\DscTagging
     $hash = @{ }
@@ -55,7 +67,6 @@ function Get-DscLcmControllerLog {
         [int]$Last = 1000
     )
 
-
     Import-Csv -Path C:\ProgramData\Dsc\LcmController\LcmControllerSummary.txt | Where-Object {
         if ($AutoCorrect) {
             [bool][int]$_.DoAutoCorrect -eq $AutoCorrect
@@ -87,6 +98,7 @@ function Start-DscConfiguration {
 function Get-DscOperationalEventLog {
     Get-WinEvent -LogName "Microsoft-Windows-Dsc/Operational"
 }
+
 function Get-DscTraceInformation {
     param (
         [Parameter()]
@@ -124,7 +136,8 @@ Configuration DscDiagnostic {
     'Get-DscOperationalEventLog',
     'Get-DscTraceInformation',
     'Get-DscLcmControllerSettings',
-    'Get-DscLocalConfigurationManager'
+    'Get-DscLocalConfigurationManager',
+    'Stop-DscLocalConfigurationManager'
 
     $functionDefinitions = @()
     foreach ($visibleFunction in $visibleFunctions) {
