@@ -139,28 +139,36 @@ Configuration DscDiagnostic {
     'Get-DscLocalConfigurationManager',
     'Stop-DscLocalConfigurationManager'
 
-    $functionDefinitions = @()
-    foreach ($visibleFunction in $visibleFunctions) {
-        $functionDefinitions += @{
-            Name        = $visibleFunction
-            ScriptBlock = (Get-Command -Name $visibleFunction).ScriptBlock
-        } | ConvertTo-Expression
+    #$functionDefinitions = @()
+    #foreach ($visibleFunction in $visibleFunctions) {
+    #    $functionDefinitions += @{
+    #        Name        = $visibleFunction
+    #        ScriptBlock = (Get-Command -Name $visibleFunction).ScriptBlock
+    #    } | ConvertTo-Expression
+    #}
+
+    File Dummy
+    {
+        Ensure = 'Present'
+        DestinationPath = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole.psrc'
+        Type = 'File'
+        Contents = 'Dummy'
     }
 
-    JeaRoleCapabilities ReadDiagnosticRole
-    {
-        Path                = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole.psrc'
-        VisibleFunctions    = $visibleFunctions
-        FunctionDefinitions = $functionDefinitions
-    }
+    #JeaRoleCapabilities ReadDiagnosticRole
+    #{
+    #    Path                = 'C:\Program Files\WindowsPowerShell\Modules\DscDiagnostics\RoleCapabilities\ReadDiagnosticsRole.psrc'
+    #    VisibleFunctions    = $visibleFunctions
+    #    FunctionDefinitions = $functionDefinitions
+    #}
 
-    JeaSessionConfiguration DscEndpoint
-    {
-        Ensure          = 'Present'
-        DependsOn       = '[JeaRoleCapabilities]ReadDiagnosticRole'
-        Name            = 'DSC'
-        RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
-        SessionType     = 'RestrictedRemoteServer'
-        ModulesToImport = 'PSDesiredStateConfiguration', 'xDscDiagnostics'
-    }
+    #JeaSessionConfiguration DscEndpoint
+    #{
+    #    Ensure          = 'Present'
+    #    DependsOn       = '[JeaRoleCapabilities]ReadDiagnosticRole'
+    #    Name            = 'DSC'
+    #    RoleDefinitions = '@{ Everyone = @{ RoleCapabilities = "ReadDiagnosticsRole" } }'
+    #    SessionType     = 'RestrictedRemoteServer'
+    #    ModulesToImport = 'PSDesiredStateConfiguration', 'xDscDiagnostics'
+    #}
 }
