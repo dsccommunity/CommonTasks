@@ -1,9 +1,9 @@
 @{
-    RootModule           = 'ChocolateyPackages.schema.psm1'
+    RootModule           = 'DscDiagnostic.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
-    GUID                 = 'c2e40a6d-e9af-4a8c-a7c2-abcd78b41bde'
+    GUID                 = '20392fe9-270d-4295-af2c-0749dd015596'
 
     Author               = 'NA'
 
@@ -15,5 +15,5 @@
     #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
     #)
 
-    DscResourcesToExport = @('ChocolateyPackages')
+    DscResourcesToExport = @('DscDiagnostic')
 }
