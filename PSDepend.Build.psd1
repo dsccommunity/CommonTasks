@@ -11,7 +11,7 @@
     #Modules
     BuildHelpers                 = 'latest'
     InvokeBuild                  = 'latest'
-    Pester                       = 'latest'
+    Pester                       = '4.10.1'
     PSScriptAnalyzer             = 'latest'
     PSDeploy                     = 'latest'
     ProtectedData                = 'latest'
