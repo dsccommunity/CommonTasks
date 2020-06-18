@@ -18,7 +18,7 @@
         $UseSecurityBestPractices = $false
     )
 
-    Import-DSCResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 8.10.0.0
+    Import-DSCResource -ModuleName xPSDesiredStateConfiguration -ModuleVersion 9.1.0
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xDscWebService PSDSCPullServer 
