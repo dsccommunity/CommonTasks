@@ -30,11 +30,8 @@ configuration Domain
         [pscredential]
         $SafeModePassword
     )
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 4.2.0.0
-    
-    $DomainAdministrator = Lookup Domain/DomainAdministrator
-    $SafeModePassword = Lookup Domain/SafeModePassword
-    
+    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
+        
     WindowsFeature ADDS
     {
         Name   = 'AD-Domain-Services'

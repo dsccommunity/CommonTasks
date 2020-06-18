@@ -11,7 +11,7 @@ configuration OrgUnitsAndGroups
         $Node
     )
 
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 4.2.0.0
+    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
 
     $domainDn = lookup Domain/DomainDn
 
@@ -65,8 +65,6 @@ configuration OrgUnitsAndGroups
             }
         }        
     }
-    
-    # Ueber OUs auf erster Ebene iterieren
     
     foreach ($ou in $items)
     {

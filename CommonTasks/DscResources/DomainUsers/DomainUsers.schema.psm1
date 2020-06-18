@@ -6,7 +6,7 @@ configuration DomainUsers
         $Users
     )
 
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 4.2.0.0
+    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
     $domainName = lookup Domain/DomainName
 
     foreach ($user in $Users)

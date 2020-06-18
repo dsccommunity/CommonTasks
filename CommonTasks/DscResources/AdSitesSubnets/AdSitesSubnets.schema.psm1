@@ -9,7 +9,7 @@ configuration AdSitesSubnets
         $Subnets
     )
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 4.2.0.0
+    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
 
     $siteDependencies = @()
     foreach ($site in $Sites)
