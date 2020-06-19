@@ -16,6 +16,36 @@
             NodeName    = 'localhost_DscTagging'
             Environment = 'Dev'
         }
+        @{
+            NodeName                    = 'localhost_AdSitesSubnets'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
+            NodeName                    = 'localhost_DfsNamespace'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
+            NodeName                    = 'localhost_Domain'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
+            NodeName                    = 'localhost_DomainUsers'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
+        @{
+            NodeName                    = 'localhost_OrgUnitsAndGroups'
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+            Environment                 = 'Dev'
+        }
     )
 
     FilesAndFolders          = @{
@@ -34,10 +64,120 @@
                 Recurse         = $true
                 SourcePath      = 'C:\Source'
                 Type            = 'Directory'
+            },
+            @{
+                DestinationPath = 'C:\TestShare'
+                Ensure          = 'Present'
+                Force           = $true
+                Type            = 'Directory'
+                ShareName       = 'ItsAShare'
+            }
+        )
+    }
+    AdSitesSubnets           = @{
+        Sites   = @(
+            @{
+                Name                       = 'Sparta'
+                RenameDefaultFirstSiteName = $true
+            }
+            @{
+                Name = 'Site1'
+            }
+        )
+        Subnets = @(
+            @{
+                Name     = '10.0.0.0/24'
+                Site     = 'Sparta'
+                Location = 'Sparta'
+            }
+        )
+    }
+    DfsNamespaces            = @{
+        NamespaceConfig = @(
+            @{
+                Sharename = 'ADMINSHARE'
+                Targets   = @('DscFile01', 'DscFile02')
+            }
+        )
+    }
+    Domain                   = @{
+        DomainFqdn          = 'contoso.com'
+        DomainName          = 'contoso'
+        DomainDN            = 'DC=contoso,DC=com'
+        DomainJoinAccount   = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+        DomainAdministrator = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+        SafeModePassword    = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+        DomainTrust         = @(
+            @{
+                Fqdn       = 'northwindtraders.com'
+                Name       = 'northwindtraders'
+                Credential = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            }
+        )
+    }
+    DomainUsers              = @{
+        Users = @(
+            @{
+                UserName = 'test1'
+                Password = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            }
+            @{
+                UserName = 'test2'
+                Password = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+            }
+        )
+    }
+    IpConfiguration          = @{
+        Adapter = @(
+            @{
+                MacAddress       = '00-17-FB-00-00-0A'
+                NewName          = '1GB1_MGMT'
+                IPAddress        = '10.0.0.33/23'
+                AddressFamily    = 'IPv4'
+                GatewayAddress   = '1.2.3.4'
+                DnsServerAddress = @(
+                    '1.2.3.4'
+                    '2.3.4.5'
+                )
+                DisableIpv6      = $true
+            }
+            @{
+                MacAddress    = '00-17-FB-00-00-0B'
+                NewName       = 'STORAGE'
+                IPAddress     = '10.2.0.33/24'
+                AddressFamily = 'IPv4'
+                DisableIpv6   = $true
             }
         )
     }
 
+    OrgUnitsAndGroups        = @{
+        Items  = @(
+            @{
+                Name    = 'Admin'
+                Path    = 'DC=contoso,DC=com'
+                ChildOu = @(
+                    @{Name = 'Groups' }
+                )
+            }
+        )
+        Groups = @(
+            @{
+                GroupName  = 'App_123_Read'
+                Path       = 'OU=Groups,OU=Admin'
+                GroupScope = 'DomainLocal'
+            }
+        )
+    }
+    
+    Wds                      = @{
+        RemInstPath = 'C:\RemInst'
+        RunAsUser   = (New-Object pscredential('contoso\test1', ('Password1' | ConvertTo-SecureString -AsPlainText -Force)))
+        ScopeStart  = '2.1.32.1'
+        ScopeEnd    = '2.1.33.254'
+        ScopeId     = '2.1.32.0'
+        SubnetMask  = '255.255.254.0'
+    }
     WindowsFeatures          = @{
         Name = 'XPS-Viewer', '-Web-Server'
     }
