@@ -20,8 +20,9 @@ configuration Wds
         [string]
         $SubnetMask
     )
-    Import-DscResource -ModuleName WdsDsc -ModuleVersion 0.11.0
-    Import-DscResource -ModuleName xDhcpServer -ModuleVersion 2.0.0.0
+
+    Import-DscResource -ModuleName WdsDsc
+    Import-DscResource -ModuleName xDhcpServer
 
     $domainName = Lookup Domain\DomainName
     $nodeEnv = Lookup Environment

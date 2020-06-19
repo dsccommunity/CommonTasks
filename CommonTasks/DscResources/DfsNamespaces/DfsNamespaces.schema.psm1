@@ -9,7 +9,7 @@ configuration DfsNamespaces
         $DomainCredential
     )
 
-    Import-DscResource -ModuleName DfsDsc -ModuleVersion 4.4.0.0
+    Import-DscResource -ModuleName DfsDsc
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     $DomainFqdn = Lookup Domain/DomainFqdn

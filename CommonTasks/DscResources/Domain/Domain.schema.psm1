@@ -30,7 +30,8 @@ configuration Domain
         [pscredential]
         $SafeModePassword
     )
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
+
+    Import-DscResource -ModuleName ActiveDirectoryDsc
         
     WindowsFeature ADDS
     {

@@ -11,7 +11,7 @@ configuration OrgUnitsAndGroups
         $Node
     )
 
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
+    Import-DscResource -ModuleName ActiveDirectoryDsc
 
     $domainDn = lookup Domain/DomainDn
 

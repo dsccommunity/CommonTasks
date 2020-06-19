@@ -8,8 +8,9 @@ configuration AdSitesSubnets
         [hashtable[]]
         $Subnets
     )
+    
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName ActiveDirectoryDsc -ModuleVersion 6.0.1
+    Import-DscResource -ModuleName ActiveDirectoryDsc
 
     $siteDependencies = @()
     foreach ($site in $Sites)
