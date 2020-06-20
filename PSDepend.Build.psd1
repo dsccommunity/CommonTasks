@@ -16,6 +16,8 @@
     PSDeploy                     = 'latest'
     ProtectedData                = 'latest'
     DscBuildHelpers              = 'latest'
+    Datum                        = 'latest'
+    'powershell-yaml'            = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
