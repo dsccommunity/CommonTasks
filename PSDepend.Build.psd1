@@ -18,6 +18,7 @@
     DscBuildHelpers              = 'latest'
     Datum                        = 'latest'
     'powershell-yaml'            = 'latest'
+    'Datum.ProtectedData'        = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
