@@ -24,9 +24,6 @@ configuration Wds
     Import-DscResource -ModuleName WdsDsc
     Import-DscResource -ModuleName xDhcpServer
 
-    $domainName = Lookup Domain\DomainName
-    $nodeEnv = Lookup Environment
-
     xDhcpServerScope clientScope
     {
         ScopeId      = $ScopeId
