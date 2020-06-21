@@ -1,27 +1,24 @@
-﻿$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+﻿Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe "DfsNamespaces DSC Resource compiles" -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe "DfsNamespaces DSC Resource compiles" -Tags 'FunctionalQuality' {
     It "DfsNamespaces Compiles" {
-        function Lookup {}
-        Mock -CommandName Lookup -MockWith {'contoso.comdoesnotmatter'}
+
+        #Mock -CommandName Lookup -MockWith { 'contoso.comdoesnotmatter' }
+        
         configuration "Config_DfsNamespaces" {
 
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_DfsNamespaces" {
                 DfsNamespaces dfsn {
-                    NamespaceConfig = $ConfigurationData.DfsNamespace.NamespaceConfig
+                    NamespaceConfig = $configurationData.Datum.Config.DfsNamespace.NamespaceConfig
                 }
             }
         }
 
-        { & "Config_DfsNamespaces" -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { & "Config_DfsNamespaces" -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It "DfsNamespaces should have created a mof file" {

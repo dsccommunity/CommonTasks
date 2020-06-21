@@ -1,23 +1,20 @@
-﻿$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+﻿Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe "PullServer DSC Resource compiles" -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe "PullServer DSC Resource compiles" -Tags 'FunctionalQuality' {
     It "PullServer Compiles" {
+
         configuration "Config_PullServer" {
 
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_PullServer" {
-                PullServer pulley { }
+                PullServer pull { }
             }
         }
 
-        { & "Config_PullServer" -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { & "Config_PullServer" -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It "PullServer should have created a mof file" {

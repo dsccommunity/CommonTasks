@@ -1,0 +1,11 @@
+Rules:
+  - Name: Any-AnyTest
+    DisplayName: Any-Any Test
+    Enabled: True
+    Description: Allow All Inbound Trafic
+    Direction: Inbound
+    Profile: Any
+    Action: Allow
+    LocalPort: Any
+    RemotePort: Any
+    Protocol: Any

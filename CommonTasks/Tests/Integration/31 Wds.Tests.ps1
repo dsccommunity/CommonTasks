@@ -1,32 +1,27 @@
-﻿$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+﻿Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe "Wds DSC Resource compiles" -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe "Wds DSC Resource compiles" -Tags 'FunctionalQuality' {
     It "Wds Compiles" {
-        configuration "Config_Wds" {
-            function Lookup {}
-            Mock -CommandName Lookup -MockWith {'contoso.comdoesnotmatter'}
 
+        configuration "Config_Wds" {
+        
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_Wds" {
                 Wds wds {
-                    RemInstPath = $ConfigurationData.Wds.RemInstPath
-                    RunAsUser = $ConfigurationData.Wds.RunAsUser
-                    ScopeStart = $ConfigurationData.Wds.ScopeStart
-                    ScopeEnd = $ConfigurationData.Wds.ScopeEnd
-                    ScopeId = $ConfigurationData.Wds.ScopeId
-                    SubnetMask = $ConfigurationData.Wds.SubnetMask
+                    RemInstPath = $configurationData.Datum.Config.Wds.RemInstPath
+                    RunAsUser = $configurationData.Datum.Config.Wds.RunAsUser
+                    ScopeStart = $configurationData.Datum.Config.Wds.ScopeStart
+                    ScopeEnd = $configurationData.Datum.Config.Wds.ScopeEnd
+                    ScopeId = $configurationData.Datum.Config.Wds.ScopeId
+                    SubnetMask = $configurationData.Datum.Config.Wds.SubnetMask
                  }
             }
         }
 
-        { & "Config_Wds" -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { & "Config_Wds" -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It "Wds should have created a mof file" {

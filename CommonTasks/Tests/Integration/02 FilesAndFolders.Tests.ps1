@@ -1,26 +1,22 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
-
-Import-Module -Name DscBuildHelpers
-
-Describe 'FilesAndFolders DSC Resource compiles' -Tags 'FunctionalQuality' {
+Describe 'FilesAndFolders DSC Resource compiles' -Tags FunctionalQuality {
 
     It 'FilesAndFolders Compiles' {
+        
         configuration Config_FilesAndFolders {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_FilesAndFolders {
                 FilesAndFolders filesAndFolders {
-                    Items = $ConfigurationData.FilesAndFolders.Items
+                    Items = $configurationData.Datum.Config.FilesAndFolders.Items
                 }
             }
         }
 
-        { Config_FilesAndFolders -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_FilesAndFolders -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'FilesAndFolders should have created a mof file' {

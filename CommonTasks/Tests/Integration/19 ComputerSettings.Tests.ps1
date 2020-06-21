@@ -1,27 +1,24 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'ComputerSettings DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'ComputerSettings DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'ComputerSettings Compiles' {
+
         configuration Config_ComputerSettings {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_ComputerSettings {
                 ComputerSettings settings {
-                    TimeZone = $ConfigurationData.ComputerSettings.TimeZone
-                    Name = $ConfigurationData.ComputerSettings.Name
-                    Description = $ConfigurationData.ComputerSettings.Description
+                    TimeZone = $configurationData.Datum.Config.ComputerSettings.TimeZone
+                    Name = $configurationData.Datum.Config.ComputerSettings.Name
+                    Description = $configurationData.Datum.Config.ComputerSettings.Description
                 }
             }
         }
 
-        { Config_ComputerSettings -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_ComputerSettings -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'ComputerSettings should have created a mof file' {

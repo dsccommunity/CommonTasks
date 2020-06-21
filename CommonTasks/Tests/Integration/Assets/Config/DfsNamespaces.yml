@@ -1,0 +1,9 @@
+NamespaceConfig:
+  - Sharename: AdminShare
+    Targets:
+      - DscFile01
+      - DscFile02
+  - Sharename: Software
+    Targets:
+      - DscFile01
+      - DscFile02

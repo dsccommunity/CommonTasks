@@ -1,0 +1,9 @@
+ResolutionPrecedence:
+- Config
+
+default_lookup_options: MostSpecific
+
+DatumHandlers:
+  Datum.ProtectedData::ProtectedDatum:
+    CommandOptions:
+      PlainTextPassword: Somepass1

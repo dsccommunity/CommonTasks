@@ -1,0 +1,7 @@
+Packages:
+  - Name: Software One
+    Path: \\Server\Share\SoftwareOne\SoftwareOne.msi
+    ProductId: aa859ee6-4f64-439a-85c0-bc1207886cb6
+  - Name: Software Two
+    Path: \\Server\Share\SoftwareOne\SoftwareTwo.msi
+    ProductId: 734f1912-01b1-4f50-8bba-9c3f8912ee8d

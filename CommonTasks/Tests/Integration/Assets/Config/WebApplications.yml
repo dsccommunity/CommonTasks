@@ -1,0 +1,9 @@
+Items:
+  - Name: TestApp1
+    PhysicalPath: C:\InetPub\WebApplications1
+    WebAppPool: TestApp1
+    WebSite: TestSite1
+  - Name: TestApp2
+    PhysicalPath: C:\InetPub\WebApplications2
+    WebAppPool: TestApp2
+    WebSite: TestSite2

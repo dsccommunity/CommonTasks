@@ -1,12 +1,8 @@
-﻿$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+﻿Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe "Domain DSC Resource compiles" -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe "Domain DSC Resource compiles" -Tags 'FunctionalQuality' {
     It "Domain Compiles" {
 
         configuration "Config_Domain" {
@@ -15,18 +11,18 @@ Describe "Domain DSC Resource compiles" -Tags 'FunctionalQuality' {
 
             node "localhost_Domain" {
                 Domain domain {
-                    DomainFqdn = $ConfigurationData.Domain.DomainFqdn
-                    DomainName = $ConfigurationData.Domain.DomainName
-                    DomainDN = $ConfigurationData.Domain.DomainDN
-                    DomainJoinAccount = $ConfigurationData.Domain.DomainJoinAccount
-                    DomainAdministrator = $ConfigurationData.Domain.DomainAdministrator
-                    SafeModePassword = $ConfigurationData.Domain.SafeModePassword
-                    DomainTrust = $ConfigurationData.Domain.DomainTrust
+                    DomainFqdn = $configurationData.Datum.Config.Domain.DomainFqdn
+                    DomainName = $configurationData.Datum.Config.Domain.DomainName
+                    DomainDN = $configurationData.Datum.Config.Domain.DomainDN
+                    DomainJoinAccount = $configurationData.Datum.Config.Domain.DomainJoinAccount
+                    DomainAdministrator = $configurationData.Datum.Config.Domain.DomainAdministrator
+                    SafeModePassword = $configurationData.Datum.Config.Domain.SafeModePassword
+                    DomainTrust = $configurationData.Datum.Config.Domain.DomainTrust
                 }
             }
         }
 
-        { & "Config_Domain" -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { & "Config_Domain" -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It "Domain should have created a mof file" {

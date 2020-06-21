@@ -1,30 +1,27 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'NetworkIpConfiguration DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'NetworkIpConfiguration DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'NetworkIpConfiguration Compiles' {
+
         configuration Config_NetworkIpConfiguration {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_NetworkIpConfiguration {
                 NetworkIpConfiguration ipConfiguration {
-                    IpAddress      = $ConfigurationData.NetworkIpConfiguration.IpAddress
-                    Prefix         = $ConfigurationData.NetworkIpConfiguration.Prefix
-                    Gateway        = $ConfigurationData.NetworkIpConfiguration.Gateway
-                    DnsServer      = $ConfigurationData.NetworkIpConfiguration.DnsServer
-                    InterfaceAlias = $ConfigurationData.NetworkIpConfiguration.InterfaceAlias
-                    DisableNetbios = $ConfigurationData.NetworkIpConfiguration.DisableNetbios
+                    IpAddress      = $configurationData.Datum.Config.NetworkIpConfiguration.IpAddress
+                    Prefix         = $configurationData.Datum.Config.NetworkIpConfiguration.Prefix
+                    Gateway        = $configurationData.Datum.Config.NetworkIpConfiguration.Gateway
+                    DnsServer      = $configurationData.Datum.Config.NetworkIpConfiguration.DnsServer
+                    InterfaceAlias = $configurationData.Datum.Config.NetworkIpConfiguration.InterfaceAlias
+                    DisableNetbios = $configurationData.Datum.Config.NetworkIpConfiguration.DisableNetbios
                 }
             }
         }
 
-        { Config_NetworkIpConfiguration -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_NetworkIpConfiguration -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'NetworkIpConfiguration should have created a mof file' {

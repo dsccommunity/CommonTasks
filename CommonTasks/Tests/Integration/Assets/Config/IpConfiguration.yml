@@ -1,0 +1,15 @@
+Adapter:
+  - MacAddress: 00-17-FB-00-00-0A
+    NewName: 1GB1_MGMT
+    IPAddress: 10.0.0.33/23
+    AddressFamily: IPv4
+    GatewayAddress: 1.2.3.4
+    DnsServerAddress:
+      - 1.2.3.4
+      - 2.3.4.5
+    DisableIpv6: true
+  - MacAddress: 00-17-FB-00-00-0B
+    NewName: STORAGE
+    IPAddress: 10.2.0.33/24
+    AddressFamily: IPv4
+    DisableIpv6: true

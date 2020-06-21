@@ -1,25 +1,22 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'FirewallProfiles DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'FirewallProfiles DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'FirewallProfiles Compiles' {
+
         configuration Config_FirewallProfiles {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_FirewallProfiles {
                 FirewallProfiles settings {
-                    Profile = $ConfigurationData.FirewallProfiles.Profile
+                    Profile = $configurationData.Datum.Config.FirewallProfiles.Profile
                 }
             }
         }
 
-        { Config_FirewallProfiles -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_FirewallProfiles -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'FirewallProfiles should have created a mof file' {

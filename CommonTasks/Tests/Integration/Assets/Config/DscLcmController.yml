@@ -1,0 +1,8 @@
+MaintenanceWindowMode: AutoCorrect
+MonitorInterval: 02:00:00
+AutoCorrectInterval: 00:15:00
+AutoCorrectIntervalOverride: false
+RefreshInterval: 04:00:00
+RefreshIntervalOverride: false
+ControllerInterval: 00:15:00
+MaintenanceWindowOverride: false

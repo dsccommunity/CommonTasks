@@ -1,0 +1,9 @@
+Items:
+  - Name: VirtualDirectory1
+    PhysicalPath: C:\InetPub\VirtualDirectory1
+    WebApplication: TestApp1
+    WebSite: TestSite1
+  - Name: VirtualDirectory2
+    PhysicalPath: C:\InetPub\VirtualDirectory2
+    WebApplication: TestApp1
+    WebSite: TestSite1

@@ -1,25 +1,22 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
-
-Import-Module -Name DscBuildHelpers
-
-Describe 'SoftwarePackages DSC Resource compiles' -Tags 'FunctionalQuality' {
+Describe 'SoftwarePackages DSC Resource compiles' -Tags FunctionalQuality {
+    
     It 'SoftwarePackages Compiles' {
+
         configuration Config_SoftwarePackages {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_SoftwarePackages {
                 SoftwarePackages SoftwarePackages {
-                    Package = $ConfigurationData.SoftwarePackages.Packages
+                    Package = $configurationData.Datum.Config.SoftwarePackages.Packages
                 }
             }
         }
 
-        { Config_SoftwarePackages -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_SoftwarePackages -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'SoftwarePackages should have created a mof file' {

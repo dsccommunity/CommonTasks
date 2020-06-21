@@ -1,25 +1,22 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'WindowsServices DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'WindowsServices DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'WindowsServices Compiles' {
+
         configuration Config_WindowsServices {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_WindowsServices {
                 WindowsServices windowsServices {
-                    Services = $ConfigurationData.WindowsServices.Services
+                    Services = $configurationData.Datum.Config.WindowsServices.Services
                 }
             }
         }
 
-        { Config_WindowsServices -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_WindowsServices -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'WindowsServices should have created a mof file' {

@@ -1,0 +1,13 @@
+Items:
+  - Name: Admin
+    Path: DC=contoso,DC=com
+    ChildOu:
+      - Name: Groups
+      - Name: Computers
+Groups:
+  - GroupName: App_123_Read
+    Path: OU=Groups,OU=Admin
+    GroupScope: DomainLocal
+  - GroupName: App_123_Write
+    Path: OU=Groups,OU=Admin
+    GroupScope: Global

@@ -1,26 +1,23 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'Network DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'Network DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'Network Compiles' {
+
         configuration Config_Network {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_Network {
                 Network network {
-                    NetworkZone = $ConfigurationData.Network.NetworkZone
-                    MtuSize     = $ConfigurationData.Network.MtuSize
+                    NetworkZone = $configurationData.Datum.Config.Network.NetworkZone
+                    MtuSize     = $configurationData.Datum.Config.Network.MtuSize
                 }
             }
         }
 
-        { Config_Network -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_Network -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'Network should have created a mof file' {

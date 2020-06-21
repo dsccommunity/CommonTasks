@@ -1,0 +1,7 @@
+Profile:
+  Name: Private
+  Enabled: True
+  DefaultInboundAction: Block
+  DefaultOutboundAction: Allow
+  AllowInboundRules: True
+  AllowLocalFirewallRules: False
