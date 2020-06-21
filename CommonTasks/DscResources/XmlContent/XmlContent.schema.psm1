@@ -7,6 +7,10 @@ Configuration XmlContent {
     Import-DscResource -ModuleName XmlContentDsc
 
     foreach ($xmlRecord in $XmlData) {
-        (Get-DscSplattedResource -ResourceName XmlFileContentResource -ExecutionName $xmlRecord.Path -Properties $xmlRecord -NoInvoke).Invoke($xmlRecord)
+        if ($xmlRecord.Attributes -is [System.Collections.Specialized.OrderedDictionary])
+        {
+            $xmlRecord.Attributes = [hashtable]$xmlRecord.Attributes
+        }
+        (Get-DscSplattedResource -ResourceName XmlFileContentResource -ExecutionName ($xmlRecord.Path + '_' + $xmlRecord.XPath) -Properties $xmlRecord -NoInvoke).Invoke($xmlRecord)
     }
 }
