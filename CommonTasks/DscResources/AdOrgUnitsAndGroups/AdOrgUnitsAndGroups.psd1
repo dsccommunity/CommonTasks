@@ -1,25 +1,15 @@
 @{
-    # Script module or binary module file associated with this manifest.
     RootModule           = 'AdOrgUnitsAndGroups.schema.psm1'
 
-    # Version number of this module.
     ModuleVersion        = '0.0.1'
 
-    # ID used to uniquely identify this module
-    GUID                 = '06f7eb99-05a9-4476-8530-e4d28030fe70'
+    GUID                 = 'c0b4bbd5-013e-440a-a472-7c0183b48400'
 
-    # Author of this module
     Author               = 'NA'
 
-    # Company or vendor of this module
     CompanyName          = 'NA'
 
-    # Copyright statement for this module
     Copyright            = 'NA'
 
-    # Modules that must be imported into the global environment prior to importing this module
-    RequiredModules      = @()
-
-    # DSC resources to export from this module
     DscResourcesToExport = @('AdOrgUnitsAndGroups')
 }
