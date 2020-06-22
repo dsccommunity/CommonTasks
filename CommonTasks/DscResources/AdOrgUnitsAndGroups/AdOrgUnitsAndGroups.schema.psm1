@@ -1,9 +1,9 @@
-configuration OrgUnitsAndGroups
+configuration AdOrgUnitsAndGroups
 {
     param
     (
         [object[]]
-        $Items,
+        $OrgUnits,
 
         [object[]]
         $Groups,
@@ -21,11 +21,13 @@ configuration OrgUnitsAndGroups
     }
 
     $script:ouDependencies = @()
+    
     function Get-OrgUnitSplat
     {
         param
         (
-            $object,
+            [object]
+            $Object,
 
             [string]
             $ParentPath,
@@ -34,24 +36,24 @@ configuration OrgUnitsAndGroups
             $SkipDepend
         )
 
-        $ouPath = 'OU={0},{1}' -f $object.Name, $ParentPath
-        if ($object.ChildOu.Count -gt 0)
+        $ouPath = 'OU={0},{1}' -f $Object.Name, $ParentPath
+        if ($Object.ChildOu.Count -gt 0)
         {
-            foreach ($ou in $object.ChildOu)
+            foreach ($ou in $Object.ChildOu)
             {
                 Get-OrgUnitSplat $ou $ouPath
             }
         }
 
-        $object.Path = $ParentPath
+        $Object.Path = $ParentPath
         $script:ouDependencies += "[ADOrganizationalUnit]$($ouPath -Replace ',|=')"
         
         if ($SkipDepend)
         {
             ADOrganizationalUnit ($ouPath -Replace ',|=')
             {
-                Name      = $object.Name
-                Path      = $object.Path
+                Name      = $Object.Name
+                Path      = $Object.Path
                 DependsOn = '[WaitForADDomain]Domain'
             }
         }
@@ -59,14 +61,14 @@ configuration OrgUnitsAndGroups
         {
             ADOrganizationalUnit ($ouPath -Replace ',|=')
             {
-                Name      = $object.Name
-                Path      = $object.Path
+                Name      = $Object.Name
+                Path      = $Object.Path
                 DependsOn = "[ADOrganizationalUnit]$($ParentPath -Replace ',|=')"
             }
         }        
     }
     
-    foreach ($ou in $items)
+    foreach ($ou in $AdOrgUnits)
     {
         Get-OrgUnitSplat $ou $ou.Path -SkipDepend
     }

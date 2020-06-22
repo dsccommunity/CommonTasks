@@ -1,4 +1,4 @@
-Items:
+OrgUnits:
   - Name: Admin
     Path: DC=contoso,DC=com
     ChildOu:
