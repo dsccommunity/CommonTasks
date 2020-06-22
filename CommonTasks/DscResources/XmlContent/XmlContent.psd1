@@ -11,9 +11,5 @@
 
     Copyright            = 'NA'
 
-    #RequiredModules      = @(
-    #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
-    #)
-
     DscResourcesToExport = @('XmlContent')
 }

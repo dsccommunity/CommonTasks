@@ -11,7 +11,5 @@
 
     Copyright            = 'NA'
 
-    #RequiredModules      = @('PSDesiredStateConfiguration')
-
     DscResourcesToExport = @('WebVirtualDirectories')
 }

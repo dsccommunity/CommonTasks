@@ -5,8 +5,6 @@ Describe "DfsNamespaces DSC Resource compiles" -Tags FunctionalQuality {
 
     It "DfsNamespaces Compiles" {
 
-        #Mock -CommandName Lookup -MockWith { 'contoso.comdoesnotmatter' }
-        
         configuration "Config_DfsNamespaces" {
 
             Import-DscResource -ModuleName CommonTasks
