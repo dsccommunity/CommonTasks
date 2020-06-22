@@ -1,4 +1,4 @@
-configuration DomainUsers
+configuration AdDomainUsers
 {
     param
     (
