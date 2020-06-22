@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'AdOrgUnitsAndGroups.schema.psm1'
+    RootModule           = 'AddsOrgUnitsAndGroups.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -11,5 +11,5 @@
 
     Copyright            = 'NA'
 
-    DscResourcesToExport = @('AdOrgUnitsAndGroups')
+    DscResourcesToExport = @('AddsOrgUnitsAndGroups')
 }

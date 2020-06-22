@@ -1,4 +1,4 @@
-configuration AdOrgUnitsAndGroups
+configuration AddsOrgUnitsAndGroups
 {
     param
     (
@@ -13,11 +13,11 @@ configuration AdOrgUnitsAndGroups
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
-    $domainDn = lookup Domain/DomainDn
+    $domainDn = lookup AddsDomain/DomainDn
 
     WaitForADDomain Domain
     {
-        DomainName = Lookup Domain/DomainName
+        DomainName = Lookup AddsDomain/DomainName
     }
 
     $script:ouDependencies = @()

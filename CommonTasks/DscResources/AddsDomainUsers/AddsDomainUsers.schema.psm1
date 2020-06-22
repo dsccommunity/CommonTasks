@@ -1,4 +1,4 @@
-configuration AdDomainUsers
+configuration AddsDomainUsers
 {
     param
     (
@@ -8,7 +8,7 @@ configuration AdDomainUsers
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
     
-    $domainName = lookup Domain/DomainName
+    $domainName = lookup AddsDomain/DomainName
 
     foreach ($user in $Users)
     {

@@ -1,4 +1,4 @@
-configuration AdSitesSubnets
+configuration AddsSitesSubnets
 {
     param
     (

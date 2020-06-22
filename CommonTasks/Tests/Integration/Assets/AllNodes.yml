@@ -14,11 +14,11 @@
   PSDscAllowPlainTextPassword: true
   PSDscAllowDomainUser: true
   Environment: Dev
-- NodeName: localhost_AdDomain
+- NodeName: localhost_AddsDomain
   PSDscAllowPlainTextPassword: true
   PSDscAllowDomainUser: true
   Environment: Dev
-- NodeName: localhost_AdDomainUsers
+- NodeName: localhost_AddsDomainUsers
   PSDscAllowPlainTextPassword: true
   PSDscAllowDomainUser: true
   Environment: Dev

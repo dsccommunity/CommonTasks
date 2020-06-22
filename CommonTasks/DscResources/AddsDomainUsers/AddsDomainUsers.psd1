@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'AdDomainUsers.schema.psm1'
+    RootModule           = 'AddsDomainUsers.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -11,5 +11,5 @@
 
     Copyright            = 'NA'
 
-    DscResourcesToExport = @('AdDomainUsers')
+    DscResourcesToExport = @('AddsDomainUsers')
 }

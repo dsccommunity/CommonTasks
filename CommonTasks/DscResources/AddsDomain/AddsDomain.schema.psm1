@@ -1,4 +1,4 @@
-configuration AdDomain
+configuration AddsDomain
 {
     param
     (
