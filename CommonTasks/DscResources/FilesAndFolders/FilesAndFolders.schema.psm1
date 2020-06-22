@@ -3,31 +3,17 @@ Configuration FilesAndFolders {
         [Parameter(Mandatory)]
         [hashtable[]]$Items
     )
-
+    
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName ComputerManagementDsc
 
-    foreach ($item in $Items)
-    {
-
-        $shareName = $item.ShareName
-        $item.Remove('ShareName')
+    foreach ($item in $Items) {
+        
         if (-not $item.ContainsKey('Ensure'))
         {
             $item.Ensure = 'Present'
         }
 
-        $resourceName = "$($item.DestinationPath -replace '\s|:|\\|\.')$((New-Guid).Guid)"
-        (Get-DscSplattedResource -ResourceName File -ExecutionName $resourceName -Properties $item -NoInvoke).Invoke($item)
-
-        if ($ShareName)
-        {
-            SmbShare $shareName
-            {
-                Name      = $ShareName
-                Path      = $Item.DestinationPath
-                DependsOn = "[File]$resourceName"
-            }
-        }
+        $executionName = $item.DestinationPath -replace ':', ''
+        (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

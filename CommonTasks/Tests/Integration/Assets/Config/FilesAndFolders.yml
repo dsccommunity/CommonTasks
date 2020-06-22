@@ -14,4 +14,3 @@ Items:
     Ensure: Present
     Force: true
     Type: Directory
-    ShareName: ItsAShare
