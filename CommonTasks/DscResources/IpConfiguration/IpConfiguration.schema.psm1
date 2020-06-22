@@ -6,7 +6,7 @@ configuration IpConfiguration
         $Adapter
     )
 
-    Import-DscResource -ModuleName NetworkingDsc -ModuleVersion 7.4.0.0
+    Import-DscResource -ModuleName NetworkingDsc
 
     foreach ($nic in $Adapter)
     {

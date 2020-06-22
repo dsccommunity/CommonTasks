@@ -5,7 +5,7 @@ Configuration FilesAndFolders {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName ComputerManagementDsc -ModuleVersion 8.2.0
+    Import-DscResource -ModuleName ComputerManagementDsc
 
     foreach ($item in $Items)
     {
