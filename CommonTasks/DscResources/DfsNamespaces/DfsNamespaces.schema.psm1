@@ -13,7 +13,7 @@ configuration DfsNamespaces
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     $DomainFqdn = Lookup AddsDomain/DomainFqdn
-    $DomainCredential = AddsLookup Domain/DomainAdministrator
+    $DomainCredential = Lookup AddsDomain/DomainAdministrator
 
     DFSNamespaceServerConfiguration DFSNamespaceConfig
     {
