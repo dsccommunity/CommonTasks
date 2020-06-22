@@ -6,11 +6,11 @@ configuration AddsDomainController
         [string]
         $DomainName,
 
-        [Parameter()]
+        [Parameter(Mandatory)]
         [pscredential]
         $Credential,
 
-        [Parameter()]
+        [Parameter(Mandatory)]
         [pscredential]
         $SafeModeAdministratorPassword,
 
@@ -61,7 +61,7 @@ configuration AddsDomainController
     ADDomainController 'DomainControllerAllProperties' {
         DomainName                    = $DomainName
         Credential                    = $Credential
-        SafeModeAdministratorPassword = $SafeModePassword
+        SafeModeAdministratorPassword = $SafeModeAdministratorPassword
         DatabasePath                  = $DatabasePath
         LogPath                       = $LogPath
         SysvolPath                    = $SysvolPath
