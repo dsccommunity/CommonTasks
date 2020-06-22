@@ -9,7 +9,6 @@ Configuration FirewallRules {
         
     foreach ($item in $Rules) {
         $executionName = "Firewall_$($item.Name)"
-        Write-Host "'$executionName'"
         (Get-DscSplattedResource -ResourceName Firewall -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
     
