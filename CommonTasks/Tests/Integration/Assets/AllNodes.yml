@@ -22,3 +22,7 @@
   PSDscAllowPlainTextPassword: true
   PSDscAllowDomainUser: true
   Environment: Dev
+- NodeName: localhost_AddsDomainController
+  PSDscAllowPlainTextPassword: true
+  PSDscAllowDomainUser: true
+  Environment: Dev
