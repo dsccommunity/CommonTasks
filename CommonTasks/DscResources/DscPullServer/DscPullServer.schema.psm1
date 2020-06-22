@@ -1,4 +1,4 @@
-﻿Configuration PullServer
+﻿Configuration DscPullServer
 {
     param  
     (
