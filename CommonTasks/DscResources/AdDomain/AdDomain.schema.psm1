@@ -1,4 +1,4 @@
-configuration Domain
+configuration AdDomain
 {
     param
     (
