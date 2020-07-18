@@ -1,5 +1,5 @@
-Configuration DscTagging {
-    Param(
+configuration DscTagging {
+    p aram (
         [Parameter(Mandatory)]
         [System.Version]$Version,
 

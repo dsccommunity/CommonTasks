@@ -1,5 +1,5 @@
-Configuration ChocolateyPackages {
-    Param(
+configuration ChocolateyPackages {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Package
     )

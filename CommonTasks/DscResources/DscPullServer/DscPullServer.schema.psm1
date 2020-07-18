@@ -1,7 +1,6 @@
-﻿Configuration DscPullServer
+﻿configuration DscPullServer
 {
-    param  
-    (
+    param (
         [string]
         $CertificateThumbPrint = 'AllowUnencryptedTraffic',
 

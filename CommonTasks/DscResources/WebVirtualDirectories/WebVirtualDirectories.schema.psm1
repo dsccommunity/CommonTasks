@@ -1,5 +1,5 @@
-Configuration WebVirtualDirectories {
-    Param(
+configuration WebVirtualDirectories {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Items
     )

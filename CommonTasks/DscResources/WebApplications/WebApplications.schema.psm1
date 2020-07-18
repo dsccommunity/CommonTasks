@@ -1,5 +1,5 @@
-Configuration WebApplications {
-    Param(
+configuration WebApplications {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Items
     )

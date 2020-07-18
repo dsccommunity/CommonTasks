@@ -1,5 +1,5 @@
-Configuration XmlContent {
-    Param(
+configuration XmlContent {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$XmlData
     )

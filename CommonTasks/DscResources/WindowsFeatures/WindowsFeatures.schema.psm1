@@ -1,5 +1,5 @@
-Configuration WindowsFeatures {
-    Param(
+configuration WindowsFeatures {
+    param (
         [Parameter(Mandatory)]
         [string[]]$Name,
 

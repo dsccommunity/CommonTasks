@@ -1,8 +1,7 @@
-Configuration FirewallProfiles {
-    Param(
+configuration FirewallProfiles {
+    Param (
         [Parameter(Mandatory)]
         [hashtable[]]$Profile
-
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -14,4 +13,3 @@ Configuration FirewallProfiles {
     }
   
 }
-

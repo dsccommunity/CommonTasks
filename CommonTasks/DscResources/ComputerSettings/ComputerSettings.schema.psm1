@@ -1,5 +1,5 @@
-Configuration ComputerSettings {
-    Param(
+configuration ComputerSettings {
+    Param (
         [Parameter(Mandatory)]
         [string]$Name,
 
@@ -34,8 +34,3 @@ Configuration ComputerSettings {
     $params.Add('IsSingleInstance', 'Yes')
     (Get-DscSplattedResource -ResourceName TimeZone -ExecutionName "TimeZone$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
 }
-
-
-
-
-

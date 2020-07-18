@@ -1,5 +1,5 @@
-Configuration NetworkIpConfiguration {
-    Param(
+configuration NetworkIpConfiguration {
+    param (
         [Parameter(Mandatory)]
         [string]$IpAddress,
 

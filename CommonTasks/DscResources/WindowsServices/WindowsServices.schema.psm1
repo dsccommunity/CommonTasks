@@ -1,5 +1,5 @@
-Configuration WindowsServices {
-    Param(
+configuration WindowsServices {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Services
     )
@@ -29,5 +29,4 @@ Configuration WindowsServices {
         }
         #>    
     }
-
 }

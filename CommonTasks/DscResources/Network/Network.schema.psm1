@@ -1,5 +1,5 @@
-Configuration Network {
-    Param(
+configuration Network {
+    param (
         [ValidateRange(1, 4)]
         [int]$NetworkZone,
 
