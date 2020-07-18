@@ -1,0 +1,19 @@
+EndPoints:
+  - Name: Test1
+    Ensure: Present
+    RoleDefinitions:
+      Everyone:
+        RoleCapabilities: Test1
+    SessionType: RestrictedRemoteServer
+    #ModulesToImport:
+    #- PSDesiredStateConfiguration
+    #- xDscDiagnostics
+  #- Name: Test2
+  #  Ensure: Present
+  #  RoleDefinitions:
+  #    Everyone:
+  #      RoleCapabilities: Test1
+  #  SessionType: RestrictedRemoteServer
+    #ModulesToImport:
+    #- PSDesiredStateConfiguration
+    #- xDscDiagnostics
