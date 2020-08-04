@@ -15,7 +15,7 @@ Roles:
           Get-Process | Where-Object { $_.WS -gt 100MB }
           Dir C:\
       - Name: F3
-        FilePath: D:\Untitled3 - Copy.ps1
+        FilePath: C:\Temp\JeaRoleTest.ps1
     VisibleCmdlets:
       - Get-Date
       - Name: Get-Process
@@ -26,11 +26,11 @@ Roles:
       - C:\Windows\System32\whoami.exe
       - C:\Windows\System32\ipconfig.exe
 
-  #- Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test2.psrc
-  #  VisibleFunctions:
-  #    - F3
-  #  FunctionDefinitions:
-  #    - Name: F3
-  #      ScriptBlock: |
-  #        Get-Date
-  #        Write-Host Hello World
+  - Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test2.psrc
+    VisibleFunctions:
+      - F3
+    FunctionDefinitions:
+      - Name: F3
+        ScriptBlock: |
+          Get-Date
+          Write-Host Hello World

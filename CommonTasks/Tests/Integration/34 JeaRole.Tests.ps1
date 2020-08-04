@@ -1,6 +1,18 @@
 Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
 Init
 
+$tempExists = Test-Path -Path C:\Temp
+if (-not $tempExists) {
+    New-Item -Path C:\Temp -ItemType Directory | Out-Null
+}
+@'
+function f1 {
+    Get-Date
+}
+
+f1
+'@ | Set-Content -Path C:\Temp\JeaRoleTest.ps1 -Force
+
 Describe 'JeaRoles DSC Resource compiles' -Tags FunctionalQuality {
 
     It 'JeaRoles Compiles' {
@@ -23,4 +35,9 @@ Describe 'JeaRoles DSC Resource compiles' -Tags FunctionalQuality {
         $mofFile = Get-Item -Path $env:BHBuildOutput\localhost_JeaRoles.mof -ErrorAction SilentlyContinue
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
+}
+
+Remove-Item -Path C:\Temp\JeaRoleTest.ps1
+if (-not $tempExists) {
+    Remove-Item -Path C:\Temp
 }
