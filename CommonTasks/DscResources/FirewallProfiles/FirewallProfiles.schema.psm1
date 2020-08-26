@@ -1,8 +1,7 @@
-Configuration FirewallProfiles {
-    Param(
+configuration FirewallProfiles {
+    Param (
         [Parameter(Mandatory)]
         [hashtable[]]$Profile
-
     )
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -10,9 +9,7 @@ Configuration FirewallProfiles {
 
     foreach ($item in $Profile) {
         $executionName = "FirewallProfile_$($item.Name)"
-        Write-Host "'$executionName'"
         (Get-DscSplattedResource -ResourceName FirewallProfile -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
   
 }
-

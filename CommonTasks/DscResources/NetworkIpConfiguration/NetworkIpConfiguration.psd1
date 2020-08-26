@@ -11,10 +11,5 @@
 
     Copyright            = 'NA'
 
-    #RequiredModules      = @(
-    #    @{ ModuleName = 'xPSDesiredStateConfiguration'; ModuleVersion = '8.4.0.0' }
-    #    @{ ModuleName = 'NetworkingDsc'; ModuleVersion = '6.1.0.0' }
-    #)
-
     DscResourcesToExport = @('NetworkIpConfiguration')
 }

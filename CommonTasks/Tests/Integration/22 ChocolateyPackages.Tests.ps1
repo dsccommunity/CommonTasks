@@ -1,25 +1,22 @@
-$configData = Import-LocalizedData -BaseDirectory $PSScriptRoot\Assets -FileName Config1.psd1 -SupportedCommand New-Object, ConvertTo-SecureString -ErrorAction Stop
-$moduleName = $env:BHProjectName
+Import-Module -Name $PSScriptRoot\Assets\TestHelpers.psm1
+Init
 
-Remove-Module -Name $env:BHProjectName -ErrorAction SilentlyContinue -Force
-Import-Module -Name $env:BHProjectName -ErrorAction Stop
+Describe 'ChocolateyPackages DSC Resource compiles' -Tags FunctionalQuality {
 
-Import-Module -Name DscBuildHelpers
-
-Describe 'ChocolateyPackages DSC Resource compiles' -Tags 'FunctionalQuality' {
     It 'ChocolateyPackages Compiles' {
+
         configuration Config_ChocolateyPackages {
 
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_ChocolateyPackages {
                 ChocolateyPackages ChocolateyPackages {
-                    Package = $ConfigurationData.ChocolateyPackages.Packages
+                    Package = $configurationData.Datum.Config.ChocolateyPackages.Packages
                 }
             }
         }
 
-        { Config_ChocolateyPackages -ConfigurationData $configData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
+        { Config_ChocolateyPackages -ConfigurationData $configurationData -OutputPath $env:BHBuildOutput -ErrorAction Stop } | Should -Not -Throw
     }
 
     It 'ChocolateyPackages should have created a mof file' {

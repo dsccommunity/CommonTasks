@@ -1,20 +1,22 @@
-Configuration WindowsFeatures {
-    Param(
+configuration WindowsFeatures {
+    param (
         [Parameter(Mandatory)]
-        [string[]]$Name
+        [string[]]$Name,
+
+        [String]
+        $Source
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
-
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
+    
     $ensure = 'Present'
-    foreach ($n in $Name) {
-
-        if ($n[0] -in '-', '+') {
-            if ($n[0] -eq '-') {
+    foreach ($n in $Name)
+    {
+        if ($n[0] -in '-', '+')
+        {
+            if ($n[0] -eq '-')
+            {
                 $ensure = 'Absent'
-            }
-            else {
-                $ensure = 'Present'
             }
             $n = $n.Substring(1)
         }
@@ -25,6 +27,11 @@ Configuration WindowsFeatures {
             IncludeAllSubFeature = $true
         }
 
-        (Get-DscSplattedResource -ResourceName xWindowsFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
+        if ($Source)
+        {
+            $params.Source = $Source
+        }
+
+        (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
     }
 }

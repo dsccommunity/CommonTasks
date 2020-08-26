@@ -1,0 +1,8 @@
+IpAddress: 10.0.0.1
+Prefix: 8
+Gateway: 10.0.0.254
+DnsServer:
+  - 10.1.1.1
+  - 10.1.1.2
+InterfaceAlias: Ethernet
+DisableNetbios: true

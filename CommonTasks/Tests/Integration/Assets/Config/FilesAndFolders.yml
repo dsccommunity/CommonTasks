@@ -1,0 +1,16 @@
+Items:
+  - DestinationPath: C:\Test.txt
+    Contents: Test Content
+    Ensure: Present
+    Force: true
+    Type: File
+  - DestinationPath: C:\Test
+    Ensure: Present
+    Force: true
+    Recurse: true
+    SourcePath: C:\Source
+    Type: Directory
+  - DestinationPath: C:\TestShare
+    Ensure: Present
+    Force: true
+    Type: Directory

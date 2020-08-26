@@ -423,8 +423,8 @@ if ($writeTranscripts) {
 } 
 '@
 
-Configuration DscLcmController {
-    Param(
+configuration DscLcmController {
+    param (
         [Parameter(Mandatory)]
         [ValidateSet('Monitor', 'AutoCorrect')]
         [string]$MaintenanceWindowMode,

@@ -1,0 +1,5 @@
+Items:
+  - Name: TestSite1
+    ApplicationPool: TestAppPool1
+  - Name: TestSite2
+    ApplicationPool: TestAppPool2

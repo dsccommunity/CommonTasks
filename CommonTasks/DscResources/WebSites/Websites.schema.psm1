@@ -1,5 +1,5 @@
-Configuration WebSites {
-    Param(
+configuration WebSites {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Items
     )

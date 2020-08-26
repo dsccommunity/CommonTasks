@@ -1,0 +1,11 @@
+Sites:
+  - Name: Sparta
+    RenameDefaultFirstSiteName: true
+  - Name: Athens
+Subnets:
+  - Name: 10.0.1.0/24
+    Site: Sparta
+    Location: Sparta
+  - Name: 10.0.2.0/24
+    Site: Athens
+    Location: Sparta

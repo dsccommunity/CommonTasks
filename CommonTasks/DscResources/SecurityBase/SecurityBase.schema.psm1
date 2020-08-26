@@ -1,5 +1,5 @@
-Configuration SecurityBase {
-    Param(
+configuration SecurityBase {
+    param (
         [ValidateSet('Baseline', 'WebServer', 'FileServer')]
         [string]$Role
     )

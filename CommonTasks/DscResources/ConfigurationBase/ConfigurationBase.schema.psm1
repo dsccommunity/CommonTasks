@@ -1,5 +1,5 @@
-Configuration ConfigurationBase {
-    Param(
+configuration ConfigurationBase {
+    param (
         [ValidateSet('Baseline', 'WebServer', 'FileServer')]
         [string]$SystemType
     )

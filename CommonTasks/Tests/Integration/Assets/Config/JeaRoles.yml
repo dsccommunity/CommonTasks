@@ -1,0 +1,36 @@
+Roles:
+
+  - Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test1.psrc
+    VisibleFunctions:
+      - F1
+      - F2
+      - F3
+    FunctionDefinitions:
+      - Name: F1
+        ScriptBlock: |
+          Get-Date
+          Write-Host Hello World
+      - Name: F2
+        ScriptBlock: |
+          Get-Process | Where-Object { $_.WS -gt 100MB }
+          Dir C:\
+      - Name: F3
+        FilePath: C:\Temp\JeaRoleTest.ps1
+    VisibleCmdlets:
+      - Get-Date
+      - Name: Get-Process
+        Parameters:
+          - Name: Name
+            ValidatePattern: a*
+    VisibleExternalCommands:
+      - C:\Windows\System32\whoami.exe
+      - C:\Windows\System32\ipconfig.exe
+
+  - Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test2.psrc
+    VisibleFunctions:
+      - F3
+    FunctionDefinitions:
+      - Name: F3
+        ScriptBlock: |
+          Get-Date
+          Write-Host Hello World

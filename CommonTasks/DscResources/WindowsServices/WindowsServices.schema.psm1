@@ -1,13 +1,13 @@
-Configuration WindowsServices {
-    Param(
+configuration WindowsServices {
+    param (
         [Parameter(Mandatory)]
         [hashtable[]]$Services
     )
     
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    foreach ($service in $Services) {
-        $service.Credential = New-Object pscredential('Install', ('Somepass1' | ConvertTo-SecureString -AsPlainText -Force))
+    foreach ($service in $Services)
+    {
         $service.Ensure = 'Present'
         if (-not $service.State)
         {
@@ -15,7 +15,7 @@ Configuration WindowsServices {
         }
 
         #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
-        (Get-DscSplattedResource -ResourceName xService -ExecutionName $service.Name -Properties $service -NoInvoke).Invoke($service)
+        (Get-DscSplattedResource -ResourceName Service -ExecutionName $service.Name -Properties $service -NoInvoke).Invoke($service)
 
         <#
         Service $Service.Name {
@@ -29,5 +29,4 @@ Configuration WindowsServices {
         }
         #>    
     }
-
 }
