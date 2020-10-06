@@ -17,7 +17,7 @@
     PSDeploy                     = 'latest'
     ProtectedData                = 'latest'
     DscBuildHelpers              = 'latest'
-    Datum                        = 'latest'
+    Datum                        = '0.39.0'
     'powershell-yaml'            = 'latest'
     'Datum.ProtectedData'        = 'latest'
 
@@ -25,7 +25,7 @@
     xPSDesiredStateConfiguration = '9.1.0'
     ComputerManagementDsc        = '8.4.0'
     NetworkingDsc                = '8.1.0'
-    JeaDsc                       = '0.7.1'
+    JeaDsc                       = '0.7.2'
     XmlContentDsc                = '0.0.1'
     xWebAdministration           = '3.2.0'
     SecurityPolicyDsc            = '2.10.0.0'
