@@ -3,7 +3,7 @@ configuration AddsOrgUnitsAndGroups
     param
     (
         [object[]]
-        $OrgUnits,
+        $AdOrgUnits,
 
         [object[]]
         $Groups,
