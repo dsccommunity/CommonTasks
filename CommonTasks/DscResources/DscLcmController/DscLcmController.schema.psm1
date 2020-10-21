@@ -1,4 +1,23 @@
 $dscLcmControllerScript = @'
+function Send-DscTaggingData {
+    $pattern = 'http[s]?:\/\/(?<PullServer>([^\/:\.[:space:]]+(\.[^\/:\.[:space:]]+)*)|([0-9](\.[0-9]{3})))(:[0-9]+)?((\/[^?#[:space:]]+)(\?[^#[:space:]]+)?(\#.+)?)?'
+    $found = (Get-DscLocalConfigurationManager).ConfigurationDownloadManagers.ServerURL -match $pattern
+    if (-not $found)
+    {
+        Write-Error "Cannot get pull server name from 'Get-DscLocalConfigurationManager' output"
+        return
+    }
+
+    $versionData = Invoke-Command -ComputerName $env:COMPUTERNAME -ConfigurationName DSC -ScriptBlock {
+        Get-DscConfigurationVersion
+    }
+
+    $agentId = (Get-DscLocalConfigurationManager).AgentId
+    Invoke-Command -ComputerName $Matches.PullServer -ConfigurationName DscData -ScriptBlock {
+        Send-DscTaggingData -AgentId $args[0] -Data $args[1]
+    } -ArgumentList $agentId, $versionData
+}
+
 function Set-LcmPostpone {
     $postponeInterval = 14
     if ($lastLcmPostpone.AddDays($postponeInterval) -gt (Get-Date)) {
@@ -225,13 +244,12 @@ function Start-AutoCorrect {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
+        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:autoCorrectErrors = $true
     }
-
-    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
 }
 
 function Start-Monitor {
@@ -239,13 +257,12 @@ function Start-Monitor {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
+        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:monitorErrors = $true
     }
-
-    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
 }
 
 function Start-Refresh {
@@ -253,13 +270,15 @@ function Start-Refresh {
     try {
         Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop | Out-Null
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
+        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
+        if ($sendDscTaggingData) {
+            Send-DscTaggingData
+        }
     }
     catch {
         Write-Error "Error invoking 'PerformRequiredConfigurationChecks'. The message is: '$($_.Exception.Message)'"
         $script:refreshErrors = $true
     }
-
-    Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
 }
 
 function Test-StartDscMonitor {
@@ -302,6 +321,7 @@ $autoCorrectErrors = $false
 $refreshErrors = $false
 $monitorErrors = $false
 $currentTime = Get-Date
+$sendDscTaggingData = $false
 $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
 
 $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows
@@ -311,6 +331,7 @@ $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\Mainte
 [timespan]$monitorInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MonitorInterval
 [timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshInterval
 [bool]$refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshIntervalOverride
+[bool]$sendDscTaggingData = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name SendDscTaggingData
 $maintenanceWindowMode = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowMode
 
 [datetime]$lastAutoCorrect = try {
@@ -420,7 +441,7 @@ $logItem = [pscustomobject]@{
 
 if ($writeTranscripts) {
     Stop-Transcript
-} 
+}
 '@
 
 configuration DscLcmController {
@@ -447,7 +468,9 @@ configuration DscLcmController {
 
         [bool]$MaintenanceWindowOverride,
 
-        [bool]$WriteTranscripts
+        [bool]$WriteTranscripts,
+
+        [bool]$SendDscTaggingData
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -530,6 +553,15 @@ configuration DscLcmController {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'WriteTranscripts'
         ValueData = [int]$WriteTranscripts
+        ValueType = 'DWord'
+        Ensure    = 'Present'
+        Force     = $true
+    }
+
+    xRegistry DscLcmController_SendDscTaggingData {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
+        ValueName = 'SendDscTaggingData'
+        ValueData = [int]$SendDscTaggingData
         ValueType = 'DWord'
         Ensure    = 'Present'
         Force     = $true
