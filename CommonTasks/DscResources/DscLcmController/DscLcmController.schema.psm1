@@ -1,5 +1,8 @@
 $dscLcmControllerScript = @'
 function Send-DscTaggingData {
+    [CmdletBinding()]
+    param()
+
     $pattern = 'http[s]?:\/\/(?<PullServer>([^\/:\.[:space:]]+(\.[^\/:\.[:space:]]+)*)|([0-9](\.[0-9]{3})))(:[0-9]+)?((\/[^?#[:space:]]+)(\?[^#[:space:]]+)?(\#.+)?)?'
     $found = (Get-DscLocalConfigurationManager).ConfigurationDownloadManagers.ServerURL -match $pattern
     if (-not $found)
@@ -218,7 +221,7 @@ function Test-StartDscRefresh {
         Write-Host ""
         Write-Host "The previous Refresh was done on '$lastRefresh', the next one will not be triggered before '$nextRefresh'. RefreshInterval is $refreshInterval."
         if ($currentTime -gt $nextRefresh) {
-            Write-Host 'It is time to trigger an Refresh per the defined interval.'
+            Write-Host 'It is time to trigger a Refresh per the defined interval.'
             $doRefresh = $true
         }
         else {
@@ -272,7 +275,12 @@ function Start-Refresh {
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
         if ($sendDscTaggingData) {
-            Send-DscTaggingData
+            try {
+                Send-DscTaggingData -ErrorAction Stop
+            }
+            catch {
+                $sendDscTaggingDataError = $true
+            }
         }
     }
     catch {
@@ -322,6 +330,7 @@ $refreshErrors = $false
 $monitorErrors = $false
 $currentTime = Get-Date
 $sendDscTaggingData = $false
+$sendDscTaggingDataError = $false
 $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
 
 $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows
@@ -436,6 +445,8 @@ $logItem = [pscustomobject]@{
     RefreshInterval             = $refreshInterval
     RefreshIntervalOverride     = $refreshIntervalOverride
     RefreshErrors               = $refreshErrors
+
+    SendDscTaggingDataError     = $sendDscTaggingDataError
     
 } | Export-Csv -Path "$path\LcmControllerSummary.txt" -Append
 
