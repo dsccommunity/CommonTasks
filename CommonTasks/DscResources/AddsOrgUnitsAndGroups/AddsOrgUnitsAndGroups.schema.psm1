@@ -68,7 +68,7 @@ configuration AddsOrgUnitsAndGroups
         }        
     }
     
-    foreach ($ou in $AdOrgUnits)
+    foreach ($ou in $OrgUnits)
     {
         Get-OrgUnitSplat $ou $ou.Path -SkipDepend
     }
