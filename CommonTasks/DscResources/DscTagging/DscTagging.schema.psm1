@@ -57,7 +57,7 @@ configuration DscTagging {
     xRegistry DscBuildNumber {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'BuildNumber'
-        ValueData = ">>$($env:BHBuildNumber)<<" #the format supports finding the BuildNumber without using a MOF parser 
+        ValueData = "$($env:BHBuildNumber)"
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
