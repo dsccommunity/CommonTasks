@@ -390,19 +390,20 @@ if ($inMaintenanceWindow) {
     $doAutoCorrect = Test-StartDscAutoCorrect
     $doRefresh = Test-StartDscRefresh
 
-    if ($doAutoCorrect) {
-        Start-AutoCorrect
-    }
-    else {
-        Write-Host "NO ACTION: 'doAutoCorrect' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
-    }
-
     if ($doRefresh) {
         Start-Refresh
     }
     else {
         Write-Host "NO ACTION: 'doRefresh' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '5' (Pull and Consistency Check)."
     }
+
+    if ($doAutoCorrect) {
+        Start-AutoCorrect
+    }
+    else {
+        Write-Host "NO ACTION: 'doAutoCorrect' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
+    }
+    
 }
 
 Write-Host
