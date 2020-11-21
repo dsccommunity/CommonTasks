@@ -1,0 +1,110 @@
+// CommonTasks YAML Reference: ChocolateyPackages
+// ==============================================
+
+:YmlCategory: ChocolateyPackages
+
+
+[[dscyml_chocolateypackages, {YmlCategory}]]
+= DSC Resource 'ChocolateyPackages'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_chocolateypackages_abstract]]
+.{YmlCategory} is aimed at getting and installing packages using Chocolatey.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages
+| DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
+| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage], 
+|===
+
+
+.Attributes of DSC Resource '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_chocolateypackages_packages, {YmlCategory}/Package]]<<dscyml_chocolateypackages_packages_details, Package>>
+| Mandatory
+| Hashtable[]
+| List of Chocolatey packages
+|
+
+|===
+
+
+[[dscyml_chocolateypackages_packages_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages_packages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Chocolatey Package Id
+|
+
+| Version
+|
+| String
+| Chocolatey Package Version
+| 
+
+| Ensure
+| Mandatory
+| String
+| Specifies whether the Chocolatey Package should be installed on the machine or not ValueMap
+| - Present (default)
+  - Absent
+
+| ChocolateyOptions
+|
+| String[] (KeyValuePair)
+| Chocolatey Options
+| 
+
+| UpdateOnly
+|
+| Boolean
+| Only updates installed package and ignores packages not Installed.
+| - True
+  - False (default)
+
+| Credential
+|
+| PSCredential
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ChocolateyPackages:
+  Packages:
+    - Name: notepadplusplus
+      Ensure: Present
+      Version: "1.0"
+      ChocolateyOptions:
+        Source: SomeFeed
+      Credential: '[ENC=PE9ianM...=]'
+    - Name: winrar
+      Ensure: Present
+      Version: '1.0'
+      ChocolateyOptions:
+        Source: SomeFeed
+      Credential: '[ENC=PE9ianM...=]'
+----

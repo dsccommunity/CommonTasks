@@ -1,0 +1,158 @@
+// CommonTasks YAML Reference
+// ========================================
+
+// GitHub Flavored Asciidoc (GFA)
+// https://gist.github.com/dcode/0cfbf2699a1fe9b46ff04c41721dda74
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+
+:ref_utf-8:  https://wikipedia.org/wiki/UTF-8[UTF-8]
+
+
+= CommonTasks YAML Reference
+
+YAML reference of DSC resources of https://github.com/dsccommunity/CommonTasks[Common Tasks]
+
+.Links
+
+. Exercise 2: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/Exercise2.md[Add a new node]
+. Exercise 3: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/Exercise3.md[Add a new role and modify a role]
+. Exercise 4: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/Exercise4.md[Add another layer to your hierarchy]
+. Exercise 5: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/StretchGoal.md[Create and use a custom Configuration (DSC Composite Resource)]
+
+.Store encrypted strings in the YAML files 
+
+- Instructions: https://www.janhendrikpeters.de/2020/01/17/dsc-configuration-data-encryption-done-right/[DSC Configuration data encryption]
+
+- Script to create encrypted strings:
+ifdef::env-github[]
+<<EncryptPwd4Yml.ps1,EncryptPwd4Yml.ps1>>
+endif::[]
+
+// GitHub doesn't support includes of adoc files
+ifndef::env-github[]
+[source, powershell]
+----
+include::EncryptPwd4Yml.ps1[]
+----
+endif::[]
+
+
+== YAML Reference of DSC Resouces
+
+[IMPORTANT]
+====
+To avoid problems with special characters (like German umlaut) all YAML files should be stored with _{ref_utf-8} with BOM_ encoding.
+====
+
+// GitHub doesn't support includes of adoc files
+ifdef::env-github[]
+
+- <<Globals.adoc#,Globals>>
+- <<ChocolateyPackages.adoc#,ChocolateyPackages>>
+
+endif::[]
+
+
+// Overview table and includes outside of GitHub
+ifndef::env-github[]
+
+.Reference of DSC Resouces
+[cols="1,3" options="header"]
+|===
+| DSC Resource                          | Description
+
+| <<dscyml_globals>>                    | <<dscyml_globals_abstract>>
+// | <<dscyml_addsdomain>>                 | <<dscyml_addsdomain_abstract>>
+// | <<dscyml_addsdomaincontroller>>       | <<dscyml_addsdomaincontroller_abstract>>
+// | <<dscyml_addsdomainusers>>            | <<dscyml_addsdomainusers_abstract>>
+// | <<dscyml_addsorgunitsandgroups>>      | <<dscyml_addsorgunitsandgroups_abstract>>
+// | <<dscyml_addssitessubnets>>           | <<dscyml_addssitessubnets_abstract>>
+| <<dscyml_chocolateypackages>>         | <<dscyml_chocolateypackages_abstract>>
+// | <<dscyml_computersettings>>           | <<dscyml_computersettings_abstract>>
+// | <<dscyml_configurationbase>>          | <<dscyml_configurationbase_abstract>>
+// | <<dscyml_dfsnamespaces>>              | <<dscyml_dfsnamespaces_abstract>>
+// | <<dscyml_dhcpserver>>                 | <<dscyml_dhcpserver_abstract>>
+// | <<dscyml_disks>>                      | <<dscyml_disks_abstract>>
+// | <<dscyml_dnsserver>>                  | <<dscyml_dnsserver_abstract>>
+// | <<dscyml_dscdiagnostic>>              | <<dscyml_dscdiagnostic_abstract>>
+// | <<dscyml_dsclcmcontroller>>           | <<dscyml_dsclcmcontroller_abstract>>
+// | <<dscyml_dsclcmmaintenancewindows>>   | <<dscyml_dsclcmmaintenancewindows_abstract>>
+// | <<dscyml_dscpullserver>>              | <<dscyml_dscpullserver_abstract>>
+// | <<dscyml_dsctagging>>                 | <<dscyml_dsctagging_abstract>>
+// | <<dscyml_filesandfolders>>            | <<dscyml_filesandfolders_abstract>>
+// | <<dscyml_firewallprofiles>>           | <<dscyml_firewallprofiles_abstract>>
+// | <<dscyml_firewallrules>>              | <<dscyml_firewallrules_abstract>>
+// | <<dscyml_hyperv>>                     | <<dscyml_hyperv_abstract>>
+// | <<dscyml_ipconfiguration>>            | <<dscyml_ipconfiguration_abstract>>
+// | <<dscyml_jeaendpoints>>               | <<dscyml_jeaendpoints_abstract>>
+// | <<dscyml_jearoles>>                   | <<dscyml_jearoles_abstract>>
+// | <<dscyml_network>>                    | <<dscyml_network_abstract>>
+// | <<dscyml_networkipconfiguration>>     | <<dscyml_networkipconfiguration_abstract>>
+// | <<dscyml_registryvalues>>             | <<dscyml_registryvalues_abstract>>
+// | <<dscyml_scripts>>                    | <<dscyml_scripts_abstract>>
+// | <<dscyml_securitybase>>               | <<dscyml_securitybase_abstract>>
+// | <<dscyml_softwarepackages>>           | <<dscyml_softwarepackages_abstract>>
+// | <<dscyml_sqlserver>>                  | <<dscyml_sqlserver_abstract>>
+// | <<dscyml_updateservices>>             | <<dscyml_updateservices_abstract>>
+// | <<dscyml_wds>>                        | <<dscyml_wds_abstract>>
+// | <<dscyml_webapplicationpools>>        | <<dscyml_webapplicationpools_abstract>>
+// | <<dscyml_webapplications>>            | <<dscyml_webapplications_abstract>>
+// | <<dscyml_websites>>                   | <<dscyml_websites_abstract>>
+// | <<dscyml_webvirtualdirectories>>      | <<dscyml_webvirtualdirectories_abstract>>
+// | <<dscyml_windowsfeatures>>            | <<dscyml_windowsfeatures_abstract>>
+// | <<dscyml_windowsservices>>            | <<dscyml_windowsservices_abstract>>
+// | <<dscyml_xmlcontent>>                 | <<dscyml_xmlcontent_abstract>>
+
+|===
+
+
+include::Globals.adoc[leveloffset=+2]
+//include::DscResources/AddsDomain.adoc[leveloffset=+2]
+//include::DscResources/AddsDomainController.adoc[leveloffset=+2]
+//include::DscResources/AddsDomainUsers.adoc[leveloffset=+2]
+//include::DscResources/AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
+//include::DscResources/AddsSitesSubnets.adoc[leveloffset=+2]
+include::ChocolateyPackages.adoc[leveloffset=+2]
+//include::DscResources/ComputerSettings.adoc[leveloffset=+2]
+//include::DscResources/ConfigurationBase.adoc[leveloffset=+2]
+//include::DscResources/DfsNamespaces.adoc[leveloffset=+2]
+//include::DscResources/DhcpServer.adoc[leveloffset=+2]
+//include::DscResources/Disks.adoc[leveloffset=+2]
+//include::DscResources/DnsServer.adoc[leveloffset=+2]
+//include::DscResources/DscDiagnostic.adoc[leveloffset=+2]
+//include::DscResources/DscLcmController.adoc[leveloffset=+2]
+//include::DscResources/DscLcmMaintenanceWindows.adoc[leveloffset=+2]
+//include::DscResources/DscPullServer.adoc[leveloffset=+2]
+//include::DscResources/DscTagging.adoc[leveloffset=+2]
+//include::DscResources/FilesAndFolders.adoc[leveloffset=+2]
+//include::DscResources/FirewallProfiles.adoc[leveloffset=+2]
+//include::DscResources/FirewallRules.adoc[leveloffset=+2]
+//include::DscResources/HyperV.adoc[leveloffset=+2]
+//include::DscResources/IpConfiguration.adoc[leveloffset=+2]
+//include::DscResources/JeaEndpoints.adoc[leveloffset=+2]
+//include::DscResources/JeaRoles.adoc[leveloffset=+2]
+//include::DscResources/Network.adoc[leveloffset=+2]
+//include::DscResources/NetworkIpConfiguration.adoc[leveloffset=+2]
+//include::DscResources/RegistryValues.adoc[leveloffset=+2]
+//include::DscResources/Scripts.adoc[leveloffset=+2]
+//include::DscResources/SecurityBase.adoc[leveloffset=+2]
+//include::DscResources/SoftwarePackages.adoc[leveloffset=+2]
+//include::DscResources/SqlServer.adoc[leveloffset=+2]
+//include::DscResources/UpdateServices.adoc[leveloffset=+2]
+//include::DscResources/Wds.adoc[leveloffset=+2]
+//include::DscResources/WebApplicationPools.adoc[leveloffset=+2]
+//include::DscResources/WebApplications.adoc[leveloffset=+2]
+//include::DscResources/WebSites.adoc[leveloffset=+2]
+//include::DscResources/WebVirtualDirectories.adoc[leveloffset=+2]
+//include::DscResources/WindowsFeatures.adoc[leveloffset=+2]
+//include::DscResources/WindowsServices.adoc[leveloffset=+2]
+//include::DscResources/XmlContent.adoc[leveloffset=+2]
+
+endif::[]
