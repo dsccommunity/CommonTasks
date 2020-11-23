@@ -35,5 +35,6 @@
     DfsDsc                       = '4.4.0.0'
     WdsDsc                       = '0.11.0'
     xDhcpServer                  = '2.0.0.0'
+    xDnsServer                   = '1.16.0.0'
 
 }   
