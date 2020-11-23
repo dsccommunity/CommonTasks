@@ -9,6 +9,11 @@ Describe "DnsServerSettings DSC Resource compiles" -Tags FunctionalQuality {
 
             Import-DscResource -ModuleName CommonTasks
 
+            $global:node = @{
+                Name = 'localhost'
+                NodeName = 'localhost'
+            }
+
             node "localhost_DnsServerSettings" {
                 DnsServerSettings dnsSettings {
                     Settings = $configurationData.Datum.Config.DnsServerSettings.Settings
@@ -24,4 +29,3 @@ Describe "DnsServerSettings DSC Resource compiles" -Tags FunctionalQuality {
         $mofFile | Should -BeOfType System.IO.FileInfo
     }
 }
-DnsServerSettings
