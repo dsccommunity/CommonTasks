@@ -1,0 +1,79 @@
+// CommonTasks YAML Reference: Globals
+// ===================================
+
+:YmlCategory: Globals
+
+
+[#dscyml_globals, {YmlCategory}]
+= Globals
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_globals_abstract]]
+.{YmlCategory} contains global configuration attributes.
+
+
+// reference links as variables for using more than once
+:ref_using_configuration_data:  https://docs.microsoft.com/de-de/powershell/scripting/dsc/configurations/configdata[Using configuration data in DSC]
+:ref_credentials_options:       https://docs.microsoft.com/de-de/powershell/scripting/dsc/configurations/configdatacredentials[Credentials Options in Configuration Data]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         |
+| DSC Resource   |
+| Documentation  | - {ref_using_configuration_data}
+                   - {ref_credentials_options}
+|===
+
+
+[NOTE]
+====
+All attributes from category _'{YmlCategory}'_ are root attributes and have no parent category in the YAML files.
+They must be placed in the `AllNodes` section and are part of the Configuration Data (see {ref_using_configuration_data}).
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NodeName
+| Key
+| String
+| Name of the current node (computer)
+|
+
+| PsDscAllowPlainTextPassword
+| 
+| Boolean
+| DSC configurations containing a credential without encryption will generate an error message about plain text passwords.
+  To suppress these error and warning messages use this DSC configuration data keyword.
+| Default: $false
+
+| PsDscAllowDomainUser
+| 
+| Boolean
+| DSC configurations containing domain credentials will generate an error message.
+  To suppress these error and warning messages use this DSC configuration data keyword.
+| Default: $false
+
+|===
+
+
+.Example
+[source, yaml]
+----
+NodeName: Server01
+Role:     FileServer
+
+LogPath:  C:\Logs
+
+PsDscAllowPlainTextPassword: True
+PsDscAllowDomainUser: True
+----

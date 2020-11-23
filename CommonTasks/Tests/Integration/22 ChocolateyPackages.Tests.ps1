@@ -11,7 +11,9 @@ Describe 'ChocolateyPackages DSC Resource compiles' -Tags FunctionalQuality {
 
             node localhost_ChocolateyPackages {
                 ChocolateyPackages ChocolateyPackages {
-                    Package = $configurationData.Datum.Config.ChocolateyPackages.Packages
+                    Software = $configurationData.Datum.Config.ChocolateyPackages.Software
+                    Sources = $configurationData.Datum.Config.ChocolateyPackages.Sources
+                    Packages = $configurationData.Datum.Config.ChocolateyPackages.Packages
                 }
             }
         }
