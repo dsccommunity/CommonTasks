@@ -1,0 +1,10 @@
+ConditionalForwarders:
+  - Name: SharedServices
+    MasterServers:
+      - 10.0.1.10
+      - 10.0.2.10
+    ReplicationScope: Forest
+  - Name: Oxy
+    MasterServers:
+      - 10.0.3.10
+    ReplicationScope: Forest
