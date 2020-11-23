@@ -11,13 +11,13 @@ Describe "AddsDomain DSC Resource compiles" -Tags FunctionalQuality {
 
             node "localhost_AddsDomain" {
                 AddsDomain AddsDomain {
-                    DomainFqdn = $configurationData.Datum.Config.AddsDomain.DomainFqdn
-                    DomainName = $configurationData.Datum.Config.AddsDomain.DomainName
-                    DomainDN = $configurationData.Datum.Config.AddsDomain.DomainDN
-                    DomainJoinAccount = $configurationData.Datum.Config.AddsDomain.DomainJoinAccount
-                    DomainAdministrator = $configurationData.Datum.Config.AddsDomain.DomainAdministrator
-                    SafeModePassword = $configurationData.Datum.Config.AddsDomain.SafeModePassword
-                    DomainTrust = $configurationData.Datum.Config.AddsDomain.DomainTrust
+                    DomainFqdn                    = $configurationData.Datum.Config.AddsDomain.DomainFqdn
+                    DomainName                    = $configurationData.Datum.Config.AddsDomain.DomainName
+                    DomainDN                      = $configurationData.Datum.Config.AddsDomain.DomainDN
+                    DomainJoinAccount             = $configurationData.Datum.Config.AddsDomain.DomainJoinAccount
+                    DomainAdministrator           = $configurationData.Datum.Config.AddsDomain.DomainAdministrator
+                    SafeModeAdministratorPassword = $configurationData.Datum.Config.AddsDomain.SafeModePassword
+                    DomainTrust                   = $configurationData.Datum.Config.AddsDomain.DomainTrust
                 }
             }
         }
