@@ -1,0 +1,7 @@
+AdZones:
+  - Name: cms.contoso.com
+    DynamicUpdate: Secure
+    ReplicationScope: Forest
+  - Name: 30.168.192.in-addr.arpa
+    DynamicUpdate: Secure
+    ReplicationScope: Forest
