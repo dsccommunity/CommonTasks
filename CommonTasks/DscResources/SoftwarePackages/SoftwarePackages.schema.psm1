@@ -6,7 +6,7 @@ configuration SoftwarePackages {
     
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
-    foreach ($p in $Package) {
+    foreach ($p in $Packages) {
         $p.Ensure = 'Present'
         if (-not $p.ProductId)
         {
