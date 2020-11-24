@@ -1,0 +1,9 @@
+Disks:
+  - DiskId: 0
+    DiskIdType: Number
+    DriveLetter: C
+    FSLabel: System
+  - DiskId: 1
+    DiskIdType: Number
+    DriveLetter: D
+    FSLabel: Data
