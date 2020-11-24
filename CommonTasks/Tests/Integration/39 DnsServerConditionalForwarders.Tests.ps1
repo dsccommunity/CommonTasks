@@ -10,7 +10,7 @@ Describe "DnsServerConditionalForwarders DSC Resource compiles" -Tags Functional
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_DnsServerConditionalForwarders" {
-                DnsServerConditionalForwarders adsitesub {
+                DnsServerConditionalForwarders conditionalForwarders {
                     ConditionalForwarders = $configurationData.Datum.Config.DnsServerConditionalForwarders.ConditionalForwarders
                 }
             }

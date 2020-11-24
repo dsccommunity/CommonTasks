@@ -10,7 +10,7 @@ Describe "DnsServerAdZones DSC Resource compiles" -Tags FunctionalQuality {
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_DnsServerAdZones" {
-                DnsServerAdZones adsitesub {
+                DnsServerAdZones adZones {
                     AdZones = $configurationData.Datum.Config.DnsServerAdZones.AdZones
                 }
             }

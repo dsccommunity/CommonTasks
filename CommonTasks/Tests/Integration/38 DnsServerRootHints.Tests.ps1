@@ -15,7 +15,7 @@ Describe "DnsServerRootHints DSC Resource compiles" -Tags FunctionalQuality {
             }
 
             node "localhost_DnsServerRootHints" {
-                DnsServerRootHints pull {
+                DnsServerRootHints rootHints {
                     RootHints = $configurationData.Datum.Config.DnsServerRootHints.RootHints
                 }
             }
