@@ -1,0 +1,289 @@
+// CommonTasks YAML Reference: ChocolateyPackages
+// ==============================================
+
+:YmlCategory: ChocolateyPackages
+
+
+[[dscyml_chocolateypackages, {YmlCategory}]]
+= DSC Resource 'ChocolateyPackages'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_chocolateypackages_abstract]]
+.{YmlCategory} is aimed at getting and installing packages using Chocolatey.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages
+| DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
+| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySoftware[ChocolateySoftware],
+                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySource[ChocolateySource],
+                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage], 
+|===
+
+
+.Attributes of DSC Resource '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+
+| [[dscyml_chocolateypackages_software, {YmlCategory}/Software]]<<dscyml_chocolateypackages_software_details, Software>>
+|
+| Hashtable
+| Chocolatey software installation
+|
+
+| [[dscyml_chocolateypackages_sources, {YmlCategory}/Sources]]<<dscyml_chocolateypackages_sources_details, Sources>>
+| 
+| Hashtable[]
+| List of Chocolatey sources
+|
+
+| [[dscyml_chocolateypackages_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages_packages_details, Packages>>
+| 
+| Hashtable[]
+| List of Chocolatey packages
+|
+
+|===
+
+
+[[dscyml_chocolateypackages_software_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages_software>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Ensure
+| Key
+| String
+| Specifies whether the Chocolatey Software should be installed on the machine or not.
+| - Present (default)
+  - Absent
+
+| OfflineInstallZip
+|
+| String
+| Optional local zip or nupkg package to install a specific Chocolatey Software version.
+|
+
+| ChocolateyPackageUrl
+|
+| String
+| Optional package URL to download a specific Chocolatey Software package.
+|
+
+| PackageFeedUrl
+|
+| String
+| Url of a Nuget feed where the Chocolatey software package is available. +
+  i.e. https://chocolatey.org/api/v2
+|
+
+| Version
+|
+| String
+| Specific version of package available on the nuget Package Feed Url provided.
+|
+
+| ChocoTempDir
+|
+| String
+| Chocolatey Temp directory to unzip downloaded package during bootstrap.
+|
+
+| ProxyLocation
+|
+| String
+| Url of the proxy to use to download the Chocolatey binaries.
+|
+
+| ProxyCredential
+|
+| PSCredential
+| Credential to be used to authenticate to the Proxy for downloading the Chocolatey Package.
+|
+
+| IgnoreProxy
+|
+| Boolean
+| Ignore proxy during download.
+| - True
+  - False
+
+| InstallationDirectory
+|
+| String
+| Path where Chocolatey should be installed, +
+  default to `C:\ProgramData\Chocolatey"
+
+[NOTE]
+====
+During offline installation (`OfflineInstallZip`) the specifed installation path is set to environment variable 'ChocolateyInstall' 
+but will be ignored by Chocolatey install script (tested with 0.10.15).
+In this case the `Test-DscConfiguration` command returns `False`.
+====
+|
+
+|===
+
+
+[[dscyml_chocolateypackages_sources_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages_sources>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Folder path where the Chocolatey Software should be installed.
+|
+
+| Ensure
+| Mandatory
+| String
+| Specifies whether the Chocolatey Software should be installed on the machine or not.
+| - Present
+  - Absent
+
+| Source
+|
+| String
+|
+|
+
+| Priority
+|
+| SInt16
+|
+|
+
+| Disabled
+|
+| Boolean
+|
+| - True
+  - False
+
+| BypassProxy
+|
+| Boolean
+|
+| - True
+  - False
+
+| SelfService
+|
+| Boolean
+|
+| - True
+  - False
+
+| Credential
+|
+| PSCredential
+|
+|
+
+|===
+
+
+[[dscyml_chocolateypackages_packages_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages_packages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Chocolatey Package Id
+|
+
+| Version
+|
+| String
+| Chocolatey Package Version
+| 
+
+| Ensure
+| Mandatory
+| String
+| Specifies whether the Chocolatey Package should be installed on the machine or not ValueMap
+| - Present (default)
+  - Absent
+
+| ChocolateyOptions
+|
+| String[] (KeyValuePair)
+| Chocolatey Options
+| 
+
+| UpdateOnly
+|
+| Boolean
+| Only updates installed package and ignores packages not Installed.
+| - True
+  - False (default)
+
+| Credential
+|
+| PSCredential
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ChocolateyPackages:
+  Software:
+    Ensure: Present
+    #OfflineInstallZip: C:\LocalRepo\packages\chocolatey.0.10.15.nupkg
+    PackageFeedUrl: https://chocolatey.org/api/v2
+    Version: 0.10.15
+    ChocoTempDir: C:\ChocoTemp
+    InstallationDirectory: C:\ProgramData\Chocolatey
+  Sources:
+    - Name: Chocolatey
+      Ensure: Present
+      Source: https://chocolatey.org/api/v2
+      Priority: 0
+      Disabled: False
+    - Name: PrivateChocolatey
+      Ensure: Absent
+  Packages:
+    - Name: notepadplusplus
+      Ensure: Present
+      Version: "1.0"
+      ChocolateyOptions:
+        Source: SomeFeed
+      Credential: '[ENC=PE9ianM...=]'
+    - Name: winrar
+      Ensure: Present
+      Version: '1.0'
+      ChocolateyOptions:
+        Source: SomeFeed
+      Credential: '[ENC=PE9ianM...=]'
+----

@@ -1,0 +1,7 @@
+Logs:
+- LogName: System
+  LogMode: Circular
+  MaximumSizeInBytes: 20971520
+- LogName: Directory Service
+  LogMode: Circular
+  MaximumSizeInBytes: 524288

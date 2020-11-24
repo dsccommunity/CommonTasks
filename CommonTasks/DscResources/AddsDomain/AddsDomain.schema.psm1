@@ -28,7 +28,23 @@ configuration AddsDomain
 
         [Parameter()]
         [pscredential]
-        $SafeModePassword
+        $SafeModeAdministratorPassword,
+
+        [Parameter()]
+        [string]
+        $DatabasePath = 'C:\Windows\NTDS',
+
+        [Parameter()]
+        [string]        
+        $LogPath = 'C:\Windows\Logs',
+
+        [Parameter()]
+        [string]
+        $SysvolPath = 'C:\Windows\SYSVOL',
+
+        [Parameter()]
+        [string]
+        $ForestMode = 'WinThreshold'
     )
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
@@ -49,8 +65,12 @@ configuration AddsDomain
     {
         DomainName                    = $DomainFQDN
         DomainNetbiosName             = $DomainName
-        SafemodeAdministratorPassword = $SafeModePassword
+        SafemodeAdministratorPassword = $SafeModeAdministratorPassword
         Credential                    = $DomainAdministrator
+        DatabasePath                  = $DatabasePath
+        LogPath                       = $LogPath
+        SysvolPath                    = $SysvolPath
+        ForestMode = $ForestMode
     }
     
     ADOptionalFeature RecycleBin 

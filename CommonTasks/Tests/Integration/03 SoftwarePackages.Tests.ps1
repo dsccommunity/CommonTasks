@@ -11,7 +11,7 @@ Describe 'SoftwarePackages DSC Resource compiles' -Tags FunctionalQuality {
 
             node localhost_SoftwarePackages {
                 SoftwarePackages SoftwarePackages {
-                    Package = $configurationData.Datum.Config.SoftwarePackages.Packages
+                    Packages = $configurationData.Datum.Config.SoftwarePackages.Packages
                 }
             }
         }

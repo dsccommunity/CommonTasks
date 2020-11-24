@@ -1,0 +1,10 @@
+Items:
+  - Name: JeaDiscovery.psd1
+    GetScript: |
+      @{
+        Result = (Get-Date)
+      }
+    TestScript: |
+      [bool(Get-Date)
+    SetScript: |
+      Get-Date

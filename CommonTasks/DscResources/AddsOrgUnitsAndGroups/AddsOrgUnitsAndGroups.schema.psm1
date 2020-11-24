@@ -6,9 +6,7 @@ configuration AddsOrgUnitsAndGroups
         $OrgUnits,
 
         [object[]]
-        $Groups,
-
-        $Node
+        $Groups
     )
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
@@ -26,9 +24,11 @@ configuration AddsOrgUnitsAndGroups
     {
         param
         (
+            [Parameter(Mandatory)]
             [object]
             $Object,
 
+            [Parameter(Mandatory)]
             [string]
             $ParentPath,
 
@@ -70,14 +70,22 @@ configuration AddsOrgUnitsAndGroups
     
     foreach ($ou in $OrgUnits)
     {
-        Get-OrgUnitSplat $ou $ou.Path -SkipDepend
+        if (-not $ou.Path) {
+            $ou.Path = Lookup -PropertyPath AddsDomain/DomainDn
+        }
+
+        if ($ou.Path -notmatch '(?<DomainPart>dc=\w+,dc=\w+)') {
+            $ou.Path = "$($ou.Path),$(Lookup -PropertyPath AddsDomain/DomainDn)"
+        }
+
+        Get-OrgUnitSplat -Object $ou -ParentPath $ou.Path -SkipDepend
     }
 
     $dependencies = @()
 
-    foreach ($group in $Groups.Where( {$_.groupscope -eq "DomainLocal"}))
+    foreach ($group in $Groups.Where({$_.groupscope -eq "DomainLocal"}))
     {
-        $dependencies += "[adgroup]$($group.GroupName)"
+        $dependencies += "[ADGroup]$($group.GroupName)"
         $group.DependsOn = $ouDependencies
         $group.Path = '{0},{1}' -f $group.Path, $domainDn
         (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)

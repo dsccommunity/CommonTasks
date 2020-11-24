@@ -13,7 +13,7 @@ configuration FilesAndFolders {
             $item.Ensure = 'Present'
         }
 
-        $executionName = $item.DestinationPath -replace ':', ''
+        $executionName = $item.DestinationPath -replace ':|\s', ''
         (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

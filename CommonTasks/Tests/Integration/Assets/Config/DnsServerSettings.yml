@@ -1,0 +1,16 @@
+Settings:
+  Name: DnsServerSetting
+  ListenAddresses:
+    - 192.168.30.111
+  IsSlave: true
+  Forwarders:
+    - 168.63.129.16
+    - 168.63.129.18
+  RoundRobin: true
+  LocalNetPriority: true
+  SecureResponses: true
+  NoRecursion: false
+  BindSecondaries: false
+  StrictFileParsing: false
+  ScavengingInterval: 168
+  LogLevel: 50393905
