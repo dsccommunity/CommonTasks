@@ -8,7 +8,7 @@ configuration WindowsEventLogs {
    
     foreach ($log in $Logs) {
         
-        $executionName = "$($log.LogName)"
+        $executionName = "$($log.LogName)" -replace ' ', ''
         (Get-DscSplattedResource -ResourceName WindowsEventLog -ExecutionName $executionName -Properties $log -NoInvoke).Invoke($log)
 
     }
