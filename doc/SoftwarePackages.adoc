@@ -1,0 +1,202 @@
+// CommonTasks YAML Reference: SoftwarePackages
+// ========================================
+
+:YmlCategory: SoftwarePackages
+
+
+[[dscyml_softwarepackages, {YmlCategory}]]
+= DSC Resource 'SoftwarePackages'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_softwarepackages_abstract]]
+.{YmlCategory} This resource install software packages.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SoftwarePackages
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xpackage[xPackage]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_softwarepackages_packages, {YmlCategory}/Packages]]<<dscyml_softwarepackages_packages_details, Packages>>
+| Mandatory
+| Hashtable[]
+| List of software packages
+|
+
+|===
+
+
+[[dscyml_softwarepackages_packages_details]]
+.Attributes of category '<<dscyml_softwarepackages_packages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the package.
+|
+
+| ProductId
+| Key
+| String
+| The product ID of the package (usually a GUID).
+|
+
+| Ensure
+|
+| String
+| Ensures that the package is Present or Absent.
+| - Present (default)
+  - Absent
+
+| Path
+|
+| String
+| The source path of the package.
+|
+
+| Arguments
+|
+| String
+| Command line arguments passed on the installation command line. +
+  When installing MSI packages, the /quiet and /norestart arguments are automatically applied.
+|
+
+| IgnoreReboot
+|
+| Boolean
+| Ignore a pending reboot if requested by package installation.
+| - True
+  - False (default)
+
+| Credential
+|
+| PSCredential
+| PSCredential needed to access Path.
+|
+
+| ReturnCode
+|
+| Uint32[] 
+| An array of return codes that are returned after a successful installation. +
+  Some special return codes of MsiExec can be found https://docs.microsoft.com/en-us/windows/win32/msi/error-codes[online].
+|
+
+| LogPath
+|
+| String
+| The destination path of the log.
+|
+
+| FileHash
+|
+| String
+| The hash that should match the hash of the package file.
+|
+
+| HashAlgorithm
+|
+| String
+| The algorithm to use to get the hash of the package file.
+| - SHA1
+  - SHA256
+  - SHA384
+  - SHA512
+  - MD5
+  - RIPEMD160
+
+| SignerSubject
+|
+| String
+| The certificate subject that should match that of the package file's signing certificate.
+|
+
+| SignerThumbprint
+|
+| String
+| The certificate thumbprint that should match that of the package file's signing certificate.
+|
+
+| ServerCertificateValidationCallback
+|
+| String
+| A callback function to validate the server certificate.
+|
+
+| RunAsCredential
+|
+| PSCredential
+| Credential used to install the package on the local system.
+|
+
+| CreateCheckRegValue
+|
+| Boolean
+| If a registry value should be created.
+| - True
+  - False
+
+| InstalledCheckRegHive
+|
+| String
+| The hive in which to create the registry key.
+| - LocalMachine (default)
+  - CurrentUser
+
+| InstalledCheckRegKey
+|
+| String
+| That path in the registry where the value should be created.
+|
+
+| InstalledCheckRegValueName
+|
+| String
+| The name of the registry value to create.
+|
+
+| InstalledCheckRegValueData
+|
+| String
+| The data that should be set to the registry value.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SoftwarePackages:
+  Package:
+    - Name: Software One
+      Path: \\Server\Share\SoftwareOne\SoftwareOne.msi
+      ProductId: aa859ee6-4f64-439a-85c0-bc1207886cb6
+      ReturnCode: 0
+    - Name: Software Two
+      Path: \\Server\Share\SoftwareOne\SoftwareTwo.msi
+      ProductId: 734f1912-01b1-4f50-8bba-9c3f8912ee8d
+      ReturnCode:
+        - 0
+        - 1641
+        - 3010
+----

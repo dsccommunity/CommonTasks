@@ -87,7 +87,7 @@
 |
 | String
 | Url of a Nuget feed where the Chocolatey software package is available. +
-  i.e. https://chocolatey.org/api/v2
+  i.e. \https://chocolatey.org/api/v2
 |
 
 | Version
@@ -155,10 +155,10 @@ In this case the `Test-DscConfiguration` command returns `False`.
 |
 
 | Ensure
-| Mandatory
+|
 | String
 | Specifies whether the Chocolatey Software should be installed on the machine or not.
-| - Present
+| - Present (default)
   - Absent
 
 | Source
@@ -223,12 +223,16 @@ In this case the `Test-DscConfiguration` command returns `False`.
 |
 | String
 | Chocolatey Package Version
-| 
+
+  - '' -> Install latest version if package is not installed
+  - 1.0 -> Install specified version if no newer version is installed
+  - Latest -> Install or upgrade to latest version 
+|
 
 | Ensure
-| Mandatory
+|
 | String
-| Specifies whether the Chocolatey Package should be installed on the machine or not ValueMap
+| Specifies whether the Chocolatey Package should be installed on the machine or not
 | - Present (default)
   - Absent
 
