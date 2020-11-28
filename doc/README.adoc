@@ -56,6 +56,7 @@ ifdef::env-github[]
 
 - <<Globals.adoc#,Globals>>
 - <<ChocolateyPackages.adoc#,ChocolateyPackages>>
+- <<Disks.adoc#,Disks>>
 
 endif::[]
 
@@ -79,7 +80,7 @@ ifndef::env-github[]
 // | <<dscyml_configurationbase>>          | <<dscyml_configurationbase_abstract>>
 // | <<dscyml_dfsnamespaces>>              | <<dscyml_dfsnamespaces_abstract>>
 // | <<dscyml_dhcpserver>>                 | <<dscyml_dhcpserver_abstract>>
-// | <<dscyml_disks>>                      | <<dscyml_disks_abstract>>
+| <<dscyml_disks>>                      | <<dscyml_disks_abstract>>
 // | <<dscyml_dnsserver>>                  | <<dscyml_dnsserver_abstract>>
 // | <<dscyml_dscdiagnostic>>              | <<dscyml_dscdiagnostic_abstract>>
 // | <<dscyml_dsclcmcontroller>>           | <<dscyml_dsclcmcontroller_abstract>>
@@ -124,7 +125,7 @@ include::ChocolateyPackages.adoc[leveloffset=+2]
 //include::DscResources/ConfigurationBase.adoc[leveloffset=+2]
 //include::DscResources/DfsNamespaces.adoc[leveloffset=+2]
 //include::DscResources/DhcpServer.adoc[leveloffset=+2]
-//include::DscResources/Disks.adoc[leveloffset=+2]
+include::Disks.adoc[leveloffset=+2]
 //include::DscResources/DnsServer.adoc[leveloffset=+2]
 //include::DscResources/DscDiagnostic.adoc[leveloffset=+2]
 //include::DscResources/DscLcmController.adoc[leveloffset=+2]
