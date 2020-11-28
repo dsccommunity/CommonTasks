@@ -1,0 +1,163 @@
+// CommonTasks YAML Reference: AddsDomain
+// ========================================
+
+:YmlCategory: AddsDomain
+
+
+[[dscyml_addsdomain, {YmlCategory}]]
+= DSC Resource 'AddsDomain'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_addsdomain_abstract]]
+.{YmlCategory} creates a new domain in a new forest or a child domain in an existing forest.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomain
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomain[ADDomain],
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADOptionalFeature[ADOptionalFeature],
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DomainFQDN
+| Mandatory
+| String
+| The fully qualified domain name (FQDN) of a new domain.
+  If setting up a child domain this must be set to a single-label DNS name.
+|
+
+| [[dscyml_addsdomain_domainname, AddsDomain/DomainName]]DomainName
+| Mandatory
+| String
+| NetBIOS name for the new domain. +
+  Prerequisite for 
+  <<dscyml_addsorgunitsandgroups>>, 
+  <<dscyml_addsdomainusers_users>>
+|
+
+| [[dscyml_addsdomain_domaintrust, {YmlCategory}/DomainTrust]]<<dscyml_addsdomain_domaintrust_details, DomainTrust>>
+|
+| Hashtable
+| The DomainTrust resource will manage _Bidirectional Forest_ Domain Trusts.
+|
+
+| [[dscyml_addsdomain_domaindn, {YmlCategory}/DomainDn]]DomainDn
+|
+| String
+| Distinguished Name (DN) of the domain. +
+  +
+  Prerequisite for <<dscyml_addsorgunitsandgroups_groups>>
+|
+
+| DomainJoinAccount
+|
+| PSCredential
+| Placeholder to be able to store domain join account in the yaml files.
+|
+
+| DomainAdministrator
+|
+| PSCredential
+| Specifies the user account credentials to use to perform this task.
+|
+
+| SafeModeAdministratorPassword
+|
+| PSCredential
+| Password for the administrator account when the computer is started in Safe Mode.
+|
+
+| DatabasePath
+|
+| String
+| Path to a directory that contains the domain database.
+| Default: `C:\Windows\NTDS`
+
+| LogPath
+|
+| 
+| Path to a directory for the log file that will be written.
+| Default: `C:\Windows\Logs`
+
+| SysvolPath
+|
+| 
+| Path to a directory where the Sysvol file will be written.
+| Default: `C:\Windows\SYSVOL`
+
+| ForestMode
+|
+| 
+| The Forest Functional Level for the entire forest.
+| - Win2008
+  - Win2008R2
+  - Win2012
+  - Win2012R2
+  - WinThreshold (default)
+
+|===
+
+
+[[dscyml_addsdomain_domaintrust_details]]
+.Attributes of category '<<dscyml_addsdomain_domaintrust>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Fqdn
+| Manadatory
+| String
+| The fully qualified domain name (FQDN) of a trusted domain.
+|
+
+| Name
+| Manadatory
+| String
+| Name of the domain trust.
+|
+
+| Credential
+| Manadatory
+| pscredential
+| Specifies the credentials to authenticate to the target domain.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsDomain:
+  DomainFqdn: contoso.com
+  DomainName: contoso
+  DomainDN: DC=contoso,DC=com
+  DomainJoinAccount: '[ENC=PE9ianMgVm...=]'
+  DomainAdministrator: '[ENC=PE9ianMgVmVyc2l...=]'
+  SafeModeAdministratorPassword: '[ENC=PE9ianMgVmVyc2lvbj...=]'
+  DatabasePath: C:\Windows\NTDS
+  LogPath: C:\Windows\Logs
+  SysvolPath: C:\Windows\SYSVOL
+  ForestMode: Win2012R2
+  DomainTrust:
+    Fqdn: northwindtraders.com
+    Name: northwindtraders
+    Credential: '[ENC=PE9ianMgVmVyc2lvbj0i...=]'
+----

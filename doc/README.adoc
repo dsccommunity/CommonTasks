@@ -55,6 +55,7 @@ To avoid problems with special characters (like German umlaut) all YAML files sh
 ifdef::env-github[]
 
 - <<Globals.adoc#,Globals>>
+- <<AddsDomain.adoc#,AddsDomain>>
 - <<ChocolateyPackages.adoc#,ChocolateyPackages>>
 - <<Disks.adoc#,Disks>>
 
@@ -70,7 +71,7 @@ ifndef::env-github[]
 | DSC Resource                          | Description
 
 | <<dscyml_globals>>                    | <<dscyml_globals_abstract>>
-// | <<dscyml_addsdomain>>                 | <<dscyml_addsdomain_abstract>>
+| <<dscyml_addsdomain>>                 | <<dscyml_addsdomain_abstract>>
 // | <<dscyml_addsdomaincontroller>>       | <<dscyml_addsdomaincontroller_abstract>>
 // | <<dscyml_addsdomainusers>>            | <<dscyml_addsdomainusers_abstract>>
 // | <<dscyml_addsorgunitsandgroups>>      | <<dscyml_addsorgunitsandgroups_abstract>>
@@ -115,7 +116,7 @@ ifndef::env-github[]
 
 
 include::Globals.adoc[leveloffset=+2]
-//include::DscResources/AddsDomain.adoc[leveloffset=+2]
+include::AddsDomain.adoc[leveloffset=+2]
 //include::DscResources/AddsDomainController.adoc[leveloffset=+2]
 //include::DscResources/AddsDomainUsers.adoc[leveloffset=+2]
 //include::DscResources/AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
