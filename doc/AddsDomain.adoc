@@ -106,7 +106,7 @@
   - Win2008R2
   - Win2012
   - Win2012R2
-  - WinThreshold (default)
+  - *WinThreshold* (default)
 
 |===
 
@@ -122,19 +122,19 @@
 | Allowed Values
 
 | Fqdn
-| Manadatory
+| Mandatory
 | String
 | The fully qualified domain name (FQDN) of a trusted domain.
 |
 
 | Name
-| Manadatory
+| Mandatory
 | String
 | Name of the domain trust.
 |
 
 | Credential
-| Manadatory
+| Mandatory
 | pscredential
 | Specifies the credentials to authenticate to the target domain.
 |

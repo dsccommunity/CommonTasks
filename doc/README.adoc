@@ -17,6 +17,14 @@ endif::[]
 
 = CommonTasks YAML Reference
 
+ifdef::env-github[]
+[NOTE]
+====
+GitHub supports only a subset of the https://asciidoc.org/[AsciiDoc] language.
+To create your own documentation use https://asciidoctor.org/[Asciidoctor] or the https://asciidocfx.com/[Asciidoc Book Editor]. 
+====
+endif::[]
+
 YAML reference of DSC resources of https://github.com/dsccommunity/CommonTasks[Common Tasks]
 
 .Links
@@ -54,11 +62,14 @@ To avoid problems with special characters (like German umlaut) all YAML files sh
 // GitHub doesn't support includes of adoc files
 ifdef::env-github[]
 
-- <<Globals.adoc#,Globals>>
-- <<AddsDomain.adoc#,AddsDomain>>
-- <<ChocolateyPackages.adoc#,ChocolateyPackages>>
-- <<Disks.adoc#,Disks>>
-- <<SoftwarePackages.adoc#,SoftwarePackages>>
+- <<Globals.adoc#, Globals>>
+- <<AddsDomain.adoc#, AddsDomain>>
+- <<AddsDomainUsers.adoc#, AddsDomainUsers>>
+- <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
+- <<ChocolateyPackages.adoc#, ChocolateyPackages>>
+- <<Disks.adoc#, Disks>>
+- <<DscPullServerSql.adoc#, DscPullServerSql>>
+- <<SoftwarePackages.adoc#, SoftwarePackages>>
 
 endif::[]
 
@@ -74,8 +85,8 @@ ifndef::env-github[]
 | <<dscyml_globals>>                    | <<dscyml_globals_abstract>>
 | <<dscyml_addsdomain>>                 | <<dscyml_addsdomain_abstract>>
 // | <<dscyml_addsdomaincontroller>>       | <<dscyml_addsdomaincontroller_abstract>>
-// | <<dscyml_addsdomainusers>>            | <<dscyml_addsdomainusers_abstract>>
-// | <<dscyml_addsorgunitsandgroups>>      | <<dscyml_addsorgunitsandgroups_abstract>>
+| <<dscyml_addsdomainusers>>            | <<dscyml_addsdomainusers_abstract>>
+| <<dscyml_addsorgunitsandgroups>>      | <<dscyml_addsorgunitsandgroups_abstract>>
 // | <<dscyml_addssitessubnets>>           | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_chocolateypackages>>         | <<dscyml_chocolateypackages_abstract>>
 // | <<dscyml_computersettings>>           | <<dscyml_computersettings_abstract>>
@@ -88,6 +99,7 @@ ifndef::env-github[]
 // | <<dscyml_dsclcmcontroller>>           | <<dscyml_dsclcmcontroller_abstract>>
 // | <<dscyml_dsclcmmaintenancewindows>>   | <<dscyml_dsclcmmaintenancewindows_abstract>>
 // | <<dscyml_dscpullserver>>              | <<dscyml_dscpullserver_abstract>>
+| <<dscyml_dscpullserversql>>              | <<dscyml_dscpullserversql_abstract>>
 // | <<dscyml_dsctagging>>                 | <<dscyml_dsctagging_abstract>>
 // | <<dscyml_filesandfolders>>            | <<dscyml_filesandfolders_abstract>>
 // | <<dscyml_firewallprofiles>>           | <<dscyml_firewallprofiles_abstract>>
@@ -119,8 +131,8 @@ ifndef::env-github[]
 include::Globals.adoc[leveloffset=+2]
 include::AddsDomain.adoc[leveloffset=+2]
 //include::AddsDomainController.adoc[leveloffset=+2]
-//include::AddsDomainUsers.adoc[leveloffset=+2]
-//include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
+include::AddsDomainUsers.adoc[leveloffset=+2]
+include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 //include::ComputerSettings.adoc[leveloffset=+2]
@@ -133,6 +145,7 @@ include::Disks.adoc[leveloffset=+2]
 //include::DscLcmController.adoc[leveloffset=+2]
 //include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
 //include::DscPullServer.adoc[leveloffset=+2]
+include::DscPullServerSql.adoc[leveloffset=+2]
 //include::DscTagging.adoc[leveloffset=+2]
 //include::FilesAndFolders.adoc[leveloffset=+2]
 //include::FirewallProfiles.adoc[leveloffset=+2]
