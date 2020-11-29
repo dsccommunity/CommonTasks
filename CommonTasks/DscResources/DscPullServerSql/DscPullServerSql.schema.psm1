@@ -58,7 +58,7 @@
 
     xDscWebService PSDSCPullServer {
         Ensure                       = 'Present'
-        EndpointName                 = 'PSDSCPullServer'
+        EndpointName                 = $EndpointName
         Port                         = $Port
         PhysicalPath                 = $PhysicalPath
         CertificateThumbPrint        = $CertificateThumbPrint

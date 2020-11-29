@@ -68,8 +68,13 @@ ifdef::env-github[]
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<Disks.adoc#, Disks>>
+- <<DnsServerAdZones.adoc#, DnsServerAdZones>>
+- <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
+- <<DnsServerRootHints.adoc#, DnsServerRootHints>>
+- <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
+- <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 
 endif::[]
 
@@ -80,50 +85,55 @@ ifndef::env-github[]
 .Reference of DSC Resouces
 [cols="1,3" options="header"]
 |===
-| DSC Resource                          | Description
+| DSC Resource                               | Description
 
-| <<dscyml_globals>>                    | <<dscyml_globals_abstract>>
-| <<dscyml_addsdomain>>                 | <<dscyml_addsdomain_abstract>>
-// | <<dscyml_addsdomaincontroller>>       | <<dscyml_addsdomaincontroller_abstract>>
-| <<dscyml_addsdomainusers>>            | <<dscyml_addsdomainusers_abstract>>
-| <<dscyml_addsorgunitsandgroups>>      | <<dscyml_addsorgunitsandgroups_abstract>>
-// | <<dscyml_addssitessubnets>>           | <<dscyml_addssitessubnets_abstract>>
-| <<dscyml_chocolateypackages>>         | <<dscyml_chocolateypackages_abstract>>
-// | <<dscyml_computersettings>>           | <<dscyml_computersettings_abstract>>
-// | <<dscyml_configurationbase>>          | <<dscyml_configurationbase_abstract>>
-// | <<dscyml_dfsnamespaces>>              | <<dscyml_dfsnamespaces_abstract>>
-// | <<dscyml_dhcpserver>>                 | <<dscyml_dhcpserver_abstract>>
-| <<dscyml_disks>>                      | <<dscyml_disks_abstract>>
-// | <<dscyml_dnsserver>>                  | <<dscyml_dnsserver_abstract>>
-// | <<dscyml_dscdiagnostic>>              | <<dscyml_dscdiagnostic_abstract>>
-// | <<dscyml_dsclcmcontroller>>           | <<dscyml_dsclcmcontroller_abstract>>
-// | <<dscyml_dsclcmmaintenancewindows>>   | <<dscyml_dsclcmmaintenancewindows_abstract>>
-// | <<dscyml_dscpullserver>>              | <<dscyml_dscpullserver_abstract>>
-| <<dscyml_dscpullserversql>>              | <<dscyml_dscpullserversql_abstract>>
-// | <<dscyml_dsctagging>>                 | <<dscyml_dsctagging_abstract>>
-// | <<dscyml_filesandfolders>>            | <<dscyml_filesandfolders_abstract>>
-// | <<dscyml_firewallprofiles>>           | <<dscyml_firewallprofiles_abstract>>
-// | <<dscyml_firewallrules>>              | <<dscyml_firewallrules_abstract>>
-// | <<dscyml_hyperv>>                     | <<dscyml_hyperv_abstract>>
-// | <<dscyml_ipconfiguration>>            | <<dscyml_ipconfiguration_abstract>>
-// | <<dscyml_jeaendpoints>>               | <<dscyml_jeaendpoints_abstract>>
-// | <<dscyml_jearoles>>                   | <<dscyml_jearoles_abstract>>
-// | <<dscyml_network>>                    | <<dscyml_network_abstract>>
-// | <<dscyml_networkipconfiguration>>     | <<dscyml_networkipconfiguration_abstract>>
-// | <<dscyml_registryvalues>>             | <<dscyml_registryvalues_abstract>>
-// | <<dscyml_scripts>>                    | <<dscyml_scripts_abstract>>
-// | <<dscyml_securitybase>>               | <<dscyml_securitybase_abstract>>
-| <<dscyml_softwarepackages>>           | <<dscyml_softwarepackages_abstract>>
-// | <<dscyml_sqlserver>>                  | <<dscyml_sqlserver_abstract>>
-// | <<dscyml_updateservices>>             | <<dscyml_updateservices_abstract>>
-// | <<dscyml_wds>>                        | <<dscyml_wds_abstract>>
-// | <<dscyml_webapplicationpools>>        | <<dscyml_webapplicationpools_abstract>>
-// | <<dscyml_webapplications>>            | <<dscyml_webapplications_abstract>>
-// | <<dscyml_websites>>                   | <<dscyml_websites_abstract>>
-// | <<dscyml_webvirtualdirectories>>      | <<dscyml_webvirtualdirectories_abstract>>
-// | <<dscyml_windowsfeatures>>            | <<dscyml_windowsfeatures_abstract>>
-// | <<dscyml_windowsservices>>            | <<dscyml_windowsservices_abstract>>
-// | <<dscyml_xmlcontent>>                 | <<dscyml_xmlcontent_abstract>>
+| <<dscyml_globals>>                         | <<dscyml_globals_abstract>>
+| <<dscyml_addsdomain>>                      | <<dscyml_addsdomain_abstract>>
+// | <<dscyml_addsdomaincontroller>>         | <<dscyml_addsdomaincontroller_abstract>>
+| <<dscyml_addsdomainusers>>                 | <<dscyml_addsdomainusers_abstract>>
+| <<dscyml_addsorgunitsandgroups>>           | <<dscyml_addsorgunitsandgroups_abstract>>
+// | <<dscyml_addssitessubnets>>             | <<dscyml_addssitessubnets_abstract>>
+| <<dscyml_chocolateypackages>>              | <<dscyml_chocolateypackages_abstract>>
+// | <<dscyml_computersettings>>             | <<dscyml_computersettings_abstract>>
+// | <<dscyml_configurationbase>>            | <<dscyml_configurationbase_abstract>>
+// | <<dscyml_dfsnamespaces>>                | <<dscyml_dfsnamespaces_abstract>>
+// | <<dscyml_dhcpserver>>                   | <<dscyml_dhcpserver_abstract>>
+| <<dscyml_disks>>                           | <<dscyml_disks_abstract>>
+// | <<dscyml_dnsserver>>                    | <<dscyml_dnsserver_abstract>>
+| <<dscyml_dnsserveradzones>>                | <<dscyml_dnsserveradzones_abstract>>
+| <<dscyml_dnsserverconditionalforwarders>>  | <<dscyml_dnsserverconditionalforwarders_abstract>>
+| <<dscyml_dnsserverroothints>>              | <<dscyml_dnsserverroothints_abstract>>
+| <<dscyml_dnsserversettings>>               | <<dscyml_dnsserversettings_abstract>>
+// | <<dscyml_dscdiagnostic>>                | <<dscyml_dscdiagnostic_abstract>>
+// | <<dscyml_dsclcmcontroller>>             | <<dscyml_dsclcmcontroller_abstract>>
+// | <<dscyml_dsclcmmaintenancewindows>>     | <<dscyml_dsclcmmaintenancewindows_abstract>>
+// | <<dscyml_dscpullserver>>                | <<dscyml_dscpullserver_abstract>>
+| <<dscyml_dscpullserversql>>                | <<dscyml_dscpullserversql_abstract>>
+// | <<dscyml_dsctagging>>                   | <<dscyml_dsctagging_abstract>>
+// | <<dscyml_filesandfolders>>              | <<dscyml_filesandfolders_abstract>>
+// | <<dscyml_firewallprofiles>>             | <<dscyml_firewallprofiles_abstract>>
+// | <<dscyml_firewallrules>>                | <<dscyml_firewallrules_abstract>>
+// | <<dscyml_hyperv>>                       | <<dscyml_hyperv_abstract>>
+// | <<dscyml_ipconfiguration>>              | <<dscyml_ipconfiguration_abstract>>
+// | <<dscyml_jeaendpoints>>                 | <<dscyml_jeaendpoints_abstract>>
+// | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
+// | <<dscyml_network>>                      | <<dscyml_network_abstract>>
+// | <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
+// | <<dscyml_registryvalues>>               | <<dscyml_registryvalues_abstract>>
+// | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
+// | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
+| <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
+// | <<dscyml_sqlserver>>                    | <<dscyml_sqlserver_abstract>>
+// | <<dscyml_updateservices>>               | <<dscyml_updateservices_abstract>>
+// | <<dscyml_wds>>                          | <<dscyml_wds_abstract>>
+// | <<dscyml_webapplicationpools>>          | <<dscyml_webapplicationpools_abstract>>
+// | <<dscyml_webapplications>>              | <<dscyml_webapplications_abstract>>
+// | <<dscyml_websites>>                     | <<dscyml_websites_abstract>>
+// | <<dscyml_webvirtualdirectories>>        | <<dscyml_webvirtualdirectories_abstract>>
+| <<dscyml_windowseventlogs>>                | <<dscyml_windowseventlogs_abstract>>
+// | <<dscyml_windowsfeatures>>              | <<dscyml_windowsfeatures_abstract>>
+// | <<dscyml_windowsservices>>              | <<dscyml_windowsservices_abstract>>
+// | <<dscyml_xmlcontent>>                   | <<dscyml_xmlcontent_abstract>>
 
 |===
 
@@ -141,6 +151,10 @@ include::ChocolateyPackages.adoc[leveloffset=+2]
 //include::DhcpServer.adoc[leveloffset=+2]
 include::Disks.adoc[leveloffset=+2]
 //include::DnsServer.adoc[leveloffset=+2]
+include::DnsServerAdZones.adoc[leveloffset=+2]
+include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
+include::DnsServerRootHints.adoc[leveloffset=+2]
+include::DnsServerSettings.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]
 //include::DscLcmController.adoc[leveloffset=+2]
 //include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
@@ -167,6 +181,7 @@ include::SoftwarePackages.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
+include::WindowsEventLogs.adoc[leveloffset=+2]
 //include::WindowsFeatures.adoc[leveloffset=+2]
 //include::WindowsServices.adoc[leveloffset=+2]
 //include::XmlContent.adoc[leveloffset=+2]

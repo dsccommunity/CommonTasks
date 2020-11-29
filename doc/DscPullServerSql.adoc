@@ -44,13 +44,13 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Key
 | String
 | The desired web service name.
-|
+| Default: `PSDSCPullServer`
 
 | Port
 |
 | Uint16
 | The port number of the DSC Pull Server IIS Endpoint.
-| Default: 8080 
+| Default: `8080` 
 
 | CertificateThumbPrint
 |
@@ -60,7 +60,7 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Default: `AllowUnencryptedTraffic`
 
 | RegistrationKey
-|
+| Mandatory
 | String
 | DSC pull server registration key +
   The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` 

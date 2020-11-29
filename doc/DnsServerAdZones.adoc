@@ -1,0 +1,129 @@
+// CommonTasks YAML Reference: DnsServerAdZones
+// ========================================
+
+:YmlCategory: DnsServerAdZones
+
+
+[[dscyml_dnsserveradzones, {YmlCategory}]]
+= DSC Resource 'DnsServerAdZones'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserveradzones_abstract]]
+.{YmlCategory} sets AD integrated zones on a given DNS server.
+
+
+// reference links as variables for using more than once
+:ref_xDnsServerADZone:  https://github.com/dsccommunity/xDnsServer#xdnsserveradzone[xDnsServerADZone]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerAdZones
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | {ref_xDnsServerADZone}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserveradzones_adzones, {YmlCategory}/AdZones]]<<dscyml_dnsserveradzones_adzones_details, AdZones>>
+|
+| Hashtable[]
+| Set of {ref_xDnsServerADZone}
+|
+
+| DomainCredential
+|
+| PSCredential
+| Specifies the credential to use to create the AD zones on a remote computer. +
+  This parameter can only be used when you also are passing a value for the ComputerName parameter of the AD zone.
+|
+
+|===
+
+
+[[dscyml_dnsserveradzones_adzones_details]]
+.Attributes of category '<<dscyml_dnsserveradzones_adzones>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Name of the AD DNS zone
+|
+
+| Ensure
+|
+| String
+| Whether the AD zone should be present or removed
+| - *Present* (default)
+  - Absent
+
+| DynamicUpdate
+|
+| String
+| AD zone dynamic DNS update option. 
+| - None
+  - NonSecureAndSecure
+  - *Secure* (default)
+
+| ReplicationScope
+| Mandatory
+| String
+| AD zone replication scope option.
+| - Custom
+  - Domain
+  - Forest
+  - Legacy
+
+| DirectoryPartitionName
+|
+|
+| Name of the directory partition on which to store the zone. +
+  Use this parameter when the ReplicationScope parameter has a value of Custom.
+|
+
+| ComputerName
+|
+|
+| Specifies a DNS server. +
+  If you do not specify this parameter, the command runs on the local system.
+|
+
+| Credential
+|
+| PSCredential
+| Specifies the credential to use to create the AD zone on a remote computer. +
+  This parameter can only be used when you also are passing a value for the ComputerName parameter.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerAdZones:
+  AdZones:
+  - Name: cms.contoso.com
+    DynamicUpdate: Secure
+    ReplicationScope: Forest
+  - Name: 30.168.192.in-addr.arpa
+    DynamicUpdate: Secure
+    ReplicationScope: Forest
+  DomainCredential: '[ENC=PE9ianMgVmVyc2lvbj...=]'
+----
