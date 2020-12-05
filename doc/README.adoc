@@ -73,6 +73,7 @@ ifdef::env-github[]
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
+- <<RegistryValues.adoc#, RegistryValues>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 
@@ -119,7 +120,7 @@ ifndef::env-github[]
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
 // | <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
-// | <<dscyml_registryvalues>>               | <<dscyml_registryvalues_abstract>>
+| <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
@@ -170,7 +171,7 @@ include::DscPullServerSql.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
 //include::NetworkIpConfiguration.adoc[leveloffset=+2]
-//include::RegistryValues.adoc[leveloffset=+2]
+include::RegistryValues.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
