@@ -4,7 +4,10 @@ configuration DscTagging {
         [System.Version]$Version,
 
         [Parameter(Mandatory)]
-        [string]$Environment
+        [string]$Environment,
+
+        [Parameter()]
+        [string[]]$Modules
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -61,5 +64,22 @@ configuration DscTagging {
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
+    }
+
+    if ($null -ne $Modules -and $Modules.Count -gt 0) {
+
+        # check for duplicate module names
+        $ht = @{}
+        $Modules | ForEach-Object {$ht["$_"] += 1}
+        $ht.Keys | Where-Object {$ht["$_"] -gt 1} | ForEach-Object { throw "ERROR: DscTagging: Duplicate module name '$_' found." }
+
+        xRegistry DscModules {
+            Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+            ValueName = 'Modules'
+            ValueData = $Modules
+            ValueType = 'MultiString'
+            Ensure    = 'Present'
+            Force     = $true
+        }
     }
 }

@@ -10,7 +10,7 @@
 
 
 [[dscyml_softwarepackages_abstract]]
-.{YmlCategory} This resource install software packages.
+.{YmlCategory} installs software packages.
 
 
 [cols="1,3a" options="autowidth" caption=]

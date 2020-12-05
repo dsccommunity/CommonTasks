@@ -10,7 +10,7 @@
 
 
 [[dscyml_addsdomainusers_abstract]]
-.{YmlCategory} will manage Users within Active Directory.
+.{YmlCategory} manages Users within Active Directory.
 
 
 [cols="1,3a" options="autowidth" caption=]

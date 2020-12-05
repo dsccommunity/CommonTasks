@@ -73,6 +73,7 @@ ifdef::env-github[]
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
+- <<DscTagging.adoc#, DscTagging>>
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
@@ -110,7 +111,7 @@ ifndef::env-github[]
 // | <<dscyml_dsclcmmaintenancewindows>>     | <<dscyml_dsclcmmaintenancewindows_abstract>>
 // | <<dscyml_dscpullserver>>                | <<dscyml_dscpullserver_abstract>>
 | <<dscyml_dscpullserversql>>                | <<dscyml_dscpullserversql_abstract>>
-// | <<dscyml_dsctagging>>                   | <<dscyml_dsctagging_abstract>>
+| <<dscyml_dsctagging>>                      | <<dscyml_dsctagging_abstract>>
 // | <<dscyml_filesandfolders>>              | <<dscyml_filesandfolders_abstract>>
 // | <<dscyml_firewallprofiles>>             | <<dscyml_firewallprofiles_abstract>>
 // | <<dscyml_firewallrules>>                | <<dscyml_firewallrules_abstract>>
@@ -161,7 +162,7 @@ include::DnsServerSettings.adoc[leveloffset=+2]
 //include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
 //include::DscPullServer.adoc[leveloffset=+2]
 include::DscPullServerSql.adoc[leveloffset=+2]
-//include::DscTagging.adoc[leveloffset=+2]
+include::DscTagging.adoc[leveloffset=+2]
 //include::FilesAndFolders.adoc[leveloffset=+2]
 //include::FirewallProfiles.adoc[leveloffset=+2]
 //include::FirewallRules.adoc[leveloffset=+2]

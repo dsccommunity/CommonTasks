@@ -117,10 +117,20 @@ RegistryValues:
       ValueType: MultiString
       Ensure: Present
       Force: true
+
     - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging
       ValueName: EnableModuleLogging
       ValueData: 1
       ValueType: Dword
+
+    - Key: HKLM:\Software\Policies\Microsoft\Cryptography\Configuration\SSL\00010002
+      ValueName: EccCurves
+      ValueData: 
+        - curve25519
+        - NistP256
+        - NistP384
+      ValueType: MultiString
+      
     - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames
-      ValueType: String
+      Ensure: Absent
 ----

@@ -35,7 +35,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_dnsserversettings_settings, {YmlCategory}/Settings]]<<dscyml_dnsserversettings_settings_details, Settings>>
+| Settings
 |
 | Hashtable
 | List of {ref_xDnsServerSetting}s. +

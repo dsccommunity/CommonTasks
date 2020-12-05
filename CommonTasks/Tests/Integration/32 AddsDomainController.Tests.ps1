@@ -7,6 +7,7 @@ Describe "AddsDomainController DSC Resource compiles" -Tags FunctionalQuality {
 
         configuration "Config_AddsDomainController" {
 
+            Import-DscResource –ModuleName PSDesiredStateConfiguration
             Import-DscResource -ModuleName CommonTasks
 
             node localhost_AddsDomainController {

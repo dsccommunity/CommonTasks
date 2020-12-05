@@ -1,0 +1,125 @@
+// CommonTasks YAML Reference: DscTagging
+// ========================================
+
+:YmlCategory: DscTagging
+
+
+[[dscyml_dsctagging, {YmlCategory}]]
+= DSC Resource 'DscTagging'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dsctagging_abstract]]
+.{YmlCategory} contains information about the current DSC configuration (version, envrionment, modules, ...).
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscTagging
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
+                   https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-7[PSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xregistry[xRegistry]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Version
+| Mandatory
+| System.Version
+| DSC configuration version
+|
+
+| Environment
+| Mandatory
+| String
+| DSC environment information
+|
+
+| Modules
+| 
+| String[]
+| List of used modules (YAML files) for each node
+|
+
+|===
+
+
+[NOTE]
+====
+To fill the `Modules` list each YAML file requires an activated `DscTagging` configuration.
+In these configuration the attribute `Modules` should be set with the current module name (e.g. YAML file name).
+In `Datum.yml` the merging rules for `DscTagging` must be specified as deep merge.
+====
+
+
+.Example `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+  # merge rules of DscTagging - using Add to identify duplicate module names
+  DscTagging:
+    merge_hash: deep
+  DscTagging\Modules:
+    merge_basetype_array: Add
+----
+
+
+.Example `Dev.yml` (Excerpt)
+[source, yaml]
+----
+Configurations:
+  - DscTagging
+  
+DscTagging:
+  Environment: Dev
+  Modules:
+    - Environment\Dev
+----
+
+
+.Example `FileServer.yml` (Excerpt)
+[source, yaml]
+----
+Configurations:
+  - DscTagging
+  
+DscTagging:
+  Modules:
+    - Roles\FileServer
+----
+
+
+.Example `ServerBaseline.yml` (Excerpt)
+[source, yaml]
+----
+Configurations:
+  - DscTagging
+  
+DscTagging:
+  Version: 0.3.0
+  Modules:
+    - Roles\ServerBaseline
+----
+
+
+.Example of RSOP `MyComputer.yml` (Excerpt)
+[source, yaml]
+----
+Configurations:
+  - DscTagging
+  
+DscTagging:
+  Version: 0.3.0
+  Environment: Dev
+  Modules:
+    - Environment\Dev
+    - Roles\FileServer
+    - Roles\ServerBaseline
+----

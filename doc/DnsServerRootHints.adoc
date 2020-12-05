@@ -34,7 +34,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_dnsserverroothints_roothints, {YmlCategory}/RootHints]]<<dscyml_dnsserverroothints_roothints_details, RootHints>>
+| RootHints
 |
 | Hashtable[]
 | Set of {ref_xDnsServerRootHint}. +
