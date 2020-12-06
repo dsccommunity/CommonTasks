@@ -14,7 +14,7 @@ configuration RegistryValues {
         if ([String]::IsNullOrEmpty($value.ValueName)) {
             $value.ValueName = ''
         }
-        if ([String]::IsNullOrEmpty($value.ValueData) -and ($value.Ensure -ne 'Present')) {
+        if ([String]::IsNullOrEmpty($value.ValueData) -and ($value.Ensure -eq 'Present')) {
             $value.ValueData = ''
         }
         $executionName = ($value.Key + '\' + $value.ValueName) -replace ' ', ''
