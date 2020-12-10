@@ -7,7 +7,7 @@ configuration DscTagging {
         [string]$Environment,
 
         [Parameter()]
-        [string[]]$Modules
+        [string[]]$Layers
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -66,17 +66,17 @@ configuration DscTagging {
         Force     = $true
     }
 
-    if ($null -ne $Modules -and $Modules.Count -gt 0) {
+    if ($null -ne $Layers -and $Layers.Count -gt 0) {
 
-        # check for duplicate module names
+        # check for duplicate layers
         $ht = @{}
-        $Modules | ForEach-Object {$ht["$_"] += 1}
-        $ht.Keys | Where-Object {$ht["$_"] -gt 1} | ForEach-Object { throw "ERROR: DscTagging: Duplicate module name '$_' found." }
+        $Layers | ForEach-Object {$ht["$_"] += 1}
+        $ht.Keys | Where-Object {$ht["$_"] -gt 1} | ForEach-Object { throw "ERROR: DscTagging: Duplicate layer '$_' found." }
 
         xRegistry DscModules {
             Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
-            ValueName = 'Modules'
-            ValueData = $Modules
+            ValueName = 'Layers'
+            ValueData = $Layers
             ValueType = 'MultiString'
             Ensure    = 'Present'
             Force     = $true

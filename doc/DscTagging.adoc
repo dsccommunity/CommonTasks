@@ -42,10 +42,10 @@
 | DSC environment information
 |
 
-| Modules
+| Layers
 | 
 | String[]
-| List of used modules (YAML files) for each node
+| List of used layers (YAML files) for each node
 |
 
 |===
@@ -53,8 +53,8 @@
 
 [NOTE]
 ====
-To fill the `Modules` list each YAML file requires an activated `DscTagging` configuration.
-In these configuration the attribute `Modules` should be set with the current module name (e.g. YAML file name).
+To fill the `Layers` list each YAML file requires an `DscTagging` configuration.
+In these configuration the attribute `Layers` should be set with the current layer name (e.g. YAML file name).
 In `Datum.yml` the merging rules for `DscTagging` must be specified as deep merge.
 ====
 
@@ -62,6 +62,12 @@ In `Datum.yml` the merging rules for `DscTagging` must be specified as deep merg
 .Example `Datum.yml` (Excerpt)
 [source, yaml]
 ----
+ResolutionPrecedence:
+  - AllNodes\$($Node.Environment)\$($Node.NodeName)
+  - Environment\$($Node.Environment)
+  - Roles\$($Node.Role)
+  - Roles\ServerBaseline
+
 lookup_options:
   # merge rules of DscTagging - using Add to identify duplicate module names
   DscTagging:
@@ -71,32 +77,26 @@ lookup_options:
 ----
 
 
-.Example `Dev.yml` (Excerpt)
+.Example `Environment\Dev.yml` (Excerpt)
 [source, yaml]
 ----
-Configurations:
-  - DscTagging
-  
 DscTagging:
   Environment: Dev
-  Modules:
+  Layers:
     - Environment\Dev
 ----
 
 
-.Example `FileServer.yml` (Excerpt)
+.Example `Roles\FileServer.yml` (Excerpt)
 [source, yaml]
 ----
-Configurations:
-  - DscTagging
-  
 DscTagging:
-  Modules:
+  Layers:
     - Roles\FileServer
 ----
 
 
-.Example `ServerBaseline.yml` (Excerpt)
+.Example `Roles\ServerBaseline.yml` (Excerpt)
 [source, yaml]
 ----
 Configurations:
@@ -104,7 +104,7 @@ Configurations:
   
 DscTagging:
   Version: 0.3.0
-  Modules:
+  Layers:
     - Roles\ServerBaseline
 ----
 
@@ -118,7 +118,7 @@ Configurations:
 DscTagging:
   Version: 0.3.0
   Environment: Dev
-  Modules:
+  Layers:
     - Environment\Dev
     - Roles\FileServer
     - Roles\ServerBaseline
