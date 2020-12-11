@@ -85,15 +85,15 @@ configuration AddsOrgUnitsAndGroups
 
     foreach ($group in $Groups.Where({$_.groupscope -eq "DomainLocal"}))
     {
-        $dependencies += "[ADGroup]$($group.GroupName)"
+        $dependencies += "[ADGroup]'$($group.GroupName)'"
         $group.DependsOn = $ouDependencies
         $group.Path = '{0},{1}' -f $group.Path, $domainDn
-        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
+        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName "'$($group.GroupName)'" -Properties $group -NoInvoke).Invoke($group)
     }
 
     foreach ($group in $Groups.Where( {$_.groupscope -eq "Global"}))
     {
         $group.Path = '{0},{1}' -f $group.Path, $domainDn
-        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
+        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName "'$($group.GroupName)'" -Properties $group -NoInvoke).Invoke($group)
     }
 }
