@@ -1,0 +1,103 @@
+// CommonTasks YAML Reference: AddsDomainUsers
+// ========================================
+
+:YmlCategory: AddsDomainUsers
+
+
+[[dscyml_addsdomainusers, {YmlCategory}]]
+= DSC Resource 'AddsDomainUsers'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_addsdomainusers_abstract]]
+.{YmlCategory} manages Users within Active Directory.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomainUsers
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_addsdomainusers_users, {YmlCategory}/Users]]<<dscyml_addsdomainusers_users_details, Users>>
+| 
+| Hashtable[]
+| List of users to create. +
+  Requires <<dscyml_addsdomain_domainname>>.
+|
+
+|===
+
+
+[[dscyml_addsdomainusers_users_details]]
+.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser] for more
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| UserName
+| Key
+| String
+| Specifies the Security Account Manager (SAM) account name of the user (ldapDisplayName 'sAMAccountName').
+|
+
+| Password
+| 
+| PSCredential
+| Specifies a new password value for the account.
+|
+
+| Ensure
+| 
+| String
+| Specifies whether the user account should be present or absent.
+| - *Present* (default)
+  - Absent
+
+| CommonName
+| 
+| String
+| Specifies the common name assigned to the user account (ldapDisplayName 'cn'). +
+  If not specified the default value will be the same value provided in parameter UserName.
+|
+
+| DisplayName
+| 
+| String
+| Specifies the display name of the object (ldapDisplayName 'displayName').
+|
+
+| UserPrincipalName
+| 
+| String
+| Specifies the User Principal Name (UPN) assigned to the user account (ldapDisplayName 'userPrincipalName').
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsDomainUsers:
+  Users:
+    - UserName: test1
+      Password: '[ENC=PE9ianM...=]'
+    - UserName: test2
+      Password: '[ENC=PE9ianM...=]'
+----

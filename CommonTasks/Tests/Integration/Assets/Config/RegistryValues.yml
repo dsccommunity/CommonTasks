@@ -1,7 +1,20 @@
 Values:
   - Key: HKLM:\SOFTWARE\Microsoft\Rpc\Internet
     ValueName: Ports
-    Ensure: Present
-    Force: true
     ValueData: 60000-60100
     ValueType: MultiString
+    Ensure: Present
+    Force: True
+  - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames
+    ValueName:
+    ValueData:  
+    ValueType: String
+  - Key: HKLM:\Software\Policies\Microsoft\Cryptography\Configuration\SSL\00010002
+    ValueName: EccCurves
+    ValueData: 
+      - curve25519
+      - NistP256
+      - NistP384
+    ValueType: MultiString
+  - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNamesTest
+    Ensure: Absent

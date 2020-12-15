@@ -7,6 +7,7 @@ Describe "AddsDomain DSC Resource compiles" -Tags FunctionalQuality {
 
         configuration "Config_AddsDomain" {
 
+            Import-DscResource –ModuleName PSDesiredStateConfiguration
             Import-DscResource -ModuleName CommonTasks
 
             node "localhost_AddsDomain" {
@@ -17,6 +18,10 @@ Describe "AddsDomain DSC Resource compiles" -Tags FunctionalQuality {
                     DomainJoinAccount             = $configurationData.Datum.Config.AddsDomain.DomainJoinAccount
                     DomainAdministrator           = $configurationData.Datum.Config.AddsDomain.DomainAdministrator
                     SafeModeAdministratorPassword = $configurationData.Datum.Config.AddsDomain.SafeModePassword
+                    DatabasePath                  = $configurationData.Datum.Config.AddsDomain.DatabasePath
+                    LogPath                       = $configurationData.Datum.Config.AddsDomain.LogPath
+                    SysvolPath                    = $configurationData.Datum.Config.AddsDomain.SysvolPath
+                    ForestMode                    = $configurationData.Datum.Config.AddsDomain.ForestMode
                     DomainTrust                   = $configurationData.Datum.Config.AddsDomain.DomainTrust
                 }
             }

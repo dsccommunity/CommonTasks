@@ -1,0 +1,119 @@
+// CommonTasks YAML Reference: WindowsEventLogs
+// ========================================
+
+:YmlCategory: WindowsEventLogs
+
+
+[[dscyml_windowseventlogs, {YmlCategory}]]
+= DSC Resource 'WindowsEventLogs'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_windowseventlogs_abstract]]
+.{YmlCategory} allows configuration of a specified Windows Event Log.
+
+
+// reference links as variables for using more than once
+:ref_WindowsEventLogs:  https://github.com/dsccommunity/ComputerManagementDsc/wiki/WindowsEventLog[WindowsEventLogs]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsEventLogs
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | {ref_WindowsEventLogs}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_windowseventlogs_logs, {YmlCategory}/Logs]]<<dscyml_windowseventlogs_logs_details, Logs>>
+|
+| Hashtable[]
+| Set of {ref_WindowsEventLogs}
+|
+
+|===
+
+
+[[dscyml_windowseventlogs_logs_details]]
+.Attributes of category '<<dscyml_windowseventlogs_logs>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| LogName
+| Key
+| String
+| Specifies the given name of a Windows Event Log
+|
+
+| IsEnabled
+|
+| Boolean
+| Specifies the given state of a Windows Event Log
+| - True
+  - False
+
+| MaximumSizeInBytes
+| 
+| System.Int64
+| Specifies the given maximum size in bytes for a specified Windows Event Log
+| >= 1028KB
+
+| LogMode
+|
+| String
+| Specifies the given LogMode for a specified Windows Event Log
+| - AutoBackup
+  - Circular
+  - Retain
+
+| SecurityDescriptor
+|
+| String
+| Specifies the given SecurityDescriptor for a specified Windows Event Log
+|
+
+| LogFilePath
+|
+| String
+| Specifies the given LogFile path of a Windows Event Log
+|
+
+| LogRetentionDays
+|
+| System.Int32
+| Specifies the given LogRetentionDays for the Logmode 'AutoBackup'
+| 1 - 365
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WindowsEventLogs:
+  Logs:
+    - LogName: System
+      LogMode: Circular
+      MaximumSizeInBytes: 20971520
+    - LogName: Directory Service
+      LogMode: Circular
+      MaximumSizeInBytes: 5242880
+    - LogName: Application
+      LogMode: Retain
+      MaximumSizeInBytes: 2048KB
+      LogRetentionDays: 30
+----

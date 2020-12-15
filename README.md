@@ -207,3 +207,7 @@ The re-usable configuration itself is declared in the ps1, the metadata and depe
 - ConfigurationData: the default/example configuration data, organised in test suite/scenarios
 - Validation: the pester tests used to validate the configuration, per test suite/scenario
 - the examples of re-using that shared configuration, per test suite/scenario
+
+## YAML Reference Documentation
+
+The [YAML reference documentation](./doc/README.adoc) is located in the ./doc subfolder of this repository.

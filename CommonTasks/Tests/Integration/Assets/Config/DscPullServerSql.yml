@@ -1,3 +1,10 @@
+CertificateThumbPrint: AllowUnencryptedTraffic
+Port: 8080
 RegistrationKey: SomePass1
 SqlServer: SQL01
 DatabaseName: DSC
+EndpointName: PSDSCPullServer
+PhysicalPath: C:\inetpub\PSDSCPullServer
+ModulePath: C:\Program Files\WindowsPowerShell\DscService\Modules
+ConfigurationPath: C:\Program Files\WindowsPowerShell\DscService\Configuration
+UseSecurityBestPractices: false

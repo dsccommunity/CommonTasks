@@ -1,0 +1,110 @@
+// CommonTasks YAML Reference: DnsServerConditionalForwarders
+// ==========================================================
+
+:YmlCategory: DnsServerConditionalForwarders
+
+
+[[dscyml_dnsserverconditionalforwarders, {YmlCategory}]]
+= DSC Resource 'DnsServerConditionalForwarders'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverconditionalforwarders_abstract]]
+.{YmlCategory} manages a conditional forwarder on a given DNS server.
+
+
+// reference links as variables for using more than once
+:ref_xDnsServerConditionalForwarder:  https://github.com/dsccommunity/xDnsServer#xdnsserverconditionalforwarder[xDnsServerConditionalForwarder]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerConditionalForwarders
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | {ref_xDnsServerConditionalForwarder}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserverconditionalforwarders_conditionalforwarders, {YmlCategory}/ConditionalForwarders]]<<dscyml_dnsserverconditionalforwarders_conditionalforwarders_details, ConditionalForwarders>>
+|
+| Hashtable[]
+| Set of {ref_xDnsServerConditionalForwarder}
+|
+
+|===
+
+
+[[dscyml_dnsserverconditionalforwarders_conditionalforwarders_details]]
+.Attributes of category '<<dscyml_dnsserverconditionalforwarders_conditionalforwarders>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the zone to manage.
+|
+
+| Ensure
+|
+| String
+| Whether the primary zone should be present or removed
+| - *Present* (default)
+  - Absent
+
+| MasterServers
+|
+| String[]
+| The IP addresses the forwarder should use. +
+  Mandatory if Ensure is present.
+|
+
+| ReplicationScope
+|
+| String
+| Whether the conditional forwarder should be replicated in AD, and the scope of that replication.
+| - *None* (default)
+  - Custom
+  - Domain
+  - Forest
+  - Legacy
+
+| DirectoryPartitionName
+|
+| String
+| The name of the directory partition to use when the ReplicationScope is Custom.
+  This value is ignored for all other replication scopes.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerConditionalForwarders:
+  ConditionalForwarders:
+    - Name: SharedServices
+      MasterServers:
+        - 10.0.1.10
+        - 10.0.2.10
+      ReplicationScope: Forest
+    - Name: Oxy
+      MasterServers:
+        - 10.0.3.10
+      ReplicationScope: Forest
+----

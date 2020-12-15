@@ -1,0 +1,68 @@
+// CommonTasks YAML Reference: DnsServerSettings
+// =============================================
+
+:YmlCategory: DnsServerSettings
+
+
+[[dscyml_dnsserversettings, {YmlCategory}]]
+= DSC Resource 'DnsServerSettings'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserversettings_abstract]]
+.{YmlCategory} manages the DNS sever settings/properties.
+
+
+// reference links as variables for using more than once
+:ref_xDnsServerSetting:  https://github.com/dsccommunity/xDnsServer#xdnsserversetting[xDnsServerSetting]
+:ref_xDnsServerSetting_schema:  https://github.com/dsccommunity/xDnsServer/blob/master/source/DSCResources/MSFT_xDnsServerSetting/MSFT_xDnsServerSetting.schema.mof[xDnsServerSetting]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | /OSS/OSS-Core/Impl/IVV/DSC/CommonTasks/CommonTasks/DscResources/DnsServer
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | {ref_xDnsServerSetting}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Settings
+|
+| Hashtable
+| List of {ref_xDnsServerSetting}s. +
+  See the specification of {ref_xDnsServerSetting_schema} to get a description of all supported attributes.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerSettings:
+  Settings:
+    Name: DnsServerSetting
+    ListenAddresses:
+      - 192.168.30.111
+    IsSlave: true
+    Forwarders:
+      - 168.63.129.16
+      - 168.63.129.18
+    RoundRobin: true
+    LocalNetPriority: true
+    SecureResponses: true
+    NoRecursion: false
+    BindSecondaries: false
+    StrictFileParsing: false
+    ScavengingInterval: 168
+    LogLevel: 50393905
+----

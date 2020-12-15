@@ -11,9 +11,16 @@ Describe "DscPullServerSql DSC Resource compiles" -Tags FunctionalQuality {
 
             node "localhost_DscPullServerSql" {
                 DscPullServerSql pull {
+                    CertificateThumbPrint = $configurationData.Datum.Config.DscPullServerSql.CertificateThumbPrint
+                    Port = $configurationData.Datum.Config.DscPullServerSql.Port
                     RegistrationKey = $configurationData.Datum.Config.DscPullServerSql.RegistrationKey
                     SqlServer = $configurationData.Datum.Config.DscPullServerSql.SqlServer
                     DatabaseName = $configurationData.Datum.Config.DscPullServerSql.DatabaseName
+                    EndpointName = $configurationData.Datum.Config.DscPullServerSql.EndpointName
+                    PhysicalPath = $configurationData.Datum.Config.DscPullServerSql.PhysicalPath
+                    ModulePath = $configurationData.Datum.Config.DscPullServerSql.ModulePath
+                    ConfigurationPath = $configurationData.Datum.Config.DscPullServerSql.ConfigurationPath
+                    UseSecurityBestPractices = $configurationData.Datum.Config.DscPullServerSql.UseSecurityBestPractices
                 }
             }
         }
