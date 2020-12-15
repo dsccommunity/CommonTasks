@@ -11,6 +11,7 @@ Describe 'DscTagging DSC Resource compiles' -Tags FunctionalQuality {
                 DscTagging tagging {
                     Version = (Get-Module -Name CommonTasks -ListAvailable).Version
                     Environment = $node.Environment
+                    Layers = @( 'Layer1', 'Layer2', 'Layer3' )
                 }
             }
         }

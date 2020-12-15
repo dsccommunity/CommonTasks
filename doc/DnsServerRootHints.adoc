@@ -1,0 +1,55 @@
+// CommonTasks YAML Reference: DnsServerRootHints
+// ========================================
+
+:YmlCategory: DnsServerRootHints
+
+
+[[dscyml_dnsserverroothints, {YmlCategory}]]
+= DSC Resource 'DnsServerRootHints'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverroothints_abstract]]
+.{YmlCategory} manages root hints on a given DNS server.
+
+
+// reference links as variables for using more than once
+:ref_xDnsServerRootHint:  https://github.com/dsccommunity/xDnsServer#xdnsserverroothint[xDnsServerRootHint]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | /OSS/OSS-Core/Impl/IVV/DSC/CommonTasks/CommonTasks/DscResources/DnsServer
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | {ref_xDnsServerRootHint}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| RootHints
+|
+| Hashtable[]
+| Set of {ref_xDnsServerRootHint}. +
+  Each hashtable defines a name server. 
+  Key and value must be strings.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerRootHints:
+  RootHints:
+    A.ROOT-SERVERS.NET.: 2001:503:ba3e::2:30
+    B.ROOT-SERVERS.NET.: 2001:500:84::b
+----

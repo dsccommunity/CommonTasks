@@ -11,3 +11,6 @@ Groups:
   - GroupName: App_123_Write
     Path: OU=Groups,OU=Admin
     GroupScope: Global
+  - GroupName: Group with spaces
+    Path: OU=Groups,OU=Admin
+    GroupScope: Global

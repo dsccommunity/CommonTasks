@@ -68,7 +68,7 @@
 | Key
 | String
 | Specifies whether the Chocolatey Software should be installed on the machine or not.
-| - Present (default)
+| - *Present* (default)
   - Absent
 
 | OfflineInstallZip
@@ -87,7 +87,7 @@
 |
 | String
 | Url of a Nuget feed where the Chocolatey software package is available. +
-  i.e. https://chocolatey.org/api/v2
+  i.e. \https://chocolatey.org/api/v2
 |
 
 | Version
@@ -155,10 +155,10 @@ In this case the `Test-DscConfiguration` command returns `False`.
 |
 
 | Ensure
-| Mandatory
+|
 | String
 | Specifies whether the Chocolatey Software should be installed on the machine or not.
-| - Present
+| - *Present* (default)
   - Absent
 
 | Source
@@ -223,13 +223,17 @@ In this case the `Test-DscConfiguration` command returns `False`.
 |
 | String
 | Chocolatey Package Version
-| 
+
+  - '' -> Install latest version if package is not installed
+  - 1.0 -> Install specified version if no newer version is installed
+  - Latest -> Install or upgrade to latest version 
+|
 
 | Ensure
-| Mandatory
+|
 | String
-| Specifies whether the Chocolatey Package should be installed on the machine or not ValueMap
-| - Present (default)
+| Specifies whether the Chocolatey Package should be installed on the machine or not
+| - *Present* (default)
   - Absent
 
 | ChocolateyOptions
@@ -243,7 +247,7 @@ In this case the `Test-DscConfiguration` command returns `False`.
 | Boolean
 | Only updates installed package and ignores packages not Installed.
 | - True
-  - False (default)
+  - *False* (default)
 
 | Credential
 |
@@ -281,9 +285,5 @@ ChocolateyPackages:
         Source: SomeFeed
       Credential: '[ENC=PE9ianM...=]'
     - Name: winrar
-      Ensure: Present
-      Version: '1.0'
-      ChocolateyOptions:
-        Source: SomeFeed
-      Credential: '[ENC=PE9ianM...=]'
+      Version: Latest
 ----

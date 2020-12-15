@@ -1,0 +1,144 @@
+// CommonTasks YAML Reference: Disks
+// ========================================
+
+:YmlCategory: Disks
+
+
+[[dscyml_disks, {YmlCategory}]]
+= DSC Resource 'Disks'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_disks_abstract]]
+.{YmlCategory} module is used to initialize, format and mount the partition/volume as a drive letter.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Disks
+| DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
+| Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/Disk[Disks]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_disks_disks, {YmlCategory}/Disks]]<<dscyml_disks_disks_details, Disks>>
+| Mandatory
+| Hashtable[]
+| List of disk specifiactions
+|
+
+|===
+
+
+[[dscyml_disks_disks_details]]
+.Attributes of category '<<dscyml_disks_disks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DiskId
+| Required
+| String
+| Specifies the disk identifier for the disk to modify.
+|
+
+| DriveLetter
+| Key
+| String
+| Specifies the identifier for which disk to modify.
+|
+
+| DiskIdType
+|
+| String
+| Specifies the identifier type the DiskId contains.
+| - Number (default)
+  - UniqueId
+  - Guid
+  - Location
+
+| PartitionStyle
+|
+| String
+| Specifies the partition style of the disk.
+| - GPT (default)
+  - MBR
+  - GPT
+
+| Size
+|
+| UInt64
+| Specifies the size of new volume. +
+  Leave empty to use the remaining free space.
+|
+
+| FSLabel
+| 
+| String
+| Define volume label if required.
+|
+
+| AllocationUnitSize
+|
+| UInt32
+| Specifies the allocation unit size to use when formatting the volume.
+|
+
+| FSFormat
+|
+| String
+| Specifies the file system format of the new volume.
+| - NTFS
+  - ReFS
+
+| AllowDestructive
+|
+| Boolean
+| Specifies if potentially destructive operations may occur.
+|
+
+| ClearDisk
+|
+| Boolean
+| Specifies if the disks partition schema should be removed entirely, even if data and OEM partitions are present. 
+  Only possible with AllowDestructive enabled.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+Disks:
+  Disks:
+    - DiskId:             0
+      DiskIdType:         Number
+      DriveLetter:        C
+      PartitionStyle:     MBR
+      FSLabel:            System
+      Size:               1GB
+      AllocationUnitSize: 4096
+      FSFormat:           NTFS
+      AllowDestructive:   true
+      ClearDisk:          true
+
+    - DiskId:      1
+      DiskIdType:  Number
+      DriveLetter: D
+      FSLabel:     Data
+      AllocationUnitSize: 2KB
+----

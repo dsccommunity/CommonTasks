@@ -1,5 +1,6 @@
 Software:
   Ensure: Present
+  OfflineInstallZip: C:\LocalRepo\packages\chocolatey.0.10.15.nupkg
   PackageFeedUrl: https://chocolatey.org/api/v2
   Version: 0.10.15
   ChocoTempDir: C:\ChocoTemp

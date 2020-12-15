@@ -1,0 +1,123 @@
+// CommonTasks YAML Reference: DscPullServerSql
+// ========================================
+
+:YmlCategory: DscPullServerSql
+
+
+[[dscyml_dscpullserversql, {YmlCategory}]]
+= DSC Resource 'DscPullServerSql'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dscpullserversql_abstract]]
+.{YmlCategory} configures an OData endpoint for DSC service to make a node a DSC pull server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscPullServer
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
+                   https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/[PSDesiredStateConfiguration],
+                   https://github.com/dsccommunity/xWebAdministration[xWebAdministration],
+                   https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService],
+                   https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue]
+|===
+
+
+[NOTE]
+====
+The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| EndpointName
+| Key
+| String
+| The desired web service name.
+| Default: `PSDSCPullServer`
+
+| Port
+|
+| Uint16
+| The port number of the DSC Pull Server IIS Endpoint.
+| Default: `8080` 
+
+| CertificateThumbPrint
+|
+| String
+| The thumbprint of the Certificate in `CERT:\LocalMachine\MY\` for creating the Pull Server HTTPS endpoint. +
+  Use `AllowUnencryptedTraffic` for setting up a non SSL based endpoint.
+| Default: `AllowUnencryptedTraffic`
+
+| RegistrationKey
+| Mandatory
+| String
+| DSC pull server registration key +
+  The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` 
+|
+
+| SqlServer
+|
+| String
+| Name of the SQL Server to host the DSC database
+| Default: `localhost`
+
+| DatabaseName
+|
+| String
+| Name of the SQL Database for the Pull Server
+| Default: `DSC`
+
+| UseSecurityBestPractices
+|
+| Boolean
+| This property will ensure that the Pull Server is created with the most secure practices.
+| - True
+  - False
+
+| PhysicalPath
+|
+| String
+| The physical path for the IIS Endpoint on the machine (usually under inetpub).
+| Default: `$env:SystemDrive\inetpub\PSDSCPullServer`
+
+| ModulePath
+|
+| String
+| The location on the disk where the Modules are stored.
+| Default: `$env:PROGRAMFILES\WindowsPowerShell\DscService\Modules`
+
+| ConfigurationPath
+|
+| String
+| The location on the disk where the Configuration is stored.
+| Default: `$env:PROGRAMFILES\WindowsPowerShell\DscService\Configuration`
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DscPullServerSql:
+  CertificateThumbPrint: AllowUnencryptedTraffic
+  Port: 8080
+  RegistrationKey: SomePass1
+  SqlServer: SQL01
+  DatabaseName: DSC
+  EndpointName: PSDSCPullServer
+  PhysicalPath: C:\inetpub\PSDSCPullServer
+  ModulePath: C:\Program Files\WindowsPowerShell\DscService\Modules
+  ConfigurationPath: C:\Program Files\WindowsPowerShell\DscService\Configuration
+  UseSecurityBestPractices: True
+----

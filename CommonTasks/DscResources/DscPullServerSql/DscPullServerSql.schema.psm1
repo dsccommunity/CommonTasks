@@ -12,10 +12,10 @@
         [string]$RegistrationKey,
 
         [Parameter(Mandatory)]
-        [string]$SqlServer,
+        [string]$SqlServer = 'localhost',
 
         [Parameter(Mandatory)]
-        [string]$DatabaseName,
+        [string]$DatabaseName = 'DSC',
 
         [Parameter()]
         [string]
@@ -45,11 +45,20 @@
         Name   = 'DSC-Service'
     }
 
+    $regKeyPath = "$env:ProgramFiles\WindowsPowerShell\DscService\RegistrationKeys.txt"
+
+    File RegistrationKeyFile {
+        Ensure          = 'Present'
+        Type            = 'File'
+        DestinationPath = $regKeyPath
+        Contents        = $RegistrationKey
+    }
+
     $sqlConnectionString = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=$DatabaseName;Data Source=$SqlServer"
 
     xDscWebService PSDSCPullServer {
         Ensure                       = 'Present'
-        EndpointName                 = 'PSDSCPullServer'
+        EndpointName                 = $EndpointName
         Port                         = $Port
         PhysicalPath                 = $PhysicalPath
         CertificateThumbPrint        = $CertificateThumbPrint
@@ -60,16 +69,10 @@
         AcceptSelfSignedCertificates = $true
         SqlProvider                  = $true
         SqlConnectionString          = $sqlConnectionString
+        ConfigureFirewall            = $false
         ApplicationPoolName          = 'PSWS'
+        RegistrationKeyPath          = $regKeyPath
         DependsOn                    = '[WindowsFeature]DSCServiceFeature'
-
-    }
-
-    File RegistrationKeyFile {
-        Ensure          = 'Present'
-        Type            = 'File'
-        DestinationPath = "$env:ProgramFiles\WindowsPowerShell\DscService\RegistrationKeys.txt"
-        Contents        = $RegistrationKey
     }
 
     xWebConfigKeyValue CorrectDBProvider {

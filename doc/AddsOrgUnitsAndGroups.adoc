@@ -1,0 +1,147 @@
+// CommonTasks YAML Reference: AddsOrgUnitsAndGroups
+// =================================================
+
+:YmlCategory: AddsOrgUnitsAndGroups
+
+
+[[dscyml_addsorgunitsandgroups, {YmlCategory}]]
+= DSC Resource 'AddsOrgUnitsAndGroups'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_addsorgunitsandgroups_abstract]]
+.{YmlCategory} adds Groups and Organizational Units to an existing Domain.
+
+Requires <<dscyml_addsdomain_domainname>>
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsOrgUnitsAndGroups
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADGroup[ADGroup],
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADOrganizationalUnit[ADOrganizationalUnit]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_addsorgunitsandgroups_orgunits, {YmlCategory}/OrgUnits]]<<dscyml_addsorgunitsandgroups_orgunits_details, OrgUnits>>
+|
+| Object[]
+| List of Organizational Units (OUs) within Active Directory
+|
+
+| [[dscyml_addsorgunitsandgroups_groups, {YmlCategory}/Groups]]<<dscyml_addsorgunitsandgroups_groups_details, Groups>>
+|
+| Object[]
+| List of groups within Active Directory. +
+  Requires <<dscyml_addsdomain_domaindn>>
+|
+
+|===
+
+
+[[dscyml_addsorgunitsandgroups_orgunits_details]]
+.Selected Attributes of category '<<dscyml_addsorgunitsandgroups_orgunits>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Mandatory
+| String
+| The name of the Organizational Unit (OU).
+|
+
+| Path
+| Mandatory
+| String
+| The name of the Organizational Unit (OU).
+|
+
+| ChildOu
+|
+| Object[]
+| List of Child Organizational Units. +
+  For each Child OU the parameter _Name_ must be specified.   
+|
+
+|===
+
+
+[[dscyml_addsorgunitsandgroups_groups_details]]
+.Selected Attributes of category '<<dscyml_addsorgunitsandgroups_groups>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADGroup[ADGroup] for more
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GroupName
+| Manadatory
+| String
+| Name of the Active Directory group.
+|
+
+| GroupScope
+|
+| String
+| Active Directory group scope.
+| - DomainLocal
+  - *Global* (default)
+  - _Universal_ (ignored)
+
+| Category
+|
+| String
+| Active Directory group category.
+| - Distribution
+  - *Security* (default)
+
+| Path
+| 
+| String
+| Location of the group within Active Directory expressed as a Distinguished Name (DN).
+|
+
+| Ensure
+| 
+| String
+| Specifies if this Active Directory group should be present or absent.
+| - Absent
+  - *Present* (default)
+  
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsOrgUnitsAndGroups:
+  OrgUnits:
+    - Name: Admin
+      Path: DC=contoso,DC=com
+      ChildOu:
+        - Name: Groups
+        - Name: Computers
+  Groups:
+    - GroupName: App_123_Read
+      Path: OU=Groups,OU=Admin
+      GroupScope: DomainLocal
+    - GroupName: App_123_Write
+      Path: OU=Groups,OU=Admin
+      GroupScope: Global
+----

@@ -4,4 +4,9 @@ Logs:
   MaximumSizeInBytes: 20971520
 - LogName: Directory Service
   LogMode: Circular
-  MaximumSizeInBytes: 524288
+  MaximumSizeInBytes: 5242880
+- LogName: Application
+  LogMode: Retain
+  MaximumSizeInBytes: 2048KB
+  LogRetentionDays: 30
+  
