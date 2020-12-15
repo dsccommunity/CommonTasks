@@ -4,10 +4,22 @@ function Send-DscTaggingData {
     param()
 
     $pattern = 'http[s]?:\/\/(?<PullServer>([^\/:\.[:space:]]+(\.[^\/:\.[:space:]]+)*)|([0-9](\.[0-9]{3})))(:[0-9]+)?((\/[^?#[:space:]]+)(\?[^#[:space:]]+)?(\#.+)?)?'
-    $found = (Get-DscLocalConfigurationManager).ConfigurationDownloadManagers.ServerURL -match $pattern
-    if (-not $found)
-    {
-        Write-Error "Cannot get pull server name from 'Get-DscLocalConfigurationManager' output"
+    try {
+        $lcm = Get-DscLocalConfigurationManager -ErrorAction Stop
+        $pullServerUrl = $lcm.ConfigurationDownloadManagers.ServerURL
+        $agentId = $lcm.AgentId
+
+        Write-Host "PullServerUrl = '$pullServerUrl'"
+        Write-Host "AgentId = '$agentId'"
+
+        $found = $pullServerUrl -match $pattern
+
+        if (-not $found) {
+            Write-Error "Could not find pull server in Url '$pullServerUrl'" -ErrorAction Stop
+        }
+    }
+    catch {    
+        Write-Error "Cannot get pull server name from 'Get-DscLocalConfigurationManager' output, the error was $($_.Exception.Message)"
         return
     }
 
@@ -15,7 +27,10 @@ function Send-DscTaggingData {
         Get-DscConfigurationVersion
     }
 
-    $agentId = (Get-DscLocalConfigurationManager).AgentId
+    Write-Host
+    Write-Host "Sending the following DSC version data to JEA endpoint on pull server '$($Matches.PullServer)'"
+    $versionData | Out-String | Write-Host
+    
     Invoke-Command -ComputerName $Matches.PullServer -ConfigurationName DscData -ScriptBlock {
         Send-DscTaggingData -AgentId $args[0] -Data $args[1]
     } -ArgumentList $agentId, $versionData
@@ -134,7 +149,7 @@ function Test-InMaintenanceWindow {
 
                 Write-Host "IN MAINTENANCE WINDOW: Setting 'inMaintenanceWindow' to 'true' as the current time is in a maintanence windows."
                 $true
-               break
+                break
             }
             else {
                 Write-Host "Current time '$currentTime' is not in maintenance window '$($maintenanceWindow.PSChildName)'"
@@ -245,7 +260,7 @@ function Test-StartDscRefresh {
 function Start-AutoCorrect {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 1
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
     }
@@ -258,7 +273,7 @@ function Start-AutoCorrect {
 function Start-Monitor {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]1 } -ErrorAction Stop | Out-Null
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 1
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
     }
@@ -271,7 +286,7 @@ function Start-Monitor {
 function Start-Refresh {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags'5' (Pull and Consistency Check)."
     try {
-        Invoke-CimMethod -ClassName $className -Namespace $namespace -MethodName PerformRequiredConfigurationChecks -Arguments @{ Flags = [uint32]5 } -ErrorAction Stop | Out-Null
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 5
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
         if ($sendDscTaggingData) {
@@ -307,14 +322,74 @@ function Test-StartDscMonitor {
     $doMonitor
 }
 
+function Start-LcmRequiredConfigurationChecks {
+    param(
+        [OutputType([timespan])]
+        [Parameter()]
+        [timespan]$MaxLcmRuntime = 0,
+
+        [Parameter(Mandatory)]
+        [int]$Flags
+    )
+
+    Write-Verbose "Entering 'Start-LcmRequiredConfigurationChecks'"
+    $internalMaxLcmRuntime = $MaxLcmRuntime
+
+    $j = Start-Job -ScriptBlock {
+        param(
+            [Parameter(Mandatory)]
+            [int]$Flags
+        )
+
+        $params = @{
+            ClassName   = 'MSFT_DSCLocalConfigurationManager'
+            Namespace   = 'root/Microsoft/Windows/DesiredStateConfiguration'
+            MethodName  = 'PerformRequiredConfigurationChecks'
+            Arguments   = @{ Flags = [uint32]$Flags }
+            ErrorAction = 'Stop'
+        }
+
+        Write-Output "Calling 'Invoke-CimMethod' with the following parameters:"
+        $params | ConvertTo-Json | Write-Output
+
+        Invoke-CimMethod @params | Out-Null
+
+    } -ArgumentList $Flags
+
+    Write-Host "Waiting $MaxLcmRuntime for the background job to finish."
+    while ($j.State -eq 'Running' -and $internalMaxLcmRuntime -gt 0) {
+        Start-Sleep -Seconds 1
+        $output = $j | Receive-Job | Out-String
+        if ($output) { $output | Write-Host }
+        $internalMaxLcmRuntime = $internalMaxLcmRuntime.Subtract((New-TimeSpan -Seconds 1))
+    }
+
+    if ($j.State -eq 'Running') {
+        Write-Host "LCM did not finish with the timeout of '$MaxLcmRuntime'"
+        $j | Stop-Job
+
+        #find the process that is hosting the DSC engine        
+        $dscProcess = Get-CimInstance -ClassName  msft_providers | Where-Object { $_.Provider -like 'dsccore' }
+        Write-Host "Shutting down LCM process with ID '$($dscProcess.HostProcessIdentifier)'"
+        Get-Process -Id $dscProcess.HostProcessIdentifier | Stop-Process -Force
+
+        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date -Date 0) -Type String -Force
+    }
+
+    $runtime = $j.PSEndTime - $j.PSBeginTime
+    Write-Host "LCM runtime was '$runtime'"
+    $runtime
+}
+
 $writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name WriteTranscripts
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
 if ($writeTranscripts) {
     Start-Transcript -Path "$path\LcmController.log" -Append
 }
 
-$namespace = 'root/Microsoft/Windows/DesiredStateConfiguration'
-$className = 'MSFT_DSCLocalConfigurationManager'
+#Disable DSC Timer
+$timer = Get-CimInstance -ClassName  msft_providers | Where-Object { $_.Provider -like 'dsctimer' }
+$timer | Invoke-CimMethod -MethodName UnLoad
 
 $now = Get-Date
 $currentConfigurationMode = (Get-DscLocalConfigurationManager).ConfigurationMode
@@ -329,6 +404,7 @@ $autoCorrectErrors = $false
 $refreshErrors = $false
 $monitorErrors = $false
 $currentTime = Get-Date
+$lcmRuntime = $null
 $sendDscTaggingData = $false
 $sendDscTaggingDataError = $false
 $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
@@ -340,6 +416,7 @@ $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\Mainte
 [timespan]$monitorInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MonitorInterval
 [timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshInterval
 [bool]$refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshIntervalOverride
+[timespan]$maxLcmRuntime = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaxLcmRuntime
 [bool]$sendDscTaggingData = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name SendDscTaggingData
 $maintenanceWindowMode = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowMode
 
@@ -447,6 +524,9 @@ $logItem = [pscustomobject]@{
     RefreshIntervalOverride     = $refreshIntervalOverride
     RefreshErrors               = $refreshErrors
 
+    MaxLcmRuntime               = $maxLcmRuntime
+    LcmRuntime                  = $lcmRuntime
+
     SendDscTaggingDataError     = $sendDscTaggingDataError
     
 } | Export-Csv -Path "$path\LcmControllerSummary.txt" -Append
@@ -480,9 +560,11 @@ configuration DscLcmController {
 
         [bool]$MaintenanceWindowOverride,
 
-        [bool]$WriteTranscripts,
+        [timespan]$MaxLcmRuntime,
 
-        [bool]$SendDscTaggingData
+        [bool]$SendDscTaggingData,
+
+        [bool]$WriteTranscripts
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -566,6 +648,15 @@ configuration DscLcmController {
         ValueName = 'WriteTranscripts'
         ValueData = [int]$WriteTranscripts
         ValueType = 'DWord'
+        Ensure    = 'Present'
+        Force     = $true
+    }
+
+    xRegistry DscLcmController_MaxLcmRuntime {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
+        ValueName = 'MaxLcmRuntime'
+        ValueData = $MaxLcmRuntime
+        ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
