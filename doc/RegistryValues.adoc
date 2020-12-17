@@ -134,3 +134,19 @@ RegistryValues:
     - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames
       Ensure: Absent
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  RegistryValues:
+    merge_hash: deep
+  RegistryValues\Values:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Key
+        - ValueName
+----

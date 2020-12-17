@@ -36,5 +36,6 @@
     WdsDsc                       = '0.11.0'
     xDhcpServer                  = '2.0.0.0'
     xDnsServer                   = '1.16.0.0'
-
+    GPRegistryPolicyDsc          = '1.2.0'
+    AuditPolicyDsc               = '1.4.0.0'
 }   

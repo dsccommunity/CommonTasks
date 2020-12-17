@@ -66,6 +66,7 @@ ifdef::env-github[]
 - <<AddsDomain.adoc#, AddsDomain>>
 - <<AddsDomainUsers.adoc#, AddsDomainUsers>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
+- <<AuditPolicies.adoc#, AuditPolicies>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
@@ -74,7 +75,9 @@ ifdef::env-github[]
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
+- <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 
@@ -95,6 +98,7 @@ ifndef::env-github[]
 | <<dscyml_addsdomainusers>>                 | <<dscyml_addsdomainusers_abstract>>
 | <<dscyml_addsorgunitsandgroups>>           | <<dscyml_addsorgunitsandgroups_abstract>>
 // | <<dscyml_addssitessubnets>>             | <<dscyml_addssitessubnets_abstract>>
+| <<dscyml_auditpolicies>>                   | <<dscyml_auditpolicies_abstract>>
 | <<dscyml_chocolateypackages>>              | <<dscyml_chocolateypackages_abstract>>
 // | <<dscyml_computersettings>>             | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>            | <<dscyml_configurationbase_abstract>>
@@ -121,9 +125,11 @@ ifndef::env-github[]
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
 // | <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
+| <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
 // | <<dscyml_sqlserver>>                    | <<dscyml_sqlserver_abstract>>
 // | <<dscyml_updateservices>>               | <<dscyml_updateservices_abstract>>
@@ -146,6 +152,7 @@ include::AddsDomain.adoc[leveloffset=+2]
 include::AddsDomainUsers.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
+include::AuditPolicies.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 //include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]
@@ -172,9 +179,11 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
 //include::NetworkIpConfiguration.adoc[leveloffset=+2]
+include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
+include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
 //include::SqlServer.adoc[leveloffset=+2]
 //include::UpdateServices.adoc[leveloffset=+2]

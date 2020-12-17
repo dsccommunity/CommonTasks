@@ -1,0 +1,62 @@
+GpUpdateInterval: 4
+Values:
+  - Key: "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MRT"
+    ValueName: DontReportInfectionInformation
+    ValueData: 1
+    ValueType: Dword
+  - Key: "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+    ValueName: EnableSmartScreen
+    TargetType: ComputerConfiguration
+    ValueData: 0
+    ValueType: Dword
+    Force: false
+    Ensure: Present
+  - Key: "Software\\Policies\\Microsoft\\Windows\\Group Policy\\`{35378EAC-683F-11D2-A89A-00C04FBBCFA2`}"
+    ValueName: NoBackgroundPolicy
+    TargetType: ComputerConfiguration
+    ValueData: 0
+    ValueType: Dword
+    Force: true
+    Ensure: Present
+  - Key: "Software\\Policies\\Microsoft\\Windows\\PowerShell\\ModuleLogging\\ModuleNames"
+    ValueName: '*'
+    TargetType: ComputerConfiguration
+    ValueData: '*'
+    ValueType: String
+    Ensure: Present
+  - Key: "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
+    ValueName: AllocateFloppies
+    TargetType: ComputerConfiguration
+    ValueData: 1
+    ValueType: String
+    Ensure: Present
+  - Key: "System\\CurrentControlSet\\Control\\Session Manager\\Kernel"
+    ValueName: ObCaseInsensitive
+    TargetType: ComputerConfiguration
+    ValueData: 1
+    ValueType: Dword
+    Ensure: Present
+  - Key: "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
+    ValueName: AllocateCDRoms
+    TargetType: ComputerConfiguration
+    ValueData: 1
+    ValueType: String
+    Ensure: Present
+  - Key: "System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
+    ValueName: AutoDisconnect
+    TargetType: ComputerConfiguration
+    ValueData: 15
+    ValueType: Dword
+    Ensure: Present
+  - Key: "System\\CurrentControlSet\\Control\\Lsa"
+    ValueName: NoLMHash
+    TargetType: ComputerConfiguration
+    ValueData: 1
+    ValueType: Dword
+    Ensure: Present
+  - Key: "Software\\Microsoft\\Windows NT\\CurrentVersion\\Setup\\RecoveryConsole"
+    ValueName: SecurityLevel
+    TargetType: ComputerConfiguration
+    ValueData: 0
+    ValueType: Dword
+    Ensure: Present

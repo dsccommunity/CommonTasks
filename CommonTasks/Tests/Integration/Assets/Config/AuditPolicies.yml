@@ -1,0 +1,37 @@
+# see https://github.com/dsccommunity/AuditPolicyDsc
+Options:
+  - Name:  AuditBaseObjects
+    Value: Enabled
+  - Name:  AuditBaseDirectories
+    Value: Enabled
+
+Subcategories:
+  - Name:      Logon
+    AuditFlag: Success
+    Ensure:    Absent
+  - Name:      Logon
+    AuditFlag: Failure
+    Ensure:    Present
+  - Name: Credential Validation
+    AuditFlag: Success
+    Ensure: Present
+  - Name: Credential Validation
+    AuditFlag: Failure
+    Ensure: Present
+  - Name: 'Application Group Management'
+    AuditFlag: Success
+    Ensure: Present
+  - Name: 'Application Group Management:'
+    AuditFlag: Failure
+    Ensure: Present
+
+Guids:
+  - Name:      Logon
+    AuditFlag: Success
+    Ensure:    Absent
+  - Name:      Logon
+    AuditFlag: Failure
+    Ensure:    Present
+
+CsvPath: C:\Temp\AuditPolBackup.csv  # Path to the CSV file to apply to the node
+

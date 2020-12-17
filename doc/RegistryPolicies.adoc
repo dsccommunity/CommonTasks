@@ -1,0 +1,159 @@
+// CommonTasks YAML Reference: RegistryPolicies
+// ========================================
+
+:YmlCategory: RegistryPolicies
+
+
+[[dscyml_registrypolicies, {YmlCategory}]]
+= DSC Resource 'RegistryPolicies'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_registrypolicies_abstract]]
+.{YmlCategory} is used to apply and manage local group policies by modifying the respective .pol file.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/RegistryPolicies
+| DSC Resource   | https://github.com/dsccommunity/GPRegistryPolicyDsc[GPRegistryPolicyDsc]
+| Documentation  | https://github.com/dsccommunity/GPRegistryPolicyDsc#RegistryPolicyFile[RegistryPolicyFile],
+                   https://github.com/dsccommunity/GPRegistryPolicyDsc#RefreshRegistryPolicy[RefreshRegistryPolicy]
+                  
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_registrypolicies_values, {YmlCategory}/Values]]<<dscyml_registrypolicies_values_details, Values>>
+| Mandatory
+| Hashtable[]
+|
+|
+
+| GpUpdateInterval
+| 
+| Int
+| Refresh Local Group Policy after the specified count of values are set (gpupdate)
+| Default: 20
+
+|===
+
+[[dscyml_registrypolicies_values_details]]
+.Attributes of category '<<dscyml_registrypolicies_values>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Key
+| Key
+| String
+| Indicates the path of the registry key for which you want to ensure a specific state.
+|
+
+| ValueName
+| Key
+| String
+| Indicates the name of the registry value. +
+  To add or remove a registry key, specify this property as an empty string without specifying ValueType or ValueData.
+  To modify or remove the default value of a registry key, specify this property as an empty string while also specifying ValueType or ValueData.
+|
+
+| TargetType
+|
+| String
+| Indicates the target type. +
+  This is needed to determine the .pol file path.
+| - *ComputerConfiguration* (default)
+  - UserConfiguration
+  - Administrators
+  - NonAdministrators
+  - Account
+
+| AccountName
+|
+| String
+| Specifies the name of the account for an user specific pol file to be managed.
+|
+
+| ValueData
+|
+| String[]
+| The data the specified registry key value should have as a string or an array of strings (MultiString only).
+|
+
+| ValueType
+|
+| String
+| The type the specified registry key value should have. 
+| - String
+  - Binary
+  - DWord
+  - QWord
+  - MultiString
+  - ExpandString
+
+| Force
+|
+| Boolean
+| Force an refresh of the Local Group Policy after set of the current value
+| - *Fale* (default)
+  - True
+
+| Ensure
+|
+| String
+| Specifies the desired state of the registry policy. +
+  When set to 'Present', the registry policy will be created. +
+  When set to 'Absent', the registry policy will be removed.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RegistryPolicies:
+  GpUpdateInterval: 30
+  Values:
+    - Key: "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MRT"
+      ValueName: DontReportInfectionInformation
+      TargetType: ComputerConfiguration
+      ValueData: 1
+      ValueType: Dword
+      Ensure: Present
+    - Key: "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      ValueName: EnableSmartScreen
+      ValueData: 0
+      ValueType: Dword
+      Force: True
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  RegistryPolicies:
+    merge_hash: deep
+  RegistryPolicies\Values:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Key
+        - ValueName
+        - TargetType
+----
