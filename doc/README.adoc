@@ -75,6 +75,7 @@ ifdef::env-github[]
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
@@ -124,7 +125,7 @@ ifndef::env-github[]
 // | <<dscyml_jeaendpoints>>                 | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
-// | <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
@@ -178,7 +179,7 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
-//include::NetworkIpConfiguration.adoc[leveloffset=+2]
+include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]

@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: RegistryPolicies
-// ========================================
+// ============================================
 
 :YmlCategory: RegistryPolicies
 
@@ -107,7 +107,7 @@
 |
 | Boolean
 | Force an refresh of the Local Group Policy after set of the current value
-| - *Fale* (default)
+| - *False* (default)
   - True
 
 | Ensure

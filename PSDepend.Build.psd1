@@ -24,7 +24,7 @@
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
     ComputerManagementDsc        = '8.4.0'
-    NetworkingDsc                = '8.1.0'
+    NetworkingDsc                = '8.2.0'
     JeaDsc                       = '0.7.2'
     XmlContentDsc                = '0.0.1'
     xWebAdministration           = '3.2.0'
