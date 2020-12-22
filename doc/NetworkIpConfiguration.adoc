@@ -31,7 +31,7 @@
                    {ref_networkingdsc_dnsserveraddress},
                    {ref_networkingdsc_netipinterface},
                    {ref_networkingdsc_netbios},
-                   {ref_networkingdsc_netadapterbinding},
+                   {ref_networkingdsc_netadapterbinding}
                    
 |===
 
@@ -97,14 +97,14 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
 | Gateway
 |
 | String
-| The desired default gateway address.
+| The desired default gateway address. +
   See {ref_networkingdsc_defaultgatewayaddress}
 |
 
 | DnsServer
 |
 | String[]
-| The desired DNS Server address(es).
+| The desired DNS Server address(es). +
   See {ref_networkingdsc_dnsserveraddress}
 |
 
@@ -128,15 +128,15 @@ If set to `True` the paramters `IpAddress`, `Prefix`, `Gateway` and `DnsServers`
 | - *False* (default)
   - True
 
-|===
-
 | DisableIPv6
 |
 | Switch
-| Disable IPv6 on the network interface
-  See {ref_networkingdsc_netadapterbinding} +
+| Disable IPv6 on the network interface. +
+  See {ref_networkingdsc_netadapterbinding}
 | - *False* (default)
   - True
+
+|===
 
 
 .Example
