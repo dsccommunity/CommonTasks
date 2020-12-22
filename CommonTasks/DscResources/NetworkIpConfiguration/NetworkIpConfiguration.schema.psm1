@@ -15,7 +15,8 @@ configuration NetworkIpConfiguration {
             [string]   $Gateway,
             [string[]] $DnsServer,
             [boolean]  $DisableNetbios,
-            [boolean]  $EnableDhcp
+            [boolean]  $EnableDhcp,
+            [boolean]  $DisableIPv6
         )
 
         if( $EnableDhcp -eq $true )
@@ -86,6 +87,15 @@ configuration NetworkIpConfiguration {
                 Setting        = 'Disable'
             }
         }
+
+        if ($DisableIPv6) {
+            NetAdapterBinding DisableIPv6
+            {
+                InterfaceAlias = $InterfaceAlias
+                ComponentId    = 'ms_tcpip6'
+                State          = 'Disabled'
+            }
+        }
     }
 
     foreach( $netIf in $Interfaces )
@@ -99,6 +109,9 @@ configuration NetworkIpConfiguration {
         if( [string]::IsNullOrWhitespace($netIf.EnableDhcp) ) {
             $netIf.EnableDhcp = $false
         }
+        if( [string]::IsNullOrWhitespace($netIf.DisableIPv6) ) {
+            $netIf.DisableIPv6 = $false
+        }
 
         NetIpInterfaceConfig  -InterfaceAlias $netIf.InterfaceAlias `
                               -IpAddress      $netIf.IpAddress `
@@ -106,6 +119,7 @@ configuration NetworkIpConfiguration {
                               -Gateway        $netIf.Gateway `
                               -DnsServer      $netIf.DnsServer `
                               -DisableNetbios $netIf.DisableNetbios `
-                              -EnableDhcp     $netIf.EnableDhcp
+                              -EnableDhcp     $netIf.EnableDhcp `
+                              -DisableIPv6    $netIf.DisableIPv6
     }
 }

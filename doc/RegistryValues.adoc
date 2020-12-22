@@ -32,7 +32,7 @@
 | [[dscyml_RegistryValues_Values, {YmlCategory}/Values]]<<dscyml_RegistryValues_Values_details, Values>>
 | Mandatory
 | Hashtable[]
-|
+| List of registry values
 |
 
 |===

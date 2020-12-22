@@ -18,6 +18,7 @@
 :ref_networkingdsc_dnsserveraddress: https://github.com/dsccommunity/NetworkingDsc/wiki/DnsServerAddress[DNSServerAddress]
 :ref_networkingdsc_netipinterface: https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NetIPInterface]
 :ref_networkingdsc_netbios: https://github.com/dsccommunity/NetworkingDsc/wiki/NetBios[NetBios]
+:ref_networkingdsc_netadapterbinding: https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterBinding[NetAdapterBinding]
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -29,7 +30,8 @@
                    {ref_networkingdsc_defaultgatewayaddress},
                    {ref_networkingdsc_dnsserveraddress},
                    {ref_networkingdsc_netipinterface},
-                   {ref_networkingdsc_netbios}
+                   {ref_networkingdsc_netbios},
+                   {ref_networkingdsc_netadapterbinding},
                    
 |===
 
@@ -128,6 +130,14 @@ If set to `True` the paramters `IpAddress`, `Prefix`, `Gateway` and `DnsServers`
 
 |===
 
+| DisableIPv6
+|
+| Switch
+| Disable IPv6 on the network interface
+  See {ref_networkingdsc_netadapterbinding} +
+| - *False* (default)
+  - True
+
 
 .Example
 [source, yaml]
@@ -144,8 +154,9 @@ NetworkIpConfiguration:
       DisableNetbios: true
       EnableDhcp: false
 
-    - InterfaceAlias: WiFi
+    - InterfaceAlias: Wi-Fi
       EnableDhcp: true
+      DisableIPv6: true
 ----
 
 
