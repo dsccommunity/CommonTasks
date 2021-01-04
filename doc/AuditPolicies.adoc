@@ -1,0 +1,209 @@
+// CommonTasks YAML Reference: AuditPolicies
+// =========================================
+
+:YmlCategory: AuditPolicies
+
+
+[[dscyml_auditpolicies, {YmlCategory}]]
+= DSC Resource 'AuditPolicies'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_auditpolicies_abstract]]
+.{YmlCategory} contains DSC resources for the management and configuration of the advanced audit policy on all currently supported versions of Windows.
+
+
+// reference links as variables for using more than once
+:ref_AuditPolicyDsc:                        https://github.com/dsccommunity/AuditPolicyDsc[AuditPolicyDsc]
+:ref_AuditPolicyDsc_AuditPolicyOption:      https://github.com/dsccommunity/AuditPolicyDsc/tree/dev/DSCResources/MSFT_AuditPolicyOption[AuditPolicyOption]
+:ref_AuditPolicyDsc_AuditPolicySubcategory: https://github.com/dsccommunity/AuditPolicyDsc/tree/dev/DSCResources/MSFT_AuditPolicySubcategory[AuditPolicySubcategory]
+:ref_AuditPolicyDsc_AuditPolicyGUID:        https://github.com/dsccommunity/AuditPolicyDsc/tree/dev/DSCResources/MSFT_AuditPolicyGUID[AuditPolicyGUID]
+:ref_AuditPolicyDsc_AuditPolicyCsv:         https://github.com/dsccommunity/AuditPolicyDsc/tree/dev/DSCResources/MSFT_AuditPolicyCsv[AuditPolicyCsv]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AuditPolicies
+| DSC Resource   | {ref_AuditPolicyDsc}
+| Documentation  | {ref_AuditPolicyDsc_AuditPolicyOption},
+                   {ref_AuditPolicyDsc_AuditPolicySubcategory},
+                   {ref_AuditPolicyDsc_AuditPolicyGUID},
+                   {ref_AuditPolicyDsc_AuditPolicyCsv}
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,2a" options="header"]
+|===
+| Parameter
+| DataType
+| Description
+
+| [[dscyml_auditpolicies_options, {YmlCategory}/Options]]<<dscyml_auditpolicies_options_details, Options>>
+| hashtable[]
+| Set of audit policy options (see {ref_AuditPolicyDsc_AuditPolicyOption})
+
+| [[dscyml_auditpolicies_subcategories, {YmlCategory}/Subcategories]]<<dscyml_auditpolicies_subcategories_details, Subcategories>>
+| hashtable[]
+| Set of advanced audit policy subcategory audit flags (see {ref_AuditPolicyDsc_AuditPolicySubcategory})
+
+| [[dscyml_auditpolicies_guids, {YmlCategory}/Guids]]<<dscyml_auditpolicies_guids_details, Guids>>
+| hashtable[]
+| Set of advanced audit policy subcategory audit flags that works around localization issues with auditpol (see {ref_AuditPolicyDsc_AuditPolicyGUID})
+
+| CsvPath
+| String
+| The path to the CSV file with audit policy backup to apply to the node.
+
+|===
+
+
+[[dscyml_auditpolicies_options_details]]
+.Attributes of category '<<dscyml_auditpolicies_options>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the audit policy option to configure.
+| - CrashOnAuditFail
+  - FullPrivilegeAuditing
+  - AuditBaseObjects
+  - AuditBaseDirectories
+
+| Value
+| Mandatory
+| String
+| The value to apply to the audit policy option.
+| - Enabled
+  - Disabled
+
+|===
+
+
+[[dscyml_auditpolicies_subcategories_details]]
+.Attributes of category '<<dscyml_auditpolicies_subcategories>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the subcategory in the advanced audit policy to manage.
+|
+
+| AuditFlag
+| Key
+| String
+| The name of the audit flag to apply to the subcategory.
+| - Success
+  - Failure
+
+| Ensure
+|
+| String
+| Indicates whether the service is present or absent. Defaults to Present.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+[[dscyml_auditpolicies_guids_details]]
+.Attributes of category '<<dscyml_auditpolicies_guids>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the subcategory in the advanced audit policy to manage.
+|
+
+| AuditFlag
+| Key
+| String
+| The name of the audit flag to apply to the subcategory.
+| - Success
+  - Failure
+
+| Ensure
+|
+| String
+| Indicates whether the service is present or absent. Defaults to Present.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AuditPolicies:
+  Options:
+    - Name: AuditBaseObjects
+      Value: Enabled
+    - Name: AuditBaseDirectories
+      Value: Enabled
+
+  Subcategories:
+    - Name: Logon
+      AuditFlag: Success
+      Ensure: Absent
+    - Name: Logon
+      AuditFlag: Failure
+      Ensure: Present
+
+  Guids:
+    - Name: Logon
+      AuditFlag: Success
+      Ensure: Absent
+    - Name: Logon
+      AuditFlag: Failure
+      Ensure: Present
+
+  CsvPath: C:\Temp\AuditPolBackup.csv
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  AuditPolicies:
+    merge_hash: deep
+  AuditPolicies\Options:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+  AuditPolicies\Subcategories:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+        - AuditFlag
+  AuditPolicies\Guids:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+        - AuditFlag
+----

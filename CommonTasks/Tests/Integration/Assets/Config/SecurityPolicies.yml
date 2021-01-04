@@ -1,0 +1,34 @@
+# see https://github.com/dsccommunity/SecurityPolicyDsc
+AccountPolicies:
+    - Name: 'SecuritySetting(INF): MaxTicketAge'
+      Maximum_lifetime_for_user_ticket: 10
+    - Name: 'SecuritySetting(INF): MaxServiceAge'
+      Maximum_lifetime_for_service_ticket: 600
+    - Name: "SecuritySetting(INF): MaxClockSkew"
+      Maximum_tolerance_for_computer_clock_synchronization: 5
+    - Name: "SecuritySetting(INF): MaxRenewAge"
+      Maximum_lifetime_for_user_ticket_renewal: 7
+
+SecurityOptions:
+  - Name: "SecuritySetting(INF): NewGuestName"
+    Accounts_Rename_guest_account: WINSECDISG
+  - Name: "SecuritySetting(INF): LSAAnonymousNameLookup"
+    Network_access_Allow_anonymous_SID_Name_translation: Disabled
+  - Name: 'SecuritySetting(INF): ForceLogoffWhenHourExpire'
+    Network_security_Force_logoff_when_logon_hours_expire: Enabled
+
+UserRightsAssignments:
+  - Policy:   Deny_log_on_through_Remote_Desktop_Services
+    Identity: "*S-1-5-7 *S-1-5-32-546"
+    Force:    True
+  - Policy:   Deny_log_on_locally
+    Identity: "*S-1-5-7 *S-1-5-32-546"
+    Force:    True
+  - Policy: Enable_computer_and_user_accounts_to_be_trusted_for_delegation
+    Identity: ''
+    Force: True
+  - Policy: Deny_access_to_this_computer_from_the_network
+    Identity: '*S-1-5-32-546 *S-1-5-7'
+    Force: True
+
+SecurityTemplatePath: C:\Temp\SecPolTemplate.inf  # Path to the desired security policy template (.inf)

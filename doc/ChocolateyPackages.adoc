@@ -287,3 +287,23 @@ ChocolateyPackages:
     - Name: winrar
       Version: Latest
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  ChocolateyPackages:
+    merge_hash: deep
+  ChocolateyPackages\Sources:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+  ChocolateyPackages\Packages:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+----

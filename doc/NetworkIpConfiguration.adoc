@@ -1,0 +1,178 @@
+// CommonTasks YAML Reference: NetworkIpConfiguration
+// ==================================================
+
+:YmlCategory: NetworkIpConfiguration
+
+
+[[dscyml_networkipconfiguration, {YmlCategory}]]
+= DSC Resource 'NetworkIpConfiguration'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_networkipconfiguration_abstract]]
+.{YmlCategory} sets the IP configuration.
+
+// reference links as variables for using more than once
+:ref_networkingdsc_ipaddress: https://github.com/dsccommunity/NetworkingDsc/wiki/IPAddress[IPAddress]
+:ref_networkingdsc_defaultgatewayaddress: https://github.com/dsccommunity/NetworkingDsc/wiki/DefaultGatewayAddress[DefaultGatewayAddress]
+:ref_networkingdsc_dnsserveraddress: https://github.com/dsccommunity/NetworkingDsc/wiki/DnsServerAddress[DNSServerAddress]
+:ref_networkingdsc_netipinterface: https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NetIPInterface]
+:ref_networkingdsc_netbios: https://github.com/dsccommunity/NetworkingDsc/wiki/NetBios[NetBios]
+:ref_networkingdsc_netadapterbinding: https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterBinding[NetAdapterBinding]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/NetworkIpConfiguration
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
+                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | {ref_networkingdsc_ipaddress},
+                   {ref_networkingdsc_defaultgatewayaddress},
+                   {ref_networkingdsc_dnsserveraddress},
+                   {ref_networkingdsc_netipinterface},
+                   {ref_networkingdsc_netbios},
+                   {ref_networkingdsc_netadapterbinding}
+                   
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_networkipconfiguration_interfaces, {YmlCategory}/Interfaces]]<<dscyml_networkipconfiguration_interfaces_details, Interfaces>>
+| Mandatory
+| Hashtable[]
+| List of network interfaces
+|
+
+|===
+
+[[dscyml_networkipconfiguration_interfaces_details]]
+.Attributes of category '<<dscyml_networkipconfiguration_interfaces>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| <<ref_ipconfiguration_newname, InterfaceAlias>>
+| Key
+| String
+| Alias of the network interface for which the IP address should be set.
+[NOTE]
+====
+To use a specifc InterfaceAlias a <<dscyml_ipconfiguration_adapter_details, network adapter configuration>> is necessary.
+====
+| Default: Ethernet +
+[NOTE]
+====
+If you define settings in different YAML layer files the `InterfaceAlias` must be specified in every file to support merging.
+====
+
+| IpAddress
+| 
+| String
+| The desired IP address, optionally including prefix length using CIDR notation. +
+  See {ref_networkingdsc_ipaddress}
+|
+
+| Prefix
+| 
+| Int
+| IP address prefix. +
+  IPv4 classes:
+
+    - Class A - /8
+    - Class B - /16
+    - Class C - /24
+|
+
+| Gateway
+|
+| String
+| The desired default gateway address. +
+  See {ref_networkingdsc_defaultgatewayaddress}
+|
+
+| DnsServer
+|
+| String[]
+| The desired DNS Server address(es). +
+  See {ref_networkingdsc_dnsserveraddress}
+|
+
+| DisableNetbios
+|
+| Switch
+| Disable the NetBios on the network interface. +
+  See {ref_networkingdsc_netbios}
+| - *False* (default)
+  - True
+
+| EnableDhcp
+|
+| Switch
+| Enable the Dynamic Host Configuration Protocol (DHCP) for the IP interface. +
+  See {ref_networkingdsc_netipinterface} +
+[NOTE]
+====
+If set to `True` the paramters `IpAddress`, `Prefix`, `Gateway` and `DnsServers` must be empty.
+====
+| - *False* (default)
+  - True
+
+| DisableIPv6
+|
+| Switch
+| Disable IPv6 on the network interface. +
+  See {ref_networkingdsc_netadapterbinding}
+| - *False* (default)
+  - True
+
+|===
+
+
+.Example
+[source, yaml]
+----
+NetworkIpConfiguration:
+  Interfaces:
+    - InterfaceAlias: Ethernet
+      IpAddress: 10.0.0.1
+      Prefix: 8
+      Gateway: 10.0.0.254
+      DnsServer:
+        - 10.1.1.1
+        - 10.1.1.2
+      DisableNetbios: true
+      EnableDhcp: false
+
+    - InterfaceAlias: Wi-Fi
+      EnableDhcp: true
+      DisableIPv6: true
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  NetworkIpConfiguration:
+    merge_hash: deep
+  NetworkIpConfiguration\Interfaces:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - InterfaceAlias
+----

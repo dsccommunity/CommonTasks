@@ -11,12 +11,7 @@ Describe 'NetworkIpConfiguration DSC Resource compiles' -Tags FunctionalQuality 
 
             node localhost_NetworkIpConfiguration {
                 NetworkIpConfiguration ipConfiguration {
-                    IpAddress      = $configurationData.Datum.Config.NetworkIpConfiguration.IpAddress
-                    Prefix         = $configurationData.Datum.Config.NetworkIpConfiguration.Prefix
-                    Gateway        = $configurationData.Datum.Config.NetworkIpConfiguration.Gateway
-                    DnsServer      = $configurationData.Datum.Config.NetworkIpConfiguration.DnsServer
-                    InterfaceAlias = $configurationData.Datum.Config.NetworkIpConfiguration.InterfaceAlias
-                    DisableNetbios = $configurationData.Datum.Config.NetworkIpConfiguration.DisableNetbios
+                    Interfaces = $configurationData.Datum.Config.NetworkIpConfiguration.Interfaces
                 }
             }
         }
