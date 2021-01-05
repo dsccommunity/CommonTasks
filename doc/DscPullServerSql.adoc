@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscPullServer
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscPullServerSql
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
                    https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/[PSDesiredStateConfiguration],
                    https://github.com/dsccommunity/xWebAdministration[xWebAdministration],
