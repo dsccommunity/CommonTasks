@@ -19,9 +19,12 @@
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
                    https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/[PSDesiredStateConfiguration],
                    https://github.com/dsccommunity/xWebAdministration[xWebAdministration],
-                   https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File]
+                   https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File],
+                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService],
-                   https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue]
+                   https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue],
+                   https://github.com/dsccommunity/xWebAdministration#xwebapppool[xWebAppPool],
+                   https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
 |===
 
 
@@ -82,8 +85,15 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 |
 | Boolean
 | This property will ensure that the Pull Server is created with the most secure practices.
-| - True
-  - False
+| - *False* (default) 
+  - True
+
+| ConfigureFirewall
+|
+| Boolean
+| This property will ensure that a Firewall rule is created for Pull Server TCP Port.
+| - *False* (default) 
+  - True
 
 | PhysicalPath
 |
@@ -120,4 +130,5 @@ DscPullServerSql:
   ModulePath: C:\Program Files\WindowsPowerShell\DscService\Modules
   ConfigurationPath: C:\Program Files\WindowsPowerShell\DscService\Configuration
   UseSecurityBestPractices: True
+  ConfigureFirewall: True
 ----
