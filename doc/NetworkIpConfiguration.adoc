@@ -123,7 +123,7 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
   See {ref_networkingdsc_netipinterface} +
 [NOTE]
 ====
-If set to `True` the paramters `IpAddress`, `Prefix`, `Gateway` and `DnsServers` must be empty.
+If set to `True` the paramters `IpAddress`, `Gateway` and `DnsServers` must be empty.
 ====
 | - *False* (default)
   - True

@@ -38,4 +38,6 @@
     xDnsServer                   = '1.16.0.0'
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
-}   
+    UpdateServicesDsc            = '1.2.1'
+    SqlServerDsc                 = '14.2.1'
+}
