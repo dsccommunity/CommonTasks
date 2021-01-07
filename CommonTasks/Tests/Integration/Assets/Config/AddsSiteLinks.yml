@@ -1,0 +1,10 @@
+SiteLinks:
+  - Name: Link1
+    SitesIncluded:
+    - Site1
+    - Site2
+    Cost: 100
+    ReplicationFrequencyInMinutes: 15
+    OptionChangeNotification: true
+  - Name: DEFAULTIPSITELINK
+    Ensure: Absent
