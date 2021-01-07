@@ -1,0 +1,557 @@
+// CommonTasks YAML Reference: SqlServer
+// ========================================
+
+:YmlCategory: SqlServer
+
+
+[[dscyml_sqlserver, {YmlCategory}]]
+= DSC Resource 'SqlServer'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlserver_abstract]]
+.{YmlCategory} is used for deployment and configuration of Microsoft SQL Server.
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                             https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlsetup:                         https://github.com/dsccommunity/SqlServerDsc/wiki/SqlSetup[SqlSetup]
+:ref_sqlserverdsc_sourcecredential_considerations:  https://github.com/dsccommunity/SqlServerDsc/tree/master/source/DSCResources/DSC_SqlSetup#considerations-for-the-parameter-sourcecredential[Considerations for the parameter SourceCredential]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlServer
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlsetup}, 
+                   
+|===
+
+
+[NOTE]
+====
+It is possible to use https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#group-managed-service-account[Group Managed Service Accounts] and 
+https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-account[Built-In Accounts] in the YAML configuration.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sqlserver_setup, {YmlCategory}/Setup]]<<dscyml_sqlserver_setup_details, Setup>>
+| 
+| hashtable
+| The {ref_sqlserverdsc_sqlsetup} DSC resource installs SQL Server on the target node.
+|
+|===
+
+
+[[dscyml_sqlserver_setup_details]]
+.Attributes of category '<<dscyml_sqlserver_setup>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Action
+|
+| String
+| The action to be performed.
+| - Install (default)
+  - Upgrade
+  - InstallFailoverCluster
+  - AddNode (currently not functional)
+  - PrepareFailoverCluster
+  - CompleteFailoverCluster
+
+| [[ref_sqlserver_sourcepath, SourcePath]]SourcePath
+| Mandatory
+| String
+| The path to the root of the source files for installation.
+  I.e and UNC path to a shared resource.
+  Environment variables can be used in the path.
+|
+
+| SourceCredential
+|
+| PSCredential
+| Credentials used to access the path set in the parameter <<ref_sqlserver_sourcepath>>.
+  See {ref_sqlserverdsc_sourcecredential_considerations}.
+|
+
+| SuppressReboot
+|
+| Boolean
+| Suppresses reboot.
+|
+
+| ForceReboot
+|
+| Boolean
+| Forces reboot.
+|
+
+| Features
+|
+| String
+| https://github.com/dsccommunity/SqlServerDsc/wiki/SqlSetup#features-supported[_SQL Server_ features] to be installed.
+  All features might not be available on all versions of SQL Server.
+| - SQLENGINE
+  - REPLICATION
+  - DQ
+  - DQC
+  - BOL
+  - CONN
+  - BC
+  - SDK
+  - MDS
+  - FULLTEXT
+  - RS
+  - AS
+  - IS
+  - SSMS
+  - ADV_SSMS
+
+| [[ref_sqlserver_instancename, InstanceName]]InstanceName
+|
+| String
+| Specifies the name of the instance to be installed.
+  Use `MSSQLSERVER` if you want to install a default clustered instance.
+|
+
+| InstanceID
+|
+| String
+| _SQL Server_ instance ID (if different from parameter <<ref_sqlserver_instancename>>).
+|
+
+| ProductKey
+|
+| String
+| Product key for licensed installations.
+|
+
+| UpdateEnabled
+|
+| String
+| Enabled updates during installation.
+|
+
+| UpdateSource
+|
+| String
+| Path to the source of updates to be applied during installation.
+|
+
+| SQMReporting
+|
+| String
+| Enable customer experience reporting.
+|
+
+| ErrorReporting
+|
+| String
+| Enable error reporting.
+|
+
+| InstallSharedDir
+|
+| String
+| Installation path for shared _SQL Server_ files.
+|
+
+| InstallSharedWOWDir
+|
+| String
+| Installation path for x86 shared _SQL Server_ files.
+|
+
+| InstanceDir
+|
+| String
+| Installation path for _SQL Server_ instance files.
+|
+
+| SQLSvcAccount
+|
+| PSCredential
+| Service account for the _SQL Server_'s _Windows_ service.
+|
+
+| AgtSvcAccount
+|
+| PSCredential
+| Service account for the _SQL Agent_'s _Windows_ service.
+|
+
+| SQLCollation
+|
+| String
+| Collation for _SQL Server Database Engine_.
+|
+
+| SQLSysAdminAccounts
+|
+| String[]
+| An array of accounts to be made _SQL Server_ administrators.
+|
+
+| [[ref_sqlserver_securitymode, SecurityMode]]SecurityMode
+|
+| String
+| Security mode to apply to the _SQL Server_ instance.
+  The value `SQL` indicates mixed-mode authentication while the value `Windows` indicates _Windows Authentication_.
+| - SQL
+  - Windows (default)
+
+| SAPwd
+|
+| PSCredential
+| Specifies the SA account's password.
+  Only applicable if parameter <<ref_sqlserver_securitymode>> is set to `SQL`.
+|
+
+| InstallSQLDataDir
+|
+| String
+| Root path for _SQL Server_ database files.
+|
+
+| SQLUserDBDir
+|
+| String
+| Path for _SQL Server_ database files.
+|
+
+| SQLUserDBLogDir
+|
+| String
+| Path for _SQL Server_ log files.
+|
+
+| SQLTempDBDir
+|
+| String
+| Path for _SQL Server_ temporary database data files.
+|
+
+| SQLTempDBLogDir
+|
+| String
+| Path for _SQL Server_ temporary database log files.
+|
+
+| SQLBackupDir
+|
+| String
+| Path for _SQL Server_ backup files.
+|
+
+| FTSvcAccount
+|
+| PSCredential
+| Service account for the _Full Text_'s _Windows_ service.
+|
+
+| RSSvcAccount
+|
+| PSCredential
+| Service account for _Reporting Services_'s _Windows_ service.
+|
+
+| RSInstallMode
+|
+| String
+| Specifies the install mode for _SQL Server Report Services_ service.
+| - SharePointFilesOnlyMode
+  - DefaultNativeMode
+  - FilesOnlyMode
+
+| ASSvcAccount
+|
+| PSCredential
+| Service account for _Analysis Services_'s _Windows_ service.
+|
+
+| ASCollation
+|
+| String
+| Collation for the _SQL Server Analysis Services_.
+|
+
+| ASSysAdminAccounts
+|
+| String[]
+| Array of accounts to be made _Analysis Services_ admins.
+|
+
+| ASDataDir
+|
+| String
+| Path for _Analysis Services_'s data files.
+|
+
+| ASLogDir
+|
+| String
+| Path for _Analysis Services_'s log files.
+|
+
+| ASBackupDir
+|
+| String
+| Path for _Analysis Services_'s backup files.
+|
+
+| ASTempDir
+|
+| String
+| Path for _Analysis Services_'s temp files.
+|
+
+| ASConfigDir
+|
+| String
+| Path for _Analysis Services_'s config files.
+|
+
+| ASServerMode
+|
+|
+| The server mode for _SQL Server Analysis Services_ instance.
+  The default is to install in Multidimensional mode.
++
+[IMPORTANT]
+====
+Parameter is case-sensitive.
+All values must be expressed in upper case.
+====
+| - MULTIDIMENSIONAL
+  - TABULAR
+  - POWERPIVOT
+
+| ISSvcAccount
+|
+| PSCredential
+| Service account for _Integration Services_'s _Windows_ service.
+|
+
+| SqlSvcStartupType
+|
+| String
+| Specifies the startup mode for the _SQL Server Database Engine_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| AgtSvcStartupType
+|
+| String
+| Specifies the startup mode for the _SQL Server Agent_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| IsSvcStartupType
+|
+| String
+| Specifies the startup mode for the _SQL Server Integration Services_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| AsSvcStartupType
+|
+| String
+| Specifies the startup mode for the _SQL Server Analysis Services_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| RSSVCStartupType
+|
+| String
+| Specifies the startup mode for the _SQL Server Reporting Services_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| BrowserSvcStartupType
+|
+| String
+| Specifies the startup mode for _SQL Server Browser_'s _Windows_ service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| FailoverClusterGroupName
+|
+| String
+| The name of the resource group to create for the clustered _SQL Server_ instance.
+| Default: `SQL Server (InstanceName)`
+
+| FailoverClusterIPAddress
+|
+| String[]
+| Specifies an array of IP addresses to be assigned to the clustered _SQL Server_ instance.
+  IP addresses must be in https://en.wikipedia.org/wiki/Dot-decimal_notation[dotted-decimal notation], for example `10.0.0.100`.
+  If no IP address is specified, uses `DEFAULT` for this setup parameter.
+|
+
+| FailoverClusterNetworkName
+|
+| String
+| Host name to be assigned to the clustered _SQL Server_ instance.
+|
+
+| SqlTempdbFileCount
+|
+| UInt32
+| Specifies the number of temporary database data files to be added by setup.
+|
+
+| SqlTempdbFileSize
+|
+| UInt32
+| Specifies the initial size of each temporary database data file in MB.
+|
+
+| SqlTempdbFileGrowth
+|
+| UInt32
+| Specifies the file growth increment of each temporary database data file in MB.
+|
+
+| SqlTempdbLogFileSize
+|
+| UInt32
+| Specifies the initial size of each temporary database log file in MB.
+|
+
+| SqlTempdbLogFileGrowth
+|
+| UInt32
+| Specifies the file growth increment of each temporary database data file in MB.
+|
+
+| NpEnabled
+|
+| Boolean
+| Specifies the state of the _Named Pipes_ protocol for the _SQL Server_ service.
+  The value `$true` will enable the _Named Pipes_ protocol and `$false` will disabled it.
+|
+
+| TcpEnabled
+|
+| Boolean
+| Specifies the state of the _TCP_ protocol for the _SQL Server_ service.
+  The value `$true` will enable the _TCP_ protocol and `$false` will disabled it.
+|
+
+| SetupProcessTimeout
+|
+| UInt32
+| The timeout, in seconds, to wait for the setup process to finish.
+  Default value is `7200` seconds (2 hours).
+  If the setup process does not finish before this time, an error will be thrown.
+| Default: `7200`
+
+| FeatureFlag
+|
+| String[]
+| Feature flags are used to toggle DSC resource functionality on or off.
+  See the {ref_sqlserverdsc_wiki} for what additional functionality exist through a feature flag.
+|
+
+| UseEnglish
+|
+| Boolean
+| Specifies to install the English version of _SQL Server_ on a localized operating system when the installation media includes language packs for both English and the language corresponding to the operating system.
+|
+
+| SkipRule
+|
+| String[]
+| Specifies optional https://github.com/dsccommunity/SqlServerDsc/wiki/SqlSetup#skip-rules[skip rules] during setup.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlServer:
+  Setup:
+    Action: Install
+    SourcePath: \\mediaserver\install\sqlserver
+    SourceCredential: '[ENC=...=]'
+    SuppressReboot: false
+    ForceReboot: true
+    Features: SQLENGINE, REPLICATION, CONN
+    InstanceName: MSSQLSERVER
+    InstanceID:
+    ProductKey:
+    UpdateEnabled: false
+    UpdateSource: \\mediaserver\install\sqlserver\updates
+    SQMReporting:
+    ErrorReporting:
+    InstallSharedDir: C:\Program File\Sql Server Shared
+    InstallSharedWOWDir:
+    InstanceDir:
+    SQLSvcAccount: '[ENC=...=]'
+    AgtSvcAccount: '[ENC=...=]'
+    SQLCollation: 
+    SQLSysAdminAccounts:
+    SecurityMode: SQL
+    SAPwd: '[ENC=...=]'
+    InstallSQLDataDir:
+    SQLUserDBDir:
+    SQLUserDBLogDir:
+    SQLTempDBDir:
+    SQLTempDBLogDir:
+    SQLBackupDir:
+    FTSvcAccount: 
+    RSSvcAccount: 
+    RSInstallMode: DefaultNativeMode
+    ASSvcAccount: '[ENC=...=]'
+    ASCollation:
+    ASSysAdminAccounts:
+    ASDataDir:
+    ASLogDir:
+    ASBackupDir:
+    ASTempDir:
+    ASConfigDir:
+    ASServerMode: MULTIDIMENSIONAL
+    ISSvcAccount: '[ENC=...=]'
+    SqlSvcStartupType: Automatic
+    AgtSvcStartupType: Automatic
+    IsSvcStartupType: Disabled
+    AsSvcStartupType: Disabled
+    RSSVCStartupType: Manual
+    BrowserSvcStartupType: Manual
+    FailoverClusterGroupName:
+    FailoverClusterIPAddress:
+    FailoverClusterNetworkName:
+    SqlTempdbFileCount: 4
+    SqlTempdbFileSize: 100
+    SqlTempdbFileGrowth: 100
+    SqlTempdbLogFileSize: 20
+    SqlTempdbLogFileGrowth: 10
+    NpEnabled: true
+    TcpEnabled: true
+    SetupProcessTimeout: 3600
+    FeatureFlag:
+    UseEnglish: true
+    SkipRule:
+----

@@ -35,10 +35,16 @@
 
         [Parameter()]
         [bool]
-        $UseSecurityBestPractices = $false
-    )
+        $UseSecurityBestPractices = $false,
 
-    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, PSDesiredStateConfiguration, xWebAdministration
+        [Parameter()]
+        [bool]
+        $ConfigureFirewall = $false
+    )
+       
+    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, PSDesiredStateConfiguration, NetworkingDsc, xWebAdministration
+
+    [string]$applicationPoolName = 'DscPullSrvSqlPool'
 
     WindowsFeature DSCServiceFeature {
         Ensure = 'Present'
@@ -52,6 +58,14 @@
         Type            = 'File'
         DestinationPath = $regKeyPath
         Contents        = $RegistrationKey
+    }
+
+    # Test-TargetResource with default ApplicationPool 'PSWS' doesn't work with xPSDesiredStateConfiguration 9.1.0
+    xWebAppPool PSDSCPullServerPool
+    {
+        Ensure       = 'Present'
+        Name         = $applicationPoolName
+        IdentityType = 'NetworkService'
     }
 
     $sqlConnectionString = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=$DatabaseName;Data Source=$SqlServer"
@@ -70,9 +84,9 @@
         SqlProvider                  = $true
         SqlConnectionString          = $sqlConnectionString
         ConfigureFirewall            = $false
-        ApplicationPoolName          = 'PSWS'
+        ApplicationPoolName          = $applicationPoolName
         RegistrationKeyPath          = $regKeyPath
-        DependsOn                    = '[WindowsFeature]DSCServiceFeature'
+        DependsOn                    = '[WindowsFeature]DSCServiceFeature', '[xWebAppPool]PSDSCPullServerPool'
     }
 
     xWebConfigKeyValue CorrectDBProvider {
@@ -81,5 +95,22 @@
         Value         = 'System.Data.OleDb'
         WebsitePath   = 'IIS:\sites\PSDSCPullServer'
         DependsOn     = '[xDSCWebService]PSDSCPullServer'
+    }
+
+    if( $ConfigureFirewall -eq $true ) {
+
+        Firewall PSDSCPullServerRule
+        {
+            Ensure      = 'Present'
+            Name        = "DSC_PullServer_$Port"
+            DisplayName = "DSC PullServer $Port"
+            Group       = 'DSC PullServer'
+            Enabled     = $true
+            Action      = 'Allow'
+            Direction   = 'InBound'
+            LocalPort   = $Port
+            Protocol    = 'TCP'
+            DependsOn   = '[xDscWebService]PSDSCPullServer'
+        }        
     }
 }

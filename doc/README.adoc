@@ -80,6 +80,8 @@ ifdef::env-github[]
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
+- <<SqlServer.adoc#, SqlServer>>
+- <<UpdateServices.adoc#, UpdateServices>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 
 endif::[]
@@ -125,15 +127,15 @@ ifndef::env-github[]
 // | <<dscyml_jeaendpoints>>                 | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
-| <<dscyml_networkipconfiguration>>       | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_networkipconfiguration>>          | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
 | <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
-// | <<dscyml_sqlserver>>                    | <<dscyml_sqlserver_abstract>>
-// | <<dscyml_updateservices>>               | <<dscyml_updateservices_abstract>>
+| <<dscyml_sqlserver>>                       | <<dscyml_sqlserver_abstract>>
+| <<dscyml_updateservices>>                  | <<dscyml_updateservices_abstract>>
 // | <<dscyml_wds>>                          | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>          | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>              | <<dscyml_webapplications_abstract>>
@@ -186,8 +188,8 @@ include::RegistryValues.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
-//include::SqlServer.adoc[leveloffset=+2]
-//include::UpdateServices.adoc[leveloffset=+2]
+include::SqlServer.adoc[leveloffset=+2]
+include::UpdateServices.adoc[leveloffset=+2]
 //include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]

@@ -100,6 +100,9 @@ configuration NetworkIpConfiguration {
 
     foreach( $netIf in $Interfaces )
     {
+        # Remove case sensitivity of ordered Dictionary or Hashtables
+        $netIf = @{}+$netIf
+                    
         if( [string]::IsNullOrWhitespace($netIf.InterfaceAlias) ) {
             $netIf.InterfaceAlias = 'Ethernet'
         }
