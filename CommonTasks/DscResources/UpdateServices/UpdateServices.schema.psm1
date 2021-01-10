@@ -58,11 +58,34 @@
 
     if( $null -ne $Server ) 
     {
+        # Remove Case Sensitivity of ordered Dictionary or Hashtables
+        $Server = @{}+$Server
+
         $Server.DependsOn = $wsusDependsOn
 
         if( -not [string]::IsNullOrWhiteSpace( $Server.Ensure ) )
         {
             $Server.Ensure = 'Present'
+        }
+
+        if( [string]::IsNullOrWhiteSpace( $Server.UpdateImprovementProgram ) )
+        {
+            $Server.UpdateImprovementProgram = $false
+        }
+        
+        if( [string]::IsNullOrWhiteSpace( $Server.Synchronize ) )
+        {
+            $Server.Synchronize = $false
+        }
+
+        if( [string]::IsNullOrWhiteSpace( $Server.SynchronizeAutomatically ) )
+        {
+            $Server.SynchronizeAutomatically = $false
+        }
+
+        if( [string]::IsNullOrWhiteSpace( $Server.ClientTargetingMode ) )
+        {
+            $Server.ClientTargetingMode = 'Client'
         }
 
         # create a specified content directory
@@ -81,6 +104,38 @@
             }
         }
 
+        # make a reboot before WSUS setup
+        if( (-not [string]::IsNullOrWhiteSpace( $Server.ForceRebootBefore )) -and ($Server.ForceRebootBefore -eq 'True') )
+        {
+            $rebootKeyName = 'HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests'
+            $rebootVarName = 'RebootBefore_UpdateServices_Server'
+    
+            Script $rebootVarName
+            {
+                TestScript = {
+                    $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
+    
+                    if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                        return $true
+                    }   
+                    return $false
+                }
+                SetScript = {
+                    if( -not (Test-Path -Path $using:rebootKeyName) ) {
+                        New-Item -Path $using:rebootKeyName -Force
+                    }
+                    Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                    $global:DSCMachineStatus = 1             
+                }
+                GetScript = { return @{result = 'result'}}
+                DependsOn = $wsusDependsOn
+            }        
+    
+            $wsusDependsOn = "[Script]$rebootVarName"
+        }
+
+        $Server.Remove('ForceRebootBefore')
+    
         (Get-DscSplattedResource -ResourceName UpdateServicesServer -ExecutionName "wsusSrv" -Properties $Server -NoInvoke).Invoke($Server)
 
         $wsusDependsOn = '[UpdateServicesServer]wsusSrv'

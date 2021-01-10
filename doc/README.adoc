@@ -78,6 +78,7 @@ ifdef::env-github[]
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
+- <<RestartSystem.adoc#, RestartSystem>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<SqlServer.adoc#, SqlServer>>
@@ -130,6 +131,7 @@ ifndef::env-github[]
 | <<dscyml_networkipconfiguration>>          | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
+| <<dscyml_restartsystem>>                   | <<dscyml_restartsystem_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
 | <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
@@ -184,6 +186,7 @@ include::DscTagging.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
+include::RestartSystem.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]

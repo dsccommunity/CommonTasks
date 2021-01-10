@@ -1,0 +1,104 @@
+// CommonTasks YAML Reference: RestartSystem
+// =========================================
+
+:YmlCategory: RestartSystem
+
+
+[[dscyml_restartsystem, {YmlCategory}]]
+= DSC Resource 'RestartSystem'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_restartsystem_abstract]]
+.{YmlCategory} manages forced or pending system reboots.
+
+The DSC resource supports only one system reboot inside the DSC configuartion of a node.
+You can control the system reboot time by ordering the activated configurations in the YAML files (e.g. RestartSystem at last if you want a restart at the end of your configuration). 
+
+// reference links as variables for using more than once
+:ref_PendingReboot:  https://github.com/dsccommunity/ComputerManagementDsc/wiki/PendingReboot[PendingReboot]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/RestartSystem
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | {ref_PendingReboot}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ForceReboot
+|
+| Boolean
+| Force a system reboot +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `Reboot_RestartSystem` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - *False* (default)
+  - True
+
+| PendingReboot
+|
+| Boolean
+| Checks for pending system reboots +
+  See {ref_PendingReboot} for detailed information.
+| - *False* (default)
+  - True
+
+| SkipComponentBasedServicing
+|
+| Boolean
+| Specifies whether to skip pending reboots triggered by the Component-Based Servicing component.
+| - *False* (default)
+  - True
+
+| SkipWindowsUpdate
+|
+| Boolean
+| Specifies whether to skip pending reboots triggered by Windows Update.
+| - *False* (default)
+  - True
+
+| SkipPendingFileRename
+|
+| Boolean
+| Specifies whether to skip pending file rename reboots.
+| - *False* (default)
+  - True
+
+| SkipPendingComputerRename
+|
+| Boolean
+| Specifies whether to skip pending reboots triggered by a pending computer rename.
+| - *False* (default)
+  - True
+
+| SkipCcmClientSDK
+|
+| Boolean
+| Specifies whether to skip pending reboots triggered by the ConfigMgr client.
+| - False
+  - *True* (default)
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RestartSystem:
+  ForceReboot: true
+  PendingReboot: true
+  SkipCcmClientSDK: false
+----

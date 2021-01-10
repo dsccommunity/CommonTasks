@@ -20,6 +20,7 @@
   SynchronizationsPerDay: 2
   Synchronize: true
   ClientTargetingMode: Server
+  ForceRebootBefore: true
 
 Cleanup:
   Ensure: Present

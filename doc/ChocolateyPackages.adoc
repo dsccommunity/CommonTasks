@@ -255,6 +255,19 @@ In this case the `Test-DscConfiguration` command returns `False`.
 |
 |
 
+| ForceReboot
+|
+| Boolean
+| Force a reboot after first installation of the package. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+A Reboot after upgrade of an installed package is currently not supported. +
+To re-enable the system reboot feature the registry key value `RebootAfter_Chocolatey_<Name>` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - True
+  - *False* (default)
+
 |===
 
 
@@ -286,6 +299,7 @@ ChocolateyPackages:
       Credential: '[ENC=PE9ianM...=]'
     - Name: winrar
       Version: Latest
+      ForceReboot: true
 ----
 
 

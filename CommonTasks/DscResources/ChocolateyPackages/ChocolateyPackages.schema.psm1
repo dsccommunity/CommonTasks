@@ -10,7 +10,8 @@ configuration ChocolateyPackages {
         [hashtable[]]$Packages
     )
 
-    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName ComputerManagementDsc
     Import-DscResource -ModuleName Chocolatey
 
     $chocoSwExecName = 'Choco_Software'
@@ -182,8 +183,11 @@ configuration ChocolateyPackages {
         }
     }
 
-    if( $Packages -ne $null ) {
+    if( $Packages -ne $null ){
         foreach ($p in $Packages) {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $p = @{}+$p
+
             $executionName = $p.Name -replace '\(|\)|\.| ', ''
             $executionName = "Chocolatey_$executionName"
             $p.ChocolateyOptions = [hashtable]$p.ChocolateyOptions
@@ -196,7 +200,40 @@ configuration ChocolateyPackages {
                 $p.DependsOn = "[ChocolateySoftware]$chocoSwExecName"
             }
 
+            [boolean]$forceReboot = $false
+            if ($p.ContainsKey('ForceReboot')) {
+                $forceReboot = $p.ForceReboot
+                $p.Remove( 'ForceReboot' )
+            }
+
             (Get-DscSplattedResource -ResourceName ChocolateyPackage -ExecutionName $executionName -Properties $p -NoInvoke).Invoke($p)
+
+            if ($forceReboot -eq $true)
+            {
+                $rebootKeyName = 'HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests'
+                $rebootVarName = "RebootAfter_$executionName"
+
+                Script $rebootVarName
+                {
+                    TestScript = {
+                        $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
+
+                        if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                            return $true
+                        }   
+                        return $false
+                    }
+                    SetScript = {
+                        if( -not (Test-Path -Path $using:rebootKeyName) ) {
+                            New-Item -Path $using:rebootKeyName -Force
+                        }
+                        Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                        $global:DSCMachineStatus = 1             
+                    }
+                    GetScript = { return @{result = 'result'}}
+                    DependsOn = "[ChocolateyPackage]$executionName"
+                }        
+            }
         }
     }
 }

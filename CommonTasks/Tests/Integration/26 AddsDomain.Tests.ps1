@@ -23,6 +23,7 @@ Describe "AddsDomain DSC Resource compiles" -Tags FunctionalQuality {
                     SysvolPath                    = $configurationData.Datum.Config.AddsDomain.SysvolPath
                     ForestMode                    = $configurationData.Datum.Config.AddsDomain.ForestMode
                     DomainTrust                   = $configurationData.Datum.Config.AddsDomain.DomainTrust
+                    ForceRebootBefore             = $configurationData.Datum.Config.AddsDomain.ForceRebootBefore
                 }
             }
         }

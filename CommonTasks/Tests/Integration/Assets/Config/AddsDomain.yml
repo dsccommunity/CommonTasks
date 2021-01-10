@@ -8,6 +8,7 @@ DatabasePath: C:\WindowsTest\NTDS
 LogPath: C:\WindowsTest\Logs
 SysvolPath: C:\WindowsTest\SYSVOL
 ForestMode: Win2012R2
+ForceRebootBefore: true
 DomainTrust:
   Fqdn: northwindtraders.com
   Name: northwindtraders

@@ -91,7 +91,7 @@
 |
 | Boolean
 | Join the Microsoft Update Improvement Program.
-| - False
+| - *False* (default)
   - True
 
 | UpstreamServerName
@@ -168,7 +168,7 @@
 |
 | Boolean
 | Synchronize automatically.
-| - False
+| - *False* (default)
   - True
 
 | SynchronizeAutomaticallyTimeOfDay
@@ -187,7 +187,7 @@
 |
 | Boolean
 | Begin initial synchronization.
-| - False
+| - *False* (default)
   - True
 
 | ClientTargetingMode
@@ -196,6 +196,17 @@
 | An enumerated value that describes if how the Target Groups are populated.
 | - *Client* (default)
   - Server
+
+| ForceRebootBefore
+|
+| Booelan
+| Force a reboot before setup of update services server. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `RebootBefore_UpdateServices_Server` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+| - *False* (default)
+  - True
 
 |===
 
@@ -379,6 +390,7 @@ UpdateServices:
     SynchronizationsPerDay: 24
     Synchronize: true
     ClientTargetingMode: Client
+    ForceRebootBefore: true
 
   Cleanup:
     Ensure: Present
