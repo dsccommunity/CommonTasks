@@ -1,0 +1,7 @@
+Variables:
+  - Name: var1
+    Target: Machine
+    Value: 123
+  - Name: var2
+    Target: Machine
+    Value: 456
