@@ -1,0 +1,6 @@
+Version: 1.0.0
+Environment: Dev
+Layers:
+  - Layer1
+  - Layer2
+  - Layer3

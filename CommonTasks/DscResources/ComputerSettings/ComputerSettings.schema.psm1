@@ -1,5 +1,5 @@
 configuration ComputerSettings {
-    Param (
+    param (
         [Parameter(Mandatory)]
         [string]$Name,
 
@@ -22,13 +22,15 @@ configuration ComputerSettings {
     $computerParamList = 'Name', 'Credential', 'DependsOn', 'Description', 'DomainName', 'JoinOU', 'PsDscRunAsCredential', 'Server', 'UnjoinCredential', 'WorkGroupName'
     
     $params = @{ }
-    foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -in $computerParamList)) {
+    foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $computerParamList))
+    {
         $params.Add($item.Key, $item.Value)
     }
     (Get-DscSplattedResource -ResourceName Computer -ExecutionName "Computer$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
     
     $params = @{ }
-    foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -in $timeZoneParamList)) {
+    foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $timeZoneParamList))
+    {
         $params.Add($item.Key, $item.Value)
     }
     $params.Add('IsSingleInstance', 'Yes')

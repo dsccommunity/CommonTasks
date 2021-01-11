@@ -48,7 +48,11 @@ configuration AddsDomain
 
         [Parameter()]
         [boolean]
-        $ForceRebootBefore = $false
+        $ForceRebootBefore,
+
+        [Parameter()]
+        [hashtable[]]
+        $DomainTrusts
     )
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
@@ -118,7 +122,7 @@ configuration AddsDomain
         FeatureName                       = 'Recycle Bin Feature'
     }
 
-    foreach ($trust in $DomainTrust)
+    foreach ($trust in $DomainTrusts)
     {
         WaitForAdDomain $trust.Name
         {
