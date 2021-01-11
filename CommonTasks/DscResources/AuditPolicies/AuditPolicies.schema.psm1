@@ -20,7 +20,7 @@ configuration AuditPolicies
         $CsvPath
     )
 
-    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName AuditPolicyDsc
 
     if( $null -ne $Options )

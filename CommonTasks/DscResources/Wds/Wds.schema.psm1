@@ -21,6 +21,7 @@ configuration Wds
         $SubnetMask
     )
 
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName WdsDsc
     Import-DscResource -ModuleName xDhcpServer
 

@@ -181,8 +181,8 @@ configuration DnsServerSettings {
         $XfrConnectTimeout
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDnsServer
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     if ($$PSBoundParameters.ContainsKey('InstanceName')) {
         $PSBoundParameters.Remove('InstanceName')

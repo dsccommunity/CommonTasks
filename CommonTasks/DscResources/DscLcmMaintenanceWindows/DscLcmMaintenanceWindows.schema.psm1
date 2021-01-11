@@ -4,8 +4,8 @@ configuration DscLcmMaintenanceWindows {
         [hashtable[]]$MaintenanceWindows
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     $on = '1st', '2nd', '3rd', '4th', 'last'
     $daysOfWeek = [System.Enum]::GetNames([System.DayOfWeek])

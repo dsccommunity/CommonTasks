@@ -4,6 +4,7 @@ configuration WebVirtualDirectories {
         [hashtable[]]$Items
     )
     
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
     foreach ($item in $Items) {
