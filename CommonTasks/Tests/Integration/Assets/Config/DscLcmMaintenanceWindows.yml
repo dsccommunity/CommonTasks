@@ -1,4 +1,4 @@
-MaintenanceWindow:
+MaintenanceWindows:
   - Name: MW-1
     Mode: Daily
     StartTime: 00:30:00
