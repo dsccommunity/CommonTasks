@@ -1,0 +1,7 @@
+ForceReboot: true
+PendingReboot: true
+SkipComponentBasedServicing: true
+SkipWindowsUpdate: true
+SkipPendingFileRename: true
+SkipPendingComputerRename: true
+SkipCcmClientSDK: true
