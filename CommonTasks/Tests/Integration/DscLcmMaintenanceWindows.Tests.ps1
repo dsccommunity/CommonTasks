@@ -11,7 +11,7 @@ Describe 'DscLcmMaintenanceWindows DSC Resource compiles' -Tags FunctionalQualit
 
             node localhost_DscLcmMaintenanceWindows {
                 DscLcmMaintenanceWindows controller {
-                    MaintenanceWindow = $configurationData.Datum.Config.DscLcmMaintenanceWindows.MaintenanceWindow
+                    MaintenanceWindows = $configurationData.Datum.Config.DscLcmMaintenanceWindows.MaintenanceWindows
                 }
             }
         }
