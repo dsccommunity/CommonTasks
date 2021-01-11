@@ -15,7 +15,7 @@
         $ApprovalRules
     )
 
-    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName UpdateServicesDsc
 
     # Remove case sensitivity of ordered Dictionary or Hashtables

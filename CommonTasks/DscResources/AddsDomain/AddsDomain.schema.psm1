@@ -51,6 +51,7 @@ configuration AddsDomain
         $DomainTrusts
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
         
     WindowsFeature ADDS

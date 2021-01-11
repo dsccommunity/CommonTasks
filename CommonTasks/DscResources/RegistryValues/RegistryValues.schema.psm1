@@ -4,6 +4,7 @@ configuration RegistryValues {
         [hashtable[]]$Values
     )
     
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($value in $values) {

@@ -10,8 +10,8 @@ configuration DscTagging {
         [string[]]$Layers
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     $gitCommitId = git log -n 1 *>&1
     $gitCommitId = if ($gitCommitId -like '*fatal*') {

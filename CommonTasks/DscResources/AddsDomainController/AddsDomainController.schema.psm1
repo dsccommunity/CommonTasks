@@ -39,6 +39,7 @@ configuration AddsDomainController
         $InstallationMediaPath
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
         
     WindowsFeature ADDS {

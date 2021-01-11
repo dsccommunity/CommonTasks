@@ -7,6 +7,7 @@
         $Setup
     )
 
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SqlServerDsc
 
     if( $Setup -ne $null ) {

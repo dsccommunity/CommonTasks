@@ -9,8 +9,8 @@ configuration DnsServerAdZones
         $DomainCredential
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDnsServer
-    Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     foreach ($adZone in $AdZones) {
         if (-not $adZone.ContainsKey('Ensure')) {

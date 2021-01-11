@@ -4,6 +4,7 @@ configuration WindowsEventLogs {
         [hashtable[]]$Logs
     )
     
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
    
     foreach ($log in $Logs) {

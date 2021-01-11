@@ -10,7 +10,7 @@ configuration ChocolateyPackages {
         [hashtable[]]$Packages
     )
 
-    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName Chocolatey
 
     $chocoSwExecName = 'Choco_Software'
