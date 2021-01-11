@@ -1,0 +1,13 @@
+XmlData:
+  - Path: D:\web.config
+    Ensure: Present
+    XPath: /configuration/appSettings/Test1/Test1
+    Attributes:
+      TestValue1: 'SomeValue1'
+      TestValue2: 'SomeValue2'
+  - Path: D:\web.config
+    Ensure: Present
+    XPath: /configuration/appSettings/Test1/Test2
+    Attributes:
+      TestValue1: 'SomeValue1'
+      TestValue2: 'SomeValue2'

@@ -1,7 +1,5 @@
-configuration DnsServerSettings
-{
-    param
-    (
+configuration DnsServerSettings {
+    param (
         [Parameter(Mandatory = $true)]
         [string]
         $Name,
@@ -184,8 +182,12 @@ configuration DnsServerSettings
     )
 
     Import-DscResource -ModuleName xDnsServer
-    Import-DscResource -ModuleName PsDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    $executionName = $node.Name
-    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    if ($$PSBoundParameters.ContainsKey('InstanceName')) {
+        $PSBoundParameters.Remove('InstanceName')
+    }
+
+    $executionName = 'DnsSettings'
+    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $x -NoInvoke).Invoke($x)
 }

@@ -1,4 +1,4 @@
-Name: DnsServerSetting
+Name: DnsServerSettings
 ListenAddresses:
   - 192.168.30.111
 IsSlave: true
