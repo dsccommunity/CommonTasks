@@ -8,13 +8,16 @@ configuration AddsDomainUsers
 
     Import-DscResource -ModuleName ActiveDirectoryDsc
     
-    $domainName = lookup AddsDomain/DomainName
+    $domainName = lookup AddsDomain/DomainName -DefaultValue $null
 
     foreach ($user in $Users)
     {
         if ([string]::IsNullOrWhiteSpace($user.UserName)) { continue }
 
-        $user.DomainName = $domainName
+        if (-not $user.DomainName -and $domainName)
+        {
+            $user.DomainName = $domainName
+        }
         (Get-DscSplattedResource -ResourceName ADUser -ExecutionName $user.UserName -Properties $user -NoInvoke).Invoke($user)
     }
 }

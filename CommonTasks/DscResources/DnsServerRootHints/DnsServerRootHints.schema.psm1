@@ -14,6 +14,6 @@ configuration DnsServerRootHints
         NameServer       = $RootHints
     }
 
-    $executionName = $node.Name
+    $executionName = 'RootHints'
     (Get-DscSplattedResource -ResourceName xDnsServerRootHint -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 }
