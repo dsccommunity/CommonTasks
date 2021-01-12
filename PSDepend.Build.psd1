@@ -40,4 +40,6 @@
     AuditPolicyDsc               = '1.4.0.0'
     UpdateServicesDsc            = '1.2.1'
     SqlServerDsc                 = '14.2.1'
+    OfficeOnlineServerDsc        = '1.5.0'
+
 }
