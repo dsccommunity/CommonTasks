@@ -6,6 +6,7 @@ configuration AddsDomainUsers
         $Users
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
     
     $domainName = lookup AddsDomain/DomainName -DefaultValue $null

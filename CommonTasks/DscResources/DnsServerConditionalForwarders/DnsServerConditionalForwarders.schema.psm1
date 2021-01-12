@@ -6,8 +6,8 @@ configuration DnsServerConditionalForwarders
         $ConditionalForwarders
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDnsServer
-    Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     foreach ($conditionalForwarder in $ConditionalForwarders) {
         if (-not $conditionalForwarder.ContainsKey('Ensure')) {

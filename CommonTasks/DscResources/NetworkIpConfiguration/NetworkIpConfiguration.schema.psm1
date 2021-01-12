@@ -4,10 +4,11 @@ configuration NetworkIpConfiguration {
         [hashtable[]] $Interfaces
     )
     
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
-
-    function NetIpInterfaceConfig {
+    function NetIpInterfaceConfig
+    {
         param(
             [string]   $InterfaceAlias,
             [string]   $IpAddress,
@@ -19,9 +20,9 @@ configuration NetworkIpConfiguration {
             [boolean]  $DisableIPv6
         )
 
-        if( $EnableDhcp -eq $true )
+        if ( $EnableDhcp -eq $true )
         {
-            if( -not [string]::IsNullOrWhiteSpace($IpAddress) -or
+            if ( -not [string]::IsNullOrWhiteSpace($IpAddress) -or
                 -not [string]::IsNullOrWhiteSpace($Gateway) -or 
                 ($null -ne $DnsServer -and $DnsServer.Count -gt 0))
             {
@@ -42,7 +43,7 @@ configuration NetworkIpConfiguration {
         }
         else 
         {
-            if( [string]::IsNullOrWhiteSpace($IpAddress) -or
+            if ( [string]::IsNullOrWhiteSpace($IpAddress) -or
                 [string]::IsNullOrWhiteSpace($Gateway) -or 
                 $null -eq $DnsServer -or
                 $DnsServer.Count -eq 0)
@@ -81,14 +82,16 @@ configuration NetworkIpConfiguration {
             }
         }
 
-        if ($DisableNetbios) {
+        if ($DisableNetbios)
+        {
             NetBios DisableNetBios {
                 InterfaceAlias = $InterfaceAlias
                 Setting        = 'Disable'
             }
         }
 
-        if ($DisableIPv6) {
+        if ($DisableIPv6)
+        {
             NetAdapterBinding DisableIPv6
             {
                 InterfaceAlias = $InterfaceAlias
@@ -98,31 +101,35 @@ configuration NetworkIpConfiguration {
         }
     }
 
-    foreach( $netIf in $Interfaces )
+    foreach ( $netIf in $Interfaces )
     {
         # Remove case sensitivity of ordered Dictionary or Hashtables
-        $netIf = @{}+$netIf
+        $netIf = @{} + $netIf
                     
-        if( [string]::IsNullOrWhitespace($netIf.InterfaceAlias) ) {
+        if ( [string]::IsNullOrWhitespace($netIf.InterfaceAlias) )
+        {
             $netIf.InterfaceAlias = 'Ethernet'
         }
-        if( [string]::IsNullOrWhitespace($netIf.DisableNetbios) ) {
+        if ( [string]::IsNullOrWhitespace($netIf.DisableNetbios) )
+        {
             $netIf.DisableNetbios = $false
         }
-        if( [string]::IsNullOrWhitespace($netIf.EnableDhcp) ) {
+        if ( [string]::IsNullOrWhitespace($netIf.EnableDhcp) )
+        {
             $netIf.EnableDhcp = $false
         }
-        if( [string]::IsNullOrWhitespace($netIf.DisableIPv6) ) {
+        if ( [string]::IsNullOrWhitespace($netIf.DisableIPv6) )
+        {
             $netIf.DisableIPv6 = $false
         }
 
-        NetIpInterfaceConfig  -InterfaceAlias $netIf.InterfaceAlias `
-                              -IpAddress      $netIf.IpAddress `
-                              -Prefix         $netIf.Prefix `
-                              -Gateway        $netIf.Gateway `
-                              -DnsServer      $netIf.DnsServer `
-                              -DisableNetbios $netIf.DisableNetbios `
-                              -EnableDhcp     $netIf.EnableDhcp `
-                              -DisableIPv6    $netIf.DisableIPv6
+        NetIpInterfaceConfig -InterfaceAlias $netIf.InterfaceAlias `
+            -IpAddress $netIf.IpAddress `
+            -Prefix $netIf.Prefix `
+            -Gateway $netIf.Gateway `
+            -DnsServer $netIf.DnsServer `
+            -DisableNetbios $netIf.DisableNetbios `
+            -EnableDhcp $netIf.EnableDhcp `
+            -DisableIPv6 $netIf.DisableIPv6
     }
 }

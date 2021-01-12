@@ -42,7 +42,10 @@
         $ConfigureFirewall = $false
     )
        
-    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, PSDesiredStateConfiguration, NetworkingDsc, xWebAdministration
+    Import-DSCResource -ModuleName PSDesiredStateConfiguration
+    Import-DSCResource -ModuleName xPSDesiredStateConfiguration
+    Import-DSCResource -ModuleName NetworkingDsc
+    Import-DSCResource -ModuleName xWebAdministration
 
     [string]$applicationPoolName = 'DscPullSrvSqlPool'
 

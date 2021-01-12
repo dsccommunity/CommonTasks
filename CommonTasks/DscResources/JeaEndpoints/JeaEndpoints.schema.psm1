@@ -4,6 +4,9 @@ configuration JeaEndpoints {
         [hashtable[]]$Endpoints
     )
 
+    Import-Module JeaDsc
+    
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName JeaDsc
 
     foreach ($endpoint in $Endpoints)

@@ -20,7 +20,7 @@ configuration SecurityPolicies
         $SecurityTemplatePath
     )
 
-    Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SecurityPolicyDsc
 
     if( $null -ne $AccountPolicies )

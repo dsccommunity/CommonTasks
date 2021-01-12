@@ -9,6 +9,7 @@ configuration AddsOrgUnitsAndGroups
         $Groups
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
     $domainDn = lookup AddsDomain/DomainDn
