@@ -1,0 +1,10 @@
+Path: C:\OfficeOnline\Setup.exe
+InternalUrl: https://oos.contoso.com
+CertificateName: OfficeOnlineServer
+EditingEnabled: true
+MasterServer: Server1
+LanguagePacks:
+  - Language: de-de
+    BinaryDir: C:\de-de
+  - Language: en-us
+    BinaryDir: C:\en-us
