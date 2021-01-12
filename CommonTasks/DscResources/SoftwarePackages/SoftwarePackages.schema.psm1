@@ -4,6 +4,7 @@ configuration SoftwarePackages {
         [hashtable[]]$Packages
     )
     
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($p in $Packages) {

@@ -1,0 +1,419 @@
+// CommonTasks YAML Reference: UpdateServices
+// ========================================
+
+:YmlCategory: UpdateServices
+
+
+[[dscyml_updateservices, {YmlCategory}]]
+= DSC Resource 'UpdateServices'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_updateservices_abstract]]
+.{YmlCategory} configures the Windows Server Update Services (WSUS).
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/UpdateServices
+| DSC Resource   | https://github.com/dsccommunity/UpdateServicesDsc[UpdateServicesDsc]
+| Documentation  | https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesServer],
+                   https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesCleanup], 
+                   https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesApprovalRule]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_updateservices_server, {YmlCategory}/Server]]<<dscyml_updateservices_server_details, Server>>
+| 
+| Hashtable
+| DSC resource to initialize and configure WSUS Server.
+|
+
+| [[dscyml_updateservices_cleanup, {YmlCategory}/Cleanup]]<<dscyml_updateservices_cleanup_details, Cleanup>>
+| 
+| Hashtable
+| DSC resource to manage WSUS Cleanup task.
+|
+
+| [[dscyml_updateservices_approvalrules, {YmlCategory}/ApprovalRules]]<<dscyml_updateservices_approvalrules_details, ApprovalRules>>
+| 
+| Hashtable
+| DSC resource to manage WSUS Approval Rules.
+|
+
+|===
+
+[[dscyml_updateservices_server_details]]
+.Attributes of category '<<dscyml_updateservices_server>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Ensure
+| Key
+| String
+| An enumerated value that describes if WSUS is configured.
+| - *Present* (default)
+  - Absent
+
+| SetupCredential
+|
+| PSCredential
+| Credential to be used to perform the initial configuration.
+|
+
+| SQLServer
+|
+| String
+| SQL Server for the WSUS database, omit for Windows Internal Database.
+|
+
+| ContentDir
+|
+| String 
+| Folder for WSUS update files. + 
+  If specified the resource ensures that the path exists.
+|
+
+| UpdateImprovementProgram
+|
+| Boolean
+| Join the Microsoft Update Improvement Program.
+| - *False* (default)
+  - True
+
+| UpstreamServerName
+|
+| String 
+| Upstream WSUS server, omit for Microsoft Update.
+|
+
+| UpstreamServerPort
+|
+| UInt16
+| Port of upstream WSUS server.
+|
+
+| UpstreamServerSSL
+|
+| Boolean
+| Use SSL with upstream WSUS server.
+| - False
+  - True
+
+| UpstreamServerReplica
+|
+| Boolean
+| Replica of upstream WSUS server.
+| - False
+  - True
+
+| ProxyServerName
+|
+| String
+| Proxy server to use when synchronizing, omit for no proxy.
+|
+
+| ProxyServerPort
+|
+| UInt16
+| Proxy server port.
+|
+
+| ProxyServerCredential
+|
+| PSCredential
+| Proxy server credential, omit for anonymous.
+|
+
+| ProxyServerBasicAuthentication
+|
+| Boolean
+| Allow proxy server basic authentication.
+| - False
+  - True
+
+| Languages
+|
+| String
+| Update languages, '*' for all.
+|
+
+| Products
+|
+| String
+| Update products, '*' for all.
+|
+
+| Classifications
+|
+| String
+| Update <<dscyml_updateservices_classifications, classifications>>
+| - * (all)
+  - see <<dscyml_updateservices_classifications>>
+
+| SynchronizeAutomatically
+|
+| Boolean
+| Synchronize automatically.
+| - *False* (default)
+  - True
+
+| SynchronizeAutomaticallyTimeOfDay
+|
+| String
+| First synchronization.
+|
+
+| SynchronizationsPerDay
+|
+| UInt16
+| Synchronizations per day.
+|
+
+| Synchronize
+|
+| Boolean
+| Begin initial synchronization.
+| - *False* (default)
+  - True
+
+| ClientTargetingMode
+|
+| String
+| An enumerated value that describes if how the Target Groups are populated.
+| - *Client* (default)
+  - Server
+
+| ForceRebootBefore
+|
+| Booelan
+| Force a reboot before setup of update services server. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `RebootBefore_UpdateServices_Server` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+| - *False* (default)
+  - True
+
+|===
+
+
+[[dscyml_updateservices_cleanup_details]]
+.Attributes of category '<<dscyml_updateservices_cleanup>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Ensure
+| Key
+| String
+| An enumerated value that describes if the WSUS cleanup task exists.
+| - *Present* (default)
+  - Absent
+
+| DeclineSupersededUpdates
+|
+| Boolean
+| Decline updates that have not been approved fo 30 days or more, are not currently needed by any clients, and are superseded by an approved update.
+| - False
+  - True
+
+| DeclineExpiredUpdates
+|
+| Boolean
+| Decline updates that aren't approved and have been expired by Microsoft.
+| - False
+  - True
+
+| CleanupObsoleteUpdates
+|
+| Boolean
+| Delete updates that are expired and have not been approved for 30 days or more, and delete older update revisions that have not been approved for 30 days or more.
+| - False
+  - True
+
+| CompressUpdates
+|
+| Boolean
+| Compress updates.
+| - False
+  - True
+
+| CleanupObsoleteComputers
+|
+| Boolean
+| Delete computers that have not contacted the server in 30 days or more.
+| - False
+  - True
+
+| CleanupUnneededContentFiles
+|
+| Boolean
+| Delete update files that aren't needed by updates or downstream servers.
+| - False
+  - True
+
+| CleanupLocalPublishedContentFiles
+|
+| Boolean
+| Cleanup local published content files.
+| - False
+  - True
+
+| TimeOfDay
+|
+| String
+| Time of day to start cleanup.
+|
+
+|===
+
+
+[[dscyml_updateservices_approvalrules_details]]
+.Attributes of category '<<dscyml_updateservices_approvalrules>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Name of the approval rule.
+|
+
+| Ensure
+|
+| String
+| An enumerated value that describes if the ApprovalRule is available
+| - *Present* (default)
+  - Absent
+
+| Classifications
+|
+| String[]
+| <<dscyml_updateservices_classifications, Classifications>> in the approval rule.
+| - see <<dscyml_updateservices_classifications>>
+
+| Products
+|
+| String[]
+| Products in the approval rule.
+|
+
+| ComputerGroups
+|
+| String[]
+| Computer groups the approval rule applies to.
+|
+
+| Enabled
+|
+| Boolean
+| Whether the approval rule is enabled.
+| - False
+  - True
+
+| Synchronize
+|
+| Boolean
+| Synchronize after creating or updating the approval rule.
+| - False
+  - True
+
+| RunRuleNow
+|
+| Boolean
+| Run the approval rule after it has been created.
+| - False
+  - True
+
+|===
+
+
+[[dscyml_updateservices_classifications]]
+.Classifications ID reference
+[cols="1,1" options="header"]
+|===
+| Classification      | ID
+
+| Applications        | 5C9376AB-8CE6-464A-B136-22113DD69801
+| Connectors          | 434DE588-ED14-48F5-8EED-A15E09A991F6
+| Critical Updates    | E6CF1350-C01B-414D-A61F-263D14D133B4
+| Definition Updates  | E0789628-CE08-4437-BE74-2495B842F43B
+| Developer Kits      | E140075D-8433-45C3-AD87-E72345B36078
+| Feature Packs       | B54E7D24-7ADD-428F-8B75-90A396FA584F
+| Guidance            | 9511D615-35B2-47BB-927F-F73D8E9260BB
+| Security Updates    | 0FA1201D-4330-4FA8-8AE9-B877473B6441
+| Service Packs       | 68C5B0A3-D1A6-4553-AE49-01D3A7827828
+| Tools               | B4832BD8-E735-4761-8DAF-37F882276DAB
+| Update Rollups      | 28BC880E-0592-4CBF-8F95-C79B17911D5F
+| Updates             | CD5FFD1E-E932-4E3A-BF74-18BF0B1BBD83
+
+|===
+
+
+.Example
+[source, yaml]
+----
+UpdateServices:
+  Server:
+    Ensure: Present
+    SQLServer: localhost\SQLExpress
+    ContentDir: C:\WSUS-Packages
+    UpdateImprovementProgram: false
+    Languages: '*'
+    Products: '*'
+    Classifications: '*'
+    SynchronizeAutomatically: false
+    SynchronizeAutomaticallyTimeOfDay: '15:30:00'
+    SynchronizationsPerDay: 24
+    Synchronize: true
+    ClientTargetingMode: Client
+    ForceRebootBefore: true
+
+  Cleanup:
+    Ensure: Present
+    DeclineSupersededUpdates: false
+    DeclineExpiredUpdates: false
+    CleanupObsoleteUpdates: true
+    CompressUpdates: true
+    CleanupObsoleteComputers: true
+    CleanupUnneededContentFiles: true
+    CleanupLocalPublishedContentFiles: true
+    TimeOfDay: 4
+
+  ApprovaleRules:
+    - Ensure: Present
+      Name: Definition Updates
+      Classifications:
+        - 'E0789628-CE08-4437-BE74-2495B842F43B'
+      Enabled: true
+      RunRuleNow: true
+    - Ensure: Present
+      Name: Critical Updates
+      Classifications:
+        - 'E6CF1350-C01B-414D-A61F-263D14D133B4'
+      Enabled: true
+      RunRuleNow: true
+----

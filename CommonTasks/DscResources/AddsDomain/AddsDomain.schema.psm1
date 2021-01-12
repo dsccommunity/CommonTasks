@@ -44,21 +44,62 @@ configuration AddsDomain
 
         [Parameter()]
         [string]
-        $ForestMode = 'WinThreshold'
+        $ForestMode = 'WinThreshold',
+
+        [Parameter()]
+        [boolean]
+        $ForceRebootBefore,
+
+        [Parameter()]
+        [hashtable[]]
+        $DomainTrusts
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
         
     WindowsFeature ADDS
     {
         Name   = 'AD-Domain-Services'
-        Ensure = 'Present'        
+        Ensure = 'Present'
     }
 
     WindowsFeature RSAT
     {
-        Name   = 'RSAT-AD-PowerShell'
-        Ensure = 'Present'
+        Name      = 'RSAT-AD-PowerShell'
+        Ensure    = 'Present'
+        DependsOn = '[WindowsFeature]ADDS'
+    }
+    
+   [string]$nextDependsOn = '[WindowsFeature]RSAT'
+
+    if ($ForceRebootBefore -eq $true)
+    {
+        $rebootKeyName = 'HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests'
+        $rebootVarName = 'RebootBefore_ADDomain'
+
+        Script $rebootVarName
+        {
+            TestScript = {
+                $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
+
+                if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                    return $true
+                }   
+                return $false
+            }
+            SetScript = {
+                if( -not (Test-Path -Path $using:rebootKeyName) ) {
+                    New-Item -Path $using:rebootKeyName -Force
+                }
+                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                $global:DSCMachineStatus = 1             
+            }
+            GetScript = { return @{result = 'result'}}
+            DependsOn = $nextDependsOn
+        }        
+
+        $nextDependsOn = "[Script]$rebootVarName"
     }
 
     ADDomain $DomainName
@@ -70,7 +111,8 @@ configuration AddsDomain
         DatabasePath                  = $DatabasePath
         LogPath                       = $LogPath
         SysvolPath                    = $SysvolPath
-        ForestMode = $ForestMode
+        ForestMode                    = $ForestMode
+        DependsOn                     = $nextDependsOn
     }
     
     ADOptionalFeature RecycleBin 
@@ -81,7 +123,7 @@ configuration AddsDomain
         FeatureName                       = 'Recycle Bin Feature'
     }
 
-    foreach ($trust in $DomainTrust)
+    foreach ($trust in $DomainTrusts)
     {
         WaitForAdDomain $trust.Name
         {

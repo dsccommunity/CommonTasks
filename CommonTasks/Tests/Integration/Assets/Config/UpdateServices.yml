@@ -1,0 +1,56 @@
+﻿Server:
+  Ensure: Present
+  SetupCredential:
+  SQLServer: 'localhost\SQLExpress'
+  ContentDir: C:\WSUS-Packages
+  UpdateImprovementProgram: False
+  UpstreamServerName: 192.168.0.2
+  UpstreamServerPort: 8530
+  UpstreamServerSSL: false
+  UpstreamServerReplica: false
+  ProxyServerName: myproxy
+  ProxyServerPort: 80
+  ProxyServerCredential:
+  ProxyServerBasicAuthentication: false
+  Languages: '*'
+  Products: '*'
+  Classifications: '*'
+  SynchronizeAutomatically: false
+  SynchronizeAutomaticallyTimeOfDay: 6
+  SynchronizationsPerDay: 2
+  Synchronize: true
+  ClientTargetingMode: Server
+  ForceRebootBefore: true
+
+Cleanup:
+  Ensure: Present
+  DeclineSupersededUpdates: false
+  DeclineExpiredUpdates: true
+  CleanupObsoleteUpdates: false
+  CompressUpdates: true
+  CleanupObsoleteComputers: false
+  CleanupUnneededContentFiles: true
+  CleanupLocalPublishedContentFiles: true
+  TimeOfDay: 8
+
+ApprovalRules:
+  - Ensure: Present
+    Name:   rule1
+    Classifications: 
+      - '5C9376AB-8CE6-464A-B136-22113DD69801'
+      - 'E6CF1350-C01B-414D-A61F-263D14D133B4'
+    Products: 
+    ComputerGroups: 
+    Enabled: true
+    Synchronize: false
+  - Name:   rule2
+    Classifications: 
+    Products: 
+      - Product1
+      - Product2
+    ComputerGroups: 
+      - Group1
+      - Group2
+    Enabled: true
+    Synchronize: true
+    RunRuleNow: true

@@ -88,25 +88,37 @@
 
 | LogPath
 |
-| 
+| String
 | Path to a directory for the log file that will be written.
 | Default: `C:\Windows\Logs`
 
 | SysvolPath
 |
-| 
+| String
 | Path to a directory where the Sysvol file will be written.
 | Default: `C:\Windows\SYSVOL`
 
 | ForestMode
 |
-| 
+| String
 | The Forest Functional Level for the entire forest.
 | - Win2008
   - Win2008R2
   - Win2012
   - Win2012R2
   - *WinThreshold* (default)
+
+| ForceRebootBefore
+|
+| Boolean
+| Force reboot before creating the new AD domain. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `RebootBefore_ADDomain` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - *False* (default)
+  - True
 
 |===
 
@@ -156,6 +168,7 @@ AddsDomain:
   LogPath: C:\Windows\Logs
   SysvolPath: C:\Windows\SYSVOL
   ForestMode: Win2012R2
+  ForceRebootBefore: True
   DomainTrust:
     Fqdn: northwindtraders.com
     Name: northwindtraders

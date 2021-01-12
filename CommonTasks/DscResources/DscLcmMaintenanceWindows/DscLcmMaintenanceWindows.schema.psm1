@@ -1,16 +1,16 @@
 configuration DscLcmMaintenanceWindows {
     Param (
         [Parameter(Mandatory)]
-        [hashtable[]]$MaintenanceWindow
+        [hashtable[]]$MaintenanceWindows
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     $on = '1st', '2nd', '3rd', '4th', 'last'
     $daysOfWeek = [System.Enum]::GetNames([System.DayOfWeek])
 
-    foreach ($window in $MaintenanceWindow.GetEnumerator()) {
+    foreach ($window in $MaintenanceWindows.GetEnumerator()) {
         
         if ($window.DayOfWeek) {
             if ($window.DayOfWeek -notin $daysOfWeek) {
@@ -49,7 +49,7 @@ configuration DscLcmMaintenanceWindows {
         }
     }
 
-    foreach ($window in $MaintenanceWindow.GetEnumerator()) {
+    foreach ($window in $MaintenanceWindows.GetEnumerator()) {
 
         xRegistry "StartTime_$($window.Name)" {
             Key       = "HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController\MaintenanceWindows\$($window.Name)"

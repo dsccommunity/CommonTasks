@@ -2,15 +2,13 @@ configuration DfsNamespaces
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
-        $NamespaceConfig,
-
-        [pscredential]
-        $DomainCredential
+        $NamespaceConfig
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DfsDsc
-    Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     $DomainFqdn = Lookup AddsDomain/DomainFqdn
     $DomainCredential = Lookup AddsDomain/DomainAdministrator
@@ -30,7 +28,6 @@ configuration DfsNamespaces
             TargetPath           = '\\{0}.{1}\{2}' -f $firstTarget, $DomainFqdn, $namespace.Sharename
             Ensure               = 'Present'
             Type                 = 'DomainV2'
-            PsDscRunAsCredential = $DomainCredential
         }
 
         foreach ($target in $remainingTargets)
@@ -41,7 +38,6 @@ configuration DfsNamespaces
                 TargetPath           = '\\{0}.{1}\{2}' -f $target, $DomainFqdn, $namespace.Sharename
                 Ensure               = 'Present'
                 Type                 = 'DomainV2'
-                PsDscRunAsCredential = $DomainCredential
             }
         }
     }

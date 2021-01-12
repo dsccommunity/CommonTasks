@@ -567,9 +567,9 @@ configuration DscLcmController {
         [bool]$WriteTranscripts
     )
 
+    Import-DscResource –ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     xRegistry DscLcmController_MaintenanceWindowMode {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'

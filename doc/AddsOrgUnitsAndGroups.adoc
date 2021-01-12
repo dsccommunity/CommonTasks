@@ -59,13 +59,13 @@ Requires <<dscyml_addsdomain_domainname>>
 | Allowed Values
 
 | Name
-| Mandatory
+| Key
 | String
 | The name of the Organizational Unit (OU).
 |
 
 | Path
-| Mandatory
+| Key
 | String
 | The name of the Organizational Unit (OU).
 |
@@ -91,7 +91,7 @@ Requires <<dscyml_addsdomain_domainname>>
 | Allowed Values
 
 | GroupName
-| Manadatory
+| Key
 | String
 | Name of the Active Directory group.
 |
@@ -144,4 +144,27 @@ AddsOrgUnitsAndGroups:
     - GroupName: App_123_Write
       Path: OU=Groups,OU=Admin
       GroupScope: Global
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  AddsOrgUnitsAndGroups:
+    merge_hash: deep
+  AddsOrgUnitsAndGroups\OrgUnits:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - Name
+        - Path
+  AddsOrgUnitsAndGroups\Groups:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - GroupName
 ----
