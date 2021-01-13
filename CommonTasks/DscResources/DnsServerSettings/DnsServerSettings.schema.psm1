@@ -181,13 +181,13 @@ configuration DnsServerSettings {
         $XfrConnectTimeout
     )
 
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDnsServer
 
-    if ($$PSBoundParameters.ContainsKey('InstanceName')) {
+    if ($PSBoundParameters.ContainsKey('InstanceName')) {
         $PSBoundParameters.Remove('InstanceName')
     }
 
     $executionName = 'DnsSettings'
-    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $x -NoInvoke).Invoke($x)
+    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 }
