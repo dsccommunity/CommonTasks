@@ -184,7 +184,7 @@ configuration DnsServerSettings {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDnsServer
 
-    if ($$PSBoundParameters.ContainsKey('InstanceName')) {
+    if ($PSBoundParameters.ContainsKey('InstanceName')) {
         $PSBoundParameters.Remove('InstanceName')
     }
 
