@@ -9,4 +9,14 @@ Describe 'Final tests' -Tags FunctionalQuality {
 
         $compositeResouces.Count | Should -Be $mofFiles.Count
     }
+
+    It 'Composite resource folder count matches composite resource count' {
+
+        $compositeResouces = Get-DscResource -Module CommonTasks
+        $compositeResouceFolders = dir -Path "$env:BHBuildOutput\Modules\$env:BHProjectName\DscResources"
+        Write-Host "Number of composite resource folders: $($compositeResouceFolders.Count)"
+        Write-Host "Number of composite resources: $($compositeResouces.Count)"
+        
+        $compositeResouces.Count | Should -Be $compositeResouceFolders.Count
+    }
 }

@@ -17,7 +17,7 @@
         $UseSecurityBestPractices = $false
     )
 
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DSCResource -ModuleName xPSDesiredStateConfiguration
 
     xDscWebService PSDSCPullServer 

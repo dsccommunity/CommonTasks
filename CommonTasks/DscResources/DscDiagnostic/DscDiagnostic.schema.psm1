@@ -126,7 +126,7 @@ function Get-DscTraceInformation {
 
 Configuration DscDiagnostic {
 
-    Import-DscResource –ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName JeaDsc
 
     $visibleFunctions = 'Test-DscConfiguration',
