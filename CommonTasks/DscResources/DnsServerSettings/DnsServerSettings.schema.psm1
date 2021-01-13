@@ -189,5 +189,5 @@ configuration DnsServerSettings {
     }
 
     $executionName = 'DnsSettings'
-    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $x -NoInvoke).Invoke($x)
+    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 }
