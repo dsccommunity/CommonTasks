@@ -1,0 +1,87 @@
+// CommonTasks YAML Reference: ComputerSettings
+// ============================================
+
+:YmlCategory: ComputerSettings
+
+
+[[dscyml_computersettings, {YmlCategory}]]
+= DSC Resource 'ComputerSettings'
+// didn't work in production: = Catego ry '{YmlCategory}'
+
+
+[[dscyml_computersettings_abstract]]
+.{YmlCategory} configures a computer by changing its name and description and modifying its Active Directory domain or workgroup membership.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ComputerSettings
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/Computer[Computer],
+                   https://github.com/dsccommunity/ComputerManagementDsc/wiki/TimeZone[TimeZone]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The desired computer name.
+|
+
+| Description
+|
+| String
+| The value assigned here will be set as the local computer description.
+|
+
+| DomainName
+|
+| String
+| The name of the domain to join.
+|
+
+| WorkGroupName
+|
+| String
+| The name of the workgroup.
+|
+
+| JoinOU
+|
+| String
+| The distinguished name of the organizational unit that the computer account will be created in.
+|
+
+| Credential
+|
+| PSCredential
+| Credential to be used to join a domain.
+| 
+
+| TimeZone
+|
+| String
+| Specifies the TimeZone. +
+|  Use `Get-TimeZone -ListAvailable \| Format-Table` to get valid time zone strings.
+
+|===
+
+.Example
+[source, yaml]
+----
+ComputerSettings:
+  Name: TestServer
+  Description: This is a test server
+  DomainName: Contoso
+  Credential: '[ENC=PE9ianMgVmVyc2lvbj0i...=]'
+  TimeZone: Fiji Standard Time
+----

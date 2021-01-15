@@ -48,9 +48,9 @@
   <<dscyml_addsdomainusers_users>>
 |
 
-| [[dscyml_addsdomain_domaintrust, {YmlCategory}/DomainTrust]]<<dscyml_addsdomain_domaintrust_details, DomainTrust>>
+| [[dscyml_addsdomain_domaintrusts, {YmlCategory}/DomainTrust]]<<dscyml_addsdomain_domaintrusts_details, DomainTrust>>
 |
-| Hashtable
+| Hashtable[]
 | The DomainTrust resource will manage _Bidirectional Forest_ Domain Trusts.
 |
 
@@ -123,8 +123,8 @@ To re-enable the system reboot feature the registry key value `RebootBefore_ADDo
 |===
 
 
-[[dscyml_addsdomain_domaintrust_details]]
-.Attributes of category '<<dscyml_addsdomain_domaintrust>>'
+[[dscyml_addsdomain_domaintrusts_details]]
+.Attributes of category '<<dscyml_addsdomain_domaintrusts>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -169,7 +169,7 @@ AddsDomain:
   SysvolPath: C:\Windows\SYSVOL
   ForestMode: Win2012R2
   ForceRebootBefore: True
-  DomainTrust:
+  DomainTrusts:
     Fqdn: northwindtraders.com
     Name: northwindtraders
     Credential: '[ENC=PE9ianMgVmVyc2lvbj0i...=]'

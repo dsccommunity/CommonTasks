@@ -1,0 +1,107 @@
+// CommonTasks YAML Reference: MountImages
+// =======================================
+
+:YmlCategory: MountImages
+
+
+[[dscyml_mountimages, {YmlCategory}]]
+= DSC Resource 'MountImages'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_mountimages_abstract]]
+.{YmlCategory} module is used to mount or unmount an ISO/VHD disk image.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/MountImages
+| DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
+| Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/MountImage[MountImage]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_mountimages_images, {YmlCategory}/Images]]<<dscyml_mountimages_images_details, Images>>
+| Mandatory
+| Hashtable[]
+| List of images to mount
+|
+
+|===
+
+
+[[dscyml_mountimages_images_details]]
+.Attributes of category '<<dscyml_mountimages_images>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ImagePath
+| Key
+| String
+| Specifies the path of the VHD or ISO file.
+|
+
+| DriveLetter
+|
+| String
+| Specifies the drive letter to mount this VHD or ISO to.
+|
+
+| StorageType
+|
+| String
+| Specifies the storage type of a file. +
+  If the StorageType parameter is not specified, then the storage type is determined by file extension.
+| - ISO
+  - VHD
+  - VHDx
+  - VHDSet
+
+| Access
+|
+| String
+| Allows a VHD file to be mounted in read-only or read-write mode. +
+  ISO files are mounted in read-only mode regardless of what parameter value you provide.
+| - *ReadOnly* (default)
+  - ReadWrite
+
+| Ensure
+|
+| String
+| Determines whether the VHD or ISO should be mounted or not.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+MountImages:
+  Images:
+    - ImagePath: C:\ISO\Test.iso
+      DriveLetter: F
+      StorageType: ISO
+      Access: ReadOnly
+      Ensure: Present
+    - ImagePath: C:\VHD\Test.vhd
+      DriveLetter: G
+      StorageType: VHDx
+      Access: ReadWrite
+    - ImagePath: C:\ISO\Test2.iso
+----

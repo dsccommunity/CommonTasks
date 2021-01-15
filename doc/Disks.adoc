@@ -33,7 +33,7 @@
 | [[dscyml_disks_disks, {YmlCategory}/Disks]]<<dscyml_disks_disks_details, Disks>>
 | Mandatory
 | Hashtable[]
-| List of disk specifiactions
+| List of disk specifications
 |
 
 |===

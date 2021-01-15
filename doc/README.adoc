@@ -68,6 +68,7 @@ ifdef::env-github[]
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
+- <<ComputerSettings.adoc#, ComputerSettings>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
 - <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
@@ -75,6 +76,7 @@ ifdef::env-github[]
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
@@ -104,7 +106,7 @@ ifndef::env-github[]
 // | <<dscyml_addssitessubnets>>             | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_auditpolicies>>                   | <<dscyml_auditpolicies_abstract>>
 | <<dscyml_chocolateypackages>>              | <<dscyml_chocolateypackages_abstract>>
-// | <<dscyml_computersettings>>             | <<dscyml_computersettings_abstract>>
+| <<dscyml_computersettings>>                | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>            | <<dscyml_configurationbase_abstract>>
 // | <<dscyml_dfsnamespaces>>                | <<dscyml_dfsnamespaces_abstract>>
 // | <<dscyml_dhcpserver>>                   | <<dscyml_dhcpserver_abstract>>
@@ -128,6 +130,7 @@ ifndef::env-github[]
 // | <<dscyml_jeaendpoints>>                 | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
+| <<dscyml_mountimages>>                     | <<dscyml_mountimages_abstract>>
 | <<dscyml_networkipconfiguration>>          | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
@@ -159,7 +162,7 @@ include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
-//include::ComputerSettings.adoc[leveloffset=+2]
+include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]
 //include::DfsNamespaces.adoc[leveloffset=+2]
 //include::DhcpServer.adoc[leveloffset=+2]
@@ -183,6 +186,7 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
+include::MountImages.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
