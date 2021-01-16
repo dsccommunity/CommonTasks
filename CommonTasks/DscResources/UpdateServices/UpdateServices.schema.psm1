@@ -21,8 +21,6 @@
     # Remove case sensitivity of ordered Dictionary or Hashtables
     if ($null -ne $Server) { $Server = @{}+$Server }
 
-    [string]$wsusDependsOn = '[WindowsFeature]winFeatureWsusServices'
-
     WindowsFeature winFeatureWsusServices
     {
         Name   = 'UpdateServices-Services'
@@ -34,8 +32,10 @@
         Ensure = 'Present'
         Name = 'UpdateServices-RSAT'
         IncludeAllSubFeature = $True
-        DependsOn = $wsusDependsOn
+        DependsOn = '[WindowsFeature]winFeatureWsusServices'
     }
+
+    [string]$wsusDependsOn = '[WindowsFeature]winFeatureWsusRSAT'
 
     if( ($null -ne $Server) -and (-not [String]::IsNullOrWhitespace($Server.SqlServer)) )
     {
@@ -45,6 +45,8 @@
             Ensure = 'Present'
             DependsOn = $wsusDependsOn
         }
+
+        $wsusDependsOn = '[WindowsFeature]winFeatureWsusSQL'
     }
     else 
     {
@@ -54,14 +56,14 @@
             Ensure    = 'Present'
             DependsOn = $wsusDependsOn
         }
+
+        $wsusDependsOn = '[WindowsFeature]winFeatureWsusWiDB'
     }
 
     if( $null -ne $Server ) 
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
         $Server = @{}+$Server
-
-        $Server.DependsOn = $wsusDependsOn
 
         if( -not [string]::IsNullOrWhiteSpace( $Server.Ensure ) )
         {
@@ -102,6 +104,8 @@
                 DestinationPath = $Server.ContentDir
                 DependsOn       = $wsusDependsOn
             }
+
+            $wsusDependsOn = '[File]wsusContentDir'
         }
 
         # make a reboot before WSUS setup
@@ -133,6 +137,8 @@
     
             $wsusDependsOn = "[Script]$rebootVarName"
         }
+
+        $Server.DependsOn = $wsusDependsOn
 
         $Server.Remove('ForceRebootBefore')
     

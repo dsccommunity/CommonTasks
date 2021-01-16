@@ -25,6 +25,7 @@
 | Documentation  | {ref_xDnsServerSetting}
 |===
 
+See the specification of {ref_xDnsServerSetting_schema} to get a description of all supported attributes.
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -35,11 +36,274 @@
 | Description
 | Allowed Values
 
-| Settings
+| Name
 |
-| Hashtable
-| List of {ref_xDnsServerSetting}s. +
-  See the specification of {ref_xDnsServerSetting_schema} to get a description of all supported attributes.
+| String
+|
+|
+
+| AddressAnswerLimit
+|
+| uint32
+|
+|
+
+| AllowUpdate
+|
+| uint32
+|
+|
+
+| AutoCacheUpdate
+|
+| boolean
+|
+|
+
+| AutoConfigFileZones
+| 
+| uint32
+|
+|
+
+| BindSecondaries
+|
+| boolean
+|
+|
+
+| BootMethod
+|
+| uint32
+|
+|
+
+| DefaultAgingState,
+|
+| boolean
+|
+|
+
+| DefaultNoRefreshInterval
+|
+| uint32
+|
+|
+
+| DefaultRefreshInterval
+|
+| uint32
+|
+|
+
+| DisableAutoReverseZones
+|
+| boolean
+|
+|
+
+| DisjointNets
+|
+| boolean
+|
+|
+
+| DsPollingInterval
+|
+| uint32
+|
+|
+
+| DsTombstoneInterval
+|
+| uint32
+|
+|
+
+| EDnsCacheTimeout
+|
+| uint32
+|
+|
+
+| EnableDirectoryPartitions
+|
+| boolean
+|
+|
+
+| EnableDnsSec
+|
+| uint32
+|
+|
+
+| EnableEDnsProbes
+|
+| boolean
+|
+|
+
+| EventLogLevel
+|
+| uint32
+|
+|
+
+| ForwardDelegations
+|
+| uint32
+|
+|
+
+| Forwarders
+|
+| string[]
+|
+|
+
+| ForwardingTimeout
+|
+| uint32
+|
+|
+
+| IsSlave
+|
+| boolean
+|
+|
+
+| ListenAddresses
+|
+| string[]
+|
+|
+
+| LocalNetPriority
+|
+| boolean
+|
+|
+
+| LogFileMaxSize
+|
+| uint32
+|
+|
+
+| LogFilePath
+|
+| string
+|
+|
+
+| LogIPFilterList
+|
+| string[]
+|
+|
+
+| LogLevel
+|
+| uint32
+|
+|
+
+| LooseWildcarding
+|
+| boolean
+|
+|
+
+| MaxCacheTTL
+|
+| uint32
+|
+|
+
+| MaxNegativeCacheTTL
+|
+| uint32
+|
+|
+
+| NameCheckFlag
+|
+| uint32
+|
+|
+
+| NoRecursion
+|
+| boolean
+|
+|
+
+| RecursionRetry
+|
+| uint32
+|
+|
+
+| RecursionTimeout
+|
+| uint32
+|
+|
+
+| RoundRobin
+|
+| boolean
+|
+|
+
+| RpcProtocol
+|
+| int16
+|
+|
+
+| ScavengingInterval
+|
+| uint32
+|
+|
+
+| SecureResponses
+|
+| boolean
+|
+|
+
+| SendPort
+|
+| uint32
+|
+|
+
+| StrictFileParsing
+|
+| boolean
+|
+|
+
+| UpdateOptions
+|
+| uint32
+|
+|
+
+| WriteAuthorityNS
+|
+| boolean
+|
+|
+
+| XfrConnectTimeout
+|
+| uint32
+|
 |
 
 |===
@@ -49,20 +313,19 @@
 [source, yaml]
 ----
 DnsServerSettings:
-  Settings:
-    Name: DnsServerSetting
-    ListenAddresses:
-      - 192.168.30.111
-    IsSlave: true
-    Forwarders:
-      - 168.63.129.16
-      - 168.63.129.18
-    RoundRobin: true
-    LocalNetPriority: true
-    SecureResponses: true
-    NoRecursion: false
-    BindSecondaries: false
-    StrictFileParsing: false
-    ScavengingInterval: 168
-    LogLevel: 50393905
+  Name: DnsServerSetting
+  ListenAddresses:
+    - 192.168.30.111
+  IsSlave: true
+  Forwarders:
+    - 168.63.129.16
+    - 168.63.129.18
+  RoundRobin: true
+  LocalNetPriority: true
+  SecureResponses: true
+  NoRecursion: false
+  BindSecondaries: false
+  StrictFileParsing: false
+  ScavengingInterval: 168
+  LogLevel: 50393905
 ----

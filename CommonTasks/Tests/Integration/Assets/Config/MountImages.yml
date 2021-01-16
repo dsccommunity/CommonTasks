@@ -1,0 +1,11 @@
+﻿Images:
+  - ImagePath: C:\ISO\Test.iso
+    DriveLetter: F
+    StorageType: ISO
+    Access: ReadOnly
+    Ensure: Present
+  - ImagePath: C:\ISO\Test.vhd
+    DriveLetter: G
+    StorageType: VHDx
+    Access: ReadWrite
+  - ImagePath: C:\ISO\Test2.iso
