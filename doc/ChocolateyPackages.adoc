@@ -20,6 +20,7 @@
 | Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySoftware[ChocolateySoftware],
                    https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySource[ChocolateySource],
                    https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage], 
+                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
 
@@ -49,6 +50,12 @@
 | 
 | Hashtable[]
 | List of Chocolatey packages
+|
+
+| [[dscyml_chocolateypackages_features, {YmlCategory}/Features]]<<dscyml_chocolateypackages_features_details, Features>>
+| 
+| Hashtable[]
+| List of Chocolatey features
 |
 
 |===
@@ -271,6 +278,31 @@ To re-enable the system reboot feature the registry key value `RebootAfter_Choco
 |===
 
 
+[[dscyml_chocolateypackages_features_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages_features>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Chocolatey Feature Name
+|
+
+| Ensure
+|
+| String
+| Specifies whether the Chocolatey Feature should be enabled or not.
+| - *Present* (default)
+  - Absent
+
+|===
+
 .Example
 [source, yaml]
 ----
@@ -282,6 +314,7 @@ ChocolateyPackages:
     Version: 0.10.15
     ChocoTempDir: C:\ChocoTemp
     InstallationDirectory: C:\ProgramData\Chocolatey
+
   Sources:
     - Name: Chocolatey
       Ensure: Present
@@ -290,6 +323,7 @@ ChocolateyPackages:
       Disabled: False
     - Name: PrivateChocolatey
       Ensure: Absent
+
   Packages:
     - Name: notepadplusplus
       Ensure: Present
@@ -300,6 +334,13 @@ ChocolateyPackages:
     - Name: winrar
       Version: Latest
       ForceReboot: true
+
+  Features:
+    - Name: checksumFiles
+      Ensure: Present
+    - Name: allowEmptyChecksums
+      Ensure: Absent
+    - Name: ignoreInvalidOptionsSwitches
 ----
 
 

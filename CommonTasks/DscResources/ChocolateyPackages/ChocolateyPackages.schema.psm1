@@ -171,6 +171,9 @@ configuration ChocolateyPackages {
 
     if( $Sources -ne $null ) {
         foreach ($s in $Sources) {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $s = @{}+$s
+
             $executionName = $s.Name -replace '\(|\)|\.| ', ''
             $executionName = "Choco_Source_$executionName"
 
@@ -242,6 +245,9 @@ configuration ChocolateyPackages {
 
     if( $Features -ne $null ) {
         foreach ($f in $Features) {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $f = @{}+$f
+
             $executionName = $f.Name -replace '\(|\)|\.| ', ''
             $executionName = "ChocolateyFeature_$executionName"
             if (-not $f.ContainsKey('Ensure')) {

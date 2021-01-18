@@ -114,10 +114,18 @@ configuration AddsDomain
         ForestMode                    = $ForestMode
         DependsOn                     = $nextDependsOn
     }
+
+    # assign DomainAdministrator to group 'Enterprise Admins' - otherwise ADOptionalFeature will fail with insufficient rights
+    ADGroup "EnterpriseAdmins_$DomainName"
+    {
+        GroupName        = 'Enterprise Admins'
+        MembersToInclude = $(Split-Path -Path $DomainAdministrator.UserName -Leaf)
+        DependsOn        = "[ADDomain]$DomainName"
+    }
     
     ADOptionalFeature RecycleBin 
     {
-        DependsOn                         = "[ADDomain]$DomainName"
+        DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
         ForestFQDN                        = $DomainFQDN
         EnterpriseAdministratorCredential = $DomainAdministrator
         FeatureName                       = 'Recycle Bin Feature'
