@@ -29,13 +29,13 @@ configuration NetworkIpConfiguration {
                 throw "ERROR: Enabled DHCP requires empty 'IpAddress' ($IpAddress), 'Gateway' ($Gateway) and 'DnsServer' ($DnsServer) parameters for interface '$InterfaceAlias'."
             }
 
-            NetIPInterface EnableDhcp {
+            NetIPInterface "EnableDhcp_$InterfaceAlias" {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
                 Dhcp           = 'Enabled'
             }
 
-            DnsServerAddress EnableDhcpDNS
+            DnsServerAddress "EnableDhcpDNS_$InterfaceAlias"
             {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
@@ -51,32 +51,32 @@ configuration NetworkIpConfiguration {
                 throw "ERROR: Interface '$InterfaceAlias' requires none empty 'IpAddress', 'Gateway' and 'DnsServer' parameters."
             }
 
-            NetIPInterface DisableDhcp {
+            NetIPInterface "DisableDhcp_$InterfaceAlias" {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
                 Dhcp           = 'Disabled'
             }
 
             $ip = "$($IpAddress)/$($Prefix)"
-            IPAddress NetworkIp {
+            IPAddress "NetworkIp_$InterfaceAlias" {
                 IPAddress      = $ip
                 AddressFamily  = 'IPv4'
                 InterfaceAlias = $InterfaceAlias
             }
 
-            DefaultGatewayAddress DefaultGateway {
+            DefaultGatewayAddress "DefaultGateway_$InterfaceAlias" {
                 AddressFamily  = 'IPv4'
                 InterfaceAlias = $InterfaceAlias
                 Address        = $Gateway
             }
             
-            DnsServerAddress DnsServers {
+            DnsServerAddress "DnsServers_$InterfaceAlias" {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
                 Address        = $DnsServer
             }
 
-            WinsSetting DisableLmhostsLookup {
+            WinsSetting "DisableLmhostsLookup_$InterfaceAlias" {
                 EnableLmHosts    = $true
                 IsSingleInstance = 'Yes'
             }
@@ -84,7 +84,7 @@ configuration NetworkIpConfiguration {
 
         if ($DisableNetbios)
         {
-            NetBios DisableNetBios {
+            NetBios "DisableNetBios_$InterfaceAlias" {
                 InterfaceAlias = $InterfaceAlias
                 Setting        = 'Disable'
             }
@@ -92,7 +92,7 @@ configuration NetworkIpConfiguration {
 
         if ($DisableIPv6)
         {
-            NetAdapterBinding DisableIPv6
+            NetAdapterBinding "DisableIPv6_$InterfaceAlias"
             {
                 InterfaceAlias = $InterfaceAlias
                 ComponentId    = 'ms_tcpip6'
