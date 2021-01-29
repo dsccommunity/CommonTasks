@@ -1,0 +1,99 @@
+// CommonTasks YAML Reference: Wds
+// ========================================
+
+:YmlCategory: Wds
+
+
+[[dscyml_wds, {YmlCategory}]]
+= DSC Resource 'Wds'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_wds_abstract]]
+.{YmlCategory} contains the Windows Deployment Services DSC Resource Module.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         |https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Wds
+| DSC Resource   | https://github.com/nyanhp/WDSDsc[WDSDsc], https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize], 
+                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
+|===
+
+
+[IMPORTANT]
+====
+https://docs.microsoft.com/de-de/windows-server/administration/server-core/server-core-removed-roles[WDS-Deployment Role Services are not part of Windows Server Core!]
+
+Use of this DSC Resource on a Windows Server Core installation is not supported.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| RemInstPath
+| Mandatory
+| String
+| Path to RemInst share on the host
+|
+
+| RunAsUser
+|
+| PSCredential
+| Run WDS initialization under a specified set of credentials
+|
+
+| UseExistingDhcpScope
+|
+| Boolean
+| Use existing DHCP Scope defined outside of this DSC resource 
+| - True
+  - *False* (default)
+
+| ScopeId
+|
+| String
+| ScopeId of the new DHCP scope of WDS clients
+|
+
+| ScopeStart
+|
+| String
+| Starting address to set for this scope
+|
+
+| ScopeEnd
+|
+| String
+| Ending address to set for this scope
+|
+
+| SubnetMask
+|
+| String
+| Subnet mask for the scope specified in IP address format
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+Wds:
+  RemInstPath: C:\RemInst
+  RunAsUser: "[ENC=PE9ianM...=]"
+  ScopeStart: 2.1.32.1
+  ScopeEnd: 2.1.33.254
+  ScopeId: 2.1.32.0
+  SubnetMask: 255.255.254.0
+  UseExistingDhcpScope: false
+----

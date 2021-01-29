@@ -81,10 +81,13 @@ ifdef::env-github[]
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<RestartSystem.adoc#, RestartSystem>>
+- <<ScheduledTasks.adoc#, ScheduledTasks>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
+- <<SmbShares.adoc#, SmbShares>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<SqlServer.adoc#, SqlServer>>
 - <<UpdateServices.adoc#, UpdateServices>>
+- <<Wds.adoc#, Wds>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 
 endif::[]
@@ -135,13 +138,15 @@ ifndef::env-github[]
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 | <<dscyml_restartsystem>>                   | <<dscyml_restartsystem_abstract>>
+| <<dscyml_scheduledtasks>>                  | <<dscyml_scheduledtasks_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
+| <<dscyml_smbshares>>                       | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
 | <<dscyml_sqlserver>>                       | <<dscyml_sqlserver_abstract>>
 | <<dscyml_updateservices>>                  | <<dscyml_updateservices_abstract>>
-// | <<dscyml_wds>>                          | <<dscyml_wds_abstract>>
+| <<dscyml_wds>>                             | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>          | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>              | <<dscyml_webapplications_abstract>>
 // | <<dscyml_websites>>                     | <<dscyml_websites_abstract>>
@@ -191,13 +196,15 @@ include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 include::RestartSystem.adoc[leveloffset=+2]
+include::ScheduledTasks.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
+include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
 include::SqlServer.adoc[leveloffset=+2]
 include::UpdateServices.adoc[leveloffset=+2]
-//include::Wds.adoc[leveloffset=+2]
+include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
