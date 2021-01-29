@@ -187,7 +187,7 @@
 [source, yaml]
 ----
 SoftwarePackages:
-  Package:
+  Packages:
     - Name: Software One
       Path: \\Server\Share\SoftwareOne\SoftwareOne.msi
       ProductId: aa859ee6-4f64-439a-85c0-bc1207886cb6
