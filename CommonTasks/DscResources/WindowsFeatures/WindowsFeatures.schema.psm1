@@ -1,10 +1,7 @@
 configuration WindowsFeatures {
     param (
         [Parameter(Mandatory)]
-        [string[]]$Name,
-
-        [String]
-        $Source
+        [string[]]$Name
     )
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -25,11 +22,6 @@ configuration WindowsFeatures {
             Name                 = $n
             Ensure               = $ensure
             IncludeAllSubFeature = $true
-        }
-
-        if ($Source)
-        {
-            $params.Source = $Source
         }
 
         (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)

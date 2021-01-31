@@ -1,0 +1,68 @@
+﻿// CommonTasks YAML Reference: WindowsOptionalFeatures
+// ===================================================
+
+:YmlCategory: WindowsOptionalFeatures
+
+
+[[dscyml_windowsfeatures, {YmlCategory}]]
+= DSC Resource 'WindowsOptionalFeatures'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_windowsfeatures_abstract]]
+.{YmlCategory} installs Windows Optional Features on a Windows Client OS.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsOptionalFeatures
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsoptionalfeatureresource?view=powershell-5.1[WindowsOptionalFeature]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Mandatory
+| string
+| Indicates the name of the feature that you want to ensure is added or removed. 
+  This is the same as the Name property from the Get-WindowsOptionalFeature cmdlet, and not the display name of the feature.
+| [+ \| -]<name>
+
+| RemoveFilesOnDisable
+|
+| Boolean
+| Set to `true` to remove all files associated with the features when `Ensure` is set to `Absent`.
+| - True
+  - *False* (default)
+
+| NoWindowsUpdateCheck
+|
+| Boolean
+| Specifies whether DISM contacts Windows Update (WU) when searching for the source files to enable a feature.
+  If `true`, DISM does not contact WU.
+| - True
+  - *False* (default)
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WindowsOptionalFeatures:
+  RemoveFilesOnDisable: false
+  NoWindowsUpdateCheck: false
+  Name:
+  - +TFTP 
+  - -TelnetClient
+  - Hyper-V
+----

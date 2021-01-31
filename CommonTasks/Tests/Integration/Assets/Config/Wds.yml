@@ -5,3 +5,48 @@ ScopeEnd: 2.1.33.254
 ScopeId: 2.1.32.0
 SubnetMask: 255.255.254.0
 UseExistingDhcpScope: false
+DomainName: contoso.com
+DefaultDeviceOU: OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
+BootImages:
+  - NewImageName: contoso boot
+    Path:         D:\sources\boot.wim
+  - NewImageName: contoso second boot
+    Path:         D:\sources\boot2.wim
+    NewDescription: New boot image
+    NewFileName:  boot_arm.wim
+    TransmissionName: BootTransmission
+    DisplayOrder: 2
+    Ensure: Present
+    Architecture: Arm
+    Multicast: false
+    SkipVerify: false
+InstallImages:
+  - NewImageName: Contoso custom Windows 10
+    ImageName: Windows 10
+    Path: D:\sources\install_win10.wim
+    SkipVerify: false
+    ImageGroup: Group1
+    DisplayOrder: 1
+    UnattendFile: D:\sources\unattend.xml
+    NewDescription: My New Description
+    NewFileName: NewFileName
+    ClientCount: 2
+    StartTime: 08:00:00
+    TransmissionName: Win10Transmission
+    Multicast: true
+    ManualStart: false
+    Ensure: Present
+  - NewImageName: Contoso custom Windows Server
+    ImageName:    Windows Server SERVERDATACENTERACORE
+    Path:         D:\sources\install.wim
+DeviceReservations:
+  - DeviceName:      Client01
+    MacAddress:      00-15-5D-02-28-37
+    IPAddress:       192.168.12.22
+    PxePromptPolicy: NoPrompt
+    JoinDomain:      true
+    JoinRights:      JoinOnly
+    Ensure:          Present
+  - DeviceName:      Client02
+    MacAddress:      00-15-5D-02-28-45
+    JoinDomain:      true

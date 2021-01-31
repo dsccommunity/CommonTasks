@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: Wds
-// ========================================
+// ===============================
 
 :YmlCategory: Wds
 
@@ -17,8 +17,12 @@
 |===
 | Source         |https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Wds
 | DSC Resource   | https://github.com/nyanhp/WDSDsc[WDSDsc], https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize], 
-                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
+| Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize],
+                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage],
+                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage],
+                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation],
+                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope],
+                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
 |===
 
 
@@ -82,6 +86,327 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | Subnet mask for the scope specified in IP address format
 |
 
+| SubnetMask
+|
+| String
+| Subnet mask for the scope specified in IP address format
+|
+
+| DomainName
+|
+| String
+| Name of the domain the devices join to
+|
+
+| DefaultDeviceOU
+|
+| String
+| Default device OU for domain join
+|
+
+| [[dscyml_wds_bootimages, {YmlCategory}/BootImages]]<<dscyml_wds_bootimages_details, BootImages>>
+| 
+| Hashtable[]
+| List of boot images
+|
+
+| [[dscyml_wds_installimages, {YmlCategory}/InstallImages]]<<dscyml_wds_installimages_details, InstallImages>>
+| 
+| Hashtable[]
+| List of installation images
+|
+
+| [[dscyml_wds_devicereservations, {YmlCategory}/DeviceReservations]]<<dscyml_wds_devicereservations_details, DeviceReservations>>
+| 
+| Hashtable[]
+| List of device reservations
+|
+
+|===
+
+
+[[dscyml_wds_bootimages_details]]
+.Attributes of category '<<dscyml_wds_bootimages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NewImageName
+| Key
+| String
+| The new name of the boot image
+|
+
+| Path
+|
+| String
+| The relative path to the boot image
+|
+
+| NewDescription
+|
+| String
+| The new description of the boot image
+|
+
+| NewFileName
+| 
+| String
+| The new file name of the boot image
+|
+
+| TransmissionName
+|
+| String
+| The name of the multicast transmission. Valid if `Multicast` is set to `true`
+|
+
+| DisplayOrder
+|
+| Uint32
+| The order in which PXE entries are displayed
+|
+
+| Architecture
+|
+| String
+| Architecture of the image, only valid and required if `Ensure` equals `Absent` 
+| - X86
+  - Ia64
+  - X64
+  - Arm
+
+| Multicast
+| 
+| Boolean
+| Indicates that AutoCast or ScheduledCast should be used
+| - True
+  - False
+
+| SkipVerify
+|
+| Boolean SkipVerify
+| Indicates that image verification will be skipped
+| - True
+  - False
+
+| Ensure
+|
+| String
+| An enumerated value that describes if the boot image exists.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+[[dscyml_wds_installimages_details]]
+.Attributes of category '<<dscyml_wds_installimages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NewImageName
+| Key
+| String
+| The new name of the imported image
+|
+
+| ImageName
+| Mandatory
+| String
+| The name of the image inside the WIM file.
+  Not supported with VHD files
+|
+
+| Path
+|
+| String
+| The path to the install image (wim, vhdx)
+|
+
+| UnattendFile
+|
+| String
+| The unattend file associated with this image
+|
+
+| NewDescription
+|
+| String
+| The new description of the installation image
+|
+
+| NewFileName
+| 
+| String
+| The new file name of the installation image
+|
+
+| DisplayOrder
+|
+| Uint32
+| The display order in the PXE menu
+|
+
+| ImageGroup
+|
+| String
+| The name of the image group to add the image to
+|
+
+| ClientCount
+|
+| Uint32
+| The minimum client count to start a multicast transmission
+| 
+
+| StartTime
+|
+| Datetime
+| The start time for a scheduled transmission
+|
+
+| TransmissionName
+|
+| String
+| The name of the transmission
+|
+    
+| ManualStart
+|
+| Boolean
+| Indicates that the transmission will be manually started.
+| - True
+  - False
+
+| Multicast
+| 
+| Boolean
+| Indicates that AutoCast or ScheduledCast should be used
+| - True
+  - False
+
+| SkipVerify
+|
+| Boolean
+| Indicates that image verification will be skipped
+| - True
+  - False
+
+| Ensure
+|
+| String
+| An enumerated value that describes if the installation image exists.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+[[dscyml_wds_devicereservations_details]]
+.Attributes of category '<<dscyml_wds_devicereservations>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| MacAddress
+| Key
+| String
+| MAC address of the device
+|
+
+| DeviceName
+| Mandatory
+| String
+| The name of the device
+|
+
+| IpAddress
+| 
+| String
+| IPv4 Address to reserve for this device in DHCP server. +
+  If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.
+|
+
+| User
+|
+| String
+| User account to join the domain with
+|
+
+| PxePromptPolicy
+|
+| String
+| The policy to adopt
+| - Abort
+  - *NoPrompt* (default)
+  - OptIn
+  - OptOut
+
+| JoinRights
+|
+| String
+| The rights to assign to the join user
+| - Full
+  - *JoinOnly* (default)
+
+| Group
+|
+| String
+| The group of the device
+|
+
+| WdsClientUnattend
+|
+| String
+| The relative path of the unattend file to configure
+|
+
+| BootImagePath
+|
+| String
+| The relative path of the boot image
+|
+
+| OU
+|
+| String
+| The OU to join the device to
+|
+
+| ReferralServer
+|
+| String
+| The referral server to configure
+|
+
+| JoinDomain
+|
+| Boolean
+|
+| - True
+  - False
+
+| Ensure
+|
+| String
+| 
+| - *Present* (default)
+  - Absent
+
 |===
 
 
@@ -96,4 +421,48 @@ Wds:
   ScopeId: 2.1.32.0
   SubnetMask: 255.255.254.0
   UseExistingDhcpScope: false
+  DomainName: contoso.com
+  DefaultDeviceOU: OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
+  BootImages:
+    - NewImageName: contoso boot
+      Path:         D:\sources\boot.wim
+    - NewImageName: contoso second boot
+      Path:         D:\sources\boot2.wim
+      NewDescription: New boot image
+      NewFileName:  boot_arm.wim
+      TransmissionName: BootTransmission
+      DisplayOrder: 2
+      Ensure: Present
+      Multicast: false
+      SkipVerify: false
+  InstallImages:
+    - NewImageName: Contoso custom Windows 10
+      ImageName: Windows 10
+      Path: D:\sources\install_win10.wim
+      SkipVerify: false
+      ImageGroup: Group1
+      DisplayOrder: 1
+      UnattendFile: D:\sources\unattend.xml
+      NewDescription: My New Description
+      NewFileName: NewFileName
+      ClientCount: 2
+      StartTime: 08:00:00
+      TransmissionName: Win10Transmission
+      Multicast: true
+      ManualStart: false
+      Ensure: Present
+    - NewImageName: Contoso custom Windows Server
+      ImageName:    Windows Server SERVERDATACENTERACORE
+      Path:         D:\sources\install.wim
+  DeviceReservations:
+    - DeviceName:      Client01
+      MacAddress:      00-15-5D-02-28-37
+      IPAddress:       192.168.12.22
+      PxePromptPolicy: NoPrompt
+      JoinDomain:      true
+      JoinRights:      JoinOnly
+      Ensure:          Present
+    - DeviceName:      Client02
+      MacAddress:      00-15-5D-02-28-45
+      JoinDomain:      true
 ----

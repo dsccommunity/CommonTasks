@@ -89,6 +89,8 @@ ifdef::env-github[]
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
+- <<WindowsFeatures.adoc#, WindowsFeatures>>
+- <<WindowsOptionalFeatures.adoc#, WindowsOptionalFeatures>>
 
 endif::[]
 
@@ -152,7 +154,8 @@ ifndef::env-github[]
 // | <<dscyml_websites>>                     | <<dscyml_websites_abstract>>
 // | <<dscyml_webvirtualdirectories>>        | <<dscyml_webvirtualdirectories_abstract>>
 | <<dscyml_windowseventlogs>>                | <<dscyml_windowseventlogs_abstract>>
-// | <<dscyml_windowsfeatures>>              | <<dscyml_windowsfeatures_abstract>>
+| <<dscyml_windowsfeatures>>                 | <<dscyml_windowsfeatures_abstract>>
+| <<dscyml_windowsoptionalfeatures>>         | <<dscyml_windowsoptionalfeatures_abstract>>
 // | <<dscyml_windowsservices>>              | <<dscyml_windowsservices_abstract>>
 // | <<dscyml_xmlcontent>>                   | <<dscyml_xmlcontent_abstract>>
 
@@ -210,7 +213,8 @@ include::Wds.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
 include::WindowsEventLogs.adoc[leveloffset=+2]
-//include::WindowsFeatures.adoc[leveloffset=+2]
+include::WindowsFeatures.adoc[leveloffset=+2]
+include::WindowsOptionalFeatures.adoc[leveloffset=+2]
 //include::WindowsServices.adoc[leveloffset=+2]
 //include::XmlContent.adoc[leveloffset=+2]
 
