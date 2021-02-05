@@ -7,6 +7,13 @@ SubnetMask: 255.255.254.0
 UseExistingDhcpScope: false
 DomainName: contoso.com
 DefaultDeviceOU: OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
+ImageGroups:
+  - Name: Fabrikam LOB Images
+    SecurityDescriptor: O:BAG:DUD:(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;0x1200a9;;;AU)(A;OICI;FA;;;S-1-5-80-1688844526-3235337491-1375791646-891369040-3692469510)
+    Ensure: Present
+  - Name: Windows 10
+  - Name: Windows 7
+    Ensure: Absent
 BootImages:
   - NewImageName: contoso boot
     Path:         D:\sources\boot.wim
@@ -47,6 +54,7 @@ DeviceReservations:
     JoinDomain:      true
     JoinRights:      JoinOnly
     Ensure:          Present
-  - DeviceName:      Client02
-    MacAddress:      00-15-5D-02-28-45
+  - DeviceName:      Server02
+    DeviceID:        123456781234-567812345678
     JoinDomain:      true
+    OU:              OU=Servers,OU=Computer,OU=Contoso,DC=contoso,DC=com

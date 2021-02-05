@@ -58,7 +58,12 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | UseExistingDhcpScope
 |
 | Boolean
-| Use existing DHCP Scope defined outside of this DSC resource 
+| Use existing DHCP Scope defined outside of this DSC resource. 
++
+[IMPORTANT]
+====
+Must be set to `true` if the DHCP server should not installed on the computer WDS server is running.
+====
 | - True
   - *False* (default)
 
@@ -108,6 +113,12 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | 
 | Hashtable[]
 | List of boot images
+|
+
+| [[dscyml_wds_imagegroups, {YmlCategory}/ImageGroups]]<<dscyml_wds_imagegroups_details, ImageGroups>>
+| 
+| Hashtable[]
+| List of image groups
 |
 
 | [[dscyml_wds_installimages, {YmlCategory}/InstallImages]]<<dscyml_wds_installimages_details, InstallImages>>
@@ -204,6 +215,39 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 |===
 
 
+
+[[dscyml_wds_imagegroups_details]]
+.Attributes of category '<<dscyml_wds_imagegroups>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the image group
+|
+
+| SecurityDescriptor
+|
+| String
+| Specifies the security descriptor for the image group in https://docs.microsoft.com/en-us/windows/win32/secauthz/security-descriptor-definition-language[SDDL] format.
+|
+
+| Ensure
+|
+| String
+| An enumerated value that describes if the image group exists.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
 [[dscyml_wds_installimages_details]]
 .Attributes of category '<<dscyml_wds_installimages>>'
 [cols="1,1,1,2a,1a" options="header"]
@@ -224,7 +268,8 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | Mandatory
 | String
 | The name of the image inside the WIM file.
-  Not supported with VHD files
+  Not supported with VHD files. +
+  You can display the `ImageName` with `Get-WindowsImage -ImagePath <image.wim>`.
 |
 
 | Path
@@ -322,10 +367,25 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | Description
 | Allowed Values
 
-| MacAddress
+| DeviceID
 | Key
 | String
-| MAC address of the device
+| Unique identifier of the device +
+[NOTE]
+====
+Can be empty if the `MacAddress` is used as device identifier.
+====
+|
+
+| MacAddress
+| Key +
+  (only if `DeviceID` is empty)
+| String
+| MAC address of the device +
+[IMPORTANT]
+====
+Must be empty if the DHCP server should not installed on the computer WDS server is running.
+====
 |
 
 | DeviceName
@@ -338,7 +398,10 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | 
 | String
 | IPv4 Address to reserve for this device in DHCP server. +
-  If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.
+[IMPORTANT]
+====
+If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.
+====
 |
 
 | User
@@ -435,12 +498,19 @@ Wds:
       Ensure: Present
       Multicast: false
       SkipVerify: false
+  ImageGroups:
+    - Name: Fabrikam LOB Images
+      SecurityDescriptor: O:BAG:DUD:(A;OICI;FA;;;SY)(A;OICI;FA;;;BA)(A;OICI;0x1200a9;;;AU)(A;OICI;FA;;;S-1-5-80-1688844526-3235337491-1375791646-891369040-3692469510)
+      Ensure: Present
+    - Name: Windows 10
+    - Name: Windows 7
+      Ensure: Absent
   InstallImages:
     - NewImageName: Contoso custom Windows 10
       ImageName: Windows 10
       Path: D:\sources\install_win10.wim
       SkipVerify: false
-      ImageGroup: Group1
+      ImageGroup: Windows 10
       DisplayOrder: 1
       UnattendFile: D:\sources\unattend.xml
       NewDescription: My New Description
@@ -454,6 +524,7 @@ Wds:
     - NewImageName: Contoso custom Windows Server
       ImageName:    Windows Server SERVERDATACENTERACORE
       Path:         D:\sources\install.wim
+      ImageGroup:   Fabrikam LOB Images
   DeviceReservations:
     - DeviceName:      Client01
       MacAddress:      00-15-5D-02-28-37
@@ -462,7 +533,8 @@ Wds:
       JoinDomain:      true
       JoinRights:      JoinOnly
       Ensure:          Present
-    - DeviceName:      Client02
-      MacAddress:      00-15-5D-02-28-45
+    - DeviceName:      Server02
+      DeviceID:        123456781234-567812345678
       JoinDomain:      true
+      OU:              OU=Servers,OU=Computer,OU=Contoso,DC=contoso,DC=com
 ----

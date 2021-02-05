@@ -13,7 +13,7 @@ configuration Wds
         [Parameter(Mandatory=$false)]
         [boolean]
         $UseExistingDhcpScope = $false,
-
+        
         [Parameter(Mandatory=$false)]
         [string]
         $ScopeStart,
@@ -41,6 +41,10 @@ configuration Wds
         [Parameter(Mandatory=$false)]
         [hashtable[]]
         $BootImages,
+
+        [Parameter(Mandatory=$false)]
+        [hashtable[]]
+        $ImageGroups,
 
         [Parameter(Mandatory=$false)]
         [hashtable[]]
@@ -107,16 +111,88 @@ configuration Wds
         DependsOn            = '[WindowsFeature]wdsFeature'
     }
 
-    $dependsOnWdsInit = '[WdsInitialize]wdsInit'
+    Service wdsService
+    {
+        Name        = 'WDSServer'
+        StartupType = 'Automatic'
+        State       = 'Running'
+        Ensure      = 'Present'
+        DependsOn   = '[WdsInitialize]wdsInit'
+    }
+
+    $dependsOnWdsService = '[Service]wdsService'
 
     if( $null -ne $BootImages )
     {
         foreach( $image in $BootImages )
         {
-            $image.DependsOn = $dependsOnWdsInit
+            $image.DependsOn = $dependsOnWdsService
             $executionName = "bootImg_$($image.NewImageName -replace '[().:\s]', '')"
 
             (Get-DscSplattedResource -ResourceName WdsBootImage -ExecutionName $executionName -Properties $image -NoInvoke).Invoke($image)
+        }
+    }
+
+    if( $null -ne $ImageGroups )
+    {
+        foreach( $group in $ImageGroups )
+        {
+            Script "imgGroup_$($group.Name -replace '[().:\s]', '_')"
+            {
+                TestScript = {
+                    $wdsGroup = Get-WdsInstallImageGroup -Name $using:group.Name -ErrorAction SilentlyContinue
+    
+                    if( $using:group.Ensure -eq 'Absent' )
+                    {
+                        if( $null -eq $wdsGroup -or $wdsGroup.Count -eq 0 )
+                        {
+                            return $true
+                        }
+                    }
+                    else
+                    {
+                        if( $null -ne $wdsGroup -and $wdsGroup.Name -eq $using:group.Name )
+                        {
+                            if( [string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor) -or
+                                $wdsGroup.Security -eq $using:group.SecurityDescriptor)
+                            {
+                                return $true                            
+                            }
+                        }
+                    }
+                    return $false
+                }
+                SetScript = {
+                    $params = @{
+                        Name = $group.Name
+                    }
+
+                    if( $using:group.Ensure -eq 'Absent' )
+                    {
+                        Remove-WdsInstallImageGroup @params
+                    }
+                    else 
+                    {
+                        if( -not [string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor) )
+                        {
+                            $params.SecurityDescriptorSDDL = $using:group.SecurityDescriptor   
+                        }
+
+                        $wdsGroup = Get-WdsInstallImageGroup -Name $using:group.Name -ErrorAction SilentlyContinue
+
+                        if( $null -eq $wdsGroup )
+                        {
+                            New-WdsInstallImageGroup @params                            
+                        }
+                        else
+                        {
+                            Set-WdsInstallImageGroup @params                            
+                        }
+                    }
+                }
+                GetScript = { return @{result = 'N/A'}}
+                DependsOn = $dependsOnWdsService
+            }        
         }
     }
 
@@ -124,7 +200,7 @@ configuration Wds
     {
         foreach( $image in $InstallImages )
         {
-            $image.DependsOn = $dependsOnWdsInit
+            $image.DependsOn = $dependsOnWdsService
             $executionName = "instImg_$($image.NewImageName -replace '[().:\s]', '')"
 
             (Get-DscSplattedResource -ResourceName WdsInstallImage -ExecutionName $executionName -Properties $image -NoInvoke).Invoke($image)
@@ -162,11 +238,17 @@ configuration Wds
                 }                
             }
 
-            $devRes.DeviceID  = $devRes.MacAddress
-            $devRes.DependsOn = $dependsOnWdsInit
+            # use MacAddress as DeviceID if it's not specified
+            if( [string]::IsNullOrWhiteSpace($devRes.DeviceID) )
+            {
+                $devRes.DeviceID  = $devRes.MacAddress
+            }
 
+            # remove DHCP specific attributes
             $devRes.Remove('IpAddress')
             $devRes.Remove('MacAddress')
+
+            $devRes.DependsOn = $dependsOnWdsService
 
             if( $devRes.JoinDomain -eq $true )
             {
