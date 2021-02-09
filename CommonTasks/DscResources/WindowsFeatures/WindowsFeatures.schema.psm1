@@ -6,9 +6,10 @@ configuration WindowsFeatures {
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     
-    $ensure = 'Present'
     foreach ($n in $Name)
     {
+        $ensure = 'Present'
+
         if ($n[0] -in '-', '+')
         {
             if ($n[0] -eq '-')

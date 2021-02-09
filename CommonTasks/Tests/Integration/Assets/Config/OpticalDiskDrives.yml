@@ -1,0 +1,8 @@
+﻿Drives:
+  - DiskId: 1
+    DriveLetter: F
+    Ensure: Present
+  - DiskId: 2
+    Ensure: Absent
+  - DiskId: 3
+    DriveLetter: G

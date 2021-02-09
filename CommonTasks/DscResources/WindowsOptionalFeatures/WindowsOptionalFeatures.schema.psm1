@@ -12,9 +12,10 @@
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     
-    $ensure = 'Enable'
     foreach ($n in $Name)
     {
+        $ensure = 'Enable'
+
         if ($n[0] -in '-', '+')
         {
             if ($n[0] -eq '-')

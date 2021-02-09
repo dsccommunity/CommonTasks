@@ -78,6 +78,7 @@ ifdef::env-github[]
 - <<DscTagging.adoc#, DscTagging>>
 - <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
+- <<OpticalDiskDrives.adoc#, OpticalDiskDrives>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<RestartSystem.adoc#, RestartSystem>>
@@ -137,6 +138,7 @@ ifndef::env-github[]
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
 | <<dscyml_mountimages>>                     | <<dscyml_mountimages_abstract>>
 | <<dscyml_networkipconfiguration>>          | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_opticaldiskdrives>>               | <<dscyml_opticaldiskdrives_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 | <<dscyml_restartsystem>>                   | <<dscyml_restartsystem_abstract>>
@@ -196,6 +198,7 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
 include::MountImages.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
+include::OpticalDiskDrives.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 include::RestartSystem.adoc[leveloffset=+2]
