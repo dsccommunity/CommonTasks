@@ -1,0 +1,49 @@
+// CommonTasks YAML Reference: WindowsFeatures
+// ========================================
+
+:YmlCategory: WindowsFeatures
+
+
+[[dscyml_windowsfeatures, {YmlCategory}]]
+= DSC Resource 'WindowsFeatures'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_windowsfeatures_abstract]]
+.{YmlCategory} installs Windows Features on a Windows Server OS.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsFeatures
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsfeatureresource?view=powershell-5.1[WindowsFeature]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Mandatory
+| string
+| Indicates the name of the role or feature that you want to ensure is added or removed. This is the same as the Name property from the Get-WindowsFeature cmdlet, and not the display name of the role or feature.
+| [+ \| -]<name>
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WindowsFeatures:
+  Name:
+  - +DHCP         # installs WindowsFeature DHCP Server
+  - -Web-Server   # removes WindowsFeature Web-Server (IIS)
+  - Hyper-V       # installs WindowsFeature Hyper-V
+----

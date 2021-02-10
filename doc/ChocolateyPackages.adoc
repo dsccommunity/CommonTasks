@@ -246,7 +246,7 @@ In this case the `Test-DscConfiguration` command returns `False`.
 | ChocolateyOptions
 |
 | String[] (KeyValuePair)
-| Chocolatey Options
+| https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
 | 
 
 | UpdateOnly
@@ -329,7 +329,7 @@ ChocolateyPackages:
       Ensure: Present
       Version: "1.0"
       ChocolateyOptions:
-        Source: SomeFeed
+        PackageParameters: /FirstParam:Value1 /SecondParam:Value2
       Credential: '[ENC=PE9ianM...=]'
     - Name: winrar
       Version: Latest
