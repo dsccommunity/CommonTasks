@@ -72,6 +72,9 @@ ifdef::env-github[]
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
 - <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
+- <<DnsServerForwarder.adoc#, DnsServerForwarder>>
+- <<DnsServerPrimaryZones.adoc#, DnsServerPrimaryZones>>
+- <<DnsServerRecords.adoc#, DnsServerRecords>>
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
@@ -120,6 +123,9 @@ ifndef::env-github[]
 // | <<dscyml_dnsserver>>                    | <<dscyml_dnsserver_abstract>>
 | <<dscyml_dnsserveradzones>>                | <<dscyml_dnsserveradzones_abstract>>
 | <<dscyml_dnsserverconditionalforwarders>>  | <<dscyml_dnsserverconditionalforwarders_abstract>>
+| <<dscyml_dnsserverforwarder>>              | <<dscyml_dnsserverforwarder_abstract>>
+| <<dscyml_dnsserverprimaryzones>>           | <<dscyml_dnsserverprimaryzones_abstract>>
+| <<dscyml_dnsserverrecords>>                | <<dscyml_dnsserverrecords_abstract>>
 | <<dscyml_dnsserverroothints>>              | <<dscyml_dnsserverroothints_abstract>>
 | <<dscyml_dnsserversettings>>               | <<dscyml_dnsserversettings_abstract>>
 // | <<dscyml_dscdiagnostic>>                | <<dscyml_dscdiagnostic_abstract>>
@@ -180,6 +186,9 @@ include::Disks.adoc[leveloffset=+2]
 //include::DnsServer.adoc[leveloffset=+2]
 include::DnsServerAdZones.adoc[leveloffset=+2]
 include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
+include::DnsServerForwarder.adoc[leveloffset=+2]
+include::DnsServerPrimaryZones.adoc[leveloffset=+2]
+include::DnsServerRecords.adoc[leveloffset=+2]
 include::DnsServerRootHints.adoc[leveloffset=+2]
 include::DnsServerSettings.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]

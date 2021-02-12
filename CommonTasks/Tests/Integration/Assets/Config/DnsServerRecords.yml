@@ -1,0 +1,12 @@
+﻿Records:
+  - Name:       Server1
+    Zone:       PrimaryZone1
+    Target:     192.168.1.10
+    DnsServer:  localhost
+    Type:       ARecord
+    Ensure:     Present
+
+  - Name:       Server2
+    Zone:       PrimaryZone2
+    Target:     192.168.1.11
+    Type:       CName
