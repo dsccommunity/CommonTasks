@@ -79,6 +79,7 @@
 |
 | String
 | Name of the DnsServer to create the record on.
+  If not specified or specified with `localhost` the Windows feature 'DNS Server' will be installed at first.
 | Default: `localhost`
 
 | Ensure

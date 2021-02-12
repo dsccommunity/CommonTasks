@@ -4,12 +4,12 @@
 :YmlCategory: WindowsOptionalFeatures
 
 
-[[dscyml_windowsfeatures, {YmlCategory}]]
+[[dscyml_windowsoptionalfeatures, {YmlCategory}]]
 = DSC Resource 'WindowsOptionalFeatures'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_windowsfeatures_abstract]]
+[[dscyml_windowsoptionalfeatures_abstract]]
 .{YmlCategory} installs Windows Optional Features on a Windows Client OS.
 
 

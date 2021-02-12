@@ -95,6 +95,7 @@ ifdef::env-github[]
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 - <<WindowsFeatures.adoc#, WindowsFeatures>>
 - <<WindowsOptionalFeatures.adoc#, WindowsOptionalFeatures>>
+- <<WindowsServices.adoc#, WindowsServices>>
 
 endif::[]
 
@@ -120,7 +121,6 @@ ifndef::env-github[]
 // | <<dscyml_dfsnamespaces>>                | <<dscyml_dfsnamespaces_abstract>>
 // | <<dscyml_dhcpserver>>                   | <<dscyml_dhcpserver_abstract>>
 | <<dscyml_disks>>                           | <<dscyml_disks_abstract>>
-// | <<dscyml_dnsserver>>                    | <<dscyml_dnsserver_abstract>>
 | <<dscyml_dnsserveradzones>>                | <<dscyml_dnsserveradzones_abstract>>
 | <<dscyml_dnsserverconditionalforwarders>>  | <<dscyml_dnsserverconditionalforwarders_abstract>>
 | <<dscyml_dnsserverforwarder>>              | <<dscyml_dnsserverforwarder_abstract>>
@@ -164,7 +164,7 @@ ifndef::env-github[]
 | <<dscyml_windowseventlogs>>                | <<dscyml_windowseventlogs_abstract>>
 | <<dscyml_windowsfeatures>>                 | <<dscyml_windowsfeatures_abstract>>
 | <<dscyml_windowsoptionalfeatures>>         | <<dscyml_windowsoptionalfeatures_abstract>>
-// | <<dscyml_windowsservices>>              | <<dscyml_windowsservices_abstract>>
+| <<dscyml_windowsservices>>                 | <<dscyml_windowsservices_abstract>>
 // | <<dscyml_xmlcontent>>                   | <<dscyml_xmlcontent_abstract>>
 
 |===
@@ -183,7 +183,6 @@ include::ComputerSettings.adoc[leveloffset=+2]
 //include::DfsNamespaces.adoc[leveloffset=+2]
 //include::DhcpServer.adoc[leveloffset=+2]
 include::Disks.adoc[leveloffset=+2]
-//include::DnsServer.adoc[leveloffset=+2]
 include::DnsServerAdZones.adoc[leveloffset=+2]
 include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
 include::DnsServerForwarder.adoc[leveloffset=+2]
@@ -227,7 +226,7 @@ include::Wds.adoc[leveloffset=+2]
 include::WindowsEventLogs.adoc[leveloffset=+2]
 include::WindowsFeatures.adoc[leveloffset=+2]
 include::WindowsOptionalFeatures.adoc[leveloffset=+2]
-//include::WindowsServices.adoc[leveloffset=+2]
+include::WindowsServices.adoc[leveloffset=+2]
 //include::XmlContent.adoc[leveloffset=+2]
 
 endif::[]
