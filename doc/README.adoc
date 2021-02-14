@@ -67,6 +67,7 @@ ifdef::env-github[]
 - <<AddsDomainUsers.adoc#, AddsDomainUsers>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
+- <<Bitlocker.adoc#, Bitlocker>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<ComputerSettings.adoc#, ComputerSettings>>
 - <<Disks.adoc#, Disks>>
@@ -115,6 +116,7 @@ ifndef::env-github[]
 | <<dscyml_addsorgunitsandgroups>>           | <<dscyml_addsorgunitsandgroups_abstract>>
 // | <<dscyml_addssitessubnets>>             | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_auditpolicies>>                   | <<dscyml_auditpolicies_abstract>>
+| <<dscyml_bitlocker>>                       | <<dscyml_bitlocker_abstract>>
 | <<dscyml_chocolateypackages>>              | <<dscyml_chocolateypackages_abstract>>
 | <<dscyml_computersettings>>                | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>            | <<dscyml_configurationbase_abstract>>
@@ -177,6 +179,7 @@ include::AddsDomainUsers.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
+include::Bitlocker.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]

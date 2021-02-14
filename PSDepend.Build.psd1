@@ -41,4 +41,5 @@
     UpdateServicesDsc            = '1.2.1'
     SqlServerDsc                 = '14.2.1'
     OfficeOnlineServerDsc        = '1.5.0'
+    xBitlocker                   = '1.4.0.0'
 }
