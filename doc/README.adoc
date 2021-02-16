@@ -93,6 +93,7 @@ ifdef::env-github[]
 - <<SqlServer.adoc#, SqlServer>>
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
+- <<WindowsEventForwarding.adoc#, WindowsEventForwarding>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 - <<WindowsFeatures.adoc#, WindowsFeatures>>
 - <<WindowsOptionalFeatures.adoc#, WindowsOptionalFeatures>>
@@ -163,6 +164,7 @@ ifndef::env-github[]
 // | <<dscyml_webapplications>>              | <<dscyml_webapplications_abstract>>
 // | <<dscyml_websites>>                     | <<dscyml_websites_abstract>>
 // | <<dscyml_webvirtualdirectories>>        | <<dscyml_webvirtualdirectories_abstract>>
+| <<dscyml_windowseventforwarding>>          | <<dscyml_windowseventforwarding_abstract>>
 | <<dscyml_windowseventlogs>>                | <<dscyml_windowseventlogs_abstract>>
 | <<dscyml_windowsfeatures>>                 | <<dscyml_windowsfeatures_abstract>>
 | <<dscyml_windowsoptionalfeatures>>         | <<dscyml_windowsoptionalfeatures_abstract>>
@@ -226,6 +228,7 @@ include::Wds.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
+include::WindowsEventForwarding.adoc[leveloffset=+2]
 include::WindowsEventLogs.adoc[leveloffset=+2]
 include::WindowsFeatures.adoc[leveloffset=+2]
 include::WindowsOptionalFeatures.adoc[leveloffset=+2]

@@ -42,4 +42,5 @@
     SqlServerDsc                 = '14.2.1'
     OfficeOnlineServerDsc        = '1.5.0'
     xBitlocker                   = '1.4.0.0'
+    xWindowsEventForwarding      = '1.0.0.0'
 }

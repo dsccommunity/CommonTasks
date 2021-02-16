@@ -444,3 +444,23 @@ Bitlocker:
       RecoveryPasswordProtector: True
       UsedSpaceOnly:             True
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  Bitlocker:
+    merge_hash: deep
+  Bitlocker\Disks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - MountPoint
+  Bitlocker\AutoDisks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - DriveType
+----

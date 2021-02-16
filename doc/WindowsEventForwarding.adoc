@@ -1,0 +1,218 @@
+// CommonTasks YAML Reference: WindowsEventForwarding
+// ==================================================
+
+:YmlCategory: WindowsEventForwarding
+
+
+[[dscyml_windowseventforwarding, {YmlCategory}]]
+= DSC Resource 'WindowsEventForwarding'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_windowseventforwarding_abstract]]
+.{YmlCategory} enables you to configure a server to become an Event Collector role and create complex Subscriptions.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsEventForwarding
+| DSC Resource   | https://github.com/dsccommunity/xWindowsEventForwarding[xWindowsEventForwarding]
+| Documentation  | https://github.com/dsccommunity/xWindowsEventForwarding#details[xWEFCollector, xWEFSubscription]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NodeType
+| Mandatory
+| String
+| Defines the type of the current node.
+
+  - On a `Collector` node at least one `Subscription` must be defined.
+  - On a `Source` node the machine account of the `Collector` will be added to the local
+# group `Event Log Readers`. 
+| - Collector
+  - Source
+
+| CollectorName
+| Mandatory +
+  (on `Source` nodes)
+| String
+| Machine account of the Collector node.
+|
+
+| [[dscyml_windowseventforwarding_subscriptions, {YmlCategory}/Subscriptions]]<<dscyml_windowseventforwarding_subscriptions_details, Subscriptions>>
+|
+| Hashtable[]
+| List of complex Subscriptions
+
+NOTE: Subscriptions are only supported on NodeType `Collector`
+|
+
+|===
+
+
+[[dscyml_windowseventforwarding_subscriptions_details]]
+.Attributes of category '<<dscyml_windowseventforwarding_subscriptions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SubscriptionID
+| Key
+| String
+| Name of the Subscription
+|
+
+| SubscriptionType
+| Mandatory
+| String
+| Type of Subscription to create
+| - CollectorInitiated
+  - SourceInitiated
+
+| Description
+|
+| String
+| Description of the Collector subscription
+|
+
+| Enabled
+|
+| String
+| Sets whether the subscription will be enabled.
+| - *True* (default)
+  - False
+
+| Ensure
+|
+| String
+| Determines whether to validate or remove the scubscription
+| - *Present* (default)
+  - Absent
+
+| DeliveryMode
+|
+| String
+| Configures whether the collector will pull events from source nodes or if the source nodes will push events to the collector.
+| - *Push* (default)
+  - Pull
+
+| MaxItems
+|
+| Sint32
+| The number of events that can occur on the source before they are submitted to the collector.
+| Default: 1
+
+| MaxLatencyTime
+|
+| Uint64
+| The maximum amount of time that can pass before events are submitted to the collector.
+| Default: 20000
+
+| HeartBeatInterval
+|
+| Uint64
+| Frequency to verify connectivity
+| Default: 20000
+
+| ReadExistingEvents
+|
+| String
+| Should the collector read existing or only new events
+| - True
+  - *False* (default)
+
+| TransportName
+|
+| String
+| Determines whether to require SSL
+| - *HTTP* (default)
+  - HTTPS
+
+| TransportPort
+|
+| String
+| Set the port number that WinRM should use to make a connection
+| Default: 5985
+
+| ContentFormat
+|
+| String
+| Format that event logs will be submitted in
+| Default: RenderedText
+
+| Locale
+|
+| String
+| Sets the subscription Locale
+| Default: en-US
+
+| LogFile
+|
+| String
+| Sets the event log that the collected events will be written to
+| Default: ForwardedEvents
+
+| CredentialsType
+|
+| String
+| Sets the credential type used for authenticating to WinRM
+| - *Default* (default)
+  - Basic
+  - Negotiate
+  - Digest
+
+| AllowedSourceNonDomainComputers
+|
+| String[]
+| This parameter has not been fully implemented, only required for source initiated scenarios, provide XML to set IssuerCAList, AllowedSubjectList, or DeniedSubjectList if this will be used
+| Default: empty string
+
+| AllowedSourceDomainComputers
+|
+| String
+| In Source Initiated scenario this SDDL determines who can push events. +
+  Default: `O:NSG:NSD:(A;;GA;;;DC)(A;;GA;;;NS)` which equates to Domain Computers and Network Service
+|
+
+| Query
+|
+| String[]
+| Expects an array of hashtables that set which events should be collected, default is all application and system logs
+|
+
+| Address
+|
+| String[]
+| Expects an array of source node FQDNs. +
+  Default `source.wef.test` to prevent errors when only staging test subscription.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WindowsEventForwarding:
+  NodeType: Collector
+  Subscriptions:
+    - SubscriptionID: TestSub
+      Ensure: Present
+      SubscriptionType: CollectorInitiated
+      Address: 
+        - tester.contoso.com
+        - tester.contoso.com
+----
