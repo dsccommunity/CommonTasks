@@ -1,0 +1,466 @@
+// CommonTasks YAML Reference: Bitlocker
+// =====================================
+
+:YmlCategory: Bitlocker
+
+
+[[dscyml_bitlocker, {YmlCategory}]]
+= DSC Resource 'Bitlocker'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_bitlocker_abstract]]
+.{YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Bitlocker
+| DSC Resource   | https://github.com/dsccommunity/xBitlocker[xBitlocker]
+| Documentation  | https://github.com/dsccommunity/xBitlocker#resources[xBLTpm, xBLBitlocker, xBLAutoBitlocker]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_bitlocker_tpm, {YmlCategory}/TPM]]<<dscyml_bitlocker_tpm_details, TPM>>
+| 
+| Hashtable
+| initialize a TPM chip
+|
+
+| [[dscyml_bitlocker_disks, {YmlCategory}/Disks]]<<dscyml_bitlocker_disks_details, Disks>>
+|
+| Hashtable[]
+| List of disks to encrypt
+
+IMPORTANT: System drive must be specified at first in the list.
+|
+
+| [[dscyml_bitlocker_autodisks, {YmlCategory}/AutoDisks]]<<dscyml_bitlocker_autodisks_details, AutoDisks>>
+|
+| Hashtable[]
+| Automatically enable Bitlocker on drives of type Fixed or Removable.
+
+IMPORTANT: It does not work on Operating System drives.
+|
+
+|===
+
+
+[[dscyml_bitlocker_tpm_details]]
+.Attributes of category '<<dscyml_bitlocker_tpm>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| AllowClear
+|
+| Boolean
+| Indicates that the provisioning process clears the TPM, if necessary, to move the TPM closer to complying with Windows Server 2012 standards.
+| - True
+  - False
+
+| AllowPhysicalPresence
+|
+| Boolean
+| Indicates that the provisioning process may send physical presence commands that require a user to be present in order to continue.
+| - True
+  - False
+
+| AllowImmediateReboot
+|
+| Boolean
+| Whether the computer can rebooted immediately after initializing the TPM.
+| - True
+  - False
+
+|===
+
+
+[[dscyml_bitlocker_disks_details]]
+.Attributes of category '<<dscyml_bitlocker_disks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| MountPoint
+| Key
+| String
+| The MountPoint name as reported in `Get-BitLockerVolume`
+|
+
+| PrimaryProtector
+| Mandatory
+| String
+| The type of key protector that will be used as the primary key protector
+| - PasswordProtector
+  - RecoveryPasswordProtector
+  - StartupKeyProtector
+  - TpmProtector
+
+| AutoUnlock
+| 
+| Boolean
+| Whether volumes should be enabled for auto unlock using `Enable-BitlockerAutoUnlock`
+| - True
+  - False
+
+| AllowImmediateReboot
+|
+| Boolean
+| Whether the computer can be immediately rebooted after enabling Bitlocker on an OS drive.
+| - True
+  - *False* (default)
+
+| AdAccountOrGroup
+|
+| String
+| Specifies an account using the format `Domain\User`.
+|
+
+| AdAccountOrGroupProtector
+| 
+| Boolean
+| Indicates that BitLocker uses an AD DS account as a protector for the volume encryption key.
+| - True
+  - False
+
+| EncryptionMethod
+|
+| String
+| Specifies the encryption algorithm to be used on the volume
+| - Aes128
+  - Aes256
+
+| HardwareEncryption
+|
+| Boolean
+| Indicates that the volume uses hardware encryption.
+| - True
+  - False
+
+| Password
+|
+| PSCredential
+| Specifies a secure string object that contains a password.
+
+NOTE: Username doesn't matter for the credential. 
+      Just put the Password in the Password field.
+|
+
+| PasswordProtector
+|
+| Boolean
+| Indicates that BitLocker uses a password as a protector for the volume encryption key.
+| - True
+  - False
+
+| Pin
+|
+| PSCredential
+| Specifies a secure string object that contains a PIN.
+
+NOTE: A TpmProtector must be used if Pin is used.
+
+NOTE: Username doesn't matter for the credential. 
+      Just put the Pin in the Password field
+|
+
+| RecoveryKeyPath
+|
+| String
+| Specifies a path to a recovery key.
+|
+
+| RecoveryKeyProtector
+|
+| Boolean
+| Indicates that BitLocker uses a recovery key as a protector for the volume encryption key.
+| - True
+  - False
+
+| RecoveryPasswordProtector
+|
+| Boolean
+| Indicates that BitLocker uses a recovery password as a protector for the volume encryption key.
+| - True
+  - False
+
+| Service
+|
+| Boolean
+| Indicates that the system account for this computer unlocks the encrypted volume.
+| - True
+  - False
+
+| SkipHardwareTest
+|
+| Boolean
+| Indicates that BitLocker does not perform a hardware test before it begins encryption.
+| - True
+  - False
+
+| StartupKeyPath
+|
+| String
+| Specifies a path to a startup key.
+|
+
+| StartupKeyProtector
+|
+| Boolean
+| Indicates that BitLocker uses a startup key as a protector for the volume encryption key.
+| - True
+  - False
+
+| TpmProtector
+|
+| Boolean
+| Indicates that BitLocker uses the TPM as a protector for the volume encryption key.
+
+NOTE: If TpmProtector is used, it must be the PrimaryProtector.
+
+| - True
+  - False
+
+| UsedSpaceOnly
+|
+| Boolean
+| Indicates that BitLocker does not encrypt disk space which contains unused data.
+| - True
+  - False
+
+|===
+
+
+[[dscyml_bitlocker_autodisks_details]]
+.Attributes of category '<<dscyml_bitlocker_autodisks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DriveType
+| Key
+| String
+| The type of volume, as reported by `Get-Volume`, to auto apply Bitlocker to
+| - Fixed
+  - Removable
+
+| MinDiskCapacityGB
+|
+| Sint32
+| If specified, only disks this size or greater will auto apply Bitlocker
+|
+
+| PrimaryProtector
+| Mandatory
+| String
+| The type of key protector that will be used as the primary key protector
+| - PasswordProtector
+  - RecoveryPasswordProtector
+  - StartupKeyProtector
+  - TpmProtector
+
+| AutoUnlock
+| 
+| Boolean
+| Whether volumes should be enabled for auto unlock using `Enable-BitlockerAutoUnlock`
+| - True
+  - False
+
+| AdAccountOrGroup
+|
+| String
+| Specifies an account using the format `Domain\User`.
+|
+
+| AdAccountOrGroupProtector
+| 
+| Boolean
+| Indicates that BitLocker uses an AD DS account as a protector for the volume encryption key.
+| - True
+  - False
+
+| EncryptionMethod
+|
+| String
+| Specifies the encryption algorithm to be used on the volume
+| - Aes128
+  - Aes256
+
+| HardwareEncryption
+|
+| Boolean
+| Indicates that the volume uses hardware encryption.
+| - True
+  - False
+
+| Password
+|
+| PSCredential
+| Specifies a secure string object that contains a password.
+
+NOTE: Username doesn't matter for the credential. 
+      Just put the Password in the Password field.
+|
+
+| PasswordProtector
+|
+| Boolean
+| Indicates that BitLocker uses a password as a protector for the volume encryption key.
+| - True
+  - False
+
+| Pin
+|
+| PSCredential
+| Specifies a secure string object that contains a PIN.
+
+NOTE: A TpmProtector must be used if Pin is used.
+
+NOTE: Username doesn't matter for the credential. 
+      Just put the Pin in the Password field
+|
+
+| RecoveryKeyPath
+|
+| String
+| Specifies a path to a recovery key.
+|
+
+| RecoveryKeyProtector
+|
+| Boolean
+| Indicates that BitLocker uses a recovery key as a protector for the volume encryption key.
+| - True
+  - False
+
+| RecoveryPasswordProtector
+|
+| Boolean
+| Indicates that BitLocker uses a recovery password as a protector for the volume encryption key.
+| - True
+  - False
+
+| Service
+|
+| Boolean
+| Indicates that the system account for this computer unlocks the encrypted volume.
+| - True
+  - False
+
+| SkipHardwareTest
+|
+| Boolean
+| Indicates that BitLocker does not perform a hardware test before it begins encryption.
+| - True
+  - False
+
+| StartupKeyPath
+|
+| String
+| Specifies a path to a startup key.
+|
+
+| StartupKeyProtector
+|
+| Boolean
+| Indicates that BitLocker uses a startup key as a protector for the volume encryption key.
+| - True
+  - False
+
+| TpmProtector
+|
+| Boolean
+| Indicates that BitLocker uses the TPM as a protector for the volume encryption key.
+
+NOTE: If TpmProtector is used, it must be the PrimaryProtector.
+
+| - True
+  - False
+
+| UsedSpaceOnly
+|
+| Boolean
+| Indicates that BitLocker does not encrypt disk space which contains unused data.
+| - True
+  - False
+
+|===
+
+
+.Example
+[source, yaml]
+----
+Bitlocker:
+  Tpm:
+    AllowClear: False
+    AllowPhysicalPresence: True
+    AllowImmediateReboot: True
+  Disks:
+    # System Drive at first
+    - MountPoint:                'C:'
+      PrimaryProtector:          TpmProtector
+      TpmProtector:              True
+      AllowImmediateReboot:      True
+      UsedSpaceOnly:             True
+    - MountPoint:                'D:'
+      PrimaryProtector:          RecoveryPasswordProtector
+      StartupKeyProtector:       True
+      StartupKeyPath:            'A:'
+      RecoveryPasswordProtector: True
+      AllowImmediateReboot:      True
+      UsedSpaceOnly:             True
+  AutoDisks:
+    - DriveType:                 Fixed
+      PrimaryProtector:          TpmProtector
+      TpmProtector:              True
+      UsedSpaceOnly:             True
+    - DriveType:                 Removable
+      MinDiskCapacityGB:         16
+      PrimaryProtector:          RecoveryPasswordProtector
+      StartupKeyProtector:       True
+      StartupKeyPath:            'A:'
+      RecoveryPasswordProtector: True
+      UsedSpaceOnly:             True
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  Bitlocker:
+    merge_hash: deep
+  Bitlocker\Disks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - MountPoint
+  Bitlocker\AutoDisks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - DriveType
+----

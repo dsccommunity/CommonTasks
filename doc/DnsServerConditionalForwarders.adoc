@@ -13,15 +13,12 @@
 .{YmlCategory} manages a conditional forwarder on a given DNS server.
 
 
-// reference links as variables for using more than once
-:ref_xDnsServerConditionalForwarder:  https://github.com/dsccommunity/xDnsServer#xdnsserverconditionalforwarder[xDnsServerConditionalForwarder]
-
-
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerConditionalForwarders
 | DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | {ref_xDnsServerConditionalForwarder}
+| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverconditionalforwarder[xDnsServerConditionalForwarder]
+
 |===
 
 
@@ -35,9 +32,9 @@
 | Allowed Values
 
 | [[dscyml_dnsserverconditionalforwarders_conditionalforwarders, {YmlCategory}/ConditionalForwarders]]<<dscyml_dnsserverconditionalforwarders_conditionalforwarders_details, ConditionalForwarders>>
-|
+| Mandatory
 | Hashtable[]
-| Set of {ref_xDnsServerConditionalForwarder}
+| List of conditional forwarders
 |
 
 |===
@@ -59,18 +56,11 @@
 | The name of the zone to manage.
 |
 
-| Ensure
-|
-| String
-| Whether the primary zone should be present or removed
-| - *Present* (default)
-  - Absent
-
 | MasterServers
 |
 | String[]
 | The IP addresses the forwarder should use. +
-  Mandatory if Ensure is present.
+  Mandatory if `Ensure` is `Present`.
 |
 
 | ReplicationScope
@@ -89,6 +79,13 @@
 | The name of the directory partition to use when the ReplicationScope is Custom.
   This value is ignored for all other replication scopes.
 |
+
+| Ensure
+|
+| String
+| Whether the primary zone should be present or removed
+| - *Present* (default)
+  - Absent
 
 |===
 

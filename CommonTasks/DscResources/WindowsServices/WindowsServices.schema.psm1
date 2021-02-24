@@ -14,19 +14,9 @@ configuration WindowsServices {
             $service.State = 'Running'
         }
 
-        #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
-        (Get-DscSplattedResource -ResourceName Service -ExecutionName $service.Name -Properties $service -NoInvoke).Invoke($service)
+        $executionName = "winsvc_$($Service.Name -replace '[-().:\s]', '_')"
 
-        <#
-        Service $Service.Name {
-            Name        = $service.Name
-            Ensure      = 'Present'
-            Credential  = New-Object pscredential('Install', ('Somepass1' | ConvertTo-SecureString -AsPlainText -Force))
-            DisplayName = $service.DisplayName
-            StartupType = $service.StartupType
-            State       = 'Running'
-            Path        = $service.Path
-        }
-        #>    
+        #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
+        (Get-DscSplattedResource -ResourceName Service -ExecutionName $executionName -Properties $service -NoInvoke).Invoke($service)
     }
 }

@@ -49,14 +49,16 @@
 
     [string]$applicationPoolName = 'DscPullSrvSqlPool'
 
-    WindowsFeature DSCServiceFeature {
+    WindowsFeature DSCServiceFeature 
+    {
         Ensure = 'Present'
         Name   = 'DSC-Service'
     }
 
     $regKeyPath = "$env:ProgramFiles\WindowsPowerShell\DscService\RegistrationKeys.txt"
 
-    File RegistrationKeyFile {
+    File RegistrationKeyFile 
+    {
         Ensure          = 'Present'
         Type            = 'File'
         DestinationPath = $regKeyPath
@@ -73,7 +75,8 @@
 
     $sqlConnectionString = "Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=$DatabaseName;Data Source=$SqlServer"
 
-    xDscWebService PSDSCPullServer {
+    xDscWebService PSDSCPullServer 
+    {
         Ensure                       = 'Present'
         EndpointName                 = $EndpointName
         Port                         = $Port
@@ -88,11 +91,13 @@
         SqlConnectionString          = $sqlConnectionString
         ConfigureFirewall            = $false
         ApplicationPoolName          = $applicationPoolName
-        RegistrationKeyPath          = $regKeyPath
+        # don't use this parameter: https://github.com/dsccommunity/xPSDesiredStateConfiguration/issues/199
+        # RegistrationKeyPath          = $regKeyPath
         DependsOn                    = '[WindowsFeature]DSCServiceFeature', '[xWebAppPool]PSDSCPullServerPool'
     }
 
-    xWebConfigKeyValue CorrectDBProvider {
+    xWebConfigKeyValue CorrectDBProvider 
+    {
         ConfigSection = 'AppSettings'
         Key           = 'dbprovider'
         Value         = 'System.Data.OleDb'
@@ -100,8 +105,8 @@
         DependsOn     = '[xDSCWebService]PSDSCPullServer'
     }
 
-    if( $ConfigureFirewall -eq $true ) {
-
+    if( $ConfigureFirewall -eq $true ) 
+    {
         Firewall PSDSCPullServerRule
         {
             Ensure      = 'Present'

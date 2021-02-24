@@ -37,277 +37,293 @@ See the specification of {ref_xDnsServerSetting_schema} to get a description of 
 | Allowed Values
 
 | Name
-|
+| Key
 | String
-|
+| Key for the resource. +
+  It doesn't matter what it is as long as it's unique within the configuration.
 |
 
 | AddressAnswerLimit
 |
-| uint32
-|
-|
+| Uint32
+| Maximum number of host records returned in response to an address request. +
+  Values between 5 and 28 are valid.
+| 5 to 28
 
 | AllowUpdate
 |
-| uint32
-|
+| Uint32
+| Specifies whether the DNS Server accepts dynamic update requests.
 |
 
 | AutoCacheUpdate
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server attempts to update its cache entries using data from root servers.
+| - True
+  - False
 
 | AutoConfigFileZones
 | 
-| uint32
-|
+| Uint32
+| Indicates which standard primary zones that are authoritative for the name of the DNS Server must be updated when the name server changes.
 |
 
 | BindSecondaries
 |
-| boolean
-|
-|
+| Boolean
+| Determines the AXFR message format when sending to non-Microsoft DNS Server secondaries
+| - True
+  - False
 
 | BootMethod
 |
-| uint32
-|
+| Uint32
+| Initialization method for the DNS Server.
 |
 
 | DefaultAgingState,
 |
-| boolean
-|
-|
+| Boolean
+| Default ScavengingInterval value set for all Active Directory-integrated zones created on this DNS Server.
+| - True
+  - False
 
 | DefaultNoRefreshInterval
 |
-| uint32
-|
+| Uint32
+| No-refresh interval, in hours, set for all Active Directory-integrated zones created on this DNS Server.
 |
 
 | DefaultRefreshInterval
 |
-| uint32
-|
+| Uint32
+| Refresh interval, in hours, set for all Active Directory-integrated zones created on this DNS Server.
 |
 
 | DisableAutoReverseZones
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server automatically creates standard reverse look up zones.
+| - True
+  - False
 
 | DisjointNets
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the default port binding for a socket used to send queries to remote DNS Servers can be overridden.
+| - True
+  - False
 
 | DsPollingInterval
 |
-| uint32
-|
+| Uint32
+| Interval, in seconds, to poll the DS-integrated zones.
 |
 
 | DsTombstoneInterval
 |
-| uint32
-|
+| Uint32
+| Lifetime of tombstoned records in Directory Service integrated zones, expressed in seconds.
 |
 
 | EDnsCacheTimeout
 |
-| uint32
-|
+| Uint32
+| Lifetime, in seconds, of the cached information describing the EDNS version supported by other DNS Servers.
 |
 
 | EnableDirectoryPartitions
 |
-| boolean
-|
-|
+| Boolean
+| Specifies whether support for application directory partitions is enabled on the DNS Server.
+| - True
+  - False
 
 | EnableDnsSec
 |
-| uint32
-|
+| Uint32
+| Specifies whether the DNS Server includes DNSSEC-specific RRs, KEY, SIG, and NXT in a response.
 |
 
 | EnableEDnsProbes
 |
-| boolean
-|
-|
+| Boolean
+| Specifies the behavior of the DNS Server. +
+  When `True`, the DNS Server always responds with OPT resource records according to RFC 2671, unless the remote server has indicated it does not support EDNS in a prior exchange. +
+  If `False`, the DNS Server responds to queries with OPTs only if OPTs are sent in the original query.
+| - True
+  - False
 
 | EventLogLevel
 |
-| uint32
-|
+| Uint32
+| Indicates which events the DNS Server records in the Event Viewer system log.
 |
 
 | ForwardDelegations
 |
-| uint32
-|
+| Uint32
+| Specifies whether queries to delegated sub-zones are forwarded.
 |
 
 | Forwarders
 |
-| string[]
-|
+| String[]
+| Enumerates the list of IP addresses of Forwarders to which the DNS Server forwards queries.
 |
 
 | ForwardingTimeout
 |
-| uint32
-|
+| Uint32
+| Time, in seconds, a DNS Server forwarding a query will wait for resolution from the forwarder before attempting to resolve the query itself.
 |
 
 | IsSlave
 |
-| boolean
-|
-|
+| Boolean
+| `True` if the DNS server does not use recursion when name-resolution through forwarders fails.
+| - True
+  - False
 
 | ListenAddresses
 |
-| string[]
-|
+| String[]
+| Enumerates the list of IP addresses on which the DNS Server can receive queries.
 |
 
 | LocalNetPriority
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server gives priority to the local net address when returning A records.
+| - True
+  - False
 
 | LogFileMaxSize
 |
-| uint32
-|
+| Uint32
+| Size of the DNS Server debug log, in bytes.
 |
 
 | LogFilePath
 |
-| string
-|
+| String
+| File name and path for the DNS Server debug log.
 |
 
 | LogIPFilterList
 |
-| string[]
-|
+| String[]
+| List of IP addresses used to filter DNS events written to the debug log.
 |
 
 | LogLevel
 |
-| uint32
-|
+| Uint32
+| Indicates which policies are activated in the Event Viewer system log.
 |
 
 | LooseWildcarding
 |
-| boolean
-|
+| Boolean
+| Indicates whether the DNS Server performs loose wildcarding.
 |
 
 | MaxCacheTTL
 |
-| uint32
-|
+| Uint32
+| Maximum time, in seconds, the record of a recursive name query may remain in the DNS Server cache.
 |
 
 | MaxNegativeCacheTTL
 |
-| uint32
-|
+| Uint32
+| Maximum time, in seconds, a name error result from a recursive query may remain in the DNS Server cache.
 |
 
 | NameCheckFlag
 |
-| uint32
-|
+| Uint32
+| Indicates the set of eligible characters to be used in DNS names.
 |
 
 | NoRecursion
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server performs recursive look ups. TRUE indicates recursive look ups are not performed.
+| - True
+  - False
 
 | RecursionRetry
 |
-| uint32
-|
+| Uint32
+| Elapsed seconds before retrying a recursive look up.
 |
 
 | RecursionTimeout
 |
-| uint32
-|
+| Uint32
+| Elapsed seconds before the DNS Server gives up recursive query.
 |
 
 | RoundRobin
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server round robins multiple A records.
+| - True
+  - False
 
 | RpcProtocol
 |
-| int16
-|
+| Int16
+| RPC protocol or protocols over which administrative RPC runs.
 |
 
 | ScavengingInterval
 |
-| uint32
-|
+| Uint32
+| Interval, in hours, between two consecutive scavenging operations performed by the DNS Server.
 |
 
 | SecureResponses
 |
-| boolean
-|
+| Boolean
+| Indicates whether the DNS Server exclusively saves records of names in the same subtree as the server that provided them.
 |
 
 | SendPort
 |
-| uint32
-|
+| Uint32
+| Port on which the DNS Server sends UDP queries to other servers.
 |
 
 | StrictFileParsing
 |
-| boolean
-|
-|
+| Boolean
+| Indicates whether the DNS Server parses zone files strictly.
+| - True
+  - False
 
 | UpdateOptions
 |
-| uint32
-|
+| Uint32
+| Restricts the type of records that can be dynamically updated on the server, used in addition to the AllowUpdate settings on Server and Zone objects.
 |
 
 | WriteAuthorityNS
 |
-| boolean
-|
+| Boolean
+| Specifies whether the DNS Server writes NS and SOA records to the authority section on successful response.
 |
 
 | XfrConnectTimeout
 |
-| uint32
-|
+| Uint32
+| Time, in seconds, the DNS Server waits for a successful TCP connection to a remote server when attempting a zone transfer.
 |
 
 |===
-
+    
 
 .Example
 [source, yaml]

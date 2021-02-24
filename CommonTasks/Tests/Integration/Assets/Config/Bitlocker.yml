@@ -1,0 +1,30 @@
+﻿Tpm:
+  AllowClear: False
+  AllowPhysicalPresence: True
+  AllowImmediateReboot: True
+Disks:
+  # System Drive at first
+  - MountPoint:                'C:'
+    PrimaryProtector:          TpmProtector
+    TpmProtector:              True
+    AllowImmediateReboot:      True
+    UsedSpaceOnly:             True
+  - MountPoint:                'D:'
+    PrimaryProtector:          RecoveryPasswordProtector
+    StartupKeyProtector:       True
+    StartupKeyPath:            'A:'
+    RecoveryPasswordProtector: True
+    AllowImmediateReboot:      True
+    UsedSpaceOnly:             True
+AutoDisks:
+  - DriveType:                 Fixed
+    PrimaryProtector:          TpmProtector
+    TpmProtector:              True
+    UsedSpaceOnly:             True
+  - DriveType:                 Removable
+    MinDiskCapacityGB:         16
+    PrimaryProtector:          RecoveryPasswordProtector
+    StartupKeyProtector:       True
+    StartupKeyPath:            'A:'
+    RecoveryPasswordProtector: True
+    UsedSpaceOnly:             True

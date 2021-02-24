@@ -1,0 +1,59 @@
+// CommonTasks YAML Reference: DnsServerForwarder
+// ==============================================
+
+:YmlCategory: DnsServerForwarder
+
+
+[[dscyml_dnsserverforwarder, {YmlCategory}]]
+= DSC Resource 'DnsServerForwarder'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverforwarder_abstract]]
+.{YmlCategory} manages the DNS forwarder list of a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerForwarder
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverforwarder[xDnsServerForwarder]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| IPAddresses
+| Mandatory
+| String[]
+| IP addresses of the forwarders +
+  If you prefer one of the forwarders, put that forwarder first in the series of forwarder IP addresses..
+|
+
+| UseRootHint
+|
+| Boolean
+| Specifies whether to prevent the DNS server from performing iterative queries.
+  If you set UseRootHint to `False`, the DNS server forwards unresolved queries only to the DNS servers in the forwarders list and does not try iterative queries if the forwarders do not resolve the queries.
+| - True
+  - False
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerForwarder:
+  IPAddresses:
+    - 192.168.0.20
+    - 192.168.0.21
+  UseRootHint: True
+----

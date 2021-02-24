@@ -1,0 +1,13 @@
+# Test: SourCollectorce Node
+NodeType: Collector
+Subscriptions:
+  - SubscriptionID: TestSub
+    Ensure: Present
+    SubscriptionType: CollectorInitiated
+    Address:
+      - tester.contoso.com
+      - tester2.contoso.com
+
+# Test: Source Node
+# NodeType: Source
+# CollectorName: collector.contoso.com

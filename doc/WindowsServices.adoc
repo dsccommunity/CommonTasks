@@ -1,0 +1,160 @@
+// CommonTasks YAML Reference: WindowsServices
+// ===========================================
+
+:YmlCategory: WindowsServices
+
+
+[[dscyml_windowsservices, {YmlCategory}]]
+= DSC Resource 'WindowsServices'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_windowsservices_abstract]]
+.{YmlCategory} configures Windows services.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsServices
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/serviceresource?view=powershell-5.1[Service]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_windowsservices_services, {YmlCategory}/Services]]<<dscyml_windowsservices_services_details, Services>>
+| Mandatory
+| Hashtable[]
+| List of Windows services
+|
+
+|===
+
+
+[[dscyml_windowsservices_services_details]]
+.Attributes of category '<<dscyml_windowsservices_services>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+|
+| String
+| Indicates the service name. +
+  Note that sometimes this is different from the display name. 
+|
+
+| BuiltInAccount
+|
+| String
+| Indicates the sign-in account to use for the service.
+| - LocalService
+  - LocalSystem
+  - NetworkService
+
+| DisplayName
+|
+| String
+| Indicates the display name of the target service.
+| 
+
+| Path
+|
+| String
+| Indicates the path to the binary file for a new service.
+|
+
+| Credential
+|
+| PSCredential
+| Indicates credentials for the account that the service will run under.
+|
+
+| StartupType
+|
+| String
+| Indicates the startup type for the service.
+| - Automatic
+  - Disabled
+  - Manual
+
+| State
+|
+| String
+| Indicates the state you want to ensure for the service. 
+| - Ignore
+  - Running
+  - Stopped
+
+| Description
+|
+| String
+| Indicates the description of the target service.
+| 
+
+| StartupTimeout
+|
+| Uint32
+| The time to wait for the service to be running in milliseconds.
+|
+
+| TerminateTimeout
+|
+| Uint32
+| The time to wait for the service to be stopped in milliseconds.
+|
+
+| Dependencies
+|
+| String
+| An array of the names of the dependencies the service should have.
+|
+
+| DesktopInteract
+|
+| Boolean
+| Indicates whether or not the service should be able to communicate with a window on the desktop.
+  Must be `False` for services not running as `LocalSystem`.
+| - True
+  - False
+
+| Ensure
+|
+|
+| Indicates whether the target service exists on the system. +
+  Set this property to `Absent` to ensure that the target service does not exist. 
+  Setting it to `Present` ensures that target service exists.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WindowsServices:
+  Services:
+    - Name: Dummy1
+      DisplayName: Dummy Service
+      Path: C:\Dummy.exe
+      Credential: '[ENC=PE9ianM...=]'
+      StartupType: Automatic
+      State: Running
+      Description: none
+      Ensure: Present
+    - Name: Dummy2
+      StartupType: Manual
+----

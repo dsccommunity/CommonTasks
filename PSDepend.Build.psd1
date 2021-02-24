@@ -34,12 +34,13 @@
     ActiveDirectoryDsc           = '6.0.1'
     DfsDsc                       = '4.4.0.0'
     WdsDsc                       = '0.11.0'
-    xDhcpServer                  = '2.0.0.0'
+    xDhcpServer                  = '3.0.0.0'
     xDnsServer                   = '1.16.0.0'
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
     UpdateServicesDsc            = '1.2.1'
     SqlServerDsc                 = '14.2.1'
     OfficeOnlineServerDsc        = '1.5.0'
-
+    xBitlocker                   = '1.4.0.0'
+    xWindowsEventForwarding      = '1.0.0.0'
 }

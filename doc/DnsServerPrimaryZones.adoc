@@ -1,0 +1,92 @@
+// CommonTasks YAML Reference: DnsServerPrimaryZones
+// =================================================
+
+:YmlCategory: DnsServerPrimaryZones
+
+
+[[dscyml_dnsserverprimaryzones, {YmlCategory}]]
+= DSC Resource 'DnsServerPrimaryZones'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverprimaryzones_abstract]]
+.{YmlCategory} manages a standalone file-backed Primary zone on a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerPrimaryZones
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverprimaryzone[xDnsServerPrimaryZone]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserverprimaryzones_primaryzones, {YmlCategory}/PrimaryZones]]<<dscyml_dnsserverprimaryzones_primaryzones_details, PrimaryZones>>
+| Mandatory
+| Hashtable[]
+| List of DNS Primary Zones
+|
+
+|===
+
+
+[[dscyml_dnsserverprimaryzones_primaryzones_details]]
+.Attributes of category '<<dscyml_dnsserverprimaryzones_primaryzones>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Name of the primary DNS zone
+|
+
+| ZoneFile
+|
+| String
+| Name of the primary DNS zone file.
+| Default: `ZoneName.dns`
+
+| DynamicUpdate
+|
+| String
+| Primary zone dynamic DNS update option.
+| - *None* (default)
+  - NonSecureAndSecure 
+
+| Ensure
+|
+| String
+| Whether the primary zone should be present or removed
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerPrimaryZones:
+  PrimaryZones:
+    - Name:          PrimaryZone1
+      ZoneFile:      MyZone.dns
+      DynamicUpdate: NonSecureAndSecure
+      Ensure:        Present
+
+    - Name:          PrimaryZone2
+----
