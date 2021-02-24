@@ -1,0 +1,6 @@
+Values:
+  ServerName        : SQL001.contoso.com
+  Name              : SQLSERVER
+  Protocol          : TCP
+  UseDynamicTcpPort : true
+  TcpPort           : false
