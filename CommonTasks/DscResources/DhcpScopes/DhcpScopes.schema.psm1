@@ -12,9 +12,12 @@ configuration DhcpScopes
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
-    xDhcpServerAuthorization "$($node.Name)_DhcpServerActivation" {
-        Ensure               = 'Present'
-        PsDscRunAsCredential = $DomainCredential
+    if ($DomainCredential) {
+        xDhcpServerAuthorization "$($node.Name)_DhcpServerActivation" {
+            Ensure               = 'Present'
+            PsDscRunAsCredential = $DomainCredential
+            IsSingleInstance     = 'Yes'
+        }
     }
 
     foreach ($scope in $Scopes) {
