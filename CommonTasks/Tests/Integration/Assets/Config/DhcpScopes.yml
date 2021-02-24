@@ -1,0 +1,17 @@
+Scopes:
+  - ScopeId: 192.169.1.0
+    IPStartRange: 192.169.1.1
+    IPEndRange: 192.169.1.254
+    Name: Client1
+    SubnetMask: 255.255.255.0
+    LeaseDuration: 08:00:00
+    State: Active
+    AddressFamily: IPv4
+  - ScopeId: 192.169.2.0
+    IPStartRange: 192.169.2.1
+    IPEndRange: 192.169.2.254
+    Name: Client2
+    SubnetMask: 255.255.255.0
+    LeaseDuration: 08:00:00
+    State: Active
+    AddressFamily: IPv4
