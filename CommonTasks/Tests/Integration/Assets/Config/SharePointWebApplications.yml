@@ -1,0 +1,19 @@
+WebApplications:
+  - Name: SharePoint - Content
+    ApplicationPool: SharePoint - Content
+    ApplicationPoolAccount: contoso\sp_contentAppPool
+    AllowAnonymous: false
+    WebAppUrl: https://content.contoso.com/
+    HostHeader: content.contoso.com
+    DatabaseName: SP2016_Content_01
+    DatabaseServer: SqlServer001
+    Port: 443
+  - Name: SharePoint - MySite
+    ApplicationPool: SharePoint - MySite
+    ApplicationPoolAccount: contoso\sp_contentAppPool
+    AllowAnonymous: false
+    WebAppUrl: https://my.contoso.com/
+    HostHeader: content.contoso.com
+    DatabaseName: SP2016_Content_My_02
+    DatabaseServer: SqlServer001
+    Port: 443

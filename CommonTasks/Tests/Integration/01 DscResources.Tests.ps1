@@ -21,6 +21,13 @@ f1
         }
 
         It "'$DscResourceName' compiles" {
+            
+            $nodeData = @{
+                NodeName = "localhost_$DscResourceName"
+                PSDscAllowPlainTextPassword = $true
+                PSDscAllowDomainUser = $true
+            }
+            $configurationData.AllNodes += $nodeData
 
             configuration "Config_$DscResourceName" {
 
@@ -33,7 +40,6 @@ f1
                         $data = @{}
                     }
                     (Get-DscSplattedResource -ResourceName $DscResourceName -ExecutionName $DscResourceName -Properties $data -NoInvoke).Invoke($data)
-
                 }
             }
 

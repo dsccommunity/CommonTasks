@@ -1,0 +1,5 @@
+Options:
+  - InstanceName   : MSSQLSERVER
+    OptionName     : max degree of parallelism
+    OptionValue    : 1
+    RestartService : false

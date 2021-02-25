@@ -1,0 +1,33 @@
+ScopeOptions:
+  - ScopeId: 192.169.1.0
+    OptionId: 6
+    AddressFamily: IPv4    
+    UserClass: ''
+    VendorClass: ''
+    Value:
+      - 192.168.10.10
+      - 192.168.10.11
+  - ScopeId: 192.169.1.0
+    OptionId: 60
+    Value: Support
+    AddressFamily: IPv4
+    VendorClass: ''
+    UserClass: ''
+  - ScopeId: 192.169.1.0
+    OptionId: 66
+    Value: 192.168.50.222
+    AddressFamily: IPv4
+    VendorClass: ''
+    UserClass: ''
+  - ScopeId: 192.169.1.0
+    OptionId: 67
+    Value: DCMgr\Boot\Windows\wdsnbp.com
+    AddressFamily: IPv4
+    VendorClass: ''
+    UserClass: ''
+  - ScopeId: 192.169.1.0
+    OptionId: 3
+    Value: 192.169.1.254
+    AddressFamily: IPv4
+    VendorClass: ''
+    UserClass: ''

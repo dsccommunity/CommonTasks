@@ -1,0 +1,7 @@
+ServerOptionDefinitions:
+  AddressFamily: IPv4
+  Name: PXEClientType
+  OptionId: 60
+  Type: string
+  VendorClass: ''
+  Description: PXE Support

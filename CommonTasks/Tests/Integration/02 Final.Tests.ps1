@@ -16,6 +16,7 @@ Describe 'Final tests' -Tags FunctionalQuality {
         $compositeResouceFolders = dir -Path "$env:BHBuildOutput\Modules\$env:BHProjectName\DscResources"
         Write-Host "Number of composite resource folders: $($compositeResouceFolders.Count)"
         Write-Host "Number of composite resources: $($compositeResouces.Count)"
+        Write-Host (Compare-Object -ReferenceObject $compositeResouceFolders.Name -DifferenceObject $compositeResouces.Name | Out-String) -ForegroundColor Yellow
         
         $compositeResouces.Count | Should -Be $compositeResouceFolders.Count
     }
