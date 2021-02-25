@@ -1,0 +1,13 @@
+ContentDatabases:
+  - Name: SP2016_Content_My_02
+    DatabaseServer: SqlServer001
+    WebAppUrl: https://my.contoso.com/
+    Enabled: true
+    WarningSiteCount: 2000
+    MaximumSiteCount: 5000
+  - Name: SP2016_Content_CTH
+    DatabaseServer: SqlServer001
+    WebAppUrl: https://content.contoso.com
+    Enabled: true
+    WarningSiteCount: 2000
+    MaximumSiteCount: 5000

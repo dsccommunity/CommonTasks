@@ -1,0 +1,13 @@
+ManagedPaths:
+  - WebAppUrl: t1 #https://content.contoso.com
+    RelativeUrl: mp1
+    Explicit: false
+    HostHeader: false
+  - WebAppUrl: t2 #https://content.contoso.com
+    RelativeUrl: mp2
+    Explicit: false
+    HostHeader: false
+  - WebAppUrl: t3 #https://my.contoso.com
+    RelativeUrl: personal
+    Explicit: false
+    HostHeader: false

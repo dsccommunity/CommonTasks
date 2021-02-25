@@ -1,0 +1,4 @@
+CacheAccounts:
+    SuperReaderAlias: contoso\SP_SuperReader
+    SuperUserAlias: contoso\SP_SuperUser
+    WebAppUrl: https://content.contoso.com/

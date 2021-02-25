@@ -45,5 +45,6 @@
     xWindowsEventForwarding      = '1.0.0.0'
     xFailOverCluster             = '1.15.0'
     xExchange                    = '1.32.0'
-
+    SharePointDSC                = '4.5.1'
+    
 }
