@@ -1,0 +1,14 @@
+SQLNCli              : C:\Install\sqlncli.msi
+Sync                 : C:\Install\Synchronization.msi
+AppFabric            : C:\Install\WindowsServerAppFabricSetup_x64.exe
+IDFX11               : C:\Install\MicrosoftIdentityExtensions-64.msi
+MSIPCClient          : C:\Install\setup_msipc_x64.exe
+WCFDataServices56    : C:\Install\WcfDataServices.exe
+MSVCRT11             : C:\Install\vcredist_x64.exe
+MSVCRT141            : C:\Install\vc_redist.x64.exe
+KB3092423            : C:\Install\AppFabric-KB3092423-x64-ENU.exe
+DotNet472            : C:\Install\NDP472-KB4054530-x86-x64-AllOS-ENU.exe
+InstallerPath        : Z:\PrerequisiteInstaller.exe
+IsoFilePath          : C:\Install\en_sharepoint_server_2019_x64_dvd_68e34c9e.iso
+IsoDriveLetter       : 'Z:'
+ProductKey           : YourProductKey

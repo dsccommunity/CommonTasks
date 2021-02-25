@@ -1,0 +1,15 @@
+Sites:    
+  - Name: Contoso Content
+    Url: https://content.contoso.com
+    OwnerAlias: contoso\sp_setup
+    ContentDatabase: SP2016_Content_01
+    Description: Root site for content
+    Language: 1033
+    Template: STS#0
+  - Name: App Catalog
+    Url: https://content.contoso.com/sites/AppCatalog
+    OwnerAlias: contoso\sp_setup
+    ContentDatabase: SP2016_Content_01
+    Description: App Catalog
+    Language: 1033
+    Template: APPCATELOG#0

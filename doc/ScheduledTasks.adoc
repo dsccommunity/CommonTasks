@@ -1,0 +1,440 @@
+﻿// CommonTasks YAML Reference: ScheduledTasks
+// ==========================================
+
+:YmlCategory: ScheduledTasks
+
+
+[[dscyml_scheduledtasks, {YmlCategory}]]
+= DSC Resource 'ScheduledTasks'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_scheduledtasks_abstract]]
+.{YmlCategory} is used to manage SMB Server Settings, SMB shares and access permissions to SMB shares.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SmbShares
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/ScheduledTask[ScheduledTask]
+|===
+
+[NOTE]
+====
+The ScheduledTask resource requires the _ScheduledTasks_ PowerShell module which is only available on Windows Server 2012/Windows 8 and above.
+DSC configurations containing this resource may be compiled on Windows Server 2008 R2/Windows 7 but can not be applied.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_scheduledtasks_tasks, {YmlCategory}/Tasks]]<<dscyml_scheduledtasks_tasks_details, Tasks>>
+| 
+| hashtable[]
+| Scheduled Tasks
+|
+
+|===
+
+
+[[dscyml_scheduledtasks_tasks_details]]
+.Attributes of category '<<dscyml_scheduledtasks_tasks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| TaskName
+| Key
+| String
+| The name of the task.
+|
+
+| TaskPath
+|
+| String
+| The path to the task - defaults to the root directory.
+|
+
+| Description
+|
+| String
+| The task description.
+|
+
+| ActionExecutable
+|
+| String
+| The path to the .exe for this task.
+|
+
+| ActionArguments
+|
+| String
+| The arguments to pass the executable.
+|
+
+| ActionWorkingPath
+|
+| String
+| The working path to specify for the executable.
+|
+
+| ScheduleType
+|
+| String
+| When should the task be executed.
+| - Once
+  - Daily
+  - Weekly
+  - AtStartup
+  - AtLogOn
+  - OnEvent
+
+| RepeatInterval
+|
+| String
+| How many units (minutes, hours, days) between each run of this task?
+|
+
+| StartTime
+|
+| DateTime
+| The time of day this task should start at - defaults to 12:00 AM. 
+  Not valid for AtLogon and AtStartup tasks.
+|
+
+| SynchronizeAcrossTimeZone
+|
+| Boolean
+| Enable the scheduled task option to synchronize across time zones.
+  This is enabled by including the timezone offset in the scheduled task trigger.
+  Defaults to false which does not include the timezone offset.
+| - True
+  - *False* (default)
+
+| Ensure
+|
+| String
+| Present if the task should exist, Absent if it should be removed.
+| - *Present* (default)
+  - Absent
+
+| Enable
+|
+| Boolean
+| True if the task should be enabled, false if it should be disabled.	
+| - *True* (default)
+  - False
+
+| BuiltInAccount
+|
+| String
+| Run the task as one of the built in service accounts.
+  When set ExecuteAsCredential will be ignored and LogonType will be set to 'ServiceAccount'. +
+  See https://github.com/dsccommunity/ComputerManagementDsc/wiki/ScheduledTask#known-issues[Known Issues]
+| - SYSTEM
+  - LOCAL SERVICE
+  - NETWORK SERVICE
+
+| ExecuteAsCredential
+|
+| PSCredential
+| The credential this task should execute as.
+  If not specified defaults to running as the local system account. +
+  See https://github.com/dsccommunity/ComputerManagementDsc/wiki/ScheduledTask#known-issues[Known Issues]
+|
+
+| ExecuteAsGMSA
+|
+| String
+| The gMSA (Group Managed Service Account) this task should execute as.
+  Cannot be used in combination with ExecuteAsCredential or BuiltInAccount.
+|
+
+| DaysInterval
+|
+| UInt32
+| Specifies the interval between the days in the schedule.
+  An interval of 1 produces a daily schedule. An interval of 2 produces an every-other day schedule.
+|	
+
+| RandomDelay
+|
+| String
+| Specifies a random amount of time to delay the start time of the trigger.
+  The delay time is a random time between the time the task triggers and the time that you specify in this setting.
+|
+
+| RepetitionDuration
+|
+| String
+| Specifies how long the repetition pattern repeats after the task starts.
+  May be set to Indefinitely to specify an indefinite duration.
+|
+
+| DaysOfWeek
+|
+| String[]
+| Specifies an array of the days of the week on which Task Scheduler runs the task.
+|
+
+| WeeksInterval
+|
+| UInt32
+| Specifies the interval between the weeks in the schedule.
+  An interval of 1 produces a weekly schedule. An interval of 2 produces an every-other week schedule.
+|
+
+| Use
+|
+| String
+| Specifies the identifier of the user for a trigger that starts a task when a user logs on.
+|	
+
+| DisallowDemandStart
+|
+| Boolean
+| Indicates whether the task is prohibited to run on demand or not.
+| - True
+  - *False* (default)
+
+| DisallowHardTerminate
+|
+| Boolean
+| Indicates whether the task is prohibited to be terminated or not.
+| - True
+  - *False* (default)
+
+| Compatibility
+|
+| String
+| The task compatibility level.
+| - AT
+  - V1
+  - *Vista* (default)
+  - Win7
+  - Win8
+
+| AllowStartIfOnBatteries
+|
+| Boolean
+| Indicates whether the task should start if the machine is on batteries or not.	
+| - True
+  - *False* (default)
+
+| Hidden
+|
+| Boolean
+| Indicates that the task is hidden in the Task Scheduler UI.	
+| - True
+  - False
+
+| RunOnlyIfIdle
+|
+| Boolean
+| Indicates that Task Scheduler runs the task only when the computer is idle.	
+| - True
+  - False
+
+| IdleWaitTimeout
+|
+| String
+| Specifies the amount of time that Task Scheduler waits for an idle condition to occur.	
+| - True
+  - False
+
+| NetworkName
+|
+| String
+| Specifies the name of a network profile that Task Scheduler uses to determine if the task can run.
+  The Task Scheduler UI uses this setting for display purposes.
+  Specify a network name if you specify the RunOnlyIfNetworkAvailable parameter.
+|
+
+| DisallowStartOnRemoteAppSession
+|
+| Boolean
+| Indicates that the task does not start if the task is triggered to run in a Remote Applications Integrated Locally (RAIL) session.
+|
+
+| StartWhenAvailable
+|
+| Boolean
+| Indicates that Task Scheduler can start the task at any time after its scheduled time has passed.
+| - True
+  - False
+
+| DontStopIfGoingOnBatteries
+|
+| Boolean
+| Indicates that the task does not stop if the computer switches to battery power.
+| - True
+  - False
+
+| WakeToRun
+|
+| Boolean
+| Indicates that Task Scheduler wakes the computer before it runs the task.
+| - True
+  - False
+
+| IdleDuration
+|
+| String
+| Specifies the amount of time that the computer must be in an idle state before Task Scheduler runs the task.
+|
+
+| RestartOnIdle
+|
+| Boolean
+| Indicates that Task Scheduler restarts the task when the computer cycles into an idle condition more than once.
+|
+
+| DontStopOnIdleEnd
+|
+| Boolean
+| Indicates that Task Scheduler does not terminate the task if the idle condition ends before the task is completed.
+|
+
+| ExecutionTimeLimit
+|
+| String
+| Specifies the amount of time that Task Scheduler is allowed to complete the task.
+|
+
+| MultipleInstances
+|
+| String
+| Specifies the policy that defines how Task Scheduler handles multiple instances of the task.
+  See https://github.com/dsccommunity/ComputerManagementDsc/wiki/ScheduledTask#known-issues[Known Issues]
+| - IgnoreNew
+  - Parallel
+  - Queue
+  - StopExisting
+
+| Priority
+|
+| UInt32
+| Specifies the priority level of the task.
+  Priority must be an integer from 0 (highest priority) to 10 (lowest priority).
+  The default value is 7. 
+  Priority levels 7 and 8 are used for background tasks. 
+  Priority levels 4, 5, and 6 are used for interactive tasks.
+| Default: 7
+
+| RestartCount
+|
+| UInt32
+| Specifies the number of times that Task Scheduler attempts to restart the task.	
+|
+
+| RestartInterval
+|
+| String
+| Specifies the amount of time that Task Scheduler attempts to restart the task.
+|
+
+| RunOnlyIfNetworkAvailable
+|
+| Boolean
+| Indicates that Task Scheduler runs the task only when a network is available. Task Scheduler uses the NetworkID parameter and NetworkName parameter that you specify in this cmdlet to determine if the network is available.
+| - True
+  - False
+
+| RunLevel
+|
+| String
+| Specifies the level of user rights that Task Scheduler uses to run the tasks that are associated with the principal.
+| - *Limited* (default)
+  - Highest
+
+| LogonType
+|
+| String
+| Specifies the security logon method that Task Scheduler uses to run the tasks that are associated with the principal.
+| - Group
+  - Interactive
+  - InteractiveOrPassword
+  - None
+  - Password
+  - S4U
+  - ServiceAccount
+
+| EventSubscription
+|
+| String
+| Specifies the EventSubscription in XML.
+  This can be easily generated using the Windows Eventlog Viewer.
+  For the query schema please check: https://docs.microsoft.com/en-us/windows/desktop/WES/queryschema-schema.
+  Can only be used in combination with ScheduleType OnEvent.
+|
+
+| Delay
+|
+| String
+| Specifies a delay to the start of the trigger.
+  The delay is a static delay before the task is executed.
+  Can only be used in combination with ScheduleType OnEvent.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ScheduledTasks:
+  Tasks:
+    # disable buildtin task
+    - TaskName: CreateExplorerShellUnelevatedTask
+      TaskPath: \
+      Enable:   false
+    # delete buildtin task
+    - TaskName: CreateExplorerShellUnelevatedTask2
+      TaskPath: \
+      Ensure:   Absent
+    # task starts at machine startup, repeating every 15 minutes for 8 hours
+    - TaskName:           Test task Startup
+      TaskPath:           \MyTasks
+      ActionExecutable:   C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+      ScheduleType:       AtStartup
+      RepeatInterval:     00:15:00
+      RepetitionDuration: 08:00:00
+    # # task starts immedialtly every 15 minutes for 4 days
+    - TaskName:           Custom maintenance tasks
+      ActionExecutable:   C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+      ActionArguments:    '-File "C:\scripts\my custom script.ps1"'
+      ScheduleType:       Once
+      RepeatInterval:     00:15:00
+      RepetitionDuration: 4.00:00:00
+    # task is set to run every 15 minutes and starts a new PowerShell instance running as the builtin user NETWORK SERVICE.
+    - TaskName:           Test As NetworkService
+      Ensure:             Present
+      ActionExecutable:   C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+      ActionArguments:    -Command Set-Content -Path c:\temp\seeme.txt -Value $env:USERNAME -Force
+      ScheduleType:       Once
+      RepeatInterval:     00:15:00
+      RepetitionDuration: 04.00:00:00
+      BuiltInAccount:     NETWORK SERVICE
+    # task starts a new powershell process once
+    - TaskName:            Test task Run As Highest Privilege
+      TaskPath:            \MyTasks
+      ActionExecutable:    C:\windows\system32\WindowsPowerShell\v1.0\powershell.exe
+      ScheduleType:        Once
+      ActionWorkingPath:   C:\Temp
+      Enable:              true
+      ExecuteAsCredential: '[ENC=PE9ianMgVmVyc2lv...z4=]'
+      RunLevel:            Highest
+----

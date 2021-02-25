@@ -13,15 +13,11 @@
 .{YmlCategory} manages root hints on a given DNS server.
 
 
-// reference links as variables for using more than once
-:ref_xDnsServerRootHint:  https://github.com/dsccommunity/xDnsServer#xdnsserverroothint[xDnsServerRootHint]
-
-
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | /OSS/OSS-Core/Impl/IVV/DSC/CommonTasks/CommonTasks/DscResources/DnsServer
 | DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | {ref_xDnsServerRootHint}
+| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverroothint[xDnsServerRootHint]
 |===
 
 
@@ -35,9 +31,9 @@
 | Allowed Values
 
 | RootHints
-|
+| Mandatory
 | Hashtable[]
-| Set of {ref_xDnsServerRootHint}. +
+| Set of root hints. +
   Each hashtable defines a name server. 
   Key and value must be strings.
 |

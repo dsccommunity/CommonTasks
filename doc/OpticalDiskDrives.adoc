@@ -1,0 +1,88 @@
+// CommonTasks YAML Reference: OpticalDiskDrives
+// =============================================
+
+:YmlCategory: OpticalDiskDrives
+
+
+[[dscyml_opticaldiskdrives, {YmlCategory}]]
+= DSC Resource 'OpticalDiskDrives'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_opticaldiskdrives_abstract]]
+.{YmlCategory} is used to set the drive letter of an optical disk drive (e.g. a CDROM or DVD drive).
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/MountImages
+| DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
+| Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/OpticalDiskDriveLetter[OpticalDiskDriveLetter]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_opticaldiskdrives_drives, {YmlCategory}/Drives]]<<dscyml_opticaldiskdrives_drives_details, Drives>>
+| Mandatory
+| Hashtable[]
+| List of optical disk drives
+|
+
+|===
+
+
+[[dscyml_opticaldiskdrives_drives_details]]
+.Attributes of category '<<dscyml_opticaldiskdrives_drives>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DiskId
+| Key
+| String
+| Specifies the optical disk number for the disk to assign the drive letter to.
+|
+
+| DriveLetter
+| Required
+| String
+| Specifies the drive letter to assign to the optical disk. +
+  Can be a single letter, optionally followed by a colon. +
+  This value is ignored if `Ensure` is set to `Absent`.
+|
+
+| Ensure
+|
+| String
+| Determines whether a drive letter should be assigned to the optical disk.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+OpticalDiskDrives:
+  Drives:
+    - DiskId: 1
+      DriveLetter: F
+      Ensure: Present
+    - DiskId: 2
+      Ensure: Absent
+    - DiskId: 3
+      DriveLetter: G
+----

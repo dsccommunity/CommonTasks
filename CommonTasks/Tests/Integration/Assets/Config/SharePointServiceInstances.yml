@@ -1,0 +1,4 @@
+ServiceInstances:
+  - Name: Managed Metadata Web Service
+  - Name: User Profile Service
+  - Name: SharePoint Server Search

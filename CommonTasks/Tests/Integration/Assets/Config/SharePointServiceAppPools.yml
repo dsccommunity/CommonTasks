@@ -1,0 +1,5 @@
+ServiceAppPools:
+- Name: SharePoint - Service Applications
+  ServiceAccount: contoso\sp_serviceAppAppPool
+- Name: SP2019-Search
+  ServiceAccount: contoso\sp_searchService

@@ -67,23 +67,37 @@ ifdef::env-github[]
 - <<AddsDomainUsers.adoc#, AddsDomainUsers>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
+- <<Bitlocker.adoc#, Bitlocker>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
+- <<ComputerSettings.adoc#, ComputerSettings>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
 - <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
+- <<DnsServerForwarder.adoc#, DnsServerForwarder>>
+- <<DnsServerPrimaryZones.adoc#, DnsServerPrimaryZones>>
+- <<DnsServerRecords.adoc#, DnsServerRecords>>
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
+- <<OpticalDiskDrives.adoc#, OpticalDiskDrives>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<RestartSystem.adoc#, RestartSystem>>
+- <<ScheduledTasks.adoc#, ScheduledTasks>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
+- <<SmbShares.adoc#, SmbShares>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<SqlServer.adoc#, SqlServer>>
 - <<UpdateServices.adoc#, UpdateServices>>
+- <<Wds.adoc#, Wds>>
+- <<WindowsEventForwarding.adoc#, WindowsEventForwarding>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
+- <<WindowsFeatures.adoc#, WindowsFeatures>>
+- <<WindowsOptionalFeatures.adoc#, WindowsOptionalFeatures>>
+- <<WindowsServices.adoc#, WindowsServices>>
 
 endif::[]
 
@@ -103,15 +117,18 @@ ifndef::env-github[]
 | <<dscyml_addsorgunitsandgroups>>           | <<dscyml_addsorgunitsandgroups_abstract>>
 // | <<dscyml_addssitessubnets>>             | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_auditpolicies>>                   | <<dscyml_auditpolicies_abstract>>
+| <<dscyml_bitlocker>>                       | <<dscyml_bitlocker_abstract>>
 | <<dscyml_chocolateypackages>>              | <<dscyml_chocolateypackages_abstract>>
-// | <<dscyml_computersettings>>             | <<dscyml_computersettings_abstract>>
+| <<dscyml_computersettings>>                | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>            | <<dscyml_configurationbase_abstract>>
 // | <<dscyml_dfsnamespaces>>                | <<dscyml_dfsnamespaces_abstract>>
 // | <<dscyml_dhcpserver>>                   | <<dscyml_dhcpserver_abstract>>
 | <<dscyml_disks>>                           | <<dscyml_disks_abstract>>
-// | <<dscyml_dnsserver>>                    | <<dscyml_dnsserver_abstract>>
 | <<dscyml_dnsserveradzones>>                | <<dscyml_dnsserveradzones_abstract>>
 | <<dscyml_dnsserverconditionalforwarders>>  | <<dscyml_dnsserverconditionalforwarders_abstract>>
+| <<dscyml_dnsserverforwarder>>              | <<dscyml_dnsserverforwarder_abstract>>
+| <<dscyml_dnsserverprimaryzones>>           | <<dscyml_dnsserverprimaryzones_abstract>>
+| <<dscyml_dnsserverrecords>>                | <<dscyml_dnsserverrecords_abstract>>
 | <<dscyml_dnsserverroothints>>              | <<dscyml_dnsserverroothints_abstract>>
 | <<dscyml_dnsserversettings>>               | <<dscyml_dnsserversettings_abstract>>
 // | <<dscyml_dscdiagnostic>>                | <<dscyml_dscdiagnostic_abstract>>
@@ -128,24 +145,30 @@ ifndef::env-github[]
 // | <<dscyml_jeaendpoints>>                 | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                     | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                      | <<dscyml_network_abstract>>
+| <<dscyml_mountimages>>                     | <<dscyml_mountimages_abstract>>
 | <<dscyml_networkipconfiguration>>          | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_opticaldiskdrives>>               | <<dscyml_opticaldiskdrives_abstract>>
 | <<dscyml_registrypolicies>>                | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                  | <<dscyml_registryvalues_abstract>>
 | <<dscyml_restartsystem>>                   | <<dscyml_restartsystem_abstract>>
+| <<dscyml_scheduledtasks>>                  | <<dscyml_scheduledtasks_abstract>>
 // | <<dscyml_scripts>>                      | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                 | <<dscyml_securitybase_abstract>>
+| <<dscyml_smbshares>>                       | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
 | <<dscyml_sqlserver>>                       | <<dscyml_sqlserver_abstract>>
 | <<dscyml_updateservices>>                  | <<dscyml_updateservices_abstract>>
-// | <<dscyml_wds>>                          | <<dscyml_wds_abstract>>
+| <<dscyml_wds>>                             | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>          | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>              | <<dscyml_webapplications_abstract>>
 // | <<dscyml_websites>>                     | <<dscyml_websites_abstract>>
 // | <<dscyml_webvirtualdirectories>>        | <<dscyml_webvirtualdirectories_abstract>>
+| <<dscyml_windowseventforwarding>>          | <<dscyml_windowseventforwarding_abstract>>
 | <<dscyml_windowseventlogs>>                | <<dscyml_windowseventlogs_abstract>>
-// | <<dscyml_windowsfeatures>>              | <<dscyml_windowsfeatures_abstract>>
-// | <<dscyml_windowsservices>>              | <<dscyml_windowsservices_abstract>>
+| <<dscyml_windowsfeatures>>                 | <<dscyml_windowsfeatures_abstract>>
+| <<dscyml_windowsoptionalfeatures>>         | <<dscyml_windowsoptionalfeatures_abstract>>
+| <<dscyml_windowsservices>>                 | <<dscyml_windowsservices_abstract>>
 // | <<dscyml_xmlcontent>>                   | <<dscyml_xmlcontent_abstract>>
 
 |===
@@ -158,15 +181,18 @@ include::AddsDomainUsers.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
+include::Bitlocker.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
-//include::ComputerSettings.adoc[leveloffset=+2]
+include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]
 //include::DfsNamespaces.adoc[leveloffset=+2]
 //include::DhcpServer.adoc[leveloffset=+2]
 include::Disks.adoc[leveloffset=+2]
-//include::DnsServer.adoc[leveloffset=+2]
 include::DnsServerAdZones.adoc[leveloffset=+2]
 include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
+include::DnsServerForwarder.adoc[leveloffset=+2]
+include::DnsServerPrimaryZones.adoc[leveloffset=+2]
+include::DnsServerRecords.adoc[leveloffset=+2]
 include::DnsServerRootHints.adoc[leveloffset=+2]
 include::DnsServerSettings.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]
@@ -183,24 +209,30 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
+include::MountImages.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
+include::OpticalDiskDrives.adoc[leveloffset=+2]
 include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 include::RestartSystem.adoc[leveloffset=+2]
+include::ScheduledTasks.adoc[leveloffset=+2]
 //include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
+include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
 include::SqlServer.adoc[leveloffset=+2]
 include::UpdateServices.adoc[leveloffset=+2]
-//include::Wds.adoc[leveloffset=+2]
+include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
+include::WindowsEventForwarding.adoc[leveloffset=+2]
 include::WindowsEventLogs.adoc[leveloffset=+2]
-//include::WindowsFeatures.adoc[leveloffset=+2]
-//include::WindowsServices.adoc[leveloffset=+2]
+include::WindowsFeatures.adoc[leveloffset=+2]
+include::WindowsOptionalFeatures.adoc[leveloffset=+2]
+include::WindowsServices.adoc[leveloffset=+2]
 //include::XmlContent.adoc[leveloffset=+2]
 
 endif::[]

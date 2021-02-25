@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: DnsServerAdZones
-// ========================================
+// ============================================
 
 :YmlCategory: DnsServerAdZones
 
@@ -13,15 +13,11 @@
 .{YmlCategory} sets AD integrated zones on a given DNS server.
 
 
-// reference links as variables for using more than once
-:ref_xDnsServerADZone:  https://github.com/dsccommunity/xDnsServer#xdnsserveradzone[xDnsServerADZone]
-
-
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerAdZones
 | DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | {ref_xDnsServerADZone}
+| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserveradzone[xDnsServerADZone]
 |===
 
 
@@ -35,9 +31,9 @@
 | Allowed Values
 
 | [[dscyml_dnsserveradzones_adzones, {YmlCategory}/AdZones]]<<dscyml_dnsserveradzones_adzones_details, AdZones>>
-|
+| Mandatory
 | Hashtable[]
-| Set of {ref_xDnsServerADZone}
+| List of AD integrated zones
 |
 
 | DomainCredential
@@ -66,13 +62,6 @@
 | Name of the AD DNS zone
 |
 
-| Ensure
-|
-| String
-| Whether the AD zone should be present or removed
-| - *Present* (default)
-  - Absent
-
 | DynamicUpdate
 |
 | String
@@ -92,14 +81,14 @@
 
 | DirectoryPartitionName
 |
-|
+| String
 | Name of the directory partition on which to store the zone. +
   Use this parameter when the ReplicationScope parameter has a value of Custom.
 |
 
 | ComputerName
 |
-|
+| String
 | Specifies a DNS server. +
   If you do not specify this parameter, the command runs on the local system.
 |
@@ -110,6 +99,13 @@
 | Specifies the credential to use to create the AD zone on a remote computer. +
   This parameter can only be used when you also are passing a value for the ComputerName parameter.
 |
+
+| Ensure
+|
+| String
+| Whether the AD zone should be present or removed
+| - *Present* (default)
+  - Absent
 
 |===
 
