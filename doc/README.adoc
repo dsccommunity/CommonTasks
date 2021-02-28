@@ -90,6 +90,7 @@ ifdef::env-github[]
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SmbShares.adoc#, SmbShares>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
+- <<SqlConfigurations.adoc#, SqlConfigurations>>
 - <<SqlServer.adoc#, SqlServer>>
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
@@ -157,6 +158,7 @@ ifndef::env-github[]
 | <<dscyml_smbshares>>                       | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                | <<dscyml_securitypolicies_abstract>>
 | <<dscyml_softwarepackages>>                | <<dscyml_softwarepackages_abstract>>
+| <<dscyml_sqlconfigurations>>               | <<dscyml_sqlconfigurations_abstract>>
 | <<dscyml_sqlserver>>                       | <<dscyml_sqlserver_abstract>>
 | <<dscyml_updateservices>>                  | <<dscyml_updateservices_abstract>>
 | <<dscyml_wds>>                             | <<dscyml_wds_abstract>>
@@ -221,6 +223,7 @@ include::ScheduledTasks.adoc[leveloffset=+2]
 include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
+include::SqlConfigurations.adoc[leveloffset=+2]
 include::SqlServer.adoc[leveloffset=+2]
 include::UpdateServices.adoc[leveloffset=+2]
 include::Wds.adoc[leveloffset=+2]

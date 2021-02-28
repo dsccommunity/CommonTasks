@@ -1,0 +1,126 @@
+// CommonTasks YAML Reference: SqlConfigurations
+// =============================================
+
+:YmlCategory: SqlConfigurations
+
+
+[[dscyml_sqlconfigurations, {YmlCategory}]]
+= DSC Resource 'SqlConfigurations'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlconfigurations_abstract]]
+.{YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                             https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlconfiguration:                 https://github.com/dsccommunity/SqlServerDsc/wiki/SqlConfiguration[SqlConfiguration]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlConfigurations
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlconfiguration}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of an option is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
+
+| [[dscyml_sqlserver_options, {YmlCategory}/Options]]<<dscyml_sqlserver_options_details, Options>>
+| 
+| Hashtable[]
+| List of SQL Server Configuration Options on a SQL Server instance.
+|
+|===
+
+
+[[dscyml_sqlserver_options_details]]
+.Attributes of category '<<dscyml_sqlserver_options>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| InstanceName
+| Key
+| String
+| Name of the SQL Server instance to be configured.
+|
+
+| OptionName
+| Key
+| String
+| The name of the SQL Server Database Engine instance configuration option. +
+  For all possible values reference the article https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/server-configuration-options-sql-server[Server Configuration Options (SQL Server)] or run `sp_configure`.	
+|
+
+| OptionValue
+| Mandatory
+| SInt32
+| The desired value of the configuration option.	
+|
+
+| ServerName
+|
+| String
+| The hostname of the SQL Server to be configured. 
+| Default: current computer name.
+
+| RestartService
+|
+| Boolean
+| Determines whether the instance should be restarted after updating the configuration option.
+| - True
+  - *False* (default)
+
+| RestartTimeout
+|
+| UInt32
+| The length of time, in seconds, to wait for the service to restart.
+| Default: `120`
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlConfiguration:
+  DefaultInstanceName: MSSQLSERVER
+  Options:
+  - InstanceName:   SecondInstance
+    OptionName:     max degree of parallelism
+    OptionValue:    1
+    RestartService: true
+  - OptionName:     max degree of parallelism
+    OptionValue:    2
+  - OptionName:     backup compression default
+    OptionValue:    1
+----

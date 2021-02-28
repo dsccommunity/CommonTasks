@@ -485,6 +485,17 @@ All values must be expressed in upper case.
 | Specifies optional https://github.com/dsccommunity/SqlServerDsc/wiki/SqlSetup#skip-rules[skip rules] during setup.
 |
 
+| FileStreamAccessLevel
+|
+| Int16
+| FILESTREAM Access Level Value
+
+  - 0 -> Disables FILESTREAM support for this instance
+  - 1 -> Enables FILESTREAM for Transact-SQL access
+  - 2 -> Enables FILESTREAM for Transact-SQL and local file system access
+  - 3 -> Enables FILESTREAM for Transact-SQL, local and remote file system access
+| 0 - 3
+
 |===
 
 
@@ -554,4 +565,5 @@ SqlServer:
     FeatureFlag:
     UseEnglish: true
     SkipRule:
+    FileStreamAccessLevel: 2
 ----

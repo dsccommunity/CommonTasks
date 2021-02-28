@@ -158,3 +158,20 @@ WindowsServices:
     - Name: Dummy2
       StartupType: Manual
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  WindowsServices:
+    merge_hash: deep
+  WindowsServices\Services:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+----
