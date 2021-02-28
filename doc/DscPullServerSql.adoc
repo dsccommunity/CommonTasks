@@ -66,7 +66,9 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Mandatory
 | String
 | DSC pull server registration key +
-  The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` 
+  The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` +
+  This should be a string with enough entropy (randomness) to protect the registration of clients to the pull server. 
+  Using a GUID is recommended.
 |
 
 | SqlServer

@@ -13,12 +13,35 @@
 .{YmlCategory} enables you to configure a server to become an Event Collector role and create complex Subscriptions.
 
 
+:ref_xWindowsEventForwarding:   https://github.com/dsccommunity/xWindowsEventForwarding[xWindowsEventForwarding]
+
+
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsEventForwarding
-| DSC Resource   | https://github.com/dsccommunity/xWindowsEventForwarding[xWindowsEventForwarding]
+| DSC Resource   | {ref_xWindowsEventForwarding}
 | Documentation  | https://github.com/dsccommunity/xWindowsEventForwarding#details[xWEFCollector, xWEFSubscription]
 |===
+
+
+[NOTE]
+====
+Creating a subscription can finished with the following warning:
+
+[source]
+----
+The subscription is saved successfully, but it can't be activated at this time.
+Use retry-subscription command to retry the subscription. 
+If subscription is running, you can also use get-subscriptionruntimestatus command to get extended error status.
+Error = 0x3ae8.
+----
+
+This is a problem with the used `wecutil` tool in DSC resource {ref_xWindowsEventForwarding}.
+In this case open the subscription properties in the EventViewer GUI and press `OK`.
+Now the subscription is activated.
+
+During `Test-DSCConfiguration` such a none working subscription could not be identified.
+====
 
 
 .Attributes of category '{YmlCategory}'
@@ -36,8 +59,12 @@
 | Defines the type of the current node.
 
   - On a `Collector` node at least one `Subscription` must be defined.
-  - On a `Source` node the machine account of the `Collector` will be added to the local
-# group `Event Log Readers`. 
+  - On a `Source` node the machine account of the `Collector` will be added to the local group `Event Log Readers`.
+
+[NOTE]
+====
+NodeType `Source` is only supported for `CollectorInitiated` subscriptions.
+====
 | - Collector
   - Source
 
@@ -48,6 +75,16 @@
 | Machine account of the Collector node.
 |
 
+| FixWsManUrlAcl
+|
+| Boolean
+| Fix WsMan communication problem on Windows Server +
+  see https://docs.microsoft.com/en-us/troubleshoot/windows-server/admin-development/events-not-forwarded-by-windows-server-collector[KB4494462: Events are not forwarded if the collector is running Windows Server]
+
+NOTE: Fix is only supported on NodeType `Collector`
+| - True
+  - *False*
+
 | [[dscyml_windowseventforwarding_subscriptions, {YmlCategory}/Subscriptions]]<<dscyml_windowseventforwarding_subscriptions_details, Subscriptions>>
 |
 | Hashtable[]
@@ -55,7 +92,6 @@
 
 NOTE: Subscriptions are only supported on NodeType `Collector`
 |
-
 |===
 
 
@@ -168,7 +204,21 @@ NOTE: Subscriptions are only supported on NodeType `Collector`
 | CredentialsType
 |
 | String
-| Sets the credential type used for authenticating to WinRM
+| Sets the credential type used for authenticating to WinRM +
+
+[IMPORTANT]
+====
+This attribute is only supported for 'CollectorInitiated' subscriptions.
+
+The used DSC resource {ref_xWindowsEventForwarding} has a bug and requires a patch to support `SourceInitiated` subscriptions.
+If you use the unpatched version `1.0.0.0` you get the error message:
+
+  Failed to save subscription. Error = 0xd. +
+  The data is invalid.
+
+In file `DSCResources\MSFT_xWEFSubscription\MSFT_xWEFSubscription.psm1` move line 171 (`<CredentialsType>$CredentialsType</CredentialsType>`) before line 177 (`<EventSources>`) to fix the bug.
+====
+
 | - *Default* (default)
   - Basic
   - Negotiate
@@ -203,7 +253,7 @@ NOTE: Subscriptions are only supported on NodeType `Collector`
 |===
 
 
-.Example
+.Example of `Collector` node with `CollectorInitiated` subscriptions
 [source, yaml]
 ----
 WindowsEventForwarding:
@@ -215,4 +265,58 @@ WindowsEventForwarding:
       Address: 
         - tester.contoso.com
         - tester.contoso.com
+----
+
+
+.Example of `Source` node with `CollectorInitiated` subscriptions
+[source, yaml]
+----
+WindowsEventForwarding:
+  NodeType:      Source
+  CollectorName: contoso\collectorserver$
+----
+
+
+.Example of `Collector` node with `SourceInitiated` subscriptions
+[source, yaml]
+----
+WindowsEventForwarding:
+  NodeType: Collector
+  FixWsManUrlAcl: true
+  Subscriptions:
+    - SubscriptionID: Domain Computer Events
+      Ensure: Present
+      Description: Important security events from domain computers
+      SubscriptionType: SourceInitiated
+      AllowedSourceDomainComputers: 'O:NSG:BAD:P(A;;GA;;;DC)(A;;GA;;;DD)S:'  # Domain Computers & Domain Controllers
+      Query:
+        - 'Security:*[System[(Level=1  or Level=2 or Level=3)]]'
+----
+
+
+.Example of `Source` node with `SourceInitiated` subscriptions
+[source, yaml]
+----
+RegistryPolicies:
+  Values:
+    - Key: "Software\\Policies\\Microsoft\\Windows\\EventLog\\EventForwarding\\SubscriptionManager"
+      ValueName: 1
+      TargetType: ComputerConfiguration
+      ValueData: 'Server=http://collectorserver.contoso.com:5985/wsman/SubscriptionManager/WEC,Refresh=300'
+      ValueType: String
+      Ensure: Present
+
+    - Key: "Software\\Policies\\Microsoft\\Windows\\EventLog\\Security"
+      ValueName: ChannelAccess
+      TargetType: ComputerConfiguration
+      ValueData: 'O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)'
+      ValueType: String
+      Ensure: Present
+
+    - Key: "System\\CurrentControlSet\\Services\\EventLog\\Security"
+      ValueName: CustomSD
+      TargetType: ComputerConfiguration
+      ValueData: 'O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)'
+      ValueType: String
+      Ensure: Present
 ----

@@ -8,7 +8,7 @@ configuration Wds
 
         [Parameter(Mandatory=$false)]
         [pscredential]
-        $RunAsUser = $null,
+        $RunAsUser,
 
         [Parameter(Mandatory=$false)]
         [boolean]
@@ -100,10 +100,21 @@ configuration Wds
         Ensure               = 'Present'
     }
 
+    if( $null -ne $RunAsUser )
+    {
+        # the RunAs user requires local administrator rights
+        Group addRunAsUserToLocalAdminsGroup
+        {
+            GroupName        = 'Administrators'
+            Ensure           = 'Present'
+            MembersToInclude = $RunAsUser.UserName
+        }        
+    }
+
     WdsInitialize wdsInit
     {
         IsSingleInstance     = 'Yes'
-        PsDscRunAsCredential = $runAsCred
+        PsDscRunAsCredential = $RunAsUser
         Path                 = $RemInstPath
         Authorized           = $true
         Standalone           = $false
@@ -127,6 +138,7 @@ configuration Wds
         foreach( $image in $BootImages )
         {
             $image.DependsOn = $dependsOnWdsService
+
             $executionName = "bootImg_$($image.NewImageName -replace '[().:\s]', '')"
 
             (Get-DscSplattedResource -ResourceName WdsBootImage -ExecutionName $executionName -Properties $image -NoInvoke).Invoke($image)
@@ -201,6 +213,7 @@ configuration Wds
         foreach( $image in $InstallImages )
         {
             $image.DependsOn = $dependsOnWdsService
+
             $executionName = "instImg_$($image.NewImageName -replace '[().:\s]', '')"
 
             (Get-DscSplattedResource -ResourceName WdsInstallImage -ExecutionName $executionName -Properties $image -NoInvoke).Invoke($image)
@@ -254,7 +267,7 @@ configuration Wds
             {
                 if( [string]::IsNullOrWhiteSpace($DomainName) )
                 {
-                    throw "ERROR: DomainName shall be specified to make a domain join."
+                    throw "ERROR: $($devRes.DeviceName) - DomainName shall be specified to make a domain join."
                 }
 
                 $devRes.Domain = $DomainName
@@ -263,7 +276,15 @@ configuration Wds
                 {
                     $devRes.OU = $DefaultDeviceOU
                 }
-
+            }
+            
+            if( [string]::IsNullOrWhiteSpace($devRes.User) )
+            {
+                # remove JoinRights if no user is specified
+                $devRes.Remove( 'JoinRights' )
+            }
+            else
+            {
                 if( [string]::IsNullOrWhiteSpace($devRes.JoinRights) )
                 {
                     $devRes.JoinRights = 'JoinOnly'
@@ -273,6 +294,11 @@ configuration Wds
             if( [string]::IsNullOrWhiteSpace($devRes.PxePromptPolicy) )
             {
                 $devRes.PxePromptPolicy = 'NoPrompt'
+            }
+
+            if( $null -ne $RunAsUser )
+            {
+                $devRes.PsDscRunAsCredential = $RunAsUser
             }
 
             $executionName = "wdsRes_$($devRes.DeviceName -replace '[().:\s]', '')"

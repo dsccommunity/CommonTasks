@@ -13,10 +13,14 @@
 .{YmlCategory} contains the Windows Deployment Services DSC Resource Module.
 
 
+// reference links as variables for using more than once
+:ref_WDSDsc:    https://github.com/nyanhp/WDSDsc[WDSDsc]
+
+
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         |https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Wds
-| DSC Resource   | https://github.com/nyanhp/WDSDsc[WDSDsc], https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Wds
+| DSC Resource   | {ref_WDSDsc}, https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
 | Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize],
                    https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage],
                    https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage],
@@ -31,6 +35,14 @@
 https://docs.microsoft.com/de-de/windows-server/administration/server-core/server-core-removed-roles[WDS-Deployment Role Services are not part of Windows Server Core!]
 
 Use of this DSC Resource on a Windows Server Core installation is not supported.
+====
+
+
+[IMPORTANT]
+====
+This DSC resource requires an updated version (> 0.11.0) of the {ref_WDSDsc} resource.
+
+Until the next relase of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
 ====
 
 
@@ -52,18 +64,18 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 | RunAsUser
 |
 | PSCredential
-| Run WDS initialization under a specified set of credentials
+| Run WDS initialization and WDS device reservation under a specified set of credentials
+
+IMPORTANT: WDS requires for initialization and device reservation a valid domain user account with administrator privileges.
+           The specified user will be assigned to local administrators group to get the sufficient privileges.
 |
 
 | UseExistingDhcpScope
 |
 | Boolean
 | Use existing DHCP Scope defined outside of this DSC resource. 
-+
-[IMPORTANT]
-====
-Must be set to `true` if the DHCP server should not installed on the computer WDS server is running.
-====
+
+IMPORTANT: Must be set to `true` if the DHCP server should not installed on the computer WDS server is running.
 | - True
   - *False* (default)
 
@@ -373,7 +385,7 @@ Must be set to `true` if the DHCP server should not installed on the computer WD
 | Unique identifier of the device +
 [NOTE]
 ====
-Can be empty if the `MacAddress` is used as device identifier.
+Should be empty if a MAC-Address is used as device identifier.
 ====
 |
 
@@ -381,11 +393,7 @@ Can be empty if the `MacAddress` is used as device identifier.
 | Key +
   (only if `DeviceID` is empty)
 | String
-| MAC address of the device +
-[IMPORTANT]
-====
-Must be empty if the DHCP server should not installed on the computer WDS server is running.
-====
+| MAC address of the device
 |
 
 | DeviceName
@@ -404,32 +412,19 @@ If the DHCP Server is not running on the current computer leave this field empty
 ====
 |
 
-| User
-|
-| String
-| User account to join the domain with
-|
-
 | PxePromptPolicy
 |
 | String
-| The policy to adopt
+| Specifies the prompt policy for this computer to boot in PXE.
 | - Abort
   - *NoPrompt* (default)
   - OptIn
   - OptOut
 
-| JoinRights
-|
-| String
-| The rights to assign to the join user
-| - Full
-  - *JoinOnly* (default)
-
 | Group
 |
 | String
-| The group of the device
+| Specifies the group name of the device associated with the pre-staged client.
 |
 
 | WdsClientUnattend
@@ -444,24 +439,44 @@ If the DHCP Server is not running on the current computer leave this field empty
 | The relative path of the boot image
 |
 
-| OU
-|
-| String
-| The OU to join the device to
-|
-
 | ReferralServer
 |
 | String
-| The referral server to configure
+| Specifies the name of a referral server. +
+  If you specify a referral server, the computer connects to this Windows Deployment Services server to download the network boot program and boot image by using Trivial File Transfer Protocol (TFTP).
 |
 
 | JoinDomain
 |
 | Boolean
-|
+| Indicates whether to join the computer to a domain as the account specified by the User parameter.
 | - True
   - False
+
+| OU
+|
+| String
+| Specifies the distinguished name of an OU. +
+  The cmdlet creates the computer account object in this location. 
+  If you do not specify this parameter, Windows Deployment Services creates the account in the default computer container in the domain of the server that runs Windows Deployment Services.
+|
+
+| User
+|
+| String
+| User name to join the domain with
+|
+
+| JoinRights
+|
+| String
+| Specifies the rights to assign to the account.
+  The acceptable values for this parameter are:
+
+- `Full` -> Assigns full access rights, which includes the right to join the computer to the domain at any time.
+- `JoinOnly` Requires the administrator to reset the computer account before the user can join the computer to the domain.
+| - Full
+  - JoinOnly
 
 | Ensure
 |
@@ -531,10 +546,42 @@ Wds:
       IPAddress:       192.168.12.22
       PxePromptPolicy: NoPrompt
       JoinDomain:      true
+      OU:              OU=SpecialClients,OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
       JoinRights:      JoinOnly
+      User:            contoso\joinuser
       Ensure:          Present
     - DeviceName:      Server02
       DeviceID:        123456781234-567812345678
-      JoinDomain:      true
-      OU:              OU=Servers,OU=Computer,OU=Contoso,DC=contoso,DC=com
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  Wds:
+    merge_hash: deep
+  Wds\BootImages:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - NewImageName
+  Wds\ImageGroups:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+  Wds\InstallImages:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - NewImageName
+  Wds\DeviceReservations:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - DeviceName
 ----
