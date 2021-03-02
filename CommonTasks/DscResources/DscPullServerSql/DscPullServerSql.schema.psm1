@@ -101,7 +101,7 @@
         ConfigSection = 'AppSettings'
         Key           = 'dbprovider'
         Value         = 'System.Data.OleDb'
-        WebsitePath   = 'IIS:\sites\PSDSCPullServer'
+        WebsitePath   = "IIS:\sites\$EndpointName"
         DependsOn     = '[xDSCWebService]PSDSCPullServer'
     }
 

@@ -1,5 +1,8 @@
 configuration SqlConfigurations {
     param (
+        [Parameter()]
+        [String]$DefaultInstanceName = 'MSSQLSERVER',
+
         [Parameter(Mandatory)]
         [hashtable[]]$Options
     )
@@ -17,7 +20,13 @@ configuration SqlConfigurations {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($option in $Options) {
+    foreach ($option in $Options) 
+    {
+        if( [string]::IsNullOrWhiteSpace($option.InstanceName)  )
+        {
+            $option.InstanceName = $DefaultInstanceName
+        }
+
         $executionName = "$($option.InstanceName)_$($option.OptionName -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlConfiguration -ExecutionName $executionName -Properties $option -NoInvoke).Invoke($option)
     }
