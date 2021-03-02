@@ -2,7 +2,7 @@
 {
     param
     (
-        [Parameter()]
+        [Parameter(Mandatory)]
         [hashtable]
         $Setup
     )
@@ -10,7 +10,7 @@
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SqlServerDsc
 
-    if( $Setup -ne $null )
+    if( $null -ne $Setup )
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
         $Setup = @{}+$Setup
@@ -31,14 +31,14 @@
                 TestScript = 
                 {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-WmiObject -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
-                    $wmi = Get-WmiObject -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
+                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
                     
-                    Write-Verbose "The current access level of FILESTREAM is set to $($wmi.AccessLevel) and the file share name is '$($wmi.ShareName)'."
+                    Write-Verbose "The current access level of FILESTREAM is set to $($cim.AccessLevel) and the file share name is '$($cim.ShareName)'."
                     Write-Verbose "Expected access level of FILESTREAM is $using:fileStreamAccessLevel."
                     
-                    if( $wmi.AccessLevel -eq $using:fileStreamAccessLevel )
+                    if( $cim.AccessLevel -eq $using:fileStreamAccessLevel )
                     {
                         return $true  
                     }
@@ -48,13 +48,13 @@
                 SetScript = 
                 {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-WmiObject -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
-                    $wmi = Get-WmiObject -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
+                    $cmi = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
 
                     Write-Verbose "Set access level of FILESTREAM to $using:fileStreamAccessLevel."
 
-                    $wmi.EnableFilestream( $using:fileStreamAccessLevel, $using:instanceName)
+                    $cmi.EnableFilestream( $using:fileStreamAccessLevel, $using:instanceName)
                     Get-Service -Name $using:instanceName | Restart-Service -Force
                      
                     Invoke-Sqlcmd "EXEC sp_configure filestream_access_level, $((2,$fileStreamAccessLevel | Measure-Object -Min).Minimum)"

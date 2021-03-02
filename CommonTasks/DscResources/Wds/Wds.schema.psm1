@@ -6,51 +6,51 @@ configuration Wds
         [string]
         $RemInstPath,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [pscredential]
         $RunAsUser,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [boolean]
         $UseExistingDhcpScope = $false,
         
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $ScopeStart,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $ScopeEnd,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $ScopeId,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $SubnetMask,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $DomainName,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [string]
         $DefaultDeviceOU,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [hashtable[]]
         $BootImages,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [hashtable[]]
         $ImageGroups,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [hashtable[]]
         $InstallImages,
 
-        [Parameter(Mandatory=$false)]
+        [Parameter()]
         [hashtable[]]
         $DeviceReservations
     )

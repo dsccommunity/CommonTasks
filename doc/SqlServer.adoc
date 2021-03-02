@@ -45,8 +45,8 @@ https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-ac
 | Allowed Values
 
 | [[dscyml_sqlserver_setup, {YmlCategory}/Setup]]<<dscyml_sqlserver_setup_details, Setup>>
-| 
-| hashtable
+| Mandatory
+| Hashtable
 | The {ref_sqlserverdsc_sqlsetup} DSC resource installs SQL Server on the target node.
 |
 |===
