@@ -34,13 +34,24 @@
                     [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
                     $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
-                    
-                    Write-Verbose "The current access level of FILESTREAM is set to $($cim.AccessLevel) and the file share name is '$($cim.ShareName)'."
-                    Write-Verbose "Expected access level of FILESTREAM is $using:fileStreamAccessLevel."
-                    
+
+                    Write-Verbose "Expected FilestreamAccessLevel is: $using:fileStreamAccessLevel"
+ 
+                    Write-Verbose "Current FilestreamAccessLevel is: $($cim.AccessLevel) with file share name '$($cim.ShareName)'."
+                   
                     if( $cim.AccessLevel -eq $using:fileStreamAccessLevel )
                     {
-                        return $true  
+                        $sqlServer = "localhost$( if($using:instanceName -ne 'MSSQLSERVER') { "\$using:instanceName" })"
+
+                        $sqlFileStreamAccessLevel = Invoke-Sqlcmd "SELECT SERVERPROPERTY( 'FilestreamEffectiveLevel' ) AS FileStreamAccessLevel" -ServerInstance $sqlServer | `
+                                                    Select-Object -ExpandProperty FileStreamAccessLevel
+
+                        Write-Verbose "The current SERVERPROPERTY 'FilestreamEffectiveLevel' is: $sqlFileStreamAccessLevel."
+
+                        if( $sqlFileStreamAccessLevel -eq $((2,$using:fileStreamAccessLevel | Measure-Object -Min).Minimum) )
+                        {
+                            return $true
+                        }
                     }
 
                     return $false
@@ -50,15 +61,19 @@
                     # get installed SQL Server version
                     [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
-                    $cmi = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
+                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
 
-                    Write-Verbose "Set access level of FILESTREAM to $using:fileStreamAccessLevel."
+                    Write-Verbose "Set FilestreamAccessLevel to: $using:fileStreamAccessLevel."
 
-                    $cmi.EnableFilestream( $using:fileStreamAccessLevel, $using:instanceName)
+                    Invoke-CimMethod -InputObject $cim -MethodName 'EnableFilestream' `
+                                     -Arguments @{ AccessLevel = $using:fileStreamAccessLevel; ShareName = $using:instanceName }
+
                     Get-Service -Name $using:instanceName | Restart-Service -Force
                      
-                    Invoke-Sqlcmd "EXEC sp_configure filestream_access_level, $((2,$fileStreamAccessLevel | Measure-Object -Min).Minimum)"
-                    Invoke-Sqlcmd "RECONFIGURE"
+                    $sqlServer = "localhost$( if($using:instanceName -ne 'MSSQLSERVER') { "\$using:instanceName" })"
+
+                    Invoke-Sqlcmd -Query "EXEC sp_configure filestream_access_level, $((2,$using:fileStreamAccessLevel | Measure-Object -Min).Minimum)" -ServerInstance $sqlServer
+                    Invoke-Sqlcmd -Query "RECONFIGURE" -ServerInstance $sqlServer
                 }
                 GetScript = { return 'NA' }   
                 DependsOn = '[SqlSetup]sqlSetup'
