@@ -47,3 +47,17 @@ WindowsFeatures:
   - -Web-Server   # removes WindowsFeature Web-Server (IIS)
   - Hyper-V       # installs WindowsFeature Hyper-V
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  WindowsFeatures:
+    merge_hash: deep
+  WindowsFeatures\Name:
+    merge_basetype_array: Unique
+----

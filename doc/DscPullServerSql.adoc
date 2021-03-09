@@ -13,6 +13,10 @@
 .{YmlCategory} configures an OData endpoint for DSC service to make a node a DSC pull server.
 
 
+:ref_xDscWebService:  https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService]
+
+
+
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscPullServerSql
@@ -21,7 +25,7 @@
                    https://github.com/dsccommunity/xWebAdministration[xWebAdministration],
                    https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File],
                    https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
-| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService],
+| Documentation  | {ref_xDscWebService},
                    https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue],
                    https://github.com/dsccommunity/xWebAdministration#xwebapppool[xWebAppPool],
                    https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
@@ -47,6 +51,14 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Key
 | String
 | The desired web service name.
+
+[IMPORTANT]
+====
+The `EndpointName` is the name of the IIS website.
+
+The URL to access the Pullserver webservice is always `http(s)://<servername>:<port>/PSDSCPullServer.svc`.
+These values are currently hard coded in {ref_xDscWebService}.
+====      
 | Default: `PSDSCPullServer`
 
 | Port
@@ -66,7 +78,9 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Mandatory
 | String
 | DSC pull server registration key +
-  The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` 
+  The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` +
+  This should be a string with enough entropy (randomness) to protect the registration of clients to the pull server. 
+  Using a GUID is recommended.
 |
 
 | SqlServer

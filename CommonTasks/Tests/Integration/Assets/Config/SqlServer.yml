@@ -60,3 +60,4 @@
   FeatureFlag:
   UseEnglish: true
   SkipRule:
+  FileStreamAccessLevel: 2

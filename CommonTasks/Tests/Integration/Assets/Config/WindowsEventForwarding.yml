@@ -1,5 +1,6 @@
 # Test: SourCollectorce Node
 NodeType: Collector
+FixWsManUrlAcl: true
 Subscriptions:
   - SubscriptionID: TestSub
     Ensure: Present

@@ -41,7 +41,7 @@
 
 
 [[dscyml_addsdomainusers_users_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser] for more
+.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser] for more attributes
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -88,6 +88,14 @@
 | Specifies the User Principal Name (UPN) assigned to the user account (ldapDisplayName 'userPrincipalName').
 |
 
+| MemberOf
+| 
+| String[]
+| List of Domain Groups of the user.
+
+NOTE: Only domain groups of the member domain are supported.
+|
+
 |===
 
 
@@ -98,6 +106,11 @@ AddsDomainUsers:
   Users:
     - UserName: test1
       Password: '[ENC=PE9ianM...=]'
+      MemberOf:
+        - Domain Users
     - UserName: test2
       Password: '[ENC=PE9ianM...=]'
+      MemberOf:
+        - Domain Admins
+        - Domain Users
 ----
