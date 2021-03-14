@@ -2,67 +2,117 @@ configuration AddsDomainUsers
 {
     param
     (
-        [hashtable[]]
-        $Users
+        [Parameter(Mandatory)]
+        [String]
+        $DomainDN,
+
+        [Hashtable[]]
+        $Users,
+
+        [Hashtable]
+        $KDSKey,
+
+        [Hashtable[]]
+        $ManagedServiceAccounts
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
     
-    $domainName = lookup AddsDomain/DomainName -DefaultValue $null
 
-    foreach ($user in $Users)
-    {
-        # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $user = @{}+$user
-        
-        if ([string]::IsNullOrWhiteSpace($user.UserName)) { continue }
+    function AddMemberOf {
+        param (
+            [String]   $ExecutionName,
+            [String]   $ExecutionType,
+            [String]   $AccountName,
+            [String[]] $MemberOf
+        )
 
-        if (-not $user.DomainName -and $domainName)
+        if( $null -ne $MemberOf -and $MemberOf.Count -gt 0 )
         {
-            $user.DomainName = $domainName
-        }
-
-        # save group list
-        $memberOf = $user.MemberOf
-        $user.Remove( 'MemberOf' )
-
-        $executionName = "adUsr_$($user.UserName)"
-
-        (Get-DscSplattedResource -ResourceName ADUser -ExecutionName $executionName -Properties $user -NoInvoke).Invoke($user)
-
-        if( $null -ne $memberOf -and $memberOf.Count -gt 0 )
-        {
-            $userName = $user.UserName
-
-            Script "$($executionName)_MemberOf"
+            Script "$($ExecutionName)_MemberOf"
             {
                 TestScript = 
                 {
                     # get current member groups in MemberOf 
-                    $currentGroups = Get-ADPrincipalGroupMembership -Identity $using:userName | `
-                                     Where-Object { $using:memberOf -contains $_.SamAccountName } | `
+                    $currentGroups = Get-ADPrincipalGroupMembership -Identity $using:AccountName | `
+                                     Where-Object { $using:MemberOf -contains $_.SamAccountName } | `
                                      Select-Object -ExpandProperty SamAccountName
 
-                    Write-Verbose "User '$using:userName' is member of required groups: $($currentGroups -join ', ')"
+                    Write-Verbose "ADPrincipal '$using:AccountName' is member of required groups: $($currentGroups -join ', ')"
 
-                    $missingGroups = $using:memberOf | Where-Object { -not ($currentGroups -contains $_) }
+                    $missingGroups = $using:MemberOf | Where-Object { -not ($currentGroups -contains $_) }
 
                     if( $missingGroups.Count -eq 0 )
                     {  
                         return $true
                     }
 
-                    Write-Verbose "User '$using:userName' is not member of required groups: $($missingGroups -join ', ')"
+                    Write-Verbose "ADPrincipal '$using:AccountName' is not member of required groups: $($missingGroups -join ', ')"
                     return $false
                 }
                 SetScript = 
                 {
-                    Add-ADPrincipalGroupMembership -Identity $using:userName -MemberOf $using:memberOf
+                    Add-ADPrincipalGroupMembership -Identity $using:AccountName -MemberOf $using:MemberOf
                 }
                 GetScript = { return 'NA' } 
-                DependsOn = "[ADUser]$executionName"  
+                DependsOn = "[$ExecutionType]$ExecutionName"
             }            
+        }
+    }
+
+    if( $null -ne $Users )
+    {
+        foreach ($user in $Users)
+        {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $user = @{}+$user
+            
+            $user.DomainName = $DomainDN
+
+            # save group list
+            $memberOf = $user.MemberOf
+            $user.Remove( 'MemberOf' )
+
+            $executionName = "adUser_$($user.UserName)"
+
+            (Get-DscSplattedResource -ResourceName ADUser -ExecutionName $executionName -Properties $user -NoInvoke).Invoke($user)
+
+            AddMemberOf -ExecutionName $executionName -ExecutionType ADUser -AccountName $user.UserName -MemberOf $memberOf
+        }
+    }
+
+    $dependsOnKdsKey = $null
+
+    if( $null -ne $KDSKey )
+    {
+        (Get-DscSplattedResource -ResourceName ADKDSKey -ExecutionName 'adKDSKey' -Properties $KDSKey -NoInvoke).Invoke($KDSKey)
+
+        $dependsOnKdsKey = '[ADKDSKey]adKDSKey'
+    }
+
+    if( $null -ne $ManagedServiceAccounts )
+    {
+        foreach ($svcAccount in $ManagedServiceAccounts)
+        {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $svcAccount = @{}+$svcAccount
+
+            # save group list
+            $memberOf = $svcAccount.MemberOf
+            $svcAccount.Remove( 'MemberOf' )
+
+            if( $null -ne $dependsOnKdsKey )
+            {
+                $svcAccount.DependsOn = $dependsOnKdsKey
+            }
+
+            $executionName = "adMSA_$($svcAccount.ServiceAccountName)"
+
+            (Get-DscSplattedResource -ResourceName ADManagedServiceAccount -ExecutionName $executionName -Properties $svcAccount -NoInvoke).Invoke($svcAccount)
+
+            # append $ to acoountname to identify it as MSA
+            AddMemberOf -ExecutionName $executionName -ExecutionType ADManagedServiceAccount -AccountName "$($svcAccount.ServiceAccountName)$" -MemberOf $memberOf
         }
     }
 }

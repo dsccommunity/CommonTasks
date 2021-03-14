@@ -2,21 +2,27 @@ configuration AddsOrgUnitsAndGroups
 {
     param
     (
-        [object[]]
+        [Parameter(Mandatory)]
+        [String]
+        $DomainDN,
+
+        [Hashtable[]]
         $OrgUnits,
 
-        [object[]]
+        [Hashtable[]]
         $Groups
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
-    $domainDn = lookup AddsDomain/DomainDn
+    # convert DN to Fqdn
+    $pattern = '(?i)DC=(?<name>\w+){1,}?\b'
+    $domainName = ([RegEx]::Matches($DomainDN, $pattern) | ForEach-Object { $_.groups['name'] }) -join '.'
 
     WaitForADDomain Domain
     {
-        DomainName = Lookup AddsDomain/DomainName
+        DomainName = $domainName
     }
 
     $script:ouDependencies = @()
@@ -71,12 +77,14 @@ configuration AddsOrgUnitsAndGroups
     
     foreach ($ou in $OrgUnits)
     {
-        if (-not $ou.Path) {
-            $ou.Path = Lookup -PropertyPath AddsDomain/DomainDn
+        if ( [string]::IsNullOrWhitespace($ou.Path) )
+        {
+            $ou.Path = $DomainDN
         }
 
-        if ($ou.Path -notmatch '(?<DomainPart>dc=\w+,dc=\w+)') {
-            $ou.Path = "$($ou.Path),$(Lookup -PropertyPath AddsDomain/DomainDn)"
+        if ($ou.Path -notmatch '(?<DomainPart>dc=\w+,dc=\w+)')
+        {
+            $ou.Path = "$($ou.Path),$DomainDN"
         }
 
         Get-OrgUnitSplat -Object $ou -ParentPath $ou.Path -SkipDepend
@@ -84,17 +92,22 @@ configuration AddsOrgUnitsAndGroups
 
     $dependencies = @()
 
-    foreach ($group in $Groups.Where({$_.groupscope -eq "DomainLocal"}))
+    foreach( $group in $Groups )
     {
-        $dependencies += "[ADGroup]'$($group.GroupName)'"
-        $group.DependsOn = $ouDependencies
-        $group.Path = '{0},{1}' -f $group.Path, $domainDn
-        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName "'$($group.GroupName)'" -Properties $group -NoInvoke).Invoke($group)
-    }
+        # remove case sensitivity from hashtables
+        $group = @{}+$group
 
-    foreach ($group in $Groups.Where( {$_.groupscope -eq "Global"}))
-    {
-        $group.Path = '{0},{1}' -f $group.Path, $domainDn
+        if( $group.GroupScope -eq "DomainLocal" )
+        {
+            $dependencies += "[ADGroup]'$($group.GroupName)'"
+            $group.DependsOn = $ouDependencies
+            $group.Path = '{0},{1}' -f $group.Path, $DomainDn
+        }
+        elseif( ($group.GroupScope -eq "Global") -or (-not [string]::IsNullOrWhiteSpace($group.Path)) )
+        {
+            $group.Path = '{0},{1}' -f $group.Path, $DomainDn
+        }
+
         (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName "'$($group.GroupName)'" -Properties $group -NoInvoke).Invoke($group)
     }
 }

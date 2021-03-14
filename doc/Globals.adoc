@@ -77,3 +77,22 @@ LogPath:  C:\Logs
 PsDscAllowPlainTextPassword: True
 PsDscAllowDomainUser: True
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  LcmConfig:
+    merge_hash: deep
+  LcmConfig\Settings:
+    merge_hash: deep
+  LcmConfig\ReportServerWeb: deep
+  LcmConfig\ConfigurationRepositoryWeb:
+    merge_hash: deep
+  LcmConfig\ConfigurationRepositoryWeb\Server:
+    merge_hash: deep
+----

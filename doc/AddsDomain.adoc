@@ -42,30 +42,13 @@
 | [[dscyml_addsdomain_domainname, AddsDomain/DomainName]]DomainName
 | Mandatory
 | String
-| NetBIOS name for the new domain. +
-  Prerequisite for 
-  <<dscyml_addsorgunitsandgroups>>, 
-  <<dscyml_addsdomainusers_users>>
+| NetBIOS name for the new domain.
 |
 
-| [[dscyml_addsdomain_domaintrusts, {YmlCategory}/DomainTrust]]<<dscyml_addsdomain_domaintrusts_details, DomainTrust>>
+| [[dscyml_addsdomain_domaintrusts, {YmlCategory}/DomainTrusts]]<<dscyml_addsdomain_domaintrusts_details, DomainTrusts>>
 |
 | Hashtable[]
 | The DomainTrust resource will manage _Bidirectional Forest_ Domain Trusts.
-|
-
-| [[dscyml_addsdomain_domaindn, {YmlCategory}/DomainDn]]DomainDn
-|
-| String
-| Distinguished Name (DN) of the domain. +
-  +
-  Prerequisite for <<dscyml_addsorgunitsandgroups_groups>>
-|
-
-| DomainJoinAccount
-|
-| PSCredential
-| Placeholder to be able to store domain join account in the yaml files.
 |
 
 | DomainAdministrator
@@ -107,6 +90,13 @@
   - Win2012
   - Win2012R2
   - *WinThreshold* (default)
+
+| EnablePrivilegedAccessManagement
+|
+| Boolean
+| https://docs.microsoft.com/de-de/microsoft-identity-manager/pam/privileged-identity-management-for-active-directory-domain-services[MIM Privileged Access Management (PAM)] is a solution that helps organizations restrict privileged access within an existing and isolated Active Directory environment.
+| - True
+  - *False* (default)
 
 | ForceRebootBefore
 |

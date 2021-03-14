@@ -39,7 +39,7 @@
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
     UpdateServicesDsc            = '1.2.1'
-    SqlServerDsc                 = '14.2.1'
+    SqlServerDsc                 = '15.1.1'
     OfficeOnlineServerDsc        = '1.5.0'
     xBitlocker                   = '1.4.0.0'
     xWindowsEventForwarding      = '1.0.0.0'

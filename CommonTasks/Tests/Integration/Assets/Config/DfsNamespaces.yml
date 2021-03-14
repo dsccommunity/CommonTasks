@@ -1,3 +1,4 @@
+DomainFqdn: contoso.com
 NamespaceConfig:
   - Sharename: AdminShare
     Targets:

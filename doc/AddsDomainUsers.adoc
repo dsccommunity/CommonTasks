@@ -10,14 +10,19 @@
 
 
 [[dscyml_addsdomainusers_abstract]]
-.{YmlCategory} manages Users within Active Directory.
+.{YmlCategory} manages Users and Managed Service Accounts within Active Directory.
+
+
+:ref_ADUser: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomainUsers
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
-| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser]
+| Documentation  | {ref_ADUser}, 
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADManagedServiceAccount[ADManagedServiceAccount],
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADKDSKey[ADKDSKey]
 |===
 
 
@@ -30,18 +35,38 @@
 | Description
 | Allowed Values
 
+| [[dscyml_addsdomainusers_domaindn, DomainDn]]DomainDn
+|
+| String
+| Distinguished Name (DN) of the domain.
+|
+
 | [[dscyml_addsdomainusers_users, {YmlCategory}/Users]]<<dscyml_addsdomainusers_users_details, Users>>
 | 
 | Hashtable[]
-| List of users to create. +
-  Requires <<dscyml_addsdomain_domainname>>.
+| List of users to create.
+|
+
+| [[dscyml_addsdomainusers_kdskey, {YmlCategory}/KDSKey]]<<dscyml_addsdomainusers_kdskey_details, KDSKey>>
+|
+| Hashtable
+| Management of KDS Root Keys within Active Directory. +
+  The KDS root keys are used to begin generating Group Managed Service Account (gMSA) passwords.
+
+IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the timezone (`ComputerSettings`) otherwise two keys are be created.
+|
+
+| [[dscyml_addsdomainusers_managedserviceaccounts, {YmlCategory}/ManagedServiceAccounts]]<<dscyml_addsdomainusers_managedserviceaccounts_details, ManagedServiceAccounts>>
+| 
+| Hashtable[]
+| List of managed service accounts to create.
 |
 
 |===
 
 
 [[dscyml_addsdomainusers_users_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser] for more attributes
+.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see {ref_ADUser} for more attributes
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -49,6 +74,12 @@
 | DataType
 | Description
 | Allowed Values
+
+| DomainName
+| Key
+| String
+| Name of the domain where the user account is located (only used if password is managed).
+| Default: <<dscyml_addsdomainusers_domaindn>>
 
 | UserName
 | Key
@@ -99,10 +130,168 @@ NOTE: Only domain groups of the member domain are supported.
 |===
 
 
+[[dscyml_addsdomainusers_kdskey_details]]
+.Selected Attributes of category '<<dscyml_addsdomainusers_kdskey>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| EffectiveTime
+| Key
+| String
+| Specifies the Effective time when a KDS root key can be used.
+
+There is a 10 hour minimum from creation date to allow active directory to properly replicate across all domain controllers.
+For this reason, the date must be set in the future for creation.
+While this parameter accepts a string, it will be converted into a DateTime object.
+This will also try to take into account cultural settings.
+|
+
+| Ensure
+|
+| String
+| Specifies if this KDS Root Key should be present or absent.
+| - *Present* (default)
+
+
+| AllowUnsafeEffectiveTime
+|
+| Boolean
+| This option will allow you to create a KDS root key if EffectiveTime is set in the past.
+
+This may cause issues if you are creating a Group Managed Service Account right after you create the KDS Root Key. 
+In order to get around this, you must create the KDS Root Key using a date in the past.
+This should be used at your own risk and should only be used in lab environments.
+|
+
+| ForceRemove
+| 
+| Boolean
+| This option will allow you to remove a KDS root key if there is only one key left.
+
+It should not break your Group Managed Service Accounts (gMSA), but if the gMSA password expires and it needs to request a new password,
+it will not be able to generate a new password until a new KDS Root Key is installed and ready for use.
+Because of this, the last KDS Root Key will not be removed unless this option is specified.
+|
+
+|===
+
+
+[[dscyml_addsdomainusers_managedserviceaccounts_details]]
+.Selected Attributes of category '<<dscyml_addsdomainusers_managedserviceaccounts>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ServiceAccountName
+| Key
+| String 
+| Specifies the Security Account Manager (SAM) account name of the managed service account (ldapDisplayName 'sAMAccountName').
+
+  To be compatible with older operating systems, create a SAM account name that is 20 characters or less.
+  
+  Once created, the user's SamAccountName and CN cannot be changed.
+|
+
+| AccountType
+| Mandatory
+| String
+| The type of managed service account.
+
+  Standalone will create a Standalone Managed Service Account (sMSA) and Group will create a Group Managed Service Account (gMSA).
+| - Group
+  - Standalone
+
+| Credential
+|
+| PSCredential
+| Specifies the user account credentials to use to perform this task. 
+
+  This is only required if not executing the task on a domain controller or using the parameter DomainController.
+|
+
+| Description
+|
+| String
+| Specifies the description of the account (ldapDisplayName `description`).
+|
+
+| DisplayName
+|
+| String
+| Specifies the display name of the account (ldapDisplayName `displayName`).
+|
+
+| DomainController
+|
+| String
+| Specifies the Active Directory Domain Controller instance to use to perform the task.
+
+  This is only required if not executing the task on a domain controller.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the user account is created or deleted. 
+| - *Present* (default)
+  - Absent
+
+| KerberosEncryptionType
+|
+| String[]
+| Specifies which Kerberos encryption types the account supports when creating service tickets. +
+  This value sets the encryption types supported flags of the Active Directory msDS-SupportedEncryptionTypes attribute.
+| - None
+  - RC4
+  - AES128
+  - AES256
+
+| ManagedPasswordPrincipals
+|
+| String[]
+| Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`). 
+  Only used when `Group` is selected for `AccountType`.
+  
+| MembershipAttribute
+|
+| String
+| Active Directory attribute used to perform membership operations for Group Managed Service Accounts (gMSA). +
+| - *SamAccountName* (default)
+  - DistinguishedName
+  - ObjectGUID
+  - ObjectSid
+
+| Path
+|
+| String
+| Specifies the X.500 path of the Organizational Unit (OU) or container where the new account is created. +
+  Specified as a Distinguished Name (DN).
+|
+
+| MemberOf
+| 
+| String[]
+| List of Domain Groups of the managed service account.
+
+NOTE: Only domain groups of the member domain are supported.
+
+|===
+
+
 .Example
 [source, yaml]
 ----
 AddsDomainUsers:
+  DomainDN: DC=contoso,DC=com
   Users:
     - UserName: test1
       Password: '[ENC=PE9ianM...=]'
@@ -113,4 +302,42 @@ AddsDomainUsers:
       MemberOf:
         - Domain Admins
         - Domain Users
+
+  KDSKey:
+    EffectiveTime:            '1-jan-2021 00:00'
+    AllowUnsafeEffectiveTime: true   # Use with caution
+
+  ManagedServiceAccounts:
+    - ServiceAccountName: ServiceLocal
+      AccountType:        Standalone
+      MemberOf:
+        - Service Users
+    - ServiceAccountName: ServiceGroup
+      AccountType:        Group
+      Path:               'OU=ServiceAccounts,DC=contoso,DC=com'
+      ManagedPasswordPrincipals:
+        - User01
+        - Computer01$
+      MemberOf:
+        - Service Users
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  AddsDomainUsers:
+    merge_hash: deep
+  AddsDomainUsers\Users:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - UserName
+  AddsDomainUsers\ManagedServiceAccounts:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - ServiceAccountName
 ----

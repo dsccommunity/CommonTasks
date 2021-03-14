@@ -1,0 +1,7 @@
+﻿ProtectDomain:   true
+ProtectOrgUnit:  true 
+ProtectUser:     true
+ProtectGroup:    true
+ProtectComputer: true
+ProtectFineGrainedPasswordPolicy: true
+ProtectReplicationSite: true

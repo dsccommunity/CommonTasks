@@ -1,0 +1,7 @@
+﻿Policies:
+  - Name:   WhitelistPolicy
+    Action: IGNORE
+    Fqdn:   NE,*.contoso.com
+  - Name:   Block_Telemetry
+    Action: IGNORE
+    Fqdn:   EQ,telemetry.google.com
