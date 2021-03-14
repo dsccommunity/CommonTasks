@@ -63,12 +63,19 @@ configuration AddsDomainUsers
 
     if( $null -ne $Users )
     {
+        # convert DN to Fqdn
+        $pattern = '(?i)DC=(?<name>\w+){1,}?\b'
+        $domainName = ([RegEx]::Matches($DomainDN, $pattern) | ForEach-Object { $_.groups['name'] }) -join '.'
+
         foreach ($user in $Users)
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
             $user = @{}+$user
             
-            $user.DomainName = $DomainDN
+            if( [string]::IsNullOrWhiteSpace($user.DomainName) )
+            { 
+                $user.DomainName = $domainName
+            }
 
             # save group list
             $memberOf = $user.MemberOf
