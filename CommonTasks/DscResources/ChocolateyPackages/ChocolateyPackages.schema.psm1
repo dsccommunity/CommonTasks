@@ -23,6 +23,10 @@ configuration ChocolateyPackages {
 
         if( [String]::IsNullOrWhiteSpace($Software.OfflineInstallZip) -eq $false )
         {
+            # reduce footprint of serialized script parameter objects
+            $swInstallationDirectory = $Software.InstallationDirectory
+            $swOfflineInstallZip     = $Software.OfflineInstallZip
+            
             Script OfflineInstallChocolatey
             {
                 TestScript = {
@@ -33,17 +37,17 @@ configuration ChocolateyPackages {
                         $envPath = [Environment]::GetEnvironmentVariable('Path','Machine')
                         [Environment]::SetEnvironmentVariable($envPath,'Process')
 
-                        $InstallDir = $Using:Software.InstallationDirectory
+                        $installDir = $using:swInstallationDirectory
 
-                        if ($InstallDir -and (Test-Path $InstallDir) ) {
-                            $InstallDir = (Resolve-Path $InstallDir -ErrorAction Stop).Path
+                        if ($installDir -and (Test-Path $installDir) ) {
+                            $installDir = (Resolve-Path $installDir -ErrorAction Stop).Path
                         }
 
                         if ($chocoCmd = get-command choco.exe -CommandType Application -ErrorAction SilentlyContinue)
                         {
                             if (
-                                !$InstallDir -or
-                                $chocoCmd.Path -match [regex]::Escape($InstallDir)
+                                !$installDir -or
+                                $chocoCmd.Path -match [regex]::Escape($installDir)
                             )
                             {
                                 Write-Verbose ('Chocolatey Software found in {0}' -f $chocoCmd.Path)
@@ -52,7 +56,7 @@ configuration ChocolateyPackages {
                             else
                             {
                                 Write-Verbose (
-                                    'Chocolatey Software not installed in {0}`n but in {1}' -f $InstallDir,$chocoCmd.Path
+                                    'Chocolatey Software not installed in {0}`n but in {1}' -f $installDir,$chocoCmd.Path
                                 )
                                 return $false
                             }
@@ -80,12 +84,12 @@ configuration ChocolateyPackages {
                         $null = New-Item -path $tempDir -ItemType Directory
                     }
 
-                    if( -not (Test-Path $Using:Software.OfflineInstallZip) ) {
-                        throw "Offline installation package '$($Using:Software.OfflineInstallZip)' not found."
+                    if( -not (Test-Path $using:swOfflineInstallZip) ) {
+                        throw "Offline installation package '$($using:swOfflineInstallZip)' not found."
                     }
 
                     # copy the package with zip extension
-                    $file = Resolve-Path $Using:Software.OfflineInstallZip
+                    $file = Resolve-Path $using:swOfflineInstallZip
                     $zipFile = [io.path]::Combine($Env:TEMP,'chocolatey','chocolatey.zip')
 
                     Write-Verbose "Copy install package '$file' to '$zipFile'..."
@@ -116,7 +120,7 @@ configuration ChocolateyPackages {
                     #   To be able to mock
                     $chocInstallPS1 = Join-Path $TempTools 'chocolateyInstall.ps1'
 
-                    $chocoInstallDir = $Using:Software.InstallationDirectory
+                    $chocoInstallDir = $using:swInstallationDirectory
 
                     if ($chocoInstallDir -ne $null -and $chocoInstallDir -ne '') {
                         Write-Verbose "Set Chocolatey installation directory to '$chocoInstallDir'"

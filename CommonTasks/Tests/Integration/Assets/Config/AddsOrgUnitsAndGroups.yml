@@ -1,10 +1,17 @@
+DomainDN: DC=contoso,DC=com
 OrgUnits:
   - Name: Admin
     Path: DC=contoso,DC=com
     ChildOu:
       - Name: Groups
       - Name: Computers
+  - Name: Autofill
+    ChildOu:
+      - Name: Groups
+      - Name: Computers
 Groups:
+  - GroupName: Administrators
+    Description: BuiltIn Account
   - GroupName: App_123_Read
     Path: OU=Groups,OU=Admin
     GroupScope: DomainLocal

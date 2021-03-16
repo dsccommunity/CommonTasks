@@ -32,6 +32,12 @@ Requires <<dscyml_addsdomain_domainname>>
 | Description
 | Allowed Values
 
+| [[dscyml_addsorgunitsandgroups_domaindn, DomainDn]]DomainDn
+|
+| String
+| Distinguished Name (DN) of the domain.
+|
+
 | [[dscyml_addsorgunitsandgroups_orgunits, {YmlCategory}/OrgUnits]]<<dscyml_addsorgunitsandgroups_orgunits_details, OrgUnits>>
 |
 | Object[]
@@ -41,8 +47,7 @@ Requires <<dscyml_addsdomain_domainname>>
 | [[dscyml_addsorgunitsandgroups_groups, {YmlCategory}/Groups]]<<dscyml_addsorgunitsandgroups_groups_details, Groups>>
 |
 | Object[]
-| List of groups within Active Directory. +
-  Requires <<dscyml_addsdomain_domaindn>>
+| List of groups within Active Directory.
 |
 
 |===
@@ -68,7 +73,7 @@ Requires <<dscyml_addsdomain_domainname>>
 | Key
 | String
 | The name of the Organizational Unit (OU).
-|
+| Default: <<dscyml_addsorgunitsandgroups_domaindn>>
 
 | ChildOu
 |
@@ -81,7 +86,7 @@ Requires <<dscyml_addsdomain_domainname>>
 
 
 [[dscyml_addsorgunitsandgroups_groups_details]]
-.Selected Attributes of category '<<dscyml_addsorgunitsandgroups_groups>>' - see https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADGroup[ADGroup] for more
+.Selected Attributes of category '<<dscyml_addsorgunitsandgroups_groups>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -114,7 +119,9 @@ Requires <<dscyml_addsdomain_domainname>>
 | Path
 | 
 | String
-| Location of the group within Active Directory expressed as a Distinguished Name (DN).
+| Location of the group within Active Directory expressed as a Distinguished Name (DN). +
+
+NOTE: The <<dscyml_addsorgunitsandgroups_domaindn>> is appended automatically for `DomainLocal` and `Global` group scopes.
 |
 
 | Ensure
@@ -124,6 +131,75 @@ Requires <<dscyml_addsdomain_domainname>>
 | - Absent
   - *Present* (default)
   
+| Description
+|
+| String
+| Description of the Active Directory group.
+|
+
+| DisplayName
+| 
+| String
+| Display name of the Active Directory group.
+|
+
+| Credential
+|
+| PSCredential
+| The credential to be used to perform the operation on Active Directory.
+|
+
+| DomainController
+|
+| String
+| Active Directory domain controller to enact the change upon.
+|
+
+| Members
+|
+| String[]
+| Active Directory group membership should match membership exactly.
+| 
+
+| MembersToInclude
+|
+| String[]
+| Active Directory group should include these members.
+|
+
+| MembersToExclude
+|
+| String[]
+| Active Directory group should NOT include these members.
+|
+
+| MembershipAttribute
+|
+| String
+| Active Directory attribute used to perform membership operations.
+| - *SamAccountName* (default)
+  - DistinguishedName
+  - ObjectGUID
+  - SID
+
+| ManagedBy
+|
+| String
+| Active Directory managed by attribute specified as a DistinguishedName.
+|
+
+| Notes
+|
+| String
+| Active Directory group notes field.
+|
+
+| RestoreFromRecycleBin
+|
+| Boolean
+| Try to restore the group from the recycle bin before creating a new one.
+|
+
 |===
 
 
@@ -131,13 +207,22 @@ Requires <<dscyml_addsdomain_domainname>>
 [source, yaml]
 ----
 AddsOrgUnitsAndGroups:
+  DomainDN: DC=contoso,DC=com
   OrgUnits:
     - Name: Admin
       Path: DC=contoso,DC=com
       ChildOu:
         - Name: Groups
         - Name: Computers
+    - Name: Autofill
+      ChildOu:
+        - Name: Groups
+        - Name: Computers
   Groups:
+      # change attributes of BuiltIn groups
+    - GroupName: Administrators
+      Description: BuiltIn Account
+      # create new groups
     - GroupName: App_123_Read
       Path: OU=Groups,OU=Admin
       GroupScope: DomainLocal

@@ -1,0 +1,6 @@
+﻿Mode: Enable
+ErrorsPerSec: 10
+ResponsesPerSec: 10
+Exceptions:
+  - Name: ExceptionListSafe
+    Fqdn: EQ,*.contoso.com

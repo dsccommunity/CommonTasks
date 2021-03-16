@@ -1,0 +1,107 @@
+// CommonTasks YAML Reference: DnsServerQueryResolutionPolicies
+// ============================================================
+
+:YmlCategory: DnsServerQueryResolutionPolicies
+
+
+[[dscyml_dnsserverqueryresolutionpolicies, {YmlCategory}]]
+= DSC Resource 'DnsServerQueryResolutionPolicies'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverqueryresolutionpolicies_abstract]]
+.{YmlCategory} manages settings of policies for query resolution on a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerQueryResolutionPolicies
+| DSC Resource   | N/A
+| Documentation  | - https://docs.microsoft.com/en-us/powershell/module/dnsserver/add-dnsserverqueryresolutionpolicy?view=win10-ps[Add-DnsServerQueryResolutionPolicy]
+                   - https://docs.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverqueryresolutionpolicy?view=win10-ps[Get-DnsServerQueryResolutionPolicy]
+                   - https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverqueryresolutionpolicy?view=win10-ps[Set-DnsServerQueryResolutionPolicy]
+|===
+
+
+[IMPORTANT]
+====
+Currently only a basic set of `DnsServerQueryResolutionPolicy` parameters is supported.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserverqueryresolutionpolicies_policies, {YmlCategory}/Policies]]<<dscyml_dnsserverqueryresolutionpolicies_policies_details, Policies>>
+| Mandatory
+| Hashtable[]
+| Settings of policies for query resolution on a Domain Name System (DNS) server.
+|
+
+|===
+
+
+[[dscyml_dnsserverqueryresolutionpolicies_policies_details]]
+.Attributes of category '<<dscyml_dnsserverqueryresolutionpolicies_policies>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Specifies a name for the new policy.
+|
+
+| Action
+| Mandatory
+| String
+| Specifies the action to take if a query matches this policy.
+
+The acceptable values for this parameter are:
+
+- ALLOW
+- DENY   -> Respond with SERV_FAIL.
+- IGNORE -> Do not respond.
+| - ALLOW
+  - DENY
+  - IGNORE
+
+| Fqdn
+| Mandatory
+| String
+| Specifies the FQDN criterion. This is the FQDN of record in the query.
+
+Specify a criterion in the following format:
+
+`operator, value01, value02,...; operator, value03, value04,...``
+
+The operator is either `EQ` or `NE`.
+You can specify no more than one of each operator a criterion.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerQueryResolutionPolicies:
+  Policies:
+    - Name:   WhitelistPolicy
+      Action: IGNORE
+      Fqdn:   NE,*.contoso.com
+    - Name:   Block_Telemetry
+      Action: IGNORE
+      Fqdn:   EQ,telemetry.google.com
+----

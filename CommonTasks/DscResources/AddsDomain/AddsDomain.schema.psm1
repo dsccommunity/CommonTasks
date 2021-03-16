@@ -11,18 +11,6 @@ configuration AddsDomain
         $DomainName,
 
         [Parameter()]
-        [hashtable[]]
-        $DomainTrust,
-
-        [Parameter()]
-        [string]
-        $DomainDn,
-
-        [Parameter()]
-        [pscredential]
-        $DomainJoinAccount, # Placeholder to be able to store domain join account in the yaml files
-
-        [Parameter()]
         [pscredential]
         $DomainAdministrator,
 
@@ -52,7 +40,11 @@ configuration AddsDomain
 
         [Parameter()]
         [hashtable[]]
-        $DomainTrusts
+        $DomainTrusts,
+
+        [Parameter()]
+        [boolean]
+        $EnablePrivilegedAccessManagement = $false
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -123,12 +115,23 @@ configuration AddsDomain
         DependsOn        = "[ADDomain]$DomainName"
     }
     
-    ADOptionalFeature RecycleBin 
+    ADOptionalFeature RecycleBinFeature 
     {
         DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
         ForestFQDN                        = $DomainFQDN
         EnterpriseAdministratorCredential = $DomainAdministrator
         FeatureName                       = 'Recycle Bin Feature'
+    }
+
+    if( $EnablePrivilegedAccessManagement -eq $true )
+    {
+        ADOptionalFeature PrivilegedAccessManagementFeature 
+        {
+            DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
+            ForestFQDN                        = $DomainFQDN
+            EnterpriseAdministratorCredential = $DomainAdministrator
+            FeatureName                       = 'Privileged Access Management Feature'
+        }  
     }
 
     foreach ($trust in $DomainTrusts)

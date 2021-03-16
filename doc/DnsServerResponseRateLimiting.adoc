@@ -1,0 +1,119 @@
+// CommonTasks YAML Reference: DnsServerResponseRateLimiting
+// =========================================================
+
+:YmlCategory: DnsServerResponseRateLimiting
+
+
+[[dscyml_dnsserverresponseratelimiting, {YmlCategory}]]
+= DSC Resource 'DnsServerResponseRateLimiting'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverresponseratelimiting_abstract]]
+.{YmlCategory} manages Response Rate Limiting (RRL) on a Windows DNS server.
+
+
+:ref_SetDnsServerResponseRateLimitingExceptionlist: https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverresponseratelimitingexceptionlist?view=win10-ps[Set-DnsServerResponseRateLimitingExceptionlist]
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerResponseRateLimiting
+| DSC Resource   | N/A
+| Documentation  | - https://docs.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverresponseratelimiting?view=win10-ps[Get-DnsServerResponseRateLimiting]
+                   - https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverresponseratelimiting?view=win10-ps[Set-DnsServerResponseRateLimiting]
+                   - https://docs.microsoft.com/en-us/powershell/module/dnsserver/add-dnsserverresponseratelimitingexceptionlist?view=win10-ps[Add-DnsServerResponseRateLimitingExceptionlist]
+                   - https://docs.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverresponseratelimitingexceptionlist?view=win10-ps[Get-DnsServerResponseRateLimitingExceptionlist]
+                   - {ref_SetDnsServerResponseRateLimitingExceptionlist}
+|===
+
+
+[IMPORTANT]
+====
+Currently only a basic set of `DnsServerResponseRateLimiting` parameters is supported.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Mode
+|
+| String
+| Specifies the state of RRL on the DNS server.
+
+If the mode is set to LogOnly the DNS server performs all the RRL calculations but instead of taking the preventive actions (dropping or truncating responses),
+it only logs the potential actions as if RRL were enabled and continues with the normal responses.
+| - *Enable* (default)
+  - Disable
+  - LogOnly
+
+| ErrorsPerSec
+|
+| UInt32
+| Specifies the maximum number of times that the server can send an error response to a client within a one-second interval.
+
+The error responses include: REFUSED, FORMERR and SERVFAIL
+|
+
+| ResponsesPerSec
+|
+| UInt32
+| Specifies the maximum number of times that the server sends a client the same response within a one-second interval.
+|
+
+| [[dscyml_dnsserverresponseratelimiting_exceptions, {YmlCategory}/Records]]<<dscyml_dnsserverresponseratelimiting_exceptions_details, Records>>
+|
+| Hashtable[]
+| RRL exception lists on a DNS Server.
+|
+
+|===
+
+
+[[dscyml_dnsserverresponseratelimiting_exceptions_details]]
+.Attributes of category '<<dscyml_dnsserverresponseratelimiting_exceptions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Specifies the name of an RRL exception list.
+|
+
+| Fqdn
+| Mandatory
+| String
+| Specifies FQDN values for the exception list.
+
+The value must have the following format: COMPARATOR, value1, value2,..., COMPARATOR, value 3, value 4,.. where the COMPARATOR can be EQ or NE.
+There can be only one EQ and one NE in a value.
+
+See {ref_SetDnsServerResponseRateLimitingExceptionlist} for more details.
+| 
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerResponseRateLimiting:
+  Mode: Enable
+  ErrorsPerSec: 10
+  ResponsesPerSec: 10
+  Exceptions:
+    - Name: ExceptionListSafe
+      Fqdn: EQ,*.contoso.com
+----
