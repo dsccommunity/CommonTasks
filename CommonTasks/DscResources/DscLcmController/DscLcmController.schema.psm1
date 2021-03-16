@@ -260,7 +260,7 @@ function Test-StartDscRefresh {
 function Start-AutoCorrect {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 1
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -Mode AutoCorrect -MaxLcmRuntime $maxLcmRuntime -Flags 1
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date) -Type String -Force
     }
@@ -273,7 +273,7 @@ function Start-AutoCorrect {
 function Start-Monitor {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     try {
-        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 1
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -Mode Monitor -MaxLcmRuntime $maxLcmRuntime -Flags 1
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date) -Type String -Force
     }
@@ -286,7 +286,7 @@ function Start-Monitor {
 function Start-Refresh {
     Write-Host "ACTION: Invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags'5' (Pull and Consistency Check)."
     try {
-        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -MaxLcmRuntime $maxLcmRuntime -Flags 5
+        $script:lcmRuntime = Start-LcmRequiredConfigurationChecks -Mode AutoCorrect -MaxLcmRuntime $maxLcmRuntime -Flags 5
         $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
         Set-ItemProperty -Path $dscLcmController.PSPath -Name LastRefresh -Value (Get-Date) -Type String -Force
         if ($sendDscTaggingData) {
@@ -326,7 +326,11 @@ function Start-LcmRequiredConfigurationChecks {
     param(
         [OutputType([timespan])]
         [Parameter()]
-        [timespan]$MaxLcmRuntime = 0,
+        [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
+
+        [Parameter(Mandatory)]
+        [ValidateSet('Monitor', 'AutoCorrect')]
+        [string]$Mode,
 
         [Parameter(Mandatory)]
         [int]$Flags
@@ -358,10 +362,11 @@ function Start-LcmRequiredConfigurationChecks {
 
     Write-Host "Waiting $MaxLcmRuntime for the background job to finish."
     while ($j.State -eq 'Running' -and $internalMaxLcmRuntime -gt 0) {
-        Start-Sleep -Seconds 1
+        $waitIntervalInSeconds = 5
+        Start-Sleep -Seconds $waitIntervalInSeconds
         $output = $j | Receive-Job | Out-String
         if ($output) { $output | Write-Host }
-        $internalMaxLcmRuntime = $internalMaxLcmRuntime.Subtract((New-TimeSpan -Seconds 1))
+        $internalMaxLcmRuntime = $internalMaxLcmRuntime.Subtract((New-TimeSpan -Seconds $waitIntervalInSeconds))
     }
 
     if ($j.State -eq 'Running') {
@@ -373,7 +378,14 @@ function Start-LcmRequiredConfigurationChecks {
         Write-Host "Shutting down LCM process with ID '$($dscProcess.HostProcessIdentifier)'"
         Get-Process -Id $dscProcess.HostProcessIdentifier | Stop-Process -Force
 
-        Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date -Date 0) -Type String -Force
+        if ($Mode -eq 'AutoCorrect') {
+            Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date -Date 0) -Type String -Force
+        }
+        else {
+            Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date -Date 0) -Type String -Force
+        }
+
+        Write-Error -Message "LCM did run longer than '$MaxLcmRuntime'. Process was stopped." -ErrorAction Stop
     }
 
     $runtime = $j.PSEndTime - $j.PSBeginTime
