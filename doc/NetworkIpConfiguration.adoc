@@ -44,8 +44,23 @@
 | Description
 | Allowed Values
 
+| DisableNetbios
+|
+| Boolean
+| Disable NetBios on all network interfaces. +
+  See {ref_networkingdsc_netbios}
+| - *False* (default)
+  - True
+
+| DisableIPv6
+|
+| Boolean
+| Disable IPv6 on all network interfaces.
+| - *False* (default)
+  - True
+
 | [[dscyml_networkipconfiguration_interfaces, {YmlCategory}/Interfaces]]<<dscyml_networkipconfiguration_interfaces_details, Interfaces>>
-| Mandatory
+|
 | Hashtable[]
 | List of network interfaces
 |
@@ -89,10 +104,13 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
 | IP address prefix. +
   IPv4 classes:
 
-    - Class A - /8
-    - Class B - /16
-    - Class C - /24
-|
+    - Class A - /8 +
+      -> 16.777.216 addresses
+    - Class B - /16 +
+      -> 65.536 addresses
+    - Class C - /24 +
+      -> 256 addresses
+| Default: 24
 
 | Gateway
 |
@@ -110,15 +128,22 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
 
 | DisableNetbios
 |
-| Switch
+| Boolean
 | Disable the NetBios on the network interface. +
   See {ref_networkingdsc_netbios}
 | - *False* (default)
   - True
 
+| EnableLmhostsLookup
+|
+| Boolean
+| Enable the LMHOSTS lookup on the network interface.
+| - *False* (default)
+  - True
+
 | EnableDhcp
 |
-| Switch
+| Boolean
 | Enable the Dynamic Host Configuration Protocol (DHCP) for the IP interface. +
   See {ref_networkingdsc_netipinterface} +
 [NOTE]
@@ -130,7 +155,7 @@ If set to `True` the paramters `IpAddress`, `Gateway` and `DnsServers` must be e
 
 | DisableIPv6
 |
-| Switch
+| Boolean
 | Disable IPv6 on the network interface. +
   See {ref_networkingdsc_netadapterbinding}
 | - *False* (default)
@@ -143,6 +168,8 @@ If set to `True` the paramters `IpAddress`, `Gateway` and `DnsServers` must be e
 [source, yaml]
 ----
 NetworkIpConfiguration:
+  DisableNetBios: true
+  DisableIPv6: false
   Interfaces:
     - InterfaceAlias: Ethernet
       IpAddress: 10.0.0.1
@@ -151,7 +178,6 @@ NetworkIpConfiguration:
       DnsServer:
         - 10.1.1.1
         - 10.1.1.2
-      DisableNetbios: true
       EnableDhcp: false
 
     - InterfaceAlias: Wi-Fi

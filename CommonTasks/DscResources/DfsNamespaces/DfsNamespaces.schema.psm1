@@ -2,16 +2,17 @@ configuration DfsNamespaces
 {
     param
     (
-        [Parameter()]
+        [Parameter(Mandatory)]
+        [String]
+        $DomainFqdn,
+        
+        [Parameter(Mandatory)]
         [hashtable[]]
         $NamespaceConfig
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DfsDsc
-
-    $DomainFqdn = Lookup AddsDomain/DomainFqdn
-    $DomainCredential = Lookup AddsDomain/DomainAdministrator
 
     DFSNamespaceServerConfiguration DFSNamespaceConfig
     {

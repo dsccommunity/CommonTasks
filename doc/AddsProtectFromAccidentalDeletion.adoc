@@ -1,0 +1,139 @@
+// CommonTasks YAML Reference: AddsProtectFromAccidentalDeletion
+// =============================================================
+
+:YmlCategory: AddsProtectFromAccidentalDeletion
+
+
+[[dscyml_addsprotectfromaccidentaldeletion, {YmlCategory}]]
+= DSC Resource 'AddsProtectFromAccidentalDeletion'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_addsprotectfromaccidentaldeletion_abstract]]
+.{YmlCategory} prevents AD objects from being deleted.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsProtectFromAccidentalDeletion
+| DSC Resource   | N/A
+| Documentation  | - https://docs.microsoft.com/en-us/powershell/module/addsadministration/set-adobject?view=win10-ps[Set-ADObject]
+                   - https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adobject?view=win10-ps[Get-ADObject]
+|===
+
+
+[NOTE]
+====
+When the attribute `ProtectXXXX` is set to `True`, you cannot delete a corresponding object without changing the value of the property `ProtectedFromAccidentalDeletion`.
+====
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ProtectDomain
+| 
+| Boolean
+| Specifies whether to prevent the ADDomain object from being deleted.
+| - True
+  - *False* (default)
+
+| ProtectOrgUnit 
+| 
+| Boolean
+| Specifies whether to prevent the ADOrganizationalUnit objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterOrgUnit
+| 
+| String
+| Specifies a query string that retrieves ADOrganizationalUnit objects. 
+| Default: *
+
+| ProtectUser
+| 
+| Boolean
+| Specifies whether to prevent the ADUser objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterUser
+| 
+| String
+| Specifies a query string that retrieves ADUser objects. 
+| Default: *
+
+| ProtectGroup
+| 
+| Boolean
+| Specifies whether to prevent the ADGroup objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterGroup
+| 
+| String
+| Specifies a query string that retrieves ADGroup objects. 
+| Default: *
+
+| ProtectComputer
+| 
+| Boolean
+| Specifies whether to prevent the ADComputer objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterComputer
+| 
+| String
+| Specifies a query string that retrieves ADComputer objects. 
+| Default: *
+
+| ProtectFineGrainedPasswordPolicy
+| 
+| Boolean
+| Specifies whether to prevent the ADFineGrainedPasswordPolicy objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterFineGrainedPasswordPolicy
+| 
+| String
+| Specifies a query string that retrieves ADFineGrainedPasswordPolicy objects. 
+| Default: *
+
+| ProtectReplicationSite
+| 
+| Boolean
+| Specifies whether to prevent the ADReplicationSite objects from being deleted.
+| - True
+  - *False* (default)
+
+| FilterReplicationSite
+| 
+| String
+| Specifies a query string that retrieves ADReplicationSite objects. 
+| Default: *
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsProtectFromAccidentalDeletion:
+  ProtectDomain:   true
+  ProtectOrgUnit:  true 
+  ProtectUser:     false
+  ProtectGroup:    true
+  ProtectComputer: true
+  ProtectFineGrainedPasswordPolicy: true
+  ProtectReplicationSite: true
+----
