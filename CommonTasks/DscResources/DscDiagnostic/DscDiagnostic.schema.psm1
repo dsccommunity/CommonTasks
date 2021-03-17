@@ -67,7 +67,7 @@ function Get-DscLcmControllerLog {
         [int]$Last = 1000
     )
 
-    Import-Csv -Path C:\ProgramData\Dsc\LcmController\LcmControllerSummary.txt | Where-Object {
+    Import-Csv -Path C:\ProgramData\Dsc\LcmController\LcmControllerSummary.csv | Where-Object {
         if ($AutoCorrect) {
             [bool][int]$_.DoAutoCorrect -eq $AutoCorrect
         }

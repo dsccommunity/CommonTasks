@@ -327,24 +327,23 @@ function Start-LcmRequiredConfigurationChecks {
         [OutputType([timespan])]
         [Parameter()]
         [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
-
+        
         [Parameter(Mandatory)]
-        [ValidateSet('Monitor', 'AutoCorrect')]
+        [ValidateSet('Monitor', 'AutoCorrect')]        
         [string]$Mode,
-
+        
         [Parameter(Mandatory)]
         [int]$Flags
     )
-
     Write-Verbose "Entering 'Start-LcmRequiredConfigurationChecks'"
+    
     $internalMaxLcmRuntime = $MaxLcmRuntime
-
+    
     $j = Start-Job -ScriptBlock {
         param(
             [Parameter(Mandatory)]
             [int]$Flags
         )
-
         $params = @{
             ClassName   = 'MSFT_DSCLocalConfigurationManager'
             Namespace   = 'root/Microsoft/Windows/DesiredStateConfiguration'
@@ -352,15 +351,14 @@ function Start-LcmRequiredConfigurationChecks {
             Arguments   = @{ Flags = [uint32]$Flags }
             ErrorAction = 'Stop'
         }
-
         Write-Output "Calling 'Invoke-CimMethod' with the following parameters:"
         $params | ConvertTo-Json | Write-Output
-
         Invoke-CimMethod @params | Out-Null
-
+        
     } -ArgumentList $Flags
-
+    
     Write-Host "Waiting $MaxLcmRuntime for the background job to finish."
+    
     while ($j.State -eq 'Running' -and $internalMaxLcmRuntime -gt 0) {
         $waitIntervalInSeconds = 5
         Start-Sleep -Seconds $waitIntervalInSeconds
@@ -368,26 +366,23 @@ function Start-LcmRequiredConfigurationChecks {
         if ($output) { $output | Write-Host }
         $internalMaxLcmRuntime = $internalMaxLcmRuntime.Subtract((New-TimeSpan -Seconds $waitIntervalInSeconds))
     }
-
+    
     if ($j.State -eq 'Running') {
         Write-Host "LCM did not finish with the timeout of '$MaxLcmRuntime'"
         $j | Stop-Job
-
         #find the process that is hosting the DSC engine        
         $dscProcess = Get-CimInstance -ClassName  msft_providers | Where-Object { $_.Provider -like 'dsccore' }
         Write-Host "Shutting down LCM process with ID '$($dscProcess.HostProcessIdentifier)'"
         Get-Process -Id $dscProcess.HostProcessIdentifier | Stop-Process -Force
-
         if ($Mode -eq 'AutoCorrect') {
             Set-ItemProperty -Path $dscLcmController.PSPath -Name LastAutoCorrect -Value (Get-Date -Date 0) -Type String -Force
         }
         else {
             Set-ItemProperty -Path $dscLcmController.PSPath -Name LastMonitor -Value (Get-Date -Date 0) -Type String -Force
         }
-
         Write-Error -Message "LCM did run longer than '$MaxLcmRuntime'. Process was stopped." -ErrorAction Stop
     }
-
+    
     $runtime = $j.PSEndTime - $j.PSBeginTime
     Write-Host "LCM runtime was '$runtime'"
     $runtime
@@ -395,6 +390,7 @@ function Start-LcmRequiredConfigurationChecks {
 
 $writeTranscripts = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name WriteTranscripts
 $path = Join-Path -Path ([System.Environment]::GetFolderPath('CommonApplicationData')) -ChildPath 'Dsc\LcmController'
+
 if ($writeTranscripts) {
     Start-Transcript -Path "$path\LcmController.log" -Append
 }
@@ -429,6 +425,7 @@ $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\Mainte
 [timespan]$refreshInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshInterval
 [bool]$refreshIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name RefreshIntervalOverride
 [timespan]$maxLcmRuntime = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaxLcmRuntime
+[timespan]$logHistoryTimeSpan = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name LogHistoryTimeSpan
 [bool]$sendDscTaggingData = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name SendDscTaggingData
 $maintenanceWindowMode = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowMode
 
@@ -516,14 +513,14 @@ else {
 }
 
 $logItem = [pscustomobject]@{
-    CurrentTime                 = Get-Date
+    CurrentTime                 = (Get-Date).ToString('M\/d\/yyyy h:m:s tt', [System.Globalization.CultureInfo]::InvariantCulture)
     InMaintenanceWindow         = [int]$inMaintenanceWindow
     DoAutoCorrect               = [int]$doAutoCorrect
     DoMonitor                   = [int]$doMonitor
     DoRefresh                   = [int]$doRefresh
 
-    LastAutoCorrect             = $lastAutoCorrect
-    LastMonitor                 = $lastMonitor
+    LastAutoCorrect             = $lastAutoCorrect.ToString('M\/d\/yyyy h:m:s tt', [System.Globalization.CultureInfo]::InvariantCulture)
+    LastMonitor                 = $lastMonitor.ToString('M\/d\/yyyy h:m:s tt', [System.Globalization.CultureInfo]::InvariantCulture)
     AutoCorrectInterval         = $autoCorrectInterval
     AutoCorrectIntervalOverride = $autoCorrectIntervalOverride
     ConsistencyCheckErrors      = $autoCorrectErrors
@@ -531,7 +528,7 @@ $logItem = [pscustomobject]@{
     MonitorInterval             = $monitorInterval
     MonitorErrors               = $monitorErrors
 
-    LastRefresh                 = $lastRefresh
+    LastRefresh                 = $lastRefresh.ToString('M\/d\/yyyy h:m:s tt', [System.Globalization.CultureInfo]::InvariantCulture)
     RefreshInterval             = $refreshInterval
     RefreshIntervalOverride     = $refreshIntervalOverride
     RefreshErrors               = $refreshErrors
@@ -541,11 +538,36 @@ $logItem = [pscustomobject]@{
 
     SendDscTaggingDataError     = $sendDscTaggingDataError
     
-} | Export-Csv -Path "$path\LcmControllerSummary.txt" -Append
+} | Export-Csv -Path "$path\LcmControllerSummary.csv" -Delimiter ',' -Append -Force
 
 if ($writeTranscripts) {
     Stop-Transcript
 }
+
+#------------------------ LcmController.log cleanup ----------------------------------
+
+$pattern = '(\*{22}\r\nWindows PowerShell transcript start\r\n)((.|\r\n)+?)(End time: \d{14}\r\n\*{22})'
+$date = (Get-Date) - $logHistoryTimeSpan
+
+$lcmControllerLogContent = Get-Content -Path "$path\LcmController.log" -Raw
+$regexMatches = [regex]::Matches($lcmControllerLogContent, $pattern)
+
+$logEntries = $regexMatches | Where-Object {
+    [datetime]::ParseExact((($_.Value -split "\n")[-2] -split ' ')[2].Trim(), 'yyyyMMddHHmmss', $null) -gt $date
+}
+
+#$logEntries | Group-Object -Property { [datetime]::ParseExact((($_.Value -split "\n")[-2] -split ' ')[2].Trim(),'yyyyMMddHHmmss',$null).ToString('yy MM dd') }
+
+Write-Host "Log file contained $($regexMatches.Count) entries, after cleanup if contains $($logEntries.Count) entries."
+$logEntries.Value | Out-File -FilePath "$path\LcmController.log" -Force
+
+#------------------ LcmControllerSummary.csv cleanup ------------------------------
+
+$summaryContent = Import-Csv -Path "$path\LcmControllerSummary.csv" -Delimiter ','
+$filteredSummaryContent = $summaryContent | Where-Object { [datetime]$_.CurrentTime -gt $date }
+
+Write-Host "Summary file contained $($summaryContent.Count) entries, after cleanup if contains $($filteredSummaryContent.Count) entries."
+$filteredSummaryContent | Export-Csv -Path "$path\LcmControllerSummary.csv" -Delimiter ',' -Force
 '@
 
 configuration DscLcmController {
@@ -572,7 +594,9 @@ configuration DscLcmController {
 
         [bool]$MaintenanceWindowOverride,
 
-        [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
+        [timespan]$MaxLcmRuntime,
+
+        [timespan]$LogHistoryTimeSpan,
 
         [bool]$SendDscTaggingData,
 
@@ -673,6 +697,15 @@ configuration DscLcmController {
         Force     = $true
     }
 
+    xRegistry DscLcmController_LogHistoryTimeSpan {
+        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
+        ValueName = 'LogHistoryTimeSpan'
+        ValueData = $LogHistoryTimeSpan
+        ValueType = 'String'
+        Ensure    = 'Present'
+        Force     = $true
+    }
+    
     xRegistry DscLcmController_SendDscTaggingData {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'SendDscTaggingData'
