@@ -572,7 +572,7 @@ configuration DscLcmController {
 
         [bool]$MaintenanceWindowOverride,
 
-        [timespan]$MaxLcmRuntime,
+        [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
 
         [bool]$SendDscTaggingData,
 
