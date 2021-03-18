@@ -1,4 +1,4 @@
-if ($env:BHBranchName -eq "master") {
+if ($env:BHBranchName -eq "master" -and $env:NugetApiKey) {
     
     if ($env:BHBuildSystem -eq 'AppVeyor') {
         Deploy Module {
@@ -30,6 +30,7 @@ else {
     "Skipping deployment: To deploy, ensure that...`n" +
     "`t* You are in a known build system (Current: $env:BHBuildSystem)`n" +
     "`t* You are committing to the master branch (Current: $env:BHBranchName) `n" +
+    "`t* The NugetApiKey is known (value as bool is '$([bool]$env:NugetApiKey)') `n" +
     "`t* Module path is valid (Current: )" |
     Write-Host
 }
