@@ -52,12 +52,13 @@
 | - *False* (default)
   - True
 
-| DisableIPv6
+| ConfigureIPv6
 |
-| Boolean
-| Disable IPv6 on all network interfaces.
-| - *False* (default)
-  - True
+| Int16
+| Configure IPv6
+
+https://docs.microsoft.com/en-US/troubleshoot/windows-server/networking/configure-ipv6-in-windows[Guidance for configuring IPv6 in Windows for advanced users]
+| 0 - 255
 
 | [[dscyml_networkipconfiguration_interfaces, {YmlCategory}/Interfaces]]<<dscyml_networkipconfiguration_interfaces_details, Interfaces>>
 |
@@ -169,7 +170,7 @@ If set to `True` the paramters `IpAddress`, `Gateway` and `DnsServers` must be e
 ----
 NetworkIpConfiguration:
   DisableNetBios: true
-  DisableIPv6: false
+  ConfigureIPv6: 32
   Interfaces:
     - InterfaceAlias: Ethernet
       IpAddress: 10.0.0.1
