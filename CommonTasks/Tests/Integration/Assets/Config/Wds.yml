@@ -5,6 +5,7 @@ ScopeEnd: 2.1.33.254
 ScopeId: 2.1.32.0
 SubnetMask: 255.255.254.0
 UseExistingDhcpScope: false
+AnswerClients: Known
 DomainName: contoso.com
 DefaultDeviceOU: OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
 ImageGroups:
