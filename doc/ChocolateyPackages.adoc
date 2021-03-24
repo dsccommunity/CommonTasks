@@ -10,7 +10,7 @@
 
 
 [[dscyml_chocolateypackages_abstract]]
-.{YmlCategory} is aimed at getting and installing packages using Chocolatey.
+.{YmlCategory} is aimed to install packages using Chocolatey.
 
 
 [cols="1,3a" options="autowidth" caption=]
