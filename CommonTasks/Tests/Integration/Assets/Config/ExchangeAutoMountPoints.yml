@@ -1,0 +1,8 @@
+Identity: \ExchangeServer01
+AutoDagDatabasesRootFolderPath: C:\ExchangeDatabases
+AutoDagVolumesRootFolderPath: C:\ExchangeVolumes
+DiskToDBMap:
+  - DAG01-DB1
+  - DAG01-DB2
+SpareVolumeCount: 1
+VolumePrefix: EXVOL
