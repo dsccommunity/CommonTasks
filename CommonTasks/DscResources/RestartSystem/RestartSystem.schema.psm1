@@ -57,13 +57,15 @@
             TestScript = {
                 $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
 
-                if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                if ($null -ne $val -and $val.$using:rebootVarName -gt 0) 
+                { 
                     return $true
                 }   
                 return $false
             }
             SetScript = {
-                if( -not (Test-Path -Path $using:rebootKeyName) ) {
+                if( -not (Test-Path -Path $using:rebootKeyName) )
+                {
                     New-Item -Path $using:rebootKeyName -Force
                 }
                 Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1

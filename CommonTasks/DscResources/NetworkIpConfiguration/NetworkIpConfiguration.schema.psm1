@@ -1,13 +1,16 @@
 configuration NetworkIpConfiguration {
     param (
         [parameter()]
-        [boolean[]] $DisableNetBios,
+        [boolean]
+        $DisableNetBios = $false,
         
         [parameter()]
-        [boolean[]] $DisableIPv6,
-
+        [int16]
+        $ConfigureIPv6 = -1,   # < 0 -> no configuration code will be generated
+ 
         [parameter()]
-        [hashtable[]] $Interfaces
+        [hashtable[]]
+        $Interfaces
     )
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -127,37 +130,38 @@ configuration NetworkIpConfiguration {
         }
     }
 
-    if ($DisableIpv6 -eq $true)
+    if ($ConfigureIPv6 -ge 0)
     {
-        Script DisableIPv6_System
+        # see https://docs.microsoft.com/en-US/troubleshoot/windows-server/networking/configure-ipv6-in-windows
+
+        if( $ConfigureIPv6 -gt 255 )
+        {
+            throw "ERROR: Invalid IPv6 configuration value $ConfigureIPv6 (expected value: 0-255)."
+        }
+
+        $configIPv6KeyName = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
+        $configIPv6VarName = 'DisabledComponents'
+
+        Script ConfigureIPv6_System
         {
             TestScript = {
-                $result = $true
+                $val = Get-ItemProperty -Path $using:configIPv6KeyName -Name $using:configIPv6VarName -ErrorAction SilentlyContinue
 
-                $val = Get-NetIPv6Protocol | Select-Object MldLevel, DefaultHopLimit, IcmpRedirects
+                Write-Verbose "Current IPv6 Configuration value: '$($val.$using:configIPv6VarName)' - expected value: '$using:ConfigureIPv6'"
 
-                Write-Verbose "IPv6Protocol settings: $val"
-
-                if( $val.MldLevel -ne 'None' -or
-                    $val.DefaultHopLimit -ne 64 -or
-                    $val.IcmpRedirects -ne 'Disabled' )
+                if ($null -ne $val -and $val.$using:configIPv6VarName -eq $using:ConfigureIPv6)
                 {
-                    Write-Verbose 'IPv6Protocol parameters have not the expected values.'
-                    $result = $false
+                    return $true
                 }
-
-                $cnt = (Get-NetIPInterface -InterfaceAlias '*' -AddressFamily IPv6 | `
-                        Select-Object Dhcp, RouterDiscovery, NlMtu, DadTransmits | `
-                        Where-Object { $_.Dhcp -ne 'Disabled' -or $_.RouterDiscovery -ne 'Disabled' -or $_.NlMtu -ne 1280 -or $_.DadTransmits -ne 0 } | `
-                        Measure-Object).Count
-
-                Write-Verbose "NetIPInterfaces with unexpected values: $cnt"
- 
-                return $result
+                Write-Verbose 'Values are different'
+                return $false
             }
             SetScript = {      
-                Set-NetIPv6Protocol -MldLevel none -DefaultHopLimit 64 -IcmpRedirects Disabled
-                Set-NetIPInterface -InterfaceAlias '*' -AddressFamily IPv6 -Dhcp Disabled -RouterDiscovery Disabled -NlMtuBytes 1280 -DadTransmits 0
+                if( -not (Test-Path -Path $using:configIPv6KeyName) ) {
+                    New-Item -Path $using:configIPv6KeyName -Force
+                }
+                Set-ItemProperty -Path $using:configIPv6KeyName -Name $using:configIPv6VarName -Value $using:ConfigureIPv6 -Type DWord
+                $global:DSCMachineStatus = 1
             }
             GetScript = { return @{result = 'N/A'} }
         }            
