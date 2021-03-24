@@ -57,10 +57,14 @@ configuration ExchangeAutoMountPoints {
     
     if (-not $PSBoundParameters.ContainsKey('Identity')) {
         $PSBoundParameters.Add('Identity', $Node.NodeName)
+        $executionName = $Node.NodeName
+    }
+    else {
+        $executionName = $Identity
     }
     $PSBoundParameters.Remove('InstanceName')
 
-    $executionName = $Identity
+    
     (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
 }
