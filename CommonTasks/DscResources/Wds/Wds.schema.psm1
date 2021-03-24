@@ -10,6 +10,11 @@ configuration Wds
         [pscredential]
         $RunAsUser,
 
+        [Parameter(Mandatory)]
+        [ValidateSet( 'All', 'Known', 'None')]
+        [string]
+        $AnswerClients,
+
         [Parameter()]
         [boolean]
         $UseExistingDhcpScope = $false,
@@ -132,6 +137,59 @@ configuration Wds
     }
 
     $dependsOnWdsService = '[Service]wdsService'
+
+    if( -not [string]::IsNullOrWhiteSpace($AnswerClients) )
+    {
+        Script 'wdsCfg_AnswerClients'
+        {
+            TestScript = {
+                $patternAnswerClients = [Regex]::new('Answer clients:\s*(\w+)')
+                $patternAnswerKnownClients = [Regex]::new('Answer only known clients:\s*(\w+)')
+
+                $output = wdsutil /Get-Server /Show:Config
+
+                $matchAnswerClients      = $patternAnswerClients.Matches($output)
+                $matchAnswerKnownClients = $patternAnswerKnownClients.Matches($output)
+
+                [boolean]$curAnswerClients      = if( $matchAnswerClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
+                [boolean]$curAnswerKnownClients = if( $matchAnswerKnownClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
+
+                Write-Verbose "Expected AnswerClients: $using:AnswerClients"
+                Write-Verbose "Current AnswerClients: $curAnswerClients"
+                Write-Verbose "Current AnswerKnownClients: $curAnswerKnownClients"
+
+                if( $using:AnswerClients -eq 'All' )
+                {
+                    if( $curAnswerClients -ne $false -and $curAnswerKnownClients -eq $false )
+                    {
+                        return $true
+                    }
+                }
+                elseif( $using:AnswerClients -eq 'Known' )
+                {
+                    if( $curAswerClients -ne $false -and $curAnswerKnownClients -ne $false )
+                    {
+                        return $true
+                    }
+                }
+                elseif( $curAnswerClients -eq $false )
+                {
+                    # 'None'
+                    return $true
+                }
+
+                Write-Verbose 'Values are different.'
+                return $false
+            }
+            SetScript = {
+                Write-Verbose "Running: wdsutil /Set-Server /AnswerClients:$using:AnswerClients"
+                wdsutil /Set-Server /AnswerClients:$using:AnswerClients
+            }
+            GetScript = { return @{result = 'N/A'}}
+            DependsOn = $dependsOnWdsService
+            PsDscRunAsCredential = $RunAsUser
+        }        
+    }
 
     if( $null -ne $BootImages )
     {

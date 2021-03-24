@@ -1,0 +1,147 @@
+// CommonTasks YAML Reference: ChocolateyPackages2nd
+// =================================================
+
+:YmlCategory: ChocolateyPackages2nd
+
+
+[[dscyml_chocolateypackages2nd, {YmlCategory}]]
+= DSC Resource 'ChocolateyPackages2nd'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_chocolateypackages2nd_abstract]]
+.{YmlCategory} is aimed to install additional packages using Chocolatey.
+
+Now you can configure additional configuration steps between installation of two Chocolatey packages in the YAML configuration.
+
+[IMPORTANT]
+====
+This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
+
+In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`. 
+====
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages2nd
+| DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
+| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage]
+|===
+
+
+.Attributes of DSC Resource '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_chocolateypackages2nd_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages2nd_packages_details, Packages>>
+| 
+| Hashtable[]
+| List of Chocolatey packages
+|
+
+|===
+
+
+[[dscyml_chocolateypackages2nd_packages_details]]
+.Attributes of DSC Resource '<<dscyml_chocolateypackages2nd_packages>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Chocolatey Package Id
+|
+
+| Version
+|
+| String
+| Chocolatey Package Version
+
+  - '' -> Install latest version if package is not installed
+  - 1.0 -> Install specified version if no newer version is installed
+  - Latest -> Install or upgrade to latest version 
+|
+
+| Ensure
+|
+| String
+| Specifies whether the Chocolatey Package should be installed on the machine or not
+| - *Present* (default)
+  - Absent
+
+| ChocolateyOptions
+|
+| String[] (KeyValuePair)
+| https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
+| 
+
+| UpdateOnly
+|
+| Boolean
+| Only updates installed package and ignores packages not Installed.
+| - True
+  - *False* (default)
+
+| Credential
+|
+| PSCredential
+|
+|
+
+| ForceReboot
+|
+| Boolean
+| Force a reboot after first installation of the package. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+A Reboot after upgrade of an installed package is currently not supported. +
+To re-enable the system reboot feature the registry key value `RebootAfter_Chocolatey_<Name>` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - True
+  - *False* (default)
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ChocolateyPackages2nd:
+  Packages:
+    - Name: notepadplusplus
+      Ensure: Present
+      Version: "1.0"
+      ChocolateyOptions:
+        PackageParameters: /FirstParam:Value1 /SecondParam:Value2
+      Credential: '[ENC=PE9ianM...=]'
+    - Name: winrar
+      Version: Latest
+      ForceReboot: true
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  ChocolateyPackages2nd:
+    merge_hash: deep
+  ChocolateyPackages2nd\Packages:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+----

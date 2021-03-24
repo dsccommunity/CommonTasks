@@ -70,6 +70,16 @@ IMPORTANT: WDS requires for initialization and device reservation a valid domain
            The specified user will be assigned to local administrators group to get the sufficient privileges.
 |
 
+| AnswerClients
+|
+| String
+| Specifies which clients this server will answer.
+
+If you set this value to Known, a computer must be prestaged in active directory Domain Services (AD DS) before it will be answered by the Windows Deployment Services server.
+| - None
+  - All
+  - Known
+
 | UseExistingDhcpScope
 |
 | Boolean

@@ -46,5 +46,6 @@
     xFailOverCluster             = '1.15.0'
     xExchange                    = '1.32.0'
     SharePointDSC                = '4.5.1'
+    ActiveDirectoryCSDsc         = '5.0.0'
     
 }

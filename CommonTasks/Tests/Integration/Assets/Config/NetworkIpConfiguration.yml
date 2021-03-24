@@ -1,5 +1,5 @@
 DisableNetBios: true
-DisableIPv6: true
+ConfigureIPv6: 32
 Interfaces:
   - IpAddress: 10.0.0.1
     Prefix: 8
@@ -8,6 +8,7 @@ Interfaces:
       - 10.1.1.1
       - 10.1.1.2
     DisableNetbios: true
+    DisableIPv6: true
   - InterfaceAlias: Ethernet 2
     IpAddress: 10.0.0.2
     Prefix: 8

@@ -70,6 +70,7 @@ ifdef::env-github[]
 - <<AuditPolicies.adoc#, AuditPolicies>>
 - <<Bitlocker.adoc#, Bitlocker>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
+- <<ChocolateyPackages2nd.adoc#, ChocolateyPackages2nd>>
 - <<ComputerSettings.adoc#, ComputerSettings>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
@@ -124,6 +125,7 @@ ifndef::env-github[]
 | <<dscyml_auditpolicies>>                     | <<dscyml_auditpolicies_abstract>>
 | <<dscyml_bitlocker>>                         | <<dscyml_bitlocker_abstract>>
 | <<dscyml_chocolateypackages>>                | <<dscyml_chocolateypackages_abstract>>
+| <<dscyml_chocolateypackages2nd>>             | <<dscyml_chocolateypackages2nd_abstract>>
 | <<dscyml_computersettings>>                  | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>              | <<dscyml_configurationbase_abstract>>
 // | <<dscyml_dfsnamespaces>>                  | <<dscyml_dfsnamespaces_abstract>>
@@ -192,6 +194,7 @@ include::AddsProtectFromAccidentalDeletion.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
 include::Bitlocker.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
+include::ChocolateyPackages2nd.adoc[leveloffset=+2]
 include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]
 //include::DfsNamespaces.adoc[leveloffset=+2]
