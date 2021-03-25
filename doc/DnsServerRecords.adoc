@@ -102,9 +102,28 @@ DnsServerRecords:
       Target:     192.168.1.10
       Type:       ARecord
       DnsServer:  localhost
-      Ensure:     present
+      Ensure:     Present
 
     - Name:       Server2
       Zone:       PrimaryZone2
       Target:     192.168.1.11
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  DnsServerRecords:
+    merge_hash: deep
+  DnsServerRecords\Records:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+        - Zone
+        - Target
 ----
