@@ -80,6 +80,16 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 | - *Present* (default)
   - Absent
 
+| Rank
+|
+| Uint16
+| Rank to control the installation order of packages
+
+A package with a lower rank is installed before a package with a higher rank.
+With specifing the rank you can control the installation order of packages in the MOF files.
+This is useful on multiple YAML layer scenarios to define the installation order independent from the YAML layer merging. 
+| Default: `1000`
+
 | ChocolateyOptions
 |
 | String[] (KeyValuePair)
@@ -128,6 +138,7 @@ ChocolateyPackages2nd:
       Credential: '[ENC=PE9ianM...=]'
     - Name: winrar
       Version: Latest
+      Rank: 100   # winrar is installed before notepadplusplus (with the default rank)
       ForceReboot: true
 ----
 
