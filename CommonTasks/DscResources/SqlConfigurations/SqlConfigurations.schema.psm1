@@ -22,6 +22,9 @@ configuration SqlConfigurations {
 
     foreach ($option in $Options) 
     {
+        # Remove Case Sensitivity of ordered Dictionary or Hashtables
+        $option = @{}+$option
+
         if( [string]::IsNullOrWhiteSpace($option.InstanceName)  )
         {
             $option.InstanceName = $DefaultInstanceName

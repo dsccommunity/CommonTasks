@@ -2,9 +2,16 @@
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter()]
+        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        
+        [Parameter()]
         [hashtable]
-        $Setup
+        $Setup,
+
+        [Parameter()]
+        [hashtable[]]
+        $SqlLogins
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -14,6 +21,17 @@
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
         $Setup = @{}+$Setup
+
+        if( [string]::IsNullOrWhiteSpace($Setup.InstanceName)  )
+        {
+            $Setup.InstanceName = $DefaultInstanceName
+        }
+
+        # remove an empty Productkey
+        if( [string]::IsNullOrWhiteSpace($Setup.ProductKey) )
+        {
+            $Setup.Remove('ProductKey')
+        }
 
         # FileStreamAccessLevel is not supported by SqlSetup and must be enabled later
         $fileStreamAccessLevel = $Setup.FileStreamAccessLevel
@@ -78,6 +96,29 @@
                 GetScript = { return 'NA' }   
                 DependsOn = '[SqlSetup]sqlSetup'
             }
+        }
+    }
+
+
+    if( $null -ne $SqlLogins )
+    {
+        foreach( $login in $SqlLogins )
+        {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $login = @{}+$login
+
+            if( -not $login.ContainsKey('Ensure') )
+            {
+                $login.Ensure = 'Present'
+            }
+
+            if( [string]::IsNullOrWhiteSpace($login.InstanceName) )
+            {
+                $login.InstanceName = $DefaultInstanceName
+            }
+            
+            $executionName = "sqllogin_$($login.Name)"
+            (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
         }
     }
 }
