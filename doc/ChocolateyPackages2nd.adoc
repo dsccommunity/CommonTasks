@@ -140,8 +140,6 @@ ChocolateyPackages2nd:
       Version: Latest
       Rank: 100   # winrar is installed before notepadplusplus (with the default rank)
       ForceReboot: true
-----
-
 
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]
