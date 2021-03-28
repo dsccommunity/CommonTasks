@@ -72,6 +72,8 @@
 | Key
 | String
 | Name of the SQL Server instance to be configured.
+  
+If not specified the value of `DefaultInstanceName` is used as default.
 |
 
 | OptionName

@@ -52,8 +52,10 @@
 | Name
 |
 | String
-| Indicates the service name. +
-  Note that sometimes this is different from the display name. 
+| Indicates the service name.
+
+  Note that sometimes this is different from the display name.
+  You can get a list of the services and their current state with the Get-Service cmdlet.
 |
 
 | BuiltInAccount
@@ -67,13 +69,19 @@
 | DisplayName
 |
 | String
-| Indicates the display name of the target service.
+| The display name of the service.
 | 
 
 | Path
 |
 | String
-| Indicates the path to the binary file for a new service.
+| The path to the service executable file.
+|
+
+| GroupManagedServiceAccount
+|
+| String
+| The Group Managed Service Account to run the service under
 |
 
 | Credential
@@ -93,7 +101,14 @@
 | State
 |
 | String
-| Indicates the state you want to ensure for the service. 
+| Indicates the state you want to ensure for the service.
+
+If no value is specified a dafault value is set with the following confitions: 
+
+- `StartupType` is empty       -> `Running`
+- `StartupType` is `Automatic` -> `Running`
+- `StartupType` is `Disabled`  -> `Stopped`
+- `StartupType` is `Manual`    -> `Ignore`
 | - Ignore
   - Running
   - Stopped
@@ -101,38 +116,38 @@
 | Description
 |
 | String
-| Indicates the description of the target service.
+| The description of the service.
 | 
 
 | StartupTimeout
 |
 | Uint32
 | The time to wait for the service to be running in milliseconds.
-|
+| Default: `30000`
 
 | TerminateTimeout
 |
 | Uint32
 | The time to wait for the service to be stopped in milliseconds.
-|
+| Default: `30000`
 
 | Dependencies
 |
-| String
-| An array of the names of the dependencies the service should have.
+| String[]
+| An array of strings indicating the names of the dependencies of the service.
 |
 
 | DesktopInteract
 |
 | Boolean
-| Indicates whether or not the service should be able to communicate with a window on the desktop.
+| The service can create or communicate with a window on the desktop.
   Must be `False` for services not running as `LocalSystem`.
 | - True
-  - False
+  - *False* (default)
 
 | Ensure
 |
-|
+| Boolean
 | Indicates whether the target service exists on the system. +
   Set this property to `Absent` to ensure that the target service does not exist. 
   Setting it to `Present` ensures that target service exists.

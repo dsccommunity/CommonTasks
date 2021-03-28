@@ -260,7 +260,8 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | String[]
 | Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`). 
   Only used when `Group` is selected for `AccountType`.
-  
+|
+
 | MembershipAttribute
 |
 | String
@@ -283,6 +284,7 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | List of Domain Groups of the managed service account.
 
 NOTE: Only domain groups of the member domain are supported.
+|
 
 |===
 
