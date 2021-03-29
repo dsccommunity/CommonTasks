@@ -1,0 +1,9 @@
+Items:
+  - WebsitePath: IIS:\Sites\Default Web Site\CertEnroll
+    Filter: system.webServer/directoryBrowse
+    PropertyName: enabled
+    Value: true
+  - WebsitePath: IIS:\Sites\Default Web Site\CertEnroll
+    Filter: system.webServer/security/requestFiltering
+    PropertyName: allowDoubleEscaping
+    Value: true

@@ -15,6 +15,7 @@
 // reference links as variables for using more than once
 :ref_sqlserverdsc_wiki:                             https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
 :ref_sqlserverdsc_sqlsetup:                         https://github.com/dsccommunity/SqlServerDsc/wiki/SqlSetup[SqlSetup]
+:ref_sqlserverdsc_sqllogin:                         https://github.com/dsccommunity/SqlServerDsc/wiki/SqlLogin[SqlLogin]
 :ref_sqlserverdsc_sourcecredential_considerations:  https://github.com/dsccommunity/SqlServerDsc/tree/master/source/DSCResources/DSC_SqlSetup#considerations-for-the-parameter-sourcecredential[Considerations for the parameter SourceCredential]
 
 
@@ -24,6 +25,7 @@
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | {ref_sqlserverdsc_wiki},
                    {ref_sqlserverdsc_sqlsetup}, 
+                   {ref_sqlserverdsc_sqllogin}
                    
 |===
 
@@ -44,11 +46,25 @@ https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-ac
 | Description
 | Allowed Values
 
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of an option is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
+
 | [[dscyml_sqlserver_setup, {YmlCategory}/Setup]]<<dscyml_sqlserver_setup_details, Setup>>
-| Mandatory
+|
 | Hashtable
 | The {ref_sqlserverdsc_sqlsetup} DSC resource installs SQL Server on the target node.
 |
+
+| [[dscyml_sqlserver_sqllogins, {YmlCategory}/SqlLogins]]<<dscyml_sqlserver_sqllogins_details, SqlLogins>>
+|
+| Hashtable[]
+| List of SQL Server logins for a SQL Server instance.
+|
+
 |===
 
 
@@ -125,7 +141,10 @@ https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-ac
 |
 | String
 | Specifies the name of the instance to be installed.
-  Use `MSSQLSERVER` if you want to install a default clustered instance.
+
+Use `MSSQLSERVER` if you want to install a default clustered instance.
+    
+If not specified the value of `DefaultInstanceName` is used as default.
 |
 
 | InstanceID
@@ -499,10 +518,115 @@ All values must be expressed in upper case.
 |===
 
 
+[[dscyml_sqlserver_sqllogins_details]]
+.Attributes of category '<<dscyml_sqlserver_sqllogins>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the login.
+|
+
+| InstanceName
+| Key
+| String
+| Name of the _SQL Server_ instance to be configured.
+
+If not specified the value of `DefaultInstanceName` is used as default.
+|
+
+| Ensure
+|
+| String
+| The specified login should be `Present` or `Absent`.
+| - *Present* (default)
+  - Absent
+
+| LoginType
+|
+| String
+| The type of login to be created.
+
+If LoginType is `WindowsUser` or `WindowsGroup` then provide the name in the format `DOMAIN\name`.
+
+NOTE: The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
+| - *WindowsUser* (default)
+  - WindowsGroup
+  - SqlLogin
+  - Certificate
+  - AsymmetricKey
+  - ExternalUser
+  - ExternalGroup
+
+| ServerName
+|
+| String
+| The hostname of the _SQL Server_ to be configured.
+| Default: current computer name
+
+| LoginCredential
+|
+| PSCredential
+| Specifies the password. 
+
+NOTE: Only applies to _SQL Logins_.
+|
+
+| LoginMustChangePassword
+|
+| Boolean
+| Specifies if the login is required to have its password change on the next login.
+
+NOTE: Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQL Login_ and any attempt to do this will throw an exception.
+| - *True* (default)
+  - False
+
+| LoginPasswordExpirationEnabled
+|
+| Boolean
+| Specifies if the login password is required to expire in accordance to the operating system security policy.
+
+NOTE: Only applies to _SQL Logins_.
+| - *True* (default)
+  - False
+
+| LoginPasswordPolicyEnforced
+|
+| Booelan
+| Specifies if the login password is required to conform to the password policy specified in the system security policy.
+
+NOTE: Only applies to _SQL Logins_.
+| - *True* (default)
+  - False
+
+| Disabled
+|
+| Boolean
+| Specifies if the login is disabled.
+| - True
+  - *False* (default)
+  
+| DefaultDatabase
+|
+| String
+| Specifies the default database name.
+|
+
+|===
+
+
 .Example
 [source, yaml]
 ----
 SqlServer:
+  DefaultInstanceName: MSSQLSERVER
   Setup:
     Action: Install
     SourcePath: \\mediaserver\install\sqlserver
@@ -510,7 +634,6 @@ SqlServer:
     SuppressReboot: false
     ForceReboot: true
     Features: SQLENGINE, REPLICATION, CONN
-    InstanceName: MSSQLSERVER
     InstanceID:
     ProductKey:
     UpdateEnabled: false
@@ -566,4 +689,20 @@ SqlServer:
     UseEnglish: true
     SkipRule:
     FileStreamAccessLevel: 2
+
+  SqlLogins:
+    - Name: CONTOSO\User1
+      LoginType: WindowsUser
+      DefaultDatabase: AdventureWorks
+    - Name: CONTOSO\Group1
+      LoginType: WindowsGroup
+      DefaultDatabase: master
+    - Name: sqlUser1
+      LoginType: SqlLogin
+      DefaultDatabase: master
+      LoginCredential: '[ENC=PE9ianM...=]'
+      LoginMustChangePassword: false
+      LoginPasswordExpirationEnabled: false
+      LoginPasswordPolicyEnforced: false
+      Disabled: true
 ----
