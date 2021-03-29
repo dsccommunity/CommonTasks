@@ -16,11 +16,6 @@ configuration Wds
         $AnswerClients,
 
         [Parameter()]
-        [ValidateSet( 'All', 'Known', 'None')]
-        [string]
-        $AnswerClients,
-
-        [Parameter()]
         [boolean]
         $UseExistingDhcpScope = $false,
         
