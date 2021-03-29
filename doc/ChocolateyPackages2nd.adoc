@@ -138,14 +138,8 @@ ChocolateyPackages2nd:
       Credential: '[ENC=PE9ianM...=]'
     - Name: winrar
       Version: Latest
-<<<<<<< HEAD
       Rank: 100   # winrar is installed before notepadplusplus (with the default rank)
       ForceReboot: true
-=======
-      ForceReboot: true
-----
-
->>>>>>> 12e673e (NetworkIpConfiguration - replace global DisableIPv6 with ConfigureIPv6 (#82))
 
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]
