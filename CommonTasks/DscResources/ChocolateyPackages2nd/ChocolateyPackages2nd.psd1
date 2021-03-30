@@ -11,5 +11,5 @@
 
     Copyright            = 'NA'
 
-    DscResourcesToExport = @('ChocolateyPackages')
+    DscResourcesToExport = @('ChocolateyPackages2nd')
 }
