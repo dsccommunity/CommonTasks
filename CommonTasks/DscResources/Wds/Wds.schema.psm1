@@ -10,7 +10,7 @@ configuration Wds
         [pscredential]
         $RunAsUser,
 
-        [Parameter(Mandatory)]
+        [Parameter()]
         [ValidateSet( 'All', 'Known', 'None')]
         [string]
         $AnswerClients,

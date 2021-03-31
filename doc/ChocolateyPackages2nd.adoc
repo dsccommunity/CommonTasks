@@ -94,6 +94,8 @@ This is useful on multiple YAML layer scenarios to define the installation order
 |
 | String[] (KeyValuePair)
 | https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
+
+NOTE: All option values shall be provided as strings, so enclose numerical values in ''.
 | 
 
 | UpdateOnly
@@ -132,7 +134,7 @@ ChocolateyPackages2nd:
   Packages:
     - Name: notepadplusplus
       Ensure: Present
-      Version: "1.0"
+      Version: '1.0'
       ChocolateyOptions:
         PackageParameters: /FirstParam:Value1 /SecondParam:Value2
       Credential: '[ENC=PE9ianM...=]'
@@ -140,6 +142,14 @@ ChocolateyPackages2nd:
       Version: Latest
       Rank: 100   # winrar is installed before notepadplusplus (with the default rank)
       ForceReboot: true
+    - Name: very_large_package
+      Ensure: Present
+      Version: '1.0'
+      ChocolateyOptions:
+        ChocolateyOptions:
+        TimeOut: '3600'  # 1h install timeout
+----
+
 
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]
