@@ -1,8 +1,8 @@
 configuration DnsServerSettings {
     param (
         [Parameter(Mandatory = $true)]
-        [string]
-        $Name,
+        [System.String]
+        $DnsServer,
 
         [Parameter()]
         [uint32]
@@ -74,10 +74,6 @@ configuration DnsServerSettings {
 
         [Parameter()]
         [uint32]
-        $EventLogLevel,
-
-        [Parameter()]
-        [uint32]
         $ForwardDelegations,
 
         [Parameter()]
@@ -99,18 +95,6 @@ configuration DnsServerSettings {
         [Parameter()]
         [bool]
         $LocalNetPriority,
-
-        [Parameter()]
-        [uint32]
-        $LogFileMaxSize,
-
-        [Parameter()]
-        [string]
-        $LogFilePath,
-
-        [Parameter()]
-        [string[]]
-        $LogIPFilterList,
 
         [Parameter()]
         [uint32]
