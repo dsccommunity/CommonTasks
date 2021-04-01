@@ -38,23 +38,6 @@ configuration ChocolateyPackages2nd {
         {
             $p.Remove( 'Rank' )
 
-            if( [string]::IsNullOrWhiteSpace($p.Rank) )
-            {
-                # set default Rank to 1000
-                $p.Rank = [uint16]1000
-            }
-            else
-            {
-                $p.Rank = [uint16]$p.Rank
-            }
-
-            $clonedPackageList.Add( $p ) 
-        }
-
-        foreach ($p in ($clonedPackageList | Sort-Object {[uint16]($_.Rank)}) )
-        {
-            $p.Remove( 'Rank' )
-
             $executionName = $p.Name -replace '\(|\)|\.| ', ''
             $executionName = "Chocolatey_$executionName"
             $p.ChocolateyOptions = [hashtable]$p.ChocolateyOptions
