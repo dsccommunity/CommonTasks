@@ -197,26 +197,30 @@ configuration ChocolateyPackages {
     {
         $clonedPackageList = [System.Collections.ArrayList]@()
 
+        [uint16]$i = 0
+
         # set Rank attribute to allow a later ordering
         foreach ($p in $Packages)
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
             $p = @{}+$p
+            # counter to keep original list order on equal rank values
+            $i++
 
             if( [string]::IsNullOrWhiteSpace($p.Rank) )
             {
                 # set default Rank to 1000
-                $p.Rank = [uint16]1000
+                $p.Rank = [UInt64](1000 * 100000 + $i)
             }
             else
             {
-                $p.Rank = [uint16]$p.Rank
+                $p.Rank = [UInt64]($p.Rank * 100000 + $i)
             }
 
             $clonedPackageList.Add( $p ) 
         }
 
-        foreach ($p in ($clonedPackageList | Sort-Object {[uint16]($_.Rank)}) )
+        foreach ($p in ($clonedPackageList | Sort-Object {[UInt64]($_.Rank)}) )
         {
             $p.Remove( 'Rank' )
 
