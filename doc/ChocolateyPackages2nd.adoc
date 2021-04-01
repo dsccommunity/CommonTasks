@@ -150,7 +150,6 @@ ChocolateyPackages2nd:
         TimeOut: '3600'  # 1h install timeout
 ----
 
-
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]
 ----
