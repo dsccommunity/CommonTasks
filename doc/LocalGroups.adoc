@@ -1,0 +1,126 @@
+// CommonTasks YAML Reference: LocalGroups
+// =======================================
+
+:YmlCategory: LocalGroups
+
+
+[[dscyml_localgroups, {YmlCategory}]]
+= DSC Resource 'LocalGroups'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_localgroups_abstract]]
+.{YmlCategory} manages local groups.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/LocalGroups
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration/tree/main/source/DSCResources/DSC_xGroupResource[xGroup]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_localgroups_groups, {YmlCategory}/Groups]]<<dscyml_localgroups_groups_details, Groups>>
+|
+| Hashtable[]
+| List of local groups.
+|
+
+|===
+
+
+[[dscyml_localgroups_groups_details]]
+.Selected Attributes of category '<<dscyml_localgroups_groups>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GroupName
+| Key
+| String
+| The name of the group to create, modify, or remove.
+|
+
+| Ensure
+| 
+| String
+| Indicates if the group should exist or not.
+| - Absent
+  - *Present* (default)
+
+| Description
+|
+| String
+| The description the group should have.
+|
+
+| Members
+|
+| String[]
+| The members the group should have.
+|
+
+| MembersToInclude
+|
+| String[]
+| The members the group should include.
+|
+
+| MembersToExclude
+|
+| String[]
+| The members the group should exclude.
+|
+
+| Credential
+|
+| PSCredential
+| A credential to resolve non-local group members.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+LocalGroups:
+  Groups:
+    - GroupName:   App_123_Read
+      Description: App Reader
+      MembersToInclude:
+        - User01
+        - User02
+      MembersToExclude:
+        - Administrator
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  LocalGroups:
+    merge_hash: deep
+  LocalGroups\Groups:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - GroupName
+----

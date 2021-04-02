@@ -1,6 +1,6 @@
 ﻿Records:
   - Name:       Server1
-    Zone:       PrimaryZone1
+    Zone:       contoso.com
     Target:     192.168.1.10
     DnsServer:  192.168.1.2
     Type:       ARecord
@@ -17,3 +17,15 @@
     Zone:       PrimaryZone3
     Target:     192.168.1.30
     Type:       CName
+
+MxRecords:
+  - Name:       contoso.com
+    Zone:       contoso.com
+    Target:     mailserver1.contoso.com
+    Priority:   10
+    Ensure:     Present
+    
+  - Name:       contoso.com
+    Zone:       contoso.com
+    Target:     mailserver2.contoso.com
+    Priority:   20

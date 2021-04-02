@@ -1,0 +1,3 @@
+SourceMetaMofDir: \\PullServer\Config$\MetaMOF
+TargetMetaMofDir: C:\Temp\DSC
+ConfigurationName: NewConfigName  # leave this field empty to use the current computer name

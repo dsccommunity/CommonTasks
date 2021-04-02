@@ -7,6 +7,9 @@ configuration AddsDomainUsers
         $DomainDN,
 
         [Hashtable[]]
+        $Computers,
+
+        [Hashtable[]]
         $Users,
 
         [Hashtable]
@@ -58,6 +61,25 @@ configuration AddsDomainUsers
                 GetScript = { return 'NA' } 
                 DependsOn = "[$ExecutionType]$ExecutionName"
             }            
+        }
+    }
+    
+    if( $null -ne $Computers )
+    {
+        foreach ($computer in $Computers)
+        {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $computer = @{}+$computer
+
+            # save group list
+            $memberOf = $computer.MemberOf
+            $computer.Remove( 'MemberOf' )
+
+            $executionName = "adComputer_$($computer.ComputerName)"
+
+            (Get-DscSplattedResource -ResourceName ADComputer -ExecutionName $executionName -Properties $computer -NoInvoke).Invoke($computer)
+
+            AddMemberOf -ExecutionName $executionName -ExecutionType ADComputer -AccountName "$($computer.ComputerName)$" -MemberOf $memberOf
         }
     }
 

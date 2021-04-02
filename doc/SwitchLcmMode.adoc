@@ -1,0 +1,65 @@
+// CommonTasks YAML Reference: SwitchLcmMode
+// =========================================
+
+:YmlCategory: SwitchLcmMode
+
+
+[[dscyml_switchlcmmode, {YmlCategory}]]
+= DSC Resource 'SwitchLcmMode'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_switchlcmmode_abstract]]
+.{YmlCategory} module is used to download a new MetaMOF and switch the LCM to Pull-Mode.
+
+The `{YmlCategory}` resource shall be the last step in the DSC configuration otherwise the following steps are not executed.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SwitchToPullMode
+| DSC Resource   |
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SourceMetaMofDir
+| Mandatory
+| String
+| Folder with the MetaMOF files 
+|
+
+| ConfigurationName
+| 
+| String
+| Name of the new configuration
+
+NOTE: A file named `<ConfigurationName>.meta.mof` must exist at `SourceMetaMofDir`.
+| Default: current computer name
+
+| TargetMetaMofDir
+|
+| String
+| Target folder for the new MetaMOF file and helper scripts
+| Default: `C:\DSC_Config`
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SwitchLcmMode:
+  SourceMetaMofDir: \\PullServer\Config$\MetaMOF
+  TargetMetaMofDir: C:\Temp\DSC
+  ConfigurationName: NewConfigName  # leave this field empty to use the current computer name
+----

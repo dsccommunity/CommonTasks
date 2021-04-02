@@ -1,4 +1,4 @@
-DnsServer: Server1
+DnsServer: localhost
 ListenAddresses:
   - 192.168.30.111
 IsSlave: true

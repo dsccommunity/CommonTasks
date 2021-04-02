@@ -1,8 +1,8 @@
 configuration DnsServerSettings {
     param (
-        [Parameter(Mandatory = $true)]
-        [System.String]
-        $DnsServer,
+        [Parameter()]
+        [string]
+        $DnsServer = 'localhost',
 
         [Parameter()]
         [uint32]
