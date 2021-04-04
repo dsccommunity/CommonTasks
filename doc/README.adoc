@@ -64,7 +64,7 @@ ifdef::env-github[]
 
 - <<Globals.adoc#, Globals>>
 - <<AddsDomain.adoc#, AddsDomain>>
-- <<AddsDomainUsers.adoc#, AddsDomainUsers>>
+- <<AddsDomainPrincipals.adoc#, AddsDomainPrincipals>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AddsProtectFromAccidentalDeletion.adoc#, AddsProtectFromAccidentalDeletion>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
@@ -120,7 +120,7 @@ ifndef::env-github[]
 | <<dscyml_globals>>                           | <<dscyml_globals_abstract>>
 | <<dscyml_addsdomain>>                        | <<dscyml_addsdomain_abstract>>
 // | <<dscyml_addsdomaincontroller>>           | <<dscyml_addsdomaincontroller_abstract>>
-| <<dscyml_addsdomainusers>>                   | <<dscyml_addsdomainusers_abstract>>
+| <<dscyml_addsdomainprincipals>>                   | <<dscyml_addsdomainprincipals_abstract>>
 | <<dscyml_addsorgunitsandgroups>>             | <<dscyml_addsorgunitsandgroups_abstract>>
 | <<dscyml_addsprotectfromaccidentaldeletion>> | <<dscyml_addsprotectfromaccidentaldeletion_abstract>>
 // | <<dscyml_addssitessubnets>>               | <<dscyml_addssitessubnets_abstract>>
@@ -191,7 +191,7 @@ ifndef::env-github[]
 include::Globals.adoc[leveloffset=+2]
 include::AddsDomain.adoc[leveloffset=+2]
 //include::AddsDomainController.adoc[leveloffset=+2]
-include::AddsDomainUsers.adoc[leveloffset=+2]
+include::AddsDomainPrincipals.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 include::AddsProtectFromAccidentalDeletion.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
