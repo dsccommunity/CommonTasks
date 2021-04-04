@@ -15,7 +15,7 @@
 
 // reference links as variables for using more than once
 :ref_xDnsServerSetting:  https://github.com/dsccommunity/xDnsServer#xdnsserversetting[xDnsServerSetting]
-:ref_xDnsServerSetting_schema:  https://github.com/dsccommunity/xDnsServer/blob/master/source/DSCResources/MSFT_xDnsServerSetting/MSFT_xDnsServerSetting.schema.mof[xDnsServerSetting]
+:ref_xDnsServerSetting_schema:  https://github.com/dsccommunity/DnsServerDsc/tree/main/source/DSCResources/DSC_DnsServerSetting[DnsServerSetting]
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -36,12 +36,11 @@ See the specification of {ref_xDnsServerSetting_schema} to get a description of 
 | Description
 | Allowed Values
 
-| Name
+| DnsServer
 | Key
 | String
-| Key for the resource. +
-  It doesn't matter what it is as long as it's unique within the configuration.
-|
+| Specifies the DNS server to connect to, or use `localhost` for the current node.
+| Default: `localhost`
 
 | AddressAnswerLimit
 |
@@ -155,12 +154,6 @@ See the specification of {ref_xDnsServerSetting_schema} to get a description of 
 | - True
   - False
 
-| EventLogLevel
-|
-| Uint32
-| Indicates which events the DNS Server records in the Event Viewer system log.
-|
-
 | ForwardDelegations
 |
 | Uint32
@@ -198,24 +191,6 @@ See the specification of {ref_xDnsServerSetting_schema} to get a description of 
 | Indicates whether the DNS Server gives priority to the local net address when returning A records.
 | - True
   - False
-
-| LogFileMaxSize
-|
-| Uint32
-| Size of the DNS Server debug log, in bytes.
-|
-
-| LogFilePath
-|
-| String
-| File name and path for the DNS Server debug log.
-|
-
-| LogIPFilterList
-|
-| String[]
-| List of IP addresses used to filter DNS events written to the debug log.
-|
 
 | LogLevel
 |

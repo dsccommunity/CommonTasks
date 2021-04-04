@@ -12,7 +12,6 @@
 [[dscyml_addsorgunitsandgroups_abstract]]
 .{YmlCategory} adds Groups and Organizational Units to an existing Domain.
 
-Requires <<dscyml_addsdomain_domainname>>
 
 [cols="1,3a" options="autowidth" caption=]
 |===
@@ -40,13 +39,13 @@ Requires <<dscyml_addsdomain_domainname>>
 
 | [[dscyml_addsorgunitsandgroups_orgunits, {YmlCategory}/OrgUnits]]<<dscyml_addsorgunitsandgroups_orgunits_details, OrgUnits>>
 |
-| Object[]
+| Hashtable[]
 | List of Organizational Units (OUs) within Active Directory
 |
 
 | [[dscyml_addsorgunitsandgroups_groups, {YmlCategory}/Groups]]<<dscyml_addsorgunitsandgroups_groups_details, Groups>>
 |
-| Object[]
+| Hashtable[]
 | List of groups within Active Directory.
 |
 
