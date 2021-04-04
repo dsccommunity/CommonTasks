@@ -1,15 +1,15 @@
-// CommonTasks YAML Reference: AddsDomainUsers
+// CommonTasks YAML Reference: AddsDomainPrincipals
 // ========================================
 
-:YmlCategory: AddsDomainUsers
+:YmlCategory: AddsDomainPrincipals
 
 
-[[dscyml_addsdomainusers, {YmlCategory}]]
-= DSC Resource 'AddsDomainUsers'
+[[dscyml_addsdomainprincipals, {YmlCategory}]]
+= DSC Resource 'AddsDomainPrincipals'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_addsdomainusers_abstract]]
+[[dscyml_addsdomainprincipals_abstract]]
 .{YmlCategory} manages Users and Managed Service Accounts within Active Directory.
 
 
@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomainUsers
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomainPrincipals
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
 | Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADComputer[ADComputer],
                    {ref_ADUser}, 
@@ -36,25 +36,25 @@
 | Description
 | Allowed Values
 
-| [[dscyml_addsdomainusers_domaindn, DomainDn]]DomainDn
+| [[dscyml_addsdomainprincipals_domaindn, DomainDn]]DomainDn
 |
 | String
 | Distinguished Name (DN) of the domain.
 |
 
-| [[dscyml_addsdomainusers_computers, {YmlCategory}/Computers]]<<dscyml_addsdomainusers_computers_details, Computers>>
+| [[dscyml_addsdomainprincipals_computers, {YmlCategory}/Computers]]<<dscyml_addsdomainprincipals_computers_details, Computers>>
 | 
 | Hashtable[]
 | List of computer accounts to create.
 |
 
-| [[dscyml_addsdomainusers_users, {YmlCategory}/Users]]<<dscyml_addsdomainusers_users_details, Users>>
+| [[dscyml_addsdomainprincipals_users, {YmlCategory}/Users]]<<dscyml_addsdomainprincipals_users_details, Users>>
 | 
 | Hashtable[]
 | List of users to create.
 |
 
-| [[dscyml_addsdomainusers_kdskey, {YmlCategory}/KDSKey]]<<dscyml_addsdomainusers_kdskey_details, KDSKey>>
+| [[dscyml_addsdomainprincipals_kdskey, {YmlCategory}/KDSKey]]<<dscyml_addsdomainprincipals_kdskey_details, KDSKey>>
 |
 | Hashtable
 | Management of KDS Root Keys within Active Directory. +
@@ -63,7 +63,7 @@
 IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the timezone (`ComputerSettings`) otherwise two keys are be created.
 |
 
-| [[dscyml_addsdomainusers_managedserviceaccounts, {YmlCategory}/ManagedServiceAccounts]]<<dscyml_addsdomainusers_managedserviceaccounts_details, ManagedServiceAccounts>>
+| [[dscyml_addsdomainprincipals_managedserviceaccounts, {YmlCategory}/ManagedServiceAccounts]]<<dscyml_addsdomainprincipals_managedserviceaccounts_details, ManagedServiceAccounts>>
 | 
 | Hashtable[]
 | List of managed service accounts to create.
@@ -72,8 +72,8 @@ IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the t
 |===
 
 
-[[dscyml_addsdomainusers_computers_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_computers>>'
+[[dscyml_addsdomainprincipals_computers_details]]
+.Selected Attributes of category '<<dscyml_addsdomainprincipals_computers>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -191,8 +191,8 @@ NOTE: Only domain groups of the member domain are supported.
 |===
 
 
-[[dscyml_addsdomainusers_users_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_users>>' - see {ref_ADUser} for more attributes
+[[dscyml_addsdomainprincipals_users_details]]
+.Selected Attributes of category '<<dscyml_addsdomainprincipals_users>>' - see {ref_ADUser} for more attributes
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -205,7 +205,7 @@ NOTE: Only domain groups of the member domain are supported.
 | Key
 | String
 | Name of the domain where the user account is located (only used if password is managed).
-| Default: <<dscyml_addsdomainusers_domaindn>>
+| Default: <<dscyml_addsdomainprincipals_domaindn>>
 
 | UserName
 | Key
@@ -256,8 +256,8 @@ NOTE: Only domain groups of the member domain are supported.
 |===
 
 
-[[dscyml_addsdomainusers_kdskey_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_kdskey>>'
+[[dscyml_addsdomainprincipals_kdskey_details]]
+.Selected Attributes of category '<<dscyml_addsdomainprincipals_kdskey>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -307,8 +307,8 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 |===
 
 
-[[dscyml_addsdomainusers_managedserviceaccounts_details]]
-.Selected Attributes of category '<<dscyml_addsdomainusers_managedserviceaccounts>>'
+[[dscyml_addsdomainprincipals_managedserviceaccounts_details]]
+.Selected Attributes of category '<<dscyml_addsdomainprincipals_managedserviceaccounts>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -418,7 +418,7 @@ NOTE: Only domain groups of the member domain are supported.
 .Example
 [source, yaml]
 ----
-AddsDomainUsers:
+AddsDomainPrincipals:
   DomainDN: DC=contoso,DC=com
   Computers:
     - ComputerName: Server01
@@ -467,19 +467,19 @@ AddsDomainUsers:
 ----
 lookup_options:
 
-  AddsDomainUsers:
+  AddsDomainPrincipals:
     merge_hash: deep
-  AddsDomainUsers\Computers:
+  AddsDomainPrincipals\Computers:
     merge_hash_array: UniqueKeyValTuples
     merge_options:
       tuple_keys:
         - ComputerName
-  AddsDomainUsers\Users:
+  AddsDomainPrincipals\Users:
     merge_hash_array: UniqueKeyValTuples
     merge_options:
       tuple_keys:
         - UserName
-  AddsDomainUsers\ManagedServiceAccounts:
+  AddsDomainPrincipals\ManagedServiceAccounts:
     merge_hash_array: UniqueKeyValTuples
     merge_options:
       tuple_keys:

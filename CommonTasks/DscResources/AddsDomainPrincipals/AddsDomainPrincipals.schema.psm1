@@ -1,4 +1,4 @@
-configuration AddsDomainUsers
+configuration AddsDomainPrincipals
 {
     param
     (
@@ -22,7 +22,6 @@ configuration AddsDomainUsers
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
     
-
     function AddMemberOf {
         param (
             [String]   $ExecutionName,
