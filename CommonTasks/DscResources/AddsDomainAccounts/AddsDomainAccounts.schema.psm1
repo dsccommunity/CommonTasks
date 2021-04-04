@@ -1,4 +1,4 @@
-configuration AddsDomainUsers
+configuration AddsDomainAccounts
 {
     param
     (
