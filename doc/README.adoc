@@ -84,6 +84,7 @@ ifdef::env-github[]
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<LocalGroups.adoc#, LocalGroups>>
 - <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
 - <<OpticalDiskDrives.adoc#, OpticalDiskDrives>>
@@ -96,6 +97,7 @@ ifdef::env-github[]
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
 - <<SqlConfigurations.adoc#, SqlConfigurations>>
 - <<SqlServer.adoc#, SqlServer>>
+- <<SwitchLcmMode.adoc#, SwitchLcmMode>>
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
 - <<WindowsEventForwarding.adoc#, WindowsEventForwarding>>
@@ -154,6 +156,7 @@ ifndef::env-github[]
 // | <<dscyml_jeaendpoints>>                   | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                       | <<dscyml_jearoles_abstract>>
 // | <<dscyml_network>>                        | <<dscyml_network_abstract>>
+| <<dscyml_localgroups>>                       | <<dscyml_localgroups_abstract>>
 | <<dscyml_mountimages>>                       | <<dscyml_mountimages_abstract>>
 | <<dscyml_networkipconfiguration>>            | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_opticaldiskdrives>>                 | <<dscyml_opticaldiskdrives_abstract>>
@@ -168,6 +171,7 @@ ifndef::env-github[]
 | <<dscyml_softwarepackages>>                  | <<dscyml_softwarepackages_abstract>>
 | <<dscyml_sqlconfigurations>>                 | <<dscyml_sqlconfigurations_abstract>>
 | <<dscyml_sqlserver>>                         | <<dscyml_sqlserver_abstract>>
+| <<dscyml_switchlcmmode>>                     | <<dscyml_switchlcmmode_abstract>>
 | <<dscyml_updateservices>>                    | <<dscyml_updateservices_abstract>>
 | <<dscyml_wds>>                               | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>            | <<dscyml_webapplicationpools_abstract>>
@@ -222,6 +226,7 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::IpConfiguration.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
+include::LocalGroups.adoc[leveloffset=+2]
 //include::Network.adoc[leveloffset=+2]
 include::MountImages.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
@@ -237,6 +242,7 @@ include::SecurityPolicies.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
 include::SqlConfigurations.adoc[leveloffset=+2]
 include::SqlServer.adoc[leveloffset=+2]
+include::SwitchLcmMode.adoc[leveloffset=+2]
 include::UpdateServices.adoc[leveloffset=+2]
 include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
