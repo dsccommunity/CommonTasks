@@ -51,7 +51,7 @@ configuration DscTagging {
     xRegistry DscBuildDate {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'BuildDate'
-        ValueData = Get-Date
+        ValueData = [string](Get-Date)
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
