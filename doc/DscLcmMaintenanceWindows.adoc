@@ -1,0 +1,111 @@
+// CommonTasks YAML Reference: DscLcmMaintenanceWindows
+// ========================================
+
+:YmlCategory: DscLcmMaintenanceWindows
+
+
+[[dscyml_dsclcmmaintenancewindows, {YmlCategory}]]
+= DSC Resource 'DscLcmMaintenanceWindows'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dsclcmmaintenancewindows_abstract]]
+.{YmlCategory} defines maintenance windows in which DSC is running in the “ApplyAndAutoCorrect” mode.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscLcmMaintenanceWindows
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration],
+                   https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://dsccommunity.org/blog/dsc-maintenance-windows/[Realizing maintenance windows with DSC]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dsclcmmaintenancewindows_maintenancewindow, {YmlCategory}/MaintenanceWindow]]<<dscyml_dsclcmmaintenancewindows_maintenancewindow_details, MaintenanceWindow>>
+| Mandatory
+| Hashtable[]
+| List of maintenance windows
+|
+
+|===
+
+[[dscyml_dsclcmmaintenancewindows_maintenancewindow_details]]
+.Attributes of category '<<dscyml_dsclcmmaintenancewindows_maintenancewindow>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Display name of the maintenance window
+|
+
+| StartTime
+| Mandatory
+| String
+| Start time of the maintenance window
+|
+
+| Timespan
+| Mandatory
+| Timespan
+| Timepan of the maintenance window
+|
+
+| DayOfWeek
+|
+| String
+| Weekday to start the maintenance window
+| - monday
+  - tuesday
+  - wednesday
+  - friday
+  - saturday
+  - sunday
+
+| On
+|
+| String
+| Week of month to start the maintenance window
+| - 1st
+  - 2nd
+  - 3rd
+  - 4th
+  - last
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DscLcmMaintenanceWindows:
+  MaintenanceWindows:
+    - Name:      EveryDay
+      StartTime: 00:00:00
+      Timespan:  02:00:00
+    - Name:      MW-1
+      DayOfWeek: friday
+      On:        2nd
+      StartTime: 02:30:00
+      Timespan:  02:00:00
+    - Name:      MW-2
+      DayOfWeek: monday
+      On:        last
+      StartTime: 04:00:00
+      Timespan:  01:00:00
+----

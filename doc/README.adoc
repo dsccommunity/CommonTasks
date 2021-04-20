@@ -82,6 +82,8 @@ ifdef::env-github[]
 - <<DnsServerResponseRateLimiting.adoc#, DnsServerResponseRateLimiting>>
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
+- <<DscLcmController.adoc#, DscLcmController>>
+- <<DscLcmMaintenanceWindows.adoc#, DscLcmMaintenanceWindows>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
 - <<LocalGroups.adoc#, LocalGroups>>
@@ -143,8 +145,8 @@ ifndef::env-github[]
 | <<dscyml_dnsserverroothints>>                | <<dscyml_dnsserverroothints_abstract>>
 | <<dscyml_dnsserversettings>>                 | <<dscyml_dnsserversettings_abstract>>
 // | <<dscyml_dscdiagnostic>>                  | <<dscyml_dscdiagnostic_abstract>>
-// | <<dscyml_dsclcmcontroller>>               | <<dscyml_dsclcmcontroller_abstract>>
-// | <<dscyml_dsclcmmaintenancewindows>>       | <<dscyml_dsclcmmaintenancewindows_abstract>>
+| <<dscyml_dsclcmcontroller>>                  | <<dscyml_dsclcmcontroller_abstract>>
+| <<dscyml_dsclcmmaintenancewindows>>          | <<dscyml_dsclcmmaintenancewindows_abstract>>
 // | <<dscyml_dscpullserver>>                  | <<dscyml_dscpullserver_abstract>>
 | <<dscyml_dscpullserversql>>                  | <<dscyml_dscpullserversql_abstract>>
 | <<dscyml_dsctagging>>                        | <<dscyml_dsctagging_abstract>>
@@ -214,8 +216,8 @@ include::DnsServerResponseRateLimiting.adoc[leveloffset=+2]
 include::DnsServerRootHints.adoc[leveloffset=+2]
 include::DnsServerSettings.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]
-//include::DscLcmController.adoc[leveloffset=+2]
-//include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
+include::DscLcmController.adoc[leveloffset=+2]
+include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
 //include::DscPullServer.adoc[leveloffset=+2]
 include::DscPullServerSql.adoc[leveloffset=+2]
 include::DscTagging.adoc[leveloffset=+2]

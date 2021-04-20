@@ -29,11 +29,12 @@ configuration DscLcmMaintenanceWindows {
         TestScript = {
             try {
                 $existingWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows -ErrorAction Stop | Select-Object -ExpandProperty PSChildName
-                $diff = Compare-Object -ReferenceObject $existingWindows -DifferenceObject $using:MaintenanceWindow.Name
+                $diff = Compare-Object -ReferenceObject $existingWindows -DifferenceObject $using:MaintenanceWindows.Name
+                Write-Verbose "Result: $([bool]-not $diff)  -  $diff"
                 [bool]-not $diff
-        
             }
             catch {
+                Write-Verbose "Result: False`n$_"
                 $false
             }
         }

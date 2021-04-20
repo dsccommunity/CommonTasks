@@ -1,0 +1,145 @@
+// CommonTasks YAML Reference: DscLcmController
+// ========================================
+
+:YmlCategory: DscLcmController
+
+
+[[dscyml_dsclcmcontroller, {YmlCategory}]]
+= DSC Resource 'DscLcmController'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dsclcmcontroller_abstract]]
+.{YmlCategory} replaces most of the default settings controlling the LCM that you usually set with “Set-DscLocalConfigurationManager”.
+
+These new settings are controlling the external trigger of the LCM.
+There is no `ConfigurationModeFrequencyMins` anymore. 
+Instead there are two new values, `AutoCorrectInterval` and `MonitorInterval`.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscLcmController
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration], 
+                   https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration],
+                   https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | https://dsccommunity.org/blog/dsc-maintenance-windows/[Realizing maintenance windows with DSC]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| MaintenanceWindowMode
+| Mandatory
+| String
+| This should be set to `AutoCorrect`.
+  If set to ‘Monitor’ the maintenance window functionality is disabled.
+| - Monitor
+  - AutoCorrect
+
+| MonitorInterval
+| Mandatory
+| Timespan
+| This interval invoked the LCM in the `ApplyAndMonitor` mode.
+  No changes will be done to the node.
+  The interval is not effected by the maintenance window.
+  If this interval applies, the LcmController script puts the LCM to the `ApplyAndMonitor` mode and triggers a consistency check.
+|
+
+| AutoCorrectInterval
+| Mandatory
+| Timespan
+| This interval invoked the LCM in the `ApplyAndAutoCorrect` mode.
+  It does only apply if the node is in a maintenance window.
+|
+
+| AutoCorrectIntervalOverride
+|
+| Boolean
+| If enabled the `AutoCorrectInterval` is no longer considered.
+  This is mainly for troubleshooting.
+  Maintenance windows still apply.
+| - True
+  - False
+
+| RefreshInterval
+| Mandatory
+| Timespan
+| If this interval applies, the LcmController script triggers the LCM to do an update with the pull server.
+  This interval applies only if in maintenance window.
+|
+
+| RefreshIntervalOverride
+|
+| Boolean
+| If enabled the `RefreshInterval` is no longer considered.
+  This is mainly for troubleshooting.
+  Maintenance windows still apply.
+| - True
+  - False
+
+| ControllerInterval
+| Mandatory
+| Timespan
+| Controls when the scheduled task runs.
+  This interval is configured on the scheduled task’s (`\DscController\DscLcmController`) trigger.
+|
+
+| MaintenanceWindowOverride
+|
+| Boolean
+| If set to `true`, maintenance windows do no longer apply.
+  This is mainly for troubleshooting.
+| - True
+  - False
+
+| MaxLcmRuntime
+|
+| Timespan
+| Maximum LCM runtime.
+
+If LCM process is running longer than specified time the LCM process will be killed.
+| Default: 2 days
+
+| LogHistoryTimeSpan
+|
+| Timespan
+|
+| Default: 90 days
+
+| SendDscTaggingData
+|
+| Boolean
+| Send DSC tagging data to the Pull server database
+| - True
+  - False
+
+| WriteTranscripts
+|
+| Boolean
+| Writes the scheduled tasks’ output to `C:\ProgramData\Dsc\LcmController`.
+| - True
+  - False
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DscLcmController:
+  MaintenanceWindowMode: AutoCorrect
+  MonitorInterval: 02:00:00
+  AutoCorrectInterval: 00:15:00
+  AutoCorrectIntervalOverride: false
+  RefreshInterval: 04:00:00
+  RefreshIntervalOverride: false
+  ControllerInterval: 00:15:00
+  MaintenanceWindowOverride: false
+----

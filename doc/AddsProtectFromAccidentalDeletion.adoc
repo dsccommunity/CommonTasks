@@ -17,8 +17,8 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsProtectFromAccidentalDeletion
 | DSC Resource   | N/A
-| Documentation  | - https://docs.microsoft.com/en-us/powershell/module/addsadministration/set-adobject?view=win10-ps[Set-ADObject]
-                   - https://docs.microsoft.com/en-us/powershell/module/addsadministration/get-adobject?view=win10-ps[Get-ADObject]
+| Documentation  | - https://docs.microsoft.com/en-us/powershell/module/activedirectory/set-adobject?view=windowsserver2019-ps[Set-ADObject]
+                   - https://docs.microsoft.com/en-us/powershell/module/activedirectory/get-adobject?view=windowsserver2019-ps[Get-ADObject]
 |===
 
 
