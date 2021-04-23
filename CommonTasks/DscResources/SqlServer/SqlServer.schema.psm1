@@ -117,7 +117,7 @@
                 $login.InstanceName = $DefaultInstanceName
             }
             
-            $executionName = "sqllogin_$($login.Name)"
+            $executionName = "sqllogin_$($login.Name -replace '[().:\s]', '_')" 
             (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
         }
     }

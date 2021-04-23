@@ -102,6 +102,7 @@ ifdef::env-github[]
 - <<SwitchLcmMode.adoc#, SwitchLcmMode>>
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
+- <<WebBrowser.adoc#, WebBrowser>>
 - <<WindowsEventForwarding.adoc#, WindowsEventForwarding>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 - <<WindowsFeatures.adoc#, WindowsFeatures>>
@@ -178,6 +179,7 @@ ifndef::env-github[]
 | <<dscyml_wds>>                               | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>            | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>                | <<dscyml_webapplications_abstract>>
+| <<dscyml_webbrowser>>                        | <<dscyml_webbrowser_abstract>>
 // | <<dscyml_websites>>                       | <<dscyml_websites_abstract>>
 // | <<dscyml_webvirtualdirectories>>          | <<dscyml_webvirtualdirectories_abstract>>
 | <<dscyml_windowseventforwarding>>            | <<dscyml_windowseventforwarding_abstract>>
@@ -249,6 +251,7 @@ include::UpdateServices.adoc[leveloffset=+2]
 include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
+include::WebBrowser.adoc[leveloffset=+2]
 //include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
 include::WindowsEventForwarding.adoc[leveloffset=+2]
