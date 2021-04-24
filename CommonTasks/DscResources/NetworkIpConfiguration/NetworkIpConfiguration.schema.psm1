@@ -10,7 +10,11 @@ configuration NetworkIpConfiguration {
  
         [parameter()]
         [hashtable[]]
-        $Interfaces
+        $Interfaces,
+
+        [parameter()]
+        [hashtable[]]
+        $Routes
     )
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -208,6 +212,33 @@ configuration NetworkIpConfiguration {
                 -EnableLmhostsLookup $netIf.EnableLmhostsLookup `
                 -EnableDhcp $netIf.EnableDhcp `
                 -DisableIPv6 $netIf.DisableIPv6
+        }
+    }
+
+    if  ($null -ne $Routes)
+    {
+        foreach ( $netRoute in $Routes )
+        {
+            # Remove case sensitivity of ordered Dictionary or Hashtables
+            $netRoute = @{} + $netRoute
+
+            if ( [string]::IsNullOrWhitespace($netRoute.InterfaceAlias) )
+            {
+                $netRoute.InterfaceAlias = 'Ethernet'
+            }
+
+            if ( [string]::IsNullOrWhitespace($netRoute.AddressFamily) )
+            {
+                $netRoute.AddressFamily  = 'IPv4'
+            }
+
+            if ( [string]::IsNullOrWhitespace($netRoute.Ensure) )
+            {
+                $netRoute.Ensure  = 'Present'
+            }
+
+            $executionName = "route_$($netRoute.InterfaceAlias)_$($netRoute.AddressFamily)_$($netRoute.DestinationPrefix)_$($netRoute.NextHop)" -replace '[().:\s]', ''
+            (Get-DscSplattedResource -ResourceName Route -ExecutionName $executionName -Properties $netRoute -NoInvoke).Invoke($netRoute)    
         }
     }
 }
