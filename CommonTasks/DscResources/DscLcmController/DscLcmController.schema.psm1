@@ -26,6 +26,9 @@ function Send-DscTaggingData {
     $versionData = Invoke-Command -ComputerName $env:COMPUTERNAME -ConfigurationName DSC -ScriptBlock {
         Get-DscConfigurationVersion
     }
+    if ($versionData.Layers.Count -gt 1) {
+        $versionData.Layers = $versionData.Layers -join ', '
+    }
 
     Write-Host
     Write-Host "Sending the following DSC version data to JEA endpoint on pull server '$($Matches.PullServer)'"
