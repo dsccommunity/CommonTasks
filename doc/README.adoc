@@ -86,6 +86,7 @@ ifdef::env-github[]
 - <<DscLcmMaintenanceWindows.adoc#, DscLcmMaintenanceWindows>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<HyperV.adoc#, HyperV>>
 - <<LocalGroups.adoc#, LocalGroups>>
 - <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
@@ -154,7 +155,7 @@ ifndef::env-github[]
 // | <<dscyml_filesandfolders>>                | <<dscyml_filesandfolders_abstract>>
 // | <<dscyml_firewallprofiles>>               | <<dscyml_firewallprofiles_abstract>>
 // | <<dscyml_firewallrules>>                  | <<dscyml_firewallrules_abstract>>
-// | <<dscyml_hyperv>>                         | <<dscyml_hyperv_abstract>>
+| <<dscyml_hyperv>>                            | <<dscyml_hyperv_abstract>>
 // | <<dscyml_ipconfiguration>>                | <<dscyml_ipconfiguration_abstract>>
 // | <<dscyml_jeaendpoints>>                   | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                       | <<dscyml_jearoles_abstract>>
@@ -226,7 +227,7 @@ include::DscTagging.adoc[leveloffset=+2]
 //include::FilesAndFolders.adoc[leveloffset=+2]
 //include::FirewallProfiles.adoc[leveloffset=+2]
 //include::FirewallRules.adoc[leveloffset=+2]
-//include::HyperV.adoc[leveloffset=+2]
+include::HyperV.adoc[leveloffset=+2]
 //include::IpConfiguration.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]

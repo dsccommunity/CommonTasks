@@ -20,6 +20,7 @@
 :ref_networkingdsc_netipinterface: https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NetIPInterface]
 :ref_networkingdsc_netbios: https://github.com/dsccommunity/NetworkingDsc/wiki/NetBios[NetBios]
 :ref_networkingdsc_netadapterbinding: https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterBinding[NetAdapterBinding]
+:ref_networkingdsc_route: https://github.com/dsccommunity/NetworkingDsc/wiki/Route[Route]
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -32,7 +33,8 @@
                    {ref_networkingdsc_dnsserveraddress},
                    {ref_networkingdsc_netipinterface},
                    {ref_networkingdsc_netbios},
-                   {ref_networkingdsc_netadapterbinding}
+                   {ref_networkingdsc_netadapterbinding},
+                   {ref_networkingdsc_route}
                    
 |===
 
