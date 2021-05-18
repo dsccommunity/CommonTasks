@@ -48,5 +48,5 @@
     OfficeOnlineServerDsc        = '1.5.0'
     xBitlocker                   = '1.4.0.0'
     ActiveDirectoryCSDsc         = '5.0.0'
-    
+    'xHyper-V'                   = '3.17.0.0'
 }
