@@ -8,11 +8,23 @@ configuration HyperV
         $HostOS = 'Server',
 
         [Parameter()]
-        [hashtable[]]
+        [Boolean]
+        $EnableEnhancedSessionMode = $false,
+
+        [Parameter()]
+        [String]
+        $VirtualHardDiskPath,
+        
+        [Parameter()]
+        [String]
+        $VirtualMachinePath, 
+
+        [Parameter()]
+        [Hashtable[]]
         $VMSwitches,
 
         [Parameter()]
-        [hashtable[]]
+        [Hashtable[]]
         $VMMachines
     )
 
@@ -50,6 +62,26 @@ configuration HyperV
 
         $dependsOnHostOS = '[WindowsOptionalFeature]Hyper-V-Win10'
     }
+
+    #######################################################################
+    #region Host Settings
+
+    $configHyperV = @{
+        IsSingleInstance          = 'Yes'
+        EnableEnhancedSessionMode = $EnableEnhancedSessionMode
+    }
+
+    if( -not [string]::IsNullOrWhiteSpace($VirtualHardDiskPath) )
+    {
+        $configHyperV.VirtualHardDiskPath = $VirtualHardDiskPath
+    }
+    if( -not [string]::IsNullOrWhiteSpace($VirtualMachinePath) )
+    {
+        $configHyperV.VirtualMachinePath = $VirtualMachinePath
+    }
+
+    (Get-DscSplattedResource -ResourceName xVMHost -ExecutionName 'config_HyperVHost' -Properties $configHyperV -NoInvoke).Invoke( $configHyperV )
+    #endregion
 
     #######################################################################
     #region Virtual switches
@@ -147,7 +179,8 @@ configuration HyperV
 
                         if( $null -eq $netAdapter )
                         {
-                            throw "ERROR: NetAdapter containing switch name '$using:netName' not found."
+                            Write-Error "ERROR: NetAdapter containing switch name '$using:netName' not found."
+                            return
                         }
 
                         # remove existing configuration
@@ -404,14 +437,18 @@ configuration HyperV
             $networkAdapters = $vmmachine.NetworkAdapters
 
             # save additional settings
-            $checkpointType               = $vmmachine.CheckpointType
+            $checkpointType              = $vmmachine.CheckpointType
             $automaticCheckpointsEnabled = $vmmachine.AutomaticCheckpointsEnabled
-            $automaticStartAction         = $vmmachine.AutomaticStartAction
-            $automaticStartDelay           = $vmmachine.AutomaticStartDelay
-            $automaticStopAction          = $vmmachine.AutomaticStopAction
+            $automaticStartAction        = $vmmachine.AutomaticStartAction
+            $automaticStartDelay         = $vmmachine.AutomaticStartDelay
+            $automaticStopAction         = $vmmachine.AutomaticStopAction
 
             # save security settings
-            $tpmEnabled = $vmmachine.TpmEnabled
+            $tpmEnabled     = $vmmachine.TpmEnabled
+            $encryptTraffic = $vmmachine.EncryptStateAndVmMigrationTraffic
+
+            # save integration services
+            $enableTimeSyncService = $vmmachine.EnableTimeSyncService
 
             # remove all additional settings
             $vmmachine.Remove( 'Disks' )
@@ -423,13 +460,14 @@ configuration HyperV
             $vmmachine.Remove( 'AutomaticStartDelay' )
             $vmmachine.Remove( 'AutomaticStopAction' )
             $vmmachine.Remove( 'TpmEnabled' )
+            $vmmachine.Remove( 'EncryptStateAndVmMigrationTraffic' )
+            $vmmachine.Remove( 'EnableTimeSyncService' )
 
             # create the virtual machine
             $vmmachine.DependsOn          = $strVHDDepend
             $vmmachine.VhdPath            = $strVHDFile
             $vmmachine.Generation         = 2
             $vmmachine.StartupMemory      = $iMemorySize
-            $vmmachine.EnableGuestService = $true
 
             # remove all separators from MAC Address
             if( $vmmachine.MacAddress -ne $null )
@@ -525,7 +563,7 @@ configuration HyperV
             }
 
             # security VM settings
-            if( $null -ne $tpmEnabled )
+            if( $null -ne $tpmEnabled -or $null -ne $encryptTraffic )
             {
                 $execName = "securityProp_$vmName"
 
@@ -543,6 +581,11 @@ configuration HyperV
                             {
                                 $status = $false
                             }
+
+                            if( ($null -ne $using:encryptTraffic -and $vmSec.EncryptStateAndVmMigrationTraffic -ne $using:encryptTraffic) )
+                            {
+                                $status = $false
+                            }
                         }
                         else
                         {
@@ -552,20 +595,122 @@ configuration HyperV
                         return $status
                     }
                     SetScript = {
-                        if( $using:tpmEnabled -eq $true )
+                        if( $null -ne $using:encryptTraffic )
                         {
-                            # create a new KeyProtectore if necessary
-                            $key = Get-VMKeyProtector -VMName $using:vmName
-                            if( $null -eq $key -or $key.Count -lt 10 )
+                            Set-VMSecurity -VMName $using:vmName -EncryptStateAndVmMigrationTraffic $encryptTraffic
+                        }
+
+                        if( $null -ne $using:tpmEnabled )
+                        {
+                            if( $using:tpmEnabled -eq $true )
                             {
-                                Set-VMKeyProtector -VMName $using:vmName -NewLocalKeyProtector
+                                # create a new KeyProtectore if necessary
+                                $key = Get-VMKeyProtector -VMName $using:vmName
+                                if( $null -eq $key -or $key.Count -lt 10 )
+                                {
+                                    Set-VMKeyProtector -VMName $using:vmName -NewLocalKeyProtector
+                                }
+                                Enable-VMTPM -VMName $using:vmName
                             }
-                            Enable-VMTPM -VMName $using:vmName
+                            elseif( $using:tpmEnabled -eq $false )
+                            {
+                                Disable-VMTPM -VMName $using:vmName
+                            }
                         }
-                        elseif( $using:tpmEnabled -eq $false )
+                    }
+                    GetScript = { return @{result = 'N/A' } }
+                    DependsOn = $strVMdepends
+                }
+
+                $strVMdepends = "[Script]$execName"
+            }
+
+            # setup integration services
+            #
+            # Services have localized names, so we must use the last part of the id to identify the service
+            #
+            # Name                               Id
+            # ----                               --
+            # Gastdienstschnittstelle            Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\6C09BB55-D683-4DA0-8931-C9BF705F6480
+            # Takt                               Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\84EAAE65-2F2E-45F5-9BB5-0E857DC8EB47
+            # Austausch von Schlüsselwertepaaren Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\2A34B1C2-FD73-4043-8A5B-DD2159BC743F
+            # Herunterfahren                     Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\9F8233AC-BE49-4C79-8EE3-E7E1985B2077
+            # Zeitsynchronisierung               Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\2497F4DE-E9FA-4204-80E4-4B75C46419C0
+            # VSS                                Microsoft:F9C25F23-DB30-403D-A1CD-31FE241DFD54\5CED1297-4598-4915-A5FC-AD21BB4D02A4
+            #
+            # Name                               Id
+            # ----                               --
+            # Guest Service Interface            Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\6C09BB55-D683-4DA0-8931-C9BF705F6480
+            # Heartbeat                          Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\84EAAE65-2F2E-45F5-9BB5-0E857DC8EB47
+            # Key-Value Pair Exchange            Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\2A34B1C2-FD73-4043-8A5B-DD2159BC743F
+            # Shutdown                           Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\9F8233AC-BE49-4C79-8EE3-E7E1985B2077
+            # Time Synchronization               Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\2497F4DE-E9FA-4204-80E4-4B75C46419C0
+            # VSS                                Microsoft:700D77D9-74C3-4B2B-AE4D-D7B7089F9B2F\5CED1297-4598-4915-A5FC-AD21BB4D02A4
+
+            if( $null -ne $enableTimeSyncService )
+            {
+                [boolean]$enableTimeSync = [System.Convert]::ToBoolean($enableTimeSyncService)
+
+                $execName = "timeSyncService_$vmName"
+
+                Script $execName
+                {
+                    TestScript = {
+                        $timeSyncSvc = Get-VMIntegrationService -VMName $using:vmName | Where-Object { $_.Id -match '2497F4DE-E9FA-4204-80E4-4B75C46419C0$' } | Select-Object Name, Id, Enabled
+
+                        Write-Verbose "VM: $using:vmName - time sync service: expected: $using:enableTimeSync - current: $timeSyncSvc"
+
+                        if( $timeSyncSvc.Enabled -eq $using:enableTimeSync )
                         {
-                            Disable-VMTPM -VMName $using:vmName
+                            return $true
                         }
+                        return $false
+                    }
+                    SetScript = {
+                        $timeSyncSvc = Get-VMIntegrationService -VMName $using:vmName | Where-Object { $_.Id -match '2497F4DE-E9FA-4204-80E4-4B75C46419C0$' }
+                        
+                        if( $using:enableTimeSync -eq $true )
+                        {
+                            $timeSyncSvc | Enable-VMIntegrationService
+                        }
+                        else
+                        {
+                            $timeSyncSvc | Disable-VMIntegrationService 
+                        }
+                    }
+                    GetScript = { return @{result = 'N/A' } }
+                    DependsOn = $strVMdepends
+                }
+
+                $strVMdepends = "[Script]$execName"
+            }
+
+            # Network adapter fix
+            # DSC Hyper-V Resource creates at least one network interface 
+            # If no switch and no MAC address is specified we delete this addional network adapter
+            if( [string]::IsNullOrEmpty($vmmachine.MacAddress) -and [string]::IsNullOrEmpty($vmmachine.SwitchName) )
+            {
+                $execName = "removeUnusedNetAdapter_$vmName"
+
+                Script $execName
+                {
+                    TestScript = {
+                        $netAdapt = Get-VMNetworkAdapter -VMName $using:vmName | Where-Object { $_.Connected -eq $false -and $_.MacAddress -eq '000000000000' -and $_.DeviceNaming -eq 'Off' }
+
+                        if( $null -ne $netAdapt )
+                        {
+                            Write-Verbose "VM: $using:vmName - unused network adapter found: $netAdapt"
+                            return $false
+                        }
+                        else
+                        {
+                            Write-Verbose "VM: $using:vmName - no unused network adapter found."
+                            return $true                            
+                        }
+                    }
+                    SetScript = {
+                        $netAdapt = Get-VMNetworkAdapter -VMName $using:vmName | Where-Object { $_.Connected -eq $false -and $_.MacAddress -eq '000000000000' -and $_.DeviceNaming -eq 'Off' }
+                        $netAdapt | Remove-VMNetworkAdapter
                     }
                     GetScript = { return @{result = 'N/A' } }
                     DependsOn = $strVMdepends
@@ -606,6 +751,13 @@ configuration HyperV
                     $netAdapter.NetworkSetting = $netSetting
                 }
 
+                # extract additional attributed
+                $dhcpGuard   = $netAdapter.DhcpGuard
+                $routerGuard = $netAdapter.RouterGuard
+
+                $netAdapter.Remove( 'DhcpGuard' )
+                $netAdapter.Remove( 'RouterGuard' )
+
                 $execName = "netadapter_$($netAdapter.Id)"
 
                 (Get-DscSplattedResource -ResourceName xVMNetworkAdapter -ExecutionName $execName -Properties $netAdapter -NoInvoke).Invoke( $netAdapter )
@@ -613,25 +765,60 @@ configuration HyperV
                 Script "$($execName)_properties"
                 {
                     TestScript = {
-                        $netAdapter = Get-VMNetworkAdapter $using:vmName | Where-Object { $_.Name -eq $using:netAdapterName }
+                        $netAdapter = Get-VMNetworkAdapter -VmName $using:vmName -Name $using:netAdapterName
                         
                         if( $null -ne $netAdapter ) 
                         {
-                            Write-Verbose "Networkadapter '$using:netAdapterName': DeviceNaming is '$($netAdapter.DeviceNaming)'"
+                            $result = $true
 
-                            if( $netAdapter.DeviceNaming -eq 'On' )
+                            Write-Verbose "Networkadapter '$using:netAdapterName': DeviceNaming is '$($netAdapter.DeviceNaming)' (expected: On)"
+
+                            if( $netAdapter.DeviceNaming -ne 'On' )
                             {
-                                return $true
+                                $result = $false
                             }
+
+                            Write-Verbose "Networkadapter '$using:netAdapterName': DhcpGuard is '$($netAdapter.DhcpGuard)' (expected: $using:dhcpGuard)"
+
+                            if( -not [string]::IsNullOrWhiteSpace($using:dhcpGuard) -and $netAdapter.DhcpGuard -ne $using:dhcpGuard )
+                            {
+                                $result = $false
+                            }
+
+                            Write-Verbose "Networkadapter '$using:netAdapterName': RouterGuard is '$($netAdapter.RouterGuard)' (expected: $using:routerGuard)"
+
+                            if( -not [string]::IsNullOrWhiteSpace($using:routerGuard) -and $netAdapter.RouterGuard -ne $using:routerGuard )
+                            {
+                                $result = $false
+                            }
+
+                            return $result
                         }
                         else
                         {
                             Write-Verbose "Networkadapter '$using:netAdapterName' not found."
                         }
+
                         return $false
                     }
                     SetScript = {
-                        Get-VMNetworkAdapter $using:vmName | Where-Object { $_.Name -eq $using:netAdapterName } | Set-VMNetworkAdapter -DeviceNaming On
+                        $params = @{
+                            DeviceNaming = 'On'
+                        }
+
+                        if( -not [string]::IsNullOrWhiteSpace($using:dhcpGuard) )
+                        {
+                            $params.DhcpGuard = $using:dhcpGuard
+                        }
+
+                        if( -not [string]::IsNullOrWhiteSpace($using:routerGuard) )
+                        {
+                            $params.RouterGuard = $using:routerGuard
+                        }
+
+                        Write-Verbose "VM $($using:vmName): Set properties of network adapter $($using:netAdapterName)`n$($params | Out-String)"
+
+                        Get-VMNetworkAdapter -VmName $using:vmName -Name $using:netAdapterName | Set-VMNetworkAdapter @params                        
                     }
                     GetScript = { return @{result = 'N/A' } }
                     DependsOn = "[xVMNetworkAdapter]$execName"

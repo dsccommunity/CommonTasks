@@ -85,7 +85,8 @@ configuration ChocolateyPackages {
                     }
 
                     if( -not (Test-Path $using:swOfflineInstallZip) ) {
-                        throw "Offline installation package '$($using:swOfflineInstallZip)' not found."
+                        Write-Error "ERROR: Offline installation package '$($using:swOfflineInstallZip)' not found."
+                        return
                     }
 
                     # copy the package with zip extension
@@ -110,7 +111,8 @@ configuration ChocolateyPackages {
                             $destinationFolder.CopyHere($zipPackage.Items(),0x10)
                         }
                         catch {
-                            throw "Unable to unzip package using built-in compression. Error: `n $_"
+                            Write-Error "ERROR: Unable to unzip package using built-in compression. Error: `n $_"
+                            return
                         }
                     }
 

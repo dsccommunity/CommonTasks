@@ -67,7 +67,12 @@ configuration NetworkIpConfiguration {
                     AddressFamily  = 'IPv4'
                     Dhcp           = 'Disabled'
                 }
-            
+
+                if( -not ($Prefix -match '^\d+$') )
+                {
+                    throw "ERROR: Valid 'Prefix' parameter is required for IP address '$IpAddress'."
+                }
+
                 $ip = "$($IpAddress)/$($Prefix)"
 
                 IPAddress "NetworkIp_$InterfaceAlias" 
