@@ -1,4 +1,8 @@
 HostOS: Server
+EnableEnhancedSessionMode: true
+VirtualHardDiskPath: D:\VServer\Virtual Disks
+VirtualMachinePath: D:\VServer\Virtual Machines
+
 VMSwitches:
   - Name: VMSwitchInt  # VM Switch name
     Type: Internal
@@ -27,11 +31,16 @@ VMMachines:
     AutomaticStartDelay: 30
     AutomaticStopAction: Save
     TpmEnabled: True
+    EncryptStateAndVmMigrationTraffic: True
+    EnableGuestService: True
+    EnableTimeSyncService: False
     NetworkAdapters:
       - Name: Ethernet
         SwitchName: VMSwitchExt
         MacAddress: 00-17-FB-00-00-07
         VlanId: 100
+        DhcpGuard: Off
+        RouterGuard: On
         NetworkSetting:
           IpAddress: 192.168.0.10
           Subnet: 255.255.255.255
@@ -82,6 +91,8 @@ VMMachines:
     AutomaticStartDelay: 30
     AutomaticStopAction: Save
     TpmEnabled: True
+    EnableGuestService: False
+    EnableTimeSyncService: True
     NetworkAdapters:
       - Name: Ethernet
         SwitchName: VMSwitchExt

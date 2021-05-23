@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: HyperV
-// ========================================
+// ==================================
 
 :YmlCategory: HyperV
 
@@ -43,6 +43,25 @@ Supported are Windows Server and Windows 10
 | - *Server* (default)
   - Client
 
+| EnableEnhancedSessionMode
+|
+| Boolean
+| Indicates whether users can use enhanced mode when they connect to virtual machines on this server by using Virtual Machine Connection.
+| - True
+  - *False* (default)
+
+| VirtualHardDiskPath
+|
+| String
+| Specifies the default folder to store virtual hard disks on the Hyper-V host.
+|
+
+| VirtualMachinePath
+|
+| String
+| Specifies the default folder to store virtual machine configuration files on the Hyper-V host.
+|
+
 | [[dscyml_hyperv_vmswitches, {YmlCategory}/VMSwitches]]<<dscyml_hyperv_vmswitches_details, VMSwitches>>
 |
 | Hashtable[]
@@ -53,6 +72,8 @@ Supported are Windows Server and Windows 10
 |
 | Hashtable[]
 | Set of virtual machines
+
+IMPORTANT: Only Generation 2 machines are supported!
 |
 
 |===
@@ -202,13 +223,6 @@ NOTE: Mandatory attribute for a NAT switch!
 | Folder where the VM data will be stored.
 |
 
-| Generation
-|
-| Uint32
-| Virtual machine generation. Generation 2 virtual machines only support VHDX files.
-| - *1* (default)
-  - 2
-
 | SecureBoot
 |
 | Boolean
@@ -314,6 +328,13 @@ NOTE: Mandatory attribute for a NAT switch!
 | - True
   - False
 
+| EncryptStateAndVmMigrationTraffic
+|
+| Boolean
+| Indicates that this cmdlet enables encryption of virtual machine state and migration traffic.
+| - True
+  - False
+
 | Ensure
 |
 | String
@@ -334,18 +355,28 @@ NOTE: Mandatory attribute for a NAT switch!
 | - True
   - *False* (default)
 
+
+| EnableTimeSyncService
+|
+| Boolean
+| Enable Time Synchronisation Service for the VM.
+| - True
+  - False
+
+
 | [[dscyml_hyperv_vmmachines_disks, {YmlCategory}/VMMachines/Disks]]<<dscyml_hyperv_vmmachines_disks_details, Disks>>
 |
 | <<dscyml_hyperv_vmmachines_disks_details, Disk[]>>
-| Assigned virtual disks (self-developed). +
-  Disks will be created in `VMMachine.Path\VMMachine.Name\Disks`. +
-  The first entry will be the OS disk (C:\).
+| Assigned virtual disks.
+
+Disks will be created in `VMMachine.Path\VMMachine.Name\Disks`. +
+The first entry will be the OS disk (C:\).
 |
 
 | [[dscyml_hyperv_vmmachines_drives, {YmlCategory}/VMMachines/Drives]]<<dscyml_hyperv_vmmachines_drives_details, Drives>>
 |
 | <<dscyml_hyperv_vmmachines_drives_details, Drive[]>>
-| Assigned virtual drives (self-developed).
+| Assigned virtual drives.
 |
 
 |===
@@ -390,6 +421,26 @@ NOTE: Mandatory attribute for a NAT switch!
 | String
 |
 |
+
+| DhcpGuard
+|
+| String
+| Specifies whether to drop DHCP messages from a virtual machine claiming to be a DHCP server.
+
+Allowed values are On, which drops DHCP messages because the virtualized DHCP server is considered untrusted) or Off, which allows the message to be received because the virtualized DHCP server is considered to be trustworthy.
+| - On
+  - Off
+
+| RouterGuard 
+|
+| String
+| Specifies whether to drop Router Advertisement and Redirection messages from unauthorized virtual machines.
+
+The value can be either On or Off. 
+If On is specified, such messages are dropped. 
+If Off is specified, such messages are sent.
+| - On
+  - Off
 
 |===
 
@@ -609,6 +660,9 @@ HyperV:
       AutomaticStartDelay: 30
       AutomaticStopAction: Save
       TpmEnabled: True
+      EncryptStateAndVmMigrationTraffic: True
+      EnableGuestService:    True
+      EnableTimeSyncService: True
       NetworkAdapters:
         - Name: Ethernet
           SwitchName: VMSwitchExt
@@ -620,7 +674,9 @@ HyperV:
             DefaultGateway: 192.168.0.1
             DnsServer: 192.168.0.1
         - Name: HostNet
-          SwitchName: VMSwitchInt
+          SwitchName:  VMSwitchInt
+          DhcpGuard:   On
+          RouterGuard: Off
       Disks:
         - Name: C
           Size: 100GB
