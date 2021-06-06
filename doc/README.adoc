@@ -95,6 +95,7 @@ ifdef::env-github[]
 - <<RegistryValues.adoc#, RegistryValues>>
 - <<RestartSystem.adoc#, RestartSystem>>
 - <<ScheduledTasks.adoc#, ScheduledTasks>>
+- <<Scripts.adoc#, Scripts>>
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SmbShares.adoc#, SmbShares>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
@@ -119,12 +120,12 @@ ifndef::env-github[]
 .Reference of DSC Resouces
 [cols="1,3" options="header"]
 |===
-| DSC Resource                               | Description
+| DSC Resource                                 | Description
 
 | <<dscyml_globals>>                           | <<dscyml_globals_abstract>>
 | <<dscyml_addsdomain>>                        | <<dscyml_addsdomain_abstract>>
 // | <<dscyml_addsdomaincontroller>>           | <<dscyml_addsdomaincontroller_abstract>>
-| <<dscyml_addsdomainprincipals>>                   | <<dscyml_addsdomainprincipals_abstract>>
+| <<dscyml_addsdomainprincipals>>              | <<dscyml_addsdomainprincipals_abstract>>
 | <<dscyml_addsorgunitsandgroups>>             | <<dscyml_addsorgunitsandgroups_abstract>>
 | <<dscyml_addsprotectfromaccidentaldeletion>> | <<dscyml_addsprotectfromaccidentaldeletion_abstract>>
 // | <<dscyml_addssitessubnets>>               | <<dscyml_addssitessubnets_abstract>>
@@ -168,7 +169,7 @@ ifndef::env-github[]
 | <<dscyml_registryvalues>>                    | <<dscyml_registryvalues_abstract>>
 | <<dscyml_restartsystem>>                     | <<dscyml_restartsystem_abstract>>
 | <<dscyml_scheduledtasks>>                    | <<dscyml_scheduledtasks_abstract>>
-// | <<dscyml_scripts>>                        | <<dscyml_scripts_abstract>>
+| <<dscyml_scripts>>                           | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                   | <<dscyml_securitybase_abstract>>
 | <<dscyml_smbshares>>                         | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                  | <<dscyml_securitypolicies_abstract>>
@@ -240,7 +241,7 @@ include::RegistryPolicies.adoc[leveloffset=+2]
 include::RegistryValues.adoc[leveloffset=+2]
 include::RestartSystem.adoc[leveloffset=+2]
 include::ScheduledTasks.adoc[leveloffset=+2]
-//include::Scripts.adoc[leveloffset=+2]
+include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
 include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
