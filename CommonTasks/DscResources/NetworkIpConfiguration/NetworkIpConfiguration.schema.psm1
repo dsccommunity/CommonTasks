@@ -32,7 +32,9 @@ configuration NetworkIpConfiguration {
             [boolean]  $DisableNetbios,
             [boolean]  $EnableDhcp,
             [boolean]  $EnableLmhostsLookup,
-            [boolean]  $DisableIPv6
+            [boolean]  $DisableIPv6,
+            [ValidateSet('Public', 'Private', 'DomainAuthenticated')]
+            [string]   $NetworkCategory
         )
 
         if ( $EnableDhcp -eq $true )
@@ -128,6 +130,57 @@ configuration NetworkIpConfiguration {
                 State          = 'Disabled'
             }
         }
+
+        if( -not [string]::IsNullOrWhiteSpace($NetworkCategory) )
+        {
+            if( -not ($NetworkCategory -match '^(Public|Private|DomainAuthenticated)$') )
+            {
+                throw "ERROR: Invalid value of attribute 'NetworkCategory'."
+            }
+
+            Script "NetworkCategory_$InterfaceAlias"
+            {
+                TestScript = {
+                    $val = Get-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias
+    
+                    Write-Verbose "Current NetworkCategory of interface '$using:InterfaceAlias': $($val.NetworkCategory)"
+    
+                    if ($null -ne $val -and $val.NetworkCategory -eq $using:NetworkCategory )
+                    {
+                        return $true
+                    }
+                    Write-Verbose "Values are different (expected NetworkCategory: $using:NetworkCategory)"
+                    return $false
+                }
+                SetScript = {
+                    if( $using:NetworkCategory -eq 'DomainAuthenticated')
+                    {
+                        Write-Verbose "Set NetworkCategory of interface '$using:InterfaceAlias' to '$using:NetworkCategory ' is not supported. The computer automatically sets this value when the network is authenticated to a domain controller."
+
+                        # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
+                        # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
+                        Write-Verbose "Restarting NLA service to reinitialize the network location check..."
+                        Restart-Service nlasvc -Force
+                        Start-Sleep 5
+
+                        $val = Get-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias
+    
+                        Write-Verbose "Current NetworkCategory is now: $($val.NetworkCategory)"
+        
+                        if( $val.NetworkCategory -ne $using:NetworkCategory )
+                        {
+                            Write-Error "Interface '$using:InterfaceAlias' is not '$using:NetworkCategory'."
+                        } 
+                    }
+                    else
+                    {
+                        Write-Verbose "Set NetworkCategory of interface '$using:InterfaceAlias' to '$using:NetworkCategory '."
+                        Set-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias -NetworkCategory $using:NetworkCategory                             
+                    }
+                }
+                GetScript = { return @{result = 'N/A'} }
+            }  
+        }
     }
 
     if ($DisableNetbios -eq $true)
@@ -208,15 +261,7 @@ configuration NetworkIpConfiguration {
                 $netIf.Prefix = 24
             }
 
-            NetIpInterfaceConfig -InterfaceAlias $netIf.InterfaceAlias `
-                -IpAddress $netIf.IpAddress `
-                -Prefix $netIf.Prefix `
-                -Gateway $netIf.Gateway `
-                -DnsServer $netIf.DnsServer `
-                -DisableNetbios $netIf.DisableNetbios `
-                -EnableLmhostsLookup $netIf.EnableLmhostsLookup `
-                -EnableDhcp $netIf.EnableDhcp `
-                -DisableIPv6 $netIf.DisableIPv6
+            NetIpInterfaceConfig @netIf
         }
     }
 

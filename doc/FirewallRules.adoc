@@ -1,0 +1,307 @@
+// CommonTasks YAML Reference: FirewallRules
+// ========================================
+
+:YmlCategory: FirewallRules
+
+
+[[dscyml_firewallrules, {YmlCategory}]]
+= DSC Resource 'FirewallRules'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_firewallrules_abstract]]
+.{YmlCategory} sets a node's firewall rules.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/FirewallRules
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
+                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_firewallrules_rules, {YmlCategory}/Rules]]<<dscyml_firewallrules_rules_details, Rules>>
+| Mandatory
+| Hashtable[]
+|
+|
+
+|===
+
+[[dscyml_firewallrules_rules_details]]
+.Attributes of category '<<dscyml_firewallrules_rules>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Name of the Firewall Rule.
+|
+
+| DisplayName
+|
+| String
+| Localized, user-facing name of the Firewall Rule being created.	
+|
+
+| Group
+|
+| String
+| Name of the Firewall Group where we want to put the Firewall Rule.	
+|
+
+| Ensure
+|
+| String
+| Ensure the presence/absence of the resource.
+| - *Present* (default)
+  - Absent
+
+| Enabled
+|
+| String
+| Enable or disable the supplied configuration.
+| - True
+  - False
+
+| Action
+|
+| String
+| Allow or Block the supplied configuration.
+| - NotConfigured
+  - Allow
+  - Block
+
+| Profile
+| 
+| String[]
+| Specifies one or more profiles to which the rule is assigned.
+|
+
+| Direction
+|
+| String
+| Direction of the connection.
+| - Inbound
+  - Outbound
+
+| RemotePort
+|
+| String[]
+| Specific Port used for filter.
+
+Specified by port number, range, or keyword	
+|
+
+| LocalPort
+|
+| String[]
+| Local Port used for the filter.	
+|
+
+| Protocol
+|
+| String
+| Specific Protocol for filter.
+
+Specified by name, number, or range.	
+|
+
+| Description
+|
+| String
+| Documentation for the Rule.	
+|
+
+| Program
+|
+| String
+| Path and file name of the program for which the rule is applied.	
+|
+
+| Service
+|
+| String
+| Specifies the short name of a Windows service to which the firewall rule applies.
+|	
+
+| Authentication
+|
+| String
+| Specifies that authentication is required on firewall rules.
+| - NotRequired
+  - Required
+  - NoEncap
+
+| Encryption
+|
+| String
+| Specifies that encryption in authentication is required on firewall rules.
+| - NotRequired
+  - Required
+  - Dynamic
+
+| InterfaceAlias
+|
+| String[]
+| Specifies the alias of the interface that applies to the traffic.	
+|
+
+| InterfaceType
+| 
+| String
+| Specifies that only network connections made through the indicated interface types are subject to the requirements of this rule.
+| - Any
+  - Wired
+  - Wireless
+  - RemoteAccess
+
+| LocalAddress
+|
+| String[]
+| Specifies that network packets with matching IP addresses match this rule.	
+|
+
+| LocalUser
+|
+| String
+| Specifies the principals to which network traffic this firewall rule applies.	
+|
+
+| Package
+|
+| String
+| Specifies the Windows Store application to which the firewall rule applies.	
+|
+
+| Platform
+|
+| String[]
+| Specifies which version of Windows the associated rule applies.	
+|
+
+| RemoteAddress
+|
+| String[]
+| Specifies that network packets with matching IP addresses match this rule.	
+|
+
+| RemoteMachine
+|
+| String
+| Specifies that matching IPsec rules of the indicated computer accounts are created.	
+|
+
+| RemoteUser
+|
+| String
+| Specifies that matching IPsec rules of the indicated user accounts are created.	
+|
+
+| DynamicTransport
+|
+| String
+| Specifies a dynamic transport.
+| - Any
+  - ProximityApps
+  - ProximitySharing
+  - WifiDirectPrinting
+  - WifiDirectDisplay
+  - WifiDirectDevices
+
+| EdgeTraversalPolicy
+| 
+| String
+| Specifies that matching firewall rules of the indicated edge traversal policy are created.
+| - Block
+  - Allow
+  - DeferToUser
+  - DeferToApp
+
+| IcmpType
+|
+| String[]
+| Specifies the ICMP type codes.	
+|
+
+| LocalOnlyMapping
+|
+| Boolean
+|	Indicates that matching firewall rules of the indicated value are created.
+| - True
+  - False
+	
+| LooseSourceMapping
+|
+| Boolean
+| Indicates that matching firewall rules of the indicated value are created.	
+| - True
+  - False
+
+| OverrideBlockRules
+|
+| Boolean
+| Indicates that matching network traffic that would otherwise be blocked are allowed.
+| - True
+  - False
+
+| Owner
+|
+| String
+| Specifies that matching firewall rules of the indicated owner are created.
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+FirewallRules:
+  Rules:
+    - Name:        Any-AnyTest
+      DisplayName: Any-Any Test
+      Enabled:     True
+      Description: Allow All Inbound Trafic
+      Direction:   Inbound
+      Profile:     Any
+      Action:      Allow
+      LocalPort:   Any
+      RemotePort:  Any
+      Protocol:    Any
+
+    - Name:        NotePadFirewallRule
+      DisplayName: Firewall Rule for Notepad.exe
+      Group:       NotePad Firewall Rule Group
+      Ensure:      Present
+      Enabled:     True
+      Profile:
+        - Domain
+        - Private
+      Direction:   OutBound
+      RemotePort:  
+        - 8080
+        - 8081
+      LocalPort:
+        - 9080
+        - 9081
+      Protocol:    TCP
+      Description: Firewall Rule for Notepad.exe
+      Program:     C:\Windows\System32\notepad.exe
+      Service:     WinRM
+----

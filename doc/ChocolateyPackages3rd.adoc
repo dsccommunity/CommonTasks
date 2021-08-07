@@ -1,15 +1,15 @@
-// CommonTasks YAML Reference: ChocolateyPackages2nd
+// CommonTasks YAML Reference: ChocolateyPackages3rd
 // =================================================
 
-:YmlCategory: ChocolateyPackages2nd
+:YmlCategory: ChocolateyPackages3rd
 
 
-[[dscyml_chocolateypackages2nd, {YmlCategory}]]
-= DSC Resource 'ChocolateyPackages2nd'
+[[dscyml_chocolateypackages3rd, {YmlCategory}]]
+= DSC Resource 'ChocolateyPackages3rd'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_chocolateypackages2nd_abstract]]
+[[dscyml_chocolateypackages3rd_abstract]]
 .{YmlCategory} is aimed to install additional packages using Chocolatey.
 
 Now you can configure additional configuration steps between installation of two Chocolatey packages in the YAML configuration.
@@ -18,12 +18,12 @@ Now you can configure additional configuration steps between installation of two
 ====
 This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
 
-In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`. 
+In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages3rd`. 
 ====
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages2nd
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages3rd
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage]
 |===
@@ -38,7 +38,7 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 | Description
 | Allowed Values
 
-| [[dscyml_chocolateypackages2nd_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages2nd_packages_details, Packages>>
+| [[dscyml_ChocolateyPackages3rd_packages, {YmlCategory}/Packages]]<<dscyml_ChocolateyPackages3rd_packages_details, Packages>>
 | 
 | Hashtable[]
 | List of Chocolatey packages
@@ -47,8 +47,8 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 |===
 
 
-[[dscyml_chocolateypackages2nd_packages_details]]
-.Attributes of DSC Resource '<<dscyml_chocolateypackages2nd_packages>>'
+[[dscyml_ChocolateyPackages3rd_packages_details]]
+.Attributes of DSC Resource '<<dscyml_ChocolateyPackages3rd_packages>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -130,7 +130,7 @@ To re-enable the system reboot feature the registry key value `RebootAfter_Choco
 .Example
 [source, yaml]
 ----
-ChocolateyPackages2nd:
+ChocolateyPackages3rd:
   Packages:
     - Name: notepadplusplus
       Ensure: Present
@@ -156,9 +156,9 @@ ChocolateyPackages2nd:
 ----
 lookup_options:
 
-  ChocolateyPackages2nd:
+  ChocolateyPackages3rd:
     merge_hash: deep
-  ChocolateyPackages2nd\Packages:
+  ChocolateyPackages3rd\Packages:
     merge_hash_array: UniqueKeyValTuples
     merge_options:
       tuple_keys:

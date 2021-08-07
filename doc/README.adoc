@@ -71,7 +71,9 @@ ifdef::env-github[]
 - <<Bitlocker.adoc#, Bitlocker>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<ChocolateyPackages2nd.adoc#, ChocolateyPackages2nd>>
+- <<ChocolateyPackages3rd.adoc#, ChocolateyPackages3rd>>
 - <<ComputerSettings.adoc#, ComputerSettings>>
+- <<DhcpServer.adoc#, DhcpServer>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
 - <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
@@ -82,10 +84,13 @@ ifdef::env-github[]
 - <<DnsServerResponseRateLimiting.adoc#, DnsServerResponseRateLimiting>>
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
+- <<DnsServerZoneAging.adoc#, DnsServerZoneAging>>
 - <<DscLcmController.adoc#, DscLcmController>>
 - <<DscLcmMaintenanceWindows.adoc#, DscLcmMaintenanceWindows>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<FirewallProfiles.adoc#, FirewallProfiles>>
+- <<FirewallRules.adoc#, FirewallRules>>
 - <<HostsFileEntries.adoc#, HostsFileEntries>>
 - <<HyperV.adoc#, HyperV>>
 - <<LocalGroups.adoc#, LocalGroups>>
@@ -107,6 +112,7 @@ ifdef::env-github[]
 - <<UpdateServices.adoc#, UpdateServices>>
 - <<Wds.adoc#, Wds>>
 - <<WebBrowser.adoc#, WebBrowser>>
+- <<WebSites.adoc#, WebSites>>
 - <<WindowsEventForwarding.adoc#, WindowsEventForwarding>>
 - <<WindowsEventLogs.adoc#, WindowsEventLogs>>
 - <<WindowsFeatures.adoc#, WindowsFeatures>>
@@ -135,10 +141,11 @@ ifndef::env-github[]
 | <<dscyml_bitlocker>>                         | <<dscyml_bitlocker_abstract>>
 | <<dscyml_chocolateypackages>>                | <<dscyml_chocolateypackages_abstract>>
 | <<dscyml_chocolateypackages2nd>>             | <<dscyml_chocolateypackages2nd_abstract>>
+| <<dscyml_chocolateypackages3rd>>             | <<dscyml_chocolateypackages3rd_abstract>>
 | <<dscyml_computersettings>>                  | <<dscyml_computersettings_abstract>>
 // | <<dscyml_configurationbase>>              | <<dscyml_configurationbase_abstract>>
 // | <<dscyml_dfsnamespaces>>                  | <<dscyml_dfsnamespaces_abstract>>
-// | <<dscyml_dhcpserver>>                     | <<dscyml_dhcpserver_abstract>>
+| <<dscyml_dhcpserver>>                        | <<dscyml_dhcpserver_abstract>>
 | <<dscyml_disks>>                             | <<dscyml_disks_abstract>>
 | <<dscyml_dnsserveradzones>>                  | <<dscyml_dnsserveradzones_abstract>>
 | <<dscyml_dnsserverconditionalforwarders>>    | <<dscyml_dnsserverconditionalforwarders_abstract>>
@@ -149,6 +156,7 @@ ifndef::env-github[]
 | <<dscyml_dnsserverresponseratelimiting>>     | <<dscyml_dnsserverresponseratelimiting_abstract>>
 | <<dscyml_dnsserverroothints>>                | <<dscyml_dnsserverroothints_abstract>>
 | <<dscyml_dnsserversettings>>                 | <<dscyml_dnsserversettings_abstract>>
+| <<dscyml_dnsserverzoneaging>>                | <<dscyml_dnsserverzoneaging_abstract>>
 // | <<dscyml_dscdiagnostic>>                  | <<dscyml_dscdiagnostic_abstract>>
 | <<dscyml_dsclcmcontroller>>                  | <<dscyml_dsclcmcontroller_abstract>>
 | <<dscyml_dsclcmmaintenancewindows>>          | <<dscyml_dsclcmmaintenancewindows_abstract>>
@@ -156,8 +164,8 @@ ifndef::env-github[]
 | <<dscyml_dscpullserversql>>                  | <<dscyml_dscpullserversql_abstract>>
 | <<dscyml_dsctagging>>                        | <<dscyml_dsctagging_abstract>>
 // | <<dscyml_filesandfolders>>                | <<dscyml_filesandfolders_abstract>>
-// | <<dscyml_firewallprofiles>>               | <<dscyml_firewallprofiles_abstract>>
-// | <<dscyml_firewallrules>>                  | <<dscyml_firewallrules_abstract>>
+| <<dscyml_firewallprofiles>>                  | <<dscyml_firewallprofiles_abstract>>
+| <<dscyml_firewallrules>>                     | <<dscyml_firewallrules_abstract>>
 | <<dscyml_hostsfileentries>>                  | <<dscyml_hostsfileentries_abstract>>
 | <<dscyml_hyperv>>                            | <<dscyml_hyperv_abstract>>
 // | <<dscyml_ipconfiguration>>                | <<dscyml_ipconfiguration_abstract>>
@@ -186,7 +194,7 @@ ifndef::env-github[]
 // | <<dscyml_webapplicationpools>>            | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>                | <<dscyml_webapplications_abstract>>
 | <<dscyml_webbrowser>>                        | <<dscyml_webbrowser_abstract>>
-// | <<dscyml_websites>>                       | <<dscyml_websites_abstract>>
+| <<dscyml_websites>>                          | <<dscyml_websites_abstract>>
 // | <<dscyml_webvirtualdirectories>>          | <<dscyml_webvirtualdirectories_abstract>>
 | <<dscyml_windowseventforwarding>>            | <<dscyml_windowseventforwarding_abstract>>
 | <<dscyml_windowseventlogs>>                  | <<dscyml_windowseventlogs_abstract>>
@@ -209,10 +217,11 @@ include::AuditPolicies.adoc[leveloffset=+2]
 include::Bitlocker.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 include::ChocolateyPackages2nd.adoc[leveloffset=+2]
+include::ChocolateyPackages3rd.adoc[leveloffset=+2]
 include::ComputerSettings.adoc[leveloffset=+2]
 //include::ConfigurationBase.adoc[leveloffset=+2]
 //include::DfsNamespaces.adoc[leveloffset=+2]
-//include::DhcpServer.adoc[leveloffset=+2]
+include::DhcpServer.adoc[leveloffset=+2]
 include::Disks.adoc[leveloffset=+2]
 include::DnsServerAdZones.adoc[leveloffset=+2]
 include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
@@ -223,6 +232,7 @@ include::DnsServerRecords.adoc[leveloffset=+2]
 include::DnsServerResponseRateLimiting.adoc[leveloffset=+2]
 include::DnsServerRootHints.adoc[leveloffset=+2]
 include::DnsServerSettings.adoc[leveloffset=+2]
+include::DnsServerZoneAging.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]
 include::DscLcmController.adoc[leveloffset=+2]
 include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
@@ -230,8 +240,8 @@ include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]
 include::DscPullServerSql.adoc[leveloffset=+2]
 include::DscTagging.adoc[leveloffset=+2]
 //include::FilesAndFolders.adoc[leveloffset=+2]
-//include::FirewallProfiles.adoc[leveloffset=+2]
-//include::FirewallRules.adoc[leveloffset=+2]
+include::FirewallProfiles.adoc[leveloffset=+2]
+include::FirewallRules.adoc[leveloffset=+2]
 include::HostsFileEntries.adoc[leveloffset=+2]
 include::HyperV.adoc[leveloffset=+2]
 //include::IpConfiguration.adoc[leveloffset=+2]
@@ -260,7 +270,7 @@ include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]
 include::WebBrowser.adoc[leveloffset=+2]
-//include::WebSites.adoc[leveloffset=+2]
+include::WebSites.adoc[leveloffset=+2]
 //include::WebVirtualDirectories.adoc[leveloffset=+2]
 include::WindowsEventForwarding.adoc[leveloffset=+2]
 include::WindowsEventLogs.adoc[leveloffset=+2]

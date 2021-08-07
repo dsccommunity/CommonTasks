@@ -86,7 +86,7 @@ NOTE: If the `GetScript` attribute is empty or missing a default script `@{ Resu
   If the TestScript block returns True, this script block will not run.
   This script block should not return.
 
-NOTE: If the `SetScript` attribute is empty or missing a default script `Write-Verbose 'SetScript is not implemented.'` is generated 
+NOTE: If the `SetScript` attribute is empty or missing a default script `Write-Error 'SetScript is not implemented.'` is generated and the resource is marked as not in the desired state.
 |
 
 | TestScript
@@ -94,7 +94,7 @@ NOTE: If the `SetScript` attribute is empty or missing a default script `Write-V
 | String
 | A string that can be used to create a PowerShell script block that validates whether or not the resource is in the desired state.
   This script block runs when the Start-DscConfiguration cmdlet is called or when the Test-DscConfiguration cmdlet is called.
-  This script block should return a boolean with True meaning that the resource is in the desired state and False meaning that the resource is not in the desired state.
+  This script block should return a boolean with `True` meaning that the resource is in the desired state and `False` meaning that the resource is not in the desired state.
 |
 
 | Credential

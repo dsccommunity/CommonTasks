@@ -17,10 +17,10 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
-| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySoftware[ChocolateySoftware],
-                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateySource[ChocolateySource],
-                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage], 
-                   https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyFeature[ChocolateyFeature]
+| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware],
+                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource],
+                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage], 
+                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
 
@@ -94,7 +94,7 @@
 |
 | String
 | Url of a Nuget feed where the Chocolatey software package is available. +
-  i.e. \https://chocolatey.org/api/v2
+  i.e. \https://community.chocolatey.org/api/v2/
 |
 
 | Version
@@ -322,7 +322,7 @@ ChocolateyPackages:
   Software:
     Ensure: Present
     #OfflineInstallZip: C:\LocalRepo\packages\chocolatey.0.10.15.nupkg
-    PackageFeedUrl: https://chocolatey.org/api/v2
+    PackageFeedUrl: https://community.chocolatey.org/api/v2/
     Version: 0.10.15
     ChocoTempDir: C:\ChocoTemp
     InstallationDirectory: C:\ProgramData\Chocolatey
@@ -330,7 +330,7 @@ ChocolateyPackages:
   Sources:
     - Name: Chocolatey
       Ensure: Present
-      Source: https://chocolatey.org/api/v2
+      Source: https://community.chocolatey.org/api/v2/
       Priority: 0
       Disabled: False
     - Name: PrivateChocolatey

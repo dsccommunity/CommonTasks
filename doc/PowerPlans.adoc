@@ -37,7 +37,7 @@
 | Power Plans
 |
 
-| [[dscyml_powerplans_plans_settings, {YmlCategory}/Settings]]<<dscyml_powerplans_details, Settings>>
+| [[dscyml_powerplans_settings, {YmlCategory}/Settings]]<<dscyml_powerplans_settings_details, Settings>>
 | 
 | hashtable[]
 | Power Plan Settings

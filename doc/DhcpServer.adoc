@@ -1,0 +1,446 @@
+// CommonTasks YAML Reference: DhcpServer
+// ========================================
+
+:YmlCategory: DhcpServer
+
+
+[[dscyml_dhcpserver, {YmlCategory}]]
+= DSC Resource 'DhcpServer'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dhcpserver_abstract]]
+.{YmlCategory} is used for deployment and configuration of Microsoft DHCP Server.
+
+// reference links as variables for using more than once
+:ref_xDhcpServerScope:          https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
+:ref_DhcpServerExclusionRange:  https://github.com/dsccommunity/xDhcpServer#dhcpserverexclusionrange[DhcpServerExclusionRange]
+:ref_xDhcpServerReservation:    https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
+:ref_DhcpServerOptionValue:     https://github.com/dsccommunity/xDhcpServer#dhcpserveroptionvalue[DhcpServerOptionValue]
+:ref_xDhcpServerAuthorization:  https://github.com/dsccommunity/xDhcpServer#xdhcpserverauthorization[xDhcpServerAuthorization]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DhcpServer
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | {ref_xDhcpServerScope}, 
+                   {ref_DhcpServerExclusionRange}, 
+                   {ref_xDhcpServerReservation},
+                   {ref_DhcpServerOptionValue}, 
+                   {ref_xDhcpServerAuthorization},
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dhcpserver_scopes, {YmlCategory}/Scopes]]<<dscyml_dhcpserver_scopes_details, Scopes>>
+| 
+| Hashtable[]
+| Set of {ref_xDhcpServerScope} DSC resources
+|
+
+| [[dscyml_dhcpserver_exclusionranges, {YmlCategory}/ExclusionRanges]]<<dscyml_dhcpserver_exclusionranges_details, ExclusionRanges>>
+| 
+| Hashtable[]
+| Set of {ref_DhcpServerExclusionRange} DSC resources
+|
+
+| [[dscyml_dhcpserver_reservations, {YmlCategory}/Reservations]]<<dscyml_dhcpserver_reservations_details, Reservations>>
+| 
+| Hashtable[]
+| Set of {ref_xDhcpServerReservation} DSC resources
+|
+
+| [[dscyml_dhcpserver_optionvalues, {YmlCategory}/OptionValues]]<<dscyml_dhcpserver_optionvalues_details, OptionValues>>
+| 
+| Hashtable[]
+| Set of {ref_DhcpServerOptionValue} DSC resources
+|
+
+| [[dscyml_dhcpserver_authorization, {YmlCategory}/Authorization]]<<dscyml_dhcpserver_authorization_details, Authorization>>
+| 
+| Hashtable
+| {ref_xDhcpServerAuthorization} authorizes a DHCP in Active Directory. +
+[IMPORTANT]
+====  
+This resource must run on an Active Directory domain controller.
+====
+|
+
+| EnableSecurityGroups
+| 
+| bool
+| Enable / disable registration of Active Directory security groups 'DHCP Administrators' and 'DHCP Users' 
+| Default: $false
+
+|===
+
+
+[[dscyml_dhcpserver_scopes_details]]
+.Attributes of category '<<dscyml_dhcpserver_scopes>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ScopeId
+| Key
+| String
+| Scope Identifier of the DHCP scope
+|
+
+| IPStartRange
+|
+| String
+| Starting address to set for this scope
+|
+
+| IPEndRange
+|
+| String
+| Ending address to set for this scope
+|
+
+| Name
+|
+| String
+| Name of this DHCP Scope
+|
+
+| SubnetMask
+|
+| String
+| Subnet mask for the scope specified in IP address format
+|
+
+| LeaseDuration
+|
+| String
+| Time interval for which an IP address should be leased. +
+  This should be specified in the following format: `Days.Hours:Minutes:Seconds` +
+  For example, `'02.00:00:00'` is 2 days and `'08:00:00'` is 8 hours.
+|
+
+| State
+|
+| String
+| Whether scope should be active or inactive.
+| - Active
+  - Inactive
+
+| DnsNameProtection
+|
+| Boolean
+| Specifies the enabled state for the DNS name protection on the DHCP scope.
+  
+  If this parameter is set to True, DNS name protection is enabled.
+  If this parameter is set to True and there is an existing DNS record matching the name, the DNS update for the client fails instead of being overwritten.
+| - True
+  - False
+
+| Ensure
+|
+| String
+| Whether DHCP scope should be present or removed
+| - Present
+  - Removed
+
+|===
+
+
+[[dscyml_dhcpserver_exclusionranges_details]]
+.Attributes of category '<<dscyml_dhcpserver_exclusionranges>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ScopeID
+| Mandatory
+| String
+| Scope ID for which exclusions are set
+|
+
+| IPStartRange
+|
+| String
+| Starting IP address of the exclusion range
+|
+
+| IPEndRange
+|
+| String
+| Ending IP address of the exclusion range
+|
+
+| AddressFamily
+| Mandatory
+| String
+| Sets the address family for the option definition.
+  Currently only IPv4 is supported.
+| - IPv4
+
+| Ensure
+|
+| String
+| Whether option should be set or removed
+| - Present
+  - Absent
+
+|===
+
+
+[[dscyml_dhcpserver_reservations_details]]
+.Attributes of category '<<dscyml_dhcpserver_reservations>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ScopeID
+| Key
+| String
+| ScopeId for which reservations are set
+|
+
+| IPAddress
+| Key
+| String
+| IP address of the reservation for which the properties are modified
+|
+
+| ClientMACAddress
+| Mandatory
+| String
+| Client MAC Address to set on the reservation
+|
+
+| Name
+|
+| String
+| Reservation name
+|
+
+| AddressFamily
+| Mandatory
+| String
+| Sets the address family for the option definition.
+  Currently only IPv4 is supported.
+| - *IPv4* (default)
+
+| Ensure
+|
+| String
+| Whether option should be set or removed
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+[[dscyml_dhcpserver_optionvalues_details]]
+.Attributes of category '<<dscyml_dhcpserver_optionvalues>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| OptionId
+| Key
+| Number
+| Option ID, specify an integer between 1 and 255.
+| [1, 255]
+
+| Value
+|
+| String
+| Option data value. Could be an array of string for a multi-valued option.
+|
+
+| VendorClass
+|
+| String
+| Vendor class.
+  Use an empty string for default vendor class.
+|
+
+| UserClass
+|
+| String
+| User class.
+  Use an empty string for default user class.
+|
+
+| AddressFamily
+|
+| String
+| Sets the address family for the option definition.
+  Currently only IPv4 is supported.
+| - IPv4 
+
+| Ensure
+|
+| String
+| Whether option should be set or removed.
+| - Present
+  - Absent
+
+|===
+
+
+[[dscyml_dhcpserver_authorization_details]]
+.Attributes of category '<<dscyml_dhcpserver_authorization>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Ensure
+| Mandatory
+| String
+| Whether the DHCP server should be authorized.
+| - Present
+  - Absent
+
+| DnsName
+|
+| String
+| FQDN of the server to authorize.
+  If not specified, it defaults to the local hostname of the enacting node.
+| Default: (Get-Hostname)
+
+| IPAddress
+|
+| String
+| IP v4 address of the server to authorized.
+  If not specified, it default to the first IPv4 address of the enacting node.
+| Default: (Get-IPv4Address | Select-Object -First 1)
+
+|===
+
+.Example
+[source, yaml]
+----
+DhcpServer:
+  Scopes:
+    - ScopeID:           192.169.162.0
+      Name:              Domain Scope 1
+      IPStartRange:      192.169.162.1
+      IPEndRange:        192.169.162.100
+      SubnetMask:        255.255.255.0
+      LeaseDuration:     7.00:00:00
+      State:             Active
+      DnsNameProtection: True
+      Ensure:            Present
+
+    - ScopeID:       192.169.163.0
+      Name:          Domain Scope 2
+      IPStartRange:  192.169.163.1
+      IPEndRange:    192.169.163.100
+      SubnetMask:    255.255.255.0
+      LeaseDuration: 7.00:00:00
+      State:         Active
+      Ensure:        Present
+
+  ExclusionRanges:
+    - ScopeID:       192.169.163.0
+      IPStartRange:  192.169.163.20
+      IPEndRange:    192.169.163.40
+      AddressFamily: IPv4
+      Ensure:        Present
+
+    - ScopeID:       192.169.163.0
+      IPStartRange:  192.169.163.60
+      IPEndRange:    192.169.163.62
+      AddressFamily: IPv4
+      Ensure:        Present
+
+  Reservations:
+    - ScopeID:          192.169.163.0
+      IPAddress:        192.169.163.21
+      ClientMACAddress: 00-15-5D-02-28-37
+      Name:             Client01
+      AddressFamily:    IPv4
+      Ensure:           Present
+    - ScopeID:          192.169.163.0
+      IPAddress:        192.169.163.22
+      ClientMACAddress: 00-15-5D-02-28-38
+      Name:             Client02
+    - ScopeID:          192.169.163.0
+      IPAddress:        192.169.163.23
+      ClientMACAddress: 00-15-5D-02-28-39
+
+  OptionValues:
+    - OptionId:      1
+      Value:         contoso.com
+      VendorClass:
+      UserClass:
+      AddressFamily: IPv4
+      Ensure:        Present
+    
+    - OptionId:      2
+      Value:         192.168.162.2
+      AddressFamily: IPv4
+      Ensure:        Present
+
+  # This resource must run on an Active Directory domain controller.
+  Authorization:
+    Ensure:        Present
+    DnsName:       dns.contoso.com
+    IP-Address:    192.169.162.1
+
+  EnableSecurityGroups: true
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  DhcpServer:
+    merge_hash: deep
+  DhcpServer\Scopes:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - ScopeId
+  DhcpServer\ExclusionRanges:
+    merge_basetype_array: Add
+  DhcpServer\Reservations:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - ScopeId
+        - IPAddress
+  DhcpServer\OptionValues:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - OptionId
+----

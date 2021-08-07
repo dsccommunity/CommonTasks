@@ -174,6 +174,29 @@ NOTE: Mandatory attribute for a NAT switch and is used as default gateway for th
 | The desired default gateway address.
 |
 
+| NetworkCategory
+|
+| String
+| Specifies the category of the network.
+
+The category is set at the host network adapter connected to the switch.
+
+NOTE: Not applicable for `Private` switches!
+
+You cannot set the category to `DomainAuthenticated` (only test is supported).
+The server automatically sets the value of `DomainAuthenticated` when the network is authenticated to a domain controller.
+
+The acceptable values for this parameter are:
+
+- Public - Networks in a public place such as an airport or coffee shop. 
+           Your PC is hidden from other devices on the network and can't be used for printer and file sharing.
+- Private - Networks at home or work, where you know and trust the people and devices on the network.
+            Your PC is discoverable and can be used for printer and file sharing if you set it up.
+- DomainAuthenticated - Networks at a workplace that are joined to a domain.
+| - Public
+  - Private
+  - DomainAuthenticated
+
 | Ensure
 |
 | String
@@ -420,22 +443,23 @@ The first entry will be the OS disk (C:\).
 | MAC-Address of the network adapter
 |
 
-// | IgnoreNetworkSetting
-// |
-// | Boolean
-// | Specifies whether the IpAddress information for the network adapter is set or ignored
-// | - *True* (default)
-//   - False
+| IgnoreNetworkSetting
+|
+| Boolean
+| Specifies whether the IpAddress information for the network adapter is set or ignored
+
+NOTE: Disabled until https://github.com/dsccommunity/xHyper-V/pull/189[Pull Request #189] is merged into xHyper-V DSC resource
+| - *True* (default)
+  - False
 
 | [[dscyml_hyperv_vmmachines_networkadapters_networksetting, {YmlCategory}/VMMachines/NetworkAdapters/NetworkSetting]]<<dscyml_hyperv_vmmachines_networkadapters_networksetting_details, NetworkSetting>>
 |
 | Hashtable
 | Network settings
 
-// NOTE: If `IgnoreNetworkSetting` is set to `True` the network settings are ignored.
+NOTE: If `IgnoreNetworkSetting` is set to `True` the network settings are ignored.
 
-// IMPORTANT: If network settings are not specified and parameter `IgnoreNetworkSetting` is set to `False` DHCP will be enabled on the network adapter.
-IMPORTANT: If network settings are not specified DHCP will be enabled on the network adapter.
+IMPORTANT: If network settings are not specified and parameter `IgnoreNetworkSetting` is set to `False` DHCP will be enabled on the network adapter.
 |
 
 | VlanId

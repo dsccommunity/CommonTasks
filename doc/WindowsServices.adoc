@@ -95,6 +95,7 @@
 | String
 | Indicates the startup type for the service.
 | - Automatic
+  - AutomaticDelayedStart
   - Disabled
   - Manual
 
@@ -103,7 +104,7 @@
 | String
 | Indicates the state you want to ensure for the service.
 
-If no value is specified a dafault value is set with the following confitions: 
+If no value is specified a default value is set with the following conditions: 
 
 - `StartupType` is empty       -> `Running`
 - `StartupType` is `Automatic` -> `Running`

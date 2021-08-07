@@ -9,6 +9,7 @@ Interfaces:
       - 10.1.1.2
     DisableNetbios: true
     DisableIPv6: true
+    NetworkCategory: Private
   - InterfaceAlias: Ethernet 2
     IpAddress: 10.0.0.2
     Prefix: 8
@@ -18,8 +19,9 @@ Interfaces:
       - 10.1.1.2
     DisableNetbios: true
   - InterfaceAlias: Ethernet 3
-    IpAddress: 10.0.0.3
+    IpAddress: 11.0.0.3
     Prefix: 8
+    NetworkCategory: Public
   - InterfaceAlias: Ethernet 4
     Gateway: 10.0.0.254
     DnsServer:

@@ -28,7 +28,7 @@ configuration Scripts {
 
         if( [string]::IsNullOrWhiteSpace($item.SetScript) )
         {
-            $item.SetScript = "Write-Verbose 'SetScript is not implemented.'"
+            $item.SetScript = "Write-Error 'SetScript is not implemented.'"
         }
         elseif( $null -ne $params )
         {

@@ -1,0 +1,95 @@
+// CommonTasks YAML Reference: DnsServerZoneAging
+// =================================================
+
+:YmlCategory: DnsServerZoneAging
+
+
+[[dscyml_dnsserverzoneaging, {YmlCategory}]]
+= DSC Resource 'DnsServerZoneAging'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverzoneaging_abstract]]
+.{YmlCategory} manages aging settings for a Domain Name System (DNS) server zone.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerZoneAging
+| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerZoneAging[xDnsServerZoneAging]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserverzoneaging_zones, {YmlCategory}/Zones]]<<dscyml_dnsserverzoneaging_zones_details, Zones>>
+| Mandatory
+| Hashtable[]
+| List of DNS Zones
+|
+
+|===
+
+
+[[dscyml_dnsserverzoneaging_zones_details]]
+.Attributes of category '<<dscyml_dnsserverzoneaging_zones>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Name of the DNS forward or reverse lookup zone.
+|
+
+| Enabled
+|
+| Boolean
+| Option to enable scavenge stale resource records on the zone.
+| - *True* (default)
+  - False
+
+| RefreshInterval
+|
+| UInt32
+| Refresh interval for record scavenging in hours.
+| Default: `168` -> 7 days
+
+| NoRefreshInterval
+|
+| UInt32
+| No-refresh interval for record scavenging in hours.
+| Default: `168` -> 7 days
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerZoneAging:
+  Zones:
+    - Name:              north.contoso.com
+      Enabled:           True
+      RefreshInterval:   120   # 5 days
+      NoRefreshInterval: 240   # 10 days
+
+    - Name:    south.contoso.com
+      Enabled: True
+
+    - Name:    east.contoso.com
+      Enabled: False
+----

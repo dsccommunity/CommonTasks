@@ -98,10 +98,12 @@ configuration HyperV
             $netAddressSpace = $vmswitch.AddressSpace
             $netIpAddress    = $vmswitch.IpAddress
             $netGateway      = $vmswitch.Gateway
+            $netCategory     = $vmswitch.NetworkCategory
 
             $vmSwitch.Remove('AddressSpace')
             $vmSwitch.Remove('IpAddress')
             $vmSwitch.Remove('Gateway')
+            $vmSwitch.Remove('NetworkCategory')
 
             if( $vmswitch.Type -eq 'NAT' )
             {
@@ -118,15 +120,24 @@ configuration HyperV
                 $natSwitch     = $vmswitch.Name
                 $vmswitch.Type = 'Internal'
             }
+            elseif( $vmswitch.Type -eq 'Private' -and
+                    (-not [string]::IsNullOrWhiteSpace($netAddressSpace) -or
+                     -not [string]::IsNullOrWhiteSpace($netIpAddress) -or
+                     -not [string]::IsNullOrWhiteSpace($netGateway) -or
+                     -not [string]::IsNullOrWhiteSpace($netCategory) ))
+            {
+                throw "ERROR: A private switch doesn't support 'AddressSpace', 'IpAddress', 'Gateway' or 'NetworkCategory' attribute."
+            }
 
             $vmswitch.DependsOn = $dependsOnHostOS
             $executionName = $vmswitch.Name -replace '[().:\s]', '_'
             (Get-DscSplattedResource -ResourceName xVMSwitch -ExecutionName "vmswitch_$executionName" -Properties $vmswitch -NoInvoke).Invoke( $vmswitch )
 
             # enable Net Adressspace, IpAddress and NAT switch
-            if( -not [string]::IsNullOrWhiteSpace($netIpAddress) )
+            if( -not [string]::IsNullOrWhiteSpace($netIpAddress) -or -not [string]::IsNullOrWhiteSpace($netCategory) )
             {
-                [int]$netPrefixLength = 24;
+                # Default is adapter auto configuration with 255.255.0.0 -> 16
+                [int]$netPrefixLength = 16;
 
                 if( -not [string]::IsNullOrWhiteSpace($netAddressSpace) )
                 {
@@ -140,7 +151,7 @@ configuration HyperV
                     $netPrefixLength = $prefixSelect.Matches.Groups[1].Value
                 }
 
-                if( -not ($netIpAddress -match '\d+\.\d+\.\d+\.\d+') )
+                if( -not [string]::IsNullOrWhiteSpace($netIpAddress) -and -not ($netIpAddress -match '\d+\.\d+\.\d+\.\d+') )
                 {
                     throw "ERROR: Invalid format of attribute 'IpAddress'."
                 }
@@ -150,13 +161,17 @@ configuration HyperV
                     throw "ERROR: Invalid format of attribute 'Gateway'."
                 }
 
+                if( -not [string]::IsNullOrWhiteSpace($netCategory) -and -not ($netCategory -match '^(Public|Private|DomainAuthenticated)$') )
+                {
+                    throw "ERROR: Invalid value of attribute 'NetworkCategory'."
+                }
+
                 Script "vmnet_$executionName"
                 {
                     TestScript = 
                     {
                         [boolean]$result = $true
                         $netAdapter = Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $using:netName }                    
-                        $netIpAddr  = Get-NetIPAddress -IPAddress $using:netIpAddress -ErrorAction SilentlyContinue
 
                         if( $null -eq $netAdapter )
                         {
@@ -173,14 +188,31 @@ configuration HyperV
                             }
                         }
 
-                        if( $null -eq $netIpAddr -or
-                            $netIpAddr.InterfaceIndex -ne $netAdapter.InterfaceIndex -or
-                            $netIpAddr.PrefixLength -ne $using:netPrefixLength )
+                        if( -not [string]::IsNullOrWhiteSpace( $using:netIpAddress ) )
                         {
-                            $result = $false
-                            Write-Verbose "NetAdapter '$using:netName' has not the expected IP configuration ($using:netIpAddress/$using:netPrefixLength)."
+                            $netIpAddr  = Get-NetIPAddress -IPAddress $using:netIpAddress -ErrorAction SilentlyContinue
+
+                            if( $null -eq $netIpAddr -or
+                                $netIpAddr.InterfaceIndex -ne $netAdapter.InterfaceIndex -or
+                                $netIpAddr.PrefixLength -ne $using:netPrefixLength )
+                            {
+                                $result = $false
+                                Write-Verbose "NetAdapter '$using:netName' has not the expected IP configuration ($using:netIpAddress/$using:netPrefixLength)."
+                            }
                         }
 
+                        # check network category
+                        if( -not [string]::IsNullOrWhiteSpace( $using:netCategory ) )
+                        {
+                            $netProfile = Get-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex
+           
+                            if ($null -eq $netProfile -or $netProfile.NetworkCategory -ne $using:netCategory )
+                            {
+                                $result = $false
+                                Write-Verbose "NetAdapter '$using:netName' has not the expected network category ($using:netCategory)."
+                            }
+                        }
+                        
                         # check NAT switch
                         if( $using:netName -eq $using:natSwitch )
                         {
@@ -207,21 +239,56 @@ configuration HyperV
                             return
                         }
 
-                        # remove existing configuration
-                        Remove-NetIPAddress -IPAddress $using:netIpAddress -Confirm:$false -ErrorAction SilentlyContinue
-
-                        Write-Verbose "Create IP Address '$using:netIpAddress'..."
-                        $ipAddrParams = @{
-                            IPAddress      = $using:netIpAddress
-                            PrefixLength   = $using:netPrefixLength
-                            InterfaceIndex = $netAdapter.InterfaceIndex
-                        }
-                        if( -not [string]::IsNullOrWhiteSpace( $using:netGateway ) )
+                        if( -not [string]::IsNullOrWhiteSpace($using:netIpAddress) )
                         {
-                            $ipAddrParams.DefaultGateway = $using:netGateway
-                        }
-                        New-NetIPAddress @ipAddrParams
+                            # remove existing configuration
+                            Remove-NetIPAddress -IPAddress $using:netIpAddress -Confirm:$false -ErrorAction SilentlyContinue
 
+                            # Remove all routes including the default gateway
+                            Remove-NetRoute -InterfaceIndex $netAdapter.InterfaceIndex
+
+                            Write-Verbose "Create IP Address '$using:netIpAddress'..."
+                            $ipAddrParams = @{
+                                IPAddress      = $using:netIpAddress
+                                PrefixLength   = $using:netPrefixLength
+                                InterfaceIndex = $netAdapter.InterfaceIndex
+                            }
+                            if( -not [string]::IsNullOrWhiteSpace( $using:netGateway ) )
+                            {
+                                $ipAddrParams.DefaultGateway = $using:netGateway
+                            }
+                            New-NetIPAddress @ipAddrParams
+                        }
+
+                        # set network category
+                        if( -not [string]::IsNullOrWhiteSpace( $using:netCategory ) )
+                        {
+                            if( $using:netCategory -eq 'DomainAuthenticated')
+                            {
+                                Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory ' is not supported. The computer automatically sets this value when the network is authenticated to a domain controller."
+        
+                                # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
+                                # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
+                                Write-Verbose "Restarting NLA service to reinitialize the network location check..."
+                                Restart-Service nlasvc -Force
+                                Start-Sleep 5
+        
+                                $netProfile = Get-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex
+            
+                                Write-Verbose "Current NetworkCategory is now: $($netProfile.NetworkCategory)"
+                
+                                if( $netProfile.NetworkCategory -ne $using:netCategory )
+                                {
+                                    Write-Error "NetAdapter '$using:netName' is not '$using:netCategory'."
+                                } 
+                            }
+                            else
+                            {
+                                Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory '."
+                                Set-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex -NetworkCategory $using:netCategory                             
+                            }
+                        }
+                        
                         if( $using:netName -eq $using:natSwitch )
                         {
                             Remove-NetNat $using:netName -Confirm:$false -ErrorAction SilentlyContinue
@@ -783,6 +850,8 @@ configuration HyperV
 
                     $netAdapter.NetworkSetting = $netSetting
                 }
+                # Disabled until Pull Request #189 is merged into xHyper-V DSC resource
+                # see https://github.com/dsccommunity/xHyper-V/pull/189
                 # elseif( $null -eq $netAdapter.IgnoreNetworkSetting )
                 # {
                 #     # if no network settings are specified -> enable IgnoreNetworkSetting as default

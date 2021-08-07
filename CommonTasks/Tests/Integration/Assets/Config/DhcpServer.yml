@@ -1,0 +1,67 @@
+# see https://github.com/dsccommunity/xDhcpServer
+Scopes:
+  - ScopeID:           192.169.162.0
+    Name:              Domain Scope 1
+    IPStartRange:      192.169.162.1
+    IPEndRange:        192.169.162.100
+    SubnetMask:        255.255.255.0
+    LeaseDuration:     7.00:00:00
+    State:             Active
+    DnsNameProtection: True
+    Ensure:            Present
+
+  - ScopeID:       192.169.163.0
+    Name:          Domain Scope 2
+    IPStartRange:  192.169.163.1
+    IPEndRange:    192.169.163.100
+    SubnetMask:    255.255.255.0
+    LeaseDuration: 7.00:00:00
+    State:         Active
+    Ensure:        Present
+
+ExclusionRanges:
+  - ScopeID:       192.169.163.0
+    IPStartRange:  192.169.163.20
+    IPEndRange:    192.169.163.40
+    AddressFamily: IPv4
+    Ensure:        Present
+
+  - ScopeID:       192.169.163.0
+    IPStartRange:  192.169.163.60
+    IPEndRange:    192.169.163.62
+    AddressFamily: IPv4
+    Ensure:        Present
+
+Reservations:
+  - ScopeID:          192.169.163.0
+    IPAddress:        192.169.163.21
+    ClientMACAddress: 00-15-5D-02-28-37
+    Name:             Client01
+    AddressFamily:    IPv4
+    Ensure:           Present
+  - ScopeID:          192.169.163.0
+    IPAddress:        192.169.163.22
+    ClientMACAddress: 00-15-5D-02-28-38
+    Name:             Client02
+  - ScopeID:          192.169.163.0
+    IPAddress:        192.169.163.23
+    ClientMACAddress: 00-15-5D-02-28-39
+
+OptionValues:
+  - OptionId:      1
+    Value:         contoso.com
+    VendorClass:
+    UserClass:
+    AddressFamily: IPv4
+    Ensure:        Present
+  
+  - OptionId:      2
+    Value:         192.168.162.2
+    AddressFamily: IPv4
+    Ensure:        Present
+
+Authorization:
+  DnsName:         dns.contoso.com
+  IPAddress:       192.169.162.1
+
+EnableSecurityGroups: true
