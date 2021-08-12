@@ -99,11 +99,13 @@ configuration HyperV
             $netIpAddress    = $vmswitch.IpAddress
             $netGateway      = $vmswitch.Gateway
             $netCategory     = $vmswitch.NetworkCategory
+            $netInterfaceMetric = $vmswitch.InterfaceMetric
 
             $vmSwitch.Remove('AddressSpace')
             $vmSwitch.Remove('IpAddress')
             $vmSwitch.Remove('Gateway')
             $vmSwitch.Remove('NetworkCategory')
+            $vmSwitch.Remove('InterfaceMetric')
 
             if( $vmswitch.Type -eq 'NAT' )
             {
@@ -124,9 +126,10 @@ configuration HyperV
                     (-not [string]::IsNullOrWhiteSpace($netAddressSpace) -or
                      -not [string]::IsNullOrWhiteSpace($netIpAddress) -or
                      -not [string]::IsNullOrWhiteSpace($netGateway) -or
-                     -not [string]::IsNullOrWhiteSpace($netCategory) ))
+                     -not [string]::IsNullOrWhiteSpace($netCategory) -or
+                     -not [string]::IsNullOrWhiteSpace($netInterfaceMetric) ))
             {
-                throw "ERROR: A private switch doesn't support 'AddressSpace', 'IpAddress', 'Gateway' or 'NetworkCategory' attribute."
+                throw "ERROR: A private switch doesn't support 'AddressSpace', 'IpAddress', 'Gateway', 'NetworkCategory' or 'InterfaceMetric' attribute."
             }
 
             $vmswitch.DependsOn = $dependsOnHostOS
@@ -301,6 +304,43 @@ configuration HyperV
                     DependsOn = "[xVMSwitch]vmswitch_$executionName"
                 }
             }
+
+            if( $null -ne $netInterfaceMetric -and $netInterfaceMetric -gt 0 )
+            {
+                Script "vmnetInterfaceMetric_$executionName"
+                {
+                    TestScript = 
+                    {
+                        $netIf = Get-NetIpInterface | Where-Object { $_.InterfaceAlias -match $using:netName }                    
+                        if( $null -eq $netIf )
+                        {
+                            Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
+                            return $false
+                        }
+    
+                        [boolean]$result = $true
+                        $netIf | ForEach-Object { Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"; 
+                                                  if( $_.InterfaceMetric -ne $using:netInterfaceMetric ) { $result = $false }; }
+    
+                        Write-Verbose "Expected Interface Metric: $using:netInterfaceMetric"
+                        return $result
+                    }
+                    SetScript = 
+                    {
+                        $netIf = Get-NetIpInterface | Where-Object { $_.InterfaceAlias -match $using:netName }                    
+                        if( $null -eq $netIf )
+                        {
+                            Write-Error "NetAdapter containing switch name '$using:netName' not found."
+                        }
+                        else
+                        {
+                            $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $($using:netInterfaceMetric)"; 
+                                                      $_ | Set-NetIpInterface -InterfaceMetric $using:netInterfaceMetric }
+                        }
+                    }
+                    GetScript = { return @{result = 'N/A' } }
+                }
+            }    
         }
     }
     #endregion

@@ -174,6 +174,18 @@ NOTE: Mandatory attribute for a NAT switch and is used as default gateway for th
 | The desired default gateway address.
 |
 
+| InterfaceMetric
+|
+| UInt32
+| Specifies the metric for an IP interface (IPv4 and IPv6).
+
+[NOTE]
+====
+Typically, the interface metric gives preference to a particular interface, such as using wired if both wired and wireless are available.
+The default (empty) value is automatic.
+====
+|
+
 | NetworkCategory
 |
 | String
@@ -447,8 +459,6 @@ The first entry will be the OS disk (C:\).
 |
 | Boolean
 | Specifies whether the IpAddress information for the network adapter is set or ignored
-
-NOTE: Disabled until https://github.com/dsccommunity/xHyper-V/pull/189[Pull Request #189] is merged into xHyper-V DSC resource
 | - *True* (default)
   - False
 
@@ -684,6 +694,8 @@ HyperV:
   VMSwitches:
     - Name: VMSwitchInt
       Type: Internal
+      NetworkCategory: Private
+      InterfaceMetric: 50
 
     - Name: VMSwitchExt
       Type: External

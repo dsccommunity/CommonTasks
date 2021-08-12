@@ -31,15 +31,22 @@
 | Description
 | Allowed Values
 
+| Hibernate
+| 
+| String
+| Enable or disable hibernate mode.
+| - On
+  - Off
+
 | [[dscyml_powerplans_plans, {YmlCategory}/Plans]]<<dscyml_powerplans_plans_details, Plans>>
 | 
-| hashtable[]
+| Hashtable[]
 | Power Plans
 |
 
 | [[dscyml_powerplans_settings, {YmlCategory}/Settings]]<<dscyml_powerplans_settings_details, Settings>>
 | 
-| hashtable[]
+| Hashtable[]
 | Power Plan Settings
 |
 

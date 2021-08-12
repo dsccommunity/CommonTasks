@@ -29,6 +29,7 @@ configuration NetworkIpConfiguration {
             [int]      $Prefix,
             [string]   $Gateway,
             [string[]] $DnsServer,
+            [uint32]   $InterfaceMetric,
             [boolean]  $DisableNetbios,
             [boolean]  $EnableDhcp,
             [boolean]  $EnableLmhostsLookup,
@@ -46,7 +47,8 @@ configuration NetworkIpConfiguration {
                 throw "ERROR: Enabled DHCP requires empty 'IpAddress' ($IpAddress), 'Gateway' ($Gateway) and 'DnsServer' ($DnsServer) parameters for interface '$InterfaceAlias'."
             }
 
-            NetIPInterface "EnableDhcp_$InterfaceAlias" {
+            NetIPInterface "EnableDhcp_$InterfaceAlias"
+            {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
                 Dhcp           = 'Enabled'
@@ -105,7 +107,38 @@ configuration NetworkIpConfiguration {
                 }
             }
         }
-        
+
+        if( $null -ne $InterfaceMetric -and $InterfaceMetric -gt 0 )
+        {
+            Script "InterfaceMetric_$InterfaceAlias"
+            {
+                TestScript = 
+                {
+                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias -ErrorAction SilentlyContinue                    
+                    if( $null -eq $netIf )
+                    {
+                        Write-Verbose "NetIpInterface '$using:InterfaceAlias' not found."
+                        return $false
+                    }
+
+                    [boolean]$result = $true
+                    $netIf | ForEach-Object { Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"; 
+                                              if( $_.InterfaceMetric -ne $using:InterfaceMetric ) { $result = $false }; }
+
+                    Write-Verbose "Expected Interface Metric: $using:InterfaceMetric"
+                    return $result
+                }
+                SetScript = 
+                {
+                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias                
+
+                    $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $using:InterfaceMetric"; 
+                                              $_ | Set-NetIpInterface -InterfaceMetric $using:InterfaceMetric }
+                }
+                GetScript = { return @{result = 'N/A' } }
+            }
+        }
+
         WinsSetting "LmhostsLookup_$InterfaceAlias"
         {
             EnableLmHosts    = $EnableLmhostsLookup

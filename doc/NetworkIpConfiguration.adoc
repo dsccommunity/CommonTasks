@@ -138,6 +138,18 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
   See {ref_networkingdsc_dnsserveraddress}
 |
 
+| InterfaceMetric
+|
+| UInt32
+| Specifies the metric for an IP interface (IPv4 and IPv6).
+
+[NOTE]
+====
+Typically, the interface metric gives preference to a particular interface, such as using wired if both wired and wireless are available.
+The default (empty) value is automatic.
+====
+|
+
 | DisableNetbios
 |
 | Boolean
@@ -274,17 +286,18 @@ NetworkIpConfiguration:
   ConfigureIPv6: 32
   Interfaces:
     - InterfaceAlias: Ethernet
-      IpAddress: 10.0.0.1
-      Prefix: 8
-      Gateway: 10.0.0.254
+      IpAddress:      10.0.0.1
+      Prefix:         8
+      Gateway:        10.0.0.254
       DnsServer:
         - 10.1.1.1
         - 10.1.1.2
-      EnableDhcp: false
+      EnableDhcp:     false
 
-    - InterfaceAlias: Wi-Fi
-      EnableDhcp: true
-      DisableIPv6: true
+    - InterfaceAlias:  Wi-Fi
+      EnableDhcp:      true
+      DisableIPv6:     true
+      InterfaceMetric: 50
 
   Routes:
     - InterfaceAlias:    Ethernet

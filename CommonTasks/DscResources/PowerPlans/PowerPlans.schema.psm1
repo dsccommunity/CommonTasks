@@ -3,6 +3,11 @@
     param
     (
         [Parameter()]
+        [ValidateSet('On','Off')]
+        [string]
+        $Hibernate,
+
+        [Parameter()]
         [hashtable[]]
         $Plans,
 
@@ -13,6 +18,35 @@
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DSCR_PowerPlan
+
+    if( -not [string]::IsNullOrWhiteSpace($Hibernate) )
+    {
+        Script 'pwrplan_hibernate'
+        {
+            TestScript = {
+                $val = Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -Name 'HibernateEnabled' -ErrorAction SilentlyContinue
+
+                Write-Verbose "Expected hibernate mode: $using:Hibernate"
+
+                if ($null -ne $val -and $null -ne $val.HibernateEnabled )
+                {
+                    Write-Verbose "Current hibernate mode: $($val.HibernateEnabled)"
+                    
+                    if( ($using:Hibernate -eq 'On' -and $val.HibernateEnabled -gt 0) -or 
+                        ($using:Hibernate -eq 'Off' -and $val.HibernateEnabled -eq 0) )
+                    { 
+                        return $true
+                    }
+                }
+                return $false
+            }
+            SetScript = {
+                Write-Verbose "Set Hibernate mode: $using:Hibernate"
+                powercfg /HIBERNATE $using:Hibernate          
+            }
+            GetScript = { return @{result = 'N/A'}}
+        }        
+    }
 
     foreach ($pwrPlan in $Plans)
     {

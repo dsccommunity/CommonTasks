@@ -10,6 +10,7 @@ Interfaces:
     DisableNetbios: true
     DisableIPv6: true
     NetworkCategory: Private
+    InterfaceMetric: 50
   - InterfaceAlias: Ethernet 2
     IpAddress: 10.0.0.2
     Prefix: 8
