@@ -15,3 +15,7 @@ Services:
     State: Stopped
     Description: none
     Ensure: Present
+  - Name: Dummy3
+    StartupType: AutomaticDelayedStart
+  - Name: MSSQL$Instance
+    StartupType: AutomaticDelayedStart

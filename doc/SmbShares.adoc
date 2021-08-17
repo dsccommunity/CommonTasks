@@ -31,6 +31,15 @@
 | Description
 | Allowed Values
 
+| HostOS
+|
+| String
+| Host Operating System
+
+Supported are Windows Server and Windows 10
+| - *Server* (default)
+  - Client
+  
 | [[dscyml_smbshares_serverconfiguration, {YmlCategory}/ServerConfiguration]]<<dscyml_smbshares_serverconfiguration_details, ServerConfiguration>>
 | 
 | hashtable

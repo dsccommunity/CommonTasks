@@ -3,3 +3,6 @@ Items:
     ApplicationPool: TestAppPool1
   - Name: TestSite2
     ApplicationPool: TestAppPool2
+  # Remove IIS Default WebSite
+  - Name: Default Web Site
+    Ensure: Absent

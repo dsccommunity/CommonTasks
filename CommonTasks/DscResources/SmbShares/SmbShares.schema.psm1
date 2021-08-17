@@ -3,6 +3,10 @@
     param
     (
         [Parameter()]
+        [ValidateSet('Server', 'Client')]
+        $HostOS = 'Server',
+        
+        [Parameter()]
         [hashtable]
         $ServerConfiguration,
 
@@ -14,28 +18,35 @@
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
-    WindowsFeature featureFileServer
+    if( $HostOS -eq 'Server' )
     {
-        Name   = 'FS-FileServer'
-        Ensure = 'Present'
-    }
+        WindowsFeature featureFileServer
+        {
+            Name   = 'FS-FileServer'
+            Ensure = 'Present'
+        }
 
-    $featureFileServer = '[WindowsFeature]featureFileServer'
+        $featureFileServer = '[WindowsFeature]featureFileServer'
+    }
 
     if( $null -ne $ServerConfiguration )
     {
-        if( $ServerConfiguration.EnableSMB1Protocol -eq $false )
+        if( $HostOS -eq 'Server' )
         {
-            WindowsFeature removeSMB1
+            if( $ServerConfiguration.EnableSMB1Protocol -eq $false )
             {
-                Name      = 'FS-SMB1'
-                Ensure    = 'Absent'
-                DependsOn = $featureFileServer
+                WindowsFeature removeSMB1
+                {
+                    Name      = 'FS-SMB1'
+                    Ensure    = 'Absent'
+                    DependsOn = $featureFileServer
+                }
             }
+
+            $ServerConfiguration.DependsOn = $featureFileServer
         }
 
         $ServerConfiguration.IsSingleInstance = 'Yes'
-        $ServerConfiguration.DependsOn        = $featureFileServer
 
         (Get-DscSplattedResource -ResourceName SmbServerConfiguration -ExecutionName "smbServerConfig" -Properties $ServerConfiguration -NoInvoke).Invoke($ServerConfiguration)
     }

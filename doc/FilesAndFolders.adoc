@@ -1,0 +1,247 @@
+// CommonTasks YAML Reference: FilesAndFolders
+// ===========================================
+
+:YmlCategory: FilesAndFolders
+
+
+[[dscyml_filesandfolders, {YmlCategory}]]
+= DSC Resource 'FilesAndFolders'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_filesandfolders_abstract]]
+.{YmlCategory} provides a mechanism to manage files and folders on the target node.
+
+DestinationPath and SourcePath must both be accessible by the target Node.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/FilesAndFolders
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/fileresource?view=powershell-5.1[File]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_filesandfolders_items, {YmlCategory}/Items]]<<dscyml_filesandfolders_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| files and folders on the target node
+|
+
+|===
+
+[[dscyml_filesandfolders_items_details]]
+.Attributes of category '<<dscyml_filesandfolders_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DestinationPath
+|
+| String
+| The location on the target node
+| 
+
+| Attributes
+|
+| String
+| The desired state of the attributes for the targeted file or directory.
+| - Archive
+  - Hidden
+  - ReadOnly
+  - System
+
+| Checksum
+|
+| String
+| The checksum type to use when determining whether two files are the same.
+| - CreatedDate
+  - ModifiedDate
+  - SHA-1
+  - SHA-256
+  - SHA-512
+
+| Contents
+|
+| String
+| Only valid when used with Type File.
+  Indicates the contents to Ensure are `Present` or `Absent` from the targeted file.
+|
+
+| Credential
+|
+| PSCredential
+| The credentials that are required to access resources, such as source files.
+|
+
+| Force
+|
+| Boolean
+| Overrides access operations that would result in an error (such as overwriting a file or deleting a directory that is not empty).
+| - *False* (default)
+  - True
+
+| Recurse
+|
+| Boolean
+| Only valid when used with Type Directory.
+  Performs the state operation recursively to all directory content, subdirectories, and subdirectory content.
+| - *False* (default)
+  - True
+
+| SourcePath
+|
+| String
+| The path from which to copy the file or folder resource.
+|
+
+| Type
+|
+| String
+| The type of resource being configured.
+| - Directory
+  - *File* (default)
+
+| MatchSource
+|
+| Boolean
+| Determines if the resource should monitor for new files added to the source directory after the initial copy.
+
+A value of `True` indicates that, after the initial copy, any new source files should be copied to the destination. 
+If set to `False`, the resource caches the contents of the source directory and ignores any files added after the initial copy.
+| - *False* (default)
+  - True
+
+| Ensure
+|
+| String
+| Determines whether the file and Contents at the Destination should exist or not.
+
+  Set this property to `Present` to ensure the file exists.
+  Set it to `Absent` to ensure they do not exist.
+| - *Present* (default)
+  - Absent
+
+| [[dscyml_filesandfolders_items_permissions, {YmlCategory}/Items/Permissions]]<<dscyml_filesandfolders_items_permissions_details, Permissions>>
+|
+| Hashtable[]
+| files and folders on the target node
+|
+
+|===
+
+
+[[dscyml_filesandfolders_items_permissions_details]]
+.Attributes of category '<<dscyml_filesandfolders_items_permissions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Identity
+| Key
+| String
+| The identity to set permissions for. 
+|
+
+| Rights
+|
+| String[]
+| The permissions to include in this rule. 
+
+  Optional if `Ensure` is set to value `Absent`.
+| - ListDirectory
+  - ReadData
+  - WriteData
+  - CreateFiles
+  - CreateDirectories
+  - AppendData
+  - ReadExtendedAttributes
+  - WriteExtendedAttributes
+  - Traverse
+  - ExecuteFile
+  - DeleteSubdirectoriesAndFiles
+  - ReadAttributes
+  - WriteAttributes
+  - Write
+  - Delete
+  - ReadPermissions
+  - Read
+  - ReadAndExecute
+  - Modify
+  - ChangePermissions
+  - TakeOwnership
+  - Synchronize
+  - FullControl
+
+| Ensure
+|
+| String
+| Present to create the rule, Absent to remove an existing rule.
+| - *Present* (default)
+  - Absent
+
+| ProcessOnlyOnActiveNode
+|
+| Boolean
+| Specifies that the resource will only determine if a change is needed if the target node is the active host of the filesystem object.
+  The user the configuration is run as must have permission to the Windows Server Failover Cluster.
+| - True
+  - False
+
+|===
+
+
+[NOTE]
+====
+If you do not specify a value for `Credential`, the resource will use the computer account of the target node to access the SourcePath.
+When the SourcePath is a UNC share, this could result in an `Access Denied` error.
+Please ensure your permissions are set accordingly, or use the `Credential` property to specify the account that should be used.
+====
+
+
+.Example
+[source, yaml]
+----
+FilesAndFolders:
+  Items:
+    - DestinationPath: C:\Test.txt
+      Contents: Test Content
+      Ensure: Present
+      Force: true
+      Type: File
+    - DestinationPath: C:\Test
+      Ensure: Present
+      Force: true
+      Recurse: true
+      SourcePath: C:\Source
+      Type: Directory
+    - DestinationPath: C:\TestShare
+      Ensure: Present
+      Force: true
+      Type: Directory
+      Permissions:
+        - Identity: Administrators
+          Rights:   FullControl
+        - Identity: Users
+          Rights:
+            - Read
+            - Write
+            - ExecuteFile
+----

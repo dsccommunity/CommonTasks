@@ -14,3 +14,11 @@ Items:
     Ensure: Present
     Force: true
     Type: Directory
+    Permissions:
+      - Identity: Administrators
+        Rights:   FullControl
+      - Identity: Users
+        Rights:
+          - Read
+          - Write
+          - ExecuteFile
