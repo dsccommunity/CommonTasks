@@ -25,7 +25,7 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages2nd
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
-| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/master/Chocolatey/DscResources/ChocolateyPackage[ChocolateyPackage]
+| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage]
 |===
 
 
@@ -149,6 +149,7 @@ ChocolateyPackages2nd:
         ChocolateyOptions:
         TimeOut: '3600'  # 1h install timeout
 ----
+
 
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]

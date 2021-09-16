@@ -30,7 +30,7 @@ configuration SqlConfigurations {
             $option.InstanceName = $DefaultInstanceName
         }
 
-        $executionName = "$($option.InstanceName)_$($option.OptionName -replace ' ','')"
+        $executionName = "$($option.InstanceName)_$($option.OptionName -replace '[().:\s]', '_')"
         (Get-DscSplattedResource -ResourceName SqlConfiguration -ExecutionName $executionName -Properties $option -NoInvoke).Invoke($option)
     }
 }

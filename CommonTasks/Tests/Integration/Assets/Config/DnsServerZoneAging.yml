@@ -1,0 +1,11 @@
+﻿Zones:
+  - Name:              north.contoso.com
+    Enabled:           True
+    RefreshInterval:   120   # 5 days
+    NoRefreshInterval: 240   # 10 days
+
+  - Name:    south.contoso.com
+    Enabled: True
+
+  - Name:    east.contoso.com
+    Enabled: False

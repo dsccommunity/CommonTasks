@@ -1,0 +1,95 @@
+// CommonTasks YAML Reference: WebBrowser
+// ========================================
+
+:YmlCategory: WebBrowser
+
+
+[[dscyml_webbrowser, {YmlCategory}]]
+= DSC Resource 'WebBrowser'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_webbrowser_abstract]]
+.{YmlCategory} module is used setup global WebBrowser settings.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WebBrowser
+| DSC Resource   | https://github.com/dsccommunity/GPRegistryPolicyDsc[GPRegistryPolicyDsc]
+| Documentation  | https://github.com/dsccommunity/GPRegistryPolicyDsc#RegistryPolicyFile[RegistryPolicyFile],
+                   https://github.com/dsccommunity/GPRegistryPolicyDsc#RefreshRegistryPolicy[RefreshRegistryPolicy]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_webbrowser_internetexplorer, {YmlCategory}/InternetExplorer]]<<dscyml_webbrowser_internetexplorer_details, InternetExplorer>>
+|
+| Hashtable
+| Internet Explorer settings
+|
+
+| [[dscyml_webbrowser_edge, {YmlCategory}/Edge]]<<dscyml_webbrowser_edge_details, Edge>>
+|
+| Hashtable
+| Microsoft Edge settings
+|
+
+|===
+
+
+[[dscyml_webbrowser_internetexplorer_details]]
+.Attributes of category '<<dscyml_webbrowser_internetexplorer>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| StartPage
+|
+| String
+| Specifies the URL for the home page of Internet Explorer.
+|
+
+|===
+
+
+[[dscyml_webbrowser_edge_details]]
+.Attributes of category '<<dscyml_webbrowser_edge>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| StartPage
+|
+| String
+| Specifies the URL for the home page of Microsoft Edge.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WebBrowser:
+  InternetExplorer:
+    StartPage: https://www.contoso.com
+  Edge:
+    StartPage: https://www.contoso.com
+----

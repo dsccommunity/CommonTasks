@@ -57,7 +57,8 @@ configuration SwitchLcmMode
 
             if( -not (Test-Path $srcMetaMofPath) )
             {
-                throw "New MetaMOF file '$srcMetaMofPath' not found."
+                Write-Error "ERROR: New MetaMOF file '$srcMetaMofPath' not found."
+                return
             }
 
             Write-Verbose "Creating target folder '$targetDir'..."

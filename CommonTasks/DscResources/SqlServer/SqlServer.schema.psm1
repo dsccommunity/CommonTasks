@@ -66,7 +66,7 @@
 
                         Write-Verbose "The current SERVERPROPERTY 'FilestreamEffectiveLevel' is: $sqlFileStreamAccessLevel."
 
-                        if( $sqlFileStreamAccessLevel -eq $((2,$using:fileStreamAccessLevel | Measure-Object -Min).Minimum) )
+                        if( $sqlFileStreamAccessLevel -eq $using:fileStreamAccessLevel )
                         {
                             return $true
                         }
@@ -117,7 +117,7 @@
                 $login.InstanceName = $DefaultInstanceName
             }
             
-            $executionName = "sqllogin_$($login.Name)"
+            $executionName = "sqllogin_$($login.Name -replace '[().:\s]', '_')" 
             (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
         }
     }

@@ -9,6 +9,8 @@ Interfaces:
       - 10.1.1.2
     DisableNetbios: true
     DisableIPv6: true
+    NetworkCategory: Private
+    InterfaceMetric: 50
   - InterfaceAlias: Ethernet 2
     IpAddress: 10.0.0.2
     Prefix: 8
@@ -18,8 +20,9 @@ Interfaces:
       - 10.1.1.2
     DisableNetbios: true
   - InterfaceAlias: Ethernet 3
-    IpAddress: 10.0.0.3
+    IpAddress: 11.0.0.3
     Prefix: 8
+    NetworkCategory: Public
   - InterfaceAlias: Ethernet 4
     Gateway: 10.0.0.254
     DnsServer:
@@ -28,3 +31,13 @@ Interfaces:
   - InterfaceAlias: Wi-Fi
     EnableDhcp: true
     DisableIPv6: true
+Routes:
+  - InterfaceAlias:    Ethernet
+    DestinationPrefix: 192.168.0.0/16
+    NextHop:           192.168.120.0
+    RouteMetric:       200
+  - DestinationPrefix: 192.162.0.0/16
+    NextHop:           192.162.120.0
+    RouteMetric:       200
+    Publish:           Age
+    PreferredLifetime: 25

@@ -10,7 +10,11 @@ configuration NetworkIpConfiguration {
  
         [parameter()]
         [hashtable[]]
-        $Interfaces
+        $Interfaces,
+
+        [parameter()]
+        [hashtable[]]
+        $Routes
     )
     
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -25,10 +29,13 @@ configuration NetworkIpConfiguration {
             [int]      $Prefix,
             [string]   $Gateway,
             [string[]] $DnsServer,
+            [uint32]   $InterfaceMetric,
             [boolean]  $DisableNetbios,
             [boolean]  $EnableDhcp,
             [boolean]  $EnableLmhostsLookup,
-            [boolean]  $DisableIPv6
+            [boolean]  $DisableIPv6,
+            [ValidateSet('Public', 'Private', 'DomainAuthenticated')]
+            [string]   $NetworkCategory
         )
 
         if ( $EnableDhcp -eq $true )
@@ -40,7 +47,8 @@ configuration NetworkIpConfiguration {
                 throw "ERROR: Enabled DHCP requires empty 'IpAddress' ($IpAddress), 'Gateway' ($Gateway) and 'DnsServer' ($DnsServer) parameters for interface '$InterfaceAlias'."
             }
 
-            NetIPInterface "EnableDhcp_$InterfaceAlias" {
+            NetIPInterface "EnableDhcp_$InterfaceAlias"
+            {
                 InterfaceAlias = $InterfaceAlias
                 AddressFamily  = 'IPv4'
                 Dhcp           = 'Enabled'
@@ -63,7 +71,12 @@ configuration NetworkIpConfiguration {
                     AddressFamily  = 'IPv4'
                     Dhcp           = 'Disabled'
                 }
-            
+
+                if( -not ($Prefix -match '^\d+$') )
+                {
+                    throw "ERROR: Valid 'Prefix' parameter is required for IP address '$IpAddress'."
+                }
+
                 $ip = "$($IpAddress)/$($Prefix)"
 
                 IPAddress "NetworkIp_$InterfaceAlias" 
@@ -94,7 +107,38 @@ configuration NetworkIpConfiguration {
                 }
             }
         }
-        
+
+        if( $null -ne $InterfaceMetric -and $InterfaceMetric -gt 0 )
+        {
+            Script "InterfaceMetric_$InterfaceAlias"
+            {
+                TestScript = 
+                {
+                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias -ErrorAction SilentlyContinue                    
+                    if( $null -eq $netIf )
+                    {
+                        Write-Verbose "NetIpInterface '$using:InterfaceAlias' not found."
+                        return $false
+                    }
+
+                    [boolean]$result = $true
+                    $netIf | ForEach-Object { Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"; 
+                                              if( $_.InterfaceMetric -ne $using:InterfaceMetric ) { $result = $false }; }
+
+                    Write-Verbose "Expected Interface Metric: $using:InterfaceMetric"
+                    return $result
+                }
+                SetScript = 
+                {
+                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias                
+
+                    $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $using:InterfaceMetric"; 
+                                              $_ | Set-NetIpInterface -InterfaceMetric $using:InterfaceMetric }
+                }
+                GetScript = { return @{result = 'N/A' } }
+            }
+        }
+
         WinsSetting "LmhostsLookup_$InterfaceAlias"
         {
             EnableLmHosts    = $EnableLmhostsLookup
@@ -118,6 +162,57 @@ configuration NetworkIpConfiguration {
                 ComponentId    = 'ms_tcpip6'
                 State          = 'Disabled'
             }
+        }
+
+        if( -not [string]::IsNullOrWhiteSpace($NetworkCategory) )
+        {
+            if( -not ($NetworkCategory -match '^(Public|Private|DomainAuthenticated)$') )
+            {
+                throw "ERROR: Invalid value of attribute 'NetworkCategory'."
+            }
+
+            Script "NetworkCategory_$InterfaceAlias"
+            {
+                TestScript = {
+                    $val = Get-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias
+    
+                    Write-Verbose "Current NetworkCategory of interface '$using:InterfaceAlias': $($val.NetworkCategory)"
+    
+                    if ($null -ne $val -and $val.NetworkCategory -eq $using:NetworkCategory )
+                    {
+                        return $true
+                    }
+                    Write-Verbose "Values are different (expected NetworkCategory: $using:NetworkCategory)"
+                    return $false
+                }
+                SetScript = {
+                    if( $using:NetworkCategory -eq 'DomainAuthenticated')
+                    {
+                        Write-Verbose "Set NetworkCategory of interface '$using:InterfaceAlias' to '$using:NetworkCategory ' is not supported. The computer automatically sets this value when the network is authenticated to a domain controller."
+
+                        # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
+                        # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
+                        Write-Verbose "Restarting NLA service to reinitialize the network location check..."
+                        Restart-Service nlasvc -Force
+                        Start-Sleep 5
+
+                        $val = Get-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias
+    
+                        Write-Verbose "Current NetworkCategory is now: $($val.NetworkCategory)"
+        
+                        if( $val.NetworkCategory -ne $using:NetworkCategory )
+                        {
+                            Write-Error "Interface '$using:InterfaceAlias' is not '$using:NetworkCategory'."
+                        } 
+                    }
+                    else
+                    {
+                        Write-Verbose "Set NetworkCategory of interface '$using:InterfaceAlias' to '$using:NetworkCategory '."
+                        Set-NetConnectionProfile -InterfaceAlias $using:InterfaceAlias -NetworkCategory $using:NetworkCategory                             
+                    }
+                }
+                GetScript = { return @{result = 'N/A'} }
+            }  
         }
     }
 
@@ -199,15 +294,34 @@ configuration NetworkIpConfiguration {
                 $netIf.Prefix = 24
             }
 
-            NetIpInterfaceConfig -InterfaceAlias $netIf.InterfaceAlias `
-                -IpAddress $netIf.IpAddress `
-                -Prefix $netIf.Prefix `
-                -Gateway $netIf.Gateway `
-                -DnsServer $netIf.DnsServer `
-                -DisableNetbios $netIf.DisableNetbios `
-                -EnableLmhostsLookup $netIf.EnableLmhostsLookup `
-                -EnableDhcp $netIf.EnableDhcp `
-                -DisableIPv6 $netIf.DisableIPv6
+            NetIpInterfaceConfig @netIf
+        }
+    }
+
+    if  ($null -ne $Routes)
+    {
+        foreach ( $netRoute in $Routes )
+        {
+            # Remove case sensitivity of ordered Dictionary or Hashtables
+            $netRoute = @{} + $netRoute
+
+            if ( [string]::IsNullOrWhitespace($netRoute.InterfaceAlias) )
+            {
+                $netRoute.InterfaceAlias = 'Ethernet'
+            }
+
+            if ( [string]::IsNullOrWhitespace($netRoute.AddressFamily) )
+            {
+                $netRoute.AddressFamily  = 'IPv4'
+            }
+
+            if ( [string]::IsNullOrWhitespace($netRoute.Ensure) )
+            {
+                $netRoute.Ensure  = 'Present'
+            }
+
+            $executionName = "route_$($netRoute.InterfaceAlias)_$($netRoute.AddressFamily)_$($netRoute.DestinationPrefix)_$($netRoute.NextHop)" -replace '[().:\s]', ''
+            (Get-DscSplattedResource -ResourceName Route -ExecutionName $executionName -Properties $netRoute -NoInvoke).Invoke($netRoute)    
         }
     }
 }
