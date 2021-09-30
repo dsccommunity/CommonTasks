@@ -133,7 +133,7 @@ configuration Wds
         StartupType = 'Automatic'
         State       = 'Running'
         Ensure      = 'Present'
-        DependsOn   = '[WdsInitialize]wdsInit'
+        DependsOn   = '[WindowsFeature]wdsFeature'
     }
 
     $dependsOnWdsService = '[Service]wdsService'
@@ -147,9 +147,17 @@ configuration Wds
                 $patternAnswerKnownClients = [Regex]::new('Answer only known clients:\s*(\w+)')
 
                 $output = wdsutil /Get-Server /Show:Config
+                Write-Verbose "Result of wdsutil /Get-Server /Show:Config:`n$output"
 
                 $matchAnswerClients      = $patternAnswerClients.Matches($output)
                 $matchAnswerKnownClients = $patternAnswerKnownClients.Matches($output)
+
+                if( $null -eq $matchAnswerClients.Groups  -or 
+                    $null -eq $matchAnswerKnownClients.Groups )
+                {
+                    Write-Warning "Output of wdsutil has not the expected content."
+                    return $false
+                }
 
                 [boolean]$curAnswerClients      = if( $matchAnswerClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
                 [boolean]$curAnswerKnownClients = if( $matchAnswerKnownClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
@@ -183,7 +191,8 @@ configuration Wds
             }
             SetScript = {
                 Write-Verbose "Running: wdsutil /Set-Server /AnswerClients:$using:AnswerClients"
-                wdsutil /Set-Server /AnswerClients:$using:AnswerClients
+                $output = wdsutil /Set-Server /AnswerClients:$using:AnswerClients
+                Write-Verbose "Result of 'wdsutil /Set-Server /AnswerClients:$using:AnswerClients':`n$output"
             }
             GetScript = { return @{result = 'N/A'}}
             DependsOn = $dependsOnWdsService

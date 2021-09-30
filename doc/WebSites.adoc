@@ -33,7 +33,7 @@
 | [[dscyml_websites_items, {YmlCategory}/Items]]<<dscyml_websites_items_details, Items>>
 |
 | Hashtable[]
-| ISS Web Sites
+| IIS Web Sites
 |
 
 |===
