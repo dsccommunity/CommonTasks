@@ -44,7 +44,7 @@ configuration FilesAndFolders
                     $perm.Ensure = 'Present'
                 }
 
-                $permExecName = "$executionName__$($perm.Identity)" -replace '[\s(){}/\\:-]', '_'
+                $permExecName = "$($executionName)__$($perm.Identity)" -replace '[\s(){}/\\:-]', '_'
                 (Get-DscSplattedResource -ResourceName FileSystemAccessRule -ExecutionName $permExecName -Properties $perm -NoInvoke).Invoke($perm)
             }
         }
