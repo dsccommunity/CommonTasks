@@ -25,6 +25,7 @@ KDSKey:
 ManagedServiceAccounts:
   - ServiceAccountName: ServiceLocal
     AccountType:        Standalone
+    Computer:           Client01
     MemberOf:
       - Service Users
   - ServiceAccountName: ServiceGroup

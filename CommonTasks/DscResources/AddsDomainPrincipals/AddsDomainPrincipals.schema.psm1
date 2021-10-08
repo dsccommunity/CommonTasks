@@ -126,9 +126,11 @@ configuration AddsDomainPrincipals
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
             $svcAccount = @{}+$svcAccount
 
-            # save group list
+            # save group list and computer
             $memberOf = $svcAccount.MemberOf
+            $computer = $svcAccount.Computer
             $svcAccount.Remove( 'MemberOf' )
+            $svcAccount.Remove( 'Computer' )
 
             if( $null -ne $dependsOnKdsKey )
             {
@@ -138,6 +140,44 @@ configuration AddsDomainPrincipals
             $executionName = "adMSA_$($svcAccount.ServiceAccountName)"
 
             (Get-DscSplattedResource -ResourceName ADManagedServiceAccount -ExecutionName $executionName -Properties $svcAccount -NoInvoke).Invoke($svcAccount)
+
+            # assign a managed service account to AD computer
+            if( -not [string]::IsNullOrWhitespace($computer) )
+            {
+                if( $svcAccount.AccountType -eq 'Standalone' )
+                {
+                    $svcAccountName = $svcAccount.ServiceAccountName
+
+                    Script "$($executionName)_Computer"
+                    {
+                        TestScript = 
+                        {
+                            Write-Verbose "Get managed service accounts hosted by AD computer '$using:computer'..."
+                            $svcAccounts = Get-ADComputerServiceAccount -Identity $using:computer -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $svcAccount.ServiceAccountName }
+
+                            if( $null -ne $svcAccounts -and $svcAccounts.Count -ne 1 )
+                            {
+                                Write-Verbose "OK - managed service account '$using:svcAccountName' is assigned to AD computer '$using:computer'."
+                                return $true;
+                            }
+        
+                            Write-Verbose "Managed service account '$using:svcAccountName' is NOT assigned to AD computer '$using:computer'."
+                            return $false
+                        }
+                        SetScript = 
+                        {
+                            Write-Verbose "Assign managed service account '$using:svcAccountName' to AD computer '$using:computer'"
+                            Add-ADComputerServiceAccount -Computer $using:computer -ServiceAccount $using:svcAccountName
+                        }
+                        GetScript = { return 'NA' } 
+                        DependsOn = "[ADManagedServiceAccount]$executionName"
+                    }  
+                }
+                else
+                {
+                    throw "ERROR: Only a standalone managed service account can be assigned to an AD computer account."
+                }          
+            }
 
             # append $ to acoountname to identify it as MSA
             AddMemberOf -ExecutionName $executionName -ExecutionType ADManagedServiceAccount -AccountName "$($svcAccount.ServiceAccountName)$" -MemberOf $memberOf
