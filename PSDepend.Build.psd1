@@ -51,4 +51,5 @@
     'xHyper-V'                   = '3.17.0.0'
     DSCR_PowerPlan               = '1.3.0'
     FileSystemDsc                = '1.1.1'
+    PowerShellGet                = '2.2.5'
 }

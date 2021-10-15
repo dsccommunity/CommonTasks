@@ -1,0 +1,162 @@
+﻿SiteCode: S00
+SiteName: Eine Site
+SccmInstallAccount: '[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj5FMUVBMDQ1NUY3REU0NTFGQUI4MUI5Mjc2OUM3NzZGOUFCQTE0MzdGODNGRDcwM0MyMkRFMkFBMDYwRTQ3QTc1PC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5FeUlTeE1ZUFd0aE5IR2V1TXpTTnM5bUxjUGRJclNURm4rN0lwbk1yQXZ6ZmtYeE1yVmR2Yi93RG5ZWXBNMm9mPC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij5FOC9vcjVpL3N3N3QrTXM2YXZEQmpLclJIb2FSaXBqckF4dmdDR2hoU2xBPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij4xNFlVa3VsaDZ1TnZoSml1MVNodEVITWJVamxRaGFMR1JPVU9sdkUvTDVJPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+VTAvdXRyUFgzZlZYbTladGR3LzJIdWx3akxtU0ZBTjVZb3lsRjhTaXBwTT08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij50RDdOYlliZE0yYnlnMyt0cnd6anAxR3FSRWFkTmRLcXRpbjE3UWRobm96Mm15T3BRd1gyUXp6bmZhS2pySUU5PC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5DcVQ1bEdTdEl6c2k0czVCbndJY0xqMjdaeXZMNnB3aFFLUURPblFwQ1U0PTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]'
+LocalAdministrators:
+  - cm\SOME_GROUP_ACC
+  - cm\SomeUser123
+CMAccounts:
+  - UserName: usr1
+    Password: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj5FMUVBMDQ1NUY3REU0NTFGQUI4MUI5Mjc2OUM3NzZGOUFCQTE0MzdGODNGRDcwM0MyMkRFMkFBMDYwRTQ3QTc1PC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5FeUlTeE1ZUFd0aE5IR2V1TXpTTnM5bUxjUGRJclNURm4rN0lwbk1yQXZ6ZmtYeE1yVmR2Yi93RG5ZWXBNMm9mPC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij5FOC9vcjVpL3N3N3QrTXM2YXZEQmpLclJIb2FSaXBqckF4dmdDR2hoU2xBPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij4xNFlVa3VsaDZ1TnZoSml1MVNodEVITWJVamxRaGFMR1JPVU9sdkUvTDVJPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+VTAvdXRyUFgzZlZYbTladGR3LzJIdWx3akxtU0ZBTjVZb3lsRjhTaXBwTT08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij50RDdOYlliZE0yYnlnMyt0cnd6anAxR3FSRWFkTmRLcXRpbjE3UWRobm96Mm15T3BRd1gyUXp6bmZhS2pySUU5PC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5DcVQ1bEdTdEl6c2k0czVCbndJY0xqMjdaeXZMNnB3aFFLUURPblFwQ1U0PTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]"
+  - UserName: usr2
+    Password: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj42MDZBNTk3NjdFMDhENjA5OEY1RTNFRjRBODIwNzNFRjk2MEFERDQyNjU3RDY3NEQ1MDI4RTgyRTIxRENBRERDPC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5VeEpDRHd6RnRUMnJWcytleVhpcm9wckp6ZWZjTXcwazgvMUdxTVU0R09jUXFLbDV5VVd2SG1sOG54RHdtaFU4PC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij4vL0xianBMSmF6YWJCaHVpajdjM0pzaDAyUm1JcFF5WXNuS0p1ZngwWTkwPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij5CTkJvT2x0MlJFenBuUWRyWVk4TStjNmpoMXhvVE8zVnZYTXRQMFhFTkJvPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+dEpjR2ZJcjl3K3Y3ZmszQ0lYbG4xeDhnWGVmR1BIRFJxd3VvQ2hndEp1VT08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij5CeldRaC9hczE2V212UDBKRGpEeTN2ZEV1Y1gzL3lMSElWQ3cyTW10bmRwS0trbVZRYlZMbWZheWNWUUg5R3VGPC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5mem1kNlY2UjJzalRtN3Nqdmk4VDNOMEZLVjJjcUFENTNvcWhyVmRyRjJvPTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]"
+EmailSettings:
+  SendFrom: somewhere
+  SmtpServerFqdn: exchange.somedomain.com
+  TypeOfAuthentication: Other
+  Port: 445
+  UseSsl: true
+  Enabled: true
+  UserName: cm\EmailUser
+ForestDiscovery:
+  Enabled: true
+NetworkDiscovery:
+  Enabled: true
+HeartbeatDiscovery:
+  Enabled: true
+  ScheduleInterval: Days
+  ScheduleCount: 1
+UserDiscovery:
+  Enabled: true
+  ScheduleInterval: Days
+  ScheduleCount: 7
+  EnableDeltaDiscovery: true
+  DeltaDiscoveryMins: 5
+  ADContainers:
+    - LDAP://CN=Users,DC=contoso,DC=com
+ClientStatusSettings:
+  IsSingleInstance: Yes
+  ClientPolicyDays: 7
+  HeartbeatDiscoveryDays: 7
+  SoftwareInventoryDays: 7
+  HardwareInventoryDays: 7
+  StatusMessageDays: 7
+  HistoryCleanupDays: 31
+SystemDiscovery:
+  Enabled: true
+  ScheduleInterval: "Days"
+  ScheduleCount: 7
+  EnableDeltaDiscovery: true
+  DeltaDiscoveryMins: 60
+  EnableFilteringExpiredLogon: true
+  TimeSinceLastLogonDays: 90
+  EnableFilteringExpiredPassword: true
+  TimeSinceLastPasswordUpdateDays: 90
+  ADContainers:
+    - LDAP://OU=Domain Controllers,DC=contoso,DC=com
+    - LDAP://CN=Computers,DC=contoso,DC=com
+SiteMaintenanceConfigurations:
+  - TaskName: Backup SMS Site Server
+    Enabled: true
+    DaysOfWeek:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    BeginTime: 1500
+    LatestBeginTime: 2000
+    BackupLocation: E:\CmBackups
+  - TaskName: Delete Aged EP Health Status History Data
+    Enabled: false
+BoundaryGroups:
+  - BoundaryGroup: Name 1
+    Boundaries:
+      - DisplayName: A Boundary
+        Value: 10.10.1.1-10.10.1.254
+        Type: IPRange
+      - DisplayName: Another Boundary
+        Value: 10.10.2.1-10.10.2.254
+        Type: IPRange
+SiteAdmins:
+  - AdminName: Contoso\SCCM-SiteAdmins
+    RolesToInclude: Full Administrator
+    ScopesToInclude: All
+CollectionSettings:
+  EvaluationMins: 5
+StatusReportingSettings:
+  ClientLogChecked: false
+  ClientLogFailureChecked: false
+  ClientReportChecked: true
+  ClientReportFailureChecked: true
+  ClientReportType: AllMilestones
+  ServerLogChecked: false
+  ServerLogFailureChecked: false
+  ServerReportChecked: true
+  ServerReportFailureChecked: true
+  ServerReportType: AllMilestones
+DistributionPointGroups:
+  - DistributionGroup: S00 - All Distribution Points
+    DistributionPoints:
+      - Description: Standard Distribution Point
+        MinimumFreeSpaceMB: 100
+        BoundaryGroups:
+          - Name 1
+        BoundaryGroupStatus: Add
+        AllowPrestaging: false
+        EnableAnonymous: true
+        EnableBranchCache: true
+        EnableLedbat: true
+        ClientCommunicationType: Http
+    Members:
+      DistributionGroups:
+        - TestGroup1
+        - TestGroup2
+        - TestGroup3
+      DistributionGroupsToInclude:
+        - TestGroup1
+        - TestGroup2
+      DistributionGroupsToExclude:
+        - TestGroup3
+        - TestGroup4
+ManagementPoint:
+  Ensure: Present
+  GenerateAlert: true
+  UseSiteDatabase: true
+  UseComputerAccount: true
+SoftwareUpdatePoint:
+  ClientConnectionType: Intranet
+  EnableCloudGateway: false
+  UseProxy: false
+  UseProxyForAutoDeploymentRule: false
+  WsusIisPort: 8530
+  WsusIisSslPort: 8531
+  WsusSsl: false
+SoftwareUpdatePointComponent:
+  EnableSynchronization: true
+  SynchronizeAction: SynchronizeFromMicrosoftUpdate
+  ScheduleType: Days
+  RecurInterval: 7
+  LanguageSummaryDetailsToInclude:
+    - English
+  LanguageUpdateFilesToInclude:
+    - English
+  ProductsToInclude:
+    - Windows 10
+  UpdateClassificationsToInclude:
+    - Critical Updates
+    - Updates
+  ContentFileOption: FullFilesOnly
+  DefaultWsusServer: $($Node.Name)
+  EnableCallWsusCleanupWizard: true
+  EnableSyncFailureAlert: true
+  ImmediatelyExpireSupersedence: false
+  ImmediatelyExpireSupersedenceForFeature: false
+  ReportingEvent: DoNotCreateWsusReportingEvents
+  WaitMonth: 1
+  WaitMonthForFeature: 1
+  EnableThirdPartyUpdates: true
+  EnableManualCertManagement: false
+  FeatureUpdateMaxRuntimeMins: 300
+  NonFeatureUpdateMaxRuntimeMins: 300
