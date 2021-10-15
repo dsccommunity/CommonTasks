@@ -27,6 +27,7 @@ configuration FilesAndFolders
         }
 
         $executionName = "file_$($item.DestinationPath)" -replace '[\s(){}/\\:-]', '_'
+
         (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
 
         if( $null -ne $permissions )
@@ -45,6 +46,7 @@ configuration FilesAndFolders
                 }
 
                 $permExecName = "$($executionName)__$($perm.Identity)" -replace '[\s(){}/\\:-]', '_'
+
                 (Get-DscSplattedResource -ResourceName FileSystemAccessRule -ExecutionName $permExecName -Properties $perm -NoInvoke).Invoke($perm)
             }
         }
