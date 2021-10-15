@@ -273,8 +273,10 @@ This resource must run on an Active Directory domain controller.
 
 | Value
 |
-| String
-| Option data value. Could be an array of string for a multi-valued option.
+| String[]
+| Option data value.
+
+Could be an array of string for a multi-valued option.
 |
 
 | VendorClass

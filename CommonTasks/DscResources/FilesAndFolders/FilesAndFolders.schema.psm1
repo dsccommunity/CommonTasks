@@ -26,7 +26,8 @@ configuration FilesAndFolders
             $item.Remove('Permissions')
         }
 
-        $executionName = "file_$($item.DestinationPath -replace '(:|\\|/|\s)', '_')"
+        $executionName = "file_$($item.DestinationPath)" -replace '[\s(){}/\\:-]', '_'
+
         (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
 
         if( $null -ne $permissions )
@@ -44,7 +45,8 @@ configuration FilesAndFolders
                     $perm.Ensure = 'Present'
                 }
 
-                $permExecName = "$($executionName)__$($perm.Identity -replace '(:|\\|/|\s)', '_')"
+                $permExecName = "$($executionName)__$($perm.Identity)" -replace '[\s(){}/\\:-]', '_'
+
                 (Get-DscSplattedResource -ResourceName FileSystemAccessRule -ExecutionName $permExecName -Properties $perm -NoInvoke).Invoke($perm)
             }
         }

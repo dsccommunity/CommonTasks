@@ -18,7 +18,7 @@ configuration RegistryValues {
         if ([String]::IsNullOrEmpty($value.ValueData) -and ($value.Ensure -eq 'Present')) {
             $value.ValueData = ''
         }
-        $executionName = ($value.Key + '\' + $value.ValueName) -replace ' ', ''
+        $executionName = ($value.Key + '__' + $value.ValueName) -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xRegistry -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

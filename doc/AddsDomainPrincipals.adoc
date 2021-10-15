@@ -57,8 +57,9 @@
 | [[dscyml_addsdomainprincipals_kdskey, {YmlCategory}/KDSKey]]<<dscyml_addsdomainprincipals_kdskey_details, KDSKey>>
 |
 | Hashtable
-| Management of KDS Root Keys within Active Directory. +
-  The KDS root keys are used to begin generating Group Managed Service Account (gMSA) passwords.
+| Management of KDS Root Keys within Active Directory.
+
+The KDS root keys are used to begin generating Group Managed Service Account (gMSA) passwords.
 
 IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the timezone (`ComputerSettings`) otherwise two keys are be created.
 |
@@ -135,7 +136,9 @@ You can identify a computer by its distinguished name, GUID, security identifier
 | Manager
 |
 | String
-| Specifies the user or group Distinguished Name that manages the computer account. Valid values are the user's or group's DistinguishedName, ObjectGUID, SID or SamAccountName.
+| Specifies the user or group Distinguished Name that manages the computer account.
+
+Valid values are the user's or group's DistinguishedName, ObjectGUID, SID or SamAccountName.
 |
 
 | DomainController
@@ -229,8 +232,9 @@ NOTE: Only domain groups of the member domain are supported.
 | CommonName
 | 
 | String
-| Specifies the common name assigned to the user account (ldapDisplayName 'cn'). +
-  If not specified the default value will be the same value provided in parameter UserName.
+| Specifies the common name assigned to the user account (ldapDisplayName 'cn').
+
+If not specified the default value will be the same value provided in parameter UserName.
 |
 
 | DisplayName
@@ -322,9 +326,9 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | String 
 | Specifies the Security Account Manager (SAM) account name of the managed service account (ldapDisplayName 'sAMAccountName').
 
-  To be compatible with older operating systems, create a SAM account name that is 20 characters or less.
+To be compatible with older operating systems, create a SAM account name that is 20 characters or less.
   
-  Once created, the user's SamAccountName and CN cannot be changed.
+Once created, the user's SamAccountName and CN cannot be changed.
 |
 
 | AccountType
@@ -332,7 +336,7 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | String
 | The type of managed service account.
 
-  Standalone will create a Standalone Managed Service Account (sMSA) and Group will create a Group Managed Service Account (gMSA).
+Standalone will create a Standalone Managed Service Account (sMSA) and Group will create a Group Managed Service Account (gMSA).
 | - Group
   - Standalone
 
@@ -341,7 +345,7 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | PSCredential
 | Specifies the user account credentials to use to perform this task. 
 
-  This is only required if not executing the task on a domain controller or using the parameter DomainController.
+This is only required if not executing the task on a domain controller or using the parameter DomainController.
 |
 
 | Description
@@ -361,7 +365,7 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | String
 | Specifies the Active Directory Domain Controller instance to use to perform the task.
 
-  This is only required if not executing the task on a domain controller.
+This is only required if not executing the task on a domain controller.
 |
 
 | Ensure
@@ -374,8 +378,9 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | KerberosEncryptionType
 |
 | String[]
-| Specifies which Kerberos encryption types the account supports when creating service tickets. +
-  This value sets the encryption types supported flags of the Active Directory msDS-SupportedEncryptionTypes attribute.
+| Specifies which Kerberos encryption types the account supports when creating service tickets.
+
+This value sets the encryption types supported flags of the Active Directory msDS-SupportedEncryptionTypes attribute.
 | - None
   - RC4
   - AES128
@@ -385,13 +390,24 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 |
 | String[]
 | Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`). 
-  Only used when `Group` is selected for `AccountType`.
+
+NOTE: Only used when `Group` is selected for `AccountType`.
+|
+
+| Computer
+|
+| String
+| Specifies the Active Directory computer that will host the service account.
+
+You can identify a computer by its distinguished name, GUID, security identifier (SID) or Security Accounts Manager (SAM) account name.
+
+NOTE: Only used when `Standalone` is selected for `AccountType`.
 |
 
 | MembershipAttribute
 |
 | String
-| Active Directory attribute used to perform membership operations for Group Managed Service Accounts (gMSA). +
+| Active Directory attribute used to perform membership operations for Group Managed Service Accounts (gMSA).
 | - *SamAccountName* (default)
   - DistinguishedName
   - ObjectGUID
@@ -400,8 +416,9 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 | Path
 |
 | String
-| Specifies the X.500 path of the Organizational Unit (OU) or container where the new account is created. +
-  Specified as a Distinguished Name (DN).
+| Specifies the X.500 path of the Organizational Unit (OU) or container where the new account is created.
+
+Specified as a Distinguished Name (DN).
 |
 
 | MemberOf
@@ -448,6 +465,7 @@ AddsDomainPrincipals:
   ManagedServiceAccounts:
     - ServiceAccountName: ServiceLocal
       AccountType:        Standalone
+      Computer:           Client01
       MemberOf:
         - Service Users
     - ServiceAccountName: ServiceGroup

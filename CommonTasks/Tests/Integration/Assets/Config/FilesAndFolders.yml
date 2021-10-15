@@ -4,13 +4,25 @@ Items:
     Ensure: Present
     Force: true
     Type: File
-  - DestinationPath: C:\Test
+  - DestinationPath: C:\Test{}
     Ensure: Present
     Force: true
     Recurse: true
     SourcePath: C:\Source
     Type: Directory
   - DestinationPath: C:\TestShare
+    Ensure: Present
+    Force: true
+    Type: Directory
+    Permissions:
+      - Identity: Administrators
+        Rights:   FullControl
+      - Identity: Users
+        Rights:
+          - Read
+          - Write
+          - ExecuteFile
+  - DestinationPath: C:\Program Files(x86)\TestShare
     Ensure: Present
     Force: true
     Type: Directory
