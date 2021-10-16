@@ -1,0 +1,21 @@
+Items:
+  - AccessPath: E:\SysDB
+    DiskIdType: Number
+    DiskId: 2
+    FSLabel: SysDB
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\Data
+    DiskIdType: Number
+    DiskId: 3
+    FSLabel: Data
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\Logs
+    DiskIdType: Number
+    DiskId: 4
+    FSLabel: Logs
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\TempDB
+    DiskIdType: Number
+    DiskId: 5
+    FSLabel: TempDB
+    NoDefaultDriveLetter: true
