@@ -50,13 +50,13 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Allowed Values
 
 | NodeName
-|
+| Required
 | String[]
 | The name of the target nodes the resource must be in the desired state.
 | 
 
 | ResourceName
-|
+| Key
 | String
 | The name of the resource that must be in the desired state.
 |

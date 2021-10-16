@@ -50,19 +50,19 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Allowed Values
 
 | NodeName
-|
+| Required
 | String[]
 | The name of the target nodes the resource must be in the desired state.
 | 
 
 | NodeCount
-|
+| Required
 | UInt32
 | The minimum number of nodes that must be in the desired state for this resource to succeed.
 | 
 
 | ResourceName
-|
+| Key
 | String
 | The name of the resource that must be in the desired state.
 |
