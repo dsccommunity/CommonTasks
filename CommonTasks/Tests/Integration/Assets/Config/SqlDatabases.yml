@@ -1,0 +1,13 @@
+Databases:
+  - Name: DB1
+    InstanceName: MSSQLSERVER
+    RecoveryModel: Full
+    OwnerName: sa
+  - Name: DB2
+    InstanceName: MSSQLSERVER
+    RecoveryModel: Full
+    OwnerName: sa
+  - Name: DB3
+    InstanceName: MSSQLSERVER
+    RecoveryModel: Full
+    OwnerName: sa

@@ -1,0 +1,13 @@
+Databases:
+  - DatabaseName: DB1
+    AvailabilityGroupName: AGTest1
+    BackupPath: \\Server1\Backup
+    InstanceName: MSSQLSERVER
+    ServerName: SQL1
+    ProcessOnlyOnActiveNode: true
+  - DatabaseName: DB2
+    AvailabilityGroupName: AGTest2
+    BackupPath: \\Server1\Backup
+    InstanceName: MSSQLSERVER
+    ServerName: SQL1
+    ProcessOnlyOnActiveNode: true

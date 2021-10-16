@@ -1,0 +1,11 @@
+AGs:
+  - Name: AGTest
+    InstanceName: INSTANCE1
+    ServerName: SQL1
+    AvailabilityMode: SynchronousCommit
+    FailoverMode: Automatic
+  - Name: AGTest
+    InstanceName: INSTANCE2
+    ServerName: SQL1
+    AvailabilityMode: SynchronousCommit
+    FailoverMode: Automatic

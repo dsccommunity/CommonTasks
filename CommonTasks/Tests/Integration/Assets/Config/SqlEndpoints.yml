@@ -1,0 +1,6 @@
+Endpoints:
+  - EndpointName: HADR
+    EndpointType: DatabaseMirroring
+    Port: 5022
+    ServerName: SQL1
+    InstanceName: MSSQLSERVER

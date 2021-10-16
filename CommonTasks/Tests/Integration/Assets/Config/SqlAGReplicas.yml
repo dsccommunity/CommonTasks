@@ -1,0 +1,10 @@
+Replicas:
+  - Name: SQL1
+    AvailabilityGroupName: AGTest
+    ServerName: SQL1
+    InstanceName: MSSQLSERVER
+    PrimaryReplicaServerName: SQL1
+    PrimaryReplicaInstanceName: MSSQLSERVER
+    ProcessOnlyOnActiveNode: true
+    AvailabilityMode: SynchronousCommit
+    FailoverMode: Automatic

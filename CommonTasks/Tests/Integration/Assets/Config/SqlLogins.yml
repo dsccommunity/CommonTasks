@@ -1,0 +1,7 @@
+Logins:
+  - Name: NT SERVICE\ClusSvc
+    LoginType: WindowsUser
+    InstanceName: MSSQLSERVER
+  - Name: contoso\install
+    LoginType: WindowsUser
+    InstanceName: MSSQLSERVER
