@@ -1,177 +1,277 @@
 configuration DnsServerSettings {
     param (
-        [Parameter()]
-        [string]
-        $DnsServer = 'localhost',
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $DnsServer,
 
         [Parameter()]
-        [uint32]
+        [System.UInt32]
         $AddressAnswerLimit,
 
         [Parameter()]
-        [uint32]
+        [System.Boolean]
         $AllowUpdate,
 
         [Parameter()]
-        [bool]
+        [System.Boolean]
         $AutoCacheUpdate,
 
         [Parameter()]
-        [uint32]
+        [System.UInt32]
         $AutoConfigFileZones,
 
         [Parameter()]
-        [bool]
+        [System.Boolean]
         $BindSecondaries,
 
         [Parameter()]
-        [uint32]
+        [System.UInt32]
         $BootMethod,
 
         [Parameter()]
-        [bool]
-        $DefaultAgingState,
+        [System.Boolean]
+        $DisableAutoReverseZone,
 
         [Parameter()]
-        [uint32]
-        $DefaultNoRefreshInterval,
-
-        [Parameter()]
-        [uint32]
-        $DefaultRefreshInterval,
-
-        [Parameter()]
-        [bool]
-        $DisableAutoReverseZones,
-
-        [Parameter()]
-        [bool]
-        $DisjointNets,
-
-        [Parameter()]
-        [uint32]
-        $DsPollingInterval,
-
-        [Parameter()]
-        [uint32]
-        $DsTombstoneInterval,
-
-        [Parameter()]
-        [uint32]
-        $EDnsCacheTimeout,
-
-        [Parameter()]
-        [bool]
+        [System.Boolean]
         $EnableDirectoryPartitions,
 
         [Parameter()]
-        [uint32]
+        [System.Boolean]
         $EnableDnsSec,
 
         [Parameter()]
-        [bool]
-        $EnableEDnsProbes,
-
-        [Parameter()]
-        [uint32]
+        [System.Boolean]
         $ForwardDelegations,
 
         [Parameter()]
-        [string[]]
-        $Forwarders,
+        [System.String[]]
+        $ListeningIPAddress,
 
         [Parameter()]
-        [uint32]
-        $ForwardingTimeout,
-
-        [Parameter()]
-        [bool]
-        $IsSlave,
-
-        [Parameter()]
-        [string[]]
-        $ListenAddresses,
-
-        [Parameter()]
-        [bool]
+        [System.Boolean]
         $LocalNetPriority,
 
         [Parameter()]
-        [uint32]
-        $LogLevel,
-
-        [Parameter()]
-        [bool]
+        [System.Boolean]
         $LooseWildcarding,
 
         [Parameter()]
-        [uint32]
-        $MaxCacheTTL,
-
-        [Parameter()]
-        [uint32]
-        $MaxNegativeCacheTTL,
-
-        [Parameter()]
-        [uint32]
+        [System.UInt32]
         $NameCheckFlag,
 
         [Parameter()]
-        [bool]
-        $NoRecursion,
-
-        [Parameter()]
-        [uint32]
-        $RecursionRetry,
-
-        [Parameter()]
-        [uint32]
-        $RecursionTimeout,
-
-        [Parameter()]
-        [bool]
+        [System.Boolean]
         $RoundRobin,
 
         [Parameter()]
-        [int16]
+        [System.UInt32]
         $RpcProtocol,
 
         [Parameter()]
-        [uint32]
-        $ScavengingInterval,
-
-        [Parameter()]
-        [bool]
-        $SecureResponses,
-
-        [Parameter()]
-        [uint32]
+        [System.UInt32]
         $SendPort,
 
         [Parameter()]
-        [bool]
+        [System.Boolean]
         $StrictFileParsing,
 
         [Parameter()]
-        [uint32]
+        [System.UInt32]
         $UpdateOptions,
 
         [Parameter()]
-        [bool]
+        [System.Boolean]
         $WriteAuthorityNS,
 
         [Parameter()]
-        [uint32]
-        $XfrConnectTimeout
+        [System.UInt32]
+        $XfrConnectTimeout,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableIPv6,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableOnlineSigning,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableDuplicateQuerySuppression,
+
+        [Parameter()]
+        [System.Boolean]
+        $AllowCnameAtNs,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableRsoForRodc,
+
+        [Parameter()]
+        [System.Boolean]
+        $OpenAclOnProxyUpdates,
+
+        [Parameter()]
+        [System.Boolean]
+        $NoUpdateDelegations,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableUpdateForwarding,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableWinsR,
+
+        [Parameter()]
+        [System.Boolean]
+        $DeleteOutsideGlue,
+
+        [Parameter()]
+        [System.Boolean]
+        $AppendMsZoneTransferTag,
+
+        [Parameter()]
+        [System.Boolean]
+        $AllowReadOnlyZoneTransfer,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableSendErrorSuppression,
+
+        [Parameter()]
+        [System.Boolean]
+        $SilentlyIgnoreCnameUpdateConflicts,
+
+        [Parameter()]
+        [System.Boolean]
+        $EnableIQueryResponseGeneration,
+
+        [Parameter()]
+        [System.Boolean]
+        $AdminConfigured,
+
+        [Parameter()]
+        [System.Boolean]
+        $PublishAutoNet,
+
+        [Parameter()]
+        [System.Boolean]
+        $ReloadException,
+
+        [Parameter()]
+        [System.Boolean]
+        $IgnoreServerLevelPolicies,
+
+        [Parameter()]
+        [System.Boolean]
+        $IgnoreAllPolicies,
+
+        [Parameter()]
+        [System.UInt32]
+        $EnableVersionQuery,
+
+        [Parameter()]
+        [System.UInt32]
+        $AutoCreateDelegation,
+
+        [Parameter()]
+        [System.UInt32]
+        $RemoteIPv4RankBoost,
+
+        [Parameter()]
+        [System.UInt32]
+        $RemoteIPv6RankBoost,
+
+        [Parameter()]
+        [System.UInt32]
+        $MaximumRodcRsoQueueLength,
+
+        [Parameter()]
+        [System.UInt32]
+        $MaximumRodcRsoAttemptsPerCycle,
+
+        [Parameter()]
+        [System.UInt32]
+        $MaxResourceRecordsInNonSecureUpdate,
+
+        [Parameter()]
+        [System.UInt32]
+        $LocalNetPriorityMask,
+
+        [Parameter()]
+        [System.UInt32]
+        $TcpReceivePacketSize,
+
+        [Parameter()]
+        [System.UInt32]
+        $SelfTest,
+
+        [Parameter()]
+        [System.UInt32]
+        $XfrThrottleMultiplier,
+
+        [Parameter()]
+        [System.UInt32]
+        $SocketPoolSize,
+
+        [Parameter()]
+        [System.UInt32]
+        $QuietRecvFaultInterval,
+
+        [Parameter()]
+        [System.UInt32]
+        $QuietRecvLogInterval,
+
+        [Parameter()]
+        [System.UInt32]
+        $SyncDsZoneSerial,
+
+        [Parameter()]
+        [System.UInt32]
+        $ScopeOptionValue,
+
+        [Parameter()]
+        [System.UInt32]
+        $VirtualizationInstanceOptionValue,
+
+        [Parameter()]
+        [System.String]
+        $ServerLevelPluginDll,
+
+        [Parameter()]
+        [System.String]
+        $RootTrustAnchorsURL,
+
+        [Parameter()]
+        [System.String[]]
+        $SocketPoolExcludedPortRanges,
+
+        [Parameter()]
+        [System.String]
+        $LameDelegationTTL,
+
+        [Parameter()]
+        [System.String]
+        $MaximumSignatureScanPeriod,
+
+        [Parameter()]
+        [System.String]
+        $MaximumTrustAnchorActiveRefreshInterval,
+
+        [Parameter()]
+        [System.String]
+        $ZoneWritebackInterval
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
 
     if ($PSBoundParameters.ContainsKey('InstanceName')) {
         $PSBoundParameters.Remove('InstanceName')
     }
 
-    $executionName = 'DnsSettings'
-    (Get-DscSplattedResource -ResourceName xDnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    $executionName = 'DnsServerSetting'
+    (Get-DscSplattedResource -ResourceName DnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 }
