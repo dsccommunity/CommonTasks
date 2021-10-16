@@ -1,0 +1,117 @@
+// CommonTasks YAML Reference: WaitForSomeNodes
+// ===========================================
+
+:YmlCategory: WaitForSomeNodes
+
+
+[[dscyml_waitforsomenodes, {YmlCategory}]]
+= DSC Resource 'WaitForSomeNodes'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_waitforsomenodes_abstract]]
+The {YmlCategory} Desired State Configuration (DSC) resource can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+
+This resource succeeds if the resource specified by the ResourceName property is in the desired state on a minimum number of nodes (specified by NodeCount) defined by the NodeName property.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WaitForSomeNodes
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforsomeresource?view=powershell-5.1[WaitForSome ]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_waitforsomenodes_items, {YmlCategory}/Items]]<<dscyml_waitforsomenodes_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| files and folders on the target node
+|
+
+|===
+
+[[dscyml_waitforsomenodes_items_details]]
+.Attributes of category '<<dscyml_waitforsomenodes_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NodeName
+|
+| String[]
+| The name of the target nodes the resource must be in the desired state.
+| 
+
+| NodeCount
+|
+| UInt32
+| The minimum number of nodes that must be in the desired state for this resource to succeed.
+| 
+
+| ResourceName
+|
+| String
+| The name of the resource that must be in the desired state.
+|
+
+| RetryCount
+|
+| UInt32
+| The maximum number of times to retry.
+|
+
+| RetryIntervalSec
+|
+| UInt64
+| The number of seconds before retrying. Minimum is 1.
+|
+
+| ThrottleLimit
+|
+| UInt32
+| Number of machines to connect simultaneously. Default is New-CimSession default.
+|
+
+|===
+
+
+[NOTE]
+====
+WaitForSome resource uses Windows Remote Management to check the state of other Nodes. For more information about port and security requirements for WinRM, see PowerShell Remoting Security Considerations.
+====
+
+
+.Example
+[source, yaml]
+----
+WaitForSomeNodes:
+Items:
+  - ResourceName: '[Service]StartSQLService'
+    NodeName:
+    - SQLServer1
+    - SQLServer2
+    NodeCount: 1
+    RetryIntervalSec: 60
+    RetryCount: 60
+  - ResourceName: '[xADDomain]NewDomain'
+    NodeName:
+    - DC1
+    - DC2
+    - DC3
+    NodeCount: 2
+    RetryIntervalSec: 15
+    RetryCount: 30
+----
