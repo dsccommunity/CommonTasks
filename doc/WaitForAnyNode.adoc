@@ -19,7 +19,7 @@ This resource succeeds if the resource specified by the ResourceName property is
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WaitForAnyNode
 | DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforanyresource?view=powershell-5.1[File]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforanyresource?view=powershell-5.1[WaitForAny]
 |===
 
 .Attributes of category '{YmlCategory}'
