@@ -8,7 +8,7 @@
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
 
     WindowsFeature DNSServer
     {
@@ -30,6 +30,6 @@
 
         $executionName = "dnspzone_$($primaryZone.Name -replace '[()-.:\s]', '_')"
 
-        (Get-DscSplattedResource -ResourceName xDnsServerPrimaryZone -ExecutionName $executionName -Properties $primaryZone -NoInvoke).Invoke($primaryZone)
+        (Get-DscSplattedResource -ResourceName DnsServerPrimaryZone -ExecutionName $executionName -Properties $primaryZone -NoInvoke).Invoke($primaryZone)
     }
 }
