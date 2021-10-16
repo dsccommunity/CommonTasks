@@ -17,7 +17,6 @@ configuration WaitForAllNodes {
 
     foreach ($item in $items) {
         $executionName = $item.ResourceName
-        #[void]$item.Remove('InstanceName')
 
         (Get-DscSplattedResource -ResourceName WaitForAll -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
