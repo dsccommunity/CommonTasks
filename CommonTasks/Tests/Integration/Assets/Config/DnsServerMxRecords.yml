@@ -1,0 +1,11 @@
+﻿Records:
+  - EmailDomain: contoso.com
+    ZoneName: contoso.com
+    MailExchange: mailserver1.contoso.com
+    Priority: 10
+    Ensure: Present
+
+  - EmailDomain: contoso.com
+    ZoneName: contoso.com
+    MailExchange: mailserver2.contoso.com
+    Priority: 20

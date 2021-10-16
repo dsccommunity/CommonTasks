@@ -1,4 +1,4 @@
-﻿configuration DnsServerForwarder
+﻿configuration DnsServerForwarders
 {
     param
     (
@@ -12,7 +12,7 @@
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
 
     WindowsFeature DNSServer
     {
@@ -20,7 +20,7 @@
         Ensure = 'Present'
     }
 
-    xDnsServerForwarder dnsServerForwarder 
+    DnsServerForwarder dnsServerForwarderx
     {
         DependsOn        = '[WindowsFeature]DNSServer'
         IsSingleInstance = 'Yes'
