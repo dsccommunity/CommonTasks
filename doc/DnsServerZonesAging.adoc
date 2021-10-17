@@ -1,23 +1,26 @@
-// CommonTasks YAML Reference: DnsServerZoneAging
+// CommonTasks YAML Reference: DnsServerZonesAging
 // =================================================
 
-:YmlCategory: DnsServerZoneAging
+:YmlCategory: DnsServerZonesAging
 
 
-[[dscyml_dnsserverzoneaging, {YmlCategory}]]
-= DSC Resource 'DnsServerZoneAging'
+[[dscyml_dnsserverzonesaging, {YmlCategory}]]
+= DSC Resource 'DnsServerZonesAging'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverzoneaging_abstract]]
+[[dscyml_dnsserverzonesaging_abstract]]
 .{YmlCategory} manages aging settings for a Domain Name System (DNS) server zone.
+
+A resource record can remain on a DNS server after the resource is no longer part of the network.
+Aging settings determine when a record can be removed, or scavenged, as a stale record.
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerZoneAging
-| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerZoneAging[xDnsServerZoneAging]
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerZonesAging
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerZoneAging[DnsServerZoneAging]
 |===
 
 
@@ -30,7 +33,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_dnsserverzoneaging_zones, {YmlCategory}/Zones]]<<dscyml_dnsserverzoneaging_zones_details, Zones>>
+| [[dscyml_dnsserverzonesaging_zones, {YmlCategory}/Zones]]<<dscyml_dnsserverzonesaging_zones_details, Zones>>
 | Mandatory
 | Hashtable[]
 | List of DNS Zones
@@ -39,8 +42,8 @@
 |===
 
 
-[[dscyml_dnsserverzoneaging_zones_details]]
-.Attributes of category '<<dscyml_dnsserverzoneaging_zones>>'
+[[dscyml_dnsserverzonesaging_zones_details]]
+.Attributes of category '<<dscyml_dnsserverzonesaging_zones>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -80,7 +83,7 @@
 .Example
 [source, yaml]
 ----
-DnsServerZoneAging:
+DnsServerZonesAging:
   Zones:
     - Name:              north.contoso.com
       Enabled:           True

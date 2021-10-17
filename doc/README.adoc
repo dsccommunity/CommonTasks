@@ -76,15 +76,18 @@ ifdef::env-github[]
 - <<DhcpServer.adoc#, DhcpServer>>
 - <<Disks.adoc#, Disks>>
 - <<DnsServerAdZones.adoc#, DnsServerAdZones>>
+- <<DnsServerARecords.adoc#, DnsServerARecords>>
+- <<DnsServerCNameRecords.adoc#, DnsServerCNameRecords>>
 - <<DnsServerConditionalForwarders.adoc#, DnsServerConditionalForwarders>>
-- <<DnsServerForwarder.adoc#, DnsServerForwarder>>
+- <<DnsServerForwarders.adoc#, DnsServerForwarders>>
+- <<DnsServerLegacySettings.adoc#, DnsServerLegacySettings>>
+- <<DnsServerMxRecords.adoc#, DnsServerMxRecords>>
 - <<DnsServerPrimaryZones.adoc#, DnsServerPrimaryZones>>
 - <<DnsServerQueryResolutionPolicies.adoc#, DnsServerQueryResolutionPolicies>>
-- <<DnsServerRecords.adoc#, DnsServerRecords>>
 - <<DnsServerResponseRateLimiting.adoc#, DnsServerResponseRateLimiting>>
 - <<DnsServerRootHints.adoc#, DnsServerRootHints>>
 - <<DnsServerSettings.adoc#, DnsServerSettings>>
-- <<DnsServerZoneAging.adoc#, DnsServerZoneAging>>
+- <<DnsServerZonesAging.adoc#, DnsServerZonesAging>>
 - <<DscLcmController.adoc#, DscLcmController>>
 - <<DscLcmMaintenanceWindows.adoc#, DscLcmMaintenanceWindows>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
@@ -149,15 +152,18 @@ ifndef::env-github[]
 | <<dscyml_dhcpserver>>                        | <<dscyml_dhcpserver_abstract>>
 | <<dscyml_disks>>                             | <<dscyml_disks_abstract>>
 | <<dscyml_dnsserveradzones>>                  | <<dscyml_dnsserveradzones_abstract>>
+| <<dscyml_dnsserverarecords>>                 | <<dscyml_dnsserverarecords_abstract>>
+| <<dscyml_dnsservercnamerecords>>             | <<dscyml_dnsservercnamerecords_abstract>>
 | <<dscyml_dnsserverconditionalforwarders>>    | <<dscyml_dnsserverconditionalforwarders_abstract>>
-| <<dscyml_dnsserverforwarder>>                | <<dscyml_dnsserverforwarder_abstract>>
+| <<dscyml_dnsserverforwarders>>               | <<dscyml_dnsserverforwarders_abstract>>
+| <<dscyml_dnsserverlegacysettings>>           | <<dscyml_dnsserverlegacysettings_abstract>>
+| <<dscyml_dnsservermxrecords>>                | <<dscyml_dnsservermxrecords_abstract>>
 | <<dscyml_dnsserverprimaryzones>>             | <<dscyml_dnsserverprimaryzones_abstract>>
 | <<dscyml_dnsserverqueryresolutionpolicies>>  | <<dscyml_dnsserverqueryresolutionpolicies_abstract>>
-| <<dscyml_dnsserverrecords>>                  | <<dscyml_dnsserverrecords_abstract>>
 | <<dscyml_dnsserverresponseratelimiting>>     | <<dscyml_dnsserverresponseratelimiting_abstract>>
 | <<dscyml_dnsserverroothints>>                | <<dscyml_dnsserverroothints_abstract>>
 | <<dscyml_dnsserversettings>>                 | <<dscyml_dnsserversettings_abstract>>
-| <<dscyml_dnsserverzoneaging>>                | <<dscyml_dnsserverzoneaging_abstract>>
+| <<dscyml_dnsserverzonesaging>>               | <<dscyml_dnsserverzonesaging_abstract>>
 // | <<dscyml_dscdiagnostic>>                  | <<dscyml_dscdiagnostic_abstract>>
 | <<dscyml_dsclcmcontroller>>                  | <<dscyml_dsclcmcontroller_abstract>>
 | <<dscyml_dsclcmmaintenancewindows>>          | <<dscyml_dsclcmmaintenancewindows_abstract>>
@@ -225,15 +231,18 @@ include::ComputerSettings.adoc[leveloffset=+2]
 include::DhcpServer.adoc[leveloffset=+2]
 include::Disks.adoc[leveloffset=+2]
 include::DnsServerAdZones.adoc[leveloffset=+2]
+include::DnsServerARecords.adoc[leveloffset=+2]
+include::DnsServerCNameRecords.adoc[leveloffset=+2]
 include::DnsServerConditionalForwarders.adoc[leveloffset=+2]
-include::DnsServerForwarder.adoc[leveloffset=+2]
+include::DnsServerForwarders.adoc[leveloffset=+2]
+include::DnsServerLegacySettings.adoc[leveloffset=+2]
+include::DnsServerMxRecords.adoc[leveloffset=+2]
 include::DnsServerPrimaryZones.adoc[leveloffset=+2]
 include::DnsServerQueryResolutionPolicies.adoc[leveloffset=+2]
-include::DnsServerRecords.adoc[leveloffset=+2]
 include::DnsServerResponseRateLimiting.adoc[leveloffset=+2]
 include::DnsServerRootHints.adoc[leveloffset=+2]
 include::DnsServerSettings.adoc[leveloffset=+2]
-include::DnsServerZoneAging.adoc[leveloffset=+2]
+include::DnsServerZonesAging.adoc[leveloffset=+2]
 //include::DscDiagnostic.adoc[leveloffset=+2]
 include::DscLcmController.adoc[leveloffset=+2]
 include::DscLcmMaintenanceWindows.adoc[leveloffset=+2]

@@ -1,0 +1,119 @@
+// CommonTasks YAML Reference: DnsServerCNameRecords
+// =================================================
+
+:YmlCategory: DnsServerCNameRecords
+
+
+[[dscyml_dnsservercnamerecords, {YmlCategory}]]
+= DSC Resource 'DnsServerCNameRecords'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsservercnamerecords_abstract]]
+.{YmlCategory} manages CNAME DNS records against a specific zone on a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerCNameRecords
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsRecordCName[DnsRecordCname]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsservercnamerecords_records, {YmlCategory}/Records]]<<dscyml_dnsservercnamerecords_records_details, Records>>
+| Mandatory
+| Hashtable[]
+| List of A DNS records
+|
+
+|===
+
+
+[[dscyml_dnsservercnamerecords_records_details]]
+.Attributes of category '<<dscyml_dnsservercnamerecords_records>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Specifies the name of a DNS server resource record object.
+|
+
+| ZoneName
+| Key
+| String
+| Specifies the name of a DNS zone.
+|
+
+| HostNameAlias
+| Key
+| String
+| Specifies a a canonical name target for a CNAME record.
+
+This must be a fully qualified domain name (FQDN).
+|
+
+| TimeToLive
+|
+| String
+| Specifies the TimeToLive value of the SRV record.
+
+Value must be in valid TimeSpan string format (i.e.: Days.Hours:Minutes:Seconds.Miliseconds or 30.23:59:59.999).
+|
+
+| Ensure
+|
+| String
+| Whether the host record should be present or removed
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerCNameRecords:
+  Records:
+    - Name:          mailserver1
+      ZoneName:      contoso.com
+      HostNameAlias: mail.contoso.com
+      Ensure:        Present
+
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  DnsServerCNameRecords:
+    merge_hash: deep
+  DnsServerCNameRecords\Records:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+        - ZoneName
+        - HostNameAlias
+----

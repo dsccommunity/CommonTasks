@@ -1,0 +1,135 @@
+// CommonTasks YAML Reference: DnsServerMxRecords
+// ==============================================
+
+:YmlCategory: DnsServerMxRecords
+
+
+[[dscyml_dnsservermxrecords, {YmlCategory}]]
+= DSC Resource 'DnsServerMxRecords'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsservermxrecords_abstract]]
+.{YmlCategory} manages MX DNS records against a specific zone on a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerMxRecords
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsRecordMx[DnsRecordMx]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsservermxrecords_records, {YmlCategory}/Records]]<<dscyml_dnsservermxrecords_records_details, Records>>
+| Mandatory
+| Hashtable[]
+| List of Mx DNS records
+|
+
+|===
+
+
+[[dscyml_dnsservermxrecords_records_details]]
+.Attributes of category '<<dscyml_dnsservermxrecords_records>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ZoneName
+| Key
+| String
+| Specifies the name of a DNS zone.
+|
+
+| EmailDomain
+| Key
+| String
+| Everything after the '@' in the email addresses supported by this mail exchanger.
+
+It must be a subdomain the zone or the zone itself.
+To specify all subdomains, use the '*' character (i.e.: *.contoso.com).
+|
+
+| MailExchange
+| Key
+| String
+| FQDN of the server handling email for the specified email domain.
+
+When setting the value, this FQDN must resolve to an IP address and cannot reference a CNAME record.
+|
+
+| Priority
+| Mandatory
+| UInt16
+| Specifies the priority for this MX record among other MX records that belong to the same email domain, where a lower value has a higher priority.
+|
+
+| TimeToLive
+|
+| String
+| Specifies the TimeToLive value of the SRV record.
+
+Value must be in valid TimeSpan string format (i.e.: Days.Hours:Minutes:Seconds.Miliseconds or 30.23:59:59.999).
+|
+
+| Ensure
+|
+| String
+| Whether the host record should be present or removed
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerMxRecords:
+  Records:
+    - ZoneName:     contoso.com
+      EmailDomain:  contoso.com
+      MailExchange: mailserver1.contoso.com
+      Priority:     10
+
+    - ZoneName:     contoso2.com'
+      EmailDomain:  contoso2.com
+      MailExchange: mailserver1.contoso2.com
+      Priority:     20
+      TimeToLive:   01:00:00
+      Ensure:       Present
+
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  DnsServerMxRecords:
+    merge_hash: deep
+  DnsServerMxRecords\Records:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - ZoneName
+        - EmailDomain
+        - MailExchange
+----

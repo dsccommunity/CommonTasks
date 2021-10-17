@@ -1,0 +1,122 @@
+// CommonTasks YAML Reference: DnsServerARecords
+// ============================================
+
+:YmlCategory: DnsServerARecords
+
+
+[[dscyml_dnsserverarecords, {YmlCategory}]]
+= DSC Resource 'DnsServerARecords'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverarecords_abstract]]
+.{YmlCategory} manages A DNS records against a specific zone on a Domain Name System (DNS) server.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerARecords
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsRecordA[DnsRecordA]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dnsserverarecords_records, {YmlCategory}/Records]]<<dscyml_dnsserverarecords_records_details, Records>>
+| Mandatory
+| Hashtable[]
+| List of A DNS records
+|
+
+|===
+
+
+[[dscyml_dnsserverarecords_records_details]]
+.Attributes of category '<<dscyml_dnsserverarecords_records>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Specifies the name of a DNS server resource record object.
+|
+
+| ZoneName
+| Key
+| String
+| Specifies the name of a DNS zone.
+|
+
+| IPv4Address
+| Key
+|
+| Specifies the IPv4 address of a host.
+|
+
+| TimeToLive
+|
+| String
+| Specifies the TimeToLive value of the SRV record.
+
+Value must be in valid TimeSpan string format (i.e.: Days.Hours:Minutes:Seconds.Miliseconds or 30.23:59:59.999).
+|
+
+| Ensure
+|
+| String
+| Whether the host record should be present or removed
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsServerARecords:
+  Records:
+    - Name:        mailserver1
+      ZoneName:    contoso.com
+      IPv4Address: 192.168.1.10
+      Ensure:      Present
+
+    - Name:        server2
+      ZoneName:    PrimaryZone2
+      IPv4Address: 192.168.2.11
+      TimeToLive:  '01:00:00'
+
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  DnsServerARecords:
+    merge_hash: deep
+  DnsServerARecords\Records:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+        - ZoneName
+        - IPv4Address
+----
