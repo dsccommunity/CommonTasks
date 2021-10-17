@@ -10,7 +10,7 @@ configuration DnsServerAdZones
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
 
     foreach ($adZone in $AdZones) {
         if (-not $adZone.ContainsKey('Ensure')) {
@@ -22,6 +22,6 @@ configuration DnsServerAdZones
         }
 
         $executionName = "$($node.Name)_$($adZone.Name)"
-        (Get-DscSplattedResource -ResourceName xDnsServerADZone -ExecutionName $executionName -Properties $adZone -NoInvoke).Invoke($adZone)
+        (Get-DscSplattedResource -ResourceName DnsServerADZone -ExecutionName $executionName -Properties $adZone -NoInvoke).Invoke($adZone)
     }
 }

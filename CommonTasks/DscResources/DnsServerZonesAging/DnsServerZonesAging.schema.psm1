@@ -1,4 +1,4 @@
-﻿configuration DnsServerZoneAging
+﻿configuration DnsServerZonesAging
 {
     param
     (
@@ -8,7 +8,7 @@
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
 
     foreach ($zone in $Zones)
     {
@@ -17,11 +17,11 @@
 
         if (-not $zone.ContainsKey('Enabled'))
         {
-            $zone.Enabled = $True
+            $zone.Enabled = $true
         }
 
         $executionName = "dnszoneaging_$($zone.Name -replace '[()-.:\s]', '_')"
 
-        (Get-DscSplattedResource -ResourceName xDnsServerZoneAging -ExecutionName $executionName -Properties $zone -NoInvoke).Invoke($zone)
+        (Get-DscSplattedResource -ResourceName DnsServerZoneAging -ExecutionName $executionName -Properties $zone -NoInvoke).Invoke($zone)
     }
 }

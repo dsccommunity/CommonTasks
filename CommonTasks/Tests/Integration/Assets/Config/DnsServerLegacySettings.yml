@@ -1,0 +1,4 @@
+DnsServer: localhost
+DisjointNets: true
+NoForwarderRecursion: false
+LogLevel: 50393905

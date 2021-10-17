@@ -7,7 +7,7 @@ configuration DnsServerRootHints
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDnsServer
+    Import-DscResource -ModuleName DnsServerDsc
     
     $param = @{
         IsSingleInstance = 'Yes'
@@ -15,5 +15,5 @@ configuration DnsServerRootHints
     }
 
     $executionName = 'RootHints'
-    (Get-DscSplattedResource -ResourceName xDnsServerRootHint -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
+    (Get-DscSplattedResource -ResourceName DnsServerRootHint -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 }

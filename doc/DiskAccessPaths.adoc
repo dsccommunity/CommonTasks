@@ -1,0 +1,133 @@
+// CommonTasks YAML Reference: DiskAccessPaths
+// ========================================
+
+:YmlCategory: DiskAccessPaths
+
+
+[[dscyml_diskaccesspaths, {YmlCategory}]]
+= DSC Resource 'DiskAccessPaths'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_diskaccesspaths_abstract]]
+.{YmlCategory} configuration is used to initialize, format and mount the partition to a folder access path.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DiskAccessPaths
+| DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
+| Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/DiskAccessPath[DiskAccessPath]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_diskaccesspaths_items, {YmlCategory}/Items]]<<dscyml_diskaccesspaths_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| List of disk access path specifications
+|
+
+|===
+
+
+[[dscyml_diskaccesspaths_items_details]]
+.Attributes of category '<<dscyml_diskaccesspaths_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| AccessPath
+| Key
+| String
+| Specifies the access path folder to the assign the disk volume to.
+|
+
+| NoDefaultDriveLetter
+| 
+| Bool
+| Specifies no automatic drive letter assignment to the partition: Defaults to True
+|
+
+| DiskId
+| Required
+| String
+| Specifies the disk identifier for the disk to modify.
+|
+
+| DiskIdType
+|
+| String
+| Specifies the identifier type the DiskId contains.
+| - Number (default)
+  - UniqueId
+  - Guid
+  - Location
+
+| Size
+|
+| UInt64
+| Specifies the size of new volume. +
+  Leave empty to use the remaining free space.
+|
+
+| FSLabel
+| 
+| String
+| Define volume label if required.
+|
+
+| AllocationUnitSize
+|
+| UInt32
+| Specifies the allocation unit size to use when formatting the volume.
+|
+
+| FSFormat
+|
+| String
+| Specifies the file system format of the new volume.
+| - NTFS
+  - ReFS
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DiskAccessPaths:
+  Items:
+  - AccessPath: E:\SysDB
+    DiskIdType: Number
+    DiskId: 2
+    FSLabel: SysDB
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\Data
+    DiskIdType: Number
+    DiskId: 3
+    FSLabel: Data
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\Logs
+    DiskIdType: Number
+    DiskId: 4
+    FSLabel: Logs
+    NoDefaultDriveLetter: true
+  - AccessPath: E:\TempDB
+    DiskIdType: Number
+    DiskId: 5
+    FSLabel: TempDB
+    NoDefaultDriveLetter: true
+----
