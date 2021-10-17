@@ -1,4 +1,4 @@
-AGs:
+Values:
   - Name: AGTest
     InstanceName: INSTANCE1
     ServerName: SQL1

@@ -4,7 +4,7 @@ configuration SqlAGListeners {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Listeners
+        [hashtable[]]$Values
     )
 
     <#
@@ -22,19 +22,19 @@ configuration SqlAGListeners {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($listener in $Listeners)
+    foreach ($value in $Values)
     {
-        if (-not $listener.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $listener.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $listener.Ensure)
+        if(-not $value.Ensure)
         {
-            $listener.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($listener.InstanceName)_$($listener.AvailabilityGroup)_$($listener.Name)"
-        (Get-DscSplattedResource -ResourceName SqlAGListener -ExecutionName $executionName -Properties $listener -NoInvoke).Invoke($listener)
+        $executionName = "$($value.InstanceName)_$($value.AvailabilityGroup)_$($value.Name)"
+        (Get-DscSplattedResource -ResourceName SqlAGListener -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

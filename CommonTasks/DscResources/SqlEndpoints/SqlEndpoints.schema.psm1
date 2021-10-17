@@ -4,7 +4,7 @@ configuration SqlEndpoints {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Endpoints
+        [hashtable[]]$Values
     )
 
     <#
@@ -25,19 +25,19 @@ configuration SqlEndpoints {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($endpoint in $Endpoints) 
+    foreach ($value in $Values) 
     {
-        if(-not $endpoint.InstanceName)
+        if(-not $value.InstanceName)
         {
-            $endpoint.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $endpoint.Ensure)
+        if(-not $value.Ensure)
         {
-            $endpoint.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($endpoint.InstanceName)_$($endpoint.EndpointName -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlEndpoint -ExecutionName $executionName -Properties $endpoint -NoInvoke).Invoke($endpoint)
+        $executionName = "$($value.InstanceName)_$($value.EndpointName -replace ' ','')"
+        (Get-DscSplattedResource -ResourceName SqlEndpoint -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

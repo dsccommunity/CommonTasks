@@ -1,4 +1,4 @@
-Permissions:
+Values:
   - Principal: NT SERVICE\ClusSvc
     InstanceName: MSSQLSERVER
     Permission:

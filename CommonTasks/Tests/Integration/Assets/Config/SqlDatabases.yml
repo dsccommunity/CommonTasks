@@ -1,4 +1,4 @@
-Databases:
+Values:
   - Name: DB1
     InstanceName: MSSQLSERVER
     RecoveryModel: Full

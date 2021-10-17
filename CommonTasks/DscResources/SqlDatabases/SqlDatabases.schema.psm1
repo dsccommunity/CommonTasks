@@ -4,7 +4,7 @@ configuration SqlDatabases {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Databases
+        [hashtable[]]$Values
     )
 
     <#
@@ -22,19 +22,19 @@ configuration SqlDatabases {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($database in $Databases)
+    foreach ($value in $Values)
     {
-        if (-not $database.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $database.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $database.Ensure)
+        if(-not $value.Ensure)
         {
-            $database.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($database.InstanceName)_$($database.Name -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlDatabase -ExecutionName $executionName -Properties $database -NoInvoke).Invoke($database)
+        $executionName = "$($value.InstanceName)_$($value.Name -replace ' ','')"
+        (Get-DscSplattedResource -ResourceName SqlDatabase -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

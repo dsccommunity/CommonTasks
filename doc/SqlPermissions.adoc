@@ -1,0 +1,116 @@
+// CommonTasks YAML Reference: SqlPermissions
+// =============================================
+
+:YmlCategory: SqlPermissions
+
+
+[[dscyml_sqlpermissions, {YmlCategory}]]
+= DSC Resource 'SqlPermissions'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlpermissions_abstract]]
+.The {YmlCategory} DSC resource sets server permissions for a user (login).
+
+> Note: Currently the resource only supports ConnectSql, AlterAnyAvailabilityGroup, AlterAnyEndPoint and ViewServerState.
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlpermission:           https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission[SqlPermission]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlPermissions
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlpermission}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- Target machine must have access to the SQLPS PowerShell module or the SqlServer PowerShell module.
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_SqlPermissions_Values, {YmlCategory}/Values]]<<dscyml_SqlPermissions_Values_Details, Values>>
+| Mandatory
+| Hashtable[]
+| List of SQL permissions.
+|
+
+|===
+
+[[dscyml_SqlPermissions_Values_Details]]
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| ServerName
+|
+| String
+| The host name of the SQL Server to be configured. Default value is the current computer name.
+|
+
+| Enure
+|
+| String
+| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| `Present`, `Absent`
+
+| Principal
+| Key
+| String
+| The login to which permission will be set.
+|
+
+| Permission
+| 
+| String[]
+| The permission to set for the login.
+| `ConnectSql`, `AlterAnyAvailabilityGroup`, `ViewServerState`, `AlterAnyEndPoint`
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlPermissions:
+  Values:
+  - Principal: NT SERVICE\ClusSvc
+    InstanceName: MSSQLSERVER
+    Permission:
+      - AlterAnyAvailabilityGroup
+      - ViewServerState
+  - Principal: contoso\dbadmin
+    InstanceName: MSSQLSERVER
+    Permission:
+      - AlterAnyAvailabilityGroup
+      - ViewServerState
+      - AlterAnyEndPoint
+      - ConnectSql
+
+----

@@ -4,7 +4,7 @@ configuration SqlAGReplicas {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Replicas
+        [hashtable[]]$Values
     )
 
     <#
@@ -30,19 +30,19 @@ configuration SqlAGReplicas {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($replica in $Replicas)
+    foreach ($value in $Values)
     {
-        if (-not $replica.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $replica.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $replica.Ensure)
+        if(-not $value.Ensure)
         {
-            $replica.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($replica.InstanceName)_$($replica.AvailabilityGroupName)_$($replica.Name)"
-        (Get-DscSplattedResource -ResourceName SqlAGReplica -ExecutionName $executionName -Properties $replica -NoInvoke).Invoke($replica)
+        $executionName = "$($value.InstanceName)_$($value.AvailabilityGroupName)_$($value.Name)"
+        (Get-DscSplattedResource -ResourceName SqlAGReplica -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

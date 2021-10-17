@@ -1,4 +1,4 @@
-Replicas:
+Values:
   - Name: SQL1
     AvailabilityGroupName: AGTest
     ServerName: SQL1

@@ -4,7 +4,7 @@ configuration SqlPermissions {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Permissions
+        [hashtable[]]$Values
     )
 
     <#
@@ -19,19 +19,19 @@ configuration SqlPermissions {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($permission in $Permissions)
+    foreach ($value in $Values)
     {
-        if (-not $permission.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $permission.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $permission.Ensure)
+        if(-not $value.Ensure)
         {
-            $permission.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($permission.InstanceName)_$($permission.Principal -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlPermission -ExecutionName $executionName -Properties $permission -NoInvoke).Invoke($permission)
+        $executionName = "$($value.InstanceName)_$($value.Principal -replace ' ','')"
+        (Get-DscSplattedResource -ResourceName SqlPermission -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

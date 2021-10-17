@@ -33,7 +33,24 @@
 - Target machine must be running Windows Server 2012 or later.
 - Target machine must be running SQL Server Database Engine 2012 or later.
 
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
 
+| [[dscyml_SqlAliases_Values, {YmlCategory}/Values]]<<dscyml_SqlAliases_Values_Details, Values>>
+| Mandatory
+| Hashtable[]
+| List of SQL aliases.
+|
+
+|===
+
+[[dscyml_SqlAliases_Values_Details]]
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
 |===

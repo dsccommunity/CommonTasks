@@ -1,4 +1,4 @@
-Databases:
+Values:
   - DatabaseName: DB1
     AvailabilityGroupName: AGTest1
     BackupPath: \\Server1\Backup

@@ -4,7 +4,7 @@ configuration SqlRoles {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Roles
+        [hashtable[]]$Values
     )
 
     <#
@@ -21,19 +21,19 @@ configuration SqlRoles {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($role in $Roles)
+    foreach ($value in $Values)
     {
-        if (-not $role.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $role.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $role.Ensure)
+        if(-not $value.Ensure)
         {
-            $role.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($role.InstanceName)_$($role.ServerRoleName -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlRole -ExecutionName $executionName -Properties $role -NoInvoke).Invoke($role)
+        $executionName = "$($value.InstanceName)_$($value.ServerRoleName -replace ' ','')"
+        (Get-DscSplattedResource -ResourceName SqlRole -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

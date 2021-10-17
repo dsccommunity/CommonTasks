@@ -1,4 +1,4 @@
-Logins:
+Values:
   - Name: NT SERVICE\ClusSvc
     LoginType: WindowsUser
     InstanceName: MSSQLSERVER

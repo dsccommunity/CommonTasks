@@ -4,7 +4,7 @@ configuration SqlLogins {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$Logins
+        [hashtable[]]$Values
     )
 
     <#
@@ -25,19 +25,19 @@ configuration SqlLogins {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($login in $Logins) 
+    foreach ($value in $Values) 
     {
-        if(-not $login.InstanceName)
+        if(-not $value.InstanceName)
         {
-            $login.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $login.Ensure)
+        if(-not $value.Ensure)
         {
-            $login.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($login.InstanceName)_$($login.Name -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
+        $executionName = "$($value.InstanceName)_$($value.Name -replace ' ','')"
+        (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }

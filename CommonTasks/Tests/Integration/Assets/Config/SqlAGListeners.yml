@@ -1,4 +1,4 @@
-Listeners:
+Values:
   - Name: AGTestListener1
     InstanceName: INSTANCE1
     AvailabilityGroup: AGTest1

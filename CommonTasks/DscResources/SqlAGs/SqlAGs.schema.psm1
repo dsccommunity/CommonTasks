@@ -4,7 +4,7 @@ configuration SqlAGs {
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
         [Parameter(Mandatory)]
-        [hashtable[]]$AGs
+        [hashtable[]]$Values
     )
 
     <#
@@ -31,19 +31,19 @@ configuration SqlAGs {
     
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($ag in $AGs)
+    foreach ($value in $Values)
     {
-        if (-not $ag.InstanceName)
+        if (-not $value.InstanceName)
         {
-            $ag.InstanceName = $DefaultInstanceName
+            $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $ag.Ensure)
+        if(-not $value.Ensure)
         {
-            $ag.Ensure = 'Present'
+            $value.Ensure = 'Present'
         }
 
-        $executionName = "$($ag.InstanceName)_$($ag.Name)"
-        (Get-DscSplattedResource -ResourceName SqlAG -ExecutionName $executionName -Properties $ag -NoInvoke).Invoke($ag)
+        $executionName = "$($value.InstanceName)_$($value.Name)"
+        (Get-DscSplattedResource -ResourceName SqlAG -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
 }
