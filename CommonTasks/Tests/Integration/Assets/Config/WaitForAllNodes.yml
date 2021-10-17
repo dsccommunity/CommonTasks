@@ -1,0 +1,9 @@
+Items:
+  - ResourceName: '[xADDomain]NewDomain'
+    NodeName: MyDC
+    RetryIntervalSec: 15
+    RetryCount: 30
+  - ResourceName: '[Service]StartSQLService'
+    NodeName: SQLServer
+    RetryIntervalSec: 60
+    RetryCount: 60
