@@ -10,14 +10,16 @@
 
 
 [[dscyml_dnsserverconditionalforwarders_abstract]]
-.{YmlCategory} manages a conditional forwarder on a given DNS server.
+.{YmlCategory} manages a conditional forwarder on a Domain Name System (DNS) server.
+
+You can manage the master servers, forwarder time-out, recursion, recursion scope, and directory partition name for a conditional forwarder zone.
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerConditionalForwarders
-| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverconditionalforwarder[xDnsServerConditionalForwarder]
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerConditionalForwarder[DnsServerConditionalForwarder]
 
 |===
 
@@ -59,8 +61,9 @@
 | MasterServers
 |
 | String[]
-| The IP addresses the forwarder should use. +
-  Mandatory if `Ensure` is `Present`.
+| The IP addresses the forwarder should use.
+
+Mandatory if `Ensure` is `Present`.
 |
 
 | ReplicationScope
@@ -77,7 +80,8 @@
 |
 | String
 | The name of the directory partition to use when the ReplicationScope is Custom.
-  This value is ignored for all other replication scopes.
+
+This value is ignored for all other replication scopes.
 |
 
 | Ensure

@@ -10,14 +10,14 @@
 
 
 [[dscyml_dnsserverroothints_abstract]]
-.{YmlCategory} manages root hints on a given DNS server.
+.{YmlCategory} manages root hints on a Domain Name System (DNS) server.
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | /OSS/OSS-Core/Impl/IVV/DSC/CommonTasks/CommonTasks/DscResources/DnsServer
-| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserverroothint[xDnsServerRootHint]
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerRootHints
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerRootHint[DnsServerRootHint]
 |===
 
 
@@ -33,9 +33,10 @@
 | RootHints
 | Mandatory
 | Hashtable[]
-| Set of root hints. +
-  Each hashtable defines a name server. 
-  Key and value must be strings.
+| Set of root hints.
+
+- Each hashtable defines a name server. 
+- Key and value must be strings.
 |
 
 |===

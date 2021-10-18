@@ -10,22 +10,21 @@
 
 
 [[dscyml_dnsserversettings_abstract]]
-.{YmlCategory} manages the DNS sever settings/properties.
+.{YmlCategory} manages the Domain Name System (DNS) server settings and properties.
 
 
 // reference links as variables for using more than once
-:ref_xDnsServerSetting:  https://github.com/dsccommunity/xDnsServer#xdnsserversetting[xDnsServerSetting]
-:ref_xDnsServerSetting_schema:  https://github.com/dsccommunity/DnsServerDsc/tree/main/source/DSCResources/DSC_DnsServerSetting[DnsServerSetting]
+:ref_dnsServerSetting:  https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerSetting[DnsServerSetting]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | /OSS/OSS-Core/Impl/IVV/DSC/CommonTasks/CommonTasks/DscResources/DnsServer
-| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | {ref_xDnsServerSetting}
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerSettings
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | {ref_dnsServerSetting}
 |===
 
-See the specification of {ref_xDnsServerSetting_schema} to get a description of all supported attributes.
+NOTE: See the specification of {ref_dnsServerSetting} to get a more detailed description of all supported attributes.
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]

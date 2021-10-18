@@ -16,8 +16,8 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerAdZones
-| DSC Resource   | https://github.com/dsccommunity/xDnsServer[xDnsServer]
-| Documentation  | https://github.com/dsccommunity/xDnsServer#xdnsserveradzone[xDnsServerADZone]
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerADZone[DnsServerADZone]
 |===
 
 
@@ -39,8 +39,9 @@
 | DomainCredential
 |
 | PSCredential
-| Specifies the credential to use to create the AD zones on a remote computer. +
-  This parameter can only be used when you also are passing a value for the ComputerName parameter of the AD zone.
+| Specifies the credential to use to create the AD zones on a remote computer.
+
+This parameter can only be used when you also are passing a value for the ComputerName parameter of the AD zone.
 |
 
 |===
@@ -82,22 +83,25 @@
 | DirectoryPartitionName
 |
 | String
-| Name of the directory partition on which to store the zone. +
-  Use this parameter when the ReplicationScope parameter has a value of Custom.
+| Name of the directory partition on which to store the zone.
+
+Use this parameter when the ReplicationScope parameter has a value of Custom.
 |
 
 | ComputerName
 |
 | String
-| Specifies a DNS server. +
-  If you do not specify this parameter, the command runs on the local system.
+| Specifies a DNS server.
+
+If you do not specify this parameter, the command runs on the local system.
 |
 
 | Credential
 |
 | PSCredential
-| Specifies the credential to use to create the AD zone on a remote computer. +
-  This parameter can only be used when you also are passing a value for the ComputerName parameter.
+| Specifies the credential to use to create the AD zone on a remote computer.
+
+This parameter can only be used when you also are passing a value for the ComputerName parameter.
 |
 
 | Ensure

@@ -1,0 +1,70 @@
+// CommonTasks YAML Reference: DnsServerLegacySettings
+// ===================================================
+
+:YmlCategory: DnsServerLegacySettings
+
+
+[[dscyml_dnsserverlegacysettings, {YmlCategory}]]
+= DSC Resource 'DnsServerLegacySettings'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dnsserverlegacysettings_abstract]]
+.{YmlCategory} manages the Domain Name System (DNS) server settings and properties.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerLegacySettings
+| DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
+| Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerSettingLegacy[DnsServerSettingLegacy]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DnsServer
+| Key
+| String
+| Specifies the DNS server to connect to, or use `localhost` for the current node.
+| Default: `localhost`
+
+| DisjointNets
+|
+| Boolean
+| Indicates whether the default port binding for a socket used to send queries to remote DNS Servers can be overridden.
+| - True
+  - False
+
+| NoForwarderRecursion
+|
+| Boolean
+| `True` if the DNS server does not use recursion when name-resolution through forwarders fails. 	
+| - True
+  - False
+
+| LogLevel
+|
+| UInt32
+| Indicates which policies are activated in the Event Viewer system log.
+|
+
+|===
+    
+
+.Example
+[source, yaml]
+----
+DnsServerLegacySettings:
+  DnsServer:    localhost
+  DisjointNets: true
+  NoForwarderRecursion: false
+  LogLevel:    50393905
+----
