@@ -33,7 +33,6 @@
 | Description
 | Allowed Values
 
-
 | [[dscyml_chocolateypackages_software, {YmlCategory}/Software]]<<dscyml_chocolateypackages_software_details, Software>>
 |
 | Hashtable
@@ -46,16 +45,28 @@
 | List of Chocolatey sources
 |
 
-| [[dscyml_chocolateypackages_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages_packages_details, Packages>>
-| 
-| Hashtable[]
-| List of Chocolatey packages
-|
-
 | [[dscyml_chocolateypackages_features, {YmlCategory}/Features]]<<dscyml_chocolateypackages_features_details, Features>>
 | 
 | Hashtable[]
 | List of Chocolatey features
+|
+
+| ForceRebootBefore
+|
+| Boolean
+| Force reboot before installation of first Chocolatey package. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `RebootBefore_{YmlCategory}` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - *False* (default)
+  - True
+
+| [[dscyml_chocolateypackages_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages_packages_details, Packages>>
+| 
+| Hashtable[]
+| List of Chocolatey packages
 |
 
 |===

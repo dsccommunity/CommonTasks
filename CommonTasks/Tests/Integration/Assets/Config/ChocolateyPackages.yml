@@ -1,3 +1,4 @@
+ForceRebootBefore: true
 Software:
   Ensure: Present
   OfflineInstallZip: C:\LocalRepo\packages\chocolatey.0.10.15.nupkg

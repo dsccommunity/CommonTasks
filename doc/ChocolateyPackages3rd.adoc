@@ -38,6 +38,18 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 | Description
 | Allowed Values
 
+| ForceRebootBefore
+|
+| Boolean
+| Force reboot before installation of first Chocolatey package. +
+[NOTE]
+====
+Only one reboot after first start of a DSC configuration is supported. +
+To re-enable the system reboot feature the registry key value `RebootBefore_{YmlCategory}` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
+====
+| - *False* (default)
+  - True
+
 | [[dscyml_ChocolateyPackages3rd_packages, {YmlCategory}/Packages]]<<dscyml_ChocolateyPackages3rd_packages_details, Packages>>
 | 
 | Hashtable[]
