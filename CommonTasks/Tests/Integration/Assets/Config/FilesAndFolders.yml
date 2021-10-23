@@ -4,6 +4,17 @@ Items:
     Ensure: Present
     Force: true
     Type: File
+  - DestinationPath: C:\Test_FromFile.txt
+    ContentFromFile: .\CommonTasks\Tests\Integration\Assets\Config\FilesAndFolders.yml
+    Ensure: Present
+    Force: true
+    Type: File
+  - DestinationPath: C:\Test_AppendFromFile.txt
+    Contents: Test Content
+    ContentFromFile: .\CommonTasks\Tests\Integration\Assets\Config\FilesAndFolders.yml
+    Ensure: Present
+    Force: true
+    Type: File  
   - DestinationPath: C:\Test{}
     Ensure: Present
     Force: true

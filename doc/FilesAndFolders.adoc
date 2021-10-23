@@ -77,8 +77,17 @@ DestinationPath and SourcePath must both be accessible by the target Node.
 | Contents
 |
 | String
-| Only valid when used with Type File.
-  Indicates the contents to Ensure are `Present` or `Absent` from the targeted file.
+| Indicates the contents to Ensure are `Present` or `Absent` from the targeted file.
+
+Only valid when used with Type File.
+|
+
+| ContentFromFile
+|
+| String
+| Loading contents from the specified file during DSC configuration build and append the loaded content to the `Contents` attribute
+
+Only valid when used with Type File.
 |
 
 | Credential
@@ -223,6 +232,11 @@ FilesAndFolders:
   Items:
     - DestinationPath: C:\Test.txt
       Contents: Test Content
+      Ensure: Present
+      Force: true
+      Type: File
+    - DestinationPath: C:\Script_FromMOF.ps1
+      ContentFromFile: .\DscConfigData\Roles\MyScriptCode.ps1
       Ensure: Present
       Force: true
       Type: File

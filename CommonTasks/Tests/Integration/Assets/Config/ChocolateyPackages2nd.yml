@@ -1,3 +1,4 @@
+ForceRebootBefore: true
 Packages:
   - Name: notepadplusplus
     Ensure: Present
