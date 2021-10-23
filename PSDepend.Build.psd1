@@ -53,5 +53,4 @@
     FileSystemDsc                = '1.1.1'
     PackageManagement            = '1.4.7'
     PowerShellGet                = '2.2.5'
-    ConfigMgrCBDsc               = '1.0.1'
 }
