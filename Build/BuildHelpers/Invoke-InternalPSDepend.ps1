@@ -19,7 +19,7 @@ function Invoke-PSDependInternal {
 
     $content = Get-Content -Path $psDependFilePath -Raw
     $newString = "Repository = '$Reporitory'"
-    $content = $content -replace "Repository = 'PSGallery'", $newString
+    $content = $content -replace "Repository\s+=\s+'PSGallery'", $newString
 
     $path = "$projectPath\PSDependTemp.psd1"
     $content | Out-File $path -Force
