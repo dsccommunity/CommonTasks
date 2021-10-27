@@ -1,3 +1,10 @@
+$nugetExe = Get-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe
+if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11')
+{
+    Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
+    Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction Stop
+}
+
 if ($env:BHBranchName -eq "master" -and $env:NugetApiKey) {
     
     if ($env:BHBuildSystem -eq 'AppVeyor') {
