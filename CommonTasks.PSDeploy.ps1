@@ -1,11 +1,53 @@
-$nugetPath = 'C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe'
+$nugetPathAllUsers = "$([System.Environment]::GetFolderPath('CommonApplicationData'))\Microsoft\Windows\PowerShell\PowerShellGet\NuGet.exe"
+$nugetPathCurrentUser = "$([System.Environment]::GetFolderPath('LocalApplicationData'))\Microsoft\Windows\PowerShell\PowerShellGet\NuGet.exe"
 
-if (Test-Path -Path $nugetPath) {
-    $nugetExe = Get-Item -Path $nugetPath -ErrorAction SilentlyContinue
-    if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11') {
-        Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
-        Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction Stop
+$hasNuget = if (Test-Path -Path $nugetPathAllUsers) {
+
+    $nugetExe = Get-Item -Path $nugetPathAllUsers
+    Write-Host "'nuget.exe' exist in '$nugetPathAllUsers' with version '$($nugetExe.VersionInfo.FileVersionRaw)'"
+    
+    if ($nugetExe.VersionInfo.FileVersionRaw -gt '5.11') {
+        $true
     }
+}
+
+if (-not $hasNuget) {
+    if (Test-Path -Path $nugetPathCurrentUser) {
+
+        $nugetExe = Get-Item -Path $nugetPathCurrentUser
+        Write-Host "'nuget.exe' exist in '$nugetPathCurrentUser' with version '$($nugetExe.VersionInfo.FileVersionRaw)'"
+    
+        if ($nugetExe.VersionInfo.FileVersionRaw -gt '5.11') {
+            $hasNuget = $true
+        }
+    }
+}
+
+if (-not $hasNuget)
+{
+    Write-Host "'Nuget.exe' does not exist in ProgramData nor the local users profile, downloading into the users profile..."
+
+    Invoke-WebRequest -Uri 'https://aka.ms/psget-nugetexe' -OutFile $nugetPathCurrentUser -ErrorAction Stop
+    
+
+    if (Test-Path -Path $nugetPathCurrentUser) {
+        $nugetExe = Get-Item -Path $nugetPathCurrentUser -ErrorAction SilentlyContinue
+        Write-Host "'nuget.exe' exist in '$nugetPathCurrentUser' with version '$($nugetExe.VersionInfo.FileVersionRaw)'"
+
+        if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11') {
+            Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
+            Invoke-WebRequest -Uri 'https://aka.ms/psget-nugetexe' -OutFile $nugetPathCurrentUser -ErrorAction Stop
+        }
+    }
+    else
+    {
+        Write-Host "'nuget.exe' does not exist in the local profile and will be downloaded."
+        Invoke-WebRequest -Uri 'https://aka.ms/psget-nugetexe' -OutFile $nugetPathCurrentUser -ErrorAction Stop
+    }
+}
+else
+{
+    Write-Host "OK: NuGet version $($nugetExe.VersionInfo.FileVersionRaw) in directory '$($nugetExe.Directory)' works"
 }
 
 if ($env:BHBranchName -eq 'master' -and $env:NugetApiKey) {
