@@ -1,0 +1,118 @@
+// CommonTasks YAML Reference: SqlAliases
+// =============================================
+
+:YmlCategory: SqlAliases
+
+
+[[dscyml_sqlconfigurations, {YmlCategory}]]
+= DSC Resource 'SqlAliases'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlconfigurations_abstract]]
+.{YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                     https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlalias:                 https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAlias[SqlAlias]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAliases
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlalias}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_SqlAliases_Values, {YmlCategory}/Values]]<<dscyml_SqlAliases_Values_Details, Values>>
+| Mandatory
+| Hashtable[]
+| List of SQL aliases.
+|
+
+|===
+
+[[dscyml_SqlAliases_Values_Details]]
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of Alias (e.g. `'svr01\inst01'`).
+|
+
+| Protocol
+|
+| String
+| Protocol to use when connecting. Valid values are `'TCP'` (TCP/IP) or `'NP'` (Named Pipes). Default value is `'TCP'`.
+| `'TCP'`, `'NP'`
+
+| ServerName
+|
+| String
+| The _SQL Server_ you are aliasing. This should be set to the NetBIOS name or fully qualified domain name (FQDN).
+|
+
+| TcpPort
+|
+| UInt16
+| The TCP port the _SQL Server_ instance is listening on. Only used when Protocol is set to `'TCP'`. Default value is port `1433`.
+|
+
+| UseDynamicTcpPort
+|
+| Bool
+| Specifies that the Net-Library will determine the port dynamically. The port number specified in *Port* will be ignored. Default value is `$false`.
+|
+
+| Enure
+|
+| String
+| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| `Present`, `Absent`
+
+| PipeName
+|
+| String
+| Returns the Named Pipes path if Protocol is set to `'NP'`.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlConfiguration:
+  Values:
+    - ServerName        : SQL001.contoso.com
+      Name              : SQLSERVER
+      Protocol          : TCP
+      UseDynamicTcpPort : true
+      TcpPort           : false
+----

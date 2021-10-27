@@ -1,0 +1,13 @@
+Values:
+  - Principal: NT SERVICE\ClusSvc
+    InstanceName: MSSQLSERVER
+    Permission:
+      - AlterAnyAvailabilityGroup
+      - ViewServerState
+  - Principal: contoso\dbadmin
+    InstanceName: MSSQLSERVER
+    Permission:
+      - AlterAnyAvailabilityGroup
+      - ViewServerState
+      - AlterAnyEndPoint
+      - ConnectSql

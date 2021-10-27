@@ -1,0 +1,125 @@
+// CommonTasks YAML Reference: SqlDatabases
+// =============================================
+
+:YmlCategory: SqlDatabases
+
+
+[[dscyml_sqldatabases, {YmlCategory}]]
+= DSC Resource 'SqlDatabases'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqldatabases_abstract]]
+.The {YmlCategory} DSC resource is used to create or delete a database. For more information about SQL Server databases, please read the following articles Create a Database and Delete a Database.
+
+This resource sets the recovery model for a database. The recovery model controls how transactions are logged, whether the transaction log requires (and allows) backing up, and what kinds of restore operations are available. Three recovery models exist: full, simple, and bulk-logged. Read more about recovery model in the article View or Change the Recovery Model of a Database.
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqldatabase:               https://github.com/dsccommunity/SqlServerDsc/wiki/SqlDatabase[SqlDatabase]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlDatabases
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqldatabase}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- Valid values per SQL Server version for the parameter `CompatibilityLevel` can be found in the article ALTER DATABASE (Transact-SQL) Compatibility Level.
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_SqlDatabases_Values, {YmlCategory}/Values]]<<dscyml_SqlDatabases_Values_Details, Values>>
+| Mandatory
+| Hashtable[]
+| List of SQL databases.
+|
+
+|===
+
+[[dscyml_SqlDatabases_Values_Details]]
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the SQL Server database.
+|
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| Enure
+|
+| String
+| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| `Present`, `Absent`
+
+| ServerName
+|
+| String
+| The host name of the SQL Server to be configured. Default value is the current computer name.
+|
+
+| Collation
+|
+| String
+| The name of the collation to use for the new database. Default value is the collation used by the server.
+|
+
+| CompatibilityLevel
+| 
+| String
+| Specifies the version of the SQL Database Compatibility Level to use for the specified database.
+| `Version80, Version90, Version100, Version110, Version120, Version130, Version140, Version150`
+
+| RecoveryModel
+| 
+| String
+| The recovery model for the specified database.
+| `Simple, Full, BulkLogged`
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlDatabases:
+  Values:
+    - EndpointName: HADR
+      EndpointType: DatabaseMirroring
+      Port: 5022
+      ServerName: SQL1
+      InstanceName: MSSQLSERVER
+    - EndpointName: HADR
+      EndpointType: DatabaseMirroring
+      Port: 5023
+      ServerName: SQL2
+      InstanceName: MSSQLSERVER
+----

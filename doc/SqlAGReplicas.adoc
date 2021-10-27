@@ -1,0 +1,196 @@
+// CommonTasks YAML Reference: SqlAGReplicas
+// =============================================
+
+:YmlCategory: SqlAGReplicas
+
+
+[[dscyml_sqlagreplicas, {YmlCategory}]]
+= DSC Resource 'SqlAGReplicas'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlagreplicas_abstract]]
+.The {YmlCategory} DSC resource is used to create, remove, and update an Always On Availability Group Replica.
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlagreplica:        https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAGReplica[SqlAGReplica]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAGReplicas
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlagreplica}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- 'NT SERVICE\ClusSvc' or 'NT AUTHORITY\SYSTEM' must have the 'Connect SQL', 'Alter Any Availability Group', and 'View Server State' permissions.
+- There are circumstances where the PowerShell module SQLPS that is install together with SQL Server does not work with all features of this resource. The solution is to install the PowerShell module SqlServer from the PowerShell Gallery. The module must be installed in a machine-wide path of env:PSModulePath so it is found when LCM runs the DSC resource. This will also make all SqlServerDsc DSC resources use the PowerShell module SqlServer instead of the PowerShell module SQLPS.
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_SqlAGReplicas_Values, {YmlCategory}/Values]]<<dscyml_SqlAGReplicas_Values_Details, Values>>
+| Mandatory
+| Hashtable[]
+| List of SQL availability groups replicas.
+|
+
+|===
+
+[[dscyml_SqlAGReplicas_Values_Details]]
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the availability group replica. For named instances this must be in the following format `'ServerName\InstanceName'`.
+|
+
+| AvailabilityGroupName
+| Key
+| String
+| The name of the availability group.
+|
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| ServerName
+| Required
+| String
+| The host name of the SQL Server to be configured. Default value is the current computer name.
+|
+
+| PrimaryReplicaServerName
+| 
+| String
+| Hostname of the SQL Server where the primary replica is expected to be active. If the primary replica is not found here, the resource will attempt to find the host that holds the primary replica and connect to it.
+|
+
+| PrimaryReplicaInstanceName
+| Required
+| String
+| Name of the SQL Server Database Engine instance where the primary replica lives.
+|
+
+| Enure
+|
+| String
+| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| `Present`, `Absent`
+
+| AvailabilityMode
+| 
+| String
+| Specifies the replica availability mode. When creating a group the default is `'AsynchronousCommit'`.
+| `AsynchronousCommit, SynchronousCommit`
+
+| BackupPriority
+| 
+| UInt32
+| Specifies the desired priority of the replicas in performing backups. The acceptable values for this parameter are: integers from 0 through 100. Of the set of replicas which are online and available, the replica that has the highest priority performs the backup. When creating a group the default is `50`.
+|
+
+| ConnectionModeInPrimaryRole
+| 
+| String
+| Specifies how the availability replica handles connections when in the primary role.
+| `AllowAllConnections, AllowReadWriteConnections`
+
+| ConnectionModeInSecondaryRole
+| 
+| String
+| Specifies how the availability replica handles connections when in the secondary role.
+| `AllowNoConnections, AllowReadIntentConnectionsOnly, AllowAllConnections`
+
+| EndpointHostName
+| 
+| String
+| Specifies the hostname or IP address of the availability group replica endpoint. When creating a group the default is the instance network name.
+|
+
+| FailoverMode
+| 
+| String
+| Specifies the failover mode. When creating a group the default is `'Manual'`.
+| `Automatic, Manual`
+
+| ReadOnlyRoutingConnectionUrl
+| 
+| String
+| Specifies the fully qualified domain name (FQDN) and port to use when routing to the replica for read only connections.
+| 
+
+| ReadOnlyRoutingList
+| 
+| String[]
+| Specifies an ordered list of replica server names that represent the probe sequence for connection director to use when redirecting read-only connections through this availability replica. This parameter applies if the availability replica is the current primary replica of the availability group.
+| 
+
+| ProcessOnlyOnActiveNode
+| 
+| Bool
+| Specifies that the resource will only determine if a change is needed if the target node is the active host of the SQL Server instance.
+|
+
+| EndpointUrl
+| 
+| String
+| Returns the URL of the availability group replica endpoint.
+|
+
+| EndpointPort
+| 
+| UInt32
+| Returns the port the database mirroring endpoint is listening on.
+|
+
+| IsActiveNode
+| 
+| Bool
+| Returns if the current node is actively hosting the SQL Server instance.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlAGReplicas:
+  Values:
+  - Name: SQL1
+    AvailabilityGroupName: AGTest
+    ServerName: SQL1
+    InstanceName: MSSQLSERVER
+    PrimaryReplicaServerName: SQL1
+    PrimaryReplicaInstanceName: MSSQLSERVER
+    ProcessOnlyOnActiveNode: true
+    AvailabilityMode: SynchronousCommit
+    FailoverMode: Automatic
+
+----

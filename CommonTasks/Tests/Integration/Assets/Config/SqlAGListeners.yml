@@ -1,0 +1,13 @@
+Values:
+  - Name: AGTestListener1
+    InstanceName: INSTANCE1
+    AvailabilityGroup: AGTest1
+    ServerName: SQL1
+    IpAddress: 192.168.10.240
+    Port: 1433
+  - Name: AGTestListener2
+    InstanceName: INSTANCE2
+    AvailabilityGroup: AGTest2
+    ServerName: SQL1
+    IpAddress: 192.168.10.241
+    Port: 4000

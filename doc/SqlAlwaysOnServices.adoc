@@ -1,0 +1,91 @@
+// CommonTasks YAML Reference: SqlAlwaysOnServices
+// =============================================
+
+:YmlCategory: SqlAlwaysOnServices
+
+
+[[dscyml_sqlalwaysonservices, {YmlCategory}]]
+= DSC Resource 'SqlAlwaysOnServices'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_sqlalwaysonservices_abstract]]
+.The {YmlCategory} DSC resource enables or disables SQL Server Always On high availability and disaster recovery (Always On HADR) for a SQL Server instance.
+
+// reference links as variables for using more than once
+:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlalwaysonservice:      https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAlwaysOnService[SqlAlwaysOnService]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAlwaysOnServices
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | {ref_sqlserverdsc_wiki},
+                   {ref_sqlserverdsc_sqlalwaysonservice}
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- Target machine must be a member of a Windows Server Failover Cluster.
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| Enure
+| Required
+| String
+| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| `Present`, `Absent`
+
+| ServerName
+|
+| String
+| The host name of the SQL Server to be configured. Default value is the current computer name.
+|
+
+| RestartTimeout
+|
+| UInt32
+| The length of time, in seconds, to wait for the service to restart. Default value is `120` seconds.
+|
+
+| CompatibilityLevel
+| 
+| String
+| Specifies the version of the SQL Database Compatibility Level to use for the specified database.
+| `Version80, Version90, Version100, Version110, Version120, Version130, Version140, Version150`
+
+| IsHadrEnabled
+| 
+| Bool
+| Returns the status of AlwaysOn High Availability and Disaster Recovery (HADR).
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlAlwaysOnServices:
+  ServerName: SQL1
+  SqlInstanceName: MSSQLSERVER
+  RestartTimeout: 120
+----
