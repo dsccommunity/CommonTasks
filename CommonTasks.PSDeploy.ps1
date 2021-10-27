@@ -1,11 +1,14 @@
-$nugetExe = Get-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction SilentlyContinue
-if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11')
-{
-    Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
-    Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction Stop
+$nugetPath = 'C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe'
+
+if (Test-Path -Path $nugetPath) {
+    $nugetExe = Get-Item -Path $nugetPath -ErrorAction SilentlyContinue
+    if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11') {
+        Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
+        Invoke-WebRequest -Uri 'https://dist.nuget.org/win-x86-commandline/latest/nuget.exe' -OutFile C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction Stop
+    }
 }
 
-if ($env:BHBranchName -eq "master" -and $env:NugetApiKey) {
+if ($env:BHBranchName -eq 'master' -and $env:NugetApiKey) {
     
     if ($env:BHBuildSystem -eq 'AppVeyor') {
         Deploy Module {
@@ -39,7 +42,7 @@ else {
     "`t* You are committing to the master branch (Current: $env:BHBranchName) `n" +
     "`t* The NugetApiKey is known (value as bool is '$([bool]$env:NugetApiKey)') `n" +
     "`t* Module path is valid (Current: )" |
-    Write-Host
+        Write-Host
 }
 
 # Publish to AppVeyor if we're in AppVeyor also for dev branch
