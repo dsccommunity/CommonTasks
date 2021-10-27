@@ -1,4 +1,4 @@
-$nugetExe = Get-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe
+$nugetExe = Get-Item C:\ProgramData\Microsoft\Windows\PowerShell\PowerShellGet\nuget.exe -ErrorAction SilentlyContinue
 if ($nugetExe.VersionInfo.FileVersionRaw -lt '5.11')
 {
     Write-Host "'nuget.exe' has the version '$($nugetExe.VersionInfo.FileVersionRaw)' and needs to be updated."
