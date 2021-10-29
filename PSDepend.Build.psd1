@@ -5,21 +5,22 @@
         Target         = 'BuildOutput\Modules'
         DependencyType = 'PSGalleryModule'
         Parameters     = @{
-            Repository = 'PSGallery'
+            Repository      = 'PSGallery'
+            AllowPreRelease = $true
         }
     }
 
     #Modules
-    BuildHelpers                 = 'latest'
-    InvokeBuild                  = 'latest'
+    BuildHelpers                 = '2.0.16'
+    InvokeBuild                  = '5.8.4'
     Pester                       = '4.10.1'
-    PSScriptAnalyzer             = 'latest'
-    PSDeploy                     = 'latest'
-    ProtectedData                = 'latest'
-    DscBuildHelpers              = 'latest'
+    PSScriptAnalyzer             = '1.20.0'
+    PSDeploy                     = '1.0.5'
+    ProtectedData                = '4.1.3'
+    DscBuildHelpers              = '0.0.42'
     Datum                        = '0.39.0'
-    'powershell-yaml'            = 'latest'
-    'Datum.ProtectedData'        = 'latest'
+    'powershell-yaml'            = '0.4.2'
+    'Datum.ProtectedData'        = '0.0.1'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
@@ -53,4 +54,5 @@
     FileSystemDsc                = '1.1.1'
     PackageManagement            = '1.4.7'
     PowerShellGet                = '2.2.5'
+    ConfigMgrCBDsc               = '2.1.0-preview0006' # Gallery version has extremely old SQL dependencies
 }
