@@ -7,10 +7,14 @@ configuration ChocolateyPackages {
         [hashtable[]]$Sources,
 
         [Parameter()]
-        [hashtable[]]$Packages,
+        [hashtable[]]$Features,
 
         [Parameter()]
-        [hashtable[]]$Features
+        [boolean]
+        $ForceRebootBefore = $false,
+        
+        [Parameter()]
+        [hashtable[]]$Packages
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -195,6 +199,46 @@ configuration ChocolateyPackages {
         }
     }
 
+    if( $Features -ne $null ) {
+        foreach ($f in $Features) {
+            # Remove Case Sensitivity of ordered Dictionary or Hashtables
+            $f = @{}+$f
+
+            $executionName = $f.Name -replace '\(|\)|\.| ', ''
+            $executionName = "ChocolateyFeature_$executionName"
+            if (-not $f.ContainsKey('Ensure')) {
+                $f.Ensure = 'Present'
+            }
+            (Get-DscSplattedResource -ResourceName ChocolateyFeature -ExecutionName $executionName -Properties $f -NoInvoke).Invoke($f)
+        }
+    }
+
+    if ($ForceRebootBefore -eq $true)
+    {
+        $rebootKeyName = 'HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests'
+        $rebootVarName = 'RebootBefore_ChocolateyPackages'
+
+        Script $rebootVarName
+        {
+            TestScript = {
+                $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
+
+                if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                    return $true
+                }   
+                return $false
+            }
+            SetScript = {
+                if( -not (Test-Path -Path $using:rebootKeyName) ) {
+                    New-Item -Path $using:rebootKeyName -Force
+                }
+                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                $global:DSCMachineStatus = 1             
+            }
+            GetScript = { return @{result = 'result'}}
+        }        
+    }
+
     if( $Packages -ne $null )
     {
         $clonedPackageList = [System.Collections.ArrayList]@()
@@ -272,20 +316,6 @@ configuration ChocolateyPackages {
                     DependsOn = "[ChocolateyPackage]$executionName"
                 }
             }
-        }
-    }
-
-    if( $Features -ne $null ) {
-        foreach ($f in $Features) {
-            # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $f = @{}+$f
-
-            $executionName = $f.Name -replace '\(|\)|\.| ', ''
-            $executionName = "ChocolateyFeature_$executionName"
-            if (-not $f.ContainsKey('Ensure')) {
-                $f.Ensure = 'Present'
-            }
-            (Get-DscSplattedResource -ResourceName ChocolateyFeature -ExecutionName $executionName -Properties $f -NoInvoke).Invoke($f)
         }
     }
 }
