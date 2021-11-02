@@ -38,7 +38,7 @@ stages:
             inputs:
               filePath: './build.ps1'
               arguments: '-ResolveDependency -tasks pack'
-              pwsh: true
+              pwsh: false
             env:
               ModuleVersion: $(gitVersion.NuGetVersionV2)
 
