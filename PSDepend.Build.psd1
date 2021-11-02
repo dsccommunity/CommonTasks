@@ -55,4 +55,5 @@
     PackageManagement            = '1.4.7'
     PowerShellGet                = '2.2.5'
     ConfigMgrCBDsc               = '2.1.0-preview0006' # Gallery version has extremely old SQL dependencies
+
 }
