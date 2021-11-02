@@ -74,14 +74,13 @@ body:
   - type: textarea
     id: moduleVersion
     attributes:
-      label: CommonTasks2 version
+      label: CommonTasks version
       description: |
-        Please provide the version of the CommonTasks2 module that was used. _Will be automatically formatted as plain text._
+        Please provide the version of the CommonTasks module that was used. _Will be automatically formatted as plain text._
 
-        To help with this information, please run this command: `Get-Module -Name 'CommonTasks2' -ListAvailable | ft Name,Version,Path`
+        To help with this information, please run this command: `Get-Module -Name 'CommonTasks' -ListAvailable | ft Name,Version,Path`
       placeholder: |
         Add module information here
       render: text
     validations:
       required: true
-

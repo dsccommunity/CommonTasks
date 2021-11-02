@@ -63,7 +63,7 @@ body:
     attributes:
       label: Operating system the target node is running
       description: |
-        Please provide as much as possible about the node running CommonTasks2. _Will be automatically formatted as plain text._
+        Please provide as much as possible about the node running CommonTasks. _Will be automatically formatted as plain text._
 
         To help with this information:
         - On a Linux distribution, please provide the distribution name, version, and release. The following command can help get this information: `cat /etc/*-release && cat /proc/version`
@@ -91,12 +91,11 @@ body:
     attributes:
       label: Module version used
       description: |
-        Please provide the version of the CommonTasks2 module that was used. _Will be automatically formatted as plain text._
+        Please provide the version of the CommonTasks module that was used. _Will be automatically formatted as plain text._
 
-        To help with this information, please run this command: `Get-Module -Name 'CommonTasks2' -ListAvailable | ft Name,Version,Path`
+        To help with this information, please run this command: `Get-Module -Name 'CommonTasks' -ListAvailable | ft Name,Version,Path`
       placeholder: |
         Add module information here
       render: text
     validations:
       required: true
-
