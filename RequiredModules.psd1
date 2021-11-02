@@ -3,7 +3,8 @@
         AddToPath  = $true
         Target     = 'output\RequiredModules'
         Parameters = @{
-            Repository = 'PSGallery'
+            Repository      = 'PSGallery'
+            AllowPreRelease = $true
         }
     }
 
