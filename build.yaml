@@ -88,7 +88,7 @@ Pester:
   #  - FunctionalQuality
   #  - TestQuality
   Tag:
-  CodeCoverageThreshold: 85 # Set to 0 to bypass
+  CodeCoverageThreshold: 75 # Set to 0 to bypass
   #CodeCoverageOutputFile: JaCoCo_.xml
   #CodeCoverageOutputFileEncoding: ascii
   # Use this if code coverage should be merged from several pipeline test jobs.
