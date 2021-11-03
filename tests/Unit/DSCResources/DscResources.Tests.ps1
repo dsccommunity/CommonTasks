@@ -1,5 +1,6 @@
 $dscResources = Get-DscResource -Module CommonTasks
 $here = $PSScriptRoot
+
 $skippedDscResources = 'ConfigurationManagerDeployment', 'PowerShellRepositories'
 
 Import-Module -Name datum
