@@ -5,13 +5,13 @@ Items:
     Force: true
     Type: File
   - DestinationPath: C:\Test_FromFile.txt
-    ContentFromFile: .\CommonTasks\Tests\Unit\Assets\Config\FilesAndFolders.yml
+    ContentFromFile: .\tests\Unit\DSCResources\Assets\Config\FilesAndFolders.yml
     Ensure: Present
     Force: true
     Type: File
   - DestinationPath: C:\Test_AppendFromFile.txt
     Contents: Test Content
-    ContentFromFile: .\CommonTasks\Tests\Unit\Assets\Config\FilesAndFolders.yml
+    ContentFromFile: .\tests\Unit\DSCResources\Assets\Config\FilesAndFolders.yml
     Ensure: Present
     Force: true
     Type: File
