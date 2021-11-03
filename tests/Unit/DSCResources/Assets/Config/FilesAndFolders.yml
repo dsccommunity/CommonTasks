@@ -1,0 +1,47 @@
+Items:
+  - DestinationPath: C:\Test.txt
+    Contents: Test Content
+    Ensure: Present
+    Force: true
+    Type: File
+  - DestinationPath: C:\Test_FromFile.txt
+    ContentFromFile: .\CommonTasks\Tests\Unit\Assets\Config\FilesAndFolders.yml
+    Ensure: Present
+    Force: true
+    Type: File
+  - DestinationPath: C:\Test_AppendFromFile.txt
+    Contents: Test Content
+    ContentFromFile: .\CommonTasks\Tests\Unit\Assets\Config\FilesAndFolders.yml
+    Ensure: Present
+    Force: true
+    Type: File
+  - DestinationPath: C:\Test{}
+    Ensure: Present
+    Force: true
+    Recurse: true
+    SourcePath: C:\Source
+    Type: Directory
+  - DestinationPath: C:\TestShare
+    Ensure: Present
+    Force: true
+    Type: Directory
+    Permissions:
+      - Identity: Administrators
+        Rights:   FullControl
+      - Identity: Users
+        Rights:
+          - Read
+          - Write
+          - ExecuteFile
+  - DestinationPath: C:\Program Files(x86)\TestShare
+    Ensure: Present
+    Force: true
+    Type: Directory
+    Permissions:
+      - Identity: Administrators
+        Rights:   FullControl
+      - Identity: Users
+        Rights:
+          - Read
+          - Write
+          - ExecuteFile
