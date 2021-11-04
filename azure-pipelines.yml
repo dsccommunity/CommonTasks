@@ -155,7 +155,7 @@ stages:
       - job: Deploy_Module
         displayName: 'Deploy Module'
         pool:
-          vmImage: 'ubuntu 18.04'
+          vmImage: 'windows-2019'
         steps:
           - task: DownloadPipelineArtifact@2
             displayName: 'Download Build Artifact'
