@@ -119,8 +119,8 @@ DscTest:
 ModuleBuildTasks:
   Sampler:
     - '*.build.Sampler.ib.tasks'
-
-
+  Sampler.GitHubTasks:
+    - '*.ib.tasks'
 
 # Invoke-Build Header to be used to 'decorate' the terminal output of the tasks.
 TaskHeader: |
