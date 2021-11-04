@@ -12,3 +12,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Added 'Sampler.GitHubTasks'
     - Moved DSCResources for faster build
     - Removed dependencies for faster build
+- Fixed badges
