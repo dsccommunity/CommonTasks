@@ -133,3 +133,10 @@ TaskHeader: |
   Write-Build DarkGray "  $Path"
   Write-Build DarkGray "  $($Task.InvocationInfo.ScriptName):$($Task.InvocationInfo.ScriptLineNumber)"
   ""
+
+GitHubConfig:
+  GitHubFilesToAdd:
+    - 'CHANGELOG.md'
+  GitHubConfigUserName: dscbot
+  GitHubConfigUserEmail: dsccommunity@outlook.com
+  UpdateChangelogOnPrerelease: false
