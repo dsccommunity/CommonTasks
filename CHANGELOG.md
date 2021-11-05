@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Changed the build pipeline to Sampler.
   - Debugging Sampler migration:
-    - Added 'Sampler.GitHubTasks'
-    - Moved DSCResources for faster build
-    - Removed dependencies for faster build
-- Fixed badges
+    - Added 'Sampler.GitHubTasks'.
+    - Moved DSCResources for faster build.
+    - Removed dependencies for faster build.
+- Fixed badges.
+- Added back configurations and dependencies.
