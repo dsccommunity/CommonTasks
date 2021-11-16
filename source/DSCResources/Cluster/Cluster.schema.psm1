@@ -59,7 +59,7 @@ configuration Cluster
             Name                          = $Name
             DomainAdministratorCredential = $DomainAdministratorCredential
             DependsOn                     = '[xWaitForCluster]WaitForCluster'
-        } 
+        }
     }
     else {
         xCluster NewCluster {
@@ -77,10 +77,18 @@ configuration Cluster
     }
 
     if (-not $Join) {
-        xClusterQuorum ClusterQuorum {
-            IsSingleInstance = 'Yes'
-            Type             = $QuorumType
-            Resource         = $QuorumResource
+        if ($QuorumType -eq 'NodeMajority') {
+            xClusterQuorum ClusterQuorum {
+                IsSingleInstance = 'Yes'
+                Type             = $QuorumType
+            }
+        }
+        else {
+            xClusterQuorum ClusterQuorum {
+                IsSingleInstance = 'Yes'
+                Type             = $QuorumType
+                Resource         = $QuorumResource
+            }
         }
     }
 
