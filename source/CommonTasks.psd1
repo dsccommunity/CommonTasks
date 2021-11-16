@@ -30,7 +30,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) 2021 Me. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'desc'
+Description = 'DSC composite resource for https://github.com/dsccommunity/DscWorkshop'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''
