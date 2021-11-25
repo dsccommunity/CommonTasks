@@ -7,4 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Changes the build pipeline to Sampler.
+- Changed the build pipeline to Sampler.
+  - Debugging Sampler migration:
+    - Added 'Sampler.GitHubTasks'.
+    - Moved DSCResources for faster build.
+    - Removed dependencies for faster build.
+- Fixed badges.
+- Added back configurations and dependencies.
+- Fixing issue with Cluster when only NodeMajority is used
