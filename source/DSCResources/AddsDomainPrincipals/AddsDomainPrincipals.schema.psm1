@@ -153,9 +153,9 @@ configuration AddsDomainPrincipals
                         TestScript = 
                         {
                             Write-Verbose "Get managed service accounts hosted by AD computer '$using:computer'..."
-                            $svcAccounts = Get-ADComputerServiceAccount -Identity $using:computer -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $svcAccount.ServiceAccountName }
+                            $result = Get-ADComputerServiceAccount -Identity $using:computer -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $using:svcAccountName }
 
-                            if( $null -ne $svcAccounts -and $svcAccounts.Count -ne 1 )
+                            if( $null -ne $result -and $result.Name -eq $using:svcAccountName )
                             {
                                 Write-Verbose "OK - managed service account '$using:svcAccountName' is assigned to AD computer '$using:computer'."
                                 return $true;
