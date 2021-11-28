@@ -1,0 +1,168 @@
+// CommonTasks YAML Reference: LocalUsers
+// ======================================
+
+:YmlCategory: LocalUsers
+
+
+[[dscyml_localusers, {YmlCategory}]]
+= DSC Resource 'LocalUsers'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_localusers_abstract]]
+.{YmlCategory} manages local users.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/LocalUsers
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration/tree/main/source/DSCResources/DSC_xUserResource[xUser]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_localusers_users, {YmlCategory}/Users]]<<dscyml_localusers_users_details, Users>>
+| 
+| Hashtable[]
+| List of users to create.
+|
+
+|===
+
+
+[[dscyml_localusers_users_details]]
+.Selected Attributes of category '<<dscyml_localusers_users>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| UserName
+| Key
+| String
+| Indicates the account name for which you want to ensure a specific state.
+|
+
+| Password
+| 
+| PSCredential
+| Specifies a new password value for the account.
+|
+
+| Ensure
+| 
+| String
+| Specifies whether the user account should be present or absent.
+| - *Present* (default)
+  - Absent
+
+| Disabled
+| 
+| Bool
+| Indicates if the account is enabled.
+
+Set this property to $true to ensure that this account is disabled, and set it to $false to ensure that it is enabled.
+| - True
+  - False
+
+| FullName
+| 
+| String
+| Specifies the full name assigned to the user account.
+|
+
+| Description
+| 
+| String
+| Indicates the description you want to use for the user account
+|
+
+| PasswordChangeNotAllowed
+| 
+| Bool
+| Indicates if the user can change the password.
+
+Set this property to $true to ensure that the user cannot change the password.
+| -True
+  - *False* (default)
+
+| PasswordChangeRequired
+| 
+| Bool
+| Indicates if the user must change the password at the next sign in.
+
+Set this property to $true if the user must change the password.
+| - *True* (default)
+  - False
+
+| PasswordNeverExpires
+| 
+| Bool
+| Indicates if the password will expire.
+
+To ensure that the password for this account will never expire, set this property to $true.
+| -True
+  - *False* (default)
+
+| MemberOf
+| 
+| String[]
+| List of Local Groups of the user.
+
+NOTE: Only Local groups are supported.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+LocalUsers:     
+  Users:
+    - UserName: TestUser1
+      Description: Standard Local User
+      FullName: Test User 1
+      Password: '[ENC=PE9ianM...=]'
+      PasswordChangeNotAllowed: false
+      PasswordChangeRequired: true
+      PasswordNeverExpires: true
+      Ensure: Present
+      MemberOf:
+        - BuiltIn\Users
+    - UserName: TestUser2
+      Description: Standard Local User with specific rights
+      Password: '[ENC=PE9ianM...=]'
+      Ensure: Present
+      MemberOf:
+        - Administrators
+        - Users
+
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  LocalUsers:
+    merge_hash: deep
+  LocalUsers\Users:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - UserName
+----
