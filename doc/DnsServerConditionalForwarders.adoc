@@ -17,7 +17,7 @@ You can manage the master servers, forwarder time-out, recursion, recursion scop
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerConditionalForwarders
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerConditionalForwarders
 | DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
 | Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerConditionalForwarder[DnsServerConditionalForwarder]
 

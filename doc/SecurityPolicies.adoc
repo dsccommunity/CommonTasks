@@ -23,7 +23,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SecurityPolicies
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SecurityPolicies
 | DSC Resource   | {ref_SecurityPolicyDsc}
 | Documentation  | {ref_SecurityPolicyDsc_AccountPolicy},
                    {ref_SecurityPolicyDsc_SecurityOption},

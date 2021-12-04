@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/PowerPlans
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/PowerPlans
 | DSC Resource   | https://github.com/mkht/DSCR_PowerPlan[DSCR_PowerPlan]
 | Documentation  | https://github.com/mkht/DSCR_PowerPlan#cpowerplan[cPowerPlan],
                    https://github.com/mkht/DSCR_PowerPlan#cpowerplansettings[cPowerPlanSetting]

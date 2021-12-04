@@ -7,18 +7,39 @@ configuration DscTagging {
         [string]$Environment,
 
         [Parameter()]
+        [string]$NodeVersion,
+
+        [Parameter()]
+        [string]$NodeRole,
+
+        [Parameter()]
+        [boolean]$DisableGitCommitId = $false,
+
+        [Parameter()]
         [string[]]$Layers
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
-    $gitCommitId = git log -n 1 *>&1
-    $gitCommitId = if ($gitCommitId -like '*fatal*') {
-        'NoGitRepo'
-    }
-    else {
-        $gitCommitId[0].Substring(7)
+    if( $DisableGitCommitId -ne $false )
+    {
+        $gitCommitId = git log -n 1 *>&1
+        $gitCommitId = if ($gitCommitId -like '*fatal*') {
+            'NoGitRepo'
+        }
+        else {
+            $gitCommitId[0].Substring(7)
+        }
+
+        xRegistry DscGitCommitId {
+            Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+            ValueName = 'GitCommitId'
+            ValueData = $gitCommitId
+            ValueType = 'String'
+            Ensure    = 'Present'
+            Force     = $true
+        }
     }
 
     xRegistry DscVersion {
@@ -34,15 +55,6 @@ configuration DscTagging {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'Environment'
         ValueData = $Environment
-        ValueType = 'String'
-        Ensure    = 'Present'
-        Force     = $true
-    }
-
-    xRegistry DscGitCommitId {
-        Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
-        ValueName = 'GitCommitId'
-        ValueData = $gitCommitId
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
@@ -64,6 +76,30 @@ configuration DscTagging {
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
+    }
+
+    if( -not [string]::IsNullOrWhiteSpace($NodeVersion) )
+    {
+        xRegistry DscNodeVersion {
+            Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+            ValueName = 'NodeVersion'
+            ValueData = $NodeVersion
+            ValueType = 'String'
+            Ensure    = 'Present'
+            Force     = $true
+        }
+    }
+
+    if( -not [string]::IsNullOrWhiteSpace($NodeRole) )
+    {
+        xRegistry DscNodeRole {
+            Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
+            ValueName = 'NodeRole'
+            ValueData = $NodeRole
+            ValueType = 'String'
+            Ensure    = 'Present'
+            Force     = $true
+        }
     }
 
     if ($null -ne $Layers -and $Layers.Count -gt 0) {

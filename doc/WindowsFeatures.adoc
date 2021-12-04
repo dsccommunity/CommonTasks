@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsFeatures
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsFeatures
 | DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
 | Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsfeatureresource?view=powershell-5.1[WindowsFeature]
 |===

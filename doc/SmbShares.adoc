@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SmbShares
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SmbShares
 | DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
 | Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbServerConfiguration[SmbServerConfiguration],
                    https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbShare[SmbShare],

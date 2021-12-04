@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerQueryResolutionPolicies
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerQueryResolutionPolicies
 | DSC Resource   | N/A
 | Documentation  | - https://docs.microsoft.com/en-us/powershell/module/dnsserver/add-dnsserverqueryresolutionpolicy?view=win10-ps[Add-DnsServerQueryResolutionPolicy]
                    - https://docs.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverqueryresolutionpolicy?view=win10-ps[Get-DnsServerQueryResolutionPolicy]

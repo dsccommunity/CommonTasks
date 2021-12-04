@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WindowsEventForwarding
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsEventForwarding
 | DSC Resource   | {ref_xWindowsEventForwarding}
 | Documentation  | https://github.com/dsccommunity/xWindowsEventForwarding#details[xWEFCollector, xWEFSubscription]
 |===

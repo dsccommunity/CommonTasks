@@ -18,7 +18,7 @@ Aging settings determine when a record can be removed, or scavenged, as a stale 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerZonesAging
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerZonesAging
 | DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
 | Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerZoneAging[DnsServerZoneAging]
 |===

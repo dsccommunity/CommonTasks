@@ -19,7 +19,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerSettings
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerSettings
 | DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
 | Documentation  | {ref_dnsServerSetting}
 |===

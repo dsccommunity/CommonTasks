@@ -19,7 +19,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Wds
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Wds
 | DSC Resource   | {ref_WDSDsc}, https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
 | Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize],
                    https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage],

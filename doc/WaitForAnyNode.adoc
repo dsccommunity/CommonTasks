@@ -17,7 +17,7 @@ This resource succeeds if the resource specified by the ResourceName property is
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WaitForAnyNode
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WaitForAnyNode
 | DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
 | Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforanyresource?view=powershell-5.1[WaitForAny]
 |===

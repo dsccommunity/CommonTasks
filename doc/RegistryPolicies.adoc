@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/RegistryPolicies
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RegistryPolicies
 | DSC Resource   | https://github.com/dsccommunity/GPRegistryPolicyDsc[GPRegistryPolicyDsc]
 | Documentation  | https://github.com/dsccommunity/GPRegistryPolicyDsc#RegistryPolicyFile[RegistryPolicyFile],
                    https://github.com/dsccommunity/GPRegistryPolicyDsc#RefreshRegistryPolicy[RefreshRegistryPolicy]

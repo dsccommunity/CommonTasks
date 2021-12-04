@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/HostsFileEntries
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/HostsFileEntries
 | DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
 | Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/HostsFile[HostsFile]
 |===

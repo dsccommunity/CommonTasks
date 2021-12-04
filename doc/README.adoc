@@ -21,7 +21,7 @@ ifdef::env-github[]
 [NOTE]
 ====
 GitHub supports only a subset of the https://asciidoc.org/[AsciiDoc] language.
-To create your own documentation use https://asciidoctor.org/[Asciidoctor] or the https://asciidocfx.com/[Asciidoc Book Editor].
+To create your own documentation use https://asciidoctor.org/[Asciidoctor] or the https://asciidocfx.com/[Asciidoc Book Editor]. 
 ====
 endif::[]
 
@@ -34,7 +34,7 @@ YAML reference of DSC resources of https://github.com/dsccommunity/CommonTasks[C
 . Exercise 4: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/Exercise4.md[Add another layer to your hierarchy]
 . Exercise 5: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/StretchGoal.md[Create and use a custom Configuration (DSC Composite Resource)]
 
-.Store encrypted strings in the YAML files
+.Store encrypted strings in the YAML files 
 
 - Instructions: https://www.janhendrikpeters.de/2020/01/17/dsc-configuration-data-encryption-done-right/[DSC Configuration data encryption]
 
@@ -193,10 +193,10 @@ ifndef::env-github[]
 // | <<dscyml_ipconfiguration>>                | <<dscyml_ipconfiguration_abstract>>
 // | <<dscyml_jeaendpoints>>                   | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                       | <<dscyml_jearoles_abstract>>
-// | <<dscyml_network>>                        | <<dscyml_network_abstract>>
 | <<dscyml_localgroups>>                       | <<dscyml_localgroups_abstract>>
 | <<dscyml_localusers>>                        | <<dscyml_localusers_abstract>>
 | <<dscyml_mountimages>>                       | <<dscyml_mountimages_abstract>>
+// | <<dscyml_network>>                        | <<dscyml_network_abstract>>
 | <<dscyml_networkipconfiguration>>            | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_opticaldiskdrives>>                 | <<dscyml_opticaldiskdrives_abstract>>
 | <<dscyml_powerplans>>                        | <<dscyml_powerplans_abstract>>
@@ -206,8 +206,8 @@ ifndef::env-github[]
 | <<dscyml_scheduledtasks>>                    | <<dscyml_scheduledtasks_abstract>>
 | <<dscyml_scripts>>                           | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                   | <<dscyml_securitybase_abstract>>
-| <<dscyml_smbshares>>                         | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                  | <<dscyml_securitypolicies_abstract>>
+| <<dscyml_smbshares>>                         | <<dscyml_smbshares_abstract>>
 | <<dscyml_softwarepackages>>                  | <<dscyml_softwarepackages_abstract>>
 | <<dscyml_sqlagdatabases>>                    | <<dscyml_sqlagdatabases_abstract>>
 | <<dscyml_sqlaglisteners>>                    | <<dscyml_sqlaglisteners_abstract>>
@@ -289,8 +289,8 @@ include::HyperV.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 include::LocalGroups.adoc[leveloffset=+2]
 include::LocalUsers.adoc[leveloffset=+2]
-//include::Network.adoc[leveloffset=+2]
 include::MountImages.adoc[leveloffset=+2]
+//include::Network.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::OpticalDiskDrives.adoc[leveloffset=+2]
 include::PowerPlans.adoc[leveloffset=+2]
@@ -300,8 +300,8 @@ include::RestartSystem.adoc[leveloffset=+2]
 include::ScheduledTasks.adoc[leveloffset=+2]
 include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
-include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
+include::SmbShares.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
 include::SqlAGDatabases.adoc[leveloffset=+2]
 include::SqlAGListeners.adoc[leveloffset=+2]

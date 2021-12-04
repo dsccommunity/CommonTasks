@@ -19,7 +19,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAlwaysOnServices
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAlwaysOnServices
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | {ref_sqlserverdsc_wiki},
                    {ref_sqlserverdsc_sqlalwaysonservice}

@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAGDatabases
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAGDatabases
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | {ref_sqlserverdsc_wiki},
                    {ref_sqlserverdsc_sqlagdatabase}

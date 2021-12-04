@@ -4,12 +4,12 @@
 :YmlCategory: SqlAliases
 
 
-[[dscyml_sqlconfigurations, {YmlCategory}]]
+[[dscyml_sqlaliases, {YmlCategory}]]
 = DSC Resource 'SqlAliases'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_sqlconfigurations_abstract]]
+[[dscyml_sqlaliases_abstract]]
 .{YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
 
 
@@ -20,7 +20,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlAliases
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAliases
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | {ref_sqlserverdsc_wiki},
                    {ref_sqlserverdsc_sqlalias}

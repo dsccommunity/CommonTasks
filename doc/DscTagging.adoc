@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DscTagging
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DscTagging
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
                    https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-7[PSDesiredStateConfiguration]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xregistry[xRegistry]
@@ -41,6 +41,25 @@
 | String
 | DSC environment information
 |
+
+| NodeVersion
+| 
+| System.Version
+| Optional node specific DSC configuration version
+|
+
+| NodeRole
+| 
+| String
+| Role of the node
+|
+
+| DisableGitCommitId
+| 
+| Boolean
+| Disable export of git commit id
+| - True
+  - *False* (default)
 
 | Layers
 | 
@@ -77,11 +96,24 @@ lookup_options:
 ----
 
 
+.Example of `AllNodes\MyComputer.yml` (Excerpt)
+[source, yaml]
+----
+NodeName:    MyComputer
+Environment: Dev
+Role:        FileServer
+MyVersion:   1.1
+----
+
+
 .Example `Environment\Dev.yml` (Excerpt)
 [source, yaml]
 ----
 DscTagging:
   Environment: Dev
+  # use Datum.InvokeCommand to get the role name and version of the current node
+  NodeRole:    '[x={ $node.Role }=]'
+  NodeVersion: '[x={ $node.MyVersion }=]'
   Layers:
     - Environment\Dev
 ----
@@ -116,8 +148,10 @@ Configurations:
   - DscTagging
   
 DscTagging:
-  Version: 0.3.0
+  Version:     0.3.0
   Environment: Dev
+  NodeRole:    FileServer
+  NodeVersion: 1.1
   Layers:
     - Environment\Dev
     - Roles\FileServer
