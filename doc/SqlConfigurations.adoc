@@ -20,7 +20,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SqlConfigurations
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlConfigurations
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | {ref_sqlserverdsc_wiki},
                    {ref_sqlserverdsc_sqlconfiguration}

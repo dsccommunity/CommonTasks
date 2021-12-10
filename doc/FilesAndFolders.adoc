@@ -17,7 +17,7 @@ DestinationPath and SourcePath must both be accessible by the target Node.
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/FilesAndFolders
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FilesAndFolders
 | DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
 | Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/fileresource?view=powershell-5.1[File]
 |===

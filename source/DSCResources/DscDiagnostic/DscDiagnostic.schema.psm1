@@ -11,14 +11,22 @@ function Stop-DscLocalConfigurationManager {
 }
 
 function Get-DscConfigurationVersion {
-    $key = Get-Item HKLM:\SOFTWARE\DscTagging
-    $hash = @{ }
-    foreach ($property in $key.Property) {
-        $hash.Add($property, $key.GetValue($property))
+
+    $hash = @{}
+    $key = Get-Item HKLM:\SOFTWARE\DscTagging -ErrorAction SilentlyContinue
+
+    if( $null -ne $key ) {
+        foreach ($property in $key.Property) {
+            $hash.Add($property, $key.GetValue($property))
+        }            
+    }
+    else {
+        $hash.Version = 'Unknown'
     }
 
     New-Object -TypeName PSObject -Property $hash
 }
+
 
 function Get-DscLcmControllerSettings {
     $key = Get-Item HKLM:\SOFTWARE\DscLcmController

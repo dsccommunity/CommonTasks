@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware],
                    https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource],

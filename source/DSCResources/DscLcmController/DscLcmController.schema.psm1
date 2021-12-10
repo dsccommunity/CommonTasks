@@ -1,4 +1,21 @@
 $dscLcmControllerScript = @'
+function Get-DscConfigurationVersionLocal {
+
+    $hash = @{}
+    $key = Get-Item HKLM:\SOFTWARE\DscTagging -ErrorAction SilentlyContinue
+
+    if( $null -ne $key ) {
+        foreach ($property in $key.Property) {
+            $hash.Add($property, $key.GetValue($property))
+        }            
+    }
+    else {
+        $hash.Version = 'Unknown'
+    }
+
+    New-Object -TypeName PSObject -Property $hash
+}
+
 function Send-DscTaggingData {
     [CmdletBinding()]
     param()
@@ -23,9 +40,8 @@ function Send-DscTaggingData {
         return
     }
 
-    $versionData = Invoke-Command -ComputerName $env:COMPUTERNAME -ConfigurationName DSC -ScriptBlock {
-        Get-DscConfigurationVersion
-    }
+    $versionData = Get-DscConfigurationVersionLocal
+
     if ($versionData.Layers.Count -gt 1) {
         $versionData.Layers = $versionData.Layers -join ', '
     }

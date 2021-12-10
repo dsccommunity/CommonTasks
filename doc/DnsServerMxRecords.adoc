@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerMxRecords
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerMxRecords
 | DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
 | Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsRecordMx[DnsRecordMx]
 |===

@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SoftwarePackages
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SoftwarePackages
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xpackage[xPackage]
 |===

@@ -17,7 +17,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerResponseRateLimiting
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerResponseRateLimiting
 | DSC Resource   | N/A
 | Documentation  | - https://docs.microsoft.com/en-us/powershell/module/dnsserver/get-dnsserverresponseratelimiting?view=win10-ps[Get-DnsServerResponseRateLimiting]
                    - https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverresponseratelimiting?view=win10-ps[Set-DnsServerResponseRateLimiting]

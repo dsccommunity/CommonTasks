@@ -17,7 +17,7 @@ The `{YmlCategory}` resource shall be the last step in the DSC configuration oth
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/SwitchToPullMode
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SwitchToPullMode
 | DSC Resource   |
 | Documentation  |
 |===

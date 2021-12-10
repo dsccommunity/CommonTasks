@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/FirewallProfiles
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FirewallProfiles
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
 | Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/FirewallProfile[FirewallProfiles]
 |===

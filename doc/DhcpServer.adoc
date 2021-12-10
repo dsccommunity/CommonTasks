@@ -22,7 +22,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DhcpServer
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServer
 | DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
 | Documentation  | {ref_xDhcpServerScope}, 
                    {ref_DhcpServerExclusionRange}, 

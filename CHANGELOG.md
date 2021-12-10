@@ -15,3 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed badges.
 - Added back configurations and dependencies.
 - Fixing issue with Cluster when only NodeMajority is used
+- Add new resource LocalUsers
+- Make DscLcmController independent from the DscDiagnostics resource
+- Add optional attributes to DscTagging resource
+- Update documentation

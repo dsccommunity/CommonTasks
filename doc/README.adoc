@@ -98,6 +98,7 @@ ifdef::env-github[]
 - <<HostsFileEntries.adoc#, HostsFileEntries>>
 - <<HyperV.adoc#, HyperV>>
 - <<LocalGroups.adoc#, LocalGroups>>
+- <<LocalUsers.adoc#, LocalUsers>>
 - <<MountImages.adoc#, MountImages>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
 - <<OpticalDiskDrives.adoc#, OpticalDiskDrives>>
@@ -110,10 +111,24 @@ ifdef::env-github[]
 - <<SecurityPolicies.adoc#, SecurityPolicies>>
 - <<SmbShares.adoc#, SmbShares>>
 - <<SoftwarePackages.adoc#, SoftwarePackages>>
+- <<SqlAGDatabases.adoc#, SqlAGDatabases>>
+- <<SqlAGListeners.adoc#, SqlAGListeners>>
+- <<SqlAGReplicas.adoc#, SqlAGReplicas>>
+- <<SqlAGs.adoc#, SqlAGs>>
+- <<SqlAliases.adoc#, SqlAliases>>
+- <<SqlAlwaysOnServices.adoc#, SqlAlwaysOnServices>>
 - <<SqlConfigurations.adoc#, SqlConfigurations>>
+- <<SqlDatabases.adoc#, SqlDatabases>>
+- <<SqlEndpoints.adoc#, SqlEndpoints>>
+- <<SqlLogins.adoc#, SqlLogins>>
+- <<SqlPermissions.adoc#, SqlPermissions>>
+- <<SqlRoles.adoc#, SqlRoles>>
 - <<SqlServer.adoc#, SqlServer>>
 - <<SwitchLcmMode.adoc#, SwitchLcmMode>>
 - <<UpdateServices.adoc#, UpdateServices>>
+- <<WaitForAllNodes.adoc#, WaitForAllNodes>>
+- <<WaitForAnyNode.adoc#, WaitForAnyNode>>
+- <<WaitForSomeNodes.adoc#, WaitForSomeNodes>>
 - <<Wds.adoc#, Wds>>
 - <<WebBrowser.adoc#, WebBrowser>>
 - <<WebSites.adoc#, WebSites>>
@@ -178,9 +193,10 @@ ifndef::env-github[]
 // | <<dscyml_ipconfiguration>>                | <<dscyml_ipconfiguration_abstract>>
 // | <<dscyml_jeaendpoints>>                   | <<dscyml_jeaendpoints_abstract>>
 // | <<dscyml_jearoles>>                       | <<dscyml_jearoles_abstract>>
-// | <<dscyml_network>>                        | <<dscyml_network_abstract>>
 | <<dscyml_localgroups>>                       | <<dscyml_localgroups_abstract>>
+| <<dscyml_localusers>>                        | <<dscyml_localusers_abstract>>
 | <<dscyml_mountimages>>                       | <<dscyml_mountimages_abstract>>
+// | <<dscyml_network>>                        | <<dscyml_network_abstract>>
 | <<dscyml_networkipconfiguration>>            | <<dscyml_networkipconfiguration_abstract>>
 | <<dscyml_opticaldiskdrives>>                 | <<dscyml_opticaldiskdrives_abstract>>
 | <<dscyml_powerplans>>                        | <<dscyml_powerplans_abstract>>
@@ -190,13 +206,27 @@ ifndef::env-github[]
 | <<dscyml_scheduledtasks>>                    | <<dscyml_scheduledtasks_abstract>>
 | <<dscyml_scripts>>                           | <<dscyml_scripts_abstract>>
 // | <<dscyml_securitybase>>                   | <<dscyml_securitybase_abstract>>
-| <<dscyml_smbshares>>                         | <<dscyml_smbshares_abstract>>
 | <<dscyml_securitypolicies>>                  | <<dscyml_securitypolicies_abstract>>
+| <<dscyml_smbshares>>                         | <<dscyml_smbshares_abstract>>
 | <<dscyml_softwarepackages>>                  | <<dscyml_softwarepackages_abstract>>
+| <<dscyml_sqlagdatabases>>                    | <<dscyml_sqlagdatabases_abstract>>
+| <<dscyml_sqlaglisteners>>                    | <<dscyml_sqlaglisteners_abstract>>
+| <<dscyml_sqlagreplicas>>                     | <<dscyml_sqlagreplicas_abstract>>
+| <<dscyml_sqlags>>                            | <<dscyml_sqlags_abstract>>
+| <<dscyml_sqlaliases>>                        | <<dscyml_sqlaliases_abstract>>
+| <<dscyml_sqlalwaysonservices>>               | <<dscyml_sqlalwaysonservices_abstract>>
 | <<dscyml_sqlconfigurations>>                 | <<dscyml_sqlconfigurations_abstract>>
+| <<dscyml_sqldatabases>>                      | <<dscyml_sqldatabases_abstract>>
+| <<dscyml_sqlendpoints>>                      | <<dscyml_sqlendpoints_abstract>>
+| <<dscyml_sqllogins>>                         | <<dscyml_sqllogins_abstract>>
+| <<dscyml_sqlpermissions>>                    | <<dscyml_sqlpermissions_abstract>>
+| <<dscyml_sqlroles>>                          | <<dscyml_sqlroles_abstract>>
 | <<dscyml_sqlserver>>                         | <<dscyml_sqlserver_abstract>>
 | <<dscyml_switchlcmmode>>                     | <<dscyml_switchlcmmode_abstract>>
 | <<dscyml_updateservices>>                    | <<dscyml_updateservices_abstract>>
+| <<dscyml_waitforallnodes>>                   | <<dscyml_waitforallnodes_abstract>>
+| <<dscyml_waitforanynode>>                    | <<dscyml_waitforanynode_abstract>>
+| <<dscyml_waitforsomenodes>>                  | <<dscyml_waitforsomenodes_abstract>>
 | <<dscyml_wds>>                               | <<dscyml_wds_abstract>>
 // | <<dscyml_webapplicationpools>>            | <<dscyml_webapplicationpools_abstract>>
 // | <<dscyml_webapplications>>                | <<dscyml_webapplications_abstract>>
@@ -258,8 +288,9 @@ include::HyperV.adoc[leveloffset=+2]
 //include::JeaEndpoints.adoc[leveloffset=+2]
 //include::JeaRoles.adoc[leveloffset=+2]
 include::LocalGroups.adoc[leveloffset=+2]
-//include::Network.adoc[leveloffset=+2]
+include::LocalUsers.adoc[leveloffset=+2]
 include::MountImages.adoc[leveloffset=+2]
+//include::Network.adoc[leveloffset=+2]
 include::NetworkIpConfiguration.adoc[leveloffset=+2]
 include::OpticalDiskDrives.adoc[leveloffset=+2]
 include::PowerPlans.adoc[leveloffset=+2]
@@ -269,13 +300,27 @@ include::RestartSystem.adoc[leveloffset=+2]
 include::ScheduledTasks.adoc[leveloffset=+2]
 include::Scripts.adoc[leveloffset=+2]
 //include::SecurityBase.adoc[leveloffset=+2]
-include::SmbShares.adoc[leveloffset=+2]
 include::SecurityPolicies.adoc[leveloffset=+2]
+include::SmbShares.adoc[leveloffset=+2]
 include::SoftwarePackages.adoc[leveloffset=+2]
+include::SqlAGDatabases.adoc[leveloffset=+2]
+include::SqlAGListeners.adoc[leveloffset=+2]
+include::SqlAGReplicas.adoc[leveloffset=+2]
+include::SqlAGs.adoc[leveloffset=+2]
+include::SqlAliases.adoc[leveloffset=+2]
+include::SqlAlwaysOnServices.adoc[leveloffset=+2]
 include::SqlConfigurations.adoc[leveloffset=+2]
+include::SqlDatabases.adoc[leveloffset=+2]
+include::SqlEndpoints.adoc[leveloffset=+2]
+include::SqlLogins.adoc[leveloffset=+2]
+include::SqlPermissions.adoc[leveloffset=+2]
+include::SqlRoles.adoc[leveloffset=+2]
 include::SqlServer.adoc[leveloffset=+2]
 include::SwitchLcmMode.adoc[leveloffset=+2]
 include::UpdateServices.adoc[leveloffset=+2]
+include::WaitForAllNodes.adoc[leveloffset=+2]
+include::WaitForAnyNode.adoc[leveloffset=+2]
+include::WaitForSomeNodes.adoc[leveloffset=+2]
 include::Wds.adoc[leveloffset=+2]
 //include::WebApplicationPools.adoc[leveloffset=+2]
 //include::WebApplications.adoc[leveloffset=+2]

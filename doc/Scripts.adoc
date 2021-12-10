@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Scripts
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Scripts
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
 | Documentation  | {ref_xpsdesiredstateconfiguration_xscript} 
                    

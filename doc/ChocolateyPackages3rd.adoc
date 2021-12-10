@@ -16,14 +16,14 @@ Now you can configure additional configuration steps between installation of two
 
 [IMPORTANT]
 ====
-This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
+This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
 
 In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages3rd`. 
 ====
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/ChocolateyPackages3rd
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages3rd
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage]
 |===

@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomain
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsDomain
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
 | Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomain[ADDomain],
                    https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADOptionalFeature[ADOptionalFeature],

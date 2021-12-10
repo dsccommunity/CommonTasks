@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AddsDomainPrincipals
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsDomainPrincipals
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
 | Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADComputer[ADComputer],
                    {ref_ADUser}, 

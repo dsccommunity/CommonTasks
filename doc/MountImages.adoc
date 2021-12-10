@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/MountImages
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/MountImages
 | DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
 | Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/MountImage[MountImage]
 |===

@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/DnsServerPrimaryZones
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsServerPrimaryZones
 | DSC Resource   | https://github.com/dsccommunity/DnsServerDsc[DnsServerDsc]
 | Documentation  | https://github.com/dsccommunity/DnsServerDsc/wiki/DnsServerPrimaryZone[DnsServerPrimaryZone]
 |===

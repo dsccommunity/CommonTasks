@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/Disks
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Disks
 | DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
 | Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/Disk[Disks]
 |===

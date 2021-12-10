@@ -23,7 +23,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/AuditPolicies
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AuditPolicies
 | DSC Resource   | {ref_AuditPolicyDsc}
 | Documentation  | {ref_AuditPolicyDsc_AuditPolicyOption},
                    {ref_AuditPolicyDsc_AuditPolicySubcategory},

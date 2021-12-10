@@ -15,7 +15,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/dev/CommonTasks/DscResources/WebSites
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebSites
 | DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
 | Documentation  | https://github.com/dsccommunity/xWebAdministration#xwebsite[xWebSite]
 |===
