@@ -79,9 +79,41 @@ stages:
 
   - stage: Test
     dependsOn: Build
+
     jobs:
+      - job: Test_HQRM
+        displayName: 'HQRM'
+        pool:
+          name: Default
+        workspace:
+          clean: all
+        timeoutInMinutes: 0
+        steps:
+          - task: DownloadBuildArtifacts@0
+            displayName: 'Download Build Artifact'
+            inputs:
+              buildType: 'current'
+              artifactName: $(buildArtifactName)
+              downloadPath: $(Build.SourcesDirectory)
+
+          - task: PowerShell@2
+            name: test
+            displayName: 'Run HQRM Test'
+            inputs:
+              filePath: './build.ps1'
+              arguments: '-Tasks hqrmtest'
+              pwsh: false
+
+          - task: PublishTestResults@2
+            displayName: 'Publish Test Results'
+            inputs:
+              testResultsFormat: 'NUnit'
+              testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
+              testRunTitle: 'HQRM'
+            condition: succeededOrFailed()
+
       - job: test_windows_ps
-        displayName: 'Windows (Windows PowerShell)'
+        displayName: 'Unit (Windows PowerShell)'
         timeoutInMinutes: 0
         pool:
           name: Default
