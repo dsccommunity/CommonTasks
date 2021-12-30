@@ -57,7 +57,7 @@ configuration PowerPlans
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
         $pwrPlan = @{} + $pwrPlan
 
-        if (not $pwrPlan.ContainsKey('Ensure'))
+        if (-not $pwrPlan.ContainsKey('Ensure'))
         {
             $pwrPlan.Ensure = 'Present'
         }
