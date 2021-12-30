@@ -82,9 +82,6 @@ stages:
               testRunTitle: 'HQRM'
             condition: succeededOrFailed()
 
-  - stage: Test
-    dependsOn: Build
-    jobs:
       - job: test_windows_ps
         displayName: 'Windows (Windows PowerShell)'
         timeoutInMinutes: 120
