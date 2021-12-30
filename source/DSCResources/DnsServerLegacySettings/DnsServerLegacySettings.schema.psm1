@@ -20,7 +20,8 @@ configuration DnsServerLegacySettings {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
-    if ($PSBoundParameters.ContainsKey('InstanceName')) {
+    if ($PSBoundParameters.ContainsKey('InstanceName'))
+    {
         $PSBoundParameters.Remove('InstanceName')
     }
 

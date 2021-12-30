@@ -2,6 +2,7 @@ configuration IpConfiguration
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $Adapter
     )

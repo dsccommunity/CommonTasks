@@ -1,11 +1,12 @@
 configuration SharePointServiceAppPools
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $ServiceAppPools
     )
 
-<#
+    <#
     Name = [string]
     ServiceAccount = [string]
     [DependsOn = [string[]]]
@@ -19,7 +20,8 @@ configuration SharePointServiceAppPools
 
     foreach ($item in $ServiceAppPools)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

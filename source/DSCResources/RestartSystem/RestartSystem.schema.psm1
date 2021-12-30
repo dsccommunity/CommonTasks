@@ -1,11 +1,13 @@
-﻿configuration RestartSystem
+configuration RestartSystem
 {
-    param
-    (
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
+
+    param (
         [Parameter()]
         [Boolean]
         $ForceReboot = $false,
-     
+
         [Parameter()]
         [Boolean]
         $PendingReboot = $false,
@@ -34,7 +36,7 @@
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
-    if( $PendingReboot -eq $true )
+    if ($PendingReboot -eq $true)
     {
         PendingReboot CheckPendingReboot
         {
@@ -47,7 +49,7 @@
         }
     }
 
-    if( $ForceReboot -eq $true )
+    if ($ForceReboot -eq $true)
     {
         $rebootKeyName = 'HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests'
         $rebootVarName = 'Reboot_RestartSystem'
@@ -57,21 +59,25 @@
             TestScript = {
                 $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
 
-                if ($null -ne $val -and $val.$using:rebootVarName -gt 0) 
-                { 
+                if ($null -ne $val -and $val.$using:rebootVarName -gt 0)
+                {
                     return $true
-                }   
+                }
                 return $false
             }
-            SetScript = {
-                if( -not (Test-Path -Path $using:rebootKeyName) )
+            SetScript  = {
+                if (-not (Test-Path -Path $using:rebootKeyName))
                 {
                     New-Item -Path $using:rebootKeyName -Force
                 }
                 Set-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -value 1
-                $global:DSCMachineStatus = 1             
+                $global:DSCMachineStatus = 1
             }
-            GetScript = { return @{result = 'result'}}
-        }        
+            GetScript  = { return `
+                @{
+                    result = 'result'
+                }
+            }
+        }
     }
 }

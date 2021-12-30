@@ -1,6 +1,6 @@
 configuration ExchangeMailboxDatabases {
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Items
     )
 
@@ -43,12 +43,12 @@ configuration ExchangeMailboxDatabases {
     [RetainDeletedItemsUntilBackup = [bool]]
     [SkipInitialDatabaseMount = [bool]]
     #>
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
 
-    foreach ($item in $Items) {
-
+    foreach ($item in $Items)
+    {
         $item.Server = $Node.NodeName
 
         $executionName = $item.Name

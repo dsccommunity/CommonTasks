@@ -2,11 +2,12 @@ configuration DhcpServerOptions
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $ServerOptions
     )
 
-<#
+    <#
     AddressFamily = [string]{ IPv4 }
     OptionId = [UInt32]
     UserClass = [string]
@@ -20,8 +21,10 @@ configuration DhcpServerOptions
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
-    foreach ($serverOption in $ServerOptions) {
-        if (-not $serverOption.ContainsKey('Ensure')) {
+    foreach ($serverOption in $ServerOptions)
+    {
+        if (-not $serverOption.ContainsKey('Ensure'))
+        {
             $serverOption.Ensure = 'Present'
         }
 

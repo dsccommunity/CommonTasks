@@ -1,11 +1,12 @@
 configuration SharePointManagedPaths
 {
     param (
+        [Parameter()]
         [hashtable[]]
         $ManagedPaths
     )
 
-<#
+    <#
     Explicit = [bool]
     HostHeader = [bool]
     RelativeUrl = [string]
@@ -21,7 +22,8 @@ configuration SharePointManagedPaths
 
     foreach ($item in $ManagedPaths)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

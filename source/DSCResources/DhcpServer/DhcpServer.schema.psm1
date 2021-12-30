@@ -37,11 +37,11 @@ configuration DhcpServer
         Ensure = 'Present'
     }
 
-    if( $EnableSecurityGroups -eq $true )
+    if ($EnableSecurityGroups -eq $true)
     {
         Script DHCPSecGroups
         {
-            SetScript = {
+            SetScript  = {
                 netsh dhcp add securitygroups
                 Restart-Service dhcpserver
             }
@@ -58,24 +58,28 @@ configuration DhcpServer
                 Write-Verbose -Message 'ADGroup DHCP Security groups are existing.'
                 return $true
             }
-            GetScript = { return @{result = 'N/A'} }
-            DependsOn = '[WindowsFeature]DHCPServer'
+            GetScript  = { return `
+                @{
+                    result = 'N/A'
+                }
+            }
+            DependsOn  = '[WindowsFeature]DHCPServer'
         }
     }
 
-    if( $null -ne $Scopes )
+    if ($null -ne $Scopes)
     {
-        foreach( $scope in $Scopes.GetEnumerator() )
+        foreach ($scope in $Scopes.GetEnumerator())
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $scope = @{}+$scope
+            $scope = @{} + $scope
 
-            if( [String]::IsNullOrWhitespace($scope.Ensure) )
+            if ( [String]::IsNullOrWhitespace($scope.Ensure) )
             {
                 $scope.Ensure = 'Present'
             }
 
-            if( [String]::IsNullOrWhitespace($scope.AddressFamily) )
+            if ( [String]::IsNullOrWhitespace($scope.AddressFamily) )
             {
                 $scope.AddressFamily = 'IPv4'
             }
@@ -90,14 +94,14 @@ configuration DhcpServer
             (Get-DscSplattedResource -ResourceName xDhcpServerScope -ExecutionName $executionName -Properties $scope -NoInvoke).Invoke($scope)
 
             # generate DNS settings only if scope is present and one of the DNS settings are explicitly specified
-            if( $scope.Ensure -eq 'Present' -and $null -ne $nameProtection )
+            if ($scope.Ensure -eq 'Present' -and $null -ne $nameProtection)
             {
-                [string]$scopeId            = $scope.ScopeID
+                [string]$scopeId = $scope.ScopeID
                 [boolean]$dnsNameProtection = $nameProtection
 
                 Script "$($executionName)_DnsSetting"
                 {
-                    SetScript = {
+                    SetScript  = {
                         Write-Verbose "DHCP Scope: $using:scopeId -> set DNS NameProtection to $using:dnsNameProtection"
                         Set-DhcpServerv4DnsSetting -ScopeId $using:scopeId -NameProtection $using:dnsNameProtection
                     }
@@ -106,25 +110,29 @@ configuration DhcpServer
                         $dnsSetting = Get-DhcpServerv4DnsSetting -ScopeId $using:scopeId
                         Write-Verbose "DNS setting: $(($dnsSetting | Select-Object -Property '*' -ExcludeProperty 'Cim*') -join ', ' | Out-String)"
 
-                        if( $null -ne $dnsSetting -and $dnsSetting.NameProtection -eq $using:dnsNameProtection )
+                        if ( $null -ne $dnsSetting -and $dnsSetting.NameProtection -eq $using:dnsNameProtection )
                         {
                             return $True
                         }
 
                         return $False
                     }
-                    GetScript = { return @{result = 'N/A'} }
-                    DependsOn = "[xDhcpServerScope]$executionName"
+                    GetScript  = { return `
+                        @{
+                            result = 'N/A'
+                        }
+                    }
+                    DependsOn  = "[xDhcpServerScope]$executionName"
                 }
             }
         }
     }
 
-    if( $null -ne $ExclusionRanges )
+    if ( $null -ne $ExclusionRanges )
     {
         [int] $i = 0
 
-        foreach( $exclusionRange in $ExclusionRanges.GetEnumerator() )
+        foreach ($exclusionRange in $ExclusionRanges.GetEnumerator())
         {
             $exclusionRange.DependsOn = '[WindowsFeature]DHCPServer'
 
@@ -133,25 +141,25 @@ configuration DhcpServer
         }
     }
 
-    if( $null -ne $Reservations )
+    if ($null -ne $Reservations)
     {
-        foreach( $reservation in $Reservations.GetEnumerator() )
+        foreach ($reservation in $Reservations.GetEnumerator())
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $reservation = @{}+$reservation
+            $reservation = @{} + $reservation
 
-            if( [String]::IsNullOrWhitespace($reservation.Ensure) )
+            if ([String]::IsNullOrWhitespace($reservation.Ensure))
             {
                 $reservation.Ensure = 'Present'
             }
 
-            if( [String]::IsNullOrWhitespace($reservation.AddressFamily) )
+            if ([String]::IsNullOrWhitespace($reservation.AddressFamily))
             {
                 $reservation.AddressFamily = 'IPv4'
             }
 
             # remove all separators from MAC Address
-            $reservation.ClientMACAddress = $reservation.ClientMACAddress -replace '[-:\s]',''
+            $reservation.ClientMACAddress = $reservation.ClientMACAddress -replace '[-:\s]', ''
 
             $reservation.DependsOn = '[WindowsFeature]DHCPServer'
 
@@ -161,22 +169,22 @@ configuration DhcpServer
         }
     }
 
-    if( $null -ne $OptionValues )
+    if ( $null -ne $OptionValues )
     {
-        foreach( $optionValue in $OptionValues.GetEnumerator() )
+        foreach ($optionValue in $OptionValues.GetEnumerator())
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $optionValue = @{}+$optionValue
+            $optionValue = @{} + $optionValue
 
             $optionValue.DependsOn = '[WindowsFeature]DHCPServer'
 
             # set VendorClass/UserClass to default if missing or empty
-            if( [String]::IsNullOrWhitespace($optionValue.VendorClass) )
+            if ([String]::IsNullOrWhitespace($optionValue.VendorClass))
             {
                 $optionValue.VendorClass = ''
             }
 
-            if( [String]::IsNullOrWhitespace($optionValue.UserClass))
+            if ([String]::IsNullOrWhitespace($optionValue.UserClass))
             {
                 $optionValue.UserClass = ''
             }
@@ -185,12 +193,12 @@ configuration DhcpServer
         }
     }
 
-    if( $null -ne $Authorization )
+    if ($null -ne $Authorization)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $Authorization = @{}+$Authorization
+        $Authorization = @{} + $Authorization
 
-        if( [String]::IsNullOrWhitespace($Authorization.Ensure) )
+        if ([String]::IsNullOrWhitespace($Authorization.Ensure))
         {
             $Authorization.Ensure = 'Present'
         }

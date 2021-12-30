@@ -1,11 +1,12 @@
 configuration SharePointManagedAccounts
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $ManagedAccounts
     )
 
-<#
+    <#
     AccountName = [string]
     [Account = [PSCredential]]
     [DependsOn = [string[]]]
@@ -22,7 +23,8 @@ configuration SharePointManagedAccounts
 
     foreach ($item in $ManagedAccounts)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

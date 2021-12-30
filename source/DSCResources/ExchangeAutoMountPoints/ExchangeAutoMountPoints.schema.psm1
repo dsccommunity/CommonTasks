@@ -54,17 +54,19 @@ configuration ExchangeAutoMountPoints {
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
-    
-    if (-not $PSBoundParameters.ContainsKey('Identity')) {
+
+    if (-not $PSBoundParameters.ContainsKey('Identity'))
+    {
         $PSBoundParameters.Add('Identity', $Node.NodeName)
         $executionName = $Node.NodeName
     }
-    else {
+    else
+    {
         $executionName = $Identity
     }
     $PSBoundParameters.Remove('InstanceName')
 
-    
+
     (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
 }

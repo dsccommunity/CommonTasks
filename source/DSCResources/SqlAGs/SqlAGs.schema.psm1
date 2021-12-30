@@ -1,10 +1,12 @@
 configuration SqlAGs {
     param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
-        [hashtable[]]$Values
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Values
     )
 
     <#
@@ -28,7 +30,7 @@ configuration SqlAGs {
     [ProcessOnlyOnActiveNode = [bool]]
     [PsDscRunAsCredential = [PSCredential]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
     foreach ($value in $Values)
@@ -38,7 +40,7 @@ configuration SqlAGs {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

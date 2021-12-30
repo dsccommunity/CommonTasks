@@ -16,7 +16,8 @@ configuration WaitForSomeNodes {
     [ThrottleLimit = [UInt32]]
     #>
 
-    foreach ($item in $items) {
+    foreach ($item in $items)
+    {
         $executionName = $item.ResourceName
 
         (Get-DscSplattedResource -ResourceName WaitForSome -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)

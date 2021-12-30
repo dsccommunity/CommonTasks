@@ -1,8 +1,8 @@
-﻿configuration DnsServerQueryResolutionPolicies
+configuration DnsServerQueryResolutionPolicies
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [Hashtable[]]
         $Policies
     )
@@ -12,11 +12,11 @@
     foreach ($dnsPol in $Policies)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $dnsPol = @{}+$dnsPol
+        $dnsPol = @{} + $dnsPol
 
-        $name   = $dnsPol.Name
+        $name = $dnsPol.Name
         $action = $dnsPol.Action
-        $fqdn   = $dnsPol.Fqdn
+        $fqdn = $dnsPol.Fqdn
 
         Script "dnsQueryPol_$($name)"
         {
@@ -29,23 +29,23 @@
                 if ($null -ne $val -and $val.Action -eq $using:action)
                 {
                     $critType = $val.Criteria.CriteriaType
-                    $critVal  = $val.Criteria.Criteria
+                    $critVal = $val.Criteria.Criteria
 
                     Write-Verbose "Current Values:  $($critType): '$critVal'"
 
                     # FQDN ends with . -> this character is added by Add/Set function if not present in YAML FQDN definition
-                    if( $critType -eq 'Fqdn' -and
-                        (($critVal -eq $using:fqdn) -or 
-                         ($critVal.EndsWith('.') -and ($critVal.Substring(0, $critVal.Length - 1)) -eq $using:fqdn)) ) 
-                    { 
+                    if ( $critType -eq 'Fqdn' -and
+                        (($critVal -eq $using:fqdn) -or
+                         ($critVal.EndsWith('.') -and ($critVal.Substring(0, $critVal.Length - 1)) -eq $using:fqdn)) )
+                    {
                         return $true
                     }
-                }   
+                }
 
                 Write-Verbose "Differences found."
                 return $false
             }
-            SetScript = {      
+            SetScript  = {
                 $val = Get-DnsServerQueryResolutionPolicy -Name $using:name -ErrorAction SilentlyContinue
 
                 if ($null -eq $val)
@@ -56,10 +56,14 @@
                 else
                 {
                     Write-Verbose "Update DNS query policy '$using:name' with Action: '$using:action', FQDN '$using:fqdn'"
-                    Set-DnsServerQueryResolutionPolicy -Name $using:name -Action $using:action -Fqdn $using:fqdn                        
+                    Set-DnsServerQueryResolutionPolicy -Name $using:name -Action $using:action -Fqdn $using:fqdn
                 }
             }
-            GetScript = { return @{result = 'N/A'}}
-        }            
+            GetScript  = { return `
+                @{
+                    result = 'N/A'
+                }
+            }
+        }
     }
 }

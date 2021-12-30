@@ -1,9 +1,10 @@
 configuration LocalGroups {
     param (
+        [Parameter()]
         [hashtable[]]
         $Groups
     )
-    
+
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($group in $Groups)

@@ -1,18 +1,19 @@
 configuration WebSites {
     param (
-        [Parameter(Mandatory)]
-        [hashtable[]]$Items
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Items
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
     foreach ($item in $Items)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $item = @{}+$item
-        
-        if (-not $item.ContainsKey('Ensure')) 
+        $item = @{} + $item
+
+        if (-not $item.ContainsKey('Ensure'))
         {
             $item.Ensure = 'Present'
         }

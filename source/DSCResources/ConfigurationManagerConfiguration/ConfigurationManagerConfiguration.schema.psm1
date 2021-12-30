@@ -1,4 +1,4 @@
-﻿
+
 Configuration ConfigurationManagerConfiguration
 {
     [CmdletBinding()]
@@ -24,51 +24,67 @@ Configuration ConfigurationManagerConfiguration
         [string[]]
         $LocalAdministrators = @('contoso\SCCM-Servers', 'contoso\SCCM-CMInstall', 'contoso\Admin'),
 
+        [Parameter()]
         [hashtable]
         $EmailSettings,
 
+        [Parameter()]
         [hashtable]
         $SystemDiscovery,
 
+        [Parameter()]
         [hashtable]
         $ForestDiscovery,
 
+        [Parameter()]
         [hashtable]
         $NetworkDiscovery,
 
+        [Parameter()]
         [hashtable]
         $HeartbeatDiscovery,
 
+        [Parameter()]
         [hashtable]
         $UserDiscovery,
 
+        [Parameter()]
         [hashtable]
         $ClientStatusSettings,
 
+        [Parameter()]
         [hashtable[]]
         $SiteMaintenanceConfigurations,
 
+        [Parameter()]
         [hashtable[]]
         $BoundaryGroups,
 
+        [Parameter()]
         [hashtable[]]
         $SiteAdmins,
 
+        [Parameter()]
         [hashtable]
         $CollectionSettings,
 
+        [Parameter()]
         [hashtable]
         $StatusReportingSettings,
 
+        [Parameter()]
         [hashtable[]]
         $DistributionPointGroups,
 
+        [Parameter()]
         [hashtable]
         $ManagementPoint,
 
+        [Parameter()]
         [hashtable]
         $SoftwareUpdatePoint,
 
+        [Parameter()]
         [hashtable]
         $SoftwareUpdatePointComponent
     )
@@ -161,12 +177,13 @@ Configuration ConfigurationManagerConfiguration
         $bg['PsDscRunAsCredential'] = $SccmInstallAccount
         $bg['DependsOn'] = $boundaryDependencies
 
-        $bg.Boundaries = foreach ($bound in $bg.Boundaries) {
+        $bg.Boundaries = foreach ($bound in $bg.Boundaries)
+        {
             DSC_CMBoundaryGroupsBoundaries
-                {
-                    Value = $bound.Value
-                    Type  = $bound.Type
-                }
+            {
+                Value = $bound.Value
+                Type  = $bound.Type
+            }
         }
         (Get-DscSplattedResource -ResourceName CMBoundaryGroups -ExecutionName "BoundaryGroup$($bg.BoundaryGroup -replace '\W')" -Properties $bg -NoInvoke).Invoke($bg)
     }

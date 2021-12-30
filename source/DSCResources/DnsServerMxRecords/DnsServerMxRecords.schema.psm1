@@ -1,4 +1,4 @@
-﻿configuration DnsServerMxRecords
+configuration DnsServerMxRecords
 {
     param
     (
@@ -12,12 +12,12 @@
 
     [boolean]$dnsServerInstalled = $false
 
-    if($null -ne $Records)
+    if ($null -ne $Records)
     {
         foreach ($record in $Records)
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $record = @{}+$record
+            $record = @{} + $record
 
             if (-not $record.ContainsKey('Ensure'))
             {
@@ -27,7 +27,7 @@
             # install DNS server if DNS record shall be set on a local DNS server
             if (-not $record.ContainsKey('DnsServer') -or $record.DnsServer -eq 'localhost')
             {
-                if( $dnsServerInstalled -eq $false )
+                if ( $dnsServerInstalled -eq $false )
                 {
                     WindowsFeature DNSServer
                     {

@@ -2,15 +2,15 @@ configuration AddsDomainController
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $DomainName,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [pscredential]
         $Credential,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [pscredential]
         $SafeModeAdministratorPassword,
 
@@ -19,19 +19,19 @@ configuration AddsDomainController
         $DatabasePath = 'C:\Windows\NTDS',
 
         [Parameter()]
-        [string]        
+        [string]
         $LogPath = 'C:\Windows\Logs',
 
         [Parameter()]
         [string]
         $SysvolPath = 'C:\Windows\SYSVOL',
-            
+
         [Parameter()]
-        [string]        
+        [string]
         $SiteName,
 
         [Parameter()]
-        [bool]        
+        [bool]
         $IsGlobalCatalog = $true,
 
         [Parameter()]
@@ -41,7 +41,7 @@ configuration AddsDomainController
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
-        
+
     WindowsFeature ADDS {
         Name   = 'AD-Domain-Services'
         Ensure = 'Present'

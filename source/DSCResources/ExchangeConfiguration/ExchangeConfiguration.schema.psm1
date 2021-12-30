@@ -1,26 +1,36 @@
 configuration ExchangeConfiguration {
     param
     (
-        [PSCredential]$ShellCreds,
-        [PSCredential]$CertCreds,
-        [PSCredential]$FileCopyCreds,
+        [Parameter()]
+        [PSCredential]
+        $ShellCreds,
 
-        [Parameter(Mandatory)]
-        [string]$ExternalNamespace,
+        [Parameter()]
+        [PSCredential]
+        $CertCreds,
 
-        [Parameter(Mandatory)]
-        [string]$InternalNamespace,
+        [Parameter()]
+        [PSCredential]
+        $FileCopyCreds,
 
-        [Parameter(Mandatory)]
-        [string]$AutoDiscoverSiteScope
-        
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ExternalNamespace,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $InternalNamespace,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $AutoDiscoverSiteScope
     )
-    
+
     #Import required DSC Modules
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
     Import-DscResource -Module xWebAdministration
-      
+
     ###CAS specific settings###
     #The following section shows how to configure commonly configured URL's on various virtual directories
     xExchClientAccessServer CAS
@@ -30,7 +40,7 @@ configuration ExchangeConfiguration {
         AutoDiscoverServiceInternalUri = "https://$InternalNamespace/autodiscover/autodiscover.xml"
         AutoDiscoverSiteScope          = $AutoDiscoverSiteScope
     }
-    
+
     xExchActiveSyncVirtualDirectory ASVdir
     {
         Identity    = "$($Node.NodeName)\Microsoft-Server-ActiveSync (Default Web Site)"
@@ -46,7 +56,7 @@ configuration ExchangeConfiguration {
         ExternalUrl = "https://$ExternalNamespace/ecp"
         InternalUrl = "https://$InternalNamespace/ecp"
     }
-    
+
     xExchMapiVirtualDirectory MAPIVdir
     {
         Identity                 = "$($Node.NodeName)\mapi (Default Web Site)"
@@ -54,8 +64,8 @@ configuration ExchangeConfiguration {
         ExternalUrl              = "https://$ExternalNamespace/mapi"
         InternalUrl              = "https://$InternalNamespace/mapi"
         IISAuthenticationMethods = 'Ntlm', 'OAuth', 'Negotiate'
-    }   
-    
+    }
+
     xExchOabVirtualDirectory OABVdir
     {
         Identity    = "$($Node.NodeName)\OAB (Default Web Site)"
@@ -63,7 +73,7 @@ configuration ExchangeConfiguration {
         ExternalUrl = "https://$ExternalNamespace/oab"
         InternalUrl = "https://$InternalNamespace/oab"
     }
-    
+
     xExchOutlookAnywhere OAVdir
     {
         Identity                           = "$($Node.NodeName)\Rpc (Default Web Site)"
@@ -88,10 +98,10 @@ configuration ExchangeConfiguration {
         #InstantMessagingCertificateThumbprint = $dagSettings.Thumbprint
         #InstantMessagingServerName            = $casSettingsPerSite.InstantMessagingServerName
         #InstantMessagingType                  = 'Ocs'
-    
+
         #DependsOn                             = '[xExchExchangeCertificate]Certificate' #Can't configure the IM cert until it's valid
     }
-    
+
     xExchWebServicesVirtualDirectory EWSVdir
     {
         Identity             = "$($Node.NodeName)\EWS (Default Web Site)"
@@ -100,5 +110,5 @@ configuration ExchangeConfiguration {
         InternalNLBBypassUrl = "https://$($Node.NodeName).contoso.com/ews/exchange.asmx"
         InternalUrl          = "https://$InternalNamespace/ews/exchange.asmx"
     }
-    
+
 }

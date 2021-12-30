@@ -1,78 +1,104 @@
 configuration OfficeOnlineServer
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword')]
+
     param (
         [Parameter()]
-        [uri]$ExternalUrl,
+        [uri]
+        $ExternalUrl,
 
         [Parameter()]
-        [uri]$InternalUrl,
+        [uri]
+        $InternalUrl,
 
         [Parameter()]
-        [string]$CertificateName,
+        [string]
+        $CertificateName,
 
         [Parameter()]
-        [switch]$AllowHttp,
+        [switch]
+        $AllowHttp,
 
         [Parameter()]
-        [bool]$EditingEnabled,
+        [bool]
+        $EditingEnabled,
 
         [Parameter()]
-        [bool]$AllowCEIP,
+        [bool]
+        $AllowCEIP,
 
         [Parameter()]
-        [bool]$AllowHttpSecureStoreConnections,
+        [bool]
+        $AllowHttpSecureStoreConnections,
 
         [Parameter()]
-        [string]$CacheLocation,
+        [string]
+        $CacheLocation,
 
         [Parameter()]
-        [int]$CacheSizeInGB,
+        [int]
+        $CacheSizeInGB,
 
         [Parameter()]
-        [string]$RenderingLocalCacheLocation,
+        [string]
+        $RenderingLocalCacheLocation,
 
         [Parameter()]
-        [string]$LogLocation,
+        [string]
+        $LogLocation,
 
         [Parameter()]
-        [int]$MaxMemoryCacheSizeInMB,
+        [int]
+        $MaxMemoryCacheSizeInMB,
 
         [Parameter()]
-        [bool]$ClipartEnabled,
+        [bool]
+        $ClipartEnabled,
 
         [Parameter()]
         [ValidateSet('VerboseEX', 'Verbose', 'Medium', 'High', 'Monitorable', 'Unexpected', 'None')]
+        [string]
         $LogVerbosity = 'Medium',
 
         [Parameter()]
-        [string]$MicrosoftIdentityExtensionsPath,
+        [string]
+        $MicrosoftIdentityExtensionsPath,
 
         [Parameter()]
-        [string]$DotNet48FrameworkPath,
+        [string]
+        $DotNet48FrameworkPath,
 
         [Parameter()]
-        [string]$VcRedistributable2013Path,
+        [string]
+        $VcRedistributable2013Path,
 
         [Parameter()]
-        [string]$VcRedistributable2013ProductId,
+        [string]
+        $VcRedistributable2013ProductId,
 
         [Parameter()]
-        [string]$VcRedistributable20152019Path,
+        [string]
+        $VcRedistributable20152019Path,
 
         [Parameter()]
-        [string]$VcRedistributable20152019ProductId,
+        [string]
+        $VcRedistributable20152019ProductId,
 
         [Parameter()]
-        [hashtable[]]$LanguagePacks,
+        [hashtable[]]
+        $LanguagePacks,
 
-        [Parameter(Mandatory)]
-        [string]$Path,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Path,
 
-        [Parameter(Mandatory)]
-        [string]$MasterServer
+        [Parameter(Mandatory = $true)]
+        [string]
+        $MasterServer
     )
     function Sync-Parameter
     {
+        [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars')]
         [Cmdletbinding()]
         param (
             [Parameter(Mandatory = $true)]
@@ -83,13 +109,18 @@ configuration OfficeOnlineServer
                     $_.GetType().FullName -eq 'Microsoft.PowerShell.DesiredStateConfiguration.DscResourceInfo' -or
                     $_.psobject.TypeNames[0] -eq 'Deserialized.Selected.Microsoft.PowerShell.DesiredStateConfiguration.DscResourceInfo'
                 })]
-            [object]$Command,
-        
-            [hashtable]$Parameters,
+            [object]
+            $Command,
 
-            [switch]$ConvertValue
+            [Parameter()]
+            [hashtable]
+            $Parameters,
+
+            [Parameter()]
+            [switch]
+            $ConvertValue
         )
-    
+
         if (-not $PSBoundParameters.ContainsKey('Parameters'))
         {
             $Parameters = ([hashtable]$ALBoundParameters).Clone()
@@ -98,7 +129,7 @@ configuration OfficeOnlineServer
         {
             $Parameters = ([hashtable]$Parameters).Clone()
         }
-    
+
         $commonParameters = [System.Management.Automation.Internal.CommonParameters].GetProperties().Name
         $commandParameterKeys = if ($Command.GetType().FullName -eq 'Microsoft.PowerShell.DesiredStateConfiguration.DscResourceInfo' -or
             $Command.psobject.TypeNames[0] -eq 'Deserialized.Selected.Microsoft.PowerShell.DesiredStateConfiguration.DscResourceInfo')
@@ -111,12 +142,12 @@ configuration OfficeOnlineServer
         }
 
         $parameterKeys = $Parameters.Keys.GetEnumerator() | ForEach-Object { $_ }
-    
+
         $keysToRemove = Compare-Object -ReferenceObject $commandParameterKeys -DifferenceObject $parameterKeys |
             Select-Object -ExpandProperty InputObject
 
         $keysToRemove = $keysToRemove + $commonParameters | Select-Object -Unique #remove the common parameters
-    
+
         foreach ($key in $keysToRemove)
         {
             $Parameters.Remove($key)
@@ -177,7 +208,7 @@ configuration OfficeOnlineServer
                 $Parameters[$kvp.Key] = $kvp.Value
             }
         }
-    
+
         if ($PSBoundParameters.ContainsKey('Parameters'))
         {
             $Parameters
@@ -197,7 +228,7 @@ configuration OfficeOnlineServer
         Write-Error 'Either "$ExternalUrl" or "$InternalUrl" must be defined'
         return
     }
-    
+
     if ($LogLocation)
     {
         File LogFolder

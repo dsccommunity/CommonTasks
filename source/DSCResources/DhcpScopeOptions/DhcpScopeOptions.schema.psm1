@@ -2,11 +2,12 @@ configuration DhcpScopeOptions
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $ScopeOptions
     )
 
-<#
+    <#
     AddressFamily = [string]{ IPv4 }
     OptionId = [UInt32]
     ScopeId = [string]
@@ -21,8 +22,10 @@ configuration DhcpScopeOptions
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
-    foreach ($scopeOption in $ScopeOptions) {
-        if (-not $scopeOption.ContainsKey('Ensure')) {
+    foreach ($scopeOption in $ScopeOptions)
+    {
+        if (-not $scopeOption.ContainsKey('Ensure'))
+        {
             $scopeOption.Ensure = 'Present'
         }
 

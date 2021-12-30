@@ -2,16 +2,18 @@ configuration AddsSiteLinks
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $SiteLinks
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
     foreach ($siteLink in $SiteLinks)
     {
-        if (-not $siteLink.ContainsKey('Ensure')) {
+        if (-not $siteLink.ContainsKey('Ensure'))
+        {
             $siteLink.Ensure = 'Present'
         }
 

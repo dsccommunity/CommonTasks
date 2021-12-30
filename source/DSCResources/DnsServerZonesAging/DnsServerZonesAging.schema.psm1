@@ -1,8 +1,8 @@
-﻿configuration DnsServerZonesAging
+configuration DnsServerZonesAging
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [Hashtable[]]
         $Zones
     )
@@ -13,7 +13,7 @@
     foreach ($zone in $Zones)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $zone = @{}+$zone
+        $zone = @{} + $zone
 
         if (-not $zone.ContainsKey('Enabled'))
         {

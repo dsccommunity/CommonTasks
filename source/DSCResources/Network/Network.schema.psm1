@@ -1,22 +1,26 @@
 configuration Network {
     param (
+        [Parameter()]
         [ValidateRange(1, 4)]
         [int]$NetworkZone,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [int]$MtuSize,
 
-        [string]$InterfaceAlias = 'Ethernet'
+        [Parameter()]
+        [string]
+        $InterfaceAlias = 'Ethernet'
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
 
-    xScript SetMtuSize {
+    xScript SetMtuSize
+    {
         GetScript  = {
             $interface = Get-NetIPInterface -InterfaceAlias $using:InterfaceAlias -AddressFamily IPv4 |
-            Select-Object -Property InterfaceAlias, NlMtu
+                Select-Object -Property InterfaceAlias, NlMtu
             @{
                 Result = [System.Management.Automation.PSSerializer]::Serialize($interface)
             }
@@ -26,10 +30,12 @@ configuration Network {
             $interface = [System.Management.Automation.PSSerializer]::Deserialize($state.Result)
 
             $result = $interface.NlMtu -eq $using:MtuSize
-            if (-not $result) {
+            if (-not $result)
+            {
                 Write-Verbose "MTU Size is NOT in desired state ($($interface.NlMtu))"
             }
-            else {
+            else
+            {
                 Write-Verbose "MTU Size is in desired state ($($interface.NlMtu))"
             }
             return $result

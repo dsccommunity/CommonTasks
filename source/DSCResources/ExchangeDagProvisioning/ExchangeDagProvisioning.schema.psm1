@@ -1,43 +1,55 @@
 configuration ExchangeDagProvisioning
-{ 
+{
     param
     (
-        [Parameter(Mandatory)]
-        [PSCredential]$ShellCreds,
+        [Parameter(Mandatory = $true)]
+        [PSCredential]
+        $ShellCreds,
 
-        [Parameter(Mandatory)]
-        [string]$DagName,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $DagName,
 
-        [Parameter(Mandatory)]
-        [int]$AutoDagTotalNumberOfServers,
+        [Parameter(Mandatory = $true)]
+        [int]
+        $AutoDagTotalNumberOfServers,
 
-        [Parameter(Mandatory)]
-        [int]$AutoDagDatabaseCopiesPerVolume,
+        [Parameter(Mandatory = $true)]
+        [int]
+        $AutoDagDatabaseCopiesPerVolume,
 
-        [Parameter(Mandatory)]
-        [string]$AutoDagDatabasesRootFolderPath,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $AutoDagDatabasesRootFolderPath,
 
-        [Parameter(Mandatory)]
-        [string]$AutoDagVolumesRootFolderPath,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $AutoDagVolumesRootFolderPath,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Off', 'DagOnly')]
-        [string]$DatacenterActivationMode, 
+        [string]
+        $DatacenterActivationMode,
 
-        [Parameter(Mandatory)]
-        [string]$WitnessServer,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $WitnessServer,
 
-        [Parameter(Mandatory)]
-        [string]$WitnessDirectory,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $WitnessDirectory,
 
         [Parameter()]
-        [bool]$ReplayLagManagerEnabled,
+        [bool]
+        $ReplayLagManagerEnabled,
 
         [Parameter()]
-        [bool]$SkipDagValidation,
+        [bool]
+        $SkipDagValidation,
 
-        [Parameter(Mandatory)]
-        [string]$FirstDagMemberName
+        [Parameter(Mandatory = $true)]
+        [string]
+        $FirstDagMemberName
     )
 
     #Import required DSC Modules
@@ -78,7 +90,7 @@ configuration ExchangeDagProvisioning
     {
         #Add this server as member
         xExchWaitForDAG WaitForDag
-        { 
+        {
             Identity   = $DagName
             Credential = $ShellCreds
         }

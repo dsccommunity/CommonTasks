@@ -1,10 +1,12 @@
 configuration SqlEndpoints {
     param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
-        [hashtable[]]$Values
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Values
     )
 
     <#
@@ -22,17 +24,17 @@ configuration SqlEndpoints {
     [ServerName = [string]]
     [State = [string]{ Disabled | Started | Stopped }]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($value in $Values) 
+    foreach ($value in $Values)
     {
-        if(-not $value.InstanceName)
+        if (-not $value.InstanceName)
         {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

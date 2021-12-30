@@ -1,6 +1,6 @@
 configuration ExchangeMailboxDatabaseCopies {
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Items
     )
 
@@ -19,12 +19,12 @@ configuration ExchangeMailboxDatabaseCopies {
     [SeedingPostponed = [bool]]
     [TruncationLagTime = [string]]
     #>
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
 
-    foreach ($item in $Items) {
-
+    foreach ($item in $Items)
+    {
         $waitResourceId = "WaitForDB_$($item.Identity)"
         xExchWaitForMailboxDatabase $waitResourceId
         {

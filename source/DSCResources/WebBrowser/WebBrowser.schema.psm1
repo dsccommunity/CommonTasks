@@ -1,7 +1,6 @@
-﻿configuration WebBrowser
+configuration WebBrowser
 {
-    param
-    (
+    param (
         [Parameter()]
         [Hashtable]
         $InternetExplorer,
@@ -15,7 +14,7 @@
     Import-DscResource -ModuleName GPRegistryPolicyDsc
 
 
-    if( -not [string]::IsNullOrWhiteSpace($InternetExplorer.StartPage) )
+    if (-not [string]::IsNullOrWhiteSpace($InternetExplorer.StartPage))
     {
         RegistryPolicyFile 'InternetExplorer_HomePage'
         {
@@ -26,7 +25,7 @@
             ValueType  = 'DWORD'
             Ensure     = 'Present'
         }
-        
+
         RegistryPolicyFile 'InternetExplorer_StartPage'
         {
             Key        = 'Software\Policies\Microsoft\Internet Explorer\Main'
@@ -46,7 +45,7 @@
     }
 
 
-    if( -not [string]::IsNullOrWhiteSpace($Edge.StartPage) )
+    if (-not [string]::IsNullOrWhiteSpace($Edge.StartPage))
     {
         RegistryPolicyFile 'MicrosoftEdge_ShowHomeButton'
         {
@@ -96,5 +95,5 @@
             IsSingleInstance = 'Yes'
             DependsOn        = '[RegistryPolicyFile]MicrosoftEdge_RestoreOnStartupURLs'
         }
-    } 
+    }
 }

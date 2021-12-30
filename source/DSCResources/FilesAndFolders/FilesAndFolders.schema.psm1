@@ -1,10 +1,10 @@
 configuration FilesAndFolders
 {
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Items
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName FileSystemDsc
 
@@ -13,29 +13,29 @@ configuration FilesAndFolders
         $permissions = $null
 
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $item = @{}+$item
+        $item = @{} + $item
 
         if (-not $item.ContainsKey('Ensure'))
         {
             $item.Ensure = 'Present'
         }
 
-        if( $item.ContainsKey('Permissions') )
+        if ($item.ContainsKey('Permissions'))
         {
             $permissions = $item.Permissions
             $item.Remove('Permissions')
         }
 
-        if( $item.ContainsKey('ContentFromFile') )
+        if ($item.ContainsKey('ContentFromFile'))
         {
-            if( -not (Test-Path -Path $item.ContentFromFile) )
+            if ( -not (Test-Path -Path $item.ContentFromFile) )
             {
-                Write-Host "ERROR: Content file '$($item.ContentFromFile)' not found. Current working directory is: $(Get-Location)" -ForegroundColor Red
+                Write-Verbose "ERROR: Content file '$($item.ContentFromFile)' not found. Current working directory is: $(Get-Location)"
             }
             else
             {
-                [string]$content = Get-Content -Path $item.ContentFromFile -Raw 
-                $item.Contents += $content          
+                [string]$content = Get-Content -Path $item.ContentFromFile -Raw
+                $item.Contents += $content
             }
             $item.Remove('ContentFromFile')
         }
@@ -44,14 +44,14 @@ configuration FilesAndFolders
 
         (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
 
-        if( $null -ne $permissions )
+        if ( $null -ne $permissions )
         {
             foreach ($perm in $permissions)
-            {         
+            {
                 # Remove Case Sensitivity of ordered Dictionary or Hashtables
-                $perm = @{}+$perm
+                $perm = @{} + $perm
 
-                $perm.Path      = $item.DestinationPath
+                $perm.Path = $item.DestinationPath
                 $perm.DependsOn = "[File]$executionName"
 
                 if (-not $perm.ContainsKey('Ensure'))
