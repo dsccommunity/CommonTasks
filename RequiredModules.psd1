@@ -41,11 +41,7 @@
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
     SharePointDSC                = '4.8.0'
-<<<<<<< HEAD
     xExchange                    = '1.33.0'
-=======
-    xExchange                    = '1.32.0'
->>>>>>> 80ff3eb (Added back configs and dependencies)
     SqlServerDsc                 = '15.2.0'
     UpdateServicesDsc            = '1.2.1'
     xWindowsEventForwarding      = '1.0.0.0'
