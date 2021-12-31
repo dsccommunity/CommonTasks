@@ -1,8 +1,8 @@
-﻿configuration HostsFileEntries
+configuration HostsFileEntries
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]
         $Entries
     )
@@ -13,7 +13,7 @@
     foreach ($entry in $Entries)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $entry = @{}+$entry
+        $entry = @{} + $entry
 
         if (-not $entry.ContainsKey('Ensure'))
         {

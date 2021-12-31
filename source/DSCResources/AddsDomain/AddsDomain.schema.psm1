@@ -1,12 +1,14 @@
 configuration AddsDomain
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $DomainFQDN,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $DomainName,
 
@@ -23,7 +25,7 @@ configuration AddsDomain
         $DatabasePath = 'C:\Windows\NTDS',
 
         [Parameter()]
-        [string]        
+        [string]
         $LogPath = 'C:\Windows\Logs',
 
         [Parameter()]
@@ -49,7 +51,7 @@ configuration AddsDomain
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
-        
+
     WindowsFeature ADDS
     {
         Name   = 'AD-Domain-Services'
@@ -62,8 +64,8 @@ configuration AddsDomain
         Ensure    = 'Present'
         DependsOn = '[WindowsFeature]ADDS'
     }
-    
-   [string]$nextDependsOn = '[WindowsFeature]RSAT'
+
+    [string]$nextDependsOn = '[WindowsFeature]RSAT'
 
     if ($ForceRebootBefore -eq $true)
     {
@@ -75,21 +77,27 @@ configuration AddsDomain
             TestScript = {
                 $val = Get-ItemProperty -Path $using:rebootKeyName -Name $using:rebootVarName -ErrorAction SilentlyContinue
 
-                if ($val -ne $null -and $val.$rebootVarName -gt 0) { 
+                if ($val -ne $null -and $val.$rebootVarName -gt 0)
+                {
                     return $true
-                }   
+                }
                 return $false
             }
-            SetScript = {
-                if( -not (Test-Path -Path $using:rebootKeyName) ) {
+            SetScript  = {
+                if ( -not (Test-Path -Path $using:rebootKeyName) )
+                {
                     New-Item -Path $using:rebootKeyName -Force
                 }
                 Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
-                $global:DSCMachineStatus = 1             
+                $global:DSCMachineStatus = 1
             }
-            GetScript = { return @{result = 'result'}}
-            DependsOn = $nextDependsOn
-        }        
+            GetScript  = { return `
+                @{
+                    result = 'result'
+                }
+            }
+            DependsOn  = $nextDependsOn
+        }
 
         $nextDependsOn = "[Script]$rebootVarName"
     }
@@ -114,8 +122,8 @@ configuration AddsDomain
         MembersToInclude = $(Split-Path -Path $DomainAdministrator.UserName -Leaf)
         DependsOn        = "[ADDomain]$DomainName"
     }
-    
-    ADOptionalFeature RecycleBinFeature 
+
+    ADOptionalFeature RecycleBinFeature
     {
         DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
         ForestFQDN                        = $DomainFQDN
@@ -123,15 +131,15 @@ configuration AddsDomain
         FeatureName                       = 'Recycle Bin Feature'
     }
 
-    if( $EnablePrivilegedAccessManagement -eq $true )
+    if ( $EnablePrivilegedAccessManagement -eq $true )
     {
-        ADOptionalFeature PrivilegedAccessManagementFeature 
+        ADOptionalFeature PrivilegedAccessManagementFeature
         {
             DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
             ForestFQDN                        = $DomainFQDN
             EnterpriseAdministratorCredential = $DomainAdministrator
             FeatureName                       = 'Privileged Access Management Feature'
-        }  
+        }
     }
 
     foreach ($trust in $DomainTrusts)

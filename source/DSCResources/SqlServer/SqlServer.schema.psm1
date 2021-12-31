@@ -1,10 +1,10 @@
-﻿configuration SqlServer
+configuration SqlServer
 {
-    param
-    (
+    param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
-        
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
+
         [Parameter()]
         [hashtable]
         $Setup,
@@ -17,18 +17,18 @@
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SqlServerDsc
 
-    if( $null -ne $Setup )
+    if ( $null -ne $Setup )
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $Setup = @{}+$Setup
+        $Setup = @{} + $Setup
 
-        if( [string]::IsNullOrWhiteSpace($Setup.InstanceName)  )
+        if ([string]::IsNullOrWhiteSpace($Setup.InstanceName))
         {
             $Setup.InstanceName = $DefaultInstanceName
         }
 
         # remove an empty Productkey
-        if( [string]::IsNullOrWhiteSpace($Setup.ProductKey) )
+        if ([string]::IsNullOrWhiteSpace($Setup.ProductKey))
         {
             $Setup.Remove('ProductKey')
         }
@@ -40,33 +40,33 @@
         (Get-DscSplattedResource -ResourceName SqlSetup -ExecutionName "sqlSetup" -Properties $Setup -NoInvoke).Invoke($Setup)
 
         # enable/disable FileStream
-        if( $null -ne $fileStreamAccessLevel )
-        {        
+        if ($null -ne $fileStreamAccessLevel)
+        {
             [string]$instanceName = $Setup.InstanceName
 
             Script sqlFileStreamAccess
             {
-                TestScript = 
+                TestScript =
                 {
                     # get installed SQL Server version
                     [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
-                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
+                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 
                     Write-Verbose "Expected FilestreamAccessLevel is: $using:fileStreamAccessLevel"
- 
+
                     Write-Verbose "Current FilestreamAccessLevel is: $($cim.AccessLevel) with file share name '$($cim.ShareName)'."
-                   
-                    if( $cim.AccessLevel -eq $using:fileStreamAccessLevel )
+
+                    if ($cim.AccessLevel -eq $using:fileStreamAccessLevel)
                     {
                         $sqlServer = "localhost$( if($using:instanceName -ne 'MSSQLSERVER') { "\$using:instanceName" })"
 
                         $sqlFileStreamAccessLevel = Invoke-Sqlcmd "SELECT SERVERPROPERTY( 'FilestreamEffectiveLevel' ) AS FileStreamAccessLevel" -ServerInstance $sqlServer | `
-                                                    Select-Object -ExpandProperty FileStreamAccessLevel
+                                Select-Object -ExpandProperty FileStreamAccessLevel
 
                         Write-Verbose "The current SERVERPROPERTY 'FilestreamEffectiveLevel' is: $sqlFileStreamAccessLevel."
 
-                        if( $sqlFileStreamAccessLevel -eq $using:fileStreamAccessLevel )
+                        if ($sqlFileStreamAccessLevel -eq $using:fileStreamAccessLevel)
                         {
                             return $true
                         }
@@ -74,50 +74,52 @@
 
                     return $false
                 }
-                SetScript = 
+                SetScript  =
                 {
                     # get installed SQL Server version
                     [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
-                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object {$_.InstanceName -eq $using:instanceName}
+                    $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 
                     Write-Verbose "Set FilestreamAccessLevel to: $using:fileStreamAccessLevel."
 
-                    Invoke-CimMethod -InputObject $cim -MethodName 'EnableFilestream' `
-                                     -Arguments @{ AccessLevel = $using:fileStreamAccessLevel; ShareName = $using:instanceName }
+                    Invoke-CimMethod -InputObject $cim -MethodName 'EnableFilestream' -Arguments @{
+                        AccessLevel = $using:fileStreamAccessLevel
+                        ShareName   = $using:instanceName
+                    }
 
                     Get-Service -Name $using:instanceName | Restart-Service -Force
-                     
+
                     $sqlServer = "localhost$( if($using:instanceName -ne 'MSSQLSERVER') { "\$using:instanceName" })"
 
                     Invoke-Sqlcmd -Query "EXEC sp_configure filestream_access_level, $((2,$using:fileStreamAccessLevel | Measure-Object -Min).Minimum)" -ServerInstance $sqlServer
                     Invoke-Sqlcmd -Query "RECONFIGURE" -ServerInstance $sqlServer
                 }
-                GetScript = { return 'NA' }   
-                DependsOn = '[SqlSetup]sqlSetup'
+                GetScript  = { return 'NA' }
+                DependsOn  = '[SqlSetup]sqlSetup'
             }
         }
     }
 
 
-    if( $null -ne $SqlLogins )
+    if ( $null -ne $SqlLogins )
     {
-        foreach( $login in $SqlLogins )
+        foreach ( $login in $SqlLogins )
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $login = @{}+$login
+            $login = @{} + $login
 
-            if( -not $login.ContainsKey('Ensure') )
+            if ( -not $login.ContainsKey('Ensure') )
             {
                 $login.Ensure = 'Present'
             }
 
-            if( [string]::IsNullOrWhiteSpace($login.InstanceName) )
+            if ( [string]::IsNullOrWhiteSpace($login.InstanceName) )
             {
                 $login.InstanceName = $DefaultInstanceName
             }
-            
-            $executionName = "sqllogin_$($login.Name -replace '[().:\s]', '_')" 
+
+            $executionName = "sqllogin_$($login.Name -replace '[().:\s]', '_')"
             (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
         }
     }

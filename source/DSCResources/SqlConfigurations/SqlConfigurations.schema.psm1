@@ -1,10 +1,12 @@
 configuration SqlConfigurations {
     param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
-        [hashtable[]]$Options
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Options
     )
 
     <#
@@ -17,15 +19,15 @@ configuration SqlConfigurations {
     [RestartTimeout = [UInt32]]
     [ServerName = [string]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
-    foreach ($option in $Options) 
+    foreach ($option in $Options)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $option = @{}+$option
+        $option = @{} + $option
 
-        if( [string]::IsNullOrWhiteSpace($option.InstanceName)  )
+        if ([string]::IsNullOrWhiteSpace($option.InstanceName))
         {
             $option.InstanceName = $DefaultInstanceName
         }

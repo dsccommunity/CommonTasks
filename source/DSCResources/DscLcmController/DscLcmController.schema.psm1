@@ -7,7 +7,7 @@ function Get-DscConfigurationVersionLocal {
     if( $null -ne $key ) {
         foreach ($property in $key.Property) {
             $hash.Add($property, $key.GetValue($property))
-        }            
+        }
     }
     else {
         $hash.Version = 'Unknown'
@@ -35,7 +35,7 @@ function Send-DscTaggingData {
             Write-Error "Could not find pull server in Url '$pullServerUrl'" -ErrorAction Stop
         }
     }
-    catch {    
+    catch {
         Write-Error "Cannot get pull server name from 'Get-DscLocalConfigurationManager' output, the error was $($_.Exception.Message)"
         return
     }
@@ -49,7 +49,7 @@ function Send-DscTaggingData {
     Write-Host
     Write-Host "Sending the following DSC version data to JEA endpoint on pull server '$($Matches.PullServer)'"
     $versionData | Out-String | Write-Host
-    
+
     Invoke-Command -ComputerName $Matches.PullServer -ConfigurationName DscData -ScriptBlock {
         Send-DscTaggingData -AgentId $args[0] -Data $args[1]
     } -ArgumentList $agentId, $versionData
@@ -74,16 +74,16 @@ function Set-LcmPostpone {
     else {
         44640 #minutes for 31 days
     }
-    
+
     $maxRefreshInterval = if ($currentLcmSettings.RefreshFrequencyMins -eq 44640) {
         44639 #value must be changed in order to reset the LCM timer
     }
     else {
         44640 #minutes for 31 days
     }
-    
+
     $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
-    
+
     if (Test-Path -Path C:\Windows\System32\Configuration\MetaConfig.mof) {
         $mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -Force -PassThru
     }
@@ -91,19 +91,19 @@ function Set-LcmPostpone {
         $mofFile = Get-Item -Path "$path\MetaMof\localhost.meta.mof" -ErrorAction Stop
     }
     $content = Get-Content -Path $mofFile.FullName -Raw -Encoding Unicode
-    
+
     $pattern = '(ConfigurationModeFrequencyMins(\s+)?=(\s+)?)(\d+)(;)'
     $content = $content -replace $pattern, ('$1 {0}$5' -f $maxConsistencyCheckInterval)
-    
+
     $pattern = '(RefreshFrequencyMins(\s+)?=(\s+)?)(\d+)(;)'
     $content = $content -replace $pattern, ('$1 {0}$5' -f $maxRefreshInterval)
-    
+
     $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
-    
+
     Set-DscLocalConfigurationManager -Path $metaMofFolder
-    
+
     "$(Get-Date) - Postponed LCM" | Add-Content -Path "$path\LcmPostponeSummary.log"
-    
+
     Set-ItemProperty -Path $dscLcmController.PSPath -Name LastLcmPostpone -Value (Get-Date) -Type String -Force
 }
 
@@ -196,12 +196,12 @@ function Test-InMaintenanceWindow {
 
 function Set-LcmMode {
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('ApplyAndAutoCorrect', 'ApplyAndMonitor')]
         [string]$Mode
     )
     $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
-    
+
     if (Test-Path -Path C:\Windows\System32\Configuration\MetaConfig.mof) {
         $mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -Force -PassThru
     }
@@ -209,12 +209,12 @@ function Set-LcmMode {
         $mofFile = Get-Item -Path "$path\MetaMof\localhost.meta.mof" -ErrorAction Stop
     }
     $content = Get-Content -Path $mofFile.FullName -Raw -Encoding Unicode
-    
+
     $pattern = '(ConfigurationMode(\s+)?=(\s+)?)("\w+")(;)'
     $content = $content -replace $pattern, ('$1 "{0}"$5' -f $Mode)
-    
+
     $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
-    
+
     Set-DscLocalConfigurationManager -Path $metaMofFolder
 
     Write-Host "LCM put into '$Mode' mode"
@@ -245,7 +245,7 @@ function Test-StartDscAutoCorrect {
     else {
         $false
     }
-    
+
 }
 
 function Test-StartDscRefresh {
@@ -273,7 +273,7 @@ function Test-StartDscRefresh {
     else {
         $false
     }
-    
+
 }
 
 function Start-AutoCorrect {
@@ -346,21 +346,21 @@ function Start-LcmRequiredConfigurationChecks {
         [OutputType([timespan])]
         [Parameter()]
         [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
-        
-        [Parameter(Mandatory)]
-        [ValidateSet('Monitor', 'AutoCorrect')]        
+
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Monitor', 'AutoCorrect')]
         [string]$Mode,
-        
-        [Parameter(Mandatory)]
+
+        [Parameter(Mandatory = $true)]
         [int]$Flags
     )
     Write-Verbose "Entering 'Start-LcmRequiredConfigurationChecks'"
-    
+
     $internalMaxLcmRuntime = $MaxLcmRuntime
-    
+
     $j = Start-Job -ScriptBlock {
         param(
-            [Parameter(Mandatory)]
+            [Parameter(Mandatory = $true)]
             [int]$Flags
         )
         $params = @{
@@ -373,11 +373,11 @@ function Start-LcmRequiredConfigurationChecks {
         Write-Output "Calling 'Invoke-CimMethod' with the following parameters:"
         $params | ConvertTo-Json | Write-Output
         Invoke-CimMethod @params | Out-Null
-        
+
     } -ArgumentList $Flags
-    
+
     Write-Host "Waiting $MaxLcmRuntime for the background job to finish."
-    
+
     while ($j.State -eq 'Running' -and $internalMaxLcmRuntime -gt 0) {
         $waitIntervalInSeconds = 5
         Start-Sleep -Seconds $waitIntervalInSeconds
@@ -385,11 +385,11 @@ function Start-LcmRequiredConfigurationChecks {
         if ($output) { $output | Write-Host }
         $internalMaxLcmRuntime = $internalMaxLcmRuntime.Subtract((New-TimeSpan -Seconds $waitIntervalInSeconds))
     }
-    
+
     if ($j.State -eq 'Running') {
         Write-Host "LCM did not finish with the timeout of '$MaxLcmRuntime'"
         $j | Stop-Job
-        #find the process that is hosting the DSC engine        
+        #find the process that is hosting the DSC engine
         $dscProcess = Get-CimInstance -ClassName  msft_providers | Where-Object { $_.Provider -like 'dsccore' }
         Write-Host "Shutting down LCM process with ID '$($dscProcess.HostProcessIdentifier)'"
         Get-Process -Id $dscProcess.HostProcessIdentifier | Stop-Process -Force
@@ -401,7 +401,7 @@ function Start-LcmRequiredConfigurationChecks {
         }
         Write-Error -Message "LCM did run longer than '$MaxLcmRuntime'. Process was stopped." -ErrorAction Stop
     }
-    
+
     $runtime = $j.PSEndTime - $j.PSBeginTime
     Write-Host "LCM runtime was '$runtime'"
     $runtime
@@ -437,7 +437,7 @@ $sendDscTaggingDataError = $false
 $dscLcmController = Get-Item -Path HKLM:\SOFTWARE\DscLcmController
 
 $maintenanceWindows = Get-ChildItem -Path HKLM:\SOFTWARE\DscLcmController\MaintenanceWindows
-[bool]$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowOverride 
+[bool]$maintenanceWindowOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MaintenanceWindowOverride
 [timespan]$autoCorrectInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name AutoCorrectInterval
 [bool]$autoCorrectIntervalOverride = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name AutoCorrectIntervalOverride
 [timespan]$monitorInterval = Get-ItemPropertyValue -Path HKLM:\SOFTWARE\DscLcmController -Name MonitorInterval
@@ -508,7 +508,7 @@ if ($inMaintenanceWindow) {
     else {
         Write-Host "NO ACTION: 'doAutoCorrect' is false, not invoking Cim Method 'PerformRequiredConfigurationChecks' with Flags '1' (Consistency Check)."
     }
-    
+
 }
 
 Write-Host
@@ -556,7 +556,7 @@ $logItem = [pscustomobject]@{
     LcmRuntime                  = $lcmRuntime
 
     SendDscTaggingDataError     = $sendDscTaggingDataError
-    
+
 } | Export-Csv -Path "$path\LcmControllerSummary.csv" -Delimiter ',' -Append -Force
 
 if ($writeTranscripts) {
@@ -591,42 +591,62 @@ $filteredSummaryContent | Export-Csv -Path "$path\LcmControllerSummary.csv" -Del
 
 configuration DscLcmController {
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Monitor', 'AutoCorrect')]
-        [string]$MaintenanceWindowMode,
+        [string]
+        $MaintenanceWindowMode,
 
-        [Parameter(Mandatory)]
-        [timespan]$MonitorInterval,
+        [Parameter(Mandatory = $true)]
+        [timespan]
+        $MonitorInterval,
 
-        [Parameter(Mandatory)]
-        [timespan]$AutoCorrectInterval,
-        
-        [bool]$AutoCorrectIntervalOverride,
+        [Parameter(Mandatory = $true)]
+        [timespan]
+        $AutoCorrectInterval,
 
-        [Parameter(Mandatory)]
-        [timespan]$RefreshInterval,
-        
-        [bool]$RefreshIntervalOverride,
+        [Parameter()]
+        [bool]
+        $AutoCorrectIntervalOverride,
 
-        [Parameter(Mandatory)]
-        [timespan]$ControllerInterval,
+        [Parameter(Mandatory = $true)]
+        [timespan]
+        $RefreshInterval,
 
-        [bool]$MaintenanceWindowOverride,
+        [Parameter()]
+        [bool]
+        $RefreshIntervalOverride,
 
-        [timespan]$MaxLcmRuntime = (New-TimeSpan -Days 2),
+        [Parameter(Mandatory = $true)]
+        [timespan]
+        $ControllerInterval,
 
-        [timespan]$LogHistoryTimeSpan = (New-TimeSpan -Days 90),
+        [Parameter()]
+        [bool]
+        $MaintenanceWindowOverride,
 
-        [bool]$SendDscTaggingData,
+        [Parameter()]
+        [timespan]
+        $MaxLcmRuntime = (New-TimeSpan -Days 2),
 
-        [bool]$WriteTranscripts
+        [Parameter()]
+        [timespan]
+        $LogHistoryTimeSpan = (New-TimeSpan -Days 90),
+
+        [Parameter()]
+        [bool]
+        $SendDscTaggingData,
+
+        [Parameter()]
+        [bool]
+        $WriteTranscripts
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
-    xRegistry DscLcmController_MaintenanceWindowMode {
+    xRegistry DscLcmController_MaintenanceWindowMode
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'MaintenanceWindowMode'
         ValueData = $MaintenanceWindowMode
@@ -635,16 +655,18 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_MonitorInterval {
+    xRegistry DscLcmController_MonitorInterval
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'MonitorInterval'
-        ValueData = $MonitorInterval       
+        ValueData = $MonitorInterval
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true
     }
 
-    xRegistry DscLcmController_AutoCorrectInterval {
+    xRegistry DscLcmController_AutoCorrectInterval
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'AutoCorrectInterval'
         ValueData = $AutoCorrectInterval
@@ -653,7 +675,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_AutoCorrectIntervalOverride {
+    xRegistry DscLcmController_AutoCorrectIntervalOverride
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'AutoCorrectIntervalOverride'
         ValueData = [int]$AutoCorrectIntervalOverride
@@ -662,7 +685,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_RefreshInterval {
+    xRegistry DscLcmController_RefreshInterval
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'RefreshInterval'
         ValueData = $RefreshInterval
@@ -671,7 +695,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_RefreshIntervalOverride {
+    xRegistry DscLcmController_RefreshIntervalOverride
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'RefreshIntervalOverride'
         ValueData = [int]$RefreshIntervalOverride
@@ -680,7 +705,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_ControllerInterval {
+    xRegistry DscLcmController_ControllerInterval
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'ControllerInterval'
         ValueData = $ControllerInterval
@@ -689,7 +715,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_MaintenanceWindowOverride {
+    xRegistry DscLcmController_MaintenanceWindowOverride
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'MaintenanceWindowOverride'
         ValueData = [int]$MaintenanceWindowOverride
@@ -698,7 +725,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_WriteTranscripts {
+    xRegistry DscLcmController_WriteTranscripts
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'WriteTranscripts'
         ValueData = [int]$WriteTranscripts
@@ -707,7 +735,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_MaxLcmRuntime {
+    xRegistry DscLcmController_MaxLcmRuntime
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'MaxLcmRuntime'
         ValueData = $MaxLcmRuntime
@@ -716,7 +745,8 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    xRegistry DscLcmController_LogHistoryTimeSpan {
+    xRegistry DscLcmController_LogHistoryTimeSpan
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'LogHistoryTimeSpan'
         ValueData = $LogHistoryTimeSpan
@@ -724,8 +754,9 @@ configuration DscLcmController {
         Ensure    = 'Present'
         Force     = $true
     }
-    
-    xRegistry DscLcmController_SendDscTaggingData {
+
+    xRegistry DscLcmController_SendDscTaggingData
+    {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscLcmController'
         ValueName = 'SendDscTaggingData'
         ValueData = [int]$SendDscTaggingData
@@ -734,14 +765,16 @@ configuration DscLcmController {
         Force     = $true
     }
 
-    File DscLcmControllerScript {
+    File DscLcmControllerScript
+    {
         Ensure          = 'Present'
         Type            = 'File'
         DestinationPath = 'C:\ProgramData\Dsc\LcmController\LcmController.ps1'
         Contents        = $dscLcmControllerScript
     }
-    
-    ScheduledTask DscControllerTask {
+
+    ScheduledTask DscControllerTask
+    {
         DependsOn          = '[File]DscLcmControllerScript'
         TaskName           = 'DscLcmController'
         TaskPath           = '\DscController'
@@ -751,5 +784,5 @@ configuration DscLcmController {
         RepeatInterval     = $ControllerInterval
         RepetitionDuration = 'Indefinitely'
         StartTime          = (Get-Date)
-    }  
+    }
 }

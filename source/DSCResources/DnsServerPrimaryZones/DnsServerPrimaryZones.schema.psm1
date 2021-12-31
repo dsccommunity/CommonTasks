@@ -1,8 +1,8 @@
-﻿configuration DnsServerPrimaryZones
+configuration DnsServerPrimaryZones
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [Hashtable[]]
         $PrimaryZones
     )
@@ -19,7 +19,7 @@
     foreach ($primaryZone in $PrimaryZones)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $primaryZone = @{}+$primaryZone
+        $primaryZone = @{} + $primaryZone
 
         if (-not $primaryZone.ContainsKey('Ensure'))
         {

@@ -1,8 +1,8 @@
-﻿configuration DnsServerForwarders
+configuration DnsServerForwarders
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [String[]]
         $IPAddresses,
 

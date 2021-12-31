@@ -53,9 +53,38 @@ stages:
   - stage: Test
     dependsOn: Build
     jobs:
+      - job: Test_HQRM
+        displayName: 'HQRM'
+        pool:
+          vmImage: 'windows-2019'
+        timeoutInMinutes: 60
+        steps:
+          - task: DownloadPipelineArtifact@2
+            displayName: 'Download Pipeline Artifact'
+            inputs:
+              buildType: 'current'
+              artifactName: $(buildArtifactName)
+              targetPath: '$(Build.SourcesDirectory)/$(buildArtifactName)'
+
+          - task: PowerShell@2
+            name: test
+            displayName: 'Run HQRM Test'
+            inputs:
+              filePath: './build.ps1'
+              arguments: '-Tasks hqrmtest'
+              pwsh: false
+
+          - task: PublishTestResults@2
+            displayName: 'Publish Test Results'
+            inputs:
+              testResultsFormat: 'NUnit'
+              testResultsFiles: '$(buildFolderName)/$(testResultFolderName)/NUnit*.xml'
+              testRunTitle: 'HQRM'
+            condition: succeededOrFailed()
+
       - job: test_windows_ps
         displayName: 'Windows (Windows PowerShell)'
-        timeoutInMinutes: 0
+        timeoutInMinutes: 120
         pool:
           vmImage: 'windows-2019'
         steps:
@@ -96,7 +125,7 @@ stages:
           - test_windows_ps
         pool:
           vmImage: 'ubuntu 18.04'
-        timeoutInMinutes: 0
+        timeoutInMinutes: 5
         steps:
           - pwsh: |
               $repositoryOwner,$repositoryName = $env:BUILD_REPOSITORY_NAME -split '/'

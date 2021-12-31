@@ -1,4 +1,4 @@
-﻿
+
 Configuration ConfigurationManagerDeployment
 {
     [CmdletBinding()]
@@ -32,19 +32,19 @@ Configuration ConfigurationManagerDeployment
         [System.Nullable[UInt32]]
         $ConfigMgrVersion,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $AdkSetupExePath,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $AdkWinPeSetupPath,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $MdtMsiPath,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $ConfigManagerSetupPath,
 
@@ -150,7 +150,14 @@ Configuration ConfigurationManagerDeployment
         JoinCeip                  = $false
         MobileDeviceLanguage      = $false
         SQLServerName             = $SqlServerName
-        DatabaseName              = if ($DatabaseInstance) {"$DatabaseInstance\CM_$SiteCode"} else {"CM_$SiteCode"}
+        DatabaseName              = if ($DatabaseInstance)
+        {
+            "$DatabaseInstance\CM_$SiteCode"
+        }
+        else
+        {
+            "CM_$SiteCode"
+        }
         CloudConnector            = $false
         SAActive                  = $true
         CurrentBranch             = $true

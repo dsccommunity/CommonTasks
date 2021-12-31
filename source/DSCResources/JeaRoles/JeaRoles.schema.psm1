@@ -1,6 +1,6 @@
 configuration JeaRoles {
     param (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Roles
     )
 
@@ -8,7 +8,7 @@ configuration JeaRoles {
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName JeaDsc
-    
+
     $pattern = '\\(?<Module>\w+)\\RoleCapabilities\\(?<RoleFile>\w+)\.psrc'
 
     foreach ($role in $Roles)
@@ -81,6 +81,6 @@ configuration JeaRoles {
         $role.Path -match $pattern | Out-Null
         $executionName = "JeaSessionConfiguration_$($Matches.Module)_$($Matches.RoleFile)"
         (Get-DscSplattedResource -ResourceName JeaRoleCapabilities -ExecutionName $executionName -Properties $role -NoInvoke).Invoke($role)
-        
+
     }
 }

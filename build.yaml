@@ -2,24 +2,11 @@
 ####################################################
 #          ModuleBuilder Configuration             #
 ####################################################
-# Path to the Module Manifest to build (where path will be resolved from)
-# SourcePath: ./Sampler/Sampler.psd1
-# Output Directory where ModuleBuilder will build the Module, relative to module manifest
-# OutputDirectory: ../output/Sampler
 CopyPaths:
   - en-US
   - DSCResources
-  # - Modules
 Encoding: UTF8
-# Can be used to manually specify module's semantic version if the preferred method of
-# using GitVersion is not available, and it is not possible to set the session environment
-# variable `$env:ModuleVersion`, nor setting the variable `$ModuleVersion`, in the
-# PowerShell session (parent scope) before running the task `build`.
-#SemVer: '99.0.0-preview1'
 
-# Suffix to add to Root module PSM1 after merge (here, the Set-Alias exporting IB tasks)
-# suffix: suffix.ps1
-# prefix: prefix.ps1
 VersionedOutputDirectory: true
 
 BuiltModuleSubDirectory: Module
@@ -27,7 +14,6 @@ BuiltModuleSubDirectory: Module
 ####################################################
 #       Sampler Pipeline Configuration             #
 ####################################################
-# Defining 'Workflows' (suite of InvokeBuild tasks) to be run using their alias
 BuildWorkflow:
   '.': # "." is the default Invoke-Build workflow. It is called when no -Tasks is specified to the build.ps1
     - build
@@ -47,20 +33,13 @@ BuildWorkflow:
   hqrmtest:
     - DscResource_Tests_Stop_On_Fail
 
-  # Defining test task to be run when invoking `./build.ps1 -Tasks test`
   test:
     - Pester_Tests_Stop_On_Fail
-    # Use this task if pipeline uses code coverage and the module is using the
-    # pattern of Public, Private, Enum, Classes.
-    #- Convert_Pester_Coverage
     - Pester_if_Code_Coverage_Under_Threshold
 
-  # Use this task when you have multiple parallel tests, which produce multiple
-  # code coverage files and needs to get merged into one file.
-  #merge:
-    #- Merge_CodeCoverage_Files
-
   publish:
+    - UpdateTag
+    - SetChangeLog
     - publish_module_to_gallery
 
 
@@ -70,52 +49,19 @@ BuildWorkflow:
 
 Pester:
   OutputFormat: NUnitXML
-  # Excludes one or more paths from being used to calculate code coverage.
-  ExcludeFromCodeCoverage:
-    - Modules/DscResource.Common
-    # - Template
-  # If no scripts are defined the default is to use all the tests under the project's
-  # tests folder or source folder (if present). Test script paths can be defined to
-  # only run tests in certain folders, or run specific test files, or can be use to
-  # specify the order tests are run.
-  Script:
-  # - tests/QA/module.tests.ps1
-  # - tests/QA
-  # - tests/Unit
-  # - tests/Integration
-  ExcludeTag:
-  #  - helpQuality
-  #  - FunctionalQuality
-  #  - TestQuality
-  Tag:
-  CodeCoverageThreshold: 75 # Set to 0 to bypass
-  #CodeCoverageOutputFile: JaCoCo_.xml
-  #CodeCoverageOutputFileEncoding: ascii
-  # Use this if code coverage should be merged from several pipeline test jobs.
-  # Any existing keys above should be replaced.
-  # CodeCoverageOutputFile - the file that is created for each pipeline test job.
-  # CodeCoverageFilePattern - the pattern used to search all pipeline test job artifacts
-  # after the file specified in CodeCoverageOutputFile.
-  # CodeCoverageMergedOutputFile - the file that is created by the merge build task and
-  # is the file that should be uploaded to code coverage services.
-  #CodeCoverageOutputFile: JaCoCo_Merge.xml
-  #CodeCoverageMergedOutputFile: JaCoCo_coverage.xml
-  #CodeCoverageFilePattern: JaCoCo_Merge.xml
+  CodeCoverageThreshold: 0 # Set to 0 to bypass
 
 DscTest:
   ExcludeTag:
-    - "Common Tests - New Error-Level Script Analyzer Rules"
+    - 'Common Tests - New Error-Level Script Analyzer Rules'
+    - 'Common Tests - Validate Localization'
   Tag:
   ExcludeSourceFile:
     - output
   ExcludeModuleFile:
     - Modules/DscResource.Common
-  #  - Templates
+  MainGitBranch: main
 
-# Import ModuleBuilder tasks from a specific PowerShell module using the build
-# task's alias. Wildcard * can be used to specify all tasks that has a similar
-# prefix and or suffix. The module contain the task must be added as a required
-# module in the file RequiredModules.psd1.
 ModuleBuildTasks:
   Sampler:
     - '*.build.Sampler.ib.tasks'

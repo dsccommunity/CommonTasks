@@ -1,11 +1,12 @@
 configuration SharePointSites
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $Sites
     )
 
-<#
+    <#
     OwnerAlias = [string]
     Url = [string]
     [AdministrationSiteType = [string]{ None | TenantAdministration }]

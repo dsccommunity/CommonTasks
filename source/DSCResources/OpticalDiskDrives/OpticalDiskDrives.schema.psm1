@@ -1,8 +1,8 @@
-﻿configuration OpticalDiskDrives
+configuration OpticalDiskDrives
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]
         $Drives
     )
@@ -13,14 +13,14 @@
     foreach ($drive in $Drives)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $drive = @{}+$drive
+        $drive = @{} + $drive
 
         if (-not $drive.ContainsKey('Ensure'))
         {
             $drive.Ensure = 'Present'
         }
 
-        if( $drive.Ensure -eq 'Absent'-and -not $drive.ContainsKey('DriveLetter') )
+        if ($drive.Ensure -eq 'Absent' -and -not $drive.ContainsKey('DriveLetter'))
         {
             $drive.DriveLetter = 'Z'  # unused but required
         }

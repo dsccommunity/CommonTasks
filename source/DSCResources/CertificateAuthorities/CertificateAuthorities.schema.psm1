@@ -98,7 +98,7 @@ configuration CertificateAuthorities {
         [System.UInt32]
         $ValidityPeriodUnits
     )
-    
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module ActiveDirectoryCSDsc
 
@@ -114,12 +114,13 @@ configuration CertificateAuthorities {
         Name   = 'RSAT-ADCS-Mgmt'
     }
 
-    if (-not $PSBoundParameters.ContainsKey('Ensure')) {
+    if (-not $PSBoundParameters.ContainsKey('Ensure'))
+    {
         $PSBoundParameters.Add('Ensure', 'Present')
     }
     $PSBoundParameters.Remove('InstanceName')
- 
+
     $executionName = 'CaDeployment'
     (Get-DscSplattedResource -ResourceName AdcsCertificationAuthority -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
-    
+
 }

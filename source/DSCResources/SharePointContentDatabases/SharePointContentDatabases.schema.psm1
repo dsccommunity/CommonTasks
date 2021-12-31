@@ -1,11 +1,12 @@
 configuration SharePointContentDatabases
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $ContentDatabases
     )
 
-<#
+    <#
     Name = [string]
     WebAppUrl = [string]
     [DatabaseCredentials = [PSCredential]]
@@ -25,7 +26,8 @@ configuration SharePointContentDatabases
 
     foreach ($item in $ContentDatabases)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

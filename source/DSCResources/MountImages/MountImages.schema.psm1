@@ -1,8 +1,8 @@
-﻿configuration MountImages
+configuration MountImages
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]
         $Images
     )
@@ -13,7 +13,7 @@
     foreach ($img in $Images)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $img = @{}+$img
+        $img = @{} + $img
 
         $imgName = $img.ImagePath -replace ':|\s', ''
         $executionName = "MountImage_$imgName"
@@ -30,7 +30,7 @@
 
         (Get-DscSplattedResource -ResourceName MountImage -ExecutionName $executionName -Properties $img -NoInvoke).Invoke($img)
 
-        if( ($img.Ensure -eq 'Present') -and ($img.ContainsKey('DriveLetter')) )
+        if (($img.Ensure -eq 'Present') -and ($img.ContainsKey('DriveLetter')))
         {
             # wait for volume: 30s
             WaitForVolume "WaitForDrive_$($img.DriveLetter)"
@@ -39,7 +39,7 @@
                 RetryIntervalSec = 5
                 RetryCount       = 6
                 DependsOn        = "[MountImage]$executionName"
-            }    
+            }
         }
     }
 }

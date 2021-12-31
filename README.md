@@ -50,7 +50,7 @@ To achieve the intent, we should:
 
 ## Ideas to discuss
 
-Before going further it's good to have an understanding of [how the DSC resource and configurations works](./docs/ResourceAndConfigs.md), and the [different method of composition](./docs/composition.md) they offers.
+Before going further it's good to have an understanding of [how the DSC resource and configurations works]((./docs/ResourceAndConfigs.md), and the [different method of composition]((./docs/composition.md) they offers.
 
 Below are ideas I think worth discussing and suggestions of implementation. Please raise issues to discuss them.
 
@@ -139,7 +139,7 @@ I see two possible approach:
 
 The second one is more flexible (anyone can create their custom one), but probably needs some time and a lot of communication before taking precedence over the static way.
 
-We could [provide a standard, simple function](./SharedDscConfig/examples/scripts/Resolve-DscConfigurationData.ps1) to resolve the static properties when creating Shareable configurations, where the logic can be overriden where consuming that shared configuration.
+We could [provide a standard, simple function]((./SharedDscConfig/examples/scripts/Resolve-DscConfigurationData.ps1) to resolve the static properties when creating Shareable configurations, where the logic can be overriden where consuming that shared configuration.
 
 ```PowerShell
 function Resolve-DscConfigurationData {
@@ -191,7 +191,7 @@ In this example, I'm illustrating the idea with:
 - a Build.ps1 that defines the build workflow by composing tasks (see [SampleModule](https://github.com/gaelcolas/SampleModule))
 - a Build/ folder, which includes the minimum tasks to bootstrap + custom ones
 - the .gitignore where folders like BuildOutput or kitchen specific files are added (`module/`)
-- the [Dependencies.psd1](./Dependencies.psd1), so that the build process can use [PSDepend](https://github.com/RamblingCookieMonster/PSDepend/) to pull any prerequisites to build that project
+- the [RequiredModules.psd1](./RequiredModules.psd1), so that the build process can use [PSDepend](https://github.com/RamblingCookieMonster/PSDepend/) to pull any prerequisites to build that project
 - the test-kitchen configuration file (omitting the driver, so that it can be set on a global/local config based on the user's environment/platform)
 - the appveyor configuration file (for appveyor CI integration)
 - supporting files like License, Readme, media...

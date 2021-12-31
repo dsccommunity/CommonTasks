@@ -5,7 +5,7 @@ configuration EnvironmentVariables {
         $Variables
     )
 
-<#
+    <#
 xEnvironment [String] #ResourceName
 {
     Name = [string]
@@ -17,10 +17,10 @@ xEnvironment [String] #ResourceName
     [Value = [string]]
 }
 #>
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
-    
+
     foreach ($variable in $Variables)
     {
         if (-not $variable.ContainsKey('Ensure'))

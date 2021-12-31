@@ -1,11 +1,12 @@
 configuration SharePointWebApplications
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $WebApplications
     )
 
-<#
+    <#
     ApplicationPool = [string]
     ApplicationPoolAccount = [string]
     Name = [string]
@@ -30,7 +31,8 @@ configuration SharePointWebApplications
 
     foreach ($item in $WebApplications)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

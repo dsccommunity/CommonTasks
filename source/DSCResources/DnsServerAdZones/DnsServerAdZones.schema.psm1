@@ -2,9 +2,11 @@ configuration DnsServerAdZones
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $AdZones,
 
+        [Parameter()]
         [pscredential]
         $DomainCredential
     )
@@ -12,12 +14,15 @@ configuration DnsServerAdZones
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
-    foreach ($adZone in $AdZones) {
-        if (-not $adZone.ContainsKey('Ensure')) {
+    foreach ($adZone in $AdZones)
+    {
+        if (-not $adZone.ContainsKey('Ensure'))
+        {
             $adZone.Ensure = 'Present'
         }
 
-        if ($DomainCredential) {
+        if ($DomainCredential)
+        {
             $adZone.Credential = $DomainCredential
         }
 

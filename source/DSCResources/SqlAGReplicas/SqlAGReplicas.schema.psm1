@@ -1,10 +1,12 @@
 configuration SqlAGReplicas {
     param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
-        [hashtable[]]$Values
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Values
     )
 
     <#
@@ -27,7 +29,7 @@ configuration SqlAGReplicas {
     [ReadOnlyRoutingConnectionUrl = [string]]
     [ReadOnlyRoutingList = [string[]]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
     foreach ($value in $Values)
@@ -37,7 +39,7 @@ configuration SqlAGReplicas {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

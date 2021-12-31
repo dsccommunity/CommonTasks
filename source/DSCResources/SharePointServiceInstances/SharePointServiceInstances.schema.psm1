@@ -1,11 +1,12 @@
 configuration SharePointServiceInstances
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $ServiceInstances
     )
 
-<#
+    <#
     Name = [string]
     [DependsOn = [string[]]]
     [Ensure = [string]{ Absent | Present }]
@@ -18,7 +19,8 @@ configuration SharePointServiceInstances
 
     foreach ($item in $ServiceInstances)
     {
-        if (-not $item.ContainsKey('Ensure')) {
+        if (-not $item.ContainsKey('Ensure'))
+        {
             $item.Ensure = 'Present'
         }
 

@@ -2,6 +2,7 @@ configuration DnsServerConditionalForwarders
 {
     param
     (
+        [Parameter()]
         [hashtable[]]
         $ConditionalForwarders
     )
@@ -9,8 +10,10 @@ configuration DnsServerConditionalForwarders
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
-    foreach ($conditionalForwarder in $ConditionalForwarders) {
-        if (-not $conditionalForwarder.ContainsKey('Ensure')) {
+    foreach ($conditionalForwarder in $ConditionalForwarders)
+    {
+        if (-not $conditionalForwarder.ContainsKey('Ensure'))
+        {
             $conditionalForwarder.Ensure = 'Present'
         }
 

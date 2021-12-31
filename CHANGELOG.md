@@ -19,3 +19,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make DscLcmController independent from the DscDiagnostics resource
 - Add optional attributes to DscTagging resource
 - Update documentation
+- Applied HQRM standards

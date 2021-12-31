@@ -3,7 +3,7 @@ configuration SqlAGDatabases {
         [Parameter()]
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Values
     )
 
@@ -21,7 +21,7 @@ configuration SqlAGDatabases {
     [PsDscRunAsCredential = [PSCredential]]
     [ReplaceExisting = [bool]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
     foreach ($value in $Values)
@@ -31,7 +31,7 @@ configuration SqlAGDatabases {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

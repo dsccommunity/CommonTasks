@@ -1,13 +1,15 @@
 configuration XmlContent {
     param (
-        [Parameter(Mandatory)]
-        [hashtable[]]$XmlData
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $XmlData
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName XmlContentDsc
 
-    foreach ($xmlRecord in $XmlData) {
+    foreach ($xmlRecord in $XmlData)
+    {
         if ($xmlRecord.Attributes -is [System.Collections.Specialized.OrderedDictionary])
         {
             $xmlRecord.Attributes = [hashtable]$xmlRecord.Attributes

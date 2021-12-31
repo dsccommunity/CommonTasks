@@ -1,10 +1,12 @@
 configuration SqlDatabases {
     param (
         [Parameter()]
-        [String]$DefaultInstanceName = 'MSSQLSERVER',
+        [string]
+        $DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
-        [hashtable[]]$Values
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Values
     )
 
     <#
@@ -19,7 +21,7 @@ configuration SqlDatabases {
     [RecoveryModel = [string]{ BulkLogged | Full | Simple }]
     [ServerName = [string]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
     foreach ($value in $Values)
@@ -29,7 +31,7 @@ configuration SqlDatabases {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

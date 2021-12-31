@@ -20,6 +20,9 @@
     Datum                        = '0.39.0'
     'Datum.ProtectedData'        = '0.0.1'
     DscBuildHelpers              = '0.0.42'
+    'DscResource.Test'           = 'latest'
+    MarkdownLinkCheck            = 'latest'
+    'DscResource.AnalyzerRules'  = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
@@ -41,7 +44,7 @@
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
     SharePointDSC                = '4.8.0'
-    xExchange                    = '1.32.0'
+    xExchange                    = '1.33.0'
     SqlServerDsc                 = '15.2.0'
     UpdateServicesDsc            = '1.2.1'
     xWindowsEventForwarding      = '1.0.0.0'

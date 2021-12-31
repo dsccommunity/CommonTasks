@@ -1,11 +1,12 @@
 configuration SharePointCacheAccounts
 {
-    param(
+    param (
+        [Parameter()]
         [hashtable[]]
         $CacheAccounts
     )
 
-<#
+    <#
     SuperReaderAlias = [string]
     SuperUserAlias = [string]
     WebAppUrl = [string]

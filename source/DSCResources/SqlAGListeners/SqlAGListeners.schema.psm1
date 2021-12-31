@@ -3,7 +3,7 @@ configuration SqlAGListeners {
         [Parameter()]
         [String]$DefaultInstanceName = 'MSSQLSERVER',
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]$Values
     )
 
@@ -19,7 +19,7 @@ configuration SqlAGListeners {
     [Port = [UInt16]]
     [PsDscRunAsCredential = [PSCredential]]
     #>
-    
+
     Import-DscResource -ModuleName SqlServerDsc
 
     foreach ($value in $Values)
@@ -29,7 +29,7 @@ configuration SqlAGListeners {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if(-not $value.Ensure)
+        if (-not $value.Ensure)
         {
             $value.Ensure = 'Present'
         }

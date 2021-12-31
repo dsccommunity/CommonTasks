@@ -1,17 +1,20 @@
-﻿configuration WindowsOptionalFeatures {
+configuration WindowsOptionalFeatures {
     param (
-        [Parameter(Mandatory)]
-        [string[]]$Name,
+        [Parameter(Mandatory = $true)]
+        [string[]]
+        $Name,
 
-        [Boolean]
+        [Parameter()]
+        [boolean]
         $RemoveFilesOnDisable = $false,
 
-        [Boolean]
+        [Parameter()]
+        [boolean]
         $NoWindowsUpdateCheck = $false
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    
+
     foreach ($n in $Name)
     {
         $ensure = 'Enable'

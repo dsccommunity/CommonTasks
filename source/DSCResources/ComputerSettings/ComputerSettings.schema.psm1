@@ -1,34 +1,47 @@
 configuration ComputerSettings {
     param (
-        [Parameter(Mandatory)]
-        [string]$Name,
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Name,
 
-        [string]$Description,
+        [Parameter()]
+        [string]
+        $Description,
 
-        [string]$DomainName,
+        [Parameter()]
+        [string]
+        $DomainName,
 
-        [string]$WorkGroupName,
-        
-        [string]$JoinOU,
+        [Parameter()]
+        [string]
+        $WorkGroupName,
 
-        [pscredential]$Credential,
+        [Parameter()]
+        [string]
+        $JoinOU,
 
-        [string]$TimeZone
+        [Parameter()]
+        [pscredential]
+        $Credential,
+
+        [Parameter()]
+        [string]
+        $TimeZone
     )
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
-   
+
     $timeZoneParamList = 'IsSingleInstance', 'TimeZone', 'DependsOn', 'PsDscRunAsCredential'
     $computerParamList = 'Name', 'Credential', 'DependsOn', 'Description', 'DomainName', 'JoinOU', 'PsDscRunAsCredential', 'Server', 'UnjoinCredential', 'WorkGroupName'
-    
+
     $params = @{ }
     foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $computerParamList))
     {
         $params.Add($item.Key, $item.Value)
     }
     (Get-DscSplattedResource -ResourceName Computer -ExecutionName "Computer$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
-    
+
     $params = @{ }
     foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $timeZoneParamList))
     {

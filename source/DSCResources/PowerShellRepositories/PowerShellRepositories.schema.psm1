@@ -1,12 +1,13 @@
-﻿configuration PowerShellRepositories
+configuration PowerShellRepositories
 {
     param
     (
+        [Parameter()]
         [Hashtable[]]
         $Repositories
     )
 
-    Import-DscResource -ModuleName PowerShellGet
+    Import-DscResource -ModuleName PowerShellGet -ModuleVersion 2.2.5
 
     foreach ($repo in $Repositories)
     {

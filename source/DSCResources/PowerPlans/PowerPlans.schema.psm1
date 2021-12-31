@@ -1,9 +1,9 @@
-﻿configuration PowerPlans
+configuration PowerPlans
 {
     param
     (
         [Parameter()]
-        [ValidateSet('On','Off')]
+        [ValidateSet('On', 'Off')]
         [string]
         $Hibernate,
 
@@ -19,7 +19,7 @@
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DSCR_PowerPlan
 
-    if( -not [string]::IsNullOrWhiteSpace($Hibernate) )
+    if (-not [string]::IsNullOrWhiteSpace($Hibernate))
     {
         Script 'pwrplan_hibernate'
         {
@@ -28,30 +28,34 @@
 
                 Write-Verbose "Expected hibernate mode: $using:Hibernate"
 
-                if ($null -ne $val -and $null -ne $val.HibernateEnabled )
+                if ($null -ne $val -and $null -ne $val.HibernateEnabled)
                 {
                     Write-Verbose "Current hibernate mode: $($val.HibernateEnabled)"
-                    
-                    if( ($using:Hibernate -eq 'On' -and $val.HibernateEnabled -gt 0) -or 
-                        ($using:Hibernate -eq 'Off' -and $val.HibernateEnabled -eq 0) )
-                    { 
+
+                    if (($using:Hibernate -eq 'On' -and $val.HibernateEnabled -gt 0) -or
+                        ($using:Hibernate -eq 'Off' -and $val.HibernateEnabled -eq 0))
+                    {
                         return $true
                     }
                 }
                 return $false
             }
-            SetScript = {
+            SetScript  = {
                 Write-Verbose "Set Hibernate mode: $using:Hibernate"
-                powercfg /HIBERNATE $using:Hibernate          
+                powercfg /HIBERNATE $using:Hibernate
             }
-            GetScript = { return @{result = 'N/A'}}
-        }        
+            GetScript  = { return `
+                @{
+                    result = 'N/A'
+                }
+            }
+        }
     }
 
     foreach ($pwrPlan in $Plans)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $pwrPlan = @{}+$pwrPlan
+        $pwrPlan = @{} + $pwrPlan
 
         if (-not $pwrPlan.ContainsKey('Ensure'))
         {
@@ -66,7 +70,7 @@
     foreach ($pwrSetting in $Settings)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
-        $pwrSetting = @{}+$pwrSetting
+        $pwrSetting = @{} + $pwrSetting
 
         $executionName = "pwrsetting_$($pwrSetting.PlanGuid -replace '[{}\-\s]','')_$($pwrSetting.SettingGuid -replace '[{}\-\s]','')"
 

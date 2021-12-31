@@ -2,7 +2,7 @@ configuration Wds
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $RemInstPath,
 
@@ -11,14 +11,14 @@ configuration Wds
         $RunAsUser,
 
         [Parameter()]
-        [ValidateSet( 'All', 'Known', 'None')]
+        [ValidateSet('All', 'Known', 'None')]
         [string]
         $AnswerClients,
 
         [Parameter()]
         [boolean]
         $UseExistingDhcpScope = $false,
-        
+
         [Parameter()]
         [string]
         $ScopeStart,
@@ -66,13 +66,13 @@ configuration Wds
 
     $dependsOnClientScope = ''
 
-    if( $UseExistingDhcpScope -eq $false )
+    if ($UseExistingDhcpScope -eq $false)
     {
         WindowsFeature dhcpFeature
         {
-            Name   = 'DHCP'
+            Name                 = 'DHCP'
             IncludeAllSubFeature = $true
-            Ensure = 'Present'
+            Ensure               = 'Present'
         }
 
         xDhcpServerScope clientScope
@@ -90,9 +90,9 @@ configuration Wds
     }
     else
     {
-        if( -not [string]::IsNullOrWhiteSpace($ScopeStart) -or
+        if (-not [string]::IsNullOrWhiteSpace($ScopeStart) -or
             -not [string]::IsNullOrWhiteSpace($ScopeEnd) -or
-            -not [string]::IsNullOrWhiteSpace($SubnetMask) )
+            -not [string]::IsNullOrWhiteSpace($SubnetMask))
         {
             throw "ERROR: if 'UseExistingDhcpScope' is set to 'true' the DHCP scope definition shall be empty."
         }
@@ -105,7 +105,7 @@ configuration Wds
         Ensure               = 'Present'
     }
 
-    if( $null -ne $RunAsUser )
+    if ($null -ne $RunAsUser)
     {
         # the RunAs user requires local administrator rights
         Group addRunAsUserToLocalAdminsGroup
@@ -113,7 +113,7 @@ configuration Wds
             GroupName        = 'Administrators'
             Ensure           = 'Present'
             MembersToInclude = $RunAsUser.UserName
-        }        
+        }
     }
 
     WdsInitialize wdsInit
@@ -138,49 +138,63 @@ configuration Wds
 
     $dependsOnWdsService = '[Service]wdsService'
 
-    if( -not [string]::IsNullOrWhiteSpace($AnswerClients) )
+    if (-not [string]::IsNullOrWhiteSpace($AnswerClients))
     {
         Script 'wdsCfg_AnswerClients'
         {
-            TestScript = {
+            TestScript           = {
                 $patternAnswerClients = [Regex]::new('Answer clients:\s*(\w+)')
                 $patternAnswerKnownClients = [Regex]::new('Answer only known clients:\s*(\w+)')
 
                 $output = wdsutil /Get-Server /Show:Config
                 Write-Verbose "Result of wdsutil /Get-Server /Show:Config:`n$output"
 
-                $matchAnswerClients      = $patternAnswerClients.Matches($output)
+                $matchAnswerClients = $patternAnswerClients.Matches($output)
                 $matchAnswerKnownClients = $patternAnswerKnownClients.Matches($output)
 
-                if( $null -eq $matchAnswerClients.Groups  -or 
-                    $null -eq $matchAnswerKnownClients.Groups )
+                if ($null -eq $matchAnswerClients.Groups -or
+                    $null -eq $matchAnswerKnownClients.Groups)
                 {
                     Write-Warning "Output of wdsutil has not the expected content."
                     return $false
                 }
 
-                [boolean]$curAnswerClients      = if( $matchAnswerClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
-                [boolean]$curAnswerKnownClients = if( $matchAnswerKnownClients.Groups[1].Value -eq 'Yes' ) { $true } else { $false }
+                [boolean]$curAnswerClients = if ($matchAnswerClients.Groups[1].Value -eq 'Yes')
+                {
+                    $true
+                }
+                else
+                {
+                    $false
+                }
+                [boolean]$curAnswerKnownClients = if ($matchAnswerKnownClients.Groups[1].Value -eq 'Yes')
+                {
+                    $true
+                }
+                else
+                {
+                    $false
+                }
 
                 Write-Verbose "Expected AnswerClients: $using:AnswerClients"
                 Write-Verbose "Current AnswerClients: $curAnswerClients"
                 Write-Verbose "Current AnswerKnownClients: $curAnswerKnownClients"
 
-                if( $using:AnswerClients -eq 'All' )
+                if ($using:AnswerClients -eq 'All')
                 {
-                    if( $curAnswerClients -ne $false -and $curAnswerKnownClients -eq $false )
+                    if ($curAnswerClients -ne $false -and $curAnswerKnownClients -eq $false)
                     {
                         return $true
                     }
                 }
-                elseif( $using:AnswerClients -eq 'Known' )
+                elseif ($using:AnswerClients -eq 'Known')
                 {
-                    if( $curAswerClients -ne $false -and $curAnswerKnownClients -ne $false )
+                    if ($curAswerClients -ne $false -and $curAnswerKnownClients -ne $false)
                     {
                         return $true
                     }
                 }
-                elseif( $curAnswerClients -eq $false )
+                elseif ($curAnswerClients -eq $false)
                 {
                     # 'None'
                     return $true
@@ -189,20 +203,24 @@ configuration Wds
                 Write-Verbose 'Values are different.'
                 return $false
             }
-            SetScript = {
+            SetScript            = {
                 Write-Verbose "Running: wdsutil /Set-Server /AnswerClients:$using:AnswerClients"
                 $output = wdsutil /Set-Server /AnswerClients:$using:AnswerClients
                 Write-Verbose "Result of 'wdsutil /Set-Server /AnswerClients:$using:AnswerClients':`n$output"
             }
-            GetScript = { return @{result = 'N/A'}}
-            DependsOn = $dependsOnWdsService
+            GetScript            = { return `
+                @{
+                    result = 'N/A'
+                }
+            }
+            DependsOn            = $dependsOnWdsService
             PsDscRunAsCredential = $RunAsUser
-        }        
+        }
     }
 
-    if( $null -ne $BootImages )
+    if ($null -ne $BootImages)
     {
-        foreach( $image in $BootImages )
+        foreach ($image in $BootImages)
         {
             $image.DependsOn = $dependsOnWdsService
 
@@ -212,72 +230,76 @@ configuration Wds
         }
     }
 
-    if( $null -ne $ImageGroups )
+    if ($null -ne $ImageGroups)
     {
-        foreach( $group in $ImageGroups )
+        foreach ($group in $ImageGroups)
         {
             Script "imgGroup_$($group.Name -replace '[().:\s]', '_')"
             {
                 TestScript = {
                     $wdsGroup = Get-WdsInstallImageGroup -Name $using:group.Name -ErrorAction SilentlyContinue
-    
-                    if( $using:group.Ensure -eq 'Absent' )
+
+                    if ($using:group.Ensure -eq 'Absent')
                     {
-                        if( $null -eq $wdsGroup -or $wdsGroup.Count -eq 0 )
+                        if ($null -eq $wdsGroup -or $wdsGroup.Count -eq 0)
                         {
                             return $true
                         }
                     }
                     else
                     {
-                        if( $null -ne $wdsGroup -and $wdsGroup.Name -eq $using:group.Name )
+                        if ($null -ne $wdsGroup -and $wdsGroup.Name -eq $using:group.Name)
                         {
-                            if( [string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor) -or
+                            if ([string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor) -or
                                 $wdsGroup.Security -eq $using:group.SecurityDescriptor)
                             {
-                                return $true                            
+                                return $true
                             }
                         }
                     }
                     return $false
                 }
-                SetScript = {
+                SetScript  = {
                     $params = @{
                         Name = $group.Name
                     }
 
-                    if( $using:group.Ensure -eq 'Absent' )
+                    if ($using:group.Ensure -eq 'Absent')
                     {
                         Remove-WdsInstallImageGroup @params
                     }
-                    else 
+                    else
                     {
-                        if( -not [string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor) )
+                        if (-not [string]::IsNullOrWhiteSpace($using:group.SecurityDescriptor))
                         {
-                            $params.SecurityDescriptorSDDL = $using:group.SecurityDescriptor   
+                            $params.SecurityDescriptorSDDL = $using:group.SecurityDescriptor
                         }
 
                         $wdsGroup = Get-WdsInstallImageGroup -Name $using:group.Name -ErrorAction SilentlyContinue
 
-                        if( $null -eq $wdsGroup )
+                        if ($null -eq $wdsGroup)
                         {
-                            New-WdsInstallImageGroup @params                            
+                            New-WdsInstallImageGroup @params
                         }
                         else
                         {
-                            Set-WdsInstallImageGroup @params                            
+                            Set-WdsInstallImageGroup @params
                         }
                     }
                 }
-                GetScript = { return @{result = 'N/A'}}
-                DependsOn = $dependsOnWdsService
-            }        
+                GetScript  = { return `
+                    @{
+                        result = 'N/A'
+                    }
+                }
+                DependsOn  = $dependsOnWdsService
+            }
         }
     }
 
-    if( $null -ne $InstallImages )
+    if ($null -ne $InstallImages)
     {
-        foreach( $image in $InstallImages )
+        foreach ($image in $InstallImages)
         {
             $image.DependsOn = $dependsOnWdsService
 
@@ -287,22 +309,22 @@ configuration Wds
         }
     }
 
-    if( $null -ne $DeviceReservations )
+    if ($null -ne $DeviceReservations)
     {
-        foreach( $devRes in $DeviceReservations )
+        foreach ($devRes in $DeviceReservations)
         {
             # Remove Case Sensitivity of ordered Dictionary or Hashtables
-            $devRes = @{}+$devRes
+            $devRes = @{} + $devRes
 
-            if( -not $devRes.ContainsKey('Ensure') )
+            if (-not $devRes.ContainsKey('Ensure'))
             {
                 $devRes.Ensure = 'Present'
             }
 
             # make a DHCP reservation
-            if( -not [string]::IsNullOrWhiteSpace($devRes.IpAddress) )
+            if (-not [string]::IsNullOrWhiteSpace($devRes.IpAddress))
             {
-                if( [string]::IsNullOrWhiteSpace($ScopeId) )
+                if ([string]::IsNullOrWhiteSpace($ScopeId))
                 {
                     throw "ERROR: if 'IpAddress' is specified the parameter ScopeId is required to make a DHCP reservation."
                 }
@@ -315,13 +337,13 @@ configuration Wds
                     ScopeID          = $ScopeId
                     Ensure           = $devRes.Ensure
                     DependsOn        = $dependsOnClientScope
-                }                
+                }
             }
 
             # use MacAddress as DeviceID if it's not specified
-            if( [string]::IsNullOrWhiteSpace($devRes.DeviceID) )
+            if ([string]::IsNullOrWhiteSpace($devRes.DeviceID))
             {
-                $devRes.DeviceID  = $devRes.MacAddress
+                $devRes.DeviceID = $devRes.MacAddress
             }
 
             # remove DHCP specific attributes
@@ -330,40 +352,40 @@ configuration Wds
 
             $devRes.DependsOn = $dependsOnWdsService
 
-            if( $devRes.JoinDomain -eq $true )
+            if ($devRes.JoinDomain -eq $true)
             {
-                if( [string]::IsNullOrWhiteSpace($DomainName) )
+                if ([string]::IsNullOrWhiteSpace($DomainName))
                 {
                     throw "ERROR: $($devRes.DeviceName) - DomainName shall be specified to make a domain join."
                 }
 
                 $devRes.Domain = $DomainName
 
-                if( -not [string]::IsNullOrWhiteSpace($DefaultDeviceOU) -and [string]::IsNullOrWhiteSpace($devRes.OU))
+                if (-not [string]::IsNullOrWhiteSpace($DefaultDeviceOU) -and [string]::IsNullOrWhiteSpace($devRes.OU))
                 {
                     $devRes.OU = $DefaultDeviceOU
                 }
             }
-            
-            if( [string]::IsNullOrWhiteSpace($devRes.User) )
+
+            if ([string]::IsNullOrWhiteSpace($devRes.User))
             {
                 # remove JoinRights if no user is specified
-                $devRes.Remove( 'JoinRights' )
+                $devRes.Remove('JoinRights')
             }
             else
             {
-                if( [string]::IsNullOrWhiteSpace($devRes.JoinRights) )
+                if ([string]::IsNullOrWhiteSpace($devRes.JoinRights))
                 {
                     $devRes.JoinRights = 'JoinOnly'
                 }
             }
 
-            if( [string]::IsNullOrWhiteSpace($devRes.PxePromptPolicy) )
+            if ([string]::IsNullOrWhiteSpace($devRes.PxePromptPolicy))
             {
                 $devRes.PxePromptPolicy = 'NoPrompt'
             }
 
-            if( $null -ne $RunAsUser )
+            if ($null -ne $RunAsUser)
             {
                 $devRes.PsDscRunAsCredential = $RunAsUser
             }

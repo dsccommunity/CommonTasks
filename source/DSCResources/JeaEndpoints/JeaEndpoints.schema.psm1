@@ -1,11 +1,12 @@
 configuration JeaEndpoints {
     param (
-        [Parameter(Mandatory)]
-        [hashtable[]]$Endpoints
+        [Parameter(Mandatory = $true)]
+        [hashtable[]]
+        $Endpoints
     )
 
     Import-Module JeaDsc
-    
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName JeaDsc
 
@@ -20,9 +21,9 @@ configuration JeaEndpoints {
         {
             $endpoint.RoleDefinitions = ConvertTo-Expression -Object $endpoint.RoleDefinitions -Explore
         }
-        
+
         (Get-DscSplattedResource -ResourceName JeaSessionConfiguration -ExecutionName "JeaSessionConfiguration_$($endpoint.Name)" -Properties $endpoint -NoInvoke).Invoke($endpoint)
-        
+
     }
 
 }
