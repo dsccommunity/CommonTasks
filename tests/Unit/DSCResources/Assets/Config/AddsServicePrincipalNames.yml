@@ -1,0 +1,5 @@
+ServicePrincipalNames:
+  - Account: nyanhp
+    ServicePrincipalName: HOST/JHP
+  - Account: nyanhp
+    ServicePrincipalName: WINRM/JHP

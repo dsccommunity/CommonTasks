@@ -20,3 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add optional attributes to DscTagging resource
 - Update documentation
 - Applied HQRM standards
+- Fixing issue with AddsOrgUnitsAndGroups when OUs contain other non-word characters
+- Added MmaAgent to configure Microsoft Monitoring Agent
+- Added AddsServicePrincipalNames to configure SPNs
