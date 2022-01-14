@@ -99,8 +99,6 @@ Configuration ConfigurationManagerDeployment
         InstallWindowsFeatures = $true
         WindowsFeatureSource   = 'C:\Windows\WinSxS'
         SccmRole               = $Roles
-        AddWindowsFirewallRule = $true
-        FirewallProfile        = 'Domain', 'Private'
         LocalAdministrators    = $LocalAdministrators
         DomainCredential       = $DomainCredential
         AdkInstallPath         = $AdkInstallPath
