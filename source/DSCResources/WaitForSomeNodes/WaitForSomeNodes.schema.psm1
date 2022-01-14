@@ -5,6 +5,7 @@ configuration WaitForSomeNodes {
         $Items
     )
 
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     <#
     NodeCount = [UInt32]
     NodeName = [string[]]
