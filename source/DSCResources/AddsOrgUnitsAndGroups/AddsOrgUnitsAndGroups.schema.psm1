@@ -56,11 +56,11 @@ configuration AddsOrgUnitsAndGroups
         }
 
         $Object.Path = $ParentPath
-        $script:ouDependencies += "[ADOrganizationalUnit]$($ouPath -Replace ',|=')"
+        $script:ouDependencies += "[ADOrganizationalUnit]$($ouPath -Replace '\W')"
 
         if ($SkipDepend)
         {
-            ADOrganizationalUnit ($ouPath -Replace ',|=')
+            ADOrganizationalUnit ($ouPath -Replace '\W')
             {
                 Name      = $Object.Name
                 Path      = $Object.Path
@@ -69,11 +69,11 @@ configuration AddsOrgUnitsAndGroups
         }
         else
         {
-            ADOrganizationalUnit ($ouPath -Replace ',|=')
+            ADOrganizationalUnit ($ouPath -Replace '\W')
             {
                 Name      = $Object.Name
                 Path      = $Object.Path
-                DependsOn = "[ADOrganizationalUnit]$($ParentPath -Replace ',|=')"
+                DependsOn = "[ADOrganizationalUnit]$($ParentPath -Replace '\W')"
             }
         }
     }

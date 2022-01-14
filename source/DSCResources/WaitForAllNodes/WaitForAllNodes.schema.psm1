@@ -5,6 +5,7 @@ configuration WaitForAllNodes {
         $Items
     )
 
+    Import-DscResource -ModuleName PSDesiredStateConfiguration
     <#
     NodeName = [string[]]
     ResourceName = [string]
