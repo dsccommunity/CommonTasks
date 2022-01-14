@@ -1,4 +1,4 @@
-﻿configuration MmaAgent
+configuration MmaAgent
 {
     param
     (
