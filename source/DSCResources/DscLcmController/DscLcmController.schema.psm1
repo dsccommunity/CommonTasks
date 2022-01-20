@@ -212,6 +212,17 @@ function Set-LcmMode {
 
     $pattern = '(ConfigurationMode(\s+)?=(\s+)?)("\w+")(;)'
     $content = $content -replace $pattern, ('$1 "{0}"$5' -f $Mode)
+    # If mode is ApplyAndMonitor, set to not reboot, if set to ApplyAndAutoCorrect, set to reboot if needed
+    [bool] $rebootIfNeeded = $True
+    if ($Mode -eq 'ApplyAndMonitor') {
+        $rebootIfNeeded = $False
+    }
+    else {
+        $rebootIfNeeded = $True
+    }
+
+    $patternRebootNodeIfNeeded = '(RebootNodeIfNeeded(\s+)?=(\s+)?)(true|false);'
+    $content = $content -replace $patternRebootNodeIfNeeded, ('$1 {0};' -f $RebootIfNeeded)
 
     $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
