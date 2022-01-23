@@ -93,7 +93,7 @@ configuration Cluster
                 Type             = $QuorumType
             }
         }
-        else
+        elseif ($QuorumResource)
         {
             xClusterQuorum ClusterQuorum
             {
