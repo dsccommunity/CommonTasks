@@ -36,6 +36,14 @@ configuration Cluster
         $Join,
 
         [Parameter()]
+        [int]
+        $WaitForClusterRetryIntervalSec = 10,
+
+        [Parameter()]
+        [int]
+        $WaitForClusterRetryCount = 60,
+
+        [Parameter()]
         [string]
         $DomainName,
 
@@ -53,8 +61,8 @@ configuration Cluster
         xWaitForCluster WaitForCluster
         {
             Name             = $Name
-            RetryIntervalSec = 10
-            RetryCount       = 60
+            RetryIntervalSec = $WaitForClusterRetryIntervalSec
+            RetryCount       = $WaitForClusterRetryCount
         }
 
         xCluster JoinSecondNodeToCluster
@@ -93,7 +101,7 @@ configuration Cluster
                 Type             = $QuorumType
             }
         }
-        else
+        elseif ($QuorumResource)
         {
             xClusterQuorum ClusterQuorum
             {
