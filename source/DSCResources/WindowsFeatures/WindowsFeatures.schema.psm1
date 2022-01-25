@@ -2,7 +2,7 @@ configuration WindowsFeatures {
     param (
         [Parameter(Mandatory = $true)]
         [string[]]
-        $Name
+        $Names
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
