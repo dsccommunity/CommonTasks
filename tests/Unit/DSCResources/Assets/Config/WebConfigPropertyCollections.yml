@@ -1,0 +1,33 @@
+Items:
+  - WebsitePath: MACHINE/WEBROOT/APPHOST
+    Filter: system.webServer/isapiFilters
+    CollectionName: .
+    ItemName: filter
+    ItemKeyName: name
+    ItemKeyValue: ASP.Net_2.0.50727-64
+    ItemPropertyName: enabled
+    ItemPropertyValue: true
+  - WebsitePath: MACHINE/WEBROOT/APPHOST
+    Filter: system.webServer/isapiFilters
+    CollectionName: .
+    ItemName: filter
+    ItemKeyName: name
+    ItemKeyValue: ASP.Net_4.0_64bit
+    ItemPropertyName: enabled
+    ItemPropertyValue: true
+  - WebsitePath: MACHINE/WEBROOT/APPHOST
+    Filter: system.webServer/security/isapiCgiRestriction
+    CollectionName: .
+    ItemName: add
+    ItemKeyName: path
+    ItemKeyValue: C:\WINDOWS\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
+    ItemPropertyName: allowed
+    ItemPropertyValue: True
+  - WebsitePath: MACHINE/WEBROOT/APPHOST
+    Filter: system.webServer/security/isapiCgiRestriction
+    CollectionName: .
+    ItemName: add
+    ItemKeyName: path
+    ItemKeyValue: C:\WINDOWS\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
+    ItemPropertyName: groupId
+    ItemPropertyValue: ASP.NET v2.0.50727
