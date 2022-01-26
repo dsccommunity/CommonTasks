@@ -2,12 +2,12 @@ configuration WindowsFeatures {
     param (
         [Parameter(Mandatory = $true)]
         [string[]]
-        $Name
+        $Names
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    foreach ($n in $Name)
+    foreach ($n in $Names)
     {
         $ensure = 'Present'
 
