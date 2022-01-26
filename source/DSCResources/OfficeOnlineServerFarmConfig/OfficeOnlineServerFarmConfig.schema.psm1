@@ -206,7 +206,6 @@ configuration OfficeOnlineServerFarmConfig
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName OfficeOnlineServerDsc
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     if (-not $ExternalUrl -and -not $InternalUrl)
     {
@@ -222,7 +221,7 @@ configuration OfficeOnlineServerFarmConfig
 
     $param = $PSBoundParameters
     $param.Remove('InstanceName')
-    $exeutionName = "$($node.Name)_CreateFarm"
+    $exeutionName = "$($node.Name)_FarmCreate"
     (Get-DscSplattedResource -ResourceName OfficeOnlineServerFarm -ExecutionName $exeutionName -Properties $param -NoInvoke).Invoke($param)
 
 }
