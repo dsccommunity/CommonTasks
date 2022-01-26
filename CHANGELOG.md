@@ -26,4 +26,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added AddsServicePrincipalNames to configure SPNs.
 - Disabling RebootNodeIfNeeded when LCM is on Monitor mode.
 - Made 'WaitForClusterRetryIntervalSec' and 'WaitForClusterRetryCount' configurable in Cluster config.
-- Added new configuration 'WebConfigPropertyCollections'
+- Added new configuration 'WebConfigPropertyCollections'.
+- Changed parameter 'Name' to 'Names' in 'WindowsFeatures' Resource according to coding convention.
