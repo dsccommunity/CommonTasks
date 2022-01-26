@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'OfficeOnlineServer.schema.psm1'
+    RootModule           = 'OfficeOnlineServerSetup.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -11,5 +11,5 @@
 
     Copyright            = 'NA'
 
-    DscResourcesToExport = @('OfficeOnlineServer')
+    DscResourcesToExport = @('OfficeOnlineServerSetup')
 }

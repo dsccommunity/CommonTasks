@@ -30,3 +30,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed an issue with duplicate resource identifiers in 'WebConfigProperties'.
 - Changed parameter 'Name' to 'Names' in 'WindowsFeatures' Resource according to coding convention.
+- Made the Office Online Server resources actually work and redesigned them.
