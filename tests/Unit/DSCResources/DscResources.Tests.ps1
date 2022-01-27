@@ -13,12 +13,14 @@ $global:configurationData = @{
     Datum    = $Datum
 }
 
-foreach ($dscResourceName in $dscResources.Name) {
+foreach ($dscResourceName in $dscResources.Name)
+{
     Describe "'$dscResourceName' DSC Resource compiles" -Tags FunctionalQuality {
 
         BeforeAll {
             $tempExists = Test-Path -Path C:\Temp
-            if (-not $tempExists) {
+            if (-not $tempExists)
+            {
                 New-Item -Path C:\Temp -ItemType Directory | Out-Null
             }
             @'
@@ -32,7 +34,8 @@ f1
 
         It "'$dscResourceName' compiles" {
 
-            if ($dscResourceName -in $skippedDscResources) {
+            if ($dscResourceName -in $skippedDscResources)
+            {
                 Set-ItResult -Skipped -Because "Tests for '$dscResourceName' are skipped"
             }
 
@@ -50,7 +53,8 @@ f1
                 node "localhost_$dscResourceName" {
 
                     $data = $configurationData.Datum.Config."$dscResourceName"
-                    if (-not $data) {
+                    if (-not $data)
+                    {
                         $data = @{}
                     }
                     (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $dscResourceName -Properties $data -NoInvoke).Invoke($data)
@@ -63,7 +67,8 @@ f1
         }
 
         It "'$dscResourceName' should have created a mof file" {
-            if ($dscResourceName -in $skippedDscResources) {
+            if ($dscResourceName -in $skippedDscResources)
+            {
                 Set-ItResult -Skipped -Because "Tests for '$dscResourceName' are skipped"
             }
 
@@ -73,7 +78,8 @@ f1
 
         AfterAll {
             Remove-Item -Path C:\Temp\JeaRoleTest.ps1
-            if (-not $tempExists) {
+            if (-not $tempExists)
+            {
                 Remove-Item -Path C:\Temp
             }
         }
