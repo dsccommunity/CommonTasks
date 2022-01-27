@@ -32,3 +32,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made the Office Online Server resources actually work and redesigned them.
   - Added 'OfficeOnlineServerMachineConfig' configuration.
 - WindowsFeatures configuration does not longer install all sub features. If needed, use prefix '*'.
+- Changed parameter 'Name' to 'Names' in 'WindowsOptionalFeatures' Resource according to coding convention.
