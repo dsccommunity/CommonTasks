@@ -10,12 +10,17 @@ configuration WindowsFeatures {
     foreach ($n in $Names)
     {
         $ensure = 'Present'
+        $includeAllSubFeature = $false
 
-        if ($n[0] -in '-', '+')
+        if ($n[0] -in '-', '+', '*')
         {
             if ($n[0] -eq '-')
             {
                 $ensure = 'Absent'
+            }
+            elseif ($n[0] -eq '*')
+            {
+                $includeAllSubFeature = $true
             }
             $n = $n.Substring(1)
         }
@@ -23,7 +28,7 @@ configuration WindowsFeatures {
         $params = @{
             Name                 = $n
             Ensure               = $ensure
-            IncludeAllSubFeature = $true
+            IncludeAllSubFeature = $includeAllSubFeature
         }
 
         (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
