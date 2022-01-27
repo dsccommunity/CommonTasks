@@ -29,7 +29,7 @@ configuration WebConfigPropertyCollections {
             $item.Ensure = 'Present'
         }
 
-        $executionName = "$($item.WebsitePath)_$($item.Filter)_$($item.CollectionName)_$($item.ItemKeyValue)_$($item.ItemPropertyName)"
+        $executionName = "$($item.WebsitePath)_$($item.Filter)_$($item.CollectionName)_$($item.ItemKeyValue)_$($item.ItemPropertyName)" -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xWebConfigPropertyCollection -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }
