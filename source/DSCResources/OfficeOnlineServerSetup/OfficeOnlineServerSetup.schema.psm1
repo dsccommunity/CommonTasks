@@ -91,7 +91,7 @@ configuration OfficeOnlineServerSetup
         StartupType = 'Automatic'
     }
 
-    $softwareDependsOn = @('[xWindowsFeatureSet]OfficeOnlineServer')
+    $softwareDependsOn = @('[xService]WMIPerformanceAdapter')
     if ($MicrosoftIdentityExtensionsPath)
     {
         $softwareDependsOn += '[xPackage]Microsoft.IdentityModel.Extention.dll'

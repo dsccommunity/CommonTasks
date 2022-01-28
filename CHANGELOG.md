@@ -32,7 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made the Office Online Server resources actually work and redesigned them.
   - Added 'OfficeOnlineServerMachineConfig' configuration.
 - WindowsFeatures configuration does not longer install all sub features. If needed, use prefix '*'.
-- Added CertificateImports to import certificates
-- Added parameter 'CheckPrerequisites' to 'WindowsEventForwarding' resource
-- Fixed issue with names containing special characters in 'LocalUsers' and 'LocalGroups' resources 
-- Fixed issue with quotation marks in 'SqlServer' resource
+- Changed dependencies in 'OfficeOnlineServerSetup'.
+- Added CertificateImports to import certificates.
+- Added parameter 'CheckPrerequisites' to 'WindowsEventForwarding' resource.
+- Fixed issue with names containing special characters in 'LocalUsers' and 'LocalGroups' resources.
+- Fixed issue with quotation marks in 'SqlServer' resource.
