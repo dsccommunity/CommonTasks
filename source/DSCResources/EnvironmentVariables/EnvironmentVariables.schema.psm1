@@ -5,7 +5,7 @@ configuration EnvironmentVariables {
         $Variables
     )
 
-    <#
+<#
 xEnvironment [String] #ResourceName
 {
     Name = [string]

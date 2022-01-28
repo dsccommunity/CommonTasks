@@ -2,7 +2,7 @@ configuration WindowsOptionalFeatures {
     param (
         [Parameter(Mandatory = $true)]
         [string[]]
-        $Name,
+        $Names,
 
         [Parameter()]
         [boolean]
@@ -15,7 +15,7 @@ configuration WindowsOptionalFeatures {
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
-    foreach ($n in $Name)
+    foreach ($n in $Names)
     {
         $ensure = 'Enable'
 

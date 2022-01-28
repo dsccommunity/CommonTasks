@@ -49,7 +49,7 @@ configuration SqlServer
                 TestScript =
                 {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class "__NAMESPACE" | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
                     $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 
@@ -77,7 +77,7 @@ configuration SqlServer
                 SetScript  =
                 {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class “__NAMESPACE” | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class "__NAMESPACE" | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
                     $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 

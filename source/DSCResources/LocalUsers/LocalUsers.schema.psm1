@@ -72,7 +72,7 @@ configuration LocalUsers {
         $memberOf = $user.MemberOf
         $user.Remove( 'MemberOf' )
 
-        $executionName = "localUser_$($user.UserName)"
+        $executionName = "localUser_$($user.UserName)" -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xUser -ExecutionName $executionName -Properties $user -NoInvoke).Invoke($user)
 
         AddMemberOf -ExecutionName $executionName -ExecutionType xUser -AccountName $user.UserName -MemberOf $memberOf

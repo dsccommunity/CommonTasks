@@ -41,7 +41,7 @@ configuration AuditPolicies
         }
     }
 
-    if ( $null -ne $Guids )
+    if ($null -ne $Guids)
     {
         foreach ($guid in $Guids)
         {
