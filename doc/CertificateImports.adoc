@@ -1,0 +1,242 @@
+// CommonTasks YAML Reference: CertificateImports
+// =================================================
+
+:YmlCategory: CertificateImports
+
+
+[[dscyml_certificateimports, {YmlCategory}]]
+= DSC Resource 'CertificateImports'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_certificateimports_abstract]]
+.{YmlCategory} is used to import a certificate into a Windows certificate store.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
+| DSC Resource   | https://github.com/dsccommunity/CertificateDsc[CertificateDsc]
+| Documentation  | https://github.com/dsccommunity/CertificateDsc/wiki/CertificateImport[CertificateImport],
+                   https://github.com/dsccommunity/CertificateDsc/wiki/PfxImport[PfxImport]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_certificateimports_certfiles, {YmlCategory}/CertFiles]]<<dscyml_certificateimports_certfiles_details, CertFiles>>
+|
+| Hashtable[]
+| List of certifcates to import into a Windows certificate store.
+|
+
+| [[dscyml_certificateimports_pfxfiles, {YmlCategory}/PfxFiles]]<<dscyml_certificateimports_pfxfiles_details, PfxFiles>>
+|
+| Hashtable[]
+| List of PFX certifcates to import into a Windows certificate store.
+|
+
+|===
+
+
+[[dscyml_certificateimports_certfiles_details]]
+.Selected Attributes of category '<<dscyml_certificateimports_certfiles>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Thumbprint
+| Key
+| String
+| The thumbprint (unique identifier) of the certificate you're importing.
+|
+
+| Location
+| Key
+| String
+| The Windows Certificate Store Location to import the certificate to.
+| - LocalMachine
+  - CurrentUser
+
+| Store
+| Key
+| String
+| The Windows Certificate Store Name to import the certificate to.
+
+You can get the list in Powershell with:
+
+- `ls Cert:\LocalMachine`
+- `ls Cert:\CurrentUser`
+|
+
+| Path
+|
+| String
+| The path to the CER file you want to import.
+|
+
+| Content
+|
+| String
+| The base64 encoded content of the CER file you want to import.
+|
+
+| EmbedFile
+|
+| Boolean
+| If `True` the content of CER file specified by `Path` is used to set the `Content` attribute.
+| - True
+  - *False* (default)
+
+| FriendlyName
+|
+| String
+| The friendly name of the certificate to set in the Windows Certificate Store.
+|
+
+| Ensure
+| 
+| String
+| Specifies whether the PFX file should be present or absent.
+| - Absent
+  - *Present* (default)
+
+|===
+
+
+[[dscyml_certificateimports_pfxfiles_details]]
+.Selected Attributes of category '<<dscyml_certificateimports_pfxfiles>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Thumbprint
+| Key
+| String
+| The thumbprint (unique identifier) of the PFX file you're importing.
+|
+
+| Location
+| Key
+| String
+| The Windows Certificate Store Location to import the PFX file to.
+| - LocalMachine
+  - CurrentUser
+
+| Store
+| Key
+| String
+| The Windows Certificate Store Name to import the PFX file to.
+
+You can get the list in Powershell with:
+
+- `ls Cert:\LocalMachine`
+- `ls Cert:\CurrentUser`
+|
+
+| Path
+|
+| String
+| The path to the PFX file you want to import.
+|
+
+| Content
+|
+| String
+| The base64 encoded content of the PFX file you want to import.
+|
+
+| EmbedFile
+|
+| Boolean
+| If `True` the content of PFX file specified by `Path` is used to set the `Content` attribute.
+| - True
+  - *False* (default)
+
+| Exportable
+|
+| Boolean
+| Determines whether the private key is exportable from the machine after it has been imported	
+| - True
+  - False
+
+| Credential
+|
+| PSCredential
+| Credentials to decrypt the PFX file.
+|
+
+| FriendlyName
+|
+| String
+| The friendly name of the certificate to set in the Windows Certificate Store.
+|
+
+| Ensure
+| 
+| String
+| Specifies whether the PFX file should be present or absent.
+| - Absent
+  - *Present* (default)
+
+|===
+
+
+.Example
+[source, yaml]
+----
+CertificateImports:
+  CertFiles:
+    - Thumbprint: c81b94933420221a7ac004a90242d8b1d3e5070d
+      Location:   LocalMachine
+      Store:      Root
+      Path:       '\\Server\Share\Certificates\MyTrustedRoot.cer'
+      EmbedFile:  True
+  PfxFiles:
+    - Thumbprint: c81b94933420221a7ac004a90242d8b1d3e5070d
+      Path:       '\\Server\Share\Certificates\CompanyCert.pfx'
+      Location:   LocalMachine
+      Store:      WebHosting
+      Credential: '[ENC=PE9ianMgVmVyc2lvbj0i...=]'
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  CertificateImports:
+    merge_hash: deep
+  CertificateImports\CertFiles:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - Thumbprint
+        - Location
+        - Store
+  CertificateImports\PfxFiles:
+    merge_baseType_array: Unique
+    merge_hash_array: DeepTuple
+    merge_options:
+      tuple_keys:
+        - Thumbprint
+        - Location
+        - Store
+----

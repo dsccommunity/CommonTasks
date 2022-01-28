@@ -29,11 +29,11 @@
 | Description
 | Allowed Values
 
-| Name
+| Names
 | Mandatory
 | string
-| Indicates the name of the role or feature that you want to ensure is added or removed. This is the same as the Name property from the `Get-WindowsFeature` cmdlet, and not the display name of the role or feature.
-| [+\|*\|-]<name>
+| Indicates the name of the role or feature that you want to ensure is added or removed. This is the same as the Name property from the Get-WindowsFeature cmdlet, and not the display name of the role or feature.
+| [+ \| -]<name>
 
 |===
 
@@ -42,7 +42,7 @@
 [source, yaml]
 ----
 WindowsFeatures:
-  Name:
+  Names:
   - Hyper-V       # installs WindowsFeature Hyper-V
   - +DHCP         # installs WindowsFeature DHCP Server
   - -Web-Server   # removes WindowsFeature Web-Server (IIS)
@@ -59,6 +59,6 @@ lookup_options:
 
   WindowsFeatures:
     merge_hash: deep
-  WindowsFeatures\Name:
+  WindowsFeatures\Names:
     merge_basetype_array: Unique
 ----

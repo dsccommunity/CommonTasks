@@ -58,4 +58,5 @@
     PowerShellGet                = '2.2.5'
     ConfigMgrCBDsc               = '3.0.0'
     MmaDsc                       = '1.3.0'
+    CertificateDsc               = '5.1.0'
 }

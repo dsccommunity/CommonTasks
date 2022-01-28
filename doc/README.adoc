@@ -69,6 +69,7 @@ ifdef::env-github[]
 - <<AddsProtectFromAccidentalDeletion.adoc#, AddsProtectFromAccidentalDeletion>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
 - <<Bitlocker.adoc#, Bitlocker>>
+- <<CertificateImports.adoc#, CertificateImports>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<ChocolateyPackages2nd.adoc#, ChocolateyPackages2nd>>
 - <<ChocolateyPackages3rd.adoc#, ChocolateyPackages3rd>>
@@ -158,6 +159,7 @@ ifndef::env-github[]
 // | <<dscyml_addssitessubnets>>               | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_auditpolicies>>                     | <<dscyml_auditpolicies_abstract>>
 | <<dscyml_bitlocker>>                         | <<dscyml_bitlocker_abstract>>
+| <<dscyml_certificateimports>>                | <<dscyml_certificateimports_abstract>>
 | <<dscyml_chocolateypackages>>                | <<dscyml_chocolateypackages_abstract>>
 | <<dscyml_chocolateypackages2nd>>             | <<dscyml_chocolateypackages2nd_abstract>>
 | <<dscyml_chocolateypackages3rd>>             | <<dscyml_chocolateypackages3rd_abstract>>
@@ -252,6 +254,7 @@ include::AddsProtectFromAccidentalDeletion.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
 include::Bitlocker.adoc[leveloffset=+2]
+include::CertificateImports.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 include::ChocolateyPackages2nd.adoc[leveloffset=+2]
 include::ChocolateyPackages3rd.adoc[leveloffset=+2]

@@ -30,10 +30,10 @@
 | Description
 | Allowed Values
 
-| Name
+| Names
 | Mandatory
 | string
-| Indicates the name of the feature that you want to ensure is added or removed. 
+| Indicates the name of the feature that you want to ensure is added or removed.
   This is the same as the Name property from the Get-WindowsOptionalFeature cmdlet, and not the display name of the feature.
 | [+ \| -]<name>
 
@@ -61,8 +61,22 @@
 WindowsOptionalFeatures:
   RemoveFilesOnDisable: false
   NoWindowsUpdateCheck: false
-  Name:
-  - +TFTP 
+  Names:
+  - +TFTP
   - -TelnetClient
   - Hyper-V
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  WindowsOptionalFeatures:
+    merge_hash: deep
+  WindowsOptionalFeatures\Names:
+    merge_basetype_array: Unique
 ----
