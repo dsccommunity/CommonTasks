@@ -26,7 +26,7 @@ configuration WindowsEventForwarding
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWindowsEventForwarding
 
-    if( $CheckPrerequisites -eq $True )
+    if ($CheckPrerequisites -eq $True)
     {
         Script NetworkServiceInLocalEventLogReadersGroup
         {
@@ -43,10 +43,10 @@ configuration WindowsEventForwarding
                 # - Primary_Domain_Controller = 5       
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
-                if( $domainRole -ne 4 -and $domainRole -ne 5 )
+                if ($domainRole -ne 4 -and $domainRole -ne 5)
                 {
                     # check local member
-                    if( $null -ne (Get-LocalGroupMember -Group 'Event Log Readers' -Member 'NT AUTHORITY\NETWORK SERVICE' -ErrorAction SilentlyContinue) )
+                    if ($null -ne (Get-LocalGroupMember -Group 'Event Log Readers' -Member 'NT AUTHORITY\NETWORK SERVICE' -ErrorAction SilentlyContinue))
                     {
                         $result = $true
                     }
@@ -56,7 +56,7 @@ configuration WindowsEventForwarding
                 else
                 {
                     # check domain member
-                    if( $null -ne (Get-ADGroupMember -Identity 'Event Log Readers' -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NETWORK SERVICE' }) )
+                    if ($null -ne (Get-ADGroupMember -Identity 'Event Log Readers' -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NETWORK SERVICE' }))
                     {
                         $result = $true
                     }
@@ -74,7 +74,7 @@ configuration WindowsEventForwarding
             {
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
-                if( $domainRole -ne 4 -and $domainRole -ne 5 )
+                if ($domainRole -ne 4 -and $domainRole -ne 5)
                 {
                     # add local member
                     Write-Verbose "Adding builtin account 'NT AUTHORITY\NETWORK SERVICE' to local group 'Event Log Readers'..."
@@ -90,7 +90,7 @@ configuration WindowsEventForwarding
         }
     }
 
-    if ( $NodeType -eq 'Collector' )
+    if ($NodeType -eq 'Collector')
     {
         if ($null -eq $Subscriptions -or $Subscriptions.Count -lt 1)
         {
@@ -153,7 +153,7 @@ configuration WindowsEventForwarding
             (Get-DscSplattedResource -ResourceName xWEFSubscription  -ExecutionName $executionName -Properties $subscription -NoInvoke).Invoke($subscription)
         }
     }
-    elseif ( $NodeType -eq 'Source' )
+    elseif ($NodeType -eq 'Source')
     {
         if ($null -ne $Subscriptions -and $Subscriptions.Count -gt 0)
         {

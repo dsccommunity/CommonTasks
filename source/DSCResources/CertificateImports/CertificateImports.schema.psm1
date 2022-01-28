@@ -1,9 +1,11 @@
 configuration CertificateImports {
     param
     (
+        [Parameter()]
         [Hashtable[]]
         $CertFiles,
 
+        [Parameter()]
         [Hashtable[]]
         $PfxFiles
     )
@@ -16,15 +18,16 @@ configuration CertificateImports {
     {
         param
         (
+            [Parameter()]
             [Hashtable]
             $CertFile
         )
 
-        if( $certFile.ContainsKey('EmbedFile') )
+        if ($certFile.ContainsKey('EmbedFile'))
         {
-            if( $certFile.EmbedFile -match '^\s*(True|1)\s*$' )
+            if ($certFile.EmbedFile -match '^\s*(True|1)\s*$')
             {
-                if( -not (Test-Path -Path $certFile.Path) )
+                if (-not (Test-Path -Path $certFile.Path))
                 {
                     Write-Host "ERROR: Certificate file '$($certFile.Path)' not found. Current working directory is: $(Get-Location)" -ForegroundColor Red
                 }
@@ -39,7 +42,7 @@ configuration CertificateImports {
     }
 
 
-    if( $null -ne $CertFiles )
+    if ($null -ne $CertFiles)
     {
         foreach ($certFile in $CertFiles)
         {
@@ -50,7 +53,7 @@ configuration CertificateImports {
         }
     }
 
-    if( $null -ne $PfxFiles )
+    if ($null -ne $PfxFiles)
     {
         foreach ($pfxFile in $PfxFiles)
         {

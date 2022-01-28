@@ -27,7 +27,7 @@ configuration DnsServerMxRecords
             # install DNS server if DNS record shall be set on a local DNS server
             if (-not $record.ContainsKey('DnsServer') -or $record.DnsServer -eq 'localhost')
             {
-                if ( $dnsServerInstalled -eq $false )
+                if ($dnsServerInstalled -eq $false)
                 {
                     WindowsFeature DNSServer
                     {
