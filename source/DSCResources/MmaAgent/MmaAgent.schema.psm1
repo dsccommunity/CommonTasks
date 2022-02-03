@@ -22,10 +22,8 @@ configuration MmaAgent
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName MmaDsc
 
-    if ($PSBoundParameters.ContainsKey('InstanceName'))
-    {
-        $PSBoundParameters.Remove('InstanceName')
-    }
+    $PSBoundParameters.Remove('InstanceName')
+    $PSBoundParameters.Remove('DependsOn')
 
     (Get-DscSplattedResource -ResourceName WorkspaceConfiguration -ExecutionName MmaConfig -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 }

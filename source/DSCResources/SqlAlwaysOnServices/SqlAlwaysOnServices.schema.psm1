@@ -24,6 +24,7 @@ configuration SqlAlwaysOnServices {
         $PSBoundParameters.Add('Ensure', 'Present')
     }
 
+    $PSBoundParameters.Remove('DependsOn')
     $PSBoundParameters.InstanceName = $SqlInstanceName
     $PSBoundParameters.Remove('SqlInstanceName')
 
