@@ -221,6 +221,7 @@ configuration OfficeOnlineServerFarmConfig
 
     $param = $PSBoundParameters
     $param.Remove('InstanceName')
+    $param.Remove('DependsOn')
     $exeutionName = "$($node.Name)_FarmCreate"
     (Get-DscSplattedResource -ResourceName OfficeOnlineServerFarm -ExecutionName $exeutionName -Properties $param -NoInvoke).Invoke($param)
 

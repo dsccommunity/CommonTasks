@@ -22,6 +22,7 @@ configuration OfficeOnlineServerMachineConfig
 
     $param = $PSBoundParameters
     $param.Remove('InstanceName')
+    $param.Remove('DependsOn')
     $exeutionName = "$($node.Name)_FarmJoin"
     (Get-DscSplattedResource -ResourceName OfficeOnlineServerMachine -ExecutionName $exeutionName -Properties $param -NoInvoke).Invoke($param)
 

@@ -268,10 +268,8 @@ configuration DnsServerSettings {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
-    if ($PSBoundParameters.ContainsKey('InstanceName'))
-    {
-        $PSBoundParameters.Remove('InstanceName')
-    }
+    $PSBoundParameters.Remove('InstanceName')
+    $PSBoundParameters.Remove('DependsOn')
 
     $executionName = 'DnsServerSetting'
     (Get-DscSplattedResource -ResourceName DnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)

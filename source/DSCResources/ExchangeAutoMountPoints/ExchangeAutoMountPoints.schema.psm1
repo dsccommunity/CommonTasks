@@ -65,6 +65,7 @@ configuration ExchangeAutoMountPoints {
         $executionName = $Identity
     }
     $PSBoundParameters.Remove('InstanceName')
+    $PSBoundParameters.Remove('DependsOn')
 
 
     (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)

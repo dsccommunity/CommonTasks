@@ -84,6 +84,7 @@ configuration SharePointProvisioning
     $PSBoundParameters.Add('Ensure', 'Present')
     $PSBoundParameters.Add('IsSingleInstance', 'Yes')
     $PSBoundParameters.Remove('InstanceName')
+    $PSBoundParameters.Remove('DependsOn')
     $PSBoundParameters.Remove('PsDscRunAsCredential')
     $PSBoundParameters.Remove('CentralAdminServerName')
 

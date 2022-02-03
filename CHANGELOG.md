@@ -37,3 +37,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added parameter 'CheckPrerequisites' to 'WindowsEventForwarding' resource.
 - Fixed issue with names containing special characters in 'LocalUsers' and 'LocalGroups' resources.
 - Fixed issue with quotation marks in 'SqlServer' resource.
+- Fixed issue with inter-configuration DependsOn by removing DependsOn inside configurations
