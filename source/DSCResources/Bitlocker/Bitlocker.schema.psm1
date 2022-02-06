@@ -35,7 +35,7 @@ configuration Bitlocker
 
     $nextDepends = @( '[WindowsFeature]BitlockerFeature', '[WindowsFeature]BitlockerToolsFeature' )
 
-    if ( $null -ne $Tpm )
+    if ($null -ne $Tpm)
     {
         $Tpm.Identity = 'bitlocker_Tpm'
         $Tpm.DependsOn = $nextDepends
@@ -47,9 +47,9 @@ configuration Bitlocker
 
     [boolean]$sysDrivePresent = $false
 
-    if ( $null -ne $Disks )
+    if ($null -ne $Disks)
     {
-        foreach ($disk in $Disks)
+        foreach ($disk in $Disks) 
         {
             $disk.DependsOn = $nextDepends
 
@@ -68,12 +68,12 @@ configuration Bitlocker
     if ($null -ne $AutoDisks)
     {
         # system drive encryption is required
-        if ( $sysDrivePresent -eq $false )
+        if ($sysDrivePresent -eq $false)
         {
             throw "ERROR: Before using 'Bitlocker - AutoDisks' the system drive encryption must be specified in the 'Bitlocker - Disks' section."
         }
 
-        foreach ($autoDisk in $AutoDisks)
+        foreach ($autoDisk in $AutoDisks) 
         {
             $autoDisk.DependsOn = $nextDepends
 

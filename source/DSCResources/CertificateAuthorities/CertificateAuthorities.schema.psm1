@@ -119,6 +119,7 @@ configuration CertificateAuthorities {
         $PSBoundParameters.Add('Ensure', 'Present')
     }
     $PSBoundParameters.Remove('InstanceName')
+    $PSBoundParameters.Remove('DependsOn')
 
     $executionName = 'CaDeployment'
     (Get-DscSplattedResource -ResourceName AdcsCertificationAuthority -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)

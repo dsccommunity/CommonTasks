@@ -10,7 +10,7 @@
 
 
 [[dscyml_dsclcmmaintenancewindows_abstract]]
-.{YmlCategory} defines maintenance windows in which DSC is running in the “ApplyAndAutoCorrect” mode.
+.{YmlCategory} defines maintenance windows in which DSC is running in the `ApplyAndAutoCorrect` mode.
 
 
 [cols="1,3a" options="autowidth" caption=]

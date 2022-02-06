@@ -44,6 +44,12 @@ During `Test-DSCConfiguration` such a none working subscription could not be ide
 ====
 
 
+[NOTE]
+====
+Additional information can be found in the https://github.com/nsacyber/Event-Forwarding-Guidance[Event Forwarding Guidance].
+====
+
+
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
 |===
@@ -60,6 +66,7 @@ During `Test-DSCConfiguration` such a none working subscription could not be ide
 
   - On a `Collector` node at least one `Subscription` must be defined.
   - On a `Source` node the machine account of the `Collector` will be added to the local group `Event Log Readers`.
+  - On a `Default` node only the prequisites can be checked
 
 [NOTE]
 ====
@@ -67,6 +74,23 @@ NodeType `Source` is only supported for `CollectorInitiated` subscriptions.
 ====
 | - Collector
   - Source
+  - Default
+
+| CheckPrerequisites
+|
+| Boolean
+| Checks the prerequistes on the WEF nodes:
+  
+- Built in account `Network Service` shall be a member of the `Event Log Readers` group
++
+[IMPORTANT]
+====
+On a domain controller only the membership test of builtin domain user `Network Service` in the domain group `Event Log Readers` is implemented.
+
+Adding builtin users to a domain group with Powershell is not supported.
+====
+| - True
+  - *False* (default)
 
 | CollectorName
 | Mandatory +
@@ -187,7 +211,8 @@ NOTE: Subscriptions are only supported on NodeType `Collector`
 |
 | String
 | Format that event logs will be submitted in
-| Default: RenderedText
+| - *RenderedText* (default)
+  - Events
 
 | Locale
 |
@@ -204,7 +229,7 @@ NOTE: Subscriptions are only supported on NodeType `Collector`
 | CredentialsType
 |
 | String
-| Sets the credential type used for authenticating to WinRM +
+| Sets the credential type used for authenticating to WinRM
 
 [IMPORTANT]
 ====
@@ -319,4 +344,21 @@ RegistryPolicies:
       ValueData: 'O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0x5;;;BA)(A;;0x1;;;S-1-5-32-573)(A;;0x1;;;NS)'
       ValueType: String
       Ensure: Present
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+default_lookup_options: MostSpecific
+
+lookup_options:
+
+  WindowsEventForwarding:
+    merge_hash: deep
+  WindowsEventForwarding\Subscriptions:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - SubscriptionID
 ----
