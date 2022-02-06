@@ -26,4 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added AddsServicePrincipalNames to configure SPNs.
 - Disabling RebootNodeIfNeeded when LCM is on Monitor mode.
 - Made 'WaitForClusterRetryIntervalSec' and 'WaitForClusterRetryCount' configurable in Cluster config.
-- Added new configuration 'WebConfigPropertyCollections'
+- Added new configuration 'WebConfigPropertyCollections'.
+- Fixed an issue with duplicate resource identifiers in 'WebConfigProperties'.
+- Changed parameter 'Name' to 'Names' in 'WindowsFeatures' Resource according to coding convention.
+- Made the Office Online Server resources actually work and redesigned them.
+  - Added 'OfficeOnlineServerMachineConfig' configuration.
+- WindowsFeatures configuration does not longer install all sub features. If needed, use prefix '*'.

@@ -1,4 +1,5 @@
-Name:
+Names:
 - +XPS-Viewer
 - -Web-Server
 - Hyper-V
+- '*RSAT'
