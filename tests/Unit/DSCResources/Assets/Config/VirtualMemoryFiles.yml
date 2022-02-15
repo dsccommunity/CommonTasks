@@ -1,0 +1,9 @@
+Files:
+  - Drive: C
+    Type: CustomSize
+    InitialSize: 4096
+    MaximumSize: 4096
+  - Drive: P
+    Type: CustomSize
+    InitialSize: 8192
+    MaximumSize: 8192
