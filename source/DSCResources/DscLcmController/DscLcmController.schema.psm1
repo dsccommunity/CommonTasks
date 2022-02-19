@@ -226,11 +226,33 @@ function Set-LcmMode {
 
     $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
 
-    Set-DscLocalConfigurationManager -Path $metaMofFolder
+    Write-Host "LCM RebootIfNeededValue is set to '$rebootIfNeeded'"
 
     Write-Host "LCM put into '$Mode' mode"
 }
 
+function Set-LcmRebootNodeIfNeededMode {
+    param(
+        [Parameter(Mandatory = $true)]
+        [bool] $RebootNodeIfNeeded
+    )
+    $metaMofFolder = mkdir -Path "$path\MetaMof" -Force
+    if (Test-Path -Path C:\Windows\System32\Configuration\MetaConfig.mof)
+    {
+        $mofFile = Copy-Item -Path C:\Windows\System32\Configuration\MetaConfig.mof -Destination "$path\MetaMof\localhost.meta.mof" -Force -PassThru
+    }
+    else
+    {
+        $mofFile = Get-Item -Path "$path\MetaMof\localhost.meta.mof" -ErrorAction Stop
+    }
+    $content = Get-Content -Path $mofFile.FullName -Raw -Encoding Unicode
+
+    $patternRebootNodeIfNeeded = '(RebootNodeIfNeeded(\s+)?=(\s+)?)(true|false);'
+    $content = $content -replace $patternRebootNodeIfNeeded, ('$1 {0};' -f $RebootNodeIfNeeded)
+    $content | Out-File -FilePath $mofFile.FullName -Encoding unicode
+    Set-DscLocalConfigurationManager -Path $metaMofFolder
+    Write-Host "LCM RebootIfNeededValue is set to '$RebootNodeIfNeeded'"
+}
 function Test-StartDscAutoCorrect {
     if ($maintenanceWindowMode -eq 'AutoCorrect') {
 
@@ -430,7 +452,8 @@ $timer = Get-CimInstance -ClassName  msft_providers | Where-Object { $_.Provider
 $timer | Invoke-CimMethod -MethodName UnLoad
 
 $now = Get-Date
-$currentConfigurationMode = (Get-DscLocalConfigurationManager).ConfigurationMode
+$lcmConfiguration = Get-DscLocalConfigurationManager
+$currentConfigurationMode = $lcmConfiguration.ConfigurationMode
 $lcmModeChanged = ''
 $doConsistencyCheck = $false
 $doRefresh = $false
@@ -501,7 +524,13 @@ if ($inMaintenanceWindow) {
         $lcmModeChanged = 'ApplyAndMonitor'
     }
 }
-
+else{
+    if ($lcmConfiguration.RebootNodeIfNeeded)
+    {
+        Write-Host "RebootNodeIfNeeded is set to 'True', but it's not into maintenance window, set RebootNodeIfNeeded to 'False'"
+        Set-LcmRebootNodeIfNeededMode -RebootNodeIfNeeded $false
+    }
+}
 if ($inMaintenanceWindow) {
     $doAutoCorrect = Test-StartDscAutoCorrect
     $doRefresh = Test-StartDscRefresh
