@@ -42,5 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue with names containing special characters in 'LocalUsers' and 'LocalGroups' resources.
 - Fixed issue with quotation marks in 'SqlServer' resource.
 - Fixed issue with inter-configuration DependsOn by removing DependsOn inside configurations
+- Added remote desktop control to 'ComputerSettings'.
 - Fixed an issue with DscLcmController, the RebootNodeIfNeeded property is not
 set to false before the first execution of maintenance window.

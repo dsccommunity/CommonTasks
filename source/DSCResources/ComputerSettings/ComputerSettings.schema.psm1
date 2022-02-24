@@ -26,7 +26,14 @@ configuration ComputerSettings {
 
         [Parameter()]
         [string]
-        $TimeZone
+        $TimeZone,
+
+        [Parameter()]
+        [bool]$AllowRemoteDesktop,
+
+        [Parameter()]
+        [ValidateSet('Secure', 'NonSecure')]
+        [string]$RemoteDesktopUserAuthentication
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -42,11 +49,30 @@ configuration ComputerSettings {
     }
     (Get-DscSplattedResource -ResourceName Computer -ExecutionName "Computer$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
 
-    $params = @{ }
-    foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $timeZoneParamList))
+    if ($TimeZone)
     {
-        $params.Add($item.Key, $item.Value)
+        $params = @{ }
+        foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $timeZoneParamList))
+        {
+            $params.Add($item.Key, $item.Value)
+        }
+        $params.Add('IsSingleInstance', 'Yes')
+        (Get-DscSplattedResource -ResourceName TimeZone -ExecutionName "TimeZone$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
     }
-    $params.Add('IsSingleInstance', 'Yes')
-    (Get-DscSplattedResource -ResourceName TimeZone -ExecutionName "TimeZone$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
+
+    if ($RemoteDesktopUserAuthentication)
+    {
+        $params = @{ }
+        $params.IsSingleInstance = 'Yes'
+        $params.UserAuthentication = $RemoteDesktopUserAuthentication
+        if ($AllowRemoteDesktop)
+        {
+            $params.Ensure = 'Present'
+        }
+        else
+        {
+            $params.Ensure = 'Absent'
+        }
+        (Get-DscSplattedResource -ResourceName RemoteDesktopAdmin -ExecutionName "RemoteDesktopAdmin$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
+    }
 }
