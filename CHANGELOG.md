@@ -47,3 +47,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 set to false before the first execution of maintenance window.
 - Fixed issue with DscLcmController, The RebootNodeIfNeeded property is not
 set to true when the LCM is already in ApplyAndAutoCorrect mode.
+- Fixed GitVersion depreciated version in azurepipeline.
