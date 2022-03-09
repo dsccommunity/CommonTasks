@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `VirtualMemoryFiles` Composite for adjusting the system page file via the resource `VirtualMemory` from the `ComputerManagementDsc` Module.
 - `SharePointSetup` Composite for installing the SharePoint Prerequisits, Setup and optionally Language Packs.
+
 ### Changed
 
 - Changed the build pipeline to Sampler.
@@ -48,3 +49,4 @@ set to false before the first execution of maintenance window.
 - Fixed issue with DscLcmController, The RebootNodeIfNeeded property is not
 set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Fixed GitVersion depreciated version in azurepipeline.
+- Fixed issue #156, switch plublish task to 'unbuntu-latest' vmimage.
