@@ -1,0 +1,6 @@
+Items:
+  - Source: C:\Test
+    Destination: C:\Test2
+    MultiThreaded: true
+    Restartable: true
+    AdditionalArgs: '/mir'
