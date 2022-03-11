@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- `PowershellExecutionPolicies` Composite for managing Powershell execution policies.
 - `VSTSAgents` Composite for installing the Azure DevOps agents.
 - `Robocopies` Composite for leveraging the Robocopy command.
 - `VirtualMemoryFiles` Composite for adjusting the system page file via the resource `VirtualMemory` from the `ComputerManagementDsc` Module.
