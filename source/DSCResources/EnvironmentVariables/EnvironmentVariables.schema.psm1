@@ -23,6 +23,8 @@ xEnvironment [String] #ResourceName
 
     foreach ($variable in $Variables)
     {
+        $variable = @{} + $variable
+
         if (-not $variable.ContainsKey('Ensure'))
         {
             $variable.Ensure = 'Present'
