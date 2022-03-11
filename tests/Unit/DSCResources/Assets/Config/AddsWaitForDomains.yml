@@ -1,0 +1,9 @@
+Domains:
+  - DomainName: contoso.com
+    SiteName: Default-First-Site-Name
+    WaitTimeout: 300
+    RestartCount: 0
+  - DomainName: tailspintoys.com
+    SiteName: Default-First-Site-Name
+    WaitTimeout: 300
+    RestartCount: 0
