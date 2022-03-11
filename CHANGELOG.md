@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Robocopies` Composite for leveraging the Robocopy command.
 - `VirtualMemoryFiles` Composite for adjusting the system page file via the resource `VirtualMemory` from the `ComputerManagementDsc` Module.
 - `SharePointSetup` Composite for installing the SharePoint Prerequisits, Setup and optionally Language Packs.
+- `AddsWaitForDomains` Composite for making sure a domain is reachable before going further.
 
 ### Changed
 
