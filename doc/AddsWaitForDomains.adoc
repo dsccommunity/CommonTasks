@@ -18,7 +18,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WaitForADDomain
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsWaitForDomains
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
 | Documentation  | {ref_WaitForADDomain}
 |===
@@ -73,7 +73,8 @@
 | WaitTimeout
 |
 | UInt64
-| SpecifSpecifies the timeout in seconds that the resource will wait for the domain to be accessible. Default value is 300 seconds.
+| SpecifSpecifies the timeout in seconds that the resource will wait for the domain to be accessible.
+  Default value is 300 seconds.
 |
 
 | RestartCount
@@ -85,7 +86,8 @@
 | WaitForValidCredentials
 |
 | Boolean
-| Specifies that the resource will not throw an error if authentication fails using the provided credentials and continue wait for the timeout. This can be used if the credentials are known to eventually exist but there are a potential timing issue before they are accessible.
+| Specifies that the resource will not throw an error if authentication fails using the provided credentials and continue wait for the timeout.
+  This can be used if the credentials are known to eventually exist but there are a potential timing issue before they are accessible.
 |
 
 | IsAvailable
@@ -116,5 +118,13 @@ AddsWaitForDomains:
 .Recommended Lookup Options in `Datum.yml` (Excerpt)
 [source, yaml]
 ----
-none
+lookup_options:
+
+  AddsWaitForDomains:
+    merge_hash: deep
+  AddsWaitForDomains\Domains:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - DomainName
 ----

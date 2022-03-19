@@ -67,8 +67,10 @@ ifdef::env-github[]
 - <<AddsDomainPrincipals.adoc#, AddsDomainPrincipals>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AddsProtectFromAccidentalDeletion.adoc#, AddsProtectFromAccidentalDeletion>>
+- <<AddsWaitForDomains.adoc#, AddsWaitForDomains>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
 - <<Bitlocker.adoc#, Bitlocker>>
+- <<CertificateExports.adoc#, CertificateExports>>
 - <<CertificateImports.adoc#, CertificateImports>>
 - <<ChocolateyPackages.adoc#, ChocolateyPackages>>
 - <<ChocolateyPackages2nd.adoc#, ChocolateyPackages2nd>>
@@ -157,8 +159,10 @@ ifndef::env-github[]
 | <<dscyml_addsorgunitsandgroups>>             | <<dscyml_addsorgunitsandgroups_abstract>>
 | <<dscyml_addsprotectfromaccidentaldeletion>> | <<dscyml_addsprotectfromaccidentaldeletion_abstract>>
 // | <<dscyml_addssitessubnets>>               | <<dscyml_addssitessubnets_abstract>>
+| <<dscyml_addswaitfordomains>>                | <<dscyml_addswaitfordomains_abstract>>
 | <<dscyml_auditpolicies>>                     | <<dscyml_auditpolicies_abstract>>
 | <<dscyml_bitlocker>>                         | <<dscyml_bitlocker_abstract>>
+| <<dscyml_certificateexports>>                | <<dscyml_certificateexports_abstract>>
 | <<dscyml_certificateimports>>                | <<dscyml_certificateimports_abstract>>
 | <<dscyml_chocolateypackages>>                | <<dscyml_chocolateypackages_abstract>>
 | <<dscyml_chocolateypackages2nd>>             | <<dscyml_chocolateypackages2nd_abstract>>
@@ -252,8 +256,10 @@ include::AddsDomainPrincipals.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 include::AddsProtectFromAccidentalDeletion.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
+include::AddsWaitForDomains.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]
 include::Bitlocker.adoc[leveloffset=+2]
+include::CertificateExports.adoc[leveloffset=+2]
 include::CertificateImports.adoc[leveloffset=+2]
 include::ChocolateyPackages.adoc[leveloffset=+2]
 include::ChocolateyPackages2nd.adoc[leveloffset=+2]

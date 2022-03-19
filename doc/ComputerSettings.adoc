@@ -77,14 +77,15 @@
 | AllowRemoteDesktop
 |
 | Bool
-| Enables or disabled remote desktop. +
+| Enables or disabled remote desktop.
 |
 
 | RemoteDesktopUserAuthentication
 |
 | String
-| Configures the authentication for remote desktop. +
-|  Secure, Unsecure
+| Configures the authentication for remote desktop.
+| - Secure
+  - Unsecure
 
 |===
 
