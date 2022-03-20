@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `VirtualMemoryFiles` Composite for adjusting the system page file via the resource `VirtualMemory` from the `ComputerManagementDsc` Module.
 - `SharePointSetup` Composite for installing the SharePoint Prerequisits, Setup and optionally Language Packs.
 - `AddsWaitForDomains` Composite for making sure a domain is reachable before going further.
+- `CertificateExports` is used to export a certificate from the Windows certificate store.
 
 ### Changed
 
@@ -54,3 +55,5 @@ set to false before the first execution of maintenance window.
 set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Fixed GitVersion depreciated version in azurepipeline.
 - Fixed issue #156, switch plublish task to 'unbuntu-latest' vmimage.
+- WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems
+- Documentation update

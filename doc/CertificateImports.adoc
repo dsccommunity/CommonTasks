@@ -8,10 +8,10 @@
 = DSC Resource 'CertificateImports'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:   {YmlCategory} is used to import a certificate into a Windows certificate store.
 
-[[dscyml_certificateimports_abstract]]
-.{YmlCategory} is used to import a certificate into a Windows certificate store.
-
+[[dscyml_certificateimports_abstract, {abstract}]]
+{abstract}
 
 [cols="1,3a" options="autowidth" caption=]
 |===
