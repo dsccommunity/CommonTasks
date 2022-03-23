@@ -39,8 +39,8 @@ configuration ComputerSettings {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
-    $timeZoneParamList = 'IsSingleInstance', 'TimeZone', 'DependsOn', 'PsDscRunAsCredential'
-    $computerParamList = 'Name', 'Credential', 'DependsOn', 'Description', 'DomainName', 'JoinOU', 'PsDscRunAsCredential', 'Server', 'UnjoinCredential', 'WorkGroupName'
+    $timeZoneParamList = 'IsSingleInstance', 'TimeZone', 'PsDscRunAsCredential'
+    $computerParamList = 'Name', 'Credential', 'Description', 'DomainName', 'JoinOU', 'PsDscRunAsCredential', 'Server', 'UnjoinCredential', 'WorkGroupName'
 
     $params = @{ }
     foreach ($item in ($PSBoundParameters.GetEnumerator() | Where-Object Key -In $computerParamList))

@@ -57,3 +57,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Fixed issue #156, switch plublish task to 'unbuntu-latest' vmimage.
 - WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems
 - Documentation update
+- Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies
