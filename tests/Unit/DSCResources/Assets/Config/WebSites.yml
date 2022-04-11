@@ -25,3 +25,24 @@ Items:
       Basic: false
       Digest: false
       Windows: true
+  - Name: TestSite5
+    PhysicalPath: G:\wwwroot\TestSite5
+    AuthenticationInfo:
+      Anonymous: true
+      Digest: False
+      Basic: False
+      Windows: True
+    ApplicationPool: TestSite5
+    State: Started
+    BindingInfo:
+      - Port: 8090
+        Protocol: https
+        Hostname: ''
+        IPAddress: '*'
+        CertificateSubject: CN=CertificateSubject
+        CertificateStoreName: MY
+        SslFlags: 0
+      - Port: 8080
+        Protocol: http
+        Hostname: ''
+        IPAddress: '*'

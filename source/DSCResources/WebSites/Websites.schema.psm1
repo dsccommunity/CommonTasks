@@ -8,11 +8,7 @@ configuration WebSites {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
-    $cimClassParameters = @{
-        AuthenticationInfo = 'MSFT_xWebAuthenticationInformation'
-        BindingInfo        = 'MSFT_xWebBindingInformation'
-        LogCustomFields    = 'MSFT_xLogCustomFieldInformation'
-    }
+    $dscResourceName = 'xWebSite'
 
     foreach ($item in $Items)
     {
@@ -24,16 +20,20 @@ configuration WebSites {
             $item.Ensure = 'Present'
         }
 
-        foreach ($cimClassParameter in $cimClassParameters.GetEnumerator())
+        foreach ($key in $item.Clone().Keys)
         {
-            if ($item.ContainsKey($cimClassParameter.Name))
+            foreach ($subItem in $item.$key)
             {
-                $data = $item."$($cimClassParameter.Name)"
-                $item."$($cimClassParameter.Name)" = (Get-DscSplattedResource -ResourceName $cimClassParameters."$($cimClassParameter.Name)" -Properties $data -NoInvoke).Invoke($data)
+                $scriptBlock = Get-DscCimInstanceReference -ResourceName $dscResourceName -Parameter $key -Data $subItem
+                if ($scriptBlock)
+                {
+                    $result = $scriptBlock.Invoke($subItem)
+                    $item[$key] = $result
+                }
             }
         }
 
         $executionName = "website_$($item.Name -replace '[{}#\-\s]','_')"
-        (Get-DscSplattedResource -ResourceName xWebSite -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

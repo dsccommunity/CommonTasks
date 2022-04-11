@@ -8,6 +8,9 @@ Import-Module -Name datum
 $datum = New-DatumStructure -DefinitionFile $here\Assets\Datum.yml
 $allNodes = Get-Content -Path $here\Assets\AllNodes.yml -Raw | ConvertFrom-Yaml
 
+Write-Host -Object 'Reading DSC Resource metadata'
+Initialize-DscResourceMetaInfo -ModulePath $RequiredModulesDirectory
+
 $global:configurationData = @{
     AllNodes = [array]$allNodes
     Datum    = $Datum
