@@ -153,7 +153,7 @@ configuration UpdateServices
 
         $Server.Remove('ForceRebootBefore')
 
-        (Get-DscSplattedResource -ResourceName UpdateServicesServer -ExecutionName "wsusSrv" -Properties $Server -NoInvoke).Invoke($Server)
+        (Get-DscSplattedResource -ResourceName UpdateServicesServer -ExecutionName wsusSrv -Properties $Server -NoInvoke).Invoke($Server)
 
         $wsusDependsOn = '[UpdateServicesServer]wsusSrv'
     }
@@ -172,7 +172,7 @@ configuration UpdateServices
                 $rule.Ensure = 'Present'
             }
 
-            (Get-DscSplattedResource -ResourceName UpdateServicesApprovalRule -ExecutionName "'wsus$($rule.Name)'" -Properties $rule -NoInvoke).Invoke($rule)
+            (Get-DscSplattedResource -ResourceName UpdateServicesApprovalRule -ExecutionName "wsus$($rule.Name)" -Properties $rule -NoInvoke).Invoke($rule)
         }
     }
 
@@ -188,6 +188,6 @@ configuration UpdateServices
             $CleanUp.Ensure = 'Present'
         }
 
-        (Get-DscSplattedResource -ResourceName UpdateServicesCleanup  -ExecutionName "wsusCleanup" -Properties $CleanUp -NoInvoke).Invoke($CleanUp)
+        (Get-DscSplattedResource -ResourceName UpdateServicesCleanup  -ExecutionName wsusCleanup -Properties $CleanUp -NoInvoke).Invoke($CleanUp)
     }
 }
