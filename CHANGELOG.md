@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SharePointSetup` Composite for installing the SharePoint Prerequisits, Setup and optionally Language Packs.
 - `AddsWaitForDomains` Composite for making sure a domain is reachable before going further.
 - `CertificateExports` is used to export a certificate from the Windows certificate store.
+- `AddsTrusts` Composite for establishing Forest trusts with more configuration options than using AddsDomain-property DomainTrusts
 
 ### Changed
 
