@@ -1,4 +1,4 @@
-﻿configuration AddsTrusts
+configuration AddsTrusts
 {
     param
     (
