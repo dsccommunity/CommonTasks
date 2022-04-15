@@ -8,9 +8,10 @@
 = DSC Resource 'AddsDomain'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:   {YmlCategory} creates a new domain in a new forest or a child domain in an existing forest.
 
-[[dscyml_addsdomain_abstract]]
-.{YmlCategory} creates a new domain in a new forest or a child domain in an existing forest.
+[[dscyml_addsdomain_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

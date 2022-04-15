@@ -1,0 +1,130 @@
+// CommonTasks YAML Reference: AddsDomainPrincipals
+// ========================================
+
+:YmlCategory: AddsWaitForDomains
+
+
+[[dscyml_addswaitfordomains, {YmlCategory}]]
+= DSC Resource 'AddsWaitForDomains'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_addswaitfordomains_abstract]]
+.{YmlCategory} waits for a domain to be available.
+
+
+:ref_WaitForADDomain: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsWaitForDomains
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | {ref_WaitForADDomain}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_addswaitfordomains_domains, {YmlCategory}/Domains]]<<dscyml_addswaitfordomains_domains_details, Domains>>
+|
+| Hashtable[]
+| List of domains to wait for.
+|
+
+|===
+
+
+[[dscyml_addswaitfordomains_domains_details]]
+.Selected Attributes of category '<<dscyml_addswaitfordomains_domains>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DomainName
+| Key
+| String
+| Specifies the fully qualified domain name to wait for.
+|
+
+| SiteName
+|
+| String
+| Specifies the site in the domain where to look for a domain controller.
+|
+
+| Credential
+|
+| PSCredential
+| Specifies the credentials that are used when accessing the domain, unless the built-in PsDscRunAsCredential is used.
+|
+
+| WaitTimeout
+|
+| UInt64
+| SpecifSpecifies the timeout in seconds that the resource will wait for the domain to be accessible.
+  Default value is 300 seconds.
+|
+
+| RestartCount
+|
+| UInt32
+| Specifies the number of times the node will be reboot in an effort to connect to the domain.
+|
+
+| WaitForValidCredentials
+|
+| Boolean
+| Specifies that the resource will not throw an error if authentication fails using the provided credentials and continue wait for the timeout.
+  This can be used if the credentials are known to eventually exist but there are a potential timing issue before they are accessible.
+|
+
+| IsAvailable
+|
+| Boolean
+| Returns a value indicating if a domain controller was found.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsWaitForDomains:
+  Domains:
+  - DomainName: contoso.com
+    SiteName: Default-First-Site-Name
+    WaitTimeout: 300
+    RestartCount: 0
+  - DomainName: tailspintoys.com
+    SiteName: Default-First-Site-Name
+    WaitTimeout: 300
+    RestartCount: 0
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  AddsWaitForDomains:
+    merge_hash: deep
+  AddsWaitForDomains\Domains:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - DomainName
+----

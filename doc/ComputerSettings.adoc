@@ -18,7 +18,8 @@
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ComputerSettings
 | DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
 | Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/Computer[Computer],
-                   https://github.com/dsccommunity/ComputerManagementDsc/wiki/TimeZone[TimeZone]
+                   https://github.com/dsccommunity/ComputerManagementDsc/wiki/TimeZone[TimeZone],
+                   https://github.com/dsccommunity/ComputerManagementDsc/wiki/RemoteDesktopAdmin[RemoteDesktopAdmin]
 |===
 
 
@@ -65,13 +66,26 @@
 |
 | PSCredential
 | Credential to be used to join a domain.
-| 
+|
 
 | TimeZone
 |
 | String
 | Specifies the TimeZone. +
 |  Use `Get-TimeZone -ListAvailable \| Format-Table` to get valid time zone strings.
+
+| AllowRemoteDesktop
+|
+| Bool
+| Enables or disabled remote desktop.
+|
+
+| RemoteDesktopUserAuthentication
+|
+| String
+| Configures the authentication for remote desktop.
+| - Secure
+  - Unsecure
 
 |===
 
@@ -84,4 +98,6 @@ ComputerSettings:
   DomainName: Contoso
   Credential: '[ENC=PE9ianMgVmVyc2lvbj0i...=]'
   TimeZone: Fiji Standard Time
+  AllowRemoteDesktop: true
+  RemoteDesktopUserAuthentication: Secure
 ----

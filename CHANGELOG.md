@@ -5,6 +5,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `PowershellExecutionPolicies` Composite for managing Powershell execution policies.
+- `VSTSAgents` Composite for installing the Azure DevOps agents.
+- `Robocopies` Composite for leveraging the Robocopy command.
+- `VirtualMemoryFiles` Composite for adjusting the system page file via the resource `VirtualMemory` from the `ComputerManagementDsc` Module.
+- `SharePointSetup` Composite for installing the SharePoint Prerequisits, Setup and optionally Language Packs.
+- `AddsWaitForDomains` Composite for making sure a domain is reachable before going further.
+- `CertificateExports` is used to export a certificate from the Windows certificate store.
+
 ### Changed
 
 - Changed the build pipeline to Sampler.
@@ -38,3 +48,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue with names containing special characters in 'LocalUsers' and 'LocalGroups' resources.
 - Fixed issue with quotation marks in 'SqlServer' resource.
 - Fixed issue with inter-configuration DependsOn by removing DependsOn inside configurations
+- Added remote desktop control to 'ComputerSettings'.
+- Fixed an issue with DscLcmController, the RebootNodeIfNeeded property is not
+set to false before the first execution of maintenance window.
+- Fixed issue with DscLcmController, The RebootNodeIfNeeded property is not
+set to true when the LCM is already in ApplyAndAutoCorrect mode.
+- Fixed GitVersion depreciated version in azurepipeline.
+- Fixed issue #156, switch plublish task to 'unbuntu-latest' vmimage.
+- WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems
+- Documentation update
+- Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies

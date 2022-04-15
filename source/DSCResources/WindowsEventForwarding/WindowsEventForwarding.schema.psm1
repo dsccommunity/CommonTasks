@@ -43,10 +43,13 @@ configuration WindowsEventForwarding
                 # - Primary_Domain_Controller = 5       
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
+                # SID 'S-1-5-32-573' -> builtin group 'Event Log Readers'
+                # SID 'S-1-5-20'     -> builtin user 'NT AUTHORITY\NETWORK SERVICE'
+
                 if ($domainRole -ne 4 -and $domainRole -ne 5)
                 {
                     # check local member
-                    if ($null -ne (Get-LocalGroupMember -Group 'Event Log Readers' -Member 'NT AUTHORITY\NETWORK SERVICE' -ErrorAction SilentlyContinue))
+                    if ($null -ne (Get-LocalGroupMember -SID 'S-1-5-32-573' -Member 'S-1-5-20' -ErrorAction SilentlyContinue))
                     {
                         $result = $true
                     }
@@ -56,7 +59,7 @@ configuration WindowsEventForwarding
                 else
                 {
                     # check domain member
-                    if ($null -ne (Get-ADGroupMember -Identity 'Event Log Readers' -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'NETWORK SERVICE' }))
+                    if ($null -ne (Get-ADGroupMember -Identity 'S-1-5-32-573' -ErrorAction SilentlyContinue | Where-Object { $_.SID -match 'S-1-5-20' }))
                     {
                         $result = $true
                     }
@@ -74,11 +77,14 @@ configuration WindowsEventForwarding
             {
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
+                # SID 'S-1-5-32-573' -> builtin group 'Event Log Readers'
+                # SID 'S-1-5-20'     -> builtin user 'NT AUTHORITY\NETWORK SERVICE'
+
                 if ($domainRole -ne 4 -and $domainRole -ne 5)
                 {
                     # add local member
                     Write-Verbose "Adding builtin account 'NT AUTHORITY\NETWORK SERVICE' to local group 'Event Log Readers'..."
-                    Add-LocalGroupMember -Group 'Event Log Readers' -Member 'NT AUTHORITY\NETWORK SERVICE'
+                    Add-LocalGroupMember -SID 'S-1-5-32-573' -Member 'S-1-5-20'
                 }
                 else
                 {

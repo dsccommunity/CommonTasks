@@ -1,3 +1,5 @@
 TimeZone: Fiji Standard Time
 Name: TestServer
 Description: This is a test server
+AllowRemoteDesktop: true
+RemoteDesktopUserAuthentication: Secure
