@@ -1,0 +1,59 @@
+// CommonTasks YAML Reference: AddsTrusts
+// ========================================
+
+:YmlCategory: AddsTrusts
+
+
+[[dscyml_AddsTrusts, {YmlCategory}]]
+= DSC Resource 'AddsTrusts'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+:abstract:   {YmlCategory} creates new forest or external trust.
+
+[[dscyml_AddsTrusts_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsTrusts
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust],
+                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Trusts
+| Mandatory
+| Hashtable[]
+| The list of trusts to configure. Includes WaitForADDomain for each TargetDomainName
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsTrusts:
+  Trusts:
+    - TargetDomainName: northwindtraders.com
+      TargetCredential: '[ENC=PE9...cz4=]'
+      TrustDirection: Bidirectional
+      TrustType: Forest
+      SourceDomainName: contoso.com
+    - TargetDomainName: partsunlimited.com
+      TargetCredential: '[ENC=PE9...ab3=]'
+      TrustDirection: Outbound
+      TrustType: External
+      SourceDomainName: contoso.com
+----
