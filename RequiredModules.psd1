@@ -19,7 +19,7 @@
     'Sampler.GitHubTasks'        = 'latest'
     Datum                        = '0.39.0'
     'Datum.ProtectedData'        = '0.0.1'
-    DscBuildHelpers              = '0.0.42'
+    DscBuildHelpers              = '0.2.0'
     'DscResource.Test'           = 'latest'
     MarkdownLinkCheck            = 'latest'
     'DscResource.AnalyzerRules'  = 'latest'
