@@ -7,3 +7,16 @@ Items:
     PhysicalPath: C:\InetPub\WebApplications2
     WebAppPool: TestApp2
     WebSite: TestSite2
+  - Name: TestApp3
+    PhysicalPath: C:\InetPub\WebApplications3
+    SslFlags: Ssl
+    Website: TestSite3
+    EnabledProtocols:
+      - http
+      - https
+    WebAppPool: AISAppPool
+    AuthenticationInfo:
+      Anonymous: false
+      Basic: false
+      Digest: false
+      Windows: true
