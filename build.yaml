@@ -6,69 +6,19 @@ CopyPaths:
   - en-US
   - DSCResources
 Encoding: UTF8
-
 VersionedOutputDirectory: true
-
 BuiltModuleSubDirectory: Module
-
-####################################################
-#       Sampler Pipeline Configuration             #
-####################################################
-BuildWorkflow:
-  '.': # "." is the default Invoke-Build workflow. It is called when no -Tasks is specified to the build.ps1
-    - build
-    - test
-
-  build:
-    - Clean
-    - Build_Module_ModuleBuilder
-    - Build_NestedModules_ModuleBuilder
-    - Create_changelog_release_output
-
-
-  pack:
-    - build
-    - package_module_nupkg
-
-  hqrmtest:
-    - DscResource_Tests_Stop_On_Fail
-
-  test:
-    - Pester_Tests_Stop_On_Fail
-    - Pester_if_Code_Coverage_Under_Threshold
-
-  publish:
-    - UpdateTag
-    - SetChangeLog
-    - publish_module_to_gallery
-
-
-####################################################
-#       PESTER  Configuration                      #
-####################################################
-
-Pester:
-  OutputFormat: NUnitXML
-  CodeCoverageThreshold: 0 # Set to 0 to bypass
-
-DscTest:
-  ExcludeTag:
-    - 'Common Tests - New Error-Level Script Analyzer Rules'
-    - 'Common Tests - Validate Localization'
-  Tag:
-  ExcludeSourceFile:
-    - output
-  ExcludeModuleFile:
-    - Modules/DscResource.Common
-  MainGitBranch: main
 
 ModuleBuildTasks:
   Sampler:
     - '*.build.Sampler.ib.tasks'
   Sampler.GitHubTasks:
     - '*.ib.tasks'
+  DscResource.DocGenerator:
+    - 'Task.*'
+  DscResource.Test:
+    - 'Task.*'
 
-# Invoke-Build Header to be used to 'decorate' the terminal output of the tasks.
 TaskHeader: |
   param($Path)
   ""
@@ -80,6 +30,90 @@ TaskHeader: |
   Write-Build DarkGray "  $($Task.InvocationInfo.ScriptName):$($Task.InvocationInfo.ScriptLineNumber)"
   ""
 
+####################################################
+# Pipeline Build Task Configuration (Invoke-Build) #
+####################################################
+BuildWorkflow:
+  '.':
+    - build
+    - test
+
+  build:
+    - Clean
+    - Build_Module_ModuleBuilder
+    - Build_NestedModules_ModuleBuilder
+    - Create_Changelog_Release_Output
+    #- Generate_Conceptual_Help
+    #- Generate_Wiki_Content
+
+  pack:
+    - build
+    - package_module_nupkg
+
+  hqrmtest:
+    - Invoke_HQRM_Tests_Stop_On_Fail
+
+  test:
+    - Pester_Tests_Stop_On_Fail
+    - Pester_If_Code_Coverage_Under_Threshold
+
+  publish:
+    #- Publish_Release_To_GitHub
+    - UpdateTag
+    - SetChangeLog
+    - publish_module_to_gallery
+    #- Publish_GitHub_Wiki_Content
+    #- Create_ChangeLog_GitHub_PR
+
+####################################################
+#          Pester Configuration (Sampler)          #
+####################################################
+Pester:
+  Configuration:
+    Run:
+      Path:
+        - tests/Unit
+    Output:
+      Verbosity: Detailed
+      StackTraceVerbosity: Full
+      CIFormat: Auto
+    CodeCoverage:
+      CoveragePercentTarget: 0
+      OutputPath: JaCoCo_coverage.xml
+      OutputEncoding: ascii
+      UseBreakpoints: false
+    TestResult:
+      OutputFormat: NUnitXML
+      OutputEncoding: ascii
+  ExcludeFromCodeCoverage:
+
+####################################################
+#      Pester Configuration (DscResource.Test)     #
+####################################################
+DscTest:
+  Pester:
+    Configuration:
+      Filter:
+        ExcludeTag:
+          - Common Tests - New Error-Level Script Analyzer Rules
+          - Common Tests - Validate Localization
+      Output:
+        Verbosity: Detailed
+        CIFormat: Auto
+      TestResult:
+        OutputFormat: NUnitXML
+        OutputEncoding: ascii
+        OutputPath: ./output/testResults/NUnitXml_HQRM_Tests.xml
+  Script:
+    ExcludeSourceFile:
+      - output
+    ExcludeModuleFile:
+      - Modules/DscResource.Common
+    MainGitBranch: main
+
+####################################################
+#               GitHub Configuration               #
+####################################################
 GitHubConfig:
   GitHubFilesToAdd:
     - 'CHANGELOG.md'
