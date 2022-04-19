@@ -22,7 +22,7 @@
     'DscResource.Test'           = 'latest'
     MarkdownLinkCheck            = 'latest'
     'DscResource.AnalyzerRules'  = 'latest'
-    'DscResource.DocGenerator.'  = 'latest'
+    'DscResource.DocGenerator'  = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
