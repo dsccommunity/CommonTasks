@@ -8,21 +8,21 @@
         }
     }
 
-    'powershell-yaml'            = 'latest'
     InvokeBuild                  = 'latest'
     PSScriptAnalyzer             = 'latest'
-    Pester                       = '4.10.1'
+    Pester                       = 'latest'
     Plaster                      = 'latest'
     ModuleBuilder                = 'latest'
     ChangelogManagement          = 'latest'
     Sampler                      = 'latest'
     'Sampler.GitHubTasks'        = 'latest'
-    Datum                        = '0.39.0'
-    'Datum.ProtectedData'        = '0.0.1'
-    DscBuildHelpers              = '0.0.42'
+    Datum                        = 'latest'
+    'Datum.ProtectedData'        = 'latest'
+    DscBuildHelpers              = 'latest'
     'DscResource.Test'           = 'latest'
     MarkdownLinkCheck            = 'latest'
     'DscResource.AnalyzerRules'  = 'latest'
+    'DscResource.DocGenerator.'  = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'
