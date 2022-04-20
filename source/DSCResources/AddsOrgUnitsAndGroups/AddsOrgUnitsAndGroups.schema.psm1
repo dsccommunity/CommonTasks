@@ -111,6 +111,6 @@ configuration AddsOrgUnitsAndGroups
             $group.Path = '{0},{1}' -f $group.Path, $DomainDn
         }
 
-        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName "'$($group.GroupName)'" -Properties $group -NoInvoke).Invoke($group)
+        (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
     }
 }
