@@ -1,6 +1,6 @@
 configuration OfficeOnlineServerMachineConfig
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
 
     param (
         [Parameter()]

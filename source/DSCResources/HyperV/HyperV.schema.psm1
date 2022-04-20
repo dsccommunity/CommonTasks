@@ -316,7 +316,7 @@ configuration HyperV
                     TestScript =
                     {
                         #the rule 'PSUseDeclaredVarsMoreThanAssignments' is triggered by the result variable even if it is used.
-                        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments')]
+                        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
                         $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
                         if ($null -eq $netIf)
                         {

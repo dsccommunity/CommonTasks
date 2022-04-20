@@ -15,7 +15,7 @@ configuration CertificateImports
     Import-DscResource -Module CertificateDsc
     function EmbedFile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost')]
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '')]
         param
         (
             [Parameter()]
