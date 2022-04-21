@@ -1,119 +1,138 @@
-$dscResources = Get-DscResource -Module CommonTasks
-$here = $PSScriptRoot
+BeforeDiscovery {
+    $dscResources = Get-DscResource -Module $moduleUnderTest.Name
+    $here = $PSScriptRoot
 
-$skippedDscResources = 'PowerShellRepositories'
+    $skippedDscResources = 'PowerShellRepositories'
 
-Import-Module -Name datum
+    Import-Module -Name datum
 
-$datum = New-DatumStructure -DefinitionFile $here\Assets\Datum.yml
-$allNodes = Get-Content -Path $here\Assets\AllNodes.yml -Raw | ConvertFrom-Yaml
+    $datum = New-DatumStructure -DefinitionFile $here\Assets\Datum.yml
+    $allNodes = Get-Content -Path $here\Assets\AllNodes.yml -Raw | ConvertFrom-Yaml
 
-Write-Host -Object 'Reading DSC Resource metadata'
-Initialize-DscResourceMetaInfo -ModulePath $RequiredModulesDirectory
+    Write-Host 'Reading DSC Resource metadata for supporting CIM based DSC parameters...'
+    Initialize-DscResourceMetaInfo -ModulePath $RequiredModulesDirectory
+    Write-Host 'Done'
 
-$global:configurationData = @{
-    AllNodes = [array]$allNodes
-    Datum    = $Datum
+    $global:configurationData = @{
+        AllNodes = [array]$allNodes
+        Datum    = $Datum
+    }
+
+    [hashtable[]]$testCases = @()
+    foreach ($dscResource in $dscResources)
+    {
+        [PSCustomObject]$dscResourceModuleTable = @()
+        $testCases += @{
+            DscResourceName = $dscResource.Name
+            Skip            = ($dscResource.Name -in $skippedDscResources)
+        }
+    }
+
+    $compositeResources = Get-DscResource -Module $moduleUnderTest.Name
+    $finalTestCases = @()
+    $finalTestCases += @{
+        AllCompositeResources            = $compositeResources.Name
+        FilteredCompositeResources       = $compositeResources | Where-Object Name -NotIn $skippedDscResources
+        AllCompositeResourceFolders      = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
+        FilteredCompositeResourceFolders = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
+    }
 }
 
-foreach ($dscResourceName in $dscResources.Name)
-{
-    Describe "'$dscResourceName' DSC Resource compiles" -Tags FunctionalQuality {
-
-        BeforeAll {
-            $tempExists = Test-Path -Path C:\Temp
-            if (-not $tempExists)
-            {
-                New-Item -Path C:\Temp -ItemType Directory | Out-Null
-            }
-            @'
+Describe 'DSC Composite Resources compile' -Tags FunctionalQuality {
+    BeforeAll {
+        $tempExists = Test-Path -Path C:\Temp
+        if (-not $tempExists)
+        {
+            New-Item -Path C:\Temp -ItemType Directory | Out-Null
+        }
+        @'
 function f1 {
-    Get-Date
+Get-Date
 }
-
 f1
 '@ | Set-Content -Path C:\Temp\JeaRoleTest.ps1 -Force
+    }
+
+    It "'<DscResourceName>' compiles" -TestCases $testCases {
+
+        if ($Skip)
+        {
+            Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
         }
 
-        It "'$dscResourceName' compiles" {
+        $nodeData = @{
+            NodeName                    = "localhost_$dscResourceName"
+            PSDscAllowPlainTextPassword = $true
+            PSDscAllowDomainUser        = $true
+        }
+        $configurationData.AllNodes = @($nodeData)
 
-            if ($dscResourceName -in $skippedDscResources)
-            {
-                Set-ItResult -Skipped -Because "Tests for '$dscResourceName' are skipped"
-            }
+        $dscConfiguration = @'
+configuration "Config_$dscResourceName" {
 
-            $nodeData = @{
-                NodeName                    = "localhost_$dscResourceName"
-                PSDscAllowPlainTextPassword = $true
-                PSDscAllowDomainUser        = $true
-            }
-            $configurationData.AllNodes += $nodeData
+    #<importStatements>
 
-            configuration "Config_$dscResourceName" {
+    node "localhost_$dscResourceName" {
 
-                Import-DscResource -ModuleName CommonTasks
-
-                node "localhost_$dscResourceName" {
-
-                    $data = $configurationData.Datum.Config."$dscResourceName"
-                    if (-not $data)
-                    {
-                        $data = @{}
-                    }
-                    (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $dscResourceName -Properties $data -NoInvoke).Invoke($data)
-                }
-            }
-
-            {
-                & "Config_$dscResourceName" -ConfigurationData $configurationData -OutputPath $OutputDirectory -ErrorAction Stop
-            } | Should -Not -Throw
+        $data = $configurationData.Datum.Config."$dscResourceName"
+        if (-not $data)
+        {
+            $data = @{}
         }
 
-        It "'$dscResourceName' should have created a mof file" {
-            if ($dscResourceName -in $skippedDscResources)
-            {
-                Set-ItResult -Skipped -Because "Tests for '$dscResourceName' are skipped"
-            }
+        (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $dscResourceName -Properties $data -NoInvoke).Invoke($data)
+    }
+}
+'@
 
-            $mofFile = Get-Item -Path "$($OutputDirectory)\localhost_$dscResourceName.mof" -ErrorAction SilentlyContinue
-            $mofFile | Should -BeOfType System.IO.FileInfo
+        $dscConfiguration = $dscConfiguration.Replace('#<importStatements>', "Import-DscResource -Module $($moduleUnderTest.Name)")
+        Invoke-Expression -Command $dscConfiguration
+
+        {
+            & "Config_$dscResourceName" -ConfigurationData $configurationData -OutputPath $OutputDirectory -ErrorAction Stop
+        } | Should -Not -Throw
+    }
+
+    It "'<DscResourceName>' should have created a mof file" -TestCases $testCases {
+
+        if ($Skip)
+        {
+            Set-ItResult -Skipped -Because "Tests for '$DscResourceName' are skipped"
         }
 
-        AfterAll {
-            Remove-Item -Path C:\Temp\JeaRoleTest.ps1
-            if (-not $tempExists)
-            {
-                Remove-Item -Path C:\Temp
-            }
+        $mofFile = Get-Item -Path "$($OutputDirectory)\localhost_$DscResourceName.mof" -ErrorAction SilentlyContinue
+        $mofFile | Should -BeOfType System.IO.FileInfo
+    }
+
+    AfterAll {
+        Remove-Item -Path C:\Temp\JeaRoleTest.ps1
+        if (-not $tempExists)
+        {
+            Remove-Item -Path C:\Temp
         }
     }
 }
 
 Describe 'Final tests' -Tags FunctionalQuality {
-    BeforeAll {
-        $compositeResouces = Get-DscResource -Module CommonTasks
-        Write-Host "Number of composite resources: $($compositeResouces.Count)"
-        $compositeResouces = $compositeResouces | Where-Object Name -NotIn $skippedDscResources
-        Write-Host "Number of composite resources (considering 'skippedDscResources'): $($compositeResouces.Count)"
-    }
 
-    It 'Every composite resource has compiled' {
+    It 'Every composite resource has compiled' -TestCases $finalTestCases {
 
         $mofFiles = Get-ChildItem -Path $OutputDirectory -Filter *.mof
         Write-Host "Number of compiled MOF files: $($mofFiles.Count)"
-        $compositeResouces.Count | Should -Be $mofFiles.Count
+        $FilteredCompositeResources.Count | Should -Be $mofFiles.Count
 
     }
 
-    It 'Composite resource folder count matches composite resource count' {
+    It 'Composite resource folder count matches composite resource count' -TestCases $finalTestCases {
 
-        $compositeResouceFolders = dir -Path "$OutputDirectory\Module\CommonTasks\*\DSCResources\*"
-        Write-Host "Number of composite resource folders: $($compositeResouceFolders.Count)"
-        $compositeResouceFolders = $compositeResouceFolders | Where-Object Name -NotIn $skippedDscResources
-        Write-Host "Number of composite resource folders (considering 'skippedDscResources'): $($compositeResouceFolders.Count)"
-        Write-Host "Number of composite resources: $($compositeResouces.Count)"
-        Write-Host (Compare-Object -ReferenceObject $compositeResouceFolders.Name -DifferenceObject $compositeResouces.Name | Out-String) -ForegroundColor Yellow
+        Write-Host "Number of composite resource folders: $($AllCompositeResourceFolders.Count)"
+        Write-Host "Number of composite resource folders (considering 'skippedDscResources'): $($FilteredCompositeResourceFolders.Count)"
+        Write-Host "Number of all composite resources: $($AllCompositeResources.Count)"
+        Write-Host "Number of composite resources (considering 'skippedDscResources'): $($FilteredCompositeResources.Count)"
 
-        $compositeResouces.Count | Should -Be $compositeResouceFolders.Count
+        Write-Host (Compare-Object -ReferenceObject $FilteredCompositeResourceFolders.BaseName -DifferenceObject $FilteredCompositeResources.Name | Out-String) -ForegroundColor Yellow
+
+        $FilteredCompositeResourceFolders.Count | Should -Be $FilteredCompositeResources.Count
+
     }
 }

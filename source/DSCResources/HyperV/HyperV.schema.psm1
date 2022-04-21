@@ -111,7 +111,7 @@ configuration HyperV
             {
                 if (-not [string]::IsNullOrWhiteSpace($natSwitch))
                 {
-                    throw "ERROR: Only one NAT switch is supported."
+                    throw 'ERROR: Only one NAT switch is supported.'
                 }
 
                 if ([string]::IsNullOrWhiteSpace($netAddressSpace) -or [string]::IsNullOrWhiteSpace($netIpAddress))
@@ -272,7 +272,7 @@ configuration HyperV
 
                                 # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
                                 # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
-                                Write-Verbose "Restarting NLA service to reinitialize the network location check..."
+                                Write-Verbose 'Restarting NLA service to reinitialize the network location check...'
                                 Restart-Service nlasvc -Force
                                 Start-Sleep 5
 
@@ -315,7 +315,9 @@ configuration HyperV
                 {
                     TestScript =
                     {
-                        $netIf = Get-NetIpInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
+                        #the rule 'PSUseDeclaredVarsMoreThanAssignments' is triggered by the result variable even if it is used.
+                        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
+                        $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
                         if ($null -eq $netIf)
                         {
                             Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
@@ -323,18 +325,20 @@ configuration HyperV
                         }
 
                         [boolean]$result = $true
-                        $netIf | ForEach-Object { Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)";
+                        $netIf | ForEach-Object {
+                            Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"
                             if ($_.InterfaceMetric -ne $using:netInterfaceMetric)
                             {
                                 $result = $false
-                            }; }
+                            }
+                        }
 
                         Write-Verbose "Expected Interface Metric: $using:netInterfaceMetric"
                         return $result
                     }
                     SetScript  =
                     {
-                        $netIf = Get-NetIpInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
+                        $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
                         if ($null -eq $netIf)
                         {
                             Write-Error "NetAdapter containing switch name '$using:netName' not found."
@@ -342,7 +346,7 @@ configuration HyperV
                         else
                         {
                             $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $($using:netInterfaceMetric)";
-                                $_ | Set-NetIpInterface -InterfaceMetric $using:netInterfaceMetric }
+                                $_ | Set-NetIPInterface -InterfaceMetric $using:netInterfaceMetric }
                         }
                     }
                     GetScript  = { return `
@@ -427,7 +431,7 @@ configuration HyperV
                     Path             = $strVHDPath
                     MaximumSizeBytes = $iDiskSize
                     Generation       = 'Vhdx'
-                    Type             = 'Dynamic'
+                    type             = 'Dynamic'
                     DependsOn        = "[File]$folderVHD"
                 }
             }
@@ -487,7 +491,7 @@ configuration HyperV
                                     Invoke-Command -ScriptBlock $exec -ErrorAction Stop
                                 }
 
-                                [String]$driveLetter = ($mountedDisk | Get-Disk | Get-Partition | Where-Object { $_.Type -eq "Basic" } | Select-Object -ExpandProperty DriveLetter) + ":"
+                                [String]$driveLetter = ($mountedDisk | Get-Disk | Get-Partition | Where-Object { $_.Type -eq 'Basic' } | Select-Object -ExpandProperty DriveLetter) + ':'
                                 $driveLetter = $driveLetter -replace '\s', ''
                                 Write-Verbose "VHDX '$using:strVHDFile' mounted as drive '$driveLetter'"
 
@@ -527,7 +531,7 @@ configuration HyperV
                     # run only before creation of VM
                     if ($null -eq (Get-VM -Name $using:vmName -ErrorAction SilentlyContinue))
                     {
-                        Write-Verbose "The destination object was found and no action is required."
+                        Write-Verbose 'The destination object was found and no action is required.'
                         return $false
                     }
 
@@ -543,7 +547,7 @@ configuration HyperV
                     $mountedDisk = Mount-VHD -Path $using:strVHDFile -Passthru -ErrorAction Stop
                     try
                     {
-                        [String]$driveLetter = ($mountedDisk | Get-Disk | Get-Partition | Where-Object { $_.Type -eq "Basic" } | Select-Object -ExpandProperty DriveLetter) + ":"
+                        [String]$driveLetter = ($mountedDisk | Get-Disk | Get-Partition | Where-Object { $_.Type -eq 'Basic' } | Select-Object -ExpandProperty DriveLetter) + ':'
                         $driveLetter = $driveLetter -replace '\s', ''
                         Write-Verbose "VHDX '$using:strVHDFile' mounted as drive '$driveLetter'"
 
@@ -562,7 +566,7 @@ configuration HyperV
                                 [xml]$unattendXml = Get-Content -Path $unattendXmlPath
 
                                 $ns = New-Object System.Xml.XmlNamespaceManager($unattendXml.NameTable)
-                                $ns.AddNamespace("ns", "urn:schemas-microsoft-com:unattend")
+                                $ns.AddNamespace('ns', 'urn:schemas-microsoft-com:unattend')
 
                                 # set computername
                                 $computerNameXml = $unattendXml.SelectSingleNode('//ns:component[@name="Microsoft-Windows-Shell-Setup"]/ns:ComputerName', $ns)
@@ -684,7 +688,7 @@ configuration HyperV
                         }
                         else
                         {
-                            Write-Verbose "VM settings not available."
+                            Write-Verbose 'VM settings not available.'
                             $status = $false
                         }
                         return $status
@@ -755,7 +759,7 @@ configuration HyperV
                         }
                         else
                         {
-                            Write-Verbose "VM security settings not available."
+                            Write-Verbose 'VM security settings not available.'
                             $status = $false
                         }
                         return $status
@@ -950,7 +954,7 @@ configuration HyperV
                 Script "$($execName)_properties"
                 {
                     TestScript = {
-                        $netAdapter = Get-VMNetworkAdapter -VmName $using:vmName -Name $using:netAdapterName
+                        $netAdapter = Get-VMNetworkAdapter -VMName $using:vmName -Name $using:netAdapterName
 
                         if ($null -ne $netAdapter)
                         {
@@ -1003,7 +1007,7 @@ configuration HyperV
 
                         Write-Verbose "VM $($using:vmName): Set properties of network adapter $($using:netAdapterName)`n$($params | Out-String)"
 
-                        Get-VMNetworkAdapter -VmName $using:vmName -Name $using:netAdapterName | Set-VMNetworkAdapter @params
+                        Get-VMNetworkAdapter -VMName $using:vmName -Name $using:netAdapterName | Set-VMNetworkAdapter @params
                     }
                     GetScript  = { return `
                         @{
@@ -1065,7 +1069,7 @@ configuration HyperV
                         Path             = $disk.Path
                         MaximumSizeBytes = $iDiskSize
                         Generation       = 'Vhdx'
-                        Type             = 'Dynamic'
+                        type             = 'Dynamic'
                         DependsOn        = "[File]$folderVHD"
                     }
                 }
@@ -1201,7 +1205,7 @@ configuration HyperV
                     }
                 }
                 SetScript  = {
-                    $strPrefix = "[" + $using:vmName + "]:"
+                    $strPrefix = '[' + $using:vmName + ']:'
                     $arrHDDrives = Get-VMHardDiskDrive $using:vmName
                     $arrDVDDrives = Get-VMDvdDrive $using:vmName
 

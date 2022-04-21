@@ -8,10 +8,9 @@
         }
     }
 
-    'powershell-yaml'            = 'latest'
     InvokeBuild                  = 'latest'
     PSScriptAnalyzer             = 'latest'
-    Pester                       = '4.10.1'
+    Pester                       = 'latest'
     Plaster                      = 'latest'
     ModuleBuilder                = 'latest'
     ChangelogManagement          = 'latest'
@@ -23,6 +22,7 @@
     'DscResource.Test'           = 'latest'
     MarkdownLinkCheck            = 'latest'
     'DscResource.AnalyzerRules'  = 'latest'
+    'DscResource.DocGenerator'  = 'latest'
 
     #DSC Resources
     xPSDesiredStateConfiguration = '9.1.0'

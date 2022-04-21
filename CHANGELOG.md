@@ -59,4 +59,5 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems
 - Documentation update
 - Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies
-- Added support for CimInstance parameters.
+- Migration of tests to Pester 5
+- Added support for CimInstance parameters

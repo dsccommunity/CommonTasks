@@ -1,4 +1,5 @@
-configuration CertificateImports {
+configuration CertificateImports
+{
     param
     (
         [Parameter()]
@@ -9,13 +10,12 @@ configuration CertificateImports {
         [Hashtable[]]
         $PfxFiles
     )
-    
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module CertificateDsc
-
-
     function EmbedFile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '')]
         param
         (
             [Parameter()]
@@ -33,7 +33,7 @@ configuration CertificateImports {
                 }
                 else
                 {
-                    $certFile.Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($certFile.Path))       
+                    $certFile.Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($certFile.Path))
                     $certFile.Remove('Path')
                 }
             }
@@ -47,7 +47,7 @@ configuration CertificateImports {
         foreach ($certFile in $CertFiles)
         {
             EmbedFile -CertFile $certFile
-            
+
             $executionName = "cert_$($certFile.Thumbprint)_$($certFile.Location)_$($certFile.Store)" -replace '[\s(){}/\\:-]', '_'
             (Get-DscSplattedResource -ResourceName CertificateImport -ExecutionName $executionName -Properties $certFile -NoInvoke).Invoke($certFile)
         }
@@ -58,7 +58,7 @@ configuration CertificateImports {
         foreach ($pfxFile in $PfxFiles)
         {
             EmbedFile -CertFile $pfxFile
-            
+
             $executionName = "pfx_$($pfxFile.Thumbprint)_$($pfxFile.Location)_$($pfxFile.Store)" -replace '[\s(){}/\\:-]', '_'
             (Get-DscSplattedResource -ResourceName PfxImport -ExecutionName $executionName -Properties $pfxFile -NoInvoke).Invoke($pfxFile)
         }
