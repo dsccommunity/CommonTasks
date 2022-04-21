@@ -9,9 +9,9 @@ BeforeDiscovery {
     $datum = New-DatumStructure -DefinitionFile $here\Assets\Datum.yml
     $allNodes = Get-Content -Path $here\Assets\AllNodes.yml -Raw | ConvertFrom-Yaml
 
-    Write-Build DarkGray 'Reading DSC Resource metadata for supporting CIM based DSC parameters...'
+    Write-Host 'Reading DSC Resource metadata for supporting CIM based DSC parameters...'
     Initialize-DscResourceMetaInfo -ModulePath $RequiredModulesDirectory
-    Write-Build DarkGray 'Done'
+    Write-Host 'Done'
 
     $global:configurationData = @{
         AllNodes = [array]$allNodes
@@ -31,10 +31,10 @@ BeforeDiscovery {
     $compositeResources = Get-DscResource -Module $moduleUnderTest.Name
     $finalTestCases = @()
     $finalTestCases += @{
-        AllCompositeResources      = $compositeResources.Name
-        FilteredCompositeResources = $compositeResources | Where-Object Name -NotIn $skippedDscResources
-        AllCompositeResourceFolders   = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
-        FilteredCompositeResourceFolders   = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
+        AllCompositeResources            = $compositeResources.Name
+        FilteredCompositeResources       = $compositeResources | Where-Object Name -NotIn $skippedDscResources
+        AllCompositeResourceFolders      = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
+        FilteredCompositeResourceFolders = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
     }
 }
 

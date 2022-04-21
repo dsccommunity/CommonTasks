@@ -8,6 +8,8 @@ configuration WebSites {
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
+    $dscResourceName = 'xWebSite'
+
     foreach ($item in $Items)
     {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
@@ -19,7 +21,6 @@ configuration WebSites {
         }
 
         $executionName = "website_$($item.Name -replace '[{}#\-\s]','_')"
-
-        (Get-DscSplattedResource -ResourceName xWebSite -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }
