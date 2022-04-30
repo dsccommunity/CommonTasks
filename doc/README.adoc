@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference
-// ========================================
+// ==========================
 
 // GitHub Flavored Asciidoc (GFA)
 // https://gist.github.com/dcode/0cfbf2699a1fe9b46ff04c41721dda74
@@ -21,7 +21,7 @@ ifdef::env-github[]
 [NOTE]
 ====
 GitHub supports only a subset of the https://asciidoc.org/[AsciiDoc] language.
-To create your own documentation use https://asciidoctor.org/[Asciidoctor] or the https://asciidocfx.com/[Asciidoc Book Editor]. 
+To create your own documentation use https://asciidoctor.org/[Asciidoctor] or the https://asciidocfx.com/[Asciidoc Book Editor].
 ====
 endif::[]
 
@@ -34,7 +34,7 @@ YAML reference of DSC resources of https://github.com/dsccommunity/CommonTasks[C
 . Exercise 4: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/Exercise4.md[Add another layer to your hierarchy]
 . Exercise 5: https://github.com/dsccommunity/DscWorkshop/blob/dev/Exercises/Task2/StretchGoal.md[Create and use a custom Configuration (DSC Composite Resource)]
 
-.Store encrypted strings in the YAML files 
+.Store encrypted strings in the YAML files
 
 - Instructions: https://www.janhendrikpeters.de/2020/01/17/dsc-configuration-data-encryption-done-right/[DSC Configuration data encryption]
 
@@ -67,6 +67,7 @@ ifdef::env-github[]
 - <<AddsDomainPrincipals.adoc#, AddsDomainPrincipals>>
 - <<AddsOrgUnitsAndGroups.adoc#, AddsOrgUnitsAndGroups>>
 - <<AddsProtectFromAccidentalDeletion.adoc#, AddsProtectFromAccidentalDeletion>>
+- <<AddsTrusts.adoc#, AddsTrusts>>
 - <<AddsWaitForDomains.adoc#, AddsWaitForDomains>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
 - <<Bitlocker.adoc#, Bitlocker>>
@@ -158,6 +159,7 @@ ifndef::env-github[]
 | <<dscyml_addsdomainprincipals>>              | <<dscyml_addsdomainprincipals_abstract>>
 | <<dscyml_addsorgunitsandgroups>>             | <<dscyml_addsorgunitsandgroups_abstract>>
 | <<dscyml_addsprotectfromaccidentaldeletion>> | <<dscyml_addsprotectfromaccidentaldeletion_abstract>>
+| <<dscyml_addstrusts>>                        | <<dscyml_addstrusts_abstract>>
 // | <<dscyml_addssitessubnets>>               | <<dscyml_addssitessubnets_abstract>>
 | <<dscyml_addswaitfordomains>>                | <<dscyml_addswaitfordomains_abstract>>
 | <<dscyml_auditpolicies>>                     | <<dscyml_auditpolicies_abstract>>
@@ -255,6 +257,7 @@ include::AddsDomain.adoc[leveloffset=+2]
 include::AddsDomainPrincipals.adoc[leveloffset=+2]
 include::AddsOrgUnitsAndGroups.adoc[leveloffset=+2]
 include::AddsProtectFromAccidentalDeletion.adoc[leveloffset=+2]
+include::AddsTrusts.adoc[leveloffset=+2]
 //include::AddsSitesSubnets.adoc[leveloffset=+2]
 include::AddsWaitForDomains.adoc[leveloffset=+2]
 include::AuditPolicies.adoc[leveloffset=+2]

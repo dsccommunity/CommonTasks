@@ -8,9 +8,10 @@
 = DSC Resource 'AuditPolicies'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} contains DSC resources for the management and configuration of the advanced audit policy on all currently supported versions of Windows.
 
-[[dscyml_auditpolicies_abstract]]
-.{YmlCategory} contains DSC resources for the management and configuration of the advanced audit policy on all currently supported versions of Windows.
+[[dscyml_auditpolicies_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once

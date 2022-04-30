@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: Disks
-// ========================================
+// =================================
 
 :YmlCategory: Disks
 
@@ -8,9 +8,10 @@
 = DSC Resource 'Disks'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} module is used to initialize, format and mount the partition/volume as a drive letter.
 
-[[dscyml_disks_abstract]]
-.{YmlCategory} module is used to initialize, format and mount the partition/volume as a drive letter.
+[[dscyml_disks_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -86,7 +87,7 @@
 |
 
 | FSLabel
-| 
+|
 | String
 | Define volume label if required.
 |
@@ -113,7 +114,7 @@
 | ClearDisk
 |
 | Boolean
-| Specifies if the disks partition schema should be removed entirely, even if data and OEM partitions are present. 
+| Specifies if the disks partition schema should be removed entirely, even if data and OEM partitions are present.
   Only possible with AllowDestructive enabled.
 |
 

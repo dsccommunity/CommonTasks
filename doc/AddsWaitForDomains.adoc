@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: AddsDomainPrincipals
-// ========================================
+// ================================================
 
 :YmlCategory: AddsWaitForDomains
 
@@ -8,9 +8,10 @@
 = DSC Resource 'AddsWaitForDomains'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} waits for a domain to be available.
 
-[[dscyml_addswaitfordomains_abstract]]
-.{YmlCategory} waits for a domain to be available.
+[[dscyml_addswaitfordomains_abstract, {abstract}]]
+{abstract}
 
 
 :ref_WaitForADDomain: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]
