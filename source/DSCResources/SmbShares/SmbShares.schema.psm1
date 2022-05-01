@@ -94,6 +94,15 @@ configuration SmbShares
                 $share.Path = 'Unused'
             }
 
+            # remove duplicates from access rights 
+            $share.FullAccess   = $() + $share.FullAccess
+            $share.ChangeAccess = $() + ($share.ChangeAccess | Where-Object { $share.FullAccess -notcontains $_ })
+            $share.ReadAccess   = $() + ($share.ReadAccess   | Where-Object { $share.FullAccess -notcontains $_ -and `
+                                                                              $share.ChangeAccess -notcontains $_ })
+            $share.NoAccess     = $() + ($share.NoAccess     | Where-Object { $share.FullAccess -notcontains $_ -and `
+                                                                              $share.ChangeAccess -notcontains $_ -and `
+                                                                              $share.ReadAccess -notcontains $_ })
+
             (Get-DscSplattedResource -ResourceName SmbShare -ExecutionName "SmbShare_$shareId" -Properties $share -NoInvoke).Invoke($share)
         }
     }
