@@ -37,13 +37,13 @@ configuration FilesAndFolders
             }
             else
             {
-                if( [string]::IsNullOrWhiteSpace( $item.Type ) -or $item.Type -eq 'File' )
+                if ( [string]::IsNullOrWhiteSpace( $item.Type ) -or $item.Type -eq 'File' )
                 {
                     [string]$content = Get-Content -Path $item.ContentFromFile -Raw
                     $item.Contents += $content
                     $item.Type = 'File'
                 }
-                elseif( $item.Type -eq 'BinaryFile' )
+                elseif ( $item.Type -eq 'BinaryFile' )
                 {
                     $fileHash      = (Get-FileHash -Path $item.ContentFromFile -Algorithm SHA256).Hash
                     $base64Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($item.ContentFromFile))
@@ -102,7 +102,7 @@ configuration FilesAndFolders
                     else
                     {
                         $dirName = [System.IO.Path]::GetDirectoryName($using:destPath)
-                        if( -not (Test-Path -Path $dirName) )
+                        if ( -not (Test-Path -Path $dirName) )
                         {
                             Write-Verbose "Creating directory '$dirName'..."
                             New-Item -Path $dirName -ItemType Directory -Force
@@ -113,7 +113,9 @@ configuration FilesAndFolders
                     }
                 }
                 GetScript  = {
-                    return @{ result = 'N/A' }
+                    return @{
+                        result = 'N/A'
+                    }
                 }
             }
         }
