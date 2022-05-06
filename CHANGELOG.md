@@ -64,3 +64,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies
 - Migration of tests to Pester 5
 - Added support for CimInstance parameters
+- Fixed issue with Cluster composite ignoring the IgnoreNetwork parameter
