@@ -74,12 +74,18 @@ configuration Cluster
     }
     else
     {
-        xCluster NewCluster
-        {
+        $parameters = @{
             Name                          = $Name
             DomainAdministratorCredential = $DomainAdministratorCredential
             StaticIPAddress               = $StaticIPAddress
         }
+
+        if ($IgnoreNetwork.Count -gt 0)
+        {
+            $parameters['IgnoreNetwork'] = $IgnoreNetwork
+        }
+
+        (Get-DscSplattedResource -ResourceName xCluster -ExecutionName NewCluster -Properties $parameters -NoInvoke).Invoke($parameters)
     }
 
     foreach ($disk in $Disks)
