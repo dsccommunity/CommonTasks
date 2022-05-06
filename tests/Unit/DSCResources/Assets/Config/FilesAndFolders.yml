@@ -9,6 +9,16 @@ Items:
     Ensure: Present
     Force: true
     Type: File
+  - DestinationPath: C:\Test_BinaryFromFile.txt
+    ContentFromFile: .\tests\Unit\DSCResources\Assets\Config\FilesAndFolders.yml
+    Ensure: Present
+    Force: true
+    Type: BinaryFile
+  - DestinationPath: C:\Test_BinaryFromFileAbsent.txt
+    ContentFromFile: .\tests\Unit\DSCResources\Assets\Config\FilesAndFolders.yml
+    Ensure: Absent
+    Force: true
+    Type: BinaryFile
   - DestinationPath: C:\Test_AppendFromFile.txt
     Contents: Test Content
     ContentFromFile: .\tests\Unit\DSCResources\Assets\Config\FilesAndFolders.yml

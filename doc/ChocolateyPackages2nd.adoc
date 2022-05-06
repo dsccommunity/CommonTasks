@@ -8,9 +8,10 @@
 = DSC Resource 'ChocolateyPackages2nd'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} is aimed to install additional packages using Chocolatey.
 
-[[dscyml_chocolateypackages2nd_abstract]]
-.{YmlCategory} is aimed to install additional packages using Chocolatey.
+[[dscyml_chocolateypackages2nd_abstract, {abstract}]]
+{abstract}
 
 Now you can configure additional configuration steps between installation of two Chocolatey packages in the YAML configuration.
 
@@ -18,8 +19,9 @@ Now you can configure additional configuration steps between installation of two
 ====
 This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
 
-In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`. 
+In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`.
 ====
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
@@ -51,7 +53,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
   - True
 
 | [[dscyml_chocolateypackages2nd_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages2nd_packages_details, Packages>>
-| 
+|
 | Hashtable[]
 | List of Chocolatey packages
 |
@@ -82,7 +84,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
 
   - '' -> Install latest version if package is not installed
   - 1.0 -> Install specified version if no newer version is installed
-  - Latest -> Install or upgrade to latest version 
+  - Latest -> Install or upgrade to latest version
 |
 
 | Ensure
@@ -99,7 +101,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
 
 A package with a lower rank is installed before a package with a higher rank.
 With specifing the rank you can control the installation order of packages in the MOF files.
-This is useful on multiple YAML layer scenarios to define the installation order independent from the YAML layer merging. 
+This is useful on multiple YAML layer scenarios to define the installation order independent from the YAML layer merging.
 | Default: `1000`
 
 | ChocolateyOptions
@@ -108,7 +110,7 @@ This is useful on multiple YAML layer scenarios to define the installation order
 | https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
 
 NOTE: All option values shall be provided as strings, so enclose numerical values in ''.
-| 
+|
 
 | UpdateOnly
 |

@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: DhcpServer
-// ========================================
+// ======================================
 
 :YmlCategory: DhcpServer
 
@@ -8,9 +8,11 @@
 = DSC Resource 'DhcpServer'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract: {YmlCategory} is used for deployment and configuration of Microsoft DHCP Server.
 
-[[dscyml_dhcpserver_abstract]]
-.{YmlCategory} is used for deployment and configuration of Microsoft DHCP Server.
+[[dscyml_dhcpserver_abstract, {abstract}]]
+{abstract}
+
 
 // reference links as variables for using more than once
 :ref_xDhcpServerScope:          https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
@@ -24,10 +26,10 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServer
 | DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | {ref_xDhcpServerScope}, 
-                   {ref_DhcpServerExclusionRange}, 
+| Documentation  | {ref_xDhcpServerScope},
+                   {ref_DhcpServerExclusionRange},
                    {ref_xDhcpServerReservation},
-                   {ref_DhcpServerOptionValue}, 
+                   {ref_DhcpServerOptionValue},
                    {ref_xDhcpServerAuthorization},
 |===
 
@@ -42,43 +44,43 @@
 | Allowed Values
 
 | [[dscyml_dhcpserver_scopes, {YmlCategory}/Scopes]]<<dscyml_dhcpserver_scopes_details, Scopes>>
-| 
+|
 | Hashtable[]
 | Set of {ref_xDhcpServerScope} DSC resources
 |
 
 | [[dscyml_dhcpserver_exclusionranges, {YmlCategory}/ExclusionRanges]]<<dscyml_dhcpserver_exclusionranges_details, ExclusionRanges>>
-| 
+|
 | Hashtable[]
 | Set of {ref_DhcpServerExclusionRange} DSC resources
 |
 
 | [[dscyml_dhcpserver_reservations, {YmlCategory}/Reservations]]<<dscyml_dhcpserver_reservations_details, Reservations>>
-| 
+|
 | Hashtable[]
 | Set of {ref_xDhcpServerReservation} DSC resources
 |
 
 | [[dscyml_dhcpserver_optionvalues, {YmlCategory}/OptionValues]]<<dscyml_dhcpserver_optionvalues_details, OptionValues>>
-| 
+|
 | Hashtable[]
 | Set of {ref_DhcpServerOptionValue} DSC resources
 |
 
 | [[dscyml_dhcpserver_authorization, {YmlCategory}/Authorization]]<<dscyml_dhcpserver_authorization_details, Authorization>>
-| 
+|
 | Hashtable
 | {ref_xDhcpServerAuthorization} authorizes a DHCP in Active Directory. +
 [IMPORTANT]
-====  
+====
 This resource must run on an Active Directory domain controller.
 ====
 |
 
 | EnableSecurityGroups
-| 
+|
 | bool
-| Enable / disable registration of Active Directory security groups 'DHCP Administrators' and 'DHCP Users' 
+| Enable / disable registration of Active Directory security groups 'DHCP Administrators' and 'DHCP Users'
 | Default: $false
 
 |===
@@ -143,7 +145,7 @@ This resource must run on an Active Directory domain controller.
 |
 | Boolean
 | Specifies the enabled state for the DNS name protection on the DHCP scope.
-  
+
   If this parameter is set to True, DNS name protection is enabled.
   If this parameter is set to True and there is an existing DNS record matching the name, the DNS update for the client fails instead of being overwritten.
 | - True
@@ -298,7 +300,7 @@ Could be an array of string for a multi-valued option.
 | String
 | Sets the address family for the option definition.
   Currently only IPv4 is supported.
-| - IPv4 
+| - IPv4
 
 | Ensure
 |
@@ -402,7 +404,7 @@ DhcpServer:
       UserClass:
       AddressFamily: IPv4
       Ensure:        Present
-    
+
     - OptionId:      2
       Value:         192.168.162.2
       AddressFamily: IPv4

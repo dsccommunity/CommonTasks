@@ -8,9 +8,10 @@
 = DSC Resource 'Bitlocker'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:   {YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
 
-[[dscyml_bitlocker_abstract]]
-.{YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
+[[dscyml_bitlocker_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -31,7 +32,7 @@
 | Allowed Values
 
 | [[dscyml_bitlocker_tpm, {YmlCategory}/TPM]]<<dscyml_bitlocker_tpm_details, TPM>>
-| 
+|
 | Hashtable
 | initialize a TPM chip
 |
@@ -115,7 +116,7 @@ IMPORTANT: It does not work on Operating System drives.
   - TpmProtector
 
 | AutoUnlock
-| 
+|
 | Boolean
 | Whether volumes should be enabled for auto unlock using `Enable-BitlockerAutoUnlock`
 | - True
@@ -135,7 +136,7 @@ IMPORTANT: It does not work on Operating System drives.
 |
 
 | AdAccountOrGroupProtector
-| 
+|
 | Boolean
 | Indicates that BitLocker uses an AD DS account as a protector for the volume encryption key.
 | - True
@@ -160,7 +161,7 @@ IMPORTANT: It does not work on Operating System drives.
 | PSCredential
 | Specifies a secure string object that contains a password.
 
-NOTE: Username doesn't matter for the credential. 
+NOTE: Username doesn't matter for the credential.
       Just put the Password in the Password field.
 |
 
@@ -178,7 +179,7 @@ NOTE: Username doesn't matter for the credential.
 
 NOTE: A TpmProtector must be used if Pin is used.
 
-NOTE: Username doesn't matter for the credential. 
+NOTE: Username doesn't matter for the credential.
       Just put the Pin in the Password field
 |
 
@@ -282,7 +283,7 @@ NOTE: If TpmProtector is used, it must be the PrimaryProtector.
   - TpmProtector
 
 | AutoUnlock
-| 
+|
 | Boolean
 | Whether volumes should be enabled for auto unlock using `Enable-BitlockerAutoUnlock`
 | - True
@@ -295,7 +296,7 @@ NOTE: If TpmProtector is used, it must be the PrimaryProtector.
 |
 
 | AdAccountOrGroupProtector
-| 
+|
 | Boolean
 | Indicates that BitLocker uses an AD DS account as a protector for the volume encryption key.
 | - True
@@ -320,7 +321,7 @@ NOTE: If TpmProtector is used, it must be the PrimaryProtector.
 | PSCredential
 | Specifies a secure string object that contains a password.
 
-NOTE: Username doesn't matter for the credential. 
+NOTE: Username doesn't matter for the credential.
       Just put the Password in the Password field.
 |
 
@@ -338,7 +339,7 @@ NOTE: Username doesn't matter for the credential.
 
 NOTE: A TpmProtector must be used if Pin is used.
 
-NOTE: Username doesn't matter for the credential. 
+NOTE: Username doesn't matter for the credential.
       Just put the Pin in the Password field
 |
 

@@ -10,6 +10,9 @@ configuration FilesAndFolders
 
     foreach ($item in $Items)
     {
+        [string]$fileHash      = $null
+        [string]$base64Content = $null
+
         $permissions = $null
 
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
@@ -30,21 +33,94 @@ configuration FilesAndFolders
         {
             if ( -not (Test-Path -Path $item.ContentFromFile) )
             {
-                Write-Verbose "ERROR: Content file '$($item.ContentFromFile)' not found. Current working directory is: $(Get-Location)"
+                throw "ERROR: Content file '$($item.ContentFromFile)' not found. Current working directory is: $(Get-Location)"
             }
             else
             {
-                [string]$content = Get-Content -Path $item.ContentFromFile -Raw
-                $item.Contents += $content
+                if ( [string]::IsNullOrWhiteSpace( $item.Type ) -or $item.Type -eq 'File' )
+                {
+                    [string]$content = Get-Content -Path $item.ContentFromFile -Raw
+                    $item.Contents += $content
+                    $item.Type = 'File'
+                }
+                elseif ( $item.Type -eq 'BinaryFile' )
+                {
+                    $fileHash      = (Get-FileHash -Path $item.ContentFromFile -Algorithm SHA256).Hash
+                    $base64Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($item.ContentFromFile))
+                }
+                else
+                {
+                    throw "ERROR: Type '$($item.Type)' is not supported with embedding file content of '$($item.ContentFromFile)'."
+                }
             }
             $item.Remove('ContentFromFile')
         }
 
         $executionName = "file_$($item.DestinationPath)" -replace '[\s(){}/\\:-]', '_'
 
-        (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        if ($item.Type -ne 'BinaryFile')
+        {
+            (Get-DscSplattedResource -ResourceName File -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        }
+        else
+        {
+            if ( [string]::IsNullOrWhiteSpace( $fileHash ) -or [string]::IsNullOrWhiteSpace( $base64Content ) )
+            {
+                throw "ERROR: Type 'BinaryFile' requires an valid attribute 'ContentFromFile'."
+            }
 
-        if ( $null -ne $permissions )
+            [string]$destPath = $item.DestinationPath
+            [string]$ensure   = $item.Ensure
+
+            Script $executionName
+            {
+                TestScript = {
+                    Write-Verbose "Testing file '$using:destPath'..."
+                    if ( (Test-Path -Path $using:destPath) )
+                    {
+                        Write-Verbose "Verifying file content..."
+                        if ( $using:fileHash -eq (Get-FileHash -Path $using:destPath -Algorithm SHA256).Hash )
+                        {
+                            Write-Verbose "OK"
+                            return $true
+                        }
+                    }
+                    elseif ( $using:ensure -eq 'Absent' )
+                    {
+                        Write-Verbose "OK (absent)"
+                        return $true
+                    }
+                    Write-Verbose "Not OK"
+                    return $false
+                }
+                SetScript  = {
+                    if ( $using:ensure -eq 'Absent' )
+                    {
+                        Write-Verbose "Removing file '$using:destPath'..."
+                        Remove-Item -Path $using:destPath -Force
+                    }
+                    else
+                    {
+                        $dirName = [System.IO.Path]::GetDirectoryName($using:destPath)
+                        if ( -not (Test-Path -Path $dirName) )
+                        {
+                            Write-Verbose "Creating directory '$dirName'..."
+                            New-Item -Path $dirName -ItemType Directory -Force
+                        }
+                        Write-Verbose "Writing file '$using:destPath'..."
+                        Remove-Item -Path $using:destPath -Force -ErrorAction SilentlyContinue
+                        [IO.File]::WriteAllBytes($using:destPath, [Convert]::FromBase64String($using:base64Content))
+                    }
+                }
+                GetScript  = {
+                    return @{
+                        result = 'N/A'
+                    }
+                }
+            }
+        }
+
+        if ($null -ne $permissions)
         {
             foreach ($perm in $permissions)
             {

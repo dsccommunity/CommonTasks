@@ -8,9 +8,10 @@
 = DSC Resource 'ComputerSettings'
 // didn't work in production: = Catego ry '{YmlCategory}'
 
+:abstract:  {YmlCategory} configures a computer by changing its name and description and modifying its Active Directory domain or workgroup membership.
 
-[[dscyml_computersettings_abstract]]
-.{YmlCategory} configures a computer by changing its name and description and modifying its Active Directory domain or workgroup membership.
+[[dscyml_computersettings_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

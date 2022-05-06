@@ -8,12 +8,12 @@
 = DSC Resource 'FilesAndFolders'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:   {YmlCategory} provides a mechanism to manage files and folders on the target node.
 
-[[dscyml_filesandfolders_abstract]]
-.{YmlCategory} provides a mechanism to manage files and folders on the target node.
+[[dscyml_filesandfolders_abstract, {abstract}]]
+{abstract}
 
-DestinationPath and SourcePath must both be accessible by the target Node.
-
+NOTE: `DestinationPath` and `SourcePath` must both be accessible by the target Node.
 
 [cols="1,3a" options="autowidth" caption=]
 |===
@@ -53,6 +53,8 @@ DestinationPath and SourcePath must both be accessible by the target Node.
 |
 | String
 | The location on the target node
+
+NOTE: The specified path must be accessible by the target node.
 | 
 
 | Attributes
@@ -79,7 +81,7 @@ DestinationPath and SourcePath must both be accessible by the target Node.
 | String
 | Indicates the contents to Ensure are `Present` or `Absent` from the targeted file.
 
-Only valid when used with Type File.
+NOTE: Only valid when used with Type `File`.
 |
 
 | ContentFromFile
@@ -87,7 +89,9 @@ Only valid when used with Type File.
 | String
 | Loading contents from the specified file during DSC configuration build and append the loaded content to the `Contents` attribute
 
-Only valid when used with Type File.
+NOTE: Only valid when used with type `File` and mandatory with type `BinaryFile`.
+
+IMPORTANT: The specified path must be accessible at compile time.
 |
 
 | Credential
@@ -115,14 +119,21 @@ Only valid when used with Type File.
 |
 | String
 | The path from which to copy the file or folder resource.
+
+NOTE: The specified path must be accessible by the target node.
 |
 
 | Type
 |
 | String
 | The type of resource being configured.
+
+IMPORTANT: The type `BinaryFile` embeds a bas64 encoded file stream in the compiled MOF file and can exceed the default `MaxEnvelopeSizeKb` of 500KB.
+
+NOTE: The type `BinaryFile` supports only the attributes `ContentFromFile`, `DestinationPath`, `Ensure`. A SHA256 checksum is used to identify file content changes.
 | - Directory
   - *File* (default)
+  - BinaryFile
 
 | MatchSource
 |

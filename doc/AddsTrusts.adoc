@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: AddsTrusts
-// ========================================
+// ======================================
 
 :YmlCategory: AddsTrusts
 
 
-[[dscyml_AddsTrusts, {YmlCategory}]]
+[[dscyml_addstrusts, {YmlCategory}]]
 = DSC Resource 'AddsTrusts'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
 :abstract:   {YmlCategory} creates new forest or external trust.
 
-[[dscyml_AddsTrusts_abstract, {abstract}]]
+[[dscyml_addstrusts_abstract, {abstract}]]
 {abstract}
 
 

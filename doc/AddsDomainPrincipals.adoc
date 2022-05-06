@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: AddsDomainPrincipals
-// ========================================
+// ================================================
 
 :YmlCategory: AddsDomainPrincipals
 
@@ -8,9 +8,10 @@
 = DSC Resource 'AddsDomainPrincipals'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} manages Users and Managed Service Accounts within Active Directory.
 
-[[dscyml_addsdomainprincipals_abstract]]
-.{YmlCategory} manages Users and Managed Service Accounts within Active Directory.
+[[dscyml_addsdomainprincipals_abstract, {abstract}]]
+{abstract}
 
 
 :ref_ADUser: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser]
@@ -21,7 +22,7 @@
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsDomainPrincipals
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
 | Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADComputer[ADComputer],
-                   {ref_ADUser}, 
+                   {ref_ADUser},
                    https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADManagedServiceAccount[ADManagedServiceAccount],
                    https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADKDSKey[ADKDSKey]
 |===
@@ -43,13 +44,13 @@
 |
 
 | [[dscyml_addsdomainprincipals_computers, {YmlCategory}/Computers]]<<dscyml_addsdomainprincipals_computers_details, Computers>>
-| 
+|
 | Hashtable[]
 | List of computer accounts to create.
 |
 
 | [[dscyml_addsdomainprincipals_users, {YmlCategory}/Users]]<<dscyml_addsdomainprincipals_users_details, Users>>
-| 
+|
 | Hashtable[]
 | List of users to create.
 |
@@ -65,7 +66,7 @@ IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the t
 |
 
 | [[dscyml_addsdomainprincipals_managedserviceaccounts, {YmlCategory}/ManagedServiceAccounts]]<<dscyml_addsdomainprincipals_managedserviceaccounts_details, ManagedServiceAccounts>>
-| 
+|
 | Hashtable[]
 | List of managed service accounts to create.
 |
@@ -184,7 +185,7 @@ Valid values are the user's or group's DistinguishedName, ObjectGUID, SID or Sam
 |
 
 | MemberOf
-| 
+|
 | String[]
 | List of Domain Groups of the computer.
 
@@ -217,20 +218,20 @@ NOTE: Only domain groups of the member domain are supported.
 |
 
 | Password
-| 
+|
 | PSCredential
 | Specifies a new password value for the account.
 |
 
 | Ensure
-| 
+|
 | String
 | Specifies whether the user account should be present or absent.
 | - *Present* (default)
   - Absent
 
 | CommonName
-| 
+|
 | String
 | Specifies the common name assigned to the user account (ldapDisplayName 'cn').
 
@@ -238,19 +239,19 @@ If not specified the default value will be the same value provided in parameter 
 |
 
 | DisplayName
-| 
+|
 | String
 | Specifies the display name of the object (ldapDisplayName 'displayName').
 |
 
 | UserPrincipalName
-| 
+|
 | String
 | Specifies the User Principal Name (UPN) assigned to the user account (ldapDisplayName 'userPrincipalName').
 |
 
 | MemberOf
-| 
+|
 | String[]
 | List of Domain Groups of the user.
 
@@ -293,13 +294,13 @@ This will also try to take into account cultural settings.
 | Boolean
 | This option will allow you to create a KDS root key if EffectiveTime is set in the past.
 
-This may cause issues if you are creating a Group Managed Service Account right after you create the KDS Root Key. 
+This may cause issues if you are creating a Group Managed Service Account right after you create the KDS Root Key.
 In order to get around this, you must create the KDS Root Key using a date in the past.
 This should be used at your own risk and should only be used in lab environments.
 |
 
 | ForceRemove
-| 
+|
 | Boolean
 | This option will allow you to remove a KDS root key if there is only one key left.
 
@@ -323,11 +324,11 @@ Because of this, the last KDS Root Key will not be removed unless this option is
 
 | ServiceAccountName
 | Key
-| String 
+| String
 | Specifies the Security Account Manager (SAM) account name of the managed service account (ldapDisplayName 'sAMAccountName').
 
 To be compatible with older operating systems, create a SAM account name that is 20 characters or less.
-  
+
 Once created, the user's SamAccountName and CN cannot be changed.
 |
 
@@ -343,7 +344,7 @@ Standalone will create a Standalone Managed Service Account (sMSA) and Group wil
 | Credential
 |
 | PSCredential
-| Specifies the user account credentials to use to perform this task. 
+| Specifies the user account credentials to use to perform this task.
 
 This is only required if not executing the task on a domain controller or using the parameter DomainController.
 |
@@ -371,7 +372,7 @@ This is only required if not executing the task on a domain controller.
 | Ensure
 |
 | String
-| Specifies whether the user account is created or deleted. 
+| Specifies whether the user account is created or deleted.
 | - *Present* (default)
   - Absent
 
@@ -389,7 +390,7 @@ This value sets the encryption types supported flags of the Active Directory msD
 | ManagedPasswordPrincipals
 |
 | String[]
-| Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`). 
+| Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`).
 
 NOTE: Only used when `Group` is selected for `AccountType`.
 |
@@ -422,7 +423,7 @@ Specified as a Distinguished Name (DN).
 |
 
 | MemberOf
-| 
+|
 | String[]
 | List of Domain Groups of the managed service account.
 
@@ -440,13 +441,13 @@ AddsDomainPrincipals:
   Computers:
     - ComputerName: Server01
       Description:  Testserver 1
-      Path:        'OU=Servers,OU=Computers,DC=contoso,DC=com'  
+      Path:        'OU=Servers,OU=Computers,DC=contoso,DC=com'
     - ComputerName: Client01
       EnabledOnCreation: false
       Description: Testclient 1
-      Path:        'OU=Clients,OU=Computers,DC=contoso,DC=com'  
+      Path:        'OU=Clients,OU=Computers,DC=contoso,DC=com'
       MemberOf:
-        - Client Security Group      
+        - Client Security Group
   Users:
     - UserName: test1
       Password: '[ENC=PE9ianM...=]'

@@ -13,6 +13,7 @@
 [[dscyml_certificateexports_abstract, {abstract}]]
 {abstract}
 
+
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
@@ -124,7 +125,7 @@ Certificate selector parameter.
 | Default: My
 
 | AllowExpired
-| 
+|
 | Boolean
 | Allow an expired certificate to be exported.
 
@@ -133,7 +134,7 @@ Certificate selector parameter.
   - False
 
 | MatchSource
-| 
+|
 | Boolean
 | Causes an existing exported certificate to be compared with the certificate identified for export and re-exported if it does not match.
 | - True
@@ -191,7 +192,7 @@ CertificateExports:
       Store:      Root
       Type:       PFX
       Password:   '[ENC=PE9ianMgVmVyc2l...=]'
-    - Path:       C:\CACertificate.pfx
+    - Path:       C:\CACertificate.cer
       Thumbprint: c81b94933420221a7ac004a90242d8b1d3e12345
       Store:      Root
       Type:       Cert
