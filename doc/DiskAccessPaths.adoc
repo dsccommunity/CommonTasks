@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: DiskAccessPaths
-// ========================================
+// ===========================================
 
 :YmlCategory: DiskAccessPaths
 
@@ -8,9 +8,10 @@
 = DSC Resource 'DiskAccessPaths'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} configuration is used to initialize, format and mount the partition to a folder access path.
 
-[[dscyml_diskaccesspaths_abstract]]
-.{YmlCategory} configuration is used to initialize, format and mount the partition to a folder access path.
+[[dscyml_diskaccesspaths_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -56,7 +57,7 @@
 |
 
 | NoDefaultDriveLetter
-| 
+|
 | Bool
 | Specifies no automatic drive letter assignment to the partition: Defaults to True
 |
@@ -84,7 +85,7 @@
 |
 
 | FSLabel
-| 
+|
 | String
 | Define volume label if required.
 |

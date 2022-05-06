@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: CertificateImports
-// =================================================
+// ==============================================
 
 :YmlCategory: CertificateImports
 
@@ -12,6 +12,7 @@
 
 [[dscyml_certificateimports_abstract, {abstract}]]
 {abstract}
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
@@ -106,7 +107,7 @@ You can get the list in Powershell with:
 |
 
 | Ensure
-| 
+|
 | String
 | Specifies whether the PFX file should be present or absent.
 | - Absent
@@ -171,7 +172,7 @@ You can get the list in Powershell with:
 | Exportable
 |
 | Boolean
-| Determines whether the private key is exportable from the machine after it has been imported	
+| Determines whether the private key is exportable from the machine after it has been imported
 | - True
   - False
 
@@ -188,7 +189,7 @@ You can get the list in Powershell with:
 |
 
 | Ensure
-| 
+|
 | String
 | Specifies whether the PFX file should be present or absent.
 | - Absent

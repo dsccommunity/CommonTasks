@@ -8,9 +8,10 @@
 = DSC Resource 'ChocolateyPackages'
 // didn't work in production: = DSC Resource '{YmlCategory}'
 
+:abstract:  {YmlCategory} is aimed to install packages using Chocolatey.
 
-[[dscyml_chocolateypackages_abstract]]
-.{YmlCategory} is aimed to install packages using Chocolatey.
+[[dscyml_chocolateypackages_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -19,7 +20,7 @@
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware],
                    https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource],
-                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage], 
+                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage],
                    https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
@@ -40,13 +41,13 @@
 |
 
 | [[dscyml_chocolateypackages_sources, {YmlCategory}/Sources]]<<dscyml_chocolateypackages_sources_details, Sources>>
-| 
+|
 | Hashtable[]
 | List of Chocolatey sources
 |
 
 | [[dscyml_chocolateypackages_features, {YmlCategory}/Features]]<<dscyml_chocolateypackages_features_details, Features>>
-| 
+|
 | Hashtable[]
 | List of Chocolatey features
 |
@@ -64,7 +65,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
   - True
 
 | [[dscyml_chocolateypackages_packages, {YmlCategory}/Packages]]<<dscyml_chocolateypackages_packages_details, Packages>>
-| 
+|
 | Hashtable[]
 | List of Chocolatey packages
 |
@@ -147,7 +148,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
 
 [NOTE]
 ====
-During offline installation (`OfflineInstallZip`) the specifed installation path is set to environment variable 'ChocolateyInstall' 
+During offline installation (`OfflineInstallZip`) the specifed installation path is set to environment variable 'ChocolateyInstall'
 but will be ignored by Chocolatey install script (tested with 0.10.15).
 In this case the `Test-DscConfiguration` command returns `False`.
 ====
@@ -244,7 +245,7 @@ In this case the `Test-DscConfiguration` command returns `False`.
 
   - '' -> Install latest version if package is not installed
   - 1.0 -> Install specified version if no newer version is installed
-  - Latest -> Install or upgrade to latest version 
+  - Latest -> Install or upgrade to latest version
 |
 
 | Ensure
@@ -261,7 +262,7 @@ In this case the `Test-DscConfiguration` command returns `False`.
 
 A package with a lower rank is installed before a package with a higher rank.
 With specifing the rank you can control the installation order of packages in the MOF files.
-This is useful on multiple YAML layer scenarios to define the installation order independent from the YAML layer merging. 
+This is useful on multiple YAML layer scenarios to define the installation order independent from the YAML layer merging.
 | Default: `1000`
 
 | ChocolateyOptions
@@ -270,7 +271,7 @@ This is useful on multiple YAML layer scenarios to define the installation order
 | https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
 
 NOTE: All option values shall be provided as strings, so enclose numerical values in ''.
-| 
+|
 
 | UpdateOnly
 |
