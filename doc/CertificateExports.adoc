@@ -13,7 +13,6 @@
 [[dscyml_certificateexports_abstract, {abstract}]]
 {abstract}
 
-
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
@@ -40,8 +39,8 @@
 |===
 
 
-[[dscyml_certificateexports_certfiles_details]]
-.Selected Attributes of category '<<dscyml_certificateexports_certfiles>>'
+[[dscyml_certificateexports_certificates_details]]
+.Selected Attributes of category '<<dscyml_certificateexports_certificates>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter

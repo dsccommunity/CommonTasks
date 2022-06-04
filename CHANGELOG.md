@@ -65,3 +65,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Migration of tests to Pester 5
 - Added support for CimInstance parameters
 - Fixed issue with Cluster composite ignoring the IgnoreNetwork parameter
+- Fix #172 - RegistryPolicies: Error when Key or ValueName parameters contain bracket "()"
