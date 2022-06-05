@@ -53,7 +53,7 @@ configuration RegistryPolicies {
             }
             $value.Remove('Force')
         }
-        $executionName = "$($value.Key)\$($value.ValueName)" -replace "[\s\\:*-+/{}```"']", '_'
+        $executionName = "$($value.Key)\$($value.ValueName)" -replace "[\s()\\:*-+/{}```"']", '_'
         (Get-DscSplattedResource -ResourceName RegistryPolicyFile -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
 
         $refreshCounter += 1
