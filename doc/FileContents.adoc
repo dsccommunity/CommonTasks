@@ -1,0 +1,310 @@
+// CommonTasks YAML Reference: FileContents
+// =========================================
+
+:YmlCategory: FileContents
+
+
+[[dscyml_filecontents, {YmlCategory}]]
+= DSC Resource 'FileContents'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+:abstract:  {YmlCategory} contains DSC resources for managing file content as features by the underlying DSC resource.
+
+[[dscyml_filecontents_abstract, {abstract}]]
+{abstract}
+
+
+// reference links as variables for using more than once
+:ref_FileContentDsc:                        https://github.com/dsccommunity/FileContentDsc[FileContentDsc]
+:ref_FileContentDsc_IniSettingsFile:      https://github.com/dsccommunity/FileContentDsc/tree/main/source/DSCResources/DSC_IniSettingsFile[IniSettingsFile]
+:ref_FileContentDsc_KeyValuePairFile: https://github.com/dsccommunity/FileContentDsc/tree/main/source/DSCResources/DSC_KeyValuePairFile[KeyValuePairFile]
+:ref_FileContentDsc_ReplaceText:        https://github.com/dsccommunity/FileContentDsc/tree/main/source/DSCResources/DSC_ReplaceText[ReplaceText]
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FileContents
+| DSC Resource   | {ref_FileContentDsc}
+| Documentation  | {ref_FileContentDsc_IniSettingsFile},
+                   {ref_FileContentDsc_KeyValuePairFile},
+                   {ref_FileContentDsc_ReplaceText}
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,2a" options="header"]
+|===
+| Parameter
+| DataType
+| Description
+
+| [[dscyml_filecontents_inisettingsfiles, {YmlCategory}/IniSettingsFiles]]<<dscyml_filecontents_inisettingsfiles_details, IniSettingsFiles>>
+| hashtable[]
+| This parameter is used to add, set or clear entries in Windows INI settings files (see {ref_FileContentDsc_IniSettingsFile})
+
+| [[dscyml_filecontents_keyvaluepairfile, {YmlCategory}/KeyValuePairFile]]<<dscyml_filecontents_keyvaluepairfile_details, KeyValuePairFile>>
+| hashtable[]
+| The parameter is used to add, remove or set key/value pairs in a text file containing key/value pair entries (see {ref_FileContentDsc_KeyValuePairFile})
+
+| [[dscyml_filecontents_replacetext, {YmlCategory}/ReplaceText]]<<dscyml_filecontents_replacetext_details, ReplaceText>>
+| hashtable[]
+| This parameter is used to replace strings matching a regular expression in a text file (see {ref_AuditPolicyDsc_AuditPolicyGUID})
+
+|===
+
+
+[[dscyml_filecontents_inisettingsfiles_details]]
+.Attributes of category '<<dscyml_filecontents_inisettingsfiles>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Path
+| Key
+| String
+| The path to the INI settings file to set the entry in.
+|
+
+| Key
+| Key
+| String
+| The section to add or set the entry in.
+|
+
+| Section
+| Key
+| String
+| The section to add or set the entry in.
+|
+
+| Type
+|
+| String
+| Specifies the value type that contains the value to set the entry to. Defaults to 'Text'.
+| - Text
+  - Secret
+
+| Text
+|
+| String
+| The text to set the entry value to.
+  Only used when Type is set to 'Text'.
+|
+
+| Secret
+|
+| PSCredential
+| The secret text to set the entry value to.
+  Only used when Type is set to 'Secret'.
+|
+
+|===
+
+
+[[dscyml_filecontents_keyvaluepairfile_details]]
+.Attributes of category '<<dscyml_filecontents_keyvaluepairfile>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Path
+| Key
+| String
+| The path to the key value pair text file.
+|
+
+| Ensure
+|
+| String
+| Specifies the if the key value pair with the specified key should exist in the file.
+| - *Present* (default)
+  - Absent
+
+| Type
+|
+| String
+| Specifies the value type to use as the replacement string. Defaults to 'Text'.
+| - Text
+  - Secret
+
+| Text
+|
+| String
+| The text to replace the value with in the identified key.
+  Only used when Type is set to 'Text'.
+|
+
+| Secret
+|
+| PSCredential
+| The secret text to replace the value with in the identified key.
+  Only used when Type is set to 'Secret'.
+|
+
+| IgnoreNameCase
+|
+| Boolean
+| Ignore the case of the name of the key. Defaults to `$False`.
+|
+
+| IgnoreValueCase
+|
+| Boolean
+| Ignore the case of any text or secret when determining if it they need to be updated.
+  Defaults to `$False`.
+|
+
+| Encoding
+|
+| String
+| Specifies the file encoding. Defaults to ASCII.
+| - ASCII
+  - BigEndianUnicode
+  - BigEndianUTF32
+  - UTF8
+  - UTF32
+
+|===
+
+
+[[dscyml_filecontents_replacetext_details]]
+.Attributes of category '<<dscyml_filecontents_replacetext>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Path
+| Key
+| String
+| The path to the text file to replace the string in.
+|
+
+| Search
+| Key
+| String
+| The RegEx string to use to search the text file.
+|
+
+| Type
+|
+| String
+| Specifies the value type to use as the replacement string. Defaults to 'Text'.
+| - Text
+  - Secret
+
+| Text
+|
+| String
+| The text to replace the text identified by the RegEx.
+  Only used when Type is set to 'Text'.
+|
+
+| Secret
+|
+| PSCredential
+| The secret text to replace the text identified by the RegEx.
+  Only used when Type is set to 'Secret'.
+|
+
+| AllowAppend
+|
+| Boolean
+| Specifies to append text to the file being modified. Adds the ability to add a configuration entry.
+|
+
+| Encoding
+|
+| String
+| Specifies the file encoding. Defaults to ASCII.
+| - ASCII
+  - BigEndianUnicode
+  - BigEndianUTF32
+  - UTF8
+  - UTF32
+
+|===
+
+
+.Example
+[source, yaml]
+----
+FileContents:
+  IniSettingsFiles:
+  - Path: C:\MyApp\MyApp.ini
+    Section: Logging
+    Key: Level
+    Text: Information
+  - Path: C:\MyApp\MyApp2.ini
+    Section: Database
+    Key: ConnectionString
+    Type: Secret
+    Secret: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj44MDg1MzBFQzZDOUMyNENEODIzMjEyMkNBNDAwQUQyQjA4RUYwQTA0QjlGQzM2NUQxOUY1NTY3MjdEQjNDOUJEPC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5leUt6OUNtWjhFRUoyVmlqR1dhYVVodW9IcEtCeEd6SmZza3F1L3JicWxXZzVoVXkwYWd5QW1xZnI5WWExbDAxPC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij5nQ3NLTldCTUdRMjF0Smc1QVA1UXcyRGdoWDZpTkx2cy8vZHFQbE5PNExnPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij54OVhLaTVPRVg3SXRsbnQySkRPY0tJdlNZLzN1V2dOQjBjWFpaSitpWjZBPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+NUVpcFhyeVBSeDA3dDI2dk1mNGlPR0dURldiT2tzVDdraHRxcjNiM1NsND08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij54OUp0WXZDbXFKQmpaVitqNmQxK3VUazBEM0FiZ3cvMTRJbk5EMEN2ZXZCVTlkUG5tL091WFR4bWdGVVQzaUlMdGYzRnNxQ0VVc29wYkhSaHBPdjE5dz09PC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5pR3FoYkYwR0w5NUF6bDFSTVhMa0twQ2VNRXcwa29QeGtJd1NzMVczWU9vPTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]"
+
+KeyValuePairFiles:
+  - Path: C:\MyApp\MyApp.conf
+    Name: Core.Logging1
+    Ensure: Absent
+  - Path: C:\MyApp\MyApp.conf
+    Name: Core.Logging2
+    Ensure: Present
+    Text: Information
+  - Path: C:\MyApp\MyApp.conf
+    Name: Core.Password
+    Ensure: Present
+    Type: Secret
+    Secret: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj44MDg1MzBFQzZDOUMyNENEODIzMjEyMkNBNDAwQUQyQjA4RUYwQTA0QjlGQzM2NUQxOUY1NTY3MjdEQjNDOUJEPC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5leUt6OUNtWjhFRUoyVmlqR1dhYVVodW9IcEtCeEd6SmZza3F1L3JicWxXZzVoVXkwYWd5QW1xZnI5WWExbDAxPC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij5nQ3NLTldCTUdRMjF0Smc1QVA1UXcyRGdoWDZpTkx2cy8vZHFQbE5PNExnPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij54OVhLaTVPRVg3SXRsbnQySkRPY0tJdlNZLzN1V2dOQjBjWFpaSitpWjZBPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+NUVpcFhyeVBSeDA3dDI2dk1mNGlPR0dURldiT2tzVDdraHRxcjNiM1NsND08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij54OUp0WXZDbXFKQmpaVitqNmQxK3VUazBEM0FiZ3cvMTRJbk5EMEN2ZXZCVTlkUG5tL091WFR4bWdGVVQzaUlMdGYzRnNxQ0VVc29wYkhSaHBPdjE5dz09PC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5pR3FoYkYwR0w5NUF6bDFSTVhMa0twQ2VNRXcwa29QeGtJd1NzMVczWU9vPTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]"
+
+ReplaceTexts:
+  - Path: c:\inetpub\wwwroot\default.htm
+    Search: "%secret%"
+    Type: Secret
+    Secret: "[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5NYW5hZ2VtZW50LkF1dG9tYXRpb24uUFNDdXN0b21PYmplY3Q8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPE1TPg0KICAgICAgPE9iaiBOPSJLZXlEYXRhIiBSZWZJZD0iMSI+DQogICAgICAgIDxUTiBSZWZJZD0iMSI+DQogICAgICAgICAgPFQ+U3lzdGVtLk9iamVjdFtdPC9UPg0KICAgICAgICAgIDxUPlN5c3RlbS5BcnJheTwvVD4NCiAgICAgICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgICAgICA8L1ROPg0KICAgICAgICA8TFNUPg0KICAgICAgICAgIDxPYmogUmVmSWQ9IjIiPg0KICAgICAgICAgICAgPFROUmVmIFJlZklkPSIwIiAvPg0KICAgICAgICAgICAgPE1TPg0KICAgICAgICAgICAgICA8UyBOPSJIYXNoIj44MDg1MzBFQzZDOUMyNENEODIzMjEyMkNBNDAwQUQyQjA4RUYwQTA0QjlGQzM2NUQxOUY1NTY3MjdEQjNDOUJEPC9TPg0KICAgICAgICAgICAgICA8STMyIE49Ikl0ZXJhdGlvbkNvdW50Ij41MDAwMDwvSTMyPg0KICAgICAgICAgICAgICA8QkEgTj0iS2V5Ij5leUt6OUNtWjhFRUoyVmlqR1dhYVVodW9IcEtCeEd6SmZza3F1L3JicWxXZzVoVXkwYWd5QW1xZnI5WWExbDAxPC9CQT4NCiAgICAgICAgICAgICAgPEJBIE49Ikhhc2hTYWx0Ij5nQ3NLTldCTUdRMjF0Smc1QVA1UXcyRGdoWDZpTkx2cy8vZHFQbE5PNExnPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJTYWx0Ij54OVhLaTVPRVg3SXRsbnQySkRPY0tJdlNZLzN1V2dOQjBjWFpaSitpWjZBPTwvQkE+DQogICAgICAgICAgICAgIDxCQSBOPSJJViI+NUVpcFhyeVBSeDA3dDI2dk1mNGlPR0dURldiT2tzVDdraHRxcjNiM1NsND08L0JBPg0KICAgICAgICAgICAgPC9NUz4NCiAgICAgICAgICA8L09iaj4NCiAgICAgICAgPC9MU1Q+DQogICAgICA8L09iaj4NCiAgICAgIDxCQSBOPSJDaXBoZXJUZXh0Ij54OUp0WXZDbXFKQmpaVitqNmQxK3VUazBEM0FiZ3cvMTRJbk5EMEN2ZXZCVTlkUG5tL091WFR4bWdGVVQzaUlMdGYzRnNxQ0VVc29wYkhSaHBPdjE5dz09PC9CQT4NCiAgICAgIDxCQSBOPSJITUFDIj5pR3FoYkYwR0w5NUF6bDFSTVhMa0twQ2VNRXcwa29QeGtJd1NzMVczWU9vPTwvQkE+DQogICAgICA8UyBOPSJUeXBlIj5TeXN0ZW0uTWFuYWdlbWVudC5BdXRvbWF0aW9uLlBTQ3JlZGVudGlhbDwvUz4NCiAgICA8L01TPg0KICA8L09iaj4NCjwvT2Jqcz4=]"
+  - Path: c:\inetpub\wwwroot\default.htm
+    Search: "%appname%"
+    Type: Text
+    Text: Awesome App
+  - Path: c:\inetpub\wwwroot\default.htm
+    Search: <img src=['`\"][a-zA-Z0-9.]*['`\"]>
+    Type: Text
+    Text: <img src="imgs/placeholder.jpg">
+
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  FileContents:
+    merge_hash: deep
+  FileContents\IniSettingsFiles:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Path
+        - Section
+        - Key
+  FileContents\KeyValuePairFiles:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Path
+        - Name
+  FileContents\ReplaceTexts:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Path
+        - Search
+----
