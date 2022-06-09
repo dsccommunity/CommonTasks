@@ -46,7 +46,7 @@
 
 | [[dscyml_filecontents_replacetext, {YmlCategory}/ReplaceText]]<<dscyml_filecontents_replacetext_details, ReplaceText>>
 | hashtable[]
-| This parameter is used to replace strings matching a regular expression in a text file (see {ref_AuditPolicyDsc_AuditPolicyGUID})
+| This parameter is used to replace strings matching a regular expression in a text file (see {ref_FileContentDsc_ReplaceText})
 
 |===
 
