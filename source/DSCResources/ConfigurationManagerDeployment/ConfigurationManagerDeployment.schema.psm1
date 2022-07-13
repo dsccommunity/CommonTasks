@@ -70,7 +70,11 @@ Configuration ConfigurationManagerDeployment
 
         [Parameter()]
         [string]
-        $MdtInstallPath = 'C:\Apps\MDT'
+        $MdtInstallPath = 'C:\Apps\MDT',
+
+        [Parameter()]
+        [bool]
+        $InstallWindowsFeatures = $false
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -96,7 +100,7 @@ Configuration ConfigurationManagerDeployment
         AdkSetupExePath        = $AdkSetupExePath
         AdkWinPeSetupPath      = $AdkWinPeSetupPath
         MdtMsiPath             = $MdtMsiPath
-        InstallWindowsFeatures = $true
+        InstallWindowsFeatures = $InstallWindowsFeatures
         WindowsFeatureSource   = 'C:\Windows\WinSxS'
         SccmRole               = $Roles
         LocalAdministrators    = $LocalAdministrators

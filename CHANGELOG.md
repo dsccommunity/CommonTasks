@@ -67,3 +67,5 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Added support for CimInstance parameters
 - Fixed issue with Cluster composite ignoring the IgnoreNetwork parameter
 - Fix #172 - RegistryPolicies: Error when Key or ValueName parameters contain bracket "()"
+- ConfigurationManagerDeployment updated to allow Windows feature installation
+  - InstallWindowsFeatures could create duplicate resource issues if WindowsFeatures composite is used as well
