@@ -45,8 +45,9 @@ configuration FilesAndFolders
                 }
                 elseif ( $item.Type -eq 'BinaryFile' )
                 {
-                    $fileHash      = (Get-FileHash -Path $item.ContentFromFile -Algorithm SHA256).Hash
-                    $base64Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($item.ContentFromFile))
+                    $filePath      = Resolve-Path $item.ContentFromFile
+                    $fileHash      = (Get-FileHash -Path $filePath -Algorithm SHA256).Hash
+                    $base64Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($filePath))
                 }
                 else
                 {
