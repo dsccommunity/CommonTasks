@@ -73,6 +73,10 @@ Configuration ConfigurationManagerDeployment
         $MdtInstallPath = 'C:\Apps\MDT',
 
         [Parameter()]
+        [string]
+        $ProductKey = 'eval',
+
+        [Parameter()]
         [bool]
         $InstallWindowsFeatures = $false
     )
@@ -139,7 +143,7 @@ Configuration ConfigurationManagerDeployment
         IniFilePath               = 'C:\SetupFiles'
         Action                    = 'InstallPrimarySite'
         CDLatest                  = $false
-        ProductID                 = 'eval'
+        ProductID                 = $ProductKey
         SiteCode                  = $SiteCode
         SiteName                  = $SiteName
         SMSInstallDir             = $ConfigManagerPath
