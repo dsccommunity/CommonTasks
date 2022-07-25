@@ -70,3 +70,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - ConfigurationManagerDeployment updated to allow Windows feature installation
   - InstallWindowsFeatures could create duplicate resource issues if WindowsFeatures composite is used as well
 - ConfigurationManagerDeployment now has configurable Product Key
+- Made reading binary files in FilesAndFolders and CertificateImports more robust
