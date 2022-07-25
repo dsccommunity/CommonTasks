@@ -13,6 +13,7 @@ configuration CertificateImports
 
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module CertificateDsc
+
     function EmbedFile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '')]
@@ -33,7 +34,8 @@ configuration CertificateImports
                 }
                 else
                 {
-                    $certFile.Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($certFile.Path))
+                    $certFilePath = Resolve-Path $certFile.Path
+                    $certFile.Content = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes($certFilePath))
                     $certFile.Remove('Path')
                 }
             }
