@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SmbShares`  Add check and remove of duplicates from access properties in MOF.
 - Update documentation
 - `FileContents` Composite for managing file content.
+- `RemoteDesktopDeployment` Composite to configure a remote desktop deployment
+- `RemoteDesktopCollections` Composite to configure RD session collections, including their settings
+- `RemoteDesktopLicensing` Composite to configure RD License server and license mode
 
 ### Changed
 

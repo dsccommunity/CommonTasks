@@ -62,4 +62,5 @@
     xRobocopy                    = '2.0.0.0'
     VSTSAgent                    = '2.0.12-develop'
     FileContentDsc               = '1.3.0.151'
+    xRemoteDesktopSessionHost    = '2.1.0'
 }

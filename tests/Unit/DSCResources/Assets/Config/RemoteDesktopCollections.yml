@@ -1,0 +1,38 @@
+﻿Collections:
+  - CollectionName: My first Collection
+    SessionHost:
+      - SH1
+      - SH2
+    CollectionDescription: This is my super awesome collection
+    ConnectionBroker: CB1
+  - CollectionName: My second Collection
+    SessionHost:
+      - SH1
+      - SH2
+    CollectionDescription: This is my super awesome collection number 2
+    ConnectionBroker: CB1
+    Settings:
+        ActiveSessionLimitMin : 10
+        AuthenticateUsingNLA: true
+        AutomaticReconnectionEnabled: true
+        #BrokenConnectionAction
+        #ClientDeviceRedirectionOptions
+        #ClientPrinterAsDefault
+        #ClientPrinterRedirected
+        #CollectionDescription
+        #CustomRdpProperty
+        #DisconnectedSessionLimitMin
+        #EncryptionLevel
+        #IdleSessionLimitMin
+        #MaxRedirectedMonitors
+        #RDEasyPrintDriverEnabled
+        #SecurityLayer
+        #TemporaryFoldersDeletedOnExit
+        #UserGroup
+        #DiskPath
+        #EnableUserProfileDisk
+        #MaxUserProfileDiskSizeGB
+        #IncludeFolderPath
+        #ExcludeFolderPath
+        #IncludeFilePath
+        #ExcludeFilePath
