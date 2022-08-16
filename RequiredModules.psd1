@@ -63,4 +63,5 @@
     VSTSAgent                    = '2.0.12-develop'
     FileContentDsc               = '1.3.0.151'
     xRemoteDesktopSessionHost    = '2.1.0'
+    cScom                        = '1.0.0'
 }
