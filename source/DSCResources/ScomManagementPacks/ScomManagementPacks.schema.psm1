@@ -2,7 +2,9 @@ configuration ScomManagementPacks
 {
     param
     (
-        [hashtable[]] $ManagementPacks
+        [Parameter()]
+        [hashtable[]]
+        $ManagementPacks
     )
 
     Import-DscResource -ModuleName cScom

@@ -2,7 +2,9 @@ configuration ScomComponents
 {
     param
     (
-        [hashtable[]] $Components
+        [Parameter()]
+        [hashtable[]]
+        $Components
     )
 
     Import-DscResource -ModuleName cScom

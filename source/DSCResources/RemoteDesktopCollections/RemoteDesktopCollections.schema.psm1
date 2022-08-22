@@ -2,7 +2,7 @@ configuration RemoteDesktopCollections
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [hashtable[]]
         $Collections
     )
