@@ -1,4 +1,4 @@
-﻿configuration ScomComponents
+configuration ScomComponents
 {
     param
     (

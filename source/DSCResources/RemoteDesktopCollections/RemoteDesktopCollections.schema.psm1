@@ -1,4 +1,4 @@
-﻿configuration RemoteDesktopCollections
+configuration RemoteDesktopCollections
 {
     param
     (

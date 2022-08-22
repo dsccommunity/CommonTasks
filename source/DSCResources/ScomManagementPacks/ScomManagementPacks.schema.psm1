@@ -1,4 +1,4 @@
-﻿configuration ScomManagementPacks
+configuration ScomManagementPacks
 {
     param
     (
