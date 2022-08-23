@@ -1,4 +1,4 @@
-﻿configuration RemoteDesktopLicensing
+configuration RemoteDesktopLicensing
 {
     param
     (

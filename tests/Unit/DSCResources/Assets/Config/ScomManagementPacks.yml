@@ -1,0 +1,9 @@
+﻿ManagementPacks:
+  - Name: CustomPack1
+    ManagementPackPath: \\SomeShare\SomePath\MyCustomPack.mp
+  - Name: Dsc.ManagedNodes
+    ManagementPackContent : |
+        <?xml version="1.0" encoding="utf-8"?>
+        <ManagementPack ContentReadable="true" SchemaVersion="2.0" OriginalSchemaVersion="1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+          <Abbreviated>...</Abbreviated>
+        </ManagementPack>

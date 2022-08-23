@@ -1,8 +1,8 @@
-﻿configuration RemoteDesktopDeployment
+configuration RemoteDesktopDeployment
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string]
         $ConnectionBroker,
 

@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `RemoteDesktopDeployment` Composite to configure a remote desktop deployment
 - `RemoteDesktopCollections` Composite to configure RD session collections, including their settings
 - `RemoteDesktopLicensing` Composite to configure RD License server and license mode
+- `ScomComponents` Composite to install SCOM components
+- `ScomManagementPacks` Composite to import SCOM management packs from file or via inline XML
+- `ScomSettings` Composite to set all available SCOM settings
 
 ### Changed
 
