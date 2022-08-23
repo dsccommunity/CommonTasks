@@ -51,7 +51,7 @@ Configuration ScomSettings
 
     if (-not [string]::IsNullOrWhiteSpace($ErrorReportSetting))
     {
-        ScomErrorReportSetting ErroReporting
+        ScomErrorReportingSetting ErroReporting
         {
             ReportSetting    = $ErrorReportSetting
             IsSingleInstance = 'Yes'
