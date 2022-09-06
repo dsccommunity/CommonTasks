@@ -1,4 +1,4 @@
-﻿configuration CertificateRequests
+configuration CertificateRequests
 {
     param
     (
