@@ -27,6 +27,10 @@ stages:
         steps:
           - pwsh: |
               dotnet tool install --global GitVersion.Tool
+              dotnet tool install --global GitVersion.Tool
+              Write-Host -Object '--------------- GitVersion Output -------------------'
+              dotnet-gitversion | Write-Host
+              Write-Host -Object '-----------------------------------------------------'
               $gitVersionObject = dotnet-gitversion | ConvertFrom-Json
               $gitVersionObject.PSObject.Properties.ForEach{
                   Write-Host -Object "Setting Task Variable '$($_.Name)' with value '$($_.Value)'."
