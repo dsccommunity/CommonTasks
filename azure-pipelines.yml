@@ -27,7 +27,7 @@ stages:
         steps:
           - pwsh: |
               dotnet tool install --global GitVersion.Tool
-              dotnet tool install --global GitVersion.Tool
+              git fetch --unshallow --all
               Write-Host -Object '--------------- GitVersion Output -------------------'
               dotnet-gitversion | Write-Host
               Write-Host -Object '-----------------------------------------------------'
