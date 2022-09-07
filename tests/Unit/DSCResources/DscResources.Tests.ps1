@@ -2,7 +2,7 @@ BeforeDiscovery {
     $dscResources = Get-DscResource -Module $moduleUnderTest.Name
     $here = $PSScriptRoot
 
-    $skippedDscResources = 'PowerShellRepositories'
+    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment'
 
     Import-Module -Name datum
 
