@@ -18,9 +18,6 @@ variables:
   defaultBranch: main
 
 stages:
-  - stage: checkout
-    checkout: self
-    clean: boolean
   - stage: Build
     jobs:
       - job: Package_Module
@@ -28,6 +25,8 @@ stages:
         pool:
           vmImage: 'ubuntu-latest'
         steps:
+          - checkout: self
+            clean: true
           - pwsh: |
               dotnet tool install --global GitVersion.Tool
               $gitVersionObject = dotnet-gitversion | ConvertFrom-Json
