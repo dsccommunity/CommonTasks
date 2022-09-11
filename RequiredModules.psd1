@@ -54,7 +54,7 @@
     'xHyper-V'                   = '3.17.0.0'
     DSCR_PowerPlan               = '1.3.0'
     FileSystemDsc                = '1.1.1'
-    PackageManagement            = '1.4.7'
+    PackageManagement            = '1.4.8.1'
     PowerShellGet                = '2.2.5'
     ConfigMgrCBDsc               = '3.0.0'
     MmaDsc                       = '1.3.0'

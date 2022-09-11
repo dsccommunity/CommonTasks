@@ -61,20 +61,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed issue with quotation marks in 'SqlServer' resource.
 - Fixed issue with inter-configuration DependsOn by removing DependsOn inside configurations
 - Added remote desktop control to 'ComputerSettings'.
-- Fixed an issue with DscLcmController, the RebootNodeIfNeeded property is not
+- Fixed an issue with DscLcmController, the RebootNodeIfNeeded property is not.
 set to false before the first execution of maintenance window.
 - Fixed issue with DscLcmController, The RebootNodeIfNeeded property is not
 set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Fixed GitVersion depreciated version in azurepipeline.
 - Fixed issue #156, switch plublish task to 'unbuntu-latest' vmimage.
-- WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems
-- Documentation update
-- Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies
-- Migration of tests to Pester 5
-- Added support for CimInstance parameters
-- Fixed issue with Cluster composite ignoring the IgnoreNetwork parameter
-- Fix #172 - RegistryPolicies: Error when Key or ValueName parameters contain bracket "()"
-- ConfigurationManagerDeployment updated to allow Windows feature installation
-  - InstallWindowsFeatures could create duplicate resource issues if WindowsFeatures composite is used as well
-- ConfigurationManagerDeployment now has configurable Product Key
-- Made reading binary files in FilesAndFolders and CertificateImports more robust
+- WindowsEventForwarding - replace localized system user names by SID to avoid problems on none english Windows systems.
+- Documentation update.
+- Removed DependsOn in ComputerSettings to ensure cross-configuration dependencies.
+- Migration of tests to Pester 5.
+- Added support for CimInstance parameters.
+- Fixed issue with Cluster composite ignoring the IgnoreNetwork parameter.
+- Fix #172 - RegistryPolicies: Error when Key or ValueName parameters contain bracket "()".
+- ConfigurationManagerDeployment updated to allow Windows feature installation.
+  - InstallWindowsFeatures could create duplicate resource issues if WindowsFeatures composite is used as well.
+- ConfigurationManagerDeployment now has configurable Product Key.
+- Made reading binary files in FilesAndFolders and CertificateImports more robust.
+- Updated to latest version of 'PackageManagement' to fix module discovery error.
