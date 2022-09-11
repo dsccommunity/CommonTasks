@@ -11,8 +11,8 @@ configuration RemoteDesktopDeployment
         $WebAccess,
 
         [Parameter()]
-        [string[]]
-        $SessionHosts,
+        [string]
+        $SessionHost,
 
         [Parameter()]
         [hashtable[]]
@@ -26,7 +26,7 @@ configuration RemoteDesktopDeployment
     {
         ConnectionBroker = $ConnectionBroker
         WebAccessServer  = $WebAccess
-        SessionHost      = $SessionHosts
+        SessionHost      = $SessionHost
     }
 
     foreach ($gateway in $Gateways)
