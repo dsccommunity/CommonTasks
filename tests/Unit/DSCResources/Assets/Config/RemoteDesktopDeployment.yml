@@ -1,5 +1,3 @@
 ﻿ConnectionBroker: CB1
-SessionHosts:
-  - SH1
-  - SH2
+SessionHost: SH1
 WebAccess: WA1

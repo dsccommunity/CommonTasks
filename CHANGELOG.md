@@ -80,3 +80,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - ConfigurationManagerDeployment now has configurable Product Key.
 - Made reading binary files in FilesAndFolders and CertificateImports more robust.
 - Updated to latest version of 'PackageManagement' to fix module discovery error.
+- Made 'SessionHost' a scalar as defined in the underlying DSC resource for 'RemoteDesktopCollections' and 'RemoteDesktopDeployment'.
