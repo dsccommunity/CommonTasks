@@ -1,0 +1,35 @@
+SiteCode: AL1
+DistributionGroups:
+  - DistributionGroup: DG1
+    #Collections: # 1:1 match, supported in future release of ConfigMgrCBDsc
+    #  - Collection 1
+    #  - Collection 2
+    DistributionPointsToExclude:
+      - DP2
+    DistributionPointsToInclude:
+      - DP1
+    SecurityScopesToExclude:
+      - Scope1
+    SecurityScopesToInclude:
+      - Scope2
+  - DistributionGroup: DG2
+    #CollectionsToExclude: # supported in future release of ConfigMgrCBDsc
+    #  - Collection 1
+    #CollectionsToInclude: # supported in future release of ConfigMgrCBDsc
+    #  - Collection 2
+    DistributionPoints: # 1:1 match
+      - DP1
+      - DP2
+    SecurityScopes: # 1:1 match
+      - Scope1
+      - Scope2
+  - DistributionGroup: DG3
+    SiteCode: AL2 # Override SiteCode for individual groups
+    DistributionPointsToExclude:
+      - DP2
+    DistributionPointsToInclude:
+      - DP1
+    SecurityScopesToExclude:
+      - Scope1
+    SecurityScopesToInclude:
+      - Scope2
