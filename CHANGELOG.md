@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ScomManagementPacks` Composite to import SCOM management packs from file or via inline XML
 - `ScomSettings` Composite to set all available SCOM settings
 - `CertificateRequest` Composite to request certificates from a certificate authority, includes automatic wait for ADCS to become available
+- `ConfigurationManagerDistributionGroup` Composite to configure one or more distribution point groups
 
 ### Changed
 
