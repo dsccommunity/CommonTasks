@@ -94,6 +94,11 @@ configuration HyperV
             # Remove case sensitivity of ordered Dictionary or Hashtables
             $vmswitch = @{} + $vmswitch
 
+            if ([string]::IsNullOrWhiteSpace( $vmswitch.Ensure ))
+            {
+                $vmswitch.Ensure = 'Present'
+            }
+
             $netName = $vmswitch.Name
             $netAddressSpace = $vmswitch.AddressSpace
             $netIpAddress = $vmswitch.IpAddress
@@ -109,20 +114,24 @@ configuration HyperV
 
             if ($vmswitch.Type -eq 'NAT')
             {
-                if (-not [string]::IsNullOrWhiteSpace($natSwitch))
+                if ($vmswitch.Ensure -ne 'Absent')
                 {
-                    throw 'ERROR: Only one NAT switch is supported.'
-                }
+                    if (-not [string]::IsNullOrWhiteSpace($natSwitch))
+                    {
+                        throw 'ERROR: Only one NAT switch is supported.'
+                    }
 
-                if ([string]::IsNullOrWhiteSpace($netAddressSpace) -or [string]::IsNullOrWhiteSpace($netIpAddress))
-                {
-                    throw "ERROR: A NAT switch requires the 'AddressSpace' and 'IpAddress' attribute."
+                    if ([string]::IsNullOrWhiteSpace($netAddressSpace) -or [string]::IsNullOrWhiteSpace($netIpAddress))
+                    {
+                        throw "ERROR: A NAT switch requires the 'AddressSpace' and 'IpAddress' attribute."
+                    }
                 }
 
                 $natSwitch = $vmswitch.Name
                 $vmswitch.Type = 'Internal'
             }
             elseif ($vmswitch.Type -eq 'Private' -and
+                    $vmswitch.Ensure -ne 'Absent' -and
                     (-not [string]::IsNullOrWhiteSpace($netAddressSpace) -or
                 -not [string]::IsNullOrWhiteSpace($netIpAddress) -or
                 -not [string]::IsNullOrWhiteSpace($netGateway) -or
@@ -136,11 +145,13 @@ configuration HyperV
             $executionName = $vmswitch.Name -replace '[().:\s]', '_'
             (Get-DscSplattedResource -ResourceName xVMSwitch -ExecutionName "vmswitch_$executionName" -Properties $vmswitch -NoInvoke).Invoke($vmswitch)
 
-            # enable Net Adressspace, IpAddress and NAT switch
-            if (-not [string]::IsNullOrWhiteSpace($netIpAddress) -or -not [string]::IsNullOrWhiteSpace($netCategory))
+            if ($vmswitch.Ensure -ne 'Absent')
             {
-                # Default is adapter auto configuration with 255.255.0.0 -> 16
-                [int]$netPrefixLength = 16;
+                # enable Net Adressspace, IpAddress and NAT switch
+                if (-not [string]::IsNullOrWhiteSpace($netIpAddress) -or -not [string]::IsNullOrWhiteSpace($netCategory))
+                {
+                    # Default is adapter auto configuration with 255.255.0.0 -> 16
+                    [int]$netPrefixLength = 16;
 
                 if (-not [string]::IsNullOrWhiteSpace($netAddressSpace))
                 {
@@ -352,6 +363,7 @@ configuration HyperV
                     GetScript  = { return `
                         @{
                             result = 'N/A'
+                            }
                         }
                     }
                 }
@@ -368,6 +380,11 @@ configuration HyperV
         {
             $vmName = $vmmachine.Name
 
+            if ([string]::IsNullOrWhiteSpace( $vmmachine.Ensure ))
+            {
+                $vmmachine.Ensure = 'Present'
+            }
+
             # VM state will be handled as last step
             $vmState = $vmmachine.State
             $vmmachine.Remove('State')
@@ -375,6 +392,19 @@ configuration HyperV
             $strVMDepend = "[xVMHyperV]$vmName"
             $strVHDPath = "$($vmmachine.Path)\$vmName\Disks"
             $iMemorySize = ($vmmachine.StartupMemory / 1MB) * 1MB
+
+            if ($vmmachine.Ensure -eq 'Absent')
+            {
+                xVMHyperV $vmName
+                {
+                    Ensure  = 'Absent'
+                    Name    = $vmName
+                    VhdPath = $strVHDPath   # required parameter
+                }
+
+                # continue with next VM
+                continue
+            }
 
             # save the additional disk and drives definitions
             $arrDisks = @()

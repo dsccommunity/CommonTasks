@@ -25,6 +25,14 @@ VMSwitches:
   - Name: VMSwitchPrivate  
     Type: Private
 
+  - Name: VMSwitchNATAbsent 
+    Type: NAT
+    Ensure: Absent
+
+  - Name: VMSwitchPrivateAbsent 
+    Type: Private
+    Ensure: Absent
+
 VMMachines:
   - Name:           EUATESTS01  # Name of the virtual machine
     Path:           D:\VServer  # Folder where the VM data will be stored
@@ -170,3 +178,6 @@ VMMachines:
         Path: T:\ISOs\SystemConfig.iso      # Name of the ISO file to be mounted
       - Name: Z      # Drive letter: The last entry is the OS install drive.
         Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso  # The last entry is the OS install drive.
+
+  - Name:    VMABSENT  # Name of the virtual machine
+    Ensure:  Absent

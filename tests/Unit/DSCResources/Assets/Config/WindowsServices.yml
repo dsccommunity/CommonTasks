@@ -19,3 +19,6 @@ Services:
     StartupType: AutomaticDelayedStart
   - Name: MSSQL$Instance
     StartupType: AutomaticDelayedStart
+  - Name: AbsentSvc
+    Ensure: Absent
+    StartupType: AutomaticDelayedStart
