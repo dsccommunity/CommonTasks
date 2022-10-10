@@ -13,7 +13,10 @@ configuration WindowsServices {
         # Remove Case Sensitivity of ordered Dictionary or Hashtables
         $service = @{} + $service
 
-        $service.Ensure = 'Present'
+        if ([string]::IsNullOrWhiteSpace( $service.Ensure ))
+        {
+            $service.Ensure = 'Present'
+        }
 
         [boolean]$delayedStart = $false
 
@@ -24,21 +27,24 @@ configuration WindowsServices {
             $delayedStart = $true
         }
 
-        # set defaults if no state is specified
-        if ([string]::IsNullOrWhiteSpace($service.State))
+        if ($service.Ensure -eq 'Present')
         {
-            # check for running service only if none or a compatible startup type is specified
-            if ([string]::IsNullOrWhiteSpace($service.StartupType) -or ($service.StartupType -eq 'Automatic'))
+            # set defaults if no state is specified
+            if ([string]::IsNullOrWhiteSpace($service.State))
             {
-                $service.State = 'Running'
-            }
-            elseif ($service.StartupType -eq 'Disabled')
-            {
-                $service.State = 'Stopped'
-            }
-            else
-            {
-                $service.State = 'Ignore'
+                # check for running service only if none or a compatible startup type is specified
+                if ([string]::IsNullOrWhiteSpace($service.StartupType) -or ($service.StartupType -eq 'Automatic'))
+                {
+                    $service.State = 'Running'
+                }
+                elseif ($service.StartupType -eq 'Disabled')
+                {
+                    $service.State = 'Stopped'
+                }
+                else
+                {
+                    $service.State = 'Ignore'
+                }
             }
         }
 
@@ -47,7 +53,7 @@ configuration WindowsServices {
         #how splatting of DSC resources works: https://gaelcolas.com/2017/11/05/pseudo-splatting-dsc-resources/
         (Get-DscSplattedResource -ResourceName xService -ExecutionName $executionName -Properties $service -NoInvoke).Invoke($service)
 
-        if ($delayedStart -eq $true)
+        if ($service.Ensure -eq 'Present' -and $delayedStart -eq $true)
         {
             $serviceName = $Service.Name
 

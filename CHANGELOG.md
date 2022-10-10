@@ -80,3 +80,6 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - ConfigurationManagerDeployment now has configurable Product Key.
 - Made reading binary files in FilesAndFolders and CertificateImports more robust.
 - Updated to latest version of 'PackageManagement' to fix module discovery error.
+- WindowsServices: fix support of absent services (Ensure: Absent)
+- HyperV: fix support of absent switches and VMs (Ensure: Absent)
+
