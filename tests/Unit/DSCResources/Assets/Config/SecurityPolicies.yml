@@ -32,3 +32,4 @@ UserRightsAssignments:
     Force: True
 
 SecurityTemplatePath: C:\Temp\SecPolTemplate.inf  # Path to the desired security policy template (.inf)
+DependsOn: '[File]DependencyResource'

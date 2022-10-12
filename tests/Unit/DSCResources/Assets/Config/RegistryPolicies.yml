@@ -60,3 +60,4 @@ Values:
     ValueData: 0
     ValueType: Dword
     Ensure: Present
+DependsOn: '[File]DependencyResource'

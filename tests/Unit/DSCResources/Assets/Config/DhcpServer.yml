@@ -54,7 +54,7 @@ OptionValues:
     UserClass:
     AddressFamily: IPv4
     Ensure:        Present
-  
+
   - OptionId:      2
     Value:         192.168.162.2
     AddressFamily: IPv4
@@ -65,3 +65,4 @@ Authorization:
   IPAddress:       192.169.162.1
 
 EnableSecurityGroups: true
+DependsOn: '[File]DependencyResource'

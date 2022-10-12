@@ -1,7 +1,7 @@
 ScopeOptions:
   - ScopeId: 192.169.1.0
     OptionId: 6
-    AddressFamily: IPv4    
+    AddressFamily: IPv4
     UserClass: ''
     VendorClass: ''
     Value:
@@ -31,3 +31,4 @@ ScopeOptions:
     AddressFamily: IPv4
     VendorClass: ''
     UserClass: ''
+DependsOn: '[File]DependencyResource'

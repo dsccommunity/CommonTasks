@@ -7,3 +7,4 @@ MaintenanceWindows:
     Mode: Daily
     StartTime: 04:00:00
     Timespan: 01:00:00
+DependsOn: '[File]DependencyResource'

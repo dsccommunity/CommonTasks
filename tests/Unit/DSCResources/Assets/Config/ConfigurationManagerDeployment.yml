@@ -9,3 +9,4 @@ AdkSetupExePath: C:\Temp\adksetup.exe
 AdkWinPeSetupPath: C:\temp\adkpesetup.exe
 MdtMsiPath: C:\temp\mdt.msi
 ConfigManagerSetupPath: C:\temp\confmgr
+DependsOn: '[File]DependencyResource'

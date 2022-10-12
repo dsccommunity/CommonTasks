@@ -8,3 +8,4 @@ ConditionalForwarders:
     MasterServers:
       - 10.0.3.10
     ReplicationScope: Forest
+DependsOn: '[File]DependencyResource'

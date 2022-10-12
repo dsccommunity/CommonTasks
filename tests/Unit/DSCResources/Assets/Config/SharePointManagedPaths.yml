@@ -11,3 +11,4 @@ ManagedPaths:
     RelativeUrl: personal
     Explicit: false
     HostHeader: false
+DependsOn: '[File]DependencyResource'

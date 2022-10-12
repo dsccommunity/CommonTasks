@@ -11,25 +11,25 @@ VMSwitches:
     Gateway:      192.168.100.3
     NetworkCategory: Private
     InterfaceMetric: 50
-    
-  - Name: VMSwitchExt  
+
+  - Name: VMSwitchExt
     Type: External
     NetAdapterName: Ethernet2
     NetworkCategory: Public
 
-  - Name: VMSwitchNat 
+  - Name: VMSwitchNat
     Type: NAT
     AddressSpace: 192.168.0.0/24
     IpAddress:    192.168.0.1
 
-  - Name: VMSwitchPrivate  
+  - Name: VMSwitchPrivate
     Type: Private
 
-  - Name: VMSwitchNATAbsent 
+  - Name: VMSwitchNATAbsent
     Type: NAT
     Ensure: Absent
 
-  - Name: VMSwitchPrivateAbsent 
+  - Name: VMSwitchPrivateAbsent
     Type: Private
     Ensure: Absent
 
@@ -181,3 +181,4 @@ VMMachines:
 
   - Name:    VMABSENT  # Name of the virtual machine
     Ensure:  Absent
+DependsOn: '[File]DependencyResource'

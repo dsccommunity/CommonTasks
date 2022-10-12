@@ -1,106 +1,132 @@
 configuration CertificateAuthorities {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [ValidateSet('Yes')]
         [System.String]
         $IsSingleInstance,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [ValidateSet('EnterpriseRootCA', 'EnterpriseSubordinateCA', 'StandaloneRootCA', 'StandaloneSubordinateCA')]
         [System.String]
         $CAType,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateSet('Present', 'Absent')]
         [System.String]
         $Ensure = 'Present',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CACommonName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CADistinguishedNameSuffix,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CertFile,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $CertFilePassword,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CertificateID,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CryptoProviderName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $DatabaseDirectory,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $HashAlgorithmName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $IgnoreUnicode,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $KeyContainerName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $KeyLength,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $LogDirectory,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $OutputCertRequestFile,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OverwriteExistingCAinDS,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OverwriteExistingDatabase,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OverwriteExistingKey,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $ParentCA,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateSet('Hours', 'Days', 'Months', 'Years')]
         [System.String]
         $ValidityPeriod,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
-        $ValidityPeriodUnits
+        $ValidityPeriodUnits,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module ActiveDirectoryCSDsc
+
+    if ($DependsOn -and -not $Config)
+    {
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+    }
+
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
+
+    if (-not $param.ContainsKey('Ensure'))
+    {
+        $param.Add('Ensure', 'Present')
+    }
 
     WindowsFeature ADCS-Cert-Authority
     {
@@ -114,14 +140,7 @@ configuration CertificateAuthorities {
         Name   = 'RSAT-ADCS-Mgmt'
     }
 
-    if (-not $PSBoundParameters.ContainsKey('Ensure'))
-    {
-        $PSBoundParameters.Add('Ensure', 'Present')
-    }
-    $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
-
     $executionName = 'CaDeployment'
-    (Get-DscSplattedResource -ResourceName AdcsCertificationAuthority -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    (Get-DscSplattedResource -ResourceName AdcsCertificationAuthority -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 
 }

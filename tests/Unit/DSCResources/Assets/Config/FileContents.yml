@@ -36,3 +36,4 @@ ReplaceTexts:
     Search: <img src=['`\"][a-zA-Z0-9.]*['`\"]>
     Type: Text
     Text: <img src="imgs/placeholder.jpg">
+DependsOn: '[File]DependencyResource'

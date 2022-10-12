@@ -31,3 +31,4 @@ Items:
     ItemKeyValue: C:\WINDOWS\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
     ItemPropertyName: groupId
     ItemPropertyValue: ASP.NET v2.0.50727
+DependsOn: '[File]DependencyResource'

@@ -18,3 +18,4 @@ Packages:
     Rank: 2000
   - Name: LowerRank
     Rank: 10
+DependsOn: '[File]DependencyResource'

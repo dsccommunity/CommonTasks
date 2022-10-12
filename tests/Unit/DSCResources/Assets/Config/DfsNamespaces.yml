@@ -8,3 +8,4 @@ NamespaceConfig:
     Targets:
       - DscFile01
       - DscFile02
+DependsOn: '[File]DependencyResource'

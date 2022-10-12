@@ -6,3 +6,4 @@
     Ensure: Absent
   - DiskId: 3
     DriveLetter: G
+DependsOn: '[File]DependencyResource'

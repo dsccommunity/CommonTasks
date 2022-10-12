@@ -11,3 +11,4 @@ Values:
     InstanceName: MSSQLSERVER
     RecoveryModel: Full
     OwnerName: sa
+DependsOn: '[File]DependencyResource'

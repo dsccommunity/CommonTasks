@@ -5,3 +5,4 @@
   - Name: RepoB
     InstallationPolicy: trusted
     SourceLocation: https://somegallery/v2
+DependsOn: '[File]DependencyResource'

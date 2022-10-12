@@ -9,3 +9,4 @@ Subnets:
   - Name: 10.0.2.0/24
     Site: Athens
     Location: Sparta
+DependsOn: '[File]DependencyResource'

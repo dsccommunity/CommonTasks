@@ -9,6 +9,8 @@ Subscriptions:
     Address:
       - tester.contoso.com
       - tester2.contoso.com
+DependsOn: '[File]DependencyResource'
+
 
 # Test: Source Node
 # NodeType: Source

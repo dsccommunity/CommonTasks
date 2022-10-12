@@ -19,3 +19,4 @@ Items:
     DiskId: 5
     FSLabel: TempDB
     NoDefaultDriveLetter: true
+DependsOn: '[File]DependencyResource'

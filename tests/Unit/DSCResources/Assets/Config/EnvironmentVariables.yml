@@ -5,3 +5,4 @@ Variables:
   - Name: var2
     Target: Machine
     Value: 456
+DependsOn: '[File]DependencyResource'

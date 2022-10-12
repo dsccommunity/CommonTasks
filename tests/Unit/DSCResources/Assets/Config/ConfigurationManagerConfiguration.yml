@@ -160,3 +160,5 @@ SoftwareUpdatePointComponent:
   EnableManualCertManagement: false
   FeatureUpdateMaxRuntimeMins: 300
   NonFeatureUpdateMaxRuntimeMins: 300
+
+DependsOn: '[File]DependencyResource'

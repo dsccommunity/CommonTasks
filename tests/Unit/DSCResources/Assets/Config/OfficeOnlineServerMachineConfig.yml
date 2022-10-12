@@ -1,1 +1,3 @@
-MachineToJoin: Master
+Config:
+  MachineToJoin: Master
+DependsOn: '[File]DependencyResource'

@@ -21,3 +21,4 @@ Groups:
   - GroupName: Group with spaces
     Path: OU=Groups,OU=Admin
     GroupScope: Global
+DependsOn: '[File]DependencyResource'

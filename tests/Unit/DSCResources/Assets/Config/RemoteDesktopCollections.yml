@@ -36,3 +36,4 @@
         #ExcludeFolderPath
         #IncludeFilePath
         #ExcludeFilePath
+DependsOn: '[File]DependencyResource'

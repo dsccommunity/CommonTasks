@@ -19,3 +19,4 @@ Users:
       - Administrators
       - Users
       - Event Log Readers
+DependsOn: '[File]DependencyResource'

@@ -59,3 +59,4 @@ DeviceReservations:
     Ensure:          Present
   - DeviceName:      Server02
     DeviceID:        123456781234-567812345678
+DependsOn: '[File]DependencyResource'

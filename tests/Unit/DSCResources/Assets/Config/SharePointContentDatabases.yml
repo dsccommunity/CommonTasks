@@ -11,3 +11,4 @@ ContentDatabases:
     Enabled: true
     WarningSiteCount: 2000
     MaximumSiteCount: 5000
+DependsOn: '[File]DependencyResource'

@@ -11,3 +11,4 @@ XmlData:
     Attributes:
       TestValue1: 'SomeValue1'
       TestValue2: 'SomeValue2'
+DependsOn: '[File]DependencyResource'

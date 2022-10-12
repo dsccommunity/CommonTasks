@@ -1,4 +1,4 @@
-Sites:    
+Sites:
   - Name: Contoso Content
     Url: https://content.contoso.com
     OwnerAlias: contoso\sp_setup
@@ -13,3 +13,4 @@ Sites:
     Description: App Catalog
     Language: 1033
     Template: APPCATELOG#0
+DependsOn: '[File]DependencyResource'

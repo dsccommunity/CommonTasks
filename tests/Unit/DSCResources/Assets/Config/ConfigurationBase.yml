@@ -1,1 +1,2 @@
 SystemType: Baseline
+DependsOn: '[File]DependencyResource'

@@ -1,4 +1,6 @@
 # see https://github.com/dsccommunity/AuditPolicyDsc
+DependsOn: '[File]DependencyResource'
+
 Options:
   - Name:  AuditBaseObjects
     Value: Enabled
@@ -34,4 +36,3 @@ Guids:
     Ensure:    Present
 
 CsvPath: C:\Temp\AuditPolBackup.csv  # Path to the CSV file to apply to the node
-

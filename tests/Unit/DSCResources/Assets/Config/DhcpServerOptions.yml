@@ -1,6 +1,7 @@
 ServerOptions:
   - OptionId: 15
-    AddressFamily: IPv4    
+    AddressFamily: IPv4
     UserClass: ''
     VendorClass: ''
     Value: contoso.com
+DependsOn: '[File]DependencyResource'

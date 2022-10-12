@@ -1,7 +1,8 @@
 ﻿ProtectDomain:   true
-ProtectOrgUnit:  true 
+ProtectOrgUnit:  true
 ProtectUser:     true
 ProtectGroup:    true
 ProtectComputer: true
 ProtectFineGrainedPasswordPolicy: true
 ProtectReplicationSite: true
+DependsOn: '[File]DependencyResource'

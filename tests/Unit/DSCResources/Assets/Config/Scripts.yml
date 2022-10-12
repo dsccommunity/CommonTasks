@@ -32,3 +32,4 @@ Items:
       [bool(Get-Date)
     SetScript: |
       Get-Date
+DependsOn: '[File]DependencyResource'

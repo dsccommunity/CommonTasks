@@ -1,2 +1,4 @@
-AllowHttp: true
-InternalUrl: http://contoso.com
+Config:
+  AllowHttp: true
+  InternalUrl: http://contoso.com
+DependsOn: '[File]DependencyResource'

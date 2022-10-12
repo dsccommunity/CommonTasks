@@ -6,3 +6,4 @@
     Ensure:    Present
   - HostName:  server03
     Ensure:    Absent
+DependsOn: '[File]DependencyResource'

@@ -3,3 +3,4 @@ SessionHosts:
   - SH1
   - SH2
 WebAccess: WA1
+DependsOn: '[File]DependencyResource'

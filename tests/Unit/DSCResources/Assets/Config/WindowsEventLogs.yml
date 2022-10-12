@@ -9,4 +9,4 @@ Logs:
   LogMode: Retain
   MaximumSizeInBytes: 2048KB
   LogRetentionDays: 30
-  
+DependsOn: '[File]DependencyResource'

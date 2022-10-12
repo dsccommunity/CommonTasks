@@ -36,21 +36,22 @@ Cleanup:
 ApprovalRules:
   - Ensure: Present
     Name:   rule1
-    Classifications: 
+    Classifications:
       - '5C9376AB-8CE6-464A-B136-22113DD69801'
       - 'E6CF1350-C01B-414D-A61F-263D14D133B4'
-    Products: 
-    ComputerGroups: 
+    Products:
+    ComputerGroups:
     Enabled: true
     Synchronize: false
   - Name:   rule2
-    Classifications: 
-    Products: 
+    Classifications:
+    Products:
       - Product1
       - Product2
-    ComputerGroups: 
+    ComputerGroups:
       - Group1
       - Group2
     Enabled: true
     Synchronize: true
     RunRuleNow: true
+DependsOn: '[File]DependencyResource'

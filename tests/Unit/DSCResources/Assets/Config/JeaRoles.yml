@@ -34,3 +34,4 @@ Roles:
         ScriptBlock: |
           Get-Date
           Write-Host Hello World
+DependsOn: '[File]DependencyResource'

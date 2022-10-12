@@ -3,3 +3,4 @@ ServicePrincipalNames:
     ServicePrincipalName: HOST/JHP
   - Account: nyanhp
     ServicePrincipalName: WINRM/JHP
+DependsOn: '[File]DependencyResource'

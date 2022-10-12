@@ -41,3 +41,4 @@ Routes:
     RouteMetric:       200
     Publish:           Age
     PreferredLifetime: 25
+DependsOn: '[File]DependencyResource'

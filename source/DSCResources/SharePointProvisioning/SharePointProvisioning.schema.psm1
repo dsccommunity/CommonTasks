@@ -1,54 +1,55 @@
 configuration SharePointProvisioning
 {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $FarmConfigDatabaseName,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $DatabaseServer,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $useSQLAuthentication,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $DatabaseCredentials,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $FarmAccount,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $Passphrase,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $AdminContentDatabaseName,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $RunCentralAdmin,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CentralAdministrationUrl,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateRange(1, 65535)]
         [System.UInt32]
         $CentralAdministrationPort,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         [ValidateSet("NTLM", "Kerberos")]
         $CentralAdministrationAuth,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         [ValidateSet("Application",
             "ApplicationWithSearch",
@@ -60,33 +61,49 @@ configuration SharePointProvisioning
             "WebFrontEndWithDistributedCache")]
         $ServerRole,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateSet("Off", "On", "OnDemand")]
         [System.String]
         $DeveloperDashboard,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $ApplicationCredentialKey,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Management.Automation.PSCredential]
         $InstallAccount,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [string]
-        $CentralAdminServerName
+        $CentralAdminServerName,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SharePointDSC
 
-    $PSBoundParameters.Add('Ensure', 'Present')
-    $PSBoundParameters.Add('IsSingleInstance', 'Yes')
-    $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
-    $PSBoundParameters.Remove('PsDscRunAsCredential')
-    $PSBoundParameters.Remove('CentralAdminServerName')
+    if ($DependsOn -and -not $Config)
+    {
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+    }
+
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
+
+    $param['Ensure'] = 'Present'
+    $param['IsSingleInstance'] = 'Yes'
 
     if (-not $CentralAdministrationUrl)
     {
@@ -104,6 +121,6 @@ configuration SharePointProvisioning
         $executionName = 'SharePointFarmCreate'
     }
 
-    (Get-DscSplattedResource -ResourceName SPFarm -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    (Get-DscSplattedResource -ResourceName SPFarm -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 
 }

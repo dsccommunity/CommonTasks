@@ -3,3 +3,4 @@ Policies:
     ExecutionPolicy: Unrestricted
   - ExecutionPolicyScope: LocalMachine
     ExecutionPolicy: RemoteSigned
+DependsOn: '[File]DependencyResource'

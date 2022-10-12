@@ -15,3 +15,4 @@ Disks:
     FSLabel: Data
     Size: 1GB
     AllocationUnitSize: 2KB
+DependsOn: '[File]DependencyResource'

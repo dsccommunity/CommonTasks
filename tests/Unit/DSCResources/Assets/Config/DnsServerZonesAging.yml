@@ -9,3 +9,4 @@
 
   - Name:    east.contoso.com
     Enabled: False
+DependsOn: '[File]DependencyResource'

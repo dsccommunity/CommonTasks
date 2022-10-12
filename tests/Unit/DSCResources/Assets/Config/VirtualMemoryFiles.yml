@@ -7,3 +7,4 @@ Files:
     Type: CustomSize
     InitialSize: 8192
     MaximumSize: 8192
+DependsOn: '[File]DependencyResource'

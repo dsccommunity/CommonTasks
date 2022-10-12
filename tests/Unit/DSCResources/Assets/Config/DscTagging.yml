@@ -7,3 +7,4 @@ Layers:
   - Layer1
   - Layer2
   - Layer3
+DependsOn: '[File]DependencyResource'

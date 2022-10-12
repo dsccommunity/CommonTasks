@@ -6,3 +6,4 @@ Agents:
     ProjectName: ABC
     Pool: ABC
     AgentDirectory: C:\VSTSAgent
+DependsOn: '[File]DependencyResource'

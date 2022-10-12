@@ -5,3 +5,4 @@ Profile:
   DefaultOutboundAction: Allow
   AllowInboundRules: True
   AllowLocalFirewallRules: False
+DependsOn: '[File]DependencyResource'

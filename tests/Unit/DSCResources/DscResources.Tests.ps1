@@ -80,6 +80,13 @@ configuration "Config_$dscResourceName" {
             $data = @{}
         }
 
+        File DependencyResource
+        {
+            DestinationPath = 'C:\DoesNotMatter'
+            Type            = 'File'
+            Contents        = 'Dependencies should work'
+        }
+
         (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $dscResourceName -Properties $data -NoInvoke).Invoke($data)
     }
 }

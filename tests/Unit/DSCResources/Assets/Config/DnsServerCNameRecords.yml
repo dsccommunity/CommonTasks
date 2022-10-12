@@ -8,15 +8,16 @@
     Name: Alias2
     ZoneName: contoso.com
     Ensure: Present
-  
+
   - HostNameAlias: Server3
     Name: Alias3
     ZoneName: contoso.com
     DnsServer: localhost
     Ensure: Present
-  
+
   - HostNameAlias: Server4
     Name: Alias4
     ZoneName: contoso.com
     DnsServer: dnsserver1.contoso.com
     Ensure: Present
+DependsOn: '[File]DependencyResource'

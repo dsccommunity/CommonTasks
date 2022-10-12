@@ -8,3 +8,4 @@ Values:
       - CONTOSO\Kelly
     ServerName: sqltest.company.local
     InstanceName: DSC
+DependsOn: '[File]DependencyResource'

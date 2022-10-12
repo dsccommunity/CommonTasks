@@ -9,3 +9,4 @@ Values:
     Port: 5023
     ServerName: SQL2
     InstanceName: MSSQLSERVER
+DependsOn: '[File]DependencyResource'

@@ -7,3 +7,4 @@ SysvolPath: C:\Windows\SYSVOL
 SiteName: London
 IsGlobalCatalog: true
 InstallationMediaPath: \\Server\Share
+DependsOn: '[File]DependencyResource'

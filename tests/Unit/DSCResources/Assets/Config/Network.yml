@@ -1,2 +1,3 @@
 NetworkZone: 1
 MtuSize: 1360
+DependsOn: '[File]DependencyResource'

@@ -4,3 +4,4 @@ Names:
   - +TFTP
   - -TelnetClient
   - Hyper-V
+DependsOn: '[File]DependencyResource'

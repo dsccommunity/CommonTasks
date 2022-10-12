@@ -13,3 +13,4 @@ Adapter:
     IPAddress: 10.2.0.33/24
     AddressFamily: IPv4
     DisableIpv6: true
+DependsOn: '[File]DependencyResource'

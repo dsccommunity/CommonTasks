@@ -9,3 +9,4 @@ Rules:
     LocalPort: Any
     RemotePort: Any
     Protocol: Any
+DependsOn: '[File]DependencyResource'

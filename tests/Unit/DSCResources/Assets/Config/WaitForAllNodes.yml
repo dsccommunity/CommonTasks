@@ -7,3 +7,4 @@ Items:
     NodeName: SQLServer
     RetryIntervalSec: 60
     RetryCount: 60
+DependsOn: '[File]DependencyResource'

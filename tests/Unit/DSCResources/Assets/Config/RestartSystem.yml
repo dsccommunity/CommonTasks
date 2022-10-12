@@ -5,3 +5,4 @@ SkipWindowsUpdate: true
 SkipPendingFileRename: true
 SkipPendingComputerRename: true
 SkipCcmClientSDK: true
+DependsOn: '[File]DependencyResource'

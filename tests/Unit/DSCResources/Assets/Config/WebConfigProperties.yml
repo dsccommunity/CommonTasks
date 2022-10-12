@@ -7,3 +7,4 @@ Items:
     Filter: system.webServer/security/requestFiltering
     PropertyName: allowDoubleEscaping
     Value: true
+DependsOn: '[File]DependencyResource'

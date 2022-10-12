@@ -7,3 +7,4 @@ RefreshIntervalOverride: false
 ControllerInterval: 00:15:00
 MaintenanceWindowOverride: false
 MaxLcmRuntime: 02:00:00
+DependsOn: '[File]DependencyResource'

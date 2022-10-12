@@ -5,3 +5,4 @@ Values:
   - Name: contoso\install
     LoginType: WindowsUser
     InstanceName: MSSQLSERVER
+DependsOn: '[File]DependencyResource'

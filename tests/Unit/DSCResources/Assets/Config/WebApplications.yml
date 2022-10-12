@@ -20,3 +20,4 @@ Items:
       Basic: false
       Digest: false
       Windows: true
+DependsOn: '[File]DependencyResource'

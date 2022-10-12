@@ -10,3 +10,4 @@
     IPv4Address: 192.168.1.20
     DnsServer: localhost
     Ensure: Present
+DependsOn: '[File]DependencyResource'

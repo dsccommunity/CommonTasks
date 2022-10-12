@@ -9,3 +9,4 @@
     ZoneName: contoso.com
     MailExchange: mailserver2.contoso.com
     Priority: 20
+DependsOn: '[File]DependencyResource'

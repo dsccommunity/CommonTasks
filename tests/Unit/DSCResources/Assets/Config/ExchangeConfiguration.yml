@@ -4,3 +4,4 @@ FileCopyCreds: '[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWF
 ExternalNamespace: contoso.com
 InternalNamespace: contoso.com
 AutoDiscoverSiteScope: Site1
+DependsOn: '[File]DependencyResource'

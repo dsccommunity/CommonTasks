@@ -4,3 +4,4 @@ Items:
     MultiThreaded: true
     Restartable: true
     AdditionalArgs: '/mir'
+DependsOn: '[File]DependencyResource'

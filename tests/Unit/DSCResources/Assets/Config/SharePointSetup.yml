@@ -16,3 +16,4 @@ InstallPath: 'C:\Program Files\Microsoft Office Servers'
 DataPath: 'C:\Program Files\Microsoft Office Servers'
 LanguagePacks:
   - BinaryDir: 'C:\SharePoint Server 2019\Language Pack DE'
+DependsOn: '[File]DependencyResource'

@@ -4,3 +4,4 @@ Values:
   Protocol          : TCP
   UseDynamicTcpPort : true
   TcpPort           : false
+DependsOn: '[File]DependencyResource'

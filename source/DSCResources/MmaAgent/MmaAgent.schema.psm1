@@ -1,29 +1,47 @@
 configuration MmaAgent
 {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [string]
         $WorkspaceId,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [pscredential]
         $WorkspaceKey,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [string]
         $ProxyUri,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [pscredential]
-        $ProxyCredential
+        $ProxyCredential,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName MmaDsc
 
-    $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
+    if ($DependsOn -and -not $Config)
+    {
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+    }
 
-    (Get-DscSplattedResource -ResourceName WorkspaceConfiguration -ExecutionName MmaConfig -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
+
+    (Get-DscSplattedResource -ResourceName WorkspaceConfiguration -ExecutionName MmaConfig -Properties $param -NoInvoke).Invoke($param)
 }

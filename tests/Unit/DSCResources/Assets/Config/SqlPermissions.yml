@@ -11,3 +11,4 @@ Values:
       - ViewServerState
       - AlterAnyEndPoint
       - ConnectSql
+DependsOn: '[File]DependencyResource'

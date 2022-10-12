@@ -1,227 +1,241 @@
 configuration OfficeOnlineServerFarmConfig
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '')]
-
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param (
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowCEIP,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowHttp,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowHttpSecureStoreConnections,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CacheLocation,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $CacheSizeInGB,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $CertificateName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ClipartEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $DocumentInfoCacheSize,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EditingEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelAllowExternalData,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelConnectionLifetime,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelExternalDataCacheLifetime,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelPrivateBytesMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelRequestDurationMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelSessionTimeout,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelUdfsAllowed,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelWarnOnDataRefresh,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelWorkbookSizeMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelMemoryCacheThreshold,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelUnusedObjectAgeMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelCachingUnusedFiles,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelAbortOnRefreshOnOpenFail,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelAutomaticVolatileFunctionCacheLifetime,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelConcurrentDataRequestsPerSessionMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $ExcelDefaultWorkbookCalcMode,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelRestExternalDataEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $ExcelChartAndImageSizeMax,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $ExternalURL,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $FarmOU,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $InternalURL,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $LogLocation,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $LogRetentionInDays,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $LogVerbosity,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $MaxMemoryCacheSizeInMB,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $MaxTranslationCharacterCount,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OpenFromUncEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OpenFromUrlEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OpenFromUrlThrottlingEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $Proxy,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Int32]
         $RecycleActiveProcessCount,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $RenderingLocalCacheLocation,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $SSLOffloaded,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $TranslationEnabled,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $TranslationServiceAddress,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $TranslationServiceAppId,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowOutboundHttp,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ExcelUseEffectiveUserName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $S2SCertificateName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $RemovePersonalInformationFromLogs,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
-        $PicturePasteDisabled
+        $PicturePasteDisabled,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName OfficeOnlineServerDsc
 
-    if (-not $ExternalUrl -and -not $InternalUrl)
+    if ($DependsOn -and -not $Config)
     {
-        Write-Error 'Either "$ExternalUrl" or "$InternalUrl" must be defined'
-        return
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
     }
 
-    if (-not $CertificateName -and -not $AllowHttp -and -not $SSLOffloaded)
+    if ($Config)
     {
-        Write-Error 'Either "$CertificateName" or "$AllowHttp" or "SSLOffloaded" must be defined'
-        return
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
     }
 
-    $param = $PSBoundParameters
-    $param.Remove('InstanceName')
-    $param.Remove('DependsOn')
+    if (-not $param.ExternalUrl -and -not $param.InternalUrl)
+    {
+        throw 'Either "$ExternalUrl" or "$InternalUrl" must be defined'
+    }
+
+    if (-not $param.CertificateName -and -not $param.AllowHttp -and -not $param.SSLOffloaded)
+    {
+        throw 'Either "$CertificateName" or "$AllowHttp" or "SSLOffloaded" must be defined'
+    }
     $exeutionName = "$($node.Name)_FarmCreate"
     (Get-DscSplattedResource -ResourceName OfficeOnlineServerFarm -ExecutionName $exeutionName -Properties $param -NoInvoke).Invoke($param)
 

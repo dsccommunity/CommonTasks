@@ -7,3 +7,4 @@ Domains:
     SiteName: Default-First-Site-Name
     WaitTimeout: 300
     RestartCount: 0
+DependsOn: '[File]DependencyResource'

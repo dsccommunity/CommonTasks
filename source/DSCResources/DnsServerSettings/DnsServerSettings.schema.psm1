@@ -1,276 +1,294 @@
 configuration DnsServerSettings {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $DnsServer,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $AddressAnswerLimit,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowUpdate,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AutoCacheUpdate,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $AutoConfigFileZones,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $BindSecondaries,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $BootMethod,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $DisableAutoReverseZone,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableDirectoryPartitions,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableDnsSec,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ForwardDelegations,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String[]]
         $ListeningIPAddress,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $LocalNetPriority,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $LooseWildcarding,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $NameCheckFlag,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $RoundRobin,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $RpcProtocol,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $SendPort,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $StrictFileParsing,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $UpdateOptions,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $WriteAuthorityNS,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $XfrConnectTimeout,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableIPv6,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableOnlineSigning,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableDuplicateQuerySuppression,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowCnameAtNs,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableRsoForRodc,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $OpenAclOnProxyUpdates,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $NoUpdateDelegations,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableUpdateForwarding,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableWinsR,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $DeleteOutsideGlue,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AppendMsZoneTransferTag,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AllowReadOnlyZoneTransfer,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableSendErrorSuppression,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $SilentlyIgnoreCnameUpdateConflicts,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnableIQueryResponseGeneration,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $AdminConfigured,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $PublishAutoNet,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $ReloadException,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $IgnoreServerLevelPolicies,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $IgnoreAllPolicies,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $EnableVersionQuery,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $AutoCreateDelegation,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $RemoteIPv4RankBoost,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $RemoteIPv6RankBoost,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $MaximumRodcRsoQueueLength,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $MaximumRodcRsoAttemptsPerCycle,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $MaxResourceRecordsInNonSecureUpdate,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $LocalNetPriorityMask,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $TcpReceivePacketSize,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $SelfTest,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $XfrThrottleMultiplier,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $SocketPoolSize,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $QuietRecvFaultInterval,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $QuietRecvLogInterval,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $SyncDsZoneSerial,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $ScopeOptionValue,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $VirtualizationInstanceOptionValue,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $ServerLevelPluginDll,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $RootTrustAnchorsURL,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String[]]
         $SocketPoolExcludedPortRanges,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $LameDelegationTTL,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $MaximumSignatureScanPeriod,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $MaximumTrustAnchorActiveRefreshInterval,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
-        $ZoneWritebackInterval
+        $ZoneWritebackInterval,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
-    $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
+    if ($DependsOn -and -not $Config)
+    {
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+    }
+
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
 
     $executionName = 'DnsServerSetting'
-    (Get-DscSplattedResource -ResourceName DnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    (Get-DscSplattedResource -ResourceName DnsServerSetting -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 }

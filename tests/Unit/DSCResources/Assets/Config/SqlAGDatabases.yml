@@ -11,3 +11,4 @@ Values:
     InstanceName: MSSQLSERVER
     ServerName: SQL1
     ProcessOnlyOnActiveNode: true
+DependsOn: '[File]DependencyResource'

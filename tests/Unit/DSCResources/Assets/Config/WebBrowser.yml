@@ -2,3 +2,4 @@
   StartPage: 'https://www.contoso.com'
 Edge:
   StartPage: 'https://www.contoso.com'
+DependsOn: '[File]DependencyResource'

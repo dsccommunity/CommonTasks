@@ -22,3 +22,4 @@
     KeyType: "RSA"
     RequestType: "PKCS10"
     SubjectAltName: "FRONTEND"
+DependsOn: '[File]DependencyResource'

@@ -8,3 +8,4 @@ SiteLinks:
     OptionChangeNotification: true
   - Name: DEFAULTIPSITELINK
     Ensure: Absent
+DependsOn: '[File]DependencyResource'

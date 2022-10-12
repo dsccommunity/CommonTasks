@@ -1,3 +1,5 @@
-ServerName: SQL1
-SqlInstanceName: MSSQLSERVER
-RestartTimeout: 120
+Config:
+  ServerName: SQL1
+  SqlInstanceName: MSSQLSERVER
+  RestartTimeout: 120
+DependsOn: '[File]DependencyResource'

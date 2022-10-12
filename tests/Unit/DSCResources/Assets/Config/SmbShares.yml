@@ -50,7 +50,7 @@ Shares:
     FolderEnumerationMode: AccessBased
     CachingMode: Manual
     ContinuouslyAvailable: false
-    FullAccess: 
+    FullAccess:
       - AdminUser1
       - AdminUser2
     ChangeAccess:
@@ -71,3 +71,4 @@ Shares:
     Path: C:\
   - Name: Temp-Old
     Ensure: Absent
+DependsOn: '[File]DependencyResource'

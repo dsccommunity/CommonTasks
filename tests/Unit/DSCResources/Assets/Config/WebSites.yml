@@ -46,3 +46,4 @@ Items:
         Protocol: http
         Hostname: ''
         IPAddress: '*'
+DependsOn: '[File]DependencyResource'

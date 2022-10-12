@@ -1,4 +1,6 @@
-DnsServer: localhost
-DisjointNets: true
-NoForwarderRecursion: false
-LogLevel: 50393905
+Config:
+  DnsServer: localhost
+  DisjointNets: true
+  NoForwarderRecursion: false
+  LogLevel: 50393905
+DependsOn: '[File]DependencyResource'

@@ -5,3 +5,4 @@ AdZones:
   - Name: 30.168.192.in-addr.arpa
     DynamicUpdate: Secure
     ReplicationScope: Forest
+DependsOn: '[File]DependencyResource'

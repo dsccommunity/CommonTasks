@@ -46,3 +46,4 @@ Features:
   - Name: allowEmptyChecksums
     Ensure: Absent
   - Name: ignoreInvalidOptionsSwitches
+DependsOn: '[File]DependencyResource'

@@ -8,3 +8,4 @@ PhysicalPath: C:\inetpub\PSDSCPullServer
 ModulePath: C:\Program Files\WindowsPowerShell\DscService\Modules
 ConfigurationPath: C:\Program Files\WindowsPowerShell\DscService\Configuration
 UseSecurityBestPractices: false
+DependsOn: '[File]DependencyResource'

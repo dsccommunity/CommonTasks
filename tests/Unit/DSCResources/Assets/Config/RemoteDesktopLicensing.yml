@@ -1,2 +1,3 @@
 ﻿ConnectionBroker : CB1
 LicenseMode: PerUser
+DependsOn: '[File]DependencyResource'

@@ -5,3 +5,4 @@
   - Name:   Block_Telemetry
     Action: IGNORE
     Fqdn:   EQ,telemetry.google.com
+DependsOn: '[File]DependencyResource'

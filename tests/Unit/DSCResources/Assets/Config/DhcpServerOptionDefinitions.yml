@@ -5,3 +5,4 @@ ServerOptionDefinitions:
   Type: string
   VendorClass: ''
   Description: PXE Support
+DependsOn: '[File]DependencyResource'

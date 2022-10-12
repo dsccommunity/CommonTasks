@@ -19,3 +19,4 @@ Items:
     ProhibitSendQuota: 51200MB
     ProhibitSendReceiveQuota: 52224MB
     AllowServiceRestart: true
+DependsOn: '[File]DependencyResource'

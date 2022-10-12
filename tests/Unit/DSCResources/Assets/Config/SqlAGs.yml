@@ -9,3 +9,4 @@ Values:
     ServerName: SQL1
     AvailabilityMode: SynchronousCommit
     FailoverMode: Automatic
+DependsOn: '[File]DependencyResource'

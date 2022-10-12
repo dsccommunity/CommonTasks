@@ -1,3 +1,4 @@
 Items:
   - Name: TestAppPool1
   - Name: TestAppPool2
+DependsOn: '[File]DependencyResource'

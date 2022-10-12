@@ -3,3 +3,4 @@ Names:
 - -Web-Server
 - Hyper-V
 - '*RSAT'
+DependsOn: '[File]DependencyResource'

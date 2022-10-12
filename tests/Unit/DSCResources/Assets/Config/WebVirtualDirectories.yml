@@ -7,3 +7,4 @@ Items:
     PhysicalPath: C:\InetPub\VirtualDirectory2
     WebApplication: TestApp1
     WebSite: TestSite1
+DependsOn: '[File]DependencyResource'

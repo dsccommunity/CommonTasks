@@ -55,3 +55,4 @@ Items:
           - Read
           - Write
           - ExecuteFile
+DependsOn: '[File]DependencyResource'

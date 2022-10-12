@@ -5,3 +5,4 @@
     Ensure:        Present
 
   - Name: PrimaryZone2
+DependsOn: '[File]DependencyResource'

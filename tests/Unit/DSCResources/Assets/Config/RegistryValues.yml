@@ -7,11 +7,11 @@ Values:
     Force: True
   - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames
     ValueName:
-    ValueData:  
+    ValueData:
     ValueType: String
   - Key: HKLM:\Software\Policies\Microsoft\Cryptography\Configuration\SSL\00010002
     ValueName: EccCurves
-    ValueData: 
+    ValueData:
       - curve25519
       - NistP256
       - NistP384
@@ -23,3 +23,4 @@ Values:
     ValueType: DWORD
     ValueData: 0
     Force:     True
+DependsOn: '[File]DependencyResource'

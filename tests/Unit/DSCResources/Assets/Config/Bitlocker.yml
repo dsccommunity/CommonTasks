@@ -28,3 +28,4 @@ AutoDisks:
     StartupKeyPath:            'A:'
     RecoveryPasswordProtector: True
     UsedSpaceOnly:             True
+DependsOn: '[File]DependencyResource'

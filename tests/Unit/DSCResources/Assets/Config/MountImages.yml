@@ -9,3 +9,4 @@
     StorageType: VHDx
     Access: ReadWrite
   - ImagePath: C:\ISO\Test2.iso
+DependsOn: '[File]DependencyResource'

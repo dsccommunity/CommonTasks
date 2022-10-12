@@ -19,3 +19,4 @@ Disks:
     Label: Disk4
   - Number: 5
     Label: Disk5
+DependsOn: '[File]DependencyResource'

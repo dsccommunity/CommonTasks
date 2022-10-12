@@ -1,73 +1,90 @@
 configuration ExchangeAutoMountPoints {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param
     (
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $Identity,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $AutoDagDatabasesRootFolderPath,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String]
         $AutoDagVolumesRootFolderPath,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.String[]]
         $DiskToDBMap,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
         [System.UInt32]
         $SpareVolumeCount,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $EnsureExchangeVolumeMountPointIsLast = $false,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.Boolean]
         $CreateSubfolders = $false,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateSet('NTFS', 'REFS')]
         [System.String]
         $FileSystem = 'NTFS',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $MinDiskSize = '',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [ValidateSet('MBR', 'GPT')]
         [System.String]
         $PartitioningScheme = 'GPT',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
         $UnitSize = '64K',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [System.String]
-        $VolumePrefix = 'EXVOL'
+        $VolumePrefix = 'EXVOL',
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
 
-    if (-not $PSBoundParameters.ContainsKey('Identity'))
+    if ($DependsOn -and -not $Config)
     {
-        $PSBoundParameters.Add('Identity', $Node.NodeName)
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+    }
+
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
+
+    if (-not $param.ContainsKey('Identity'))
+    {
+        $param.Add('Identity', $Node.NodeName)
         $executionName = $Node.NodeName
     }
     else
     {
-        $executionName = $Identity
+        $executionName = $param.Identity
     }
-    $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
 
-
-    (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
-
+    (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 }

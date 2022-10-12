@@ -11,3 +11,4 @@ Values:
     ServerName: SQL1
     IpAddress: 192.168.10.241
     Port: 4000
+DependsOn: '[File]DependencyResource'

@@ -11,7 +11,6 @@ configuration AddsTrusts
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
     $PSBoundParameters.Remove('InstanceName')
-    $PSBoundParameters.Remove('DependsOn')
 
     foreach ($trust in $Trusts)
     {

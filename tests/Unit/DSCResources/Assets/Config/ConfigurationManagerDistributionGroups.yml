@@ -33,3 +33,4 @@ DistributionGroups:
       - Scope1
     SecurityScopesToInclude:
       - Scope2
+DependsOn: '[File]DependencyResource'

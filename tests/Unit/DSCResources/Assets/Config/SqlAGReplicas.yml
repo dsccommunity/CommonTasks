@@ -8,3 +8,4 @@ Values:
     ProcessOnlyOnActiveNode: true
     AvailabilityMode: SynchronousCommit
     FailoverMode: Automatic
+DependsOn: '[File]DependencyResource'

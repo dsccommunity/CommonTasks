@@ -9,3 +9,4 @@
     TrustDirection: Outbound
     TrustType: External
     SourceDomainName: contoso.com
+DependsOn: '[File]DependencyResource'

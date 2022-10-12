@@ -1,34 +1,53 @@
 configuration SqlAlwaysOnServices {
+    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
     param (
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [string]
         $SqlInstanceName = 'MSSQLSERVER',
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [int]
         $RestartTimeout,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [string]
         $ServerName,
 
-        [Parameter()]
+        [Parameter(ParameterSetName='NoDependsOn')]
         [string]
-        $Ensure
+        $Ensure,
+
+        [Parameter(ParameterSetName='DependsOn')]
+        [hashtable]
+        $Config
     )
 
     Import-DscResource -ModuleName SqlServerDsc
 
-    if (-not $PSBoundParameters.ContainsKey('Ensure'))
+    if ($DependsOn -and -not $Config)
     {
-        $PSBoundParameters.Add('Ensure', 'Present')
+        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
     }
 
-    $PSBoundParameters.Remove('DependsOn')
-    $PSBoundParameters.InstanceName = $SqlInstanceName
-    $PSBoundParameters.Remove('SqlInstanceName')
+    if ($Config)
+    {
+        $param = $Config.Clone()
+    }
+    else
+    {
+        $param = $PSBoundParameters
+        $param.Remove('InstanceName')
+        $param.Remove('DependsOn')
+    }
+
+    if (-not $param.ContainsKey('Ensure'))
+    {
+        $param.Add('Ensure', 'Present')
+    }
+
+    $param.InstanceName = $SqlInstanceName
+    $param.Remove('SqlInstanceName')
 
     $executionName = "$($ServerName)_$($InstanceName)"
-    (Get-DscSplattedResource -ResourceName SqlAlwaysOnService -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
-
+    (Get-DscSplattedResource -ResourceName SqlAlwaysOnService -ExecutionName $executionName -Properties $param -NoInvoke).Invoke($param)
 }

@@ -12,3 +12,4 @@ InstallerPath        : Z:\PrerequisiteInstaller.exe
 IsoFilePath          : C:\Install\en_sharepoint_server_2019_x64_dvd_68e34c9e.iso
 IsoDriveLetter       : 'Z:'
 ProductKey           : YourProductKey
+DependsOn: '[File]DependencyResource'

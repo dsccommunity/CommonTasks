@@ -17,3 +17,4 @@ Settings:
     SettingGuid: HIBERNATEIDLE
     AcDc: AC
     Value: 0
+DependsOn: '[File]DependencyResource'

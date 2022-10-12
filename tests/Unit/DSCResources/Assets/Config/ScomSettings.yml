@@ -23,3 +23,4 @@ ReportingServerUrl: http://SCRS1:80/ReportServer
 WebAddressSetting:
   WebConsoleUrl: http://OM01.contoso.com/OperationsManager
   OnlineProductKnowledgeUrl: http://OM01.contoso.com/Knowledge
+DependsOn: '[File]DependencyResource'
