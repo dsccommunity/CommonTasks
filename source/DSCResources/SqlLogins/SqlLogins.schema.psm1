@@ -25,7 +25,7 @@ configuration SqlLogins {
     [ServerName = [string]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlLogin
 
     foreach ($value in $Values)
     {

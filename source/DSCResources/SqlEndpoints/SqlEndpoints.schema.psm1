@@ -25,7 +25,7 @@ configuration SqlEndpoints {
     [State = [string]{ Disabled | Started | Stopped }]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlEndpoint
 
     foreach ($value in $Values)
     {

@@ -21,7 +21,7 @@ configuration SqlRoles {
     [ServerName = [string]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlRole
 
     foreach ($value in $Values)
     {

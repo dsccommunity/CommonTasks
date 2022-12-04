@@ -86,3 +86,13 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Updated to latest version of 'PackageManagement' to fix module discovery error.
 - WindowsServices: fix support of absent services (Ensure: Absent)
 - HyperV: fix support of absent switches and VMs (Ensure: Absent)
+- Upgrade the following DSC resources to latest stable version:
+  - NetworkingDsc
+  - xWebAdministration
+  - ActiveDirectoryDsc
+  - xDhcpServer
+  - xFailoverCluster
+  - SqlServerDsc
+  - xHyper-V
+  - VSTSAgent
+- Refactoring of SqlPermissions after upgrade of SqlServerDsc to 16.0.0
