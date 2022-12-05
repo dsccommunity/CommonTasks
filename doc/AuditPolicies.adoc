@@ -3,12 +3,10 @@
 
 :YmlCategory: AuditPolicies
 
-
-[[dscyml_auditpolicies, {YmlCategory}]]
-= DSC Resource 'AuditPolicies'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} contains DSC resources for the management and configuration of the advanced audit policy on all currently supported versions of Windows.
+
+[#dscyml_auditpolicies]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_auditpolicies_abstract, {abstract}]]
 {abstract}

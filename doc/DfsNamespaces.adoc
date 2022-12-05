@@ -1,0 +1,62 @@
+// CommonTasks YAML Reference: DfsNamespaces
+// =========================================
+
+:YmlCategory: DfsNamespaces
+
+:abstract:    {YmlCategory} configures Distributed File System Replication and Namespaces.
+
+[#dscyml_dfsnamespaces, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dfsnamespaces_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DfsNamespaces
+| DSC Resource   | https://github.com/dsccommunity/DFSDsc[DFSDsc]
+| Documentation  | - https://github.com/dsccommunity/DFSDsc/wiki/DFSNamespaceServerConfiguration[DFSNamespaceServerConfiguration]
+                   - https://github.com/dsccommunity/DFSDsc/wiki/DFSNamespaceRoot[DFSNamespaceRoot]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DomainFQDN
+| Mandatory
+| String
+| The fully qualified domain name (FQDN) of the domain.
+|
+
+| NamespaceConfig
+|
+| Hashtable[]
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DfsNamespaces:
+  DomainFqdn: contoso.com
+  NamespaceConfig:
+    - Sharename: AdminShare
+      Targets:
+        - DscFile01
+        - DscFile02
+    - Sharename: Software
+      Targets:
+        - DscFile01
+        - DscFile02
+----

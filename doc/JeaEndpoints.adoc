@@ -1,0 +1,52 @@
+// CommonTasks YAML Reference: JeaEndpoints
+// ========================================
+
+:YmlCategory: JeaEndpoints
+
+:abstract:    {YmlCategory} configures Just Enough Administration (JEA) Endpoints.
+
+[#dscyml_jeaendpoints]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_jeaendpoints_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/JeaEndpoints
+| DSC Resource   | https://github.com/dsccommunity/JeaDsc[JeaDsc]
+| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/learn/remoting/jea/overview?view=powershell-7[JeaDsc]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Endpoints
+| Mandatory
+| hashtable
+| needs more information/explanation from Microsoft
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+JeaEndpoints:
+  EndPoints:
+    - Name: Test1
+      Ensure: Present
+      RoleDefinitions:
+        Everyone:
+          RoleCapabilities: Test1
+      SessionType: RestrictedRemoteServer
+----

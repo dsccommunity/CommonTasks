@@ -1,0 +1,56 @@
+// CommonTasks YAML Reference: XmlContent
+// ========================================
+
+:YmlCategory: XmlContent
+
+
+[[dscyml_xmlcontent, {YmlCategory}]]
+= DSC Resource 'XmlContent'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_xmlcontent_abstract]]
+.{YmlCategory} manages content in XML files.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/XmlContent
+| DSC Resource   | https://github.com/AutomatedLab/XmlContentDsc[XmlContentDsc]
+| Documentation  | ##TBD##
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| XmlData
+| Mandatory
+| hashtable
+|
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+XmlContent:
+  - Path: D:\web.config
+    Ensure: Present
+    XPath: /configuration/appSettings/Test1/Test1
+    Attributes:
+      TestValue1: 'SomeValue1'
+      TestValue2: 'SomeValue2'
+  - Path: D:\web.config
+    Ensure: Present
+    XPath: /configuration/appSettings/Test1/Test2
+    Attributes:
+      TestValue1: 'SomeValue1'
+      TestValue2: 'SomeValue2'
+----

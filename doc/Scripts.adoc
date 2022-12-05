@@ -63,7 +63,7 @@
 | Hashtable[]
 | Optional script paramters as Key-Value hashtable
 
-NOTE: You can access these parameters with the variable `$params` in your script blocks.
+You can access these parameters with the variable `$params` in your script blocks.
 |
 
 | GetScript
@@ -73,7 +73,7 @@ NOTE: You can access these parameters with the variable `$params` in your script
   This script block runs when the Get-DscConfiguration cmdlet is called. 
   This script block should return a hash table containing one key named Result with a string value.
 
-NOTE: If the `GetScript` attribute is empty or missing a default script `@{ Result = 'N/A' }` is generated.
+If the `GetScript` attribute is empty or missing a default script `@{ Result = 'N/A' }` is generated.
 |
 
 | SetScript
@@ -86,7 +86,7 @@ NOTE: If the `GetScript` attribute is empty or missing a default script `@{ Resu
   If the TestScript block returns True, this script block will not run.
   This script block should not return.
 
-NOTE: If the `SetScript` attribute is empty or missing a default script `Write-Error 'SetScript is not implemented.'` is generated and the resource is marked as not in the desired state.
+If the `SetScript` attribute is empty or missing a default script `Write-Error 'SetScript is not implemented.'` is generated and the resource is marked as not in the desired state.
 |
 
 | TestScript

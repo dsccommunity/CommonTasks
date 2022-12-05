@@ -39,12 +39,10 @@ You can control the system reboot time by ordering the activated configurations 
 | ForceReboot
 |
 | Boolean
-| Force a system reboot +
-[NOTE]
-====
+| Force a system reboot
+
 Only one reboot after first start of a DSC configuration is supported. +
 To re-enable the system reboot feature the registry key value `Reboot_RestartSystem` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - *False* (default)
   - True
 

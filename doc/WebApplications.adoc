@@ -1,0 +1,53 @@
+// CommonTasks YAML Reference: WebApplications
+// ========================================
+
+:YmlCategory: WebApplications
+
+
+[[dscyml_webapplications, {YmlCategory}]]
+= DSC Resource 'WebApplications'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_webapplications_abstract]]
+.{YmlCategory} ##TBD##
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebApplications
+| DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+| Documentation  | https://github.com/dsccommunity/xWebAdministration#xwebapplication[xwebapplication]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| hashtable
+|
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+WebApplications:
+  Items:
+    - Name: TestApp1
+      PhysicalPath: C:\InetPub\WebApplications1
+      WebAppPool: TestApp1
+      WebSite: TestSite1
+    - Name: TestApp2
+      PhysicalPath: C:\InetPub\WebApplications2
+      WebAppPool: TestApp2
+      WebSite: TestSite2
+----

@@ -1,0 +1,109 @@
+// CommonTasks YAML Reference: DhcpServerOptions
+// =============================================
+
+:YmlCategory: DhcpServerOptions
+
+:abstract: {YmlCategory} is used to manage option values at server level.
+
+[#dscyml_dhcpserveroptions]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dhcpserveroptions_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dhcpserveroptions_serveroptions, {YmlCategory}/ServerOptions]]<<dscyml_dhcpserveroptions_serveroptions_details, ServerOptions>>
+|
+| Hashtable[]
+| Set of option values at server level.
+|
+
+|===
+
+
+[[dscyml_dhcpserveroptions_serveroptions_details]]
+.Attributes of category '<<dscyml_dhcpserveroptions_serveroptions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| OptionId
+| Key
+| Number
+| Option ID, specify an integer between 1 and 255.
+| [1, 255]
+
+| VendorClass
+| Key
+| String
+| Vendor class.
+
+Use an empty string for default vendor class.
+|
+
+| UserClass
+| Key
+| String
+| User class.
+
+Use an empty string for default user class.
+|
+
+| AddressFamily
+| Key
+| String
+| Sets the address family for the option definition.
+
+Currently only IPv4 is supported.
+| - IPv4
+
+| Value
+|
+| String[]
+| Option data value.
+
+Could be an array of string for a multi-valued option.
+|
+
+| Ensure
+|
+| String
+| Whether option should be set or removed.
+| - Present
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DhcpServerOptions:
+  ServerOptions:
+    - OptionId: 15
+      AddressFamily: IPv4    
+      UserClass: ''
+      VendorClass: ''
+      Value: contoso.com
+----

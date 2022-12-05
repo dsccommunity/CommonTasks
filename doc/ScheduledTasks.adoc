@@ -20,6 +20,7 @@
 | Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/ScheduledTask[ScheduledTask]
 |===
 
+
 [NOTE]
 ====
 The ScheduledTask resource requires the _ScheduledTasks_ PowerShell module which is only available on Windows Server 2012/Windows 8 and above.

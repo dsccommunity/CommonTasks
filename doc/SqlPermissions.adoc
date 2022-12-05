@@ -12,7 +12,11 @@
 [[dscyml_sqlpermissions_abstract]]
 .The {YmlCategory} DSC resource sets server permissions for a user (login).
 
-> Note: Currently the resource only supports ConnectSql, AlterAnyAvailabilityGroup, AlterAnyEndPoint and ViewServerState.
+[Note]
+====
+Currently the resource only supports ConnectSql, AlterAnyAvailabilityGroup, AlterAnyEndPoint and ViewServerState.
+====
+
 
 // reference links as variables for using more than once
 :ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]

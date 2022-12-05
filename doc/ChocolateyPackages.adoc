@@ -3,12 +3,10 @@
 
 :YmlCategory: ChocolateyPackages
 
-
-[[dscyml_chocolateypackages, {YmlCategory}]]
-= DSC Resource 'ChocolateyPackages'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} is aimed to install packages using Chocolatey.
+
+[#dscyml_chocolateypackages]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_chocolateypackages_abstract, {abstract}]]
 {abstract}
@@ -18,10 +16,10 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
-| Documentation  | https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware],
-                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource],
-                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage],
-                   https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
+| Documentation  | - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware]
+                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource]
+                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage] 
+                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
 
@@ -56,11 +54,9 @@
 |
 | Boolean
 | Force reboot before installation of first Chocolatey package. +
-[NOTE]
-====
+
 Only one reboot after first start of a DSC configuration is supported. +
 To re-enable the system reboot feature the registry key value `RebootBefore_{YmlCategory}` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - *False* (default)
   - True
 
@@ -143,16 +139,12 @@ To re-enable the system reboot feature the registry key value `RebootBefore_{Yml
 | InstallationDirectory
 |
 | String
-| Path where Chocolatey should be installed, +
-  default to `C:\ProgramData\Chocolatey"
+| Path where Chocolatey should be installed.
 
-[NOTE]
-====
 During offline installation (`OfflineInstallZip`) the specifed installation path is set to environment variable 'ChocolateyInstall'
 but will be ignored by Chocolatey install script (tested with 0.10.15).
 In this case the `Test-DscConfiguration` command returns `False`.
-====
-|
+| Default: `C:\ProgramData\Chocolatey`
 
 |===
 
@@ -270,7 +262,7 @@ This is useful on multiple YAML layer scenarios to define the installation order
 | String[] (KeyValuePair)
 | https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
 
-NOTE: All option values shall be provided as strings, so enclose numerical values in ''.
+All option values shall be provided as strings, so enclose numerical values in ''.
 |
 
 | UpdateOnly
@@ -289,13 +281,11 @@ NOTE: All option values shall be provided as strings, so enclose numerical value
 | ForceReboot
 |
 | Boolean
-| Force a reboot after first installation of the package. +
-[NOTE]
-====
+| Force a reboot after first installation of the package.
+
 Only one reboot after first start of a DSC configuration is supported. +
 A Reboot after upgrade of an installed package is currently not supported. +
 To re-enable the system reboot feature the registry key value `RebootAfter_Chocolatey_<Name>` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - True
   - *False* (default)
 

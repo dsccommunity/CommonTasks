@@ -349,12 +349,10 @@ If not specified the value of `DefaultInstanceName` is used as default.
 |
 | The server mode for _SQL Server Analysis Services_ instance.
   The default is to install in Multidimensional mode.
-+
-[IMPORTANT]
-====
-Parameter is case-sensitive.
-All values must be expressed in upper case.
-====
+
+
+*Parameter is case-sensitive.*
+*All values must be expressed in upper case.*
 | - MULTIDIMENSIONAL
   - TABULAR
   - POWERPIVOT
@@ -556,7 +554,7 @@ If not specified the value of `DefaultInstanceName` is used as default.
 
 If LoginType is `WindowsUser` or `WindowsGroup` then provide the name in the format `DOMAIN\name`.
 
-NOTE: The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
+The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
 | - *WindowsUser* (default)
   - WindowsGroup
   - SqlLogin
@@ -576,7 +574,7 @@ NOTE: The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `Extern
 | PSCredential
 | Specifies the password. 
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 |
 
 | LoginMustChangePassword
@@ -584,7 +582,7 @@ NOTE: Only applies to _SQL Logins_.
 | Boolean
 | Specifies if the login is required to have its password change on the next login.
 
-NOTE: Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQL Login_ and any attempt to do this will throw an exception.
+Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQL Login_ and any attempt to do this will throw an exception.
 | - *True* (default)
   - False
 
@@ -593,7 +591,7 @@ NOTE: Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQ
 | Boolean
 | Specifies if the login password is required to expire in accordance to the operating system security policy.
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 | - *True* (default)
   - False
 
@@ -602,7 +600,7 @@ NOTE: Only applies to _SQL Logins_.
 | Booelan
 | Specifies if the login password is required to conform to the password policy specified in the system security policy.
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 | - *True* (default)
   - False
 

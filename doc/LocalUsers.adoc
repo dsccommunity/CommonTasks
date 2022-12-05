@@ -121,7 +121,7 @@ To ensure that the password for this account will never expire, set this propert
 | String[]
 | List of Local Groups of the user.
 
-NOTE: Only Local groups are supported.
+Only Local groups are supported.
 |
 
 |===

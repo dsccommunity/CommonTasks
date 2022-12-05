@@ -1,0 +1,47 @@
+// CommonTasks YAML Reference: WebApplicationPools
+// ========================================
+
+:YmlCategory: WebApplicationPools
+
+
+[[dscyml_webapplicationpools, {YmlCategory}]]
+= DSC Resource 'WebApplicationPools'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_webapplicationpools_abstract]]
+.{YmlCategory} ##TBD##
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebApplicationPools
+| DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+| Documentation  | https://github.com/dsccommunity/xWebAdministration#xwebapppool[xwebapppool]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| hashtable
+|
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+WebApplicationPools:
+  Items:
+    - Name: TestAppPool1
+    - Name: TestAppPool2
+----

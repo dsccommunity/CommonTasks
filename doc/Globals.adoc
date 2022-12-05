@@ -3,14 +3,13 @@
 
 :YmlCategory: Globals
 
+:abstract:    {YmlCategory} contains global configuration attributes.
 
-[#dscyml_globals, {YmlCategory}]
-= Globals
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_globals]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_globals_abstract]]
-.{YmlCategory} contains global configuration attributes.
+[[dscyml_globals_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once

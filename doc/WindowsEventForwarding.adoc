@@ -68,10 +68,7 @@ Additional information can be found in the https://github.com/nsacyber/Event-For
   - On a `Source` node the machine account of the `Collector` will be added to the local group `Event Log Readers`.
   - On a `Default` node only the prequisites can be checked
 
-[NOTE]
-====
 NodeType `Source` is only supported for `CollectorInitiated` subscriptions.
-====
 | - Collector
   - Source
   - Default
@@ -81,14 +78,11 @@ NodeType `Source` is only supported for `CollectorInitiated` subscriptions.
 | Boolean
 | Checks the prerequistes on the WEF nodes:
   
-- Built in account `Network Service` shall be a member of the `Event Log Readers` group
-+
-[IMPORTANT]
-====
-On a domain controller only the membership test of builtin domain user `Network Service` in the domain group `Event Log Readers` is implemented.
+Built in account `Network Service` shall be a member of the `Event Log Readers` group
+
+*On a domain controller only the membership test of builtin domain user `Network Service` in domain group `Event Log Readers` is implemented.*
 
 Adding builtin users to a domain group with Powershell is not supported.
-====
 | - True
   - *False* (default)
 
@@ -105,7 +99,7 @@ Adding builtin users to a domain group with Powershell is not supported.
 | Fix WsMan communication problem on Windows Server +
   see https://docs.microsoft.com/en-us/troubleshoot/windows-server/admin-development/events-not-forwarded-by-windows-server-collector[KB4494462: Events are not forwarded if the collector is running Windows Server]
 
-NOTE: Fix is only supported on NodeType `Collector`
+Fix is only supported on NodeType `Collector`
 | - True
   - *False*
 
@@ -114,7 +108,7 @@ NOTE: Fix is only supported on NodeType `Collector`
 | Hashtable[]
 | List of complex Subscriptions
 
-NOTE: Subscriptions are only supported on NodeType `Collector`
+Subscriptions are only supported on NodeType `Collector`
 |
 |===
 
@@ -231,19 +225,15 @@ NOTE: Subscriptions are only supported on NodeType `Collector`
 | String
 | Sets the credential type used for authenticating to WinRM
 
-[IMPORTANT]
-====
-This attribute is only supported for 'CollectorInitiated' subscriptions.
+*This attribute is only supported for 'CollectorInitiated' subscriptions.*
 
 The used DSC resource {ref_xWindowsEventForwarding} has a bug and requires a patch to support `SourceInitiated` subscriptions.
 If you use the unpatched version `1.0.0.0` you get the error message:
 
-  Failed to save subscription. Error = 0xd. +
+  Failed to save subscription. Error = 0xd.
   The data is invalid.
 
 In file `DSCResources\MSFT_xWEFSubscription\MSFT_xWEFSubscription.psm1` move line 171 (`<CredentialsType>$CredentialsType</CredentialsType>`) before line 177 (`<EventSources>`) to fix the bug.
-====
-
 | - *Default* (default)
   - Basic
   - Negotiate

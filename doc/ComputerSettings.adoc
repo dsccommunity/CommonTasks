@@ -3,12 +3,10 @@
 
 :YmlCategory: ComputerSettings
 
-
-[[dscyml_computersettings, {YmlCategory}]]
-= DSC Resource 'ComputerSettings'
-// didn't work in production: = Catego ry '{YmlCategory}'
-
 :abstract:  {YmlCategory} configures a computer by changing its name and description and modifying its Active Directory domain or workgroup membership.
+
+[#dscyml_computersettings]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_computersettings_abstract, {abstract}]]
 {abstract}

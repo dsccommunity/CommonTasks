@@ -66,8 +66,9 @@ Until the next relase of {ref_WDSDsc} you can patch the version 0.11.0 with outs
 | PSCredential
 | Run WDS initialization and WDS device reservation under a specified set of credentials
 
-IMPORTANT: WDS requires for initialization and device reservation a valid domain user account with administrator privileges.
-           The specified user will be assigned to local administrators group to get the sufficient privileges.
+*WDS requires for initialization and device reservation a valid domain user account with administrator privileges.*
+
+The specified user will be assigned to local administrators group to get the sufficient privileges.
 |
 
 | AnswerClients
@@ -85,7 +86,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 | Boolean
 | Use existing DHCP Scope defined outside of this DSC resource. 
 
-IMPORTANT: Must be set to `true` if the DHCP server should not installed on the computer WDS server is running.
+*Must be set to `True` if the DHCP server should not installed on the computer WDS server is running.*
 | - True
   - *False* (default)
 
@@ -392,11 +393,9 @@ IMPORTANT: Must be set to `true` if the DHCP server should not installed on the 
 | DeviceID
 | Key
 | String
-| Unique identifier of the device +
-[NOTE]
-====
+| Unique identifier of the device
+
 Should be empty if a MAC-Address is used as device identifier.
-====
 |
 
 | MacAddress
@@ -416,10 +415,8 @@ Should be empty if a MAC-Address is used as device identifier.
 | 
 | String
 | IPv4 Address to reserve for this device in DHCP server. +
-[IMPORTANT]
-====
-If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.
-====
+
+*If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.*
 |
 
 | PxePromptPolicy

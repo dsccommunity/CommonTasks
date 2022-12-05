@@ -1,0 +1,214 @@
+// CommonTasks YAML Reference: CertificateRequests
+// ===============================================
+
+:YmlCategory: CertificateRequests
+
+:abstract:   {YmlCategory} is used to request a new certificate from an certificate authority.
+
+[#dscyml_certificaterequests]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_certificaterequests_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateRequests
+| DSC Resource   | https://github.com/dsccommunity/CertificateDsc[CertificateDsc]
+| Documentation  | https://github.com/dsccommunity/CertificateDsc/wiki/CertReq[CertReq]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_certificaterequests_requests, {YmlCategory}/Requests]]<<dscyml_certificaterequests_requests_details, Requests>>
+|
+| Hashtable[]
+| List of certificate requests.
+|
+
+|===
+
+
+[[dscyml_certificaterequests_requests_details]]
+.Selected Attributes of category '<<dscyml_certificaterequests_requests>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Subject
+| Key
+| String
+| Provide the text string to use as the subject of the certificate.
+|
+
+| CAType
+| 
+| String
+| The type of CA in use, Standalone/Enterprise.
+|
+
+| CAServerFQDN
+| 
+| String
+| The FQDN of the Active Directory Certificate Authority on the local area network.
+
+Leave empty to automatically locate.
+|
+
+| CARootName
+| 
+| String
+| The name of the certificate authority, by default this will be in format domain-servername-ca.
+
+Leave empty to automatically locate.
+|
+
+| KeyLength
+| 
+| String
+| The bit length of the encryption key to be used.
+| - 192
+  - 224
+  - 256
+  - 384
+  - 521
+  - 1024
+  - *2048* (default)
+  - 4096
+  - 8192
+
+| Exportable
+| 
+| Boolean
+| The option to allow the certificate to be exportable.
+| - *True* (default)
+  - False
+
+| ProviderName
+| 
+| String
+| The selection of provider for the type of encryption to be used.
+|
+
+| OID
+| 
+| String
+| The Object Identifier that is used to name the object.
+|
+
+| KeyUsage
+| 
+| String
+| The Keyusage is a restriction method that determines what a certificate can be used for.
+|
+
+| CertificateTemplate
+| 
+| String
+| The template used for the definition of the certificate.
+|
+
+| SubjectAltName
+| 
+| String
+| The subject alternative name used to create the certificate.
+|
+
+| Credential
+| 
+| PSCredential
+| The `PSCredential` object containing the credentials that will be used to access the template in the Certificate Authority.
+|
+
+| AutoRenew
+| 
+| Boolean
+| Determines if the resource will also renew a certificate within 7 days of expiration.
+| - True
+  - False
+
+| CepURL
+| 
+| String
+| The URL to the Certification Enrollment Policy Service.
+|
+
+| CesURL
+| 
+| String
+| The URL to the Certification Enrollment Service.
+|
+
+| UseMachineContext
+| 
+| Boolean
+| Indicates whether or not the flag `-adminforcemachine` will be used when requesting certificates.
+  Necessary for certain templates like e.g. DomainControllerAuthentication
+| - True
+  - False
+
+| FriendlyName
+| 
+| String
+| Specifies a friendly name for the certificate.
+|
+
+| KeyType
+| 
+| String
+| Specifies if the key type should be `RSA` or `ECDH`.
+| - *RSA* (default)
+  - ECDH
+
+| RequestType	
+| 
+| String
+| Specifies if the request type should be `CMC` or `PKCS10`.
+| - *CMC* (default)
+  - PKCS10
+
+|===
+
+
+.Example
+[source, yaml]
+----
+CertificateRequests:
+  Requests:
+    - CARootName: "test-dc01-ca"
+      CAServerFqdn: "dc01.test.pha"
+      Subject: "foodomain.test.net"
+      KeyLength: "2048"
+      Exportable: true
+      ProviderName: "Microsoft RSA SChannel Cryptographic Provider"
+      OID: "1.3.6.1.5.5.7.3.1"
+      KeyUsage: "0xa0"
+      CertificateTemplate: "WebServer"
+      AutoRenew: true
+      FriendlyName: "SSL Cert for Web Server"
+      KeyType: "RSA"
+      RequestType: "CMC"
+    - CARootName: "test-dc02-ca"
+      CAServerFqdn: "dc02.test.pha"
+      Subject: "some.web.server"
+      KeyLength: "2048"
+      CertificateTemplate: "WebServer"
+      AutoRenew: true
+      FriendlyName: "SSL Cert for Web Server"
+      KeyType: "RSA"
+      RequestType: "PKCS10"
+      SubjectAltName: "FRONTEND"
+----

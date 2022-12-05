@@ -1,0 +1,53 @@
+// CommonTasks YAML Reference: WebVirtualDirectories
+// ========================================
+
+:YmlCategory: WebVirtualDirectories
+
+
+[[dscyml_webvirtualdirectories, {YmlCategory}]]
+= DSC Resource 'WebVirtualDirectories'
+// didn't work in production: = DSC Resource '{YmlCategory}'
+
+
+[[dscyml_webvirtualdirectories_abstract]]
+.{YmlCategory} ##TBD##
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebVirtualDirectories
+| DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+| Documentation  | https://github.com/dsccommunity/xWebAdministration#xwebvirtualdirectory[xwebvirtualdirectory]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| hashtable
+|
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+WebVirtualDirectories:
+  Items:
+    - Name: VirtualDirectory1
+      PhysicalPath: C:\InetPub\VirtualDirectory1
+      WebApplication: TestApp1
+      WebSite: TestSite1
+    - Name: VirtualDirectory2
+      PhysicalPath: C:\InetPub\VirtualDirectory2
+      WebApplication: TestApp1
+      WebSite: TestSite1
+----

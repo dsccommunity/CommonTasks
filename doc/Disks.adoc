@@ -3,12 +3,11 @@
 
 :YmlCategory: Disks
 
-
-[[dscyml_disks, {YmlCategory}]]
-= DSC Resource 'Disks'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} module is used to initialize, format and mount the partition/volume as a drive letter.
+
+[#dscyml_disks]
+= DSC Resource '{YmlCategory}'
+
 
 [[dscyml_disks_abstract, {abstract}]]
 {abstract}

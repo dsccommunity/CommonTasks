@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DnsServerZonesAging
-// =================================================
+// ===============================================
 
 :YmlCategory: DnsServerZonesAging
 
+:abstract:  {YmlCategory} manages aging settings for a Domain Name System (DNS) server zone.
 
-[[dscyml_dnsserverzonesaging, {YmlCategory}]]
-= DSC Resource 'DnsServerZonesAging'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverzonesaging]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverzonesaging_abstract]]
-.{YmlCategory} manages aging settings for a Domain Name System (DNS) server zone.
+[[dscyml_dnsserverzonesaging_abstract, {abstract}]]
+{abstract}
 
 A resource record can remain on a DNS server after the resource is no longer part of the network.
 Aging settings determine when a record can be removed, or scavenged, as a stale record.

@@ -200,12 +200,10 @@
 | ForceRebootBefore
 |
 | Booelan
-| Force a reboot before setup of update services server. +
-[NOTE]
-====
+| Force a reboot before setup of update services server.
+
 Only one reboot after first start of a DSC configuration is supported. +
 To re-enable the system reboot feature the registry key value `RebootBefore_UpdateServices_Server` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - *False* (default)
   - True
 

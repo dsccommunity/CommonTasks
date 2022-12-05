@@ -3,14 +3,14 @@
 
 :YmlCategory: FirewallProfiles
 
+:abstract:  {YmlCategory} configures a node's private, public or domain firewall profile.
 
-[[dscyml_firewallprofiles, {YmlCategory}]]
-= DSC Resource 'FirewallProfiles'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_firewallprofiles]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_firewallprofiles_abstract]]
-.{YmlCategory} configures a node's private, public or domain firewall profile.
+[[dscyml_firewallprofiles_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

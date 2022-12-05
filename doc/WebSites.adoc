@@ -224,7 +224,7 @@ The value must be a valid integer between 1048576 (1MB) and 4294967295 (4GB).
 |
 | Format of the Logfiles.
 
-NOTE: Only `W3C` supports `LogFlags`.
+Only `W3C` supports `LogFlags`.
 | - IIS
   - W3C
   - NCSA

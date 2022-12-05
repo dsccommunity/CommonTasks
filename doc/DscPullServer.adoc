@@ -1,0 +1,68 @@
+// CommonTasks YAML Reference: DscPullServer
+// =========================================
+
+:YmlCategory: DscPullServer
+
+:abstract:  {YmlCategory} ##TBD##
+
+[#dscyml_dscpullserver]
+= DSC Resource '{YmlCategory}'
+
+
+[[dscyml_dscpullserver_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DscPullServer
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-7[PSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService]
+|===
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| CertificateThumbPrint
+|
+| string
+|
+| Default: AllowUnencryptedTraffic
+
+| Port
+|
+| uint16
+|
+| Default: 8080
+
+| EndpointName
+|
+| string
+|
+| Default: PSDSCPullServer
+
+| PhysicalPath
+|
+| string
+|
+| Default: $env:SystemDrive\inetpub\PSDSCPullServer
+
+| UseSecurityBestPractices
+|
+| bool
+|
+| Default: $false
+
+|===
+
+.Example
+[source, yaml]
+----
+
+----
