@@ -1,0 +1,10 @@
+DefaultInstanceName: MSSQLSERVER
+AgentOperators:
+  - Name: 'DbaTeam'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    EmailAddress: 'dbateam@company.com'
+  - Name: 'APPTeam'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    EmailAddress: 'appteam@company.com'

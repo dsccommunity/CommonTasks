@@ -27,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ScomSettings` Composite to set all available SCOM settings
 - `CertificateRequest` Composite to request certificates from a certificate authority, includes automatic wait for ADCS to become available
 - `ConfigurationManagerDistributionGroup` Composite to configure one or more distribution point groups
+- `SQLAgentAlerts` Composite to configure one or more SQL Server Agent Alert on a SQL Server/Instance
+- `SQLAgentOperators` Composite to configure one or more SQL Server Agent Operator on a SQL Server/Instance
+- `SQLDatabaseMailSetups` Composite to configure one or more Database Mail Accounts/Profiles on a SQL Server/Instance
+- `SQLScriptQueries` Composite to run one or more SQL Scripts against a SQL Server/Instance
 
 ### Changed
 
