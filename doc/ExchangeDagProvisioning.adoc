@@ -1,0 +1,57 @@
+// CommonTasks YAML Reference: ExchangeDagProvisioning
+// ===================================================
+
+:YmlCategory: ExchangeDagProvisioning
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_exchangedagprovisioning]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_exchangedagprovisioning_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeDagProvisioning
+| DSC Resource   | https://github.com/dsccommunity/xExchange[xExchange]
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ExchangeDagProvisioning:
+  ShellCreds: '[ENC=PE9ianMgVmVy...=]'
+  DagName: DAG01
+  AutoDagTotalNumberOfServers: 2
+  AutoDagDatabaseCopiesPerVolume: 2
+  AutoDagDatabasesRootFolderPath: C:\ExchangeDatabases
+  AutoDagVolumesRootFolderPath: C:\ExchangeVolumes
+  DatacenterActivationMode: DagOnly
+  WitnessServer: Server01
+  WitnessDirectory: C:\FSW
+  ReplayLagManagerEnabled: true
+  SkipDagValidation: true
+  FirstDagMemberName: Exchange01
+----

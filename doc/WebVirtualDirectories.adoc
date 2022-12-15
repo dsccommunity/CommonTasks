@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: WebVirtualDirectories
-// ========================================
+// =================================================
 
 :YmlCategory: WebVirtualDirectories
 
+:abstract:    {YmlCategory} is used to ###TBD###
 
-[[dscyml_webvirtualdirectories, {YmlCategory}]]
-= DSC Resource 'WebVirtualDirectories'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_webvirtualdirectories]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_webvirtualdirectories_abstract]]
-.{YmlCategory} ##TBD##
+[[dscyml_webvirtualdirectories_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -19,6 +18,7 @@
 | DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
 | Documentation  | https://github.com/dsccommunity/xWebAdministration#xwebvirtualdirectory[xwebvirtualdirectory]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -29,13 +29,33 @@
 | Description
 | Allowed Values
 
-| Items
+| [[dscyml_webvirtualdirectories_items, {YmlCategory}/Items]]<<dscyml_webvirtualdirectories_items_details, Items>>
 | Mandatory
-| hashtable
+| Hashtable[]
+| List of WebVirtualDirectory items.
+|
+
+|===
+
+
+[[dscyml_webvirtualdirectories_items_details]]
+.Attributes of category '<<dscyml_webvirtualdirectories_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
 |
 |
 
 |===
+
 
 .Example
 [source, yaml]

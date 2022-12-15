@@ -3,22 +3,24 @@
 
 :YmlCategory: SecurityBase
 
+:abstract:    {YmlCategory} configures base settings depending on the role.
 
-[[dscyml_securitybase, {YmlCategory}]]
-= DSC Resource 'SecurityBase'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_securitybase]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_securitybase_abstract]]
-.{YmlCategory} configures base settings depending on the role.
+[[dscyml_securitybase_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SecurityBase
-| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc], https://github.com/dsccommunity/SecurityPolicyDsc[SecurityPolicyDsc]
+| DSC Resource   | - https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+                   - https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+                   - https://github.com/dsccommunity/SecurityPolicyDsc[SecurityPolicyDsc]
 | Documentation  | https://github.com/dsccommunity/SecurityPolicyDsc#resources[SecurityPolicy]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -36,6 +38,7 @@
 |
 
 |===
+
 
 .Example
 [source, yaml]

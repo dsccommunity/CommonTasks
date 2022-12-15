@@ -1,5 +1,5 @@
 // CommonTasks YAML Reference: JeaRoles
-// ========================================
+// ====================================
 
 :YmlCategory: JeaRoles
 
@@ -16,8 +16,9 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/JeaRoles
 | DSC Resource   | https://github.com/dsccommunity/JeaDsc[JeaDsc]
-| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/learn/remoting/jea/overview?view=powershell-7[JeaDsc]
+| Documentation  | https://github.com/dsccommunity/JeaDsc/wiki/JeaRoleCapabilities[JeaRoleCapabilities]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -28,20 +29,39 @@
 | Description
 | Allowed Values
 
-| Roles
+| [[dscyml_jearoles_roles, {YmlCategory}/Roles]]<<dscyml_jearoles_roles_details, Roles>>
 | Mandatory
-| hashtable
-| needs more information/explanation from Microsoft
+| Hashtable[]
+| set of JEA roles
 |
 
 |===
+
+
+[[dscyml_jearoles_roles_details]]
+.Attributes of category '<<dscyml_jearoles_roles>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
 
 .Example
 [source, yaml]
 ----
 JeaRoles:
   Roles:
-
     - Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test1.psrc
       VisibleFunctions:
         - F1

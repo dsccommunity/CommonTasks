@@ -1,0 +1,53 @@
+// CommonTasks YAML Reference: ExchangeProvisioning
+// =================================================
+
+:YmlCategory: ExchangeProvisioning
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_exchangeprovisioning]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_exchangeprovisioning_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeProvisioning
+| DSC Resource   | - https://github.com/dsccommunity/xExchange[xExchange]
+                   - https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+                   - https://github.com/dsccommunity/StorageDsc[StorageDSC]
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ExchangeProvisioning:
+    Role: Mailbox
+    Mode: Install
+    OrganizationName: Contoso
+    InstallCreds: '[ENC=PE9ianMgVmVyc...=]'
+    IsoFilePath: C:\Install\ExchangeServer2016-x64-CU19.ISO
+    IsoDriveLetter: 'Z:'
+----

@@ -3,14 +3,13 @@
 
 :YmlCategory: WindowsEventForwarding
 
+:abstract:    {YmlCategory} enables you to configure a server to become an Event Collector role and create complex Subscriptions.
 
-[[dscyml_windowseventforwarding, {YmlCategory}]]
-= DSC Resource 'WindowsEventForwarding'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_windowseventforwarding]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_windowseventforwarding_abstract]]
-.{YmlCategory} enables you to configure a server to become an Event Collector role and create complex Subscriptions.
+[[dscyml_windowseventforwarding_abstract, {abstract}]]
+{abstract}
 
 
 :ref_xWindowsEventForwarding:   https://github.com/dsccommunity/xWindowsEventForwarding[xWindowsEventForwarding]

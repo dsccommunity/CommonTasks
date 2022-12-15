@@ -1,0 +1,47 @@
+// CommonTasks YAML Reference: OfficeOnlineServerFarmConfig
+// ========================================================
+
+:YmlCategory: OfficeOnlineServerFarmConfig
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_officeonlineserverfarmconfig]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_officeonlineserverfarmconfig_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/OfficeOnlineServerFarmConfig
+| DSC Resource   | https://github.com/dsccommunity/OfficeOnlineServerDsc[OfficeOnlineServerDsc]
+| Documentation  | https://github.com/dsccommunity/OfficeOnlineServerDsc/wiki/OfficeOnlineServerFarm[OfficeOnlineServerFarm]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+OfficeOnlineServerFarmConfig:
+  AllowHttp: true
+  InternalUrl: http://contoso.com
+----

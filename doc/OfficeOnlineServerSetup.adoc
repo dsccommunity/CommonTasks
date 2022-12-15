@@ -1,0 +1,52 @@
+// CommonTasks YAML Reference: OfficeOnlineServerSetup
+// ===================================================
+
+:YmlCategory: OfficeOnlineServerSetup
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_officeonlineserversetup]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_officeonlineserversetup_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/OfficeOnlineServerSetup
+| DSC Resource   | https://github.com/dsccommunity/OfficeOnlineServerDsc[OfficeOnlineServerDsc]
+| Documentation  | - https://github.com/dsccommunity/OfficeOnlineServerDsc/wiki/OfficeOnlineServerInstall[OfficeOnlineServerInstall]
+                   - https://github.com/dsccommunity/OfficeOnlineServerDsc/wiki/OfficeOnlineServerInstallLanguagePack[OfficeOnlineServerInstallLanguagePack]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+OfficeOnlineServerSetup:
+  Path: C:\OfficeOnline\Setup.exe
+  LanguagePacks:
+  - Language: de-de
+    BinaryDir: C:\de-de
+  - Language: en-us
+    BinaryDir: C:\en-us
+----

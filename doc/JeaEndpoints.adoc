@@ -16,7 +16,7 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/JeaEndpoints
 | DSC Resource   | https://github.com/dsccommunity/JeaDsc[JeaDsc]
-| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/learn/remoting/jea/overview?view=powershell-7[JeaDsc]
+| Documentation  | https://github.com/dsccommunity/JeaDsc/wiki/JeaSessionConfiguration[JeaSessionConfiguration]
 |===
 
 
@@ -29,10 +29,29 @@
 | Description
 | Allowed Values
 
-| Endpoints
+| [[dscyml_jeaendpoints_endpoints, {YmlCategory}/Endpoints]]<<dscyml_jeaendpoints_endpoints_details, Endpoints>>
 | Mandatory
-| hashtable
-| needs more information/explanation from Microsoft
+| Hashtable[]
+| set of JEA endpoints
+|
+
+|===
+
+
+[[dscyml_jeaendpoints_endpoints_details]]
+.Attributes of category '<<dscyml_jeaendpoints_endpoints>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
 |
 
 |===

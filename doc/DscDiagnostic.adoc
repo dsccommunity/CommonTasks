@@ -3,7 +3,7 @@
 
 :YmlCategory: DscDiagnostic
 
-:abstract:    ##TBD##
+:abstract:    {YmlCategory} is used to ###TBD###.
 
 [#dscyml_dscdiagnostic, {YmlCategory}]
 = DSC Resource '{YmlCategory}'

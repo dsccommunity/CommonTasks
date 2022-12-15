@@ -1,28 +1,28 @@
 // CommonTasks YAML Reference: SqlLogins
-// =============================================
+// =====================================
 
 :YmlCategory: SqlLogins
 
+:abstract:    {YmlCategory} is used to manage SQL Server logins for a SQL Server instance.
 
-[[dscyml_sqllogins, {YmlCategory}]]
-= DSC Resource 'SqlLogins'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqllogins]
+= DSC Resource '{YmlCategory}'
 
+[[dscyml_sqllogins_abstract, {abstract}]]
+{abstract}
 
-[[dscyml_sqllogins_abstract]]
-.The {YmlCategory} DSC resource manages SQL Server logins for a SQL Server instance.
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqllogin:               https://github.com/dsccommunity/SqlServerDsc/wiki/SqlLogin[SqlLogin]
+:ref_sqlserverdsc_wiki:       https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqllogin:   https://github.com/dsccommunity/SqlServerDsc/wiki/SqlLogin[SqlLogin]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlLogins
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqllogin}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqllogin}
                    
 |===
 
@@ -31,9 +31,12 @@
 
 - Target machine must be running Windows Server 2012 or later.
 - Target machine must be running SQL Server Database Engine 2012 or later.
-- When the `LoginType` of `'SqlLogin'` is used, then the login authentication mode must have been set to `Mixed` or `Normal`. If set to `Integrated` and error will be thrown.
-The `LoginMustChangePassword` property/parameter is only valid on a `SqlLogin` where the `LoginType` property/parameter is set to `'SqlLogin'``.
-The `LoginMustChangePassword` property/parameter can not be used to change this setting on a pre-existing SqlLogin - This property/parameter can only be used when creating a new `SqlLogin` and where subsequent updates will not be applied or, alternatively, when the desired state will not change (for example, where `LoginMustChangePassword` is initially set to `$false` and will always be set to `$false`).
+- When the `LoginType` of `SqlLogin` is used, then the login authentication mode must have been set to `Mixed` or `Normal`.
+  If set to `Integrated` and error will be thrown.
+- The `LoginMustChangePassword` property/parameter is only valid on a `SqlLogin` where the `LoginType` property/parameter is set to `SqlLogin'`.
+- The `LoginMustChangePassword` property/parameter can not be used to change this setting on a pre-existing SqlLogin.
+  This property/parameter can only be used when creating a new `SqlLogin` and where subsequent updates will not be applied or, alternatively, when the desired state will not change (for example, where `LoginMustChangePassword` is initially set to `$false` and will always be set to `$false`).
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -44,7 +47,7 @@ The `LoginMustChangePassword` property/parameter can not be used to change this 
 | Description
 | Allowed Values
 
-| [[dscyml_SqlLogins_Values, {YmlCategory}/Values]]<<dscyml_SqlLogins_Values_Details, Values>>
+| [[dscyml_sqllogins_values, {YmlCategory}/Values]]<<dscyml_sqllogins_values_details, Values>>
 | Mandatory
 | Hashtable[]
 | List of SQL logins.
@@ -52,8 +55,9 @@ The `LoginMustChangePassword` property/parameter can not be used to change this 
 
 |===
 
-[[dscyml_SqlLogins_Values_Details]]
-.Attributes of category '{YmlCategory}'
+
+[[dscyml_sqllogins_values_details]]
+.Attributes of category '<<dscyml_sqllogins_values>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -77,50 +81,76 @@ The `LoginMustChangePassword` property/parameter can not be used to change this 
 | LoginType
 |
 | String
-| The type of login to be created. If LoginType is `'WindowsUser'` or `'WindowsGroup'`` then provide the name in the format `DOMAIN\name`. Default is `'WindowsUser'`. The login types `'Certificate'`, `'AsymmetricKey'`, `'ExternalUser'`, and `'ExternalGroup'` are not yet implemented and will currently throw an exception if used.
-| `WindowsUser, WindowsGroup, SqlLogin, Certificate, AsymmetricKey, ExternalUser, ExternalGroup`
+| The type of login to be created.
+
+If LoginType is `WindowsUser` or `WindowsGroup` then provide the name in the format `DOMAIN\name`.
+
+The login types `Certificate`, `AsymmetricKey`, `ExternalUser`, and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
+| - *WindowsUser* (default)
+  - WindowsGroup
+  - SqlLogin
+  - Certificate
+  - AsymmetricKey
+  - ExternalUser
+  - ExternalGroup
 
 | Enure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
-| `Present`, `Absent`
+| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| - *Present* (default)
+  - Absent
 
 | ServerName
 |
 | String
-| The host name of the SQL Server to be configured. Default value is the current computer name.
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
 |
 
 | LoginCredential
 |
 | PSCredential
-| Specifies the password as a `[PSCredential]` object. Only applies to SQL Logins.
+| Specifies the password as a `[PSCredential]` object.
+
+Only applies to SQL Logins.
 |
 
 | LoginMustChangePassword
 | 
 | Bool
-| Specifies if the login is required to have its password change on the next login. Only applies to SQL Logins. Default value is `$true`. This cannot be updated on a pre-existing SQL Login and any attempt to do this will throw an exception.
-| 
+| Specifies if the login is required to have its password change on the next login.
+
+Only applies to SQL Logins. 
+This cannot be updated on a pre-existing SQL Login and any attempt to do this will throw an exception.
+| - *True* (default)
+  - False
 
 | LoginPasswordExpirationEnabled
 | 
 | Bool
-| Specifies if the login password is required to expire in accordance to the operating system security policy. Only applies to SQL Logins. Default value is `$true`.
-| 
+| Specifies if the login password is required to expire in accordance to the operating system security policy.
+
+Only applies to SQL Logins.
+| - *True* (default)
+  - False
 
 | LoginPasswordPolicyEnforced
 | 
 | Bool
-| Specifies if the login password is required to conform to the password policy specified in the system security policy. Only applies to SQL Logins. Default value is `$true`.
-| 
+| Specifies if the login password is required to conform to the password policy specified in the system security policy.
+
+Only applies to SQL Logins.
+| - *True* (default)
+  - False
 
 | Disabled
 | 
 | Bool
-| Specifies if the login is disabled. Default value is `$`false`.
-| 
+| Specifies if the login is disabled.
+| - True
+  - *False* (default)
 
 | DefaultDatabase
 | 
@@ -142,6 +172,4 @@ SqlLogins:
   - Name: contoso\install
     LoginType: WindowsUser
     InstanceName: MSSQLSERVER
-
-
 ----

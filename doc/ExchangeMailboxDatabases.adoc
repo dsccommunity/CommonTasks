@@ -1,0 +1,66 @@
+// CommonTasks YAML Reference: ExchangeMailboxDatabases
+// ====================================================
+
+:YmlCategory: ExchangeMailboxDatabases
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_exchangemailboxdatabases]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_exchangemailboxdatabases_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeMailboxDatabases
+| DSC Resource   | https://github.com/dsccommunity/xExchange[xExchange]
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ExchangeMailboxDatabases:
+    Items:
+    - Name: DAG01-DB1
+        Credential: '[ENC=PE9ianMgVmVy...=]'
+        EdbFilePath: C:\ExchangeDatabases\DAG01-DB1\DAG01-DB1.db\DAG01-DB1.edb
+        LogFolderPath: C:\ExchangeDatabases\DAG01-DB1\DAG01-DB1.log
+        CircularLoggingEnabled: true
+        DatabaseCopyCount: 4
+        IssueWarningQuota: 50176MB
+        ProhibitSendQuota: 51200MB
+        ProhibitSendReceiveQuota: 52224MB
+        AllowServiceRestart: true
+    - Name: DAG02-DB1
+        Credential: '[ENC=PE9ianMgVmVyc...=]'
+        EdbFilePath: C:\ExchangeDatabases\DAG02-DB1\DAG02-DB1.db\DAG01-DB1.edb
+        LogFolderPath: C:\ExchangeDatabases\DAG02-DB1\DAG02-DB1.log
+        CircularLoggingEnabled: true
+        DatabaseCopyCount: 4
+        IssueWarningQuota: 50176MB
+        ProhibitSendQuota: 51200MB
+        ProhibitSendReceiveQuota: 52224MB
+        AllowServiceRestart: true
+----

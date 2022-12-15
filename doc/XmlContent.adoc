@@ -1,24 +1,24 @@
 // CommonTasks YAML Reference: XmlContent
-// ========================================
+// ======================================
 
 :YmlCategory: XmlContent
 
+:abstract:    {YmlCategory} manages content in XML files.
 
-[[dscyml_xmlcontent, {YmlCategory}]]
-= DSC Resource 'XmlContent'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_xmlcontent]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_xmlcontent_abstract]]
-.{YmlCategory} manages content in XML files.
+[[dscyml_xmlcontent_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/XmlContent
 | DSC Resource   | https://github.com/AutomatedLab/XmlContentDsc[XmlContentDsc]
-| Documentation  | ##TBD##
+| Documentation  | XmlFileContentResource
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]

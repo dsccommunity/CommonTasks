@@ -55,8 +55,7 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 *The `EndpointName` is the name of the IIS website.*
 
 The URL to access the Pullserver webservice is always `http(s)://<servername>:<port>/PSDSCPullServer.svc`.
-These values are currently hard coded in {ref_xDscWebService}.
-====      
+These values are currently hard coded in {ref_xDscWebService}. 
 | Default: `PSDSCPullServer`
 
 | Port

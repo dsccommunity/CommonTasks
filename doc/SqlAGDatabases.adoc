@@ -1,15 +1,19 @@
 // CommonTasks YAML Reference: SqlAGDatabases
-// =============================================
+// ==========================================
 
 :YmlCategory: SqlAGDatabases
 
-[[dscyml_sqlagdatabases, {YmlCategory}]]
-= DSC Resource 'SqlAGDatabases'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+:abstract:    {YmlCategory} is used to add databases or remove databases from a specified availability group.
 
+[#dscyml_sqlagdatabases]
+= DSC Resource '{YmlCategory}'
 
-[[dscyml_sqlagdatabases_abstract]]
-.The {YmlCategory} DSC resource is used to add databases or remove databases from a specified availability group. When a replica has Automatic seeding on Automatic, no restore is use for that replica. When all replicas are on automatic seeding, no backup is made, unless the database has never been backuped.
+[[dscyml_sqlagdatabases_abstract, {abstract}]]
+{abstract}
+
+When a replica has Automatic seeding on Automatic, no restore is use for that replica.
+When all replicas are on automatic seeding, no backup is made, unless the database has never been backuped.
+
 
 // reference links as variables for using more than once
 :ref_sqlserverdsc_wiki:               https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
@@ -20,8 +24,8 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAGDatabases
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlagdatabase}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlagdatabase}
                    
 |===
 
@@ -32,6 +36,7 @@
 - Target machine must be running SQL Server Database Engine 2012 or later.
 - Target machine must be running Windows Management Framework (WMF) 5 or later.
 
+
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
 |===
@@ -41,7 +46,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_SqlAGDatabases_Values, {YmlCategory}/Values]]<<dscyml_SqlAGDatabases_Values_Details, Values>>
+| [[dscyml_sqlagdatabases_values, {YmlCategory}/Values]]<<dscyml_sqlagdatabases_values_details, Values>>
 | Mandatory
 | Hashtable[]
 | List of SQL availability groups databases.
@@ -49,8 +54,9 @@
 
 |===
 
-[[dscyml_SqlAGDatabases_Values_Details]]
-.Attributes of category '{YmlCategory}'
+
+[[dscyml_sqlagdatabases_values_details]]
+.Attributes of category '<<dscyml_sqlagdatabases_values>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -60,21 +66,27 @@
 | Allowed Values
 
 | DatabaseName
-| Required
+| Mandatory
 | String[]
-| The name of the database(s) to add to the availability group. This accepts wildcards.
+| The name of the database(s) to add to the availability group.
+
+This accepts wildcards.
 |
 
 | InstanceName
 | Key
 | String
-| Name of the SQL Server instance where the primary replica of the availability group lives. If the availability group is not currently on this instance, the resource will attempt to connect to the instance where the primary replica lives.
+| Name of the SQL Server instance where the primary replica of the availability group lives.
+
+If the availability group is not currently on this instance, the resource will attempt to connect to the instance where the primary replica lives.
 |
 
 | ServerName
 | Key
 | String
-| Hostname of the SQL Server where the primary replica of the availability group lives. If the availability group is not currently on this server, the resource will attempt to connect to the server where the primary replica lives.
+| Hostname of the SQL Server where the primary replica of the availability group lives.
+
+If the availability group is not currently on this server, the resource will attempt to connect to the server where the primary replica lives.
 |
 
 | AvailabilityGroupName
@@ -84,46 +96,61 @@
 |
 
 | BackupPath
-| Required
+| Mandatory
 | String
-| The path used to seed the availability group replicas. This should be a path that is accessible by all of the replicas.
+| The path used to seed the availability group replicas.
+
+This should be a path that is accessible by all of the replicas.
 |
 
 | Enure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
-| `Present`, `Absent`
+| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| - *Present* (default)
+  - Absent
 
 | Force
 | 
 | Bool
-| When parameter *Ensure* is set to `'Present'` it ensures the specified database(s) are the only databases that are a member of the specified Availability Group. This parameter is ignored when parameter *Ensure* is set to `'Absent'`.
-|
+| When parameter *Ensure* is set to `Present` it ensures the specified database(s) are the only databases that are a member of the specified Availability Group. 
+
+This parameter is ignored when parameter *Ensure* is set to `Absent`.
+| - True
+  - False
 
 | MatchDatabaseOwner
 | 
 | Bool
-| If set to `$true`, this ensures the database owner of the database on the primary replica is the owner of the database on all secondary replicas. This requires the database owner is available as a login on all replicas and that the *PsDscRunAsCredential* has impersonate any login, control server, impersonate login, or control login permissions. If set to $false, the owner of the database will be the username specified in *PsDscRunAsCredential*. The default is `$false`.
-|
+| If set to `True`, this ensures the database owner of the database on the primary replica is the owner of the database on all secondary replicas.
+This requires the database owner is available as a login on all replicas and that the *PsDscRunAsCredential* has impersonate any login, control server, impersonate login, or control login permissions.
+
+If set to `False`, the owner of the database will be the username specified in *PsDscRunAsCredential*.
+| - True
+  - *False* (default)
 
 | ReplaceExisting
 | 
 | Bool
-| If set to `$true`, this adds the restore option `WITH REPLACE`. If set to `$false`, existing databases and files will block the restore and throw error. The default is `$false`.
-| 
+| If set to `True`, this adds the restore option `WITH REPLACE`.
+
+If set to `False`, existing databases and files will block the restore and throw error.
+| - True
+  - *False* (default)
 
 | ProcessOnlyOnActiveNode
 | 
 | Bool
 | Specifies that the resource will only determine if a change is needed if the target node is the active host of the SQL Server instance.
-|
+| - True
+  - False
 
 | IsActiveNode
 | 
 | Bool
 | Returns if the current node is actively hosting the SQL Server instance.
-|
+| - True
+  - False
 
 |===
 

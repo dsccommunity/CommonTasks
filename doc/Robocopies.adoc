@@ -1,0 +1,150 @@
+// CommonTasks YAML Reference: Robocopies
+// ======================================
+
+:YmlCategory: Robocopies
+
+:abstract:  {YmlCategory} is used to facilitate large file copies with complex requirements such as multithreading, restarts, and exclusions when recursing content.
+
+[#dscyml_robocopies]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_robocopies_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Robocopies
+| DSC Resource   | https://github.com/dsccommunity/xRobocopy[xRobocopy]
+| Documentation  | https://github.com/dsccommunity/xRobocopy#details[xRobocopy]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_robocopies_items, {YmlCategory}/Items]]<<dscyml_robocopies_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| set of robocopy items
+|
+
+|===
+
+
+[[dscyml_robocopies_items_details]]
+.Attributes of category '<<dscyml_robocopies_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Source
+| Mandatory
+| String
+| Source Directory, Drive or UNC path.
+|
+
+| Destination
+| Mandatory
+| String
+| Destination Dir, Drive or UNC path.
+|
+
+| Files
+|
+| String
+| File(s) to copy (names/wildcards: default is all files).
+|
+
+| Retry
+|
+| UInt32
+| Number of Retries on failed copies: default 1 million.
+| Default: `1000000`
+
+| Wait
+|
+| UInt32
+| Wait time between retries: default is 30 seconds.
+| Default: `30`
+
+| SubdirectoriesIncludingEmpty
+|
+| Boolean
+| Copy subdirectories, including Empty ones.
+| - True
+  - False
+
+| Restartable
+|
+| Boolean
+| Copy files in restartable mode.
+| - True
+  - False
+
+| MultiThreaded
+|
+|
+| Do multi-threaded copies with n threads (default 8).
+
+N must be at least 1 and not greater than 128.
+This option is incompatible with the /IPG and /EFSRAW options.
+Redirect output using /LOG option for better performance.
+| - True
+  - False
+
+| ExcludeFiles
+|
+| String
+| Exclude Files matching given names/paths/wildcards.
+|
+
+| LogOutput
+|
+| String
+| Output status to LOG file.
+|
+
+| AppendLog
+|
+| Boolean
+| Determine whether to overwrite log file or append.
+| - True
+  - False
+
+| AdditionalArgs
+|
+| String[]
+| Use this option to set additional parameters.
+
+Robocopy has MANY configuration options.
+Too many to present them all as DSC parameters effectively.
+Each parameter should be a separate array member.
+This array will be combined with main argument array.
+For a list of options run Robocopy /??? in a shell window.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+Robocopies:
+  Items:
+  - Source: C:\Test
+    Destination: C:\Test2
+    MultiThreaded: true
+    Restartable: true
+    AdditionalArgs: '/mir'
+----

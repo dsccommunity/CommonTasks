@@ -1,0 +1,46 @@
+// CommonTasks YAML Reference: OfficeOnlineServerMachineConfig
+// ===========================================================
+
+:YmlCategory: OfficeOnlineServerMachineConfig
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_officeonlineservermachineconfig]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_officeonlineservermachineconfig_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/OfficeOnlineServerMachineConfig
+| DSC Resource   | https://github.com/dsccommunity/OfficeOnlineServerDsc[OfficeOnlineServerDsc]
+| Documentation  | https://github.com/dsccommunity/OfficeOnlineServerDsc/wiki/OfficeOnlineServerMachine[OfficeOnlineServerMachine]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+OfficeOnlineServerMachineConfig:
+  MachineToJoin: Master
+----

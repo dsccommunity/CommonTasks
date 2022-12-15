@@ -114,6 +114,13 @@ ifdef::env-github[]
 - <<DscPullServer.adoc#, DscPullServer>>
 - <<DscPullServerSql.adoc#, DscPullServerSql>>
 - <<DscTagging.adoc#, DscTagging>>
+- <<EnvironmentVariables.adoc#, EnvironmentVariables>>
+- <<ExchangeAutoMountPoints.adoc#, ExchangeAutoMountPoints>>
+- <<ExchangeConfiguration.adoc#, ExchangeConfiguration>>
+- <<ExchangeDagProvisioning.adoc#, ExchangeDagProvisioning>>
+- <<ExchangeMailboxDatabaseCopies.adoc#, ExchangeMailboxDatabaseCopies>>
+- <<ExchangeMailboxDatabases.adoc#, ExchangeMailboxDatabases>>
+- <<ExchangeProvisioning.adoc#, ExchangeProvisioning>>
 - <<FileContents.adoc#, FileContents>>
 - <<FilesAndFolders.adoc#, FilesAndFolders>>
 - <<FirewallProfiles.adoc#, FirewallProfiles>>
@@ -125,14 +132,24 @@ ifdef::env-github[]
 - <<JeaRoles.adoc#, JeaRoles>>
 - <<LocalGroups.adoc#, LocalGroups>>
 - <<LocalUsers.adoc#, LocalUsers>>
+- <<MmaAgent.adoc#, MmaAgent>>
 - <<MountImages.adoc#, MountImages>>
 - <<Network.adoc#, Network>>
 - <<NetworkIpConfiguration.adoc#, NetworkIpConfiguration>>
+- <<OfficeOnlineServerFarmConfig.adoc#, OfficeOnlineServerFarmConfig>>
+- <<OfficeOnlineServerMachineConfig.adoc#, OfficeOnlineServerMachineConfig>>
+- <<OfficeOnlineServerSetup.adoc#, OfficeOnlineServerSetup>>
 - <<OpticalDiskDrives.adoc#, OpticalDiskDrives>>
 - <<PowerPlans.adoc#, PowerPlans>>
+- <<PowershellExecutionPolicies.adoc#, PowershellExecutionPolicies>>
+- <<PowerShellRepositories.adoc#, PowerShellRepositories>>
 - <<RegistryPolicies.adoc#, RegistryPolicies>>
 - <<RegistryValues.adoc#, RegistryValues>>
+- <<RemoteDesktopCollections.adoc#, RemoteDesktopCollections>>
+- <<RemoteDesktopDeployment.adoc#, RemoteDesktopDeployment>>
+- <<RemoteDesktopLicensing.adoc#, RemoteDesktopLicensing>>
 - <<RestartSystem.adoc#, RestartSystem>>
+- <<Robocopies.adoc#, Robocopies>>
 - <<ScheduledTasks.adoc#, ScheduledTasks>>
 - <<Scripts.adoc#, Scripts>>
 - <<SecurityBase.adoc#, SecurityBase>>
@@ -235,6 +252,13 @@ ifndef::env-github[]
 | <<dscyml_dscpullserver>>                     | <<dscyml_dscpullserver_abstract>>
 | <<dscyml_dscpullserversql>>                  | <<dscyml_dscpullserversql_abstract>>
 | <<dscyml_dsctagging>>                        | <<dscyml_dsctagging_abstract>>
+| <<dscyml_environmentvariables>>              | <<dscyml_environmentvariables_abstract>>
+| <<dscyml_exchangeautomountpoints>>           | <<dscyml_exchangeautomountpoints_abstract>>
+| <<dscyml_exchangeconfiguration>>             | <<dscyml_exchangeconfiguration_abstract>>
+| <<dscyml_exchangedagprovisioning>>           | <<dscyml_exchangedagprovisioning_abstract>>
+| <<dscyml_exchangemailboxdatabasecopies>>     | <<dscyml_exchangemailboxdatabasecopies_abstract>>
+| <<dscyml_exchangemailboxdatabases>>          | <<dscyml_exchangemailboxdatabases_abstract>>
+| <<dscyml_exchangeprovisioning>>              | <<dscyml_exchangeprovisioning_abstract>>
 | <<dscyml_filecontents>>                      | <<dscyml_filecontents_abstract>>
 | <<dscyml_filesandfolders>>                   | <<dscyml_filesandfolders_abstract>>
 | <<dscyml_firewallprofiles>>                  | <<dscyml_firewallprofiles_abstract>>
@@ -246,14 +270,24 @@ ifndef::env-github[]
 | <<dscyml_jearoles>>                          | <<dscyml_jearoles_abstract>>
 | <<dscyml_localgroups>>                       | <<dscyml_localgroups_abstract>>
 | <<dscyml_localusers>>                        | <<dscyml_localusers_abstract>>
+| <<dscyml_mmaagent>>                          | <<dscyml_mmaagent_abstract>>
 | <<dscyml_mountimages>>                       | <<dscyml_mountimages_abstract>>
 | <<dscyml_network>>                           | <<dscyml_network_abstract>>
 | <<dscyml_networkipconfiguration>>            | <<dscyml_networkipconfiguration_abstract>>
+| <<dscyml_officeonlineserverfarmconfig>>      | <<dscyml_officeonlineserverfarmconfig_abstract>>
+| <<dscyml_officeonlineservermachineconfig>>   | <<dscyml_officeonlineservermachineconfig_abstract>>
+| <<dscyml_officeonlineserversetup>>           | <<dscyml_officeonlineserversetup_abstract>>
 | <<dscyml_opticaldiskdrives>>                 | <<dscyml_opticaldiskdrives_abstract>>
 | <<dscyml_powerplans>>                        | <<dscyml_powerplans_abstract>>
+| <<dscyml_powershellexecutionpolicies>>       | <<dscyml_powershellexecutionpolicies_abstract>>
+| <<dscyml_powershellrepositories>>            | <<dscyml_powershellrepositories_abstract>>
 | <<dscyml_registrypolicies>>                  | <<dscyml_registrypolicies_abstract>>
 | <<dscyml_registryvalues>>                    | <<dscyml_registryvalues_abstract>>
+| <<dscyml_remotedesktopcollections>>          | <<dscyml_remotedesktopcollections_abstract>>
+| <<dscyml_remotedesktopdeployment>>           | <<dscyml_remotedesktopdeployment_abstract>>
+| <<dscyml_remotedesktoplicensing>>            | <<dscyml_remotedesktoplicensing_abstract>>
 | <<dscyml_restartsystem>>                     | <<dscyml_restartsystem_abstract>>
+| <<dscyml_robocopies>>                        | <<dscyml_robocopies_abstract>>
 | <<dscyml_scheduledtasks>>                    | <<dscyml_scheduledtasks_abstract>>
 | <<dscyml_scripts>>                           | <<dscyml_scripts_abstract>>
 | <<dscyml_securitybase>>                      | <<dscyml_securitybase_abstract>>
@@ -401,6 +435,20 @@ include::DscPullServerSql.adoc[leveloffset=+1]
 <<<<
 include::DscTagging.adoc[leveloffset=+1]
 <<<<
+include::EnvironmentVariables.adoc[leveloffset=+1]
+<<<<
+include::ExchangeAutoMountPoints.adoc[leveloffset=+1]
+<<<<
+include::ExchangeConfiguration.adoc[leveloffset=+1]
+<<<<
+include::ExchangeDagProvisioning.adoc[leveloffset=+1]
+<<<<
+include::ExchangeMailboxDatabaseCopies.adoc[leveloffset=+1]
+<<<<
+include::ExchangeMailboxDatabases.adoc[leveloffset=+1]
+<<<<
+include::ExchangeProvisioning.adoc[leveloffset=+1]
+<<<<
 include::FileContents.adoc[leveloffset=+1]
 <<<<
 include::FilesAndFolders.adoc[leveloffset=+1]
@@ -423,21 +471,41 @@ include::LocalGroups.adoc[leveloffset=+1]
 <<<<
 include::LocalUsers.adoc[leveloffset=+1]
 <<<<
+include::MmaAgent.adoc[leveloffset=+1]
+<<<<
 include::MountImages.adoc[leveloffset=+1]
 <<<<
 include::Network.adoc[leveloffset=+1]
 <<<<
 include::NetworkIpConfiguration.adoc[leveloffset=+1]
 <<<<
+include::OfficeOnlineServerFarmConfig.adoc[leveloffset=+1]
+<<<<
+include::OfficeOnlineServerMachineConfig.adoc[leveloffset=+1]
+<<<<
+include::OfficeOnlineServerSetup.adoc[leveloffset=+1]
+<<<<
 include::OpticalDiskDrives.adoc[leveloffset=+1]
 <<<<
 include::PowerPlans.adoc[leveloffset=+1]
+<<<<
+include::PowershellExecutionPolicies.adoc[leveloffset=+1]
+<<<<
+include::PowerShellRepositories.adoc[leveloffset=+1]
 <<<<
 include::RegistryPolicies.adoc[leveloffset=+1]
 <<<<
 include::RegistryValues.adoc[leveloffset=+1]
 <<<<
+include::RemoteDesktopCollections.adoc[leveloffset=+1]
+<<<<
+include::RemoteDesktopDeployment.adoc[leveloffset=+1]
+<<<<
+include::RemoteDesktopLicensing.adoc[leveloffset=+1]
+<<<<
 include::RestartSystem.adoc[leveloffset=+1]
+<<<<
+include::Robocopies.adoc[leveloffset=+1]
 <<<<
 include::ScheduledTasks.adoc[leveloffset=+1]
 <<<<

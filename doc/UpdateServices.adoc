@@ -1,26 +1,26 @@
 // CommonTasks YAML Reference: UpdateServices
-// ========================================
+// ==========================================
 
 :YmlCategory: UpdateServices
 
+:abstract:    {YmlCategory} configures the Windows Server Update Services (WSUS).
 
-[[dscyml_updateservices, {YmlCategory}]]
-= DSC Resource 'UpdateServices'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_updateservices]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_updateservices_abstract]]
-.{YmlCategory} configures the Windows Server Update Services (WSUS).
+[[dscyml_updateservices_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/UpdateServices
 | DSC Resource   | https://github.com/dsccommunity/UpdateServicesDsc[UpdateServicesDsc]
-| Documentation  | https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesServer],
-                   https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesCleanup], 
-                   https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesApprovalRule]
+| Documentation  | -https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesServer]
+                   -https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesCleanup]
+                   - https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesApprovalRule]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -50,6 +50,7 @@
 |
 
 |===
+
 
 [[dscyml_updateservices_server_details]]
 .Attributes of category '<<dscyml_updateservices_server>>'
@@ -83,8 +84,9 @@
 | ContentDir
 |
 | String 
-| Folder for WSUS update files. + 
-  If specified the resource ensures that the path exists.
+| Folder for WSUS update files.
+
+If specified the resource ensures that the path exists.
 |
 
 | UpdateImprovementProgram

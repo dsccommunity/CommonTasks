@@ -3,14 +3,13 @@
 
 :YmlCategory: LocalGroups
 
+:abstract:    {YmlCategory} is used to manage local groups.
 
-[[dscyml_localgroups, {YmlCategory}]]
-= DSC Resource 'LocalGroups'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_localgroups]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_localgroups_abstract]]
-.{YmlCategory} manages local groups.
+[[dscyml_localgroups_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,14 +3,13 @@
 
 :YmlCategory: Scripts
 
+:abstract:    {YmlCategory} provides a mechanism to run PowerShell script blocks on a target node.
 
-[[dscyml_scripts, {YmlCategory}]]
-= DSC Resource 'Scripts'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_scripts]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_scripts_abstract]]
-.{YmlCategory} provides a mechanism to run PowerShell script blocks on a target node..
+[[dscyml_scripts_abstract, {abstract}]]
+{abstract}
 
 // reference links as variables for using more than once
 :ref_xpsdesiredstateconfiguration_xscript:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xscript[xScript]

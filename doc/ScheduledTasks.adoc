@@ -3,14 +3,13 @@
 
 :YmlCategory: ScheduledTasks
 
+:abstract:    {YmlCategory} is used to define basic run once or recurring scheduled tasks on the local computer and can also be used to delete or disable built-in scheduled tasks.
 
-[[dscyml_scheduledtasks, {YmlCategory}]]
-= DSC Resource 'ScheduledTasks'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_scheduledtasks]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_scheduledtasks_abstract]]
-.{YmlCategory} is used to define basic run once or recurring scheduled tasks on the local computer and can also be used to delete or disable built-in scheduled tasks.
+[[dscyml_scheduledtasks_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

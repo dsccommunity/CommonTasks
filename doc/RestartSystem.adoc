@@ -3,14 +3,13 @@
 
 :YmlCategory: RestartSystem
 
+:abstract:    {YmlCategory} manages forced or pending system reboots.
 
-[[dscyml_restartsystem, {YmlCategory}]]
-= DSC Resource 'RestartSystem'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_restartsystem]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_restartsystem_abstract]]
-.{YmlCategory} manages forced or pending system reboots.
+[[dscyml_restartsystem_abstract, {abstract}]]
+{abstract}
 
 The DSC resource supports only one system reboot inside the DSC configuartion of a node.
 You can control the system reboot time by ordering the activated configurations in the YAML files (e.g. RestartSystem at last if you want a restart at the end of your configuration). 

@@ -3,7 +3,7 @@
 
 :YmlCategory: DscPullServer
 
-:abstract:  {YmlCategory} ##TBD##
+:abstract:  {YmlCategory} is used to ###TBD###.
 
 [#dscyml_dscpullserver]
 = DSC Resource '{YmlCategory}'

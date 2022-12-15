@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: WaitForSomeNodes
-// ===========================================
+// ============================================
 
 :YmlCategory: WaitForSomeNodes
 
+:abstract:    {YmlCategory} can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
 
-[[dscyml_waitforsomenodes, {YmlCategory}]]
-= DSC Resource 'WaitForSomeNodes'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_waitforsomenodes]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_waitforsomenodes_abstract]]
-The {YmlCategory} Desired State Configuration (DSC) resource can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+[[dscyml_waitforsomenodes_abstract, {abstract}]]
+{abstract}
 
 This resource succeeds if the resource specified by the ResourceName property is in the desired state on a minimum number of nodes (specified by NodeCount) defined by the NodeName property.
 
@@ -18,9 +17,10 @@ This resource succeeds if the resource specified by the ResourceName property is
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WaitForSomeNodes
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforsomeresource?view=powershell-5.1[WaitForSome ]
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforsomeresource[WaitForSome]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -38,6 +38,7 @@ This resource succeeds if the resource specified by the ResourceName property is
 |
 
 |===
+
 
 [[dscyml_waitforsomenodes_items_details]]
 .Attributes of category '<<dscyml_waitforsomenodes_items>>'
@@ -90,7 +91,8 @@ This resource succeeds if the resource specified by the ResourceName property is
 
 [NOTE]
 ====
-WaitForSome resource uses Windows Remote Management to check the state of other Nodes. For more information about port and security requirements for WinRM, see PowerShell Remoting Security Considerations.
+{YmlCategory} resource uses Windows Remote Management to check the state of other Nodes.
+For more information about port and security requirements for WinRM, see https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/winrmsecurity[PowerShell Remoting Security Considerations].
 ====
 
 

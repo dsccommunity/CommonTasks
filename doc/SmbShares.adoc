@@ -3,22 +3,21 @@
 
 :YmlCategory: SmbShares
 
+:abstract:    {YmlCategory} is used to manage SMB Server Settings, SMB shares and access permissions to SMB shares.
 
-[[dscyml_smbshares, {YmlCategory}]]
-= DSC Resource 'SmbShares'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_smbshares]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_smbshares_abstract]]
-.{YmlCategory} is used to manage SMB Server Settings, SMB shares and access permissions to SMB shares.
+[[dscyml_smbshares_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SmbShares
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SmbShares
 | DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
-| Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbServerConfiguration[SmbServerConfiguration],
-                   https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbShare[SmbShare],
+| Documentation  | - https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbServerConfiguration[SmbServerConfiguration]
+                   - https://github.com/dsccommunity/ComputerManagementDsc/wiki/SmbShare[SmbShare]
 |===
 
 

@@ -1,0 +1,50 @@
+// CommonTasks YAML Reference: RemoteDesktopDeployment
+// ===================================================
+
+:YmlCategory: RemoteDesktopDeployment
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_remotedesktopdeployment]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktopdeployment_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopDeployment
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDSessionDeployment[xRDSessionDeployment]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopDeployment:
+  ConnectionBroker: CB1
+  SessionHosts:
+    - SH1
+    - SH2
+  WebAccess: WA1
+----

@@ -3,19 +3,18 @@
 
 :YmlCategory: LocalUsers
 
+:abstract:    {YmlCategory} is used to manage local users.
 
-[[dscyml_localusers, {YmlCategory}]]
-= DSC Resource 'LocalUsers'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_localusers]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_localusers_abstract]]
-.{YmlCategory} manages local users.
+[[dscyml_localusers_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/LocalUsers
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/LocalUsers
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration/tree/main/source/DSCResources/DSC_xUserResource[xUser]
 |===

@@ -3,14 +3,13 @@
 
 :YmlCategory: Wds
 
+:abstract:    {YmlCategory} contains the Windows Deployment Services DSC Resource Module.
 
-[[dscyml_wds, {YmlCategory}]]
-= DSC Resource 'Wds'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_wds]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_wds_abstract]]
-.{YmlCategory} contains the Windows Deployment Services DSC Resource Module.
+[[dscyml_wds_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once
@@ -20,13 +19,14 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Wds
-| DSC Resource   | {ref_WDSDsc}, https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation],
-                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope],
-                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
+| DSC Resource   | - {ref_WDSDsc}
+                   - https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | - https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation]
+                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
+                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
 |===
 
 
@@ -42,7 +42,7 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 ====
 This DSC resource requires an updated version (> 0.11.0) of the {ref_WDSDsc} resource.
 
-Until the next relase of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
+Until the next release of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
 ====
 
 
