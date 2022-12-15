@@ -1,8 +1,12 @@
 configuration WindowsFeatures {
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [string[]]
-        $Names
+        $Names,
+
+        [Parameter()]
+        [hashtable[]]
+        $Features
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -32,5 +36,22 @@ configuration WindowsFeatures {
         }
 
         (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
+    }
+
+    <#
+    @{
+    Name = [string]
+    [Credential = [PSCredential]]
+    [DependsOn = [string[]]]
+    [Ensure = [string]{ Absent | Present }]
+    [IncludeAllSubFeature = [bool]]
+    [LogPath = [string]]
+    [PsDscRunAsCredential = [PSCredential]]
+    [Source = [string]]
+}
+    #>
+    foreach ($feature in $Features)
+    {
+        (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $feature.Name -Properties $feature -NoInvoke).Invoke($feature)
     }
 }

@@ -87,3 +87,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Updated to latest version of 'PackageManagement' to fix module discovery error.
 - WindowsServices: fix support of absent services (Ensure: Absent)
 - HyperV: fix support of absent switches and VMs (Ensure: Absent)
+- WindowsFeatures: Include support for more elaborate lists of features, giving more control
