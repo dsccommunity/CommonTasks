@@ -3,3 +3,8 @@ Names:
 - -Web-Server
 - Hyper-V
 - '*RSAT'
+Features:
+  - Name: NET-Framework-Core
+    Source: \\contoso.com\InstallationSources\WinSxs
+  - Name: RSAT-AD-Tools
+    IncludeAllSubFeature: true
