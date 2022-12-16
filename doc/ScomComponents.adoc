@@ -1,0 +1,85 @@
+// CommonTasks YAML Reference: ScomComponents
+// ==========================================
+
+:YmlCategory: ScomComponents
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_scomcomponents]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_scomcomponents_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomComponents
+| DSC Resource   | https://github.com/nyanhp/cScom[cScom]
+| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/DscResources/JHP_ScomComponent.psm1[ScomComponent]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_scomcomponents_components, {YmlCategory}/Components]]<<dscyml_scomcomponents_components_details, Components>>
+| Mandatory
+| Hashtable[]
+| set of SCOM components
+|
+
+|===
+
+
+[[dscyml_scomcomponents_components_details]]
+.Attributes of category '<<dscyml_scomcomponents_components>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ScomComponents:
+  Components:
+    - Role: NativeConsole # No more properties
+      SourcePath: X:\
+    - Role: FirstManagementServer
+      SourcePath: X:\
+      ManagementGroupName : MG1
+      DataReader : '[ENC=PE9ianMgVmVy...=]'
+      DataWriter : '[ENC=PE9ianMgVmVy...=]'
+      SqlServerInstance : SQ1
+      SqlInstancePort : 1234
+      DwSqlInstancePort : 4567
+      DwSqlServerInstance : SQ2
+      ProductKey : AAA-BBB-CCC-DDD
+      InstallLocation : C:\SCOM
+      ManagementServicePort : 5723
+      ActionAccount : '[ENC=PE9ianMgVmVy...=]'
+      DASAccount : '[ENC=PE9ianMgVmVy...=]'
+      DatabaseName : OpsManagerDB
+      DwDatabaseName : DwOpsManagerDB
+      UseMicrosoftUpdate : false
+----

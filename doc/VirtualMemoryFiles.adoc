@@ -1,0 +1,100 @@
+// CommonTasks YAML Reference: VirtualMemoryFiles
+// ==============================================
+
+:YmlCategory: VirtualMemoryFiles
+
+:abstract:    {YmlCategory} allows configuration of properties of the paging file on the local computer.
+
+[#dscyml_virtualmemoryfiles]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_virtualmemoryfiles_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VirtualMemoryFiles
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/VirtualMemory[VirtualMemory]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_virtualmemoryfiles_files, {YmlCategory}/Files]]<<dscyml_virtualmemoryfiles_files_details, Files>>
+| Mandatory
+| Hashtable[]
+| set of web applications
+|
+
+|===
+
+
+[[dscyml_virtualmemoryfiles_files_details]]
+.Attributes of category '<<dscyml_virtualmemoryfiles_files>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Drive
+| Key
+| String
+| The drive letter for which paging settings should be set.
+
+Can be letter only, letter and colon or letter with colon and trailing slash.
+|
+
+| Type
+| Key
+| String
+| The type of the paging setting to use.
+
+If set to `AutoManagePagingFile`, the drive letter will be ignored.
+If set to `SystemManagedSize`, the values for `InitialSize` and `MaximumSize` will be ignored
+| - AutoManagePagingFile
+  - CustomSize
+  - SystemManagedSize
+  - NoPagingFile
+
+| InitialSize
+|
+| SInt64
+| The initial size of the page file in Megabyte
+|
+
+| MaximumSize
+|
+| SInt64
+|
+| The maximum size of the page file in Megabyte
+
+|===
+
+
+.Example
+[source, yaml]
+----
+VirtualMemoryFiles:
+  Files:
+    - Drive: C
+      Type: CustomSize
+      InitialSize: 4096
+      MaximumSize: 4096
+    - Drive: P
+      Type: CustomSize
+      InitialSize: 8192
+      MaximumSize: 8192
+----

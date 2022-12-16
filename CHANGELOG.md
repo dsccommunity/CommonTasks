@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `AddsTrusts` Composite for establishing Forest trusts with more configuration options than using AddsDomain-property DomainTrusts.
 - `FilesAndFolder` Add property to embed binary files into MOF.
 - `SmbShares`  Add check and remove of duplicates from access properties in MOF.
-- Update documentation
+- Complete YAML documentation
 - `FileContents` Composite for managing file content.
 - `RemoteDesktopDeployment` Composite to configure a remote desktop deployment
 - `RemoteDesktopCollections` Composite to configure RD session collections, including their settings

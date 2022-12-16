@@ -1,0 +1,163 @@
+// CommonTasks YAML Reference: SqlScriptQueries
+// ============================================
+
+:YmlCategory: SqlScriptQueries
+
+:abstract:    {YmlCategory} is used to to run a user generated T-SQL script on the SQL Server instance.
+
+[#dscyml_sqlscriptqueries]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sqlscriptqueries_abstract, {abstract}]]
+{abstract}
+
+Three scripts are required: Get T-SQL script, Set T-SQL script and the Test T-SQL script.
+
+
+// reference links as variables for using more than once
+:ref_invokesqlcmd:  https://learn.microsoft.com/en-us/powershell/module/sqlserver/invoke-sqlcmd?view=sqlserver-ps[InvokeSqlCmd]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlScriptQueries
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | - https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+                   - https://github.com/dsccommunity/SqlServerDsc/wiki/SqlScriptQuery[SqlScriptQuery]
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- Target machine must have access to the SQLPS PowerShell module or the SqlServer PowerShell module.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName
+| Default: `MSSQLSERVER`
+
+| [[dscyml_sqlscriptqueries_queries, {YmlCategory}/Queries]]<<dscyml_sqlscriptqueries_queries_details, Queries>>
+| Mandatory
+| Hashtable[]
+| List of SQL queries.
+|
+
+|===
+
+
+[[dscyml_sqlscriptqueries_queries_details]]
+.Attributes of category '<<dscyml_sqlscriptqueries_queries>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| InstanceName
+| Key
+| String
+| Specifies the name of the SQL Server Database Engine instance.
+|
+
+| GetQuery
+| Key
+| String
+| Full T-SQL query that will perform Get action.
+
+Any values returned by the T-SQL queries will also be returned when calling Get (for example by using the cmdlet Get-DscConfiguration) through the `GetResult` property.
+|
+
+| TestQuery
+| Key
+| String
+| Full T-SQL query that will perform Test action.
+
+Any script that does not throw an error or returns NULL is evaluated to `$true`.
+The cmdlet `{ref_invokesqlcmd}` treats T-SQL PRINT statements as verbose text, and will not cause the test to return `$false`.
+|
+
+| SetQuery
+| Key
+| String
+| Full T-SQL query that will perform Set action.
+|
+
+| ServerName
+| Key
+| String
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
+|
+
+| Credential
+|
+| PSCredential
+| The credentials to authenticate with, using _SQL Server Authentication_.
+
+To authenticate using _Windows Authentication_, assign the credentials to the built-in parameter `PsDscRunAsCredential`.
+If neither of the parameters `Credential` and `PsDscRunAsCredential` are assigned then the `SYSTEM` account will be used to authenticate using _Windows Authentication_.
+|
+
+| Variable
+|
+| String[]
+| Specifies, as a string array, a scripting variable for use in the sql script, and sets a value for the variable.
+
+For more information how to use this, please go to the help documentation for `{ref_invokesqlcmd}`.
+|
+
+| DisableVariables
+|
+| Boolean
+| Specifies, as a boolean, whether or not PowerShell will ignore `{ref_invokesqlcmd}` scripting variables that share a format such as `$(variable_name)`.
+
+For more information how to use this, please go to the help documentation for `{ref_invokesqlcmd}`.
+| - True
+  - False
+
+| QueryTimeout
+|
+| UInt32
+| Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.
+
+In some SQL Server versions there is a bug in `{ref_invokesqlcmd}` where the normal default value `0` (no timeout) is not respected and the default value is incorrectly set to 30 seconds.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlScriptQueries:
+  DefaultInstanceName: MSSQLSERVER
+  Queries:
+    - InstanceName: MSSQLSERVER
+      GetQuery: '--Get Query 1'
+      TestQuery: '--Test Query 1'
+      SetQuery: '--Set Query 1'
+      ServerName : 'ServerName'
+      QueryTimeout: 60
+    - InstanceName: MSSQLSERVER
+      GetQuery: '--Get Query 2'
+      TestQuery: '--Test Query 2'
+      SetQuery: '--Set Query 2'
+      QueryTimeout: 60
+----

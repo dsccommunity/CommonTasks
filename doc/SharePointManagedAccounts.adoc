@@ -1,0 +1,70 @@
+// CommonTasks YAML Reference: SharePointManagedAccounts
+// =====================================================
+
+:YmlCategory: SharePointManagedAccounts
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointmanagedaccounts]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointmanagedaccounts_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedAccounts
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedAccount[SPManagedAccount]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointmanagedaccounts_managedaccounts, {YmlCategory}/ManagedAccounts]]<<dscyml_sharepointmanagedaccounts_managedaccounts_details, ManagedAccounts>>
+| Mandatory
+| Hashtable[]
+| set of managed accounts
+|
+
+|===
+
+
+[[dscyml_sharepointmanagedaccounts_managedaccounts_details]]
+.Attributes of category '<<dscyml_sharepointmanagedaccounts_managedaccounts>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointManagedAccounts:
+  ManagedAccounts:
+    - AccountName: contoso\sp_farm
+      Account: '[ENC=PE9ianMgVmVy...=]'
+    - AccountName: contoso\sp_contentAppPool
+      Account: '[ENC=PE9ianMgVmVy...=]'
+----

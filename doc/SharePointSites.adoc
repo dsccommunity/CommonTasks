@@ -1,0 +1,80 @@
+// CommonTasks YAML Reference: SharePointSites
+// ===========================================
+
+:YmlCategory: SharePointSites
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointsites]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointsites_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointSites
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPSite[SPSite]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointsites_sites, {YmlCategory}/Sites]]<<dscyml_sharepointsites_sites_details, Sites>>
+| Mandatory
+| Hashtable[]
+| set of sites
+|
+
+|===
+
+
+[[dscyml_sharepointsites_sites_details]]
+.Attributes of category '<<dscyml_sharepointsites_sites>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointSites:
+  Sites:    
+    - Name: Contoso Content
+      Url: https://content.contoso.com
+      OwnerAlias: contoso\sp_setup
+      ContentDatabase: SP2016_Content_01
+      Description: Root site for content
+      Language: 1033
+      Template: STS#0
+    - Name: App Catalog
+      Url: https://content.contoso.com/sites/AppCatalog
+      OwnerAlias: contoso\sp_setup
+      ContentDatabase: SP2016_Content_01
+      Description: App Catalog
+      Language: 1033
+      Template: APPCATELOG#0
+----
