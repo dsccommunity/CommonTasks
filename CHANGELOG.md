@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SQLAgentOperators` Composite to configure one or more SQL Server Agent Operator on a SQL Server/Instance
 - `SQLDatabaseMailSetups` Composite to configure one or more Database Mail Accounts/Profiles on a SQL Server/Instance
 - `SQLScriptQueries` Composite to run one or more SQL Scripts against a SQL Server/Instance
+- `RemoteDesktopCertificates` Composite to import Remote Desktop Certificates. Ideally combined with CertificateRequests and CertificateExports composites.
 
 ### Changed
 
@@ -96,3 +97,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   - xHyper-V
   - VSTSAgent
 - Refactoring of SqlPermissions after upgrade of SqlServerDsc to 16.0.0
+- WindowsFeatures: Include support for more elaborate lists of features, giving more control
