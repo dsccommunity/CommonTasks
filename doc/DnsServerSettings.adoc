@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerSettings
 
+:abstract:  {YmlCategory} manages the Domain Name System (DNS) server settings and properties.
 
-[[dscyml_dnsserversettings, {YmlCategory}]]
-= DSC Resource 'DnsServerSettings'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserversettings]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserversettings_abstract]]
-.{YmlCategory} manages the Domain Name System (DNS) server settings and properties.
+[[dscyml_dnsserversettings_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once
@@ -24,7 +24,12 @@
 | Documentation  | {ref_dnsServerSetting}
 |===
 
-NOTE: See the specification of {ref_dnsServerSetting} to get a more detailed description of all supported attributes.
+
+[NOTE]
+====
+See the specification of {ref_dnsServerSetting} to get a more detailed description of all supported attributes.
+====
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]

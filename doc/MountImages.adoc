@@ -3,14 +3,13 @@
 
 :YmlCategory: MountImages
 
+:abstract:    {YmlCategory} is used to mount or unmount an ISO/VHD disk image.
 
-[[dscyml_mountimages, {YmlCategory}]]
-= DSC Resource 'MountImages'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_mountimages]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_mountimages_abstract]]
-.{YmlCategory} module is used to mount or unmount an ISO/VHD disk image.
+[[dscyml_mountimages_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

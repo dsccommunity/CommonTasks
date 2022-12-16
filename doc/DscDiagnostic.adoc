@@ -1,0 +1,63 @@
+// CommonTasks YAML Reference: DscDiagnostic
+// =========================================
+
+:YmlCategory: DscDiagnostic
+
+:abstract:    {YmlCategory} is used to ###TBD###.
+
+[#dscyml_dscdiagnostic, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dscdiagnostic_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DscDiagnostic
+| DSC Resource   | - https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
+                   - https://github.com/dsccommunity/xDscDiagnostics[xDscDiagnostics]
+                   - https://github.com/dsccommunity/JeaDsc[JeaDsc]
+| Documentation  | ##TBD##
+|===
+
+.Attributes of category '{YmlCategory}' Get-DscLcmControllerLog
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| AutoCorrect
+|
+| switch
+|
+|
+
+| Refresh
+|
+| switch
+|
+|
+
+| Monitor
+|
+| switch
+|
+|
+
+| Last
+|
+| int
+|
+| Default: 1000
+
+|===
+
+.Example
+[source, yaml]
+----
+
+----

@@ -2,7 +2,8 @@ BeforeDiscovery {
     $dscResources = Get-DscResource -Module $moduleUnderTest.Name
     $here = $PSScriptRoot
 
-    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment'
+    # SqlPermissions are in conflict with the Scom* resources
+    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment', 'SqlPermissions'
 
     Import-Module -Name datum
 
@@ -21,7 +22,6 @@ BeforeDiscovery {
     [hashtable[]]$testCases = @()
     foreach ($dscResource in $dscResources)
     {
-        [PSCustomObject]$dscResourceModuleTable = @()
         $testCases += @{
             DscResourceName = $dscResource.Name
             Skip            = ($dscResource.Name -in $skippedDscResources)
@@ -33,8 +33,8 @@ BeforeDiscovery {
     $finalTestCases += @{
         AllCompositeResources            = $compositeResources.Name
         FilteredCompositeResources       = $compositeResources | Where-Object Name -NotIn $skippedDscResources
-        AllCompositeResourceFolders      = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
-        FilteredCompositeResourceFolders = dir -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
+        AllCompositeResourceFolders      = Get-ChildItem -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*"
+        FilteredCompositeResourceFolders = Get-ChildItem -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" | Where-Object BaseName -NotIn $skippedDscResources
     }
 }
 

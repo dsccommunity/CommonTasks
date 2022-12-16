@@ -20,7 +20,7 @@ configuration SqlAGListeners {
     [PsDscRunAsCredential = [PSCredential]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAGListener
 
     foreach ($value in $Values)
     {

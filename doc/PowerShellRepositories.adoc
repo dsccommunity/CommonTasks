@@ -1,0 +1,115 @@
+// CommonTasks YAML Reference: PowerShellRepositories
+// ==================================================
+
+:YmlCategory: PowerShellRepositories
+
+:abstract:    {YmlCategory} allows configuration of the PowerShell repositories.
+
+[#dscyml_powershellrepositories]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_powershellrepositories_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/PowerShellRepositories
+| DSC Resource   | https://github.com/PowerShell/PowerShellGetv2[PowerShellGet]
+| Documentation  | https://github.com/PowerShell/PowerShellGetv2/tree/master/DSC/DscResources/MSFT_PSRepository[PSRepository]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_powershellrepositories_repositories, {YmlCategory}/Repositories]]<<dscyml_powershellrepositories_repositories_details, Repositories>>
+| Mandatory
+| Hashtable[]
+| set of Powershell repositories
+|
+
+|===
+
+
+[[dscyml_powershellrepositories_repositories_details]]
+.Attributes of category '<<dscyml_powershellrepositories_repositories>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+|
+|
+
+| SourceLocation
+|
+| String
+|
+|
+
+| ScriptSourceLocation
+|
+| String
+|
+|
+
+| PublishLocation
+|
+| String
+|
+|
+
+| ScriptPublishLocation
+|
+| String
+|
+|
+
+| InstallationPolicy
+|
+| String
+|
+| - Trusted
+  - Untrusted
+
+| PackageManagementProvider
+|
+| String
+|
+|
+
+| Ensure
+|
+| String
+|
+| - Present
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+PowerShellRepositories:
+  Repositories:
+  - Name: RepoA
+    SourceLocation: https://somegallery/v2
+    PublishLocation: https://somegallery/v2
+  - Name: RepoB
+    InstallationPolicy: trusted
+    SourceLocation: https://somegallery/v2
+----

@@ -22,7 +22,7 @@ configuration SqlAGDatabases {
     [ReplaceExisting = [bool]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAGDatabase
 
     foreach ($value in $Values)
     {

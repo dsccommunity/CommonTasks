@@ -15,7 +15,7 @@ configuration SqlServer
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlSetup, SqlLogin
 
     if ( $null -ne $Setup )
     {

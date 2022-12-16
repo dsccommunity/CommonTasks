@@ -1,0 +1,54 @@
+// CommonTasks YAML Reference: ExchangeMailboxDatabaseCopies
+// =========================================================
+
+:YmlCategory: ExchangeMailboxDatabaseCopies
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_exchangemailboxdatabasecopies]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_exchangemailboxdatabasecopies_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeMailboxDatabaseCopies
+| DSC Resource   | https://github.com/dsccommunity/xExchange[xExchange]
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ExchangeMailboxDatabaseCopies:
+    Items:
+    - Identity: DAG01-DB1
+        Credential: '[ENC=PE9ianM...=]'
+        ActivationPreference: 1
+        AllowServiceRestart: true
+    - Identity: DAG01-DB2
+        Credential: '[ENC=PE9ianM...=]'
+        ActivationPreference: 2
+        AllowServiceRestart: true
+----

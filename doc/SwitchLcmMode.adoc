@@ -3,14 +3,13 @@
 
 :YmlCategory: SwitchLcmMode
 
+:abstract:    {YmlCategory} is used to download a new MetaMOF and switch the LCM to Pull-Mode.
 
-[[dscyml_switchlcmmode, {YmlCategory}]]
-= DSC Resource 'SwitchLcmMode'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_switchlcmmode]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_switchlcmmode_abstract]]
-.{YmlCategory} module is used to download a new MetaMOF and switch the LCM to Pull-Mode.
+[[dscyml_switchlcmmode_abstract, {abstract}]]
+{abstract}
 
 The `{YmlCategory}` resource shall be the last step in the DSC configuration otherwise the following steps are not executed.
 
@@ -43,7 +42,7 @@ The `{YmlCategory}` resource shall be the last step in the DSC configuration oth
 | String
 | Name of the new configuration
 
-NOTE: A file named `<ConfigurationName>.meta.mof` must exist at `SourceMetaMofDir`.
+A file named `<ConfigurationName>.meta.mof` must exist at `SourceMetaMofDir`.
 | Default: current computer name
 
 | TargetMetaMofDir

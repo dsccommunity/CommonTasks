@@ -3,14 +3,13 @@
 
 :YmlCategory: WaitForAllNodes
 
+:abstract:    {YmlCategory} can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
 
-[[dscyml_waitforallnodes, {YmlCategory}]]
-= DSC Resource 'WaitForAllNodes'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_waitforallnodes]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_waitforallnodes_abstract]]
-.The {YmlCategory} Desired State Configuration (DSC) resource can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+[[dscyml_waitforallnodes_abstract, {abstract}]]
+{abstract}
 
 This resource succeeds if the resource specified by the ResourceName property is in the desired state on all target nodes defined in the NodeName property.
 
@@ -18,9 +17,10 @@ This resource succeeds if the resource specified by the ResourceName property is
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WaitForAllNodes
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforallresource?view=powershell-5.1[WaitForAll]
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/waitforallresource[WaitForAll]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -84,7 +84,8 @@ This resource succeeds if the resource specified by the ResourceName property is
 
 [NOTE]
 ====
-WaitForAll resource uses Windows Remote Management to check the state of other Nodes. For more information about port and security requirements for WinRM, see PowerShell Remoting Security Considerations.
+{YmlCategory} resource uses Windows Remote Management to check the state of other Nodes.
+For more information about port and security requirements for WinRM, see https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/winrmsecurity[PowerShell Remoting Security Considerations].
 ====
 
 

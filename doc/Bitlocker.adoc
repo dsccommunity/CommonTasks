@@ -3,12 +3,10 @@
 
 :YmlCategory: Bitlocker
 
+:abstract:    {YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
 
-[[dscyml_bitlocker, {YmlCategory}]]
-= DSC Resource 'Bitlocker'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
-:abstract:   {YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
+[#dscyml_bitlocker]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_bitlocker_abstract, {abstract}]]
 {abstract}
@@ -42,7 +40,7 @@
 | Hashtable[]
 | List of disks to encrypt
 
-IMPORTANT: System drive must be specified at first in the list.
+*System drive must be specified at first in the list.*
 |
 
 | [[dscyml_bitlocker_autodisks, {YmlCategory}/AutoDisks]]<<dscyml_bitlocker_autodisks_details, AutoDisks>>
@@ -50,7 +48,7 @@ IMPORTANT: System drive must be specified at first in the list.
 | Hashtable[]
 | Automatically enable Bitlocker on drives of type Fixed or Removable.
 
-IMPORTANT: It does not work on Operating System drives.
+*It does not work on Operating System drives.*
 |
 
 |===
@@ -161,8 +159,8 @@ IMPORTANT: It does not work on Operating System drives.
 | PSCredential
 | Specifies a secure string object that contains a password.
 
-NOTE: Username doesn't matter for the credential.
-      Just put the Password in the Password field.
+Username doesn't matter for the credential.
+Just put the Password in the Password field.
 |
 
 | PasswordProtector
@@ -177,10 +175,10 @@ NOTE: Username doesn't matter for the credential.
 | PSCredential
 | Specifies a secure string object that contains a PIN.
 
-NOTE: A TpmProtector must be used if Pin is used.
+A TpmProtector must be used if Pin is used.
 
-NOTE: Username doesn't matter for the credential.
-      Just put the Pin in the Password field
+Username doesn't matter for the credential.
+Just put the Pin in the Password field.
 |
 
 | RecoveryKeyPath
@@ -235,8 +233,7 @@ NOTE: Username doesn't matter for the credential.
 | Boolean
 | Indicates that BitLocker uses the TPM as a protector for the volume encryption key.
 
-NOTE: If TpmProtector is used, it must be the PrimaryProtector.
-
+If TpmProtector is used, it must be the PrimaryProtector.
 | - True
   - False
 
@@ -321,8 +318,8 @@ NOTE: If TpmProtector is used, it must be the PrimaryProtector.
 | PSCredential
 | Specifies a secure string object that contains a password.
 
-NOTE: Username doesn't matter for the credential.
-      Just put the Password in the Password field.
+Username doesn't matter for the credential.
+Just put the Password in the Password field.
 |
 
 | PasswordProtector
@@ -337,10 +334,10 @@ NOTE: Username doesn't matter for the credential.
 | PSCredential
 | Specifies a secure string object that contains a PIN.
 
-NOTE: A TpmProtector must be used if Pin is used.
+A TpmProtector must be used if Pin is used.
 
-NOTE: Username doesn't matter for the credential.
-      Just put the Pin in the Password field
+Username doesn't matter for the credential.
+Just put the Pin in the Password field.
 |
 
 | RecoveryKeyPath
@@ -395,8 +392,7 @@ NOTE: Username doesn't matter for the credential.
 | Boolean
 | Indicates that BitLocker uses the TPM as a protector for the volume encryption key.
 
-NOTE: If TpmProtector is used, it must be the PrimaryProtector.
-
+If TpmProtector is used, it must be the PrimaryProtector.
 | - True
   - False
 

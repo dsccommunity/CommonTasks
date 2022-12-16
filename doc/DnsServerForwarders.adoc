@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DnsServerForwarders
-// ==============================================
+// ===============================================
 
 :YmlCategory: DnsServerForwarders
 
+:abstract:  {YmlCategory} manages the DNS forwarder list of a Domain Name System (DNS) server.
 
-[[dscyml_dnsserverforwarders, {YmlCategory}]]
-= DSC Resource 'DnsServerForwarders'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverforwarders]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverforwarders_abstract]]
-.{YmlCategory} manages the DNS forwarder list of a Domain Name System (DNS) server.
+[[dscyml_dnsserverforwarders_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

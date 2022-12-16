@@ -1,0 +1,88 @@
+// CommonTasks YAML Reference: AddsServicePrincipalNames
+// ======================================
+
+:YmlCategory: AddsServicePrincipalNames
+
+:abstract:    {YmlCategory} will manage service principal names.
+
+[#dscyml_addsserviceprincipalnames]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_addsserviceprincipalnames_abstract, {abstract}]]
+{abstract}
+
+A service principal name (SPN) is a unique identifier of a service instance.
+SPNs are used by Kerberos authentication to associate a service instance with a service logon account.
+This allows a client application to request that the service authenticate an account even if the client does not have the account name.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsServicePrincipalNames
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADServicePrincipalName[ADServicePrincipalName]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_addsserviceprincipalnames_serviceprincipalnames, {YmlCategory}/ServicePrincipalNames]]<<dscyml_addsserviceprincipalnames_serviceprincipalnames_details, ServicePrincipalNames>>
+| Mandatory
+| Hashtable[]
+| The list of service principal name to configure.
+|
+
+|===
+
+
+[[dscyml_addsserviceprincipalnames_serviceprincipalnames_details]]
+.Attributes of DSC Resource '<<dscyml_addsserviceprincipalnames_serviceprincipalnames>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ServicePrincipalName
+| Key
+| String
+| The full SPN to add or remove, e.g. HOST/LON-DC1.
+|
+
+| Account
+|
+| String
+| The user or computer account to add or remove the SPN to, e.g. User1 or LON-DC1$.
+
+If `Ensure` is set to `Present`, a value must be specified.
+| Default: ''
+
+| Ensure
+| 
+| String
+| Specifies if the service principal name should be added or removed.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsServicePrincipalNames:
+  ServicePrincipalNames:
+    - Account: nyanhp
+      ServicePrincipalName: HOST/JHP
+    - Account: nyanhp
+      ServicePrincipalName: WINRM/JHP
+----

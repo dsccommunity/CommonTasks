@@ -3,34 +3,32 @@
 
 :YmlCategory: DhcpServer
 
-
-[[dscyml_dhcpserver, {YmlCategory}]]
-= DSC Resource 'DhcpServer'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract: {YmlCategory} is used for deployment and configuration of Microsoft DHCP Server.
+
+[#dscyml_dhcpserver]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpserver_abstract, {abstract}]]
 {abstract}
 
 
 // reference links as variables for using more than once
-:ref_xDhcpServerScope:          https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
-:ref_DhcpServerExclusionRange:  https://github.com/dsccommunity/xDhcpServer#dhcpserverexclusionrange[DhcpServerExclusionRange]
-:ref_xDhcpServerReservation:    https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
-:ref_DhcpServerOptionValue:     https://github.com/dsccommunity/xDhcpServer#dhcpserveroptionvalue[DhcpServerOptionValue]
-:ref_xDhcpServerAuthorization:  https://github.com/dsccommunity/xDhcpServer#xdhcpserverauthorization[xDhcpServerAuthorization]
+:ref_xDhcpServerScope:          https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerScope[xDhcpServerScope]
+:ref_DhcpServerExclusionRange:  https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerExclusionRange[DhcpServerExclusionRange]
+:ref_xDhcpServerReservation:    https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerReservation[xDhcpServerReservation]
+:ref_DhcpServerOptionValue:     https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
+:ref_xDhcpServerAuthorization:  https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServer
 | DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | {ref_xDhcpServerScope},
-                   {ref_DhcpServerExclusionRange},
-                   {ref_xDhcpServerReservation},
-                   {ref_DhcpServerOptionValue},
-                   {ref_xDhcpServerAuthorization},
+| Documentation  | - {ref_xDhcpServerScope}
+                   - {ref_DhcpServerExclusionRange}
+                   - {ref_xDhcpServerReservation}
+                   - {ref_DhcpServerOptionValue}
+                   - {ref_xDhcpServerAuthorization}
 |===
 
 
@@ -70,11 +68,9 @@
 | [[dscyml_dhcpserver_authorization, {YmlCategory}/Authorization]]<<dscyml_dhcpserver_authorization_details, Authorization>>
 |
 | Hashtable
-| {ref_xDhcpServerAuthorization} authorizes a DHCP in Active Directory. +
-[IMPORTANT]
-====
-This resource must run on an Active Directory domain controller.
-====
+| {ref_xDhcpServerAuthorization} authorizes a DHCP in Active Directory.
+
+*This resource must run on an Active Directory domain controller.*
 |
 
 | EnableSecurityGroups

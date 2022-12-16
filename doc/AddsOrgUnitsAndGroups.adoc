@@ -3,12 +3,10 @@
 
 :YmlCategory: AddsOrgUnitsAndGroups
 
-
-[[dscyml_addsorgunitsandgroups, {YmlCategory}]]
-= DSC Resource 'AddsOrgUnitsAndGroups'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} adds Groups and Organizational Units to an existing domain.
+
+[#dscyml_addsorgunitsandgroups]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addsorgunitsandgroups_abstract, {abstract}]]
 {abstract}
@@ -121,7 +119,7 @@
 | String
 | Location of the group within Active Directory expressed as a Distinguished Name (DN). +
 
-NOTE: The <<dscyml_addsorgunitsandgroups_domaindn>> is appended automatically for `DomainLocal` and `Global` group scopes.
+The <<dscyml_addsorgunitsandgroups_domaindn>> is appended automatically for `DomainLocal` and `Global` group scopes.
 |
 
 | Ensure

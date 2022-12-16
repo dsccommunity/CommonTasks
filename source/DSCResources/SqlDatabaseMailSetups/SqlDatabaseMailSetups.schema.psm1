@@ -25,7 +25,7 @@ configuration SqlDatabaseMailSetups {
           TcpPort: 25 [String]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlDatabaseMail
 
     foreach ($setup in $MailSetups)
     {

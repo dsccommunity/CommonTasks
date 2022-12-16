@@ -3,12 +3,10 @@
 
 :YmlCategory: CertificateImports
 
-
-[[dscyml_certificateimports, {YmlCategory}]]
-= DSC Resource 'CertificateImports'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:   {YmlCategory} is used to import a certificate into a Windows certificate store.
+
+[#dscyml_certificateimports]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateimports_abstract, {abstract}]]
 {abstract}
@@ -16,7 +14,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
 | DSC Resource   | https://github.com/dsccommunity/CertificateDsc[CertificateDsc]
 | Documentation  | https://github.com/dsccommunity/CertificateDsc/wiki/CertificateImport[CertificateImport],
                    https://github.com/dsccommunity/CertificateDsc/wiki/PfxImport[PfxImport]

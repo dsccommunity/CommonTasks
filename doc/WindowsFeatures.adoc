@@ -1,24 +1,24 @@
 // CommonTasks YAML Reference: WindowsFeatures
-// ========================================
+// ===========================================
 
 :YmlCategory: WindowsFeatures
 
+:abstract:    {YmlCategory} installs Windows Features on a Windows Server OS.
 
-[[dscyml_windowsfeatures, {YmlCategory}]]
-= DSC Resource 'WindowsFeatures'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_windowsfeatures]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_windowsfeatures_abstract]]
-.{YmlCategory} installs Windows Features on a Windows Server OS.
+[[dscyml_windowsfeatures_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsFeatures
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsfeatureresource?view=powershell-5.1[WindowsFeature]
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsfeatureresource[WindowsFeature]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -32,7 +32,9 @@
 | Names
 | Mandatory
 | string
-| Indicates the name of the role or feature that you want to ensure is added or removed. This is the same as the Name property from the Get-WindowsFeature cmdlet, and not the display name of the role or feature.
+| Indicates the name of the role or feature that you want to ensure is added or removed.
+
+This is the same as the Name property from the Get-WindowsFeature cmdlet, and not the display name of the role or feature.
 | [+ \| -]<name>
 
 |===

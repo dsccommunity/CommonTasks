@@ -3,12 +3,10 @@
 
 :YmlCategory: AddsDomain
 
+:abstract:    {YmlCategory} creates a new domain in a new forest or a child domain in an existing forest.
 
-[[dscyml_addsdomain, {YmlCategory}]]
-= DSC Resource 'AddsDomain'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
-:abstract:   {YmlCategory} creates a new domain in a new forest or a child domain in an existing forest.
+[#dscyml_addsdomain]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addsdomain_abstract, {abstract}]]
 {abstract}
@@ -18,9 +16,9 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsDomain
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
-| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomain[ADDomain],
-                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADOptionalFeature[ADOptionalFeature],
-                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust]
+| Documentation  | - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomain[ADDomain]
+                   - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADOptionalFeature[ADOptionalFeature]
+                   - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust]
 |===
 
 
@@ -41,7 +39,7 @@
 |
 
 | [[dscyml_addsdomain_domainname, AddsDomain/DomainName]]DomainName
-| Mandatory
+| Key
 | String
 | NetBIOS name for the new domain.
 |
@@ -103,11 +101,9 @@
 |
 | Boolean
 | Force reboot before creating the new AD domain. +
-[NOTE]
-====
+
 Only one reboot after first start of a DSC configuration is supported. +
 To re-enable the system reboot feature the registry key value `RebootBefore_ADDomain` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - *False* (default)
   - True
 
@@ -138,7 +134,7 @@ To re-enable the system reboot feature the registry key value `RebootBefore_ADDo
 
 | Credential
 | Mandatory
-| pscredential
+| PSCredential
 | Specifies the credentials to authenticate to the target domain.
 |
 

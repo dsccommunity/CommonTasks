@@ -18,7 +18,7 @@ configuration SqlAgentOperators {
           EmailAddress: 'dbateam@company.com' [string]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAgentOperator
 
     foreach ($operator in $AgentOperators)
     {

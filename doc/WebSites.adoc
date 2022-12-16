@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: WebSites
-// ========================================
+// ====================================
 
 :YmlCategory: WebSites
 
+:abstract:    {YmlCategory} is used to manage IIS web sites.
 
-[[dscyml_websites, {YmlCategory}]]
-= DSC Resource 'WebSites'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_websites]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_websites_abstract]]
-.{YmlCategory} module is used to manage ISS web sites.
+[[dscyml_websites_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -224,7 +223,7 @@ The value must be a valid integer between 1048576 (1MB) and 4294967295 (4GB).
 |
 | Format of the Logfiles.
 
-NOTE: Only `W3C` supports `LogFlags`.
+Only `W3C` supports `LogFlags`.
 | - IIS
   - W3C
   - NCSA

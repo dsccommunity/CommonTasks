@@ -1,0 +1,82 @@
+// CommonTasks YAML Reference: RemoteDesktopCollections
+// ====================================================
+
+:YmlCategory: RemoteDesktopCollections
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_remotedesktopcollections]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktopcollections_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopCollections
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDSessionCollection[xRDSessionCollection]
+                   - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDSessionCollectionConfiguration[xRDSessionCollectionConfiguration]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_remotedesktopcollections_collections, {YmlCategory}/Collections]]<<dscyml_remotedesktopcollections_collections_details, Collections>>
+| Mandatory
+| Hashtable[]
+| set of remote desktop collections
+|
+
+|===
+
+
+[[dscyml_remotedesktopcollections_collections_details]]
+.Attributes of category '<<dscyml_remotedesktopcollections_collections>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopCollections:
+  Collections:
+    - CollectionName: My first Collection
+      SessionHost:
+        - SH1
+        - SH2
+      CollectionDescription: This is my super awesome collection
+      ConnectionBroker: CB1
+    - CollectionName: My second Collection
+      SessionHost:
+        - SH1
+        - SH2
+      CollectionDescription: This is my super awesome collection number 2
+      ConnectionBroker: CB1
+      Settings:
+        ActiveSessionLimitMin : 10
+        AuthenticateUsingNLA: true
+        AutomaticReconnectionEnabled: true
+----

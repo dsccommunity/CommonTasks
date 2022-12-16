@@ -1,0 +1,153 @@
+// CommonTasks YAML Reference: DhcpScopes
+// ======================================
+
+:YmlCategory: DhcpScopes
+
+:abstract: {YmlCategory} is used to manage IP address scopes.
+
+[#dscyml_dhcpscopes]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dhcpscopes_abstract, {abstract}]]
+{abstract}
+
+An IP-address scope is a consecutive range of possible IP addresses that the DHCP server can lease to clients on a subnet.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopes
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | - https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerScope[xDhcpServerScope]
+                   - https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dhcpscopes_scopes, {YmlCategory}/Scopes]]<<dscyml_dhcpscopes_scopes_details, Scopes>>
+|
+| Hashtable[]
+| Set of IP address scopes.
+|
+
+| DomainCredential
+|
+| PSCredential
+| Credentials to authorizes a DHCP in Active Directory.
+
+*This resource must run on an Active Directory domain controller.*
+|
+
+|===
+
+
+[[dscyml_dhcpscopes_scopes_details]]
+.Attributes of category '<<dscyml_dhcpscopes_scopes>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+
+| ScopeId
+| Key
+| String
+| Scope Identifier of the DHCP scope
+|
+
+| Name
+|
+| String
+| Name of this DHCP Scope
+|
+
+| SubnetMask
+|
+| String
+| Subnet mask for the scope specified in IP address format
+|
+
+| IPStartRange
+|
+| String
+| Starting address to set for this scope
+|
+
+| IPEndRange
+|
+| String
+| Ending address to set for this scope
+|
+
+| Description
+|
+| String
+| Description of DHCP Scope
+|
+
+| LeaseDuration
+|
+| String
+| Time interval for which an IP address should be leased.
+
+This should be specified in the following format: `Days.Hours:Minutes:Seconds` +
+For example, `'02.00:00:00'` is 2 days and `'08:00:00'` is 8 hours.
+|
+
+| State
+|
+| String
+| Whether scope should be active or inactive
+| - Active
+  - Inactive
+
+| AddressFamily
+|
+| String
+| Address family type
+| - IPv4
+
+| Ensure
+|
+| String
+| Whether DHCP scope should be present or removed
+| - Present
+  - Removed
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DhcpScopes:
+  Scopes:
+    - ScopeId: 192.169.1.0
+      IPStartRange: 192.169.1.1
+      IPEndRange: 192.169.1.254
+      Name: Client1
+      SubnetMask: 255.255.255.0
+      LeaseDuration: 08:00:00
+      State: Active
+      AddressFamily: IPv4
+    - ScopeId: 192.169.2.0
+      IPStartRange: 192.169.2.1
+      IPEndRange: 192.169.2.254
+      Name: Client2
+      SubnetMask: 255.255.255.0
+      LeaseDuration: 08:00:00
+      State: Active
+      AddressFamily: IPv4
+  DomainCredential: '[ENC=PE9ianMgVmVy...=]'
+----

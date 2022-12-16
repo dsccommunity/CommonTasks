@@ -30,7 +30,7 @@ configuration SqlAGReplicas {
     [ReadOnlyRoutingList = [string[]]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAGReplica
 
     foreach ($value in $Values)
     {

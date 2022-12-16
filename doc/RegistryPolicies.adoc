@@ -3,22 +3,21 @@
 
 :YmlCategory: RegistryPolicies
 
+:abstract:    {YmlCategory} is used to apply and manage local group policies by modifying the respective .pol file.
 
-[[dscyml_registrypolicies, {YmlCategory}]]
-= DSC Resource 'RegistryPolicies'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_registrypolicies]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_registrypolicies_abstract]]
-.{YmlCategory} is used to apply and manage local group policies by modifying the respective .pol file.
+[[dscyml_registrypolicies_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RegistryPolicies
 | DSC Resource   | https://github.com/dsccommunity/GPRegistryPolicyDsc[GPRegistryPolicyDsc]
-| Documentation  | https://github.com/dsccommunity/GPRegistryPolicyDsc#RegistryPolicyFile[RegistryPolicyFile],
-                   https://github.com/dsccommunity/GPRegistryPolicyDsc#RefreshRegistryPolicy[RefreshRegistryPolicy]
+| Documentation  | - https://github.com/dsccommunity/GPRegistryPolicyDsc#RegistryPolicyFile[RegistryPolicyFile]
+                   - https://github.com/dsccommunity/GPRegistryPolicyDsc#RefreshRegistryPolicy[RefreshRegistryPolicy]
                   
 |===
 

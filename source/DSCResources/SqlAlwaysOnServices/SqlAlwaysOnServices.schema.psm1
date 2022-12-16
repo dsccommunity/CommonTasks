@@ -17,7 +17,7 @@ configuration SqlAlwaysOnServices {
         $Ensure
     )
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAlwaysOnService
 
     if (-not $PSBoundParameters.ContainsKey('Ensure'))
     {

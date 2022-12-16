@@ -1,0 +1,142 @@
+// CommonTasks YAML Reference: DhcpScopeOptions
+// ============================================
+
+:YmlCategory: DhcpScopeOptions
+
+:abstract: {YmlCategory} is used to manage option values on scope level.
+
+[#dscyml_dhcpscopeoptions]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dhcpscopeoptions_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/DhcpScopeOptionValue[DhcpScopeOptionValue]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dhcpserverdhcpscopeoptions_scopeoptions, {YmlCategory}/ScopeOptions]]<<dscyml_dhcpscopeoptions_scopeoptions_details, ScopeOptions>>
+|
+| Hashtable[]
+| Set of option values on scope level.
+|
+
+|===
+
+
+[[dscyml_dhcpscopeoptions_scopeoptions_details]]
+.Attributes of category '<<dscyml_dhcpserverdhcpscopeoptions_scopeoptions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ScopeId
+| Key
+| String
+| Scope ID to set the option.
+|
+
+| OptionId
+| Key
+| UInt32
+| Option ID, specify an integer between 1 and 255.
+| [1, 255]
+
+| VendorClass
+| Key
+| String
+| Vendor class.
+
+Use an empty string for default vendor class.
+|
+
+| UserClass
+| Key
+| String
+| User class.
+
+Use an empty string for default user class.
+|
+
+| AddressFamily
+| Key
+| String
+| Sets the address family for the option definition.
+
+Currently only IPv4 is supported.
+| - IPv4
+
+| Value
+|
+| String[]
+| Option data value.
+
+Could be an array of string for a multi-valued option.
+|
+
+| Ensure
+|
+| String
+| Whether option should be set or removed.
+| - Present
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DhcpScopeOptions:
+  ScopeOptions:
+    - ScopeId: 192.169.1.0
+      OptionId: 6
+      AddressFamily: IPv4    
+      UserClass: ''
+      VendorClass: ''
+      Value:
+        - 192.168.10.10
+        - 192.168.10.11
+    - ScopeId: 192.169.1.0
+      OptionId: 60
+      Value: Support
+      AddressFamily: IPv4
+      VendorClass: ''
+      UserClass: ''
+    - ScopeId: 192.169.1.0
+      OptionId: 66
+      Value: 192.168.50.222
+      AddressFamily: IPv4
+      VendorClass: ''
+      UserClass: ''
+    - ScopeId: 192.169.1.0
+      OptionId: 67
+      Value: DCMgr\Boot\Windows\wdsnbp.com
+      AddressFamily: IPv4
+      VendorClass: ''
+      UserClass: ''
+    - ScopeId: 192.169.1.0
+      OptionId: 3
+      Value: 192.169.1.254
+      AddressFamily: IPv4
+      VendorClass: ''
+      UserClass: ''
+----

@@ -22,7 +22,7 @@ configuration SqlDatabases {
     [ServerName = [string]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlDatabase
 
     foreach ($value in $Values)
     {

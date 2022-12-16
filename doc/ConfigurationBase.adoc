@@ -1,0 +1,48 @@
+// CommonTasks YAML Reference: ConfigurationBase
+// =============================================
+
+:YmlCategory: ConfigurationBase
+
+:abstract:    {YmlCategory} enables RDP.
+
+[#dscyml_configurationbase, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+
+[[dscyml_configurationbase_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationBase
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#resources[xPSDesiredStateConfiguration]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SystemType
+|
+| string
+| Reserved
+| - `Baseline`
+  - `WebServer`
+  - `FileServer`
+|===
+
+
+.Example
+[source, yaml]
+----
+ConfigurationBase:
+  SystemType: Baseline
+----

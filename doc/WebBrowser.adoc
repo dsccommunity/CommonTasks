@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: WebBrowser
-// ========================================
+// ======================================
 
 :YmlCategory: WebBrowser
 
+:abstract:    {YmlCategory} is used setup global WebBrowser settings.
 
-[[dscyml_webbrowser, {YmlCategory}]]
-= DSC Resource 'WebBrowser'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_webbrowser]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_webbrowser_abstract]]
-.{YmlCategory} module is used setup global WebBrowser settings.
+[[dscyml_webbrowser_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

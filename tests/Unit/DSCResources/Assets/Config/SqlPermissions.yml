@@ -1,13 +1,38 @@
 Values:
-  - Principal: NT SERVICE\ClusSvc
+  - Name: NT SERVICE\ClusSvc$
     InstanceName: MSSQLSERVER
     Permission:
-      - AlterAnyAvailabilityGroup
-      - ViewServerState
-  - Principal: contoso\dbadmin
+      Grant:
+        - AlterAnyAvailabilityGroup
+        - ViewServerState
+        - ConnectSql
+      GrantWithGrant:
+        - ViewServerState
+        - ConnectSql
+  - Name: contoso\dbadmin
     InstanceName: MSSQLSERVER
+    ServerName: localhost
     Permission:
-      - AlterAnyAvailabilityGroup
-      - ViewServerState
-      - AlterAnyEndPoint
-      - ConnectSql
+      Grant:
+        - AlterAnyEndPoint
+      GrantWithGrant:
+        - ViewServerState
+        - ConnectSql
+      Deny:
+        - AlterAnyAvailabilityGroup
+    PermissionToInclude:
+      Grant:
+        - AlterAnyEndPoint
+      GrantWithGrant:
+        - ViewServerState
+        - ConnectSql
+      Deny:
+        - AlterAnyAvailabilityGroup
+    PermissionToExclude:
+      Grant:
+        - AlterAnyEndPoint
+      GrantWithGrant:
+        - ViewServerState
+        - ConnectSql
+      Deny:
+        - AlterAnyAvailabilityGroup

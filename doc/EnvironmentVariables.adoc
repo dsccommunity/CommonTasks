@@ -1,0 +1,104 @@
+// CommonTasks YAML Reference: EnvironmentVariables
+// ================================================
+
+:YmlCategory: EnvironmentVariables
+
+:abstract: {YmlCategory} is used to configure and manage environment variables for a machine or process.
+
+[#dscyml_environmentvariables]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_environmentvariables_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/EnvironmentVariables
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#resources[xEnvironment]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_environmentvariables_variables, {YmlCategory}/Variables]]<<dscyml_environmentvariables_variables_details, Variables>>
+|
+| Hashtable[]
+| Set of environment variables.
+|
+
+|===
+
+
+[[dscyml_environmentvariables_variables_details]]
+.Attributes of category '<<dscyml_environmentvariables_variables>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the environment variable for which you want to ensure a specific state.
+|
+
+| Value
+|
+| String
+| The desired value for the environment variable. 
+
+The default value is an empty string which either indicates that the variable should be removed entirely or that the value does not matter when testing its existence.
+Multiple entries can be entered and separated by semicolons.
+|
+
+| Ensure
+|
+| String
+| Specifies if the environment variable should exist.
+| - *Present* (default)
+  - Absent
+
+| Path
+|
+| Boolean
+| Indicates whether or not the environment variable is a path variable.
+
+If the variable being configured is a path variable, the value provided will be appended to or removed from the existing value, otherwise the existing value will be replaced by the new value.
+When configured as a Path variable, multiple entries separated by semicolons are ensured to be either present or absent without affecting other Path entries.
+| - True
+  - False
+
+| Target
+|
+| String[]
+| Indicates the target where the environment variable should be set.
+| - Process
+  - Machine
+
+|===
+
+
+.Example
+[source, yaml]
+----
+EnvironmentVariables:
+  Variables:
+    - Name: var1
+      Target: Machine
+      Value: 123
+    - Name: var2
+      Target: Machine
+      Value: 456
+----

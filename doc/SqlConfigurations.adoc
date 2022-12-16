@@ -3,27 +3,26 @@
 
 :YmlCategory: SqlConfigurations
 
+:abstract:    {YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
 
-[[dscyml_sqlconfigurations, {YmlCategory}]]
-= DSC Resource 'SqlConfigurations'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqlconfigurations]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_sqlconfigurations_abstract]]
-.{YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+[[dscyml_sqlconfigurations_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                             https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqlconfiguration:                 https://github.com/dsccommunity/SqlServerDsc/wiki/SqlConfiguration[SqlConfiguration]
+:ref_sqlserverdsc_wiki:                https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlconfiguration:    https://github.com/dsccommunity/SqlServerDsc/wiki/SqlConfiguration[SqlConfiguration]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlConfigurations
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlconfiguration}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlconfiguration}
                    
 |===
 
@@ -79,8 +78,9 @@ If not specified the value of `DefaultInstanceName` is used as default.
 | OptionName
 | Key
 | String
-| The name of the SQL Server Database Engine instance configuration option. +
-  For all possible values reference the article https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/server-configuration-options-sql-server[Server Configuration Options (SQL Server)] or run `sp_configure`.	
+| The name of the SQL Server Database Engine instance configuration option.
+
+For all possible values reference the article https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/server-configuration-options-sql-server[Server Configuration Options (SQL Server)] or run `sp_configure`.	
 |
 
 | OptionValue

@@ -3,14 +3,13 @@
 
 :YmlCategory: HostsFileEntries
 
+:abstract:    {YmlCategory} is used to control entries on a the host file for a node.
 
-[[dscyml_hostsfileentries, {YmlCategory}]]
-= DSC Resource 'HostsFileEntries'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_hostsfileentries]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_hostsfileentries_abstract]]
-.{YmlCategory} is used to control entries on a the host file for a node.
+[[dscyml_hostsfileentries_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

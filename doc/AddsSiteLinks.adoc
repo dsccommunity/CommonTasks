@@ -1,0 +1,136 @@
+// CommonTasks YAML Reference: AddsSiteLinks
+// =========================================
+
+:YmlCategory: AddsSiteLinks
+
+:abstract:    {YmlCategory} will manage Replication Site Links within Active Directory.
+
+[#dscyml_addssitelinks]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_addssitelinks_abstract, {abstract}]]
+{abstract}
+
+ A site link connects two or more sites.
+ Site links reflect the administrative policy for how sites are to be interconnected and the methods used to transfer replication traffic.
+ You must connect sites with site links so that domain controllers at each site can replicate Active Directory changes.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsSiteLinks
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADReplicationSiteLink[ADReplicationSiteLink]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_addssitelinks_sitelinks, {YmlCategory}/SiteLinks]]<<dscyml_addssitelinks_sitelinks_details, SiteLinks>>
+| Mandatory
+| Hashtable[]
+| The list of site links to configure.
+|
+
+|===
+
+
+[[dscyml_addssitelinks_sitelinks_details]]
+.Attributes of DSC Resource '<<dscyml_addssitelinks_sitelinks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| Specifies the name of the site link.
+|
+
+| Cost
+|
+| SInt32
+| Specifies the cost to be placed on the site link
+|
+
+| Description
+|
+| String
+| This parameter sets the value of the Description property for the object.
+|
+
+| ReplicationFrequencyInMinutes
+|
+| SInt32
+| Species the frequency (in minutes) for which replication will occur where this site link is in use between sites.
+|
+
+| SitesIncluded
+|
+| String[]
+| Specifies the list of sites included in the site link.
+|
+
+| SitesExcluded
+|
+| String[]
+| Specifies the list of sites to exclude from the site link.
+|
+
+| OptionChangeNotification
+|
+| Boolean
+| Enables or disables Change Notification Replication on a site link.
+| - True
+  - *False* (default)
+
+| OptionTwoWaySync
+|
+| Boolean
+| Enables or disables Two Way Sync on a site link.
+| - True
+  - *False* (default)
+
+| OptionDisableCompression
+|
+| Boolean
+| Enables or disables Compression on a site link.
+| - True
+  - *False* (default)
+
+| Ensure
+| 
+| String
+| Specifies if the site link should be present or absent.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsSiteLinks:
+  SiteLinks:
+    - Name: Link1
+      SitesIncluded:
+      - Site1
+      - Site2
+      Cost: 100
+      ReplicationFrequencyInMinutes: 15
+      OptionChangeNotification: true
+    - Name: DEFAULTIPSITELINK
+      Ensure: Absent
+----

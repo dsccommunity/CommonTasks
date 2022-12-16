@@ -1,29 +1,28 @@
 // CommonTasks YAML Reference: SqlAliases
-// =============================================
+// ======================================
 
 :YmlCategory: SqlAliases
 
+:abstract:    {YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
 
-[[dscyml_sqlaliases, {YmlCategory}]]
-= DSC Resource 'SqlAliases'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqlaliases]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_sqlaliases_abstract]]
-.{YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+[[dscyml_sqlaliases_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                     https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqlalias:                 https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAlias[SqlAlias]
+:ref_sqlserverdsc_wiki:        https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlalias:    https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAlias[SqlAlias]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAliases
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlalias}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlalias}
                    
 |===
 
@@ -32,6 +31,7 @@
 
 - Target machine must be running Windows Server 2012 or later.
 - Target machine must be running SQL Server Database Engine 2012 or later.
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -42,7 +42,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_SqlAliases_Values, {YmlCategory}/Values]]<<dscyml_SqlAliases_Values_Details, Values>>
+| [[dscyml_sqlaliases_values, {YmlCategory}/Values]]<<dscyml_sqlaliases_values_details, Values>>
 | Mandatory
 | Hashtable[]
 | List of SQL aliases.
@@ -50,8 +50,9 @@
 
 |===
 
-[[dscyml_SqlAliases_Values_Details]]
-.Attributes of category '{YmlCategory}'
+
+[[dscyml_sqlaliases_values_details]]
+.Attributes of category '<<dscyml_sqlaliases_values>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -63,43 +64,54 @@
 | Name
 | Key
 | String
-| The name of Alias (e.g. `'svr01\inst01'`).
+| The name of Alias (e.g. `svr01\inst01`).
 |
 
 | Protocol
 |
 | String
-| Protocol to use when connecting. Valid values are `'TCP'` (TCP/IP) or `'NP'` (Named Pipes). Default value is `'TCP'`.
-| `'TCP'`, `'NP'`
+| Protocol to use when connecting.
+
+Valid values are `TCP` (TCP/IP) or `NP` (Named Pipes).
+| - *TCP* (default)
+  - NP
 
 | ServerName
 |
 | String
-| The _SQL Server_ you are aliasing. This should be set to the NetBIOS name or fully qualified domain name (FQDN).
+| The _SQL Server_ you are aliasing.
+
+This should be set to the NetBIOS name or fully qualified domain name (FQDN).
 |
 
 | TcpPort
 |
 | UInt16
-| The TCP port the _SQL Server_ instance is listening on. Only used when Protocol is set to `'TCP'`. Default value is port `1433`.
-|
+| The TCP port the _SQL Server_ instance is listening on.
+
+Only used when Protocol is set to `TCP`.
+| Default: `1433`
 
 | UseDynamicTcpPort
 |
 | Bool
-| Specifies that the Net-Library will determine the port dynamically. The port number specified in *Port* will be ignored. Default value is `$false`.
-|
+| Specifies that the Net-Library will determine the port dynamically.
+
+The port number specified in *Port* will be ignored.
+| - True
+  - *False* (default)
 
 | Enure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
-| `Present`, `Absent`
+| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| - *Present* (default)
+  - Absent
 
 | PipeName
 |
 | String
-| Returns the Named Pipes path if Protocol is set to `'NP'`.
+| Returns the Named Pipes path if Protocol is set to `NP`.
 |
 
 |===

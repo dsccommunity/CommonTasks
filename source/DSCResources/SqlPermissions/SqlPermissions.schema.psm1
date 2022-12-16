@@ -9,17 +9,61 @@ configuration SqlPermissions {
         $Values
     )
 
-    <#
-    InstanceName = [string]
-    Principal = [string]
-    [DependsOn = [string[]]]
-    [Ensure = [string]{ Absent | Present }]
-    [Permission = [string[]]{ AlterAnyAvailabilityGroup | AlterAnyEndPoint | ConnectSql | ViewServerState }]
-    [PsDscRunAsCredential = [PSCredential]]
-    [ServerName = [string]]
-    #>
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlPermission, ServerPermission
 
-    Import-DscResource -ModuleName SqlServerDsc
+    function Get-Permission
+    {
+        param (
+            [Parameter()]
+            [hashtable]
+            $permissionValues
+        )
+    
+        $permission = $null
+
+        if ($null -ne $permissionValues)
+        {
+            $grant = @()
+            $grantWithGrant = @()
+            $deny = @()
+            
+            if ($permissionValues.Grant)
+            {
+                $grant += $permissionValues.Grant
+            }
+
+            if ($permissionValues.GrantWithGrant)
+            {
+                $grantWithGrant += $permissionValues.GrantWithGrant
+            }
+            
+            if ($permissionValues.Deny)
+            {
+                $deny += $permissionValues.Deny
+            }
+
+            $permission = @(
+                ServerPermission
+                {
+                    State      = 'Grant'
+                    Permission = $grant
+                }
+                ServerPermission
+                {
+                    State      = 'GrantWithGrant'
+                    Permission = $grantWithGrant
+                }
+                ServerPermission
+                {
+                    State      = 'Deny'
+                    Permission = $deny
+                }
+            )   
+        }
+
+        return $permission
+    }
+
 
     foreach ($value in $Values)
     {
@@ -28,12 +72,24 @@ configuration SqlPermissions {
             $value.InstanceName = $DefaultInstanceName
         }
 
-        if (-not $value.Ensure)
-        {
-            $value.Ensure = 'Present'
-        }
+        # Refactored permissions with SqlServerDsc 16.0.0
+        # see https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission
 
-        $executionName = "$($value.InstanceName)_$($value.Principal -replace ' ','')"
-        (Get-DscSplattedResource -ResourceName SqlPermission -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
+        $permission          = Get-Permission( $value.Permission )
+        $permissionToInclude = Get-Permission( $value.PermissionToInclude )
+        $permissionToExclude = Get-Permission( $value.PermissionToExclude )
+
+        $executionName = "$($value.InstanceName)_$($value.Name)" -replace '[().:\s]', '_'
+
+        SqlPermission $executionName
+        {
+            InstanceName         = $value.InstanceName
+            Name                 = $value.Name 
+            ServerName           = $value.ServerName
+            Credential           = $value.Credential
+            Permission           = $permission
+            PermissionToInclude  = $permissionToInclude
+            PermissionToExclude  = $permissionToExclude
+        }
     }
 }

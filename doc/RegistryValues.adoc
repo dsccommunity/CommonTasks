@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: RegistryValues
-// ========================================
+// ==========================================
 
 :YmlCategory: RegistryValues
 
+:abstract:    {YmlCategory} provides a mechanism to manage registry keys and values on a target node.
 
-[[dscyml_registryvalues, {YmlCategory}]]
-= DSC Resource 'RegistryValues'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_registryvalues]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_registryvalues_abstract]]
-.{YmlCategory} provides a mechanism to manage registry keys and values on a target node.
+[[dscyml_registryvalues_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -19,6 +18,7 @@
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xregistry[xRegistry]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -36,6 +36,7 @@
 |
 
 |===
+
 
 [[dscyml_RegistryValues_Values_details]]
 .Attributes of category '<<dscyml_RegistryValues_Values>>'

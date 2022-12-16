@@ -1,23 +1,23 @@
 // CommonTasks YAML Reference: FirewallRules
-// ========================================
+// =========================================
 
 :YmlCategory: FirewallRules
 
+:abstract:  {YmlCategory} sets a node's firewall rules.
 
-[[dscyml_firewallrules, {YmlCategory}]]
-= DSC Resource 'FirewallRules'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_firewallrules]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_firewallrules_abstract]]
-.{YmlCategory} sets a node's firewall rules.
+[[dscyml_firewallrules_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FirewallRules
-| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
-                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| DSC Resource   | - https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+                   - https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
 | Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
 |===
 

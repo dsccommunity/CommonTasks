@@ -3,12 +3,10 @@
 
 :YmlCategory: AddsProtectFromAccidentalDeletion
 
-
-[[dscyml_addsprotectfromaccidentaldeletion, {YmlCategory}]]
-= DSC Resource 'AddsProtectFromAccidentalDeletion'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} prevents AD objects from being deleted.
+
+[#dscyml_addsprotectfromaccidentaldeletion]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addsprotectfromaccidentaldeletion_abstract, {abstract}]]
 {abstract}

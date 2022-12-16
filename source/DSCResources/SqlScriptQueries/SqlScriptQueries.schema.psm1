@@ -24,7 +24,7 @@ configuration SqlScriptQueries {
     #>
     #Hashing Queries for unique Execution/Resourcename
     $HashClass = New-Object System.Security.Cryptography.SHA1Managed
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlScriptQuery
 
     foreach ($query in $Queries)
     {

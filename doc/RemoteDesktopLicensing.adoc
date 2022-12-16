@@ -1,0 +1,48 @@
+// CommonTasks YAML Reference: RemoteDesktopLicensing
+// ===================================================
+
+:YmlCategory: RemoteDesktopLicensing
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_remotedesktoplicensing]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktoplicensing_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopLicensing
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDServer[xRDServer]
+                   - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDLicenseConfiguration[xRDLicenseConfiguration]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopLicensing:
+  ConnectionBroker : CB1
+  LicenseMode: PerUser
+----

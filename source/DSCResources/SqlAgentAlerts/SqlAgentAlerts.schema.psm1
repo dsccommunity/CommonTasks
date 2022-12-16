@@ -22,7 +22,7 @@ configuration SqlAgentAlerts {
           MessageId: '825'
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAgentAlert
 
     foreach ($alert in $Alerts)
     {

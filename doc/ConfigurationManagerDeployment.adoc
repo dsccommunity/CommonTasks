@@ -1,0 +1,169 @@
+// CommonTasks YAML Reference: ConfigurationManagerDeployment
+// ==========================================================
+
+:YmlCategory: ConfigurationManagerDeployment
+
+:abstract:   {YmlCategory} is used to ###TBD###.
+
+[#dscyml_configurationmanagerdeployment]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_configurationmanagerdeployment_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationManagerDeployment
+| DSC Resource   | - https://github.com/dsccommunity/ConfigMgrCBDsc[ConfigMgrCBDsc]
+                   - https://github.com/dsccommunity/UpdateServicesDsc[UpdateServicesDsc]
+| Documentation  | - https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMIniFile]
+                   - https://github.com/dsccommunity/ConfigMgrCBDsc#xsccminstall[xSccmInstall]
+                   - https://github.com/dsccommunity/ConfigMgrCBDsc#xsccmprereqs[xSccmPreReqs]
+                   - https://github.com/dsccommunity/UpdateServicesDsc#details[UpdateServicesServer]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SiteName
+|
+| String
+|
+|
+
+| SiteCode
+|
+| String
+|
+|
+
+| DomainCredential
+| Mandatory
+| PSCredential
+|
+|
+
+| SccmInstallAccount
+| Mandatory
+| PSCredential
+|
+|
+
+| SqlServerName
+|
+| String
+|
+|
+
+| DatabaseInstance
+|
+| String
+|
+|
+
+| ConfigMgrVersion
+|
+| Nullable[UInt32]
+|
+|
+
+| AdkSetupExePath
+| Mandatory
+| String
+|
+|
+
+| AdkWinPeSetupPath
+| Mandatory
+| String
+|
+|
+
+| MdtMsiPath
+| Mandatory
+| String
+|
+|
+
+| ConfigManagerSetupPath
+| Mandatory
+| String
+|
+|
+
+| ConfigManagerPath
+|
+| String
+|
+| Default: 'C:\Apps\Microsoft Configuration Manager'
+
+| Roles
+|
+| String[]
+|
+| Default: 'CASorSiteServer', 'ManagementPoint', 'DistributionPoint', 'SoftwareUpdatePoint'
+
+| LocalAdministrators
+|
+| String[]
+|
+| Default: 'contoso\SCCM-Servers', 'contoso\SCCM-CMInstall', 'contoso\Admin'
+
+| AdkInstallPath
+|
+| String
+|
+| Default: 'C:\Apps\ADK'
+
+| WsusContentPath
+|
+| String
+|
+| Default: 'C:\Apps\WSUS'
+
+| MdtInstallPath
+|
+| String
+|
+| Default: 'C:\Apps\MDT'
+
+| ProductKey
+|
+| String
+|
+| Default: 'eval'
+
+| InstallWindowsFeatures
+|
+| Boolean
+|
+| - True
+  - *False* (default)
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ConfigurationManagerDeployment:
+  SiteName: S00
+  SiteCode: S00
+  DomainCredential: "[ENC=PE9ianMgVmVyc...=]"
+  SccmInstallAccount: "[ENC=PE9ianMgVmVyc...=]"
+  SqlServerName: DB01
+  DatabaseInstance: Inst00
+  ConfigMgrVersion: 2010
+  AdkSetupExePath: C:\Temp\adksetup.exe
+  AdkWinPeSetupPath: C:\temp\adkpesetup.exe
+  MdtMsiPath: C:\temp\mdt.msi
+  ConfigManagerSetupPath: C:\temp\confmgr
+----

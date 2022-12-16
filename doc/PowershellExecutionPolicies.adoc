@@ -1,0 +1,83 @@
+// CommonTasks YAML Reference: PowershellExecutionPolicies
+// =======================================================
+
+:YmlCategory: PowershellExecutionPolicies
+
+:abstract:    {YmlCategory} allows configuration of the PowerShell execution policy for different execution scopes.
+
+[#dscyml_powershellexecutionpolicies]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_powershellexecutionpolicies_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/PowershellExecutionPolicies
+| DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
+| Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/PowerShellExecutionPolicy[PowershellExecutionPolicy]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_powershellexecutionpolicies_policies, {YmlCategory}/Policies]]<<dscyml_powershellexecutionpolicies_policies_details, Policies>>
+| Mandatory
+| Hashtable[]
+| set of Powershell execution policies
+|
+
+|===
+
+
+[[dscyml_powershellexecutionpolicies_policies_details]]
+.Attributes of category '<<dscyml_powershellexecutionpolicies_policies>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ExecutionPolicyScope
+| Key
+| String
+| Defines the scope for the preference of the Windows PowerShell execution policy.
+| - CurrentUser
+  - LocalMachine
+  - MachinePolicy
+  - Process
+  - UserPolicy
+
+| ExecutionPolicy
+| Mandatory
+| String
+| Changes the preference for the Windows PowerShell execution policy.
+| - Bypass
+  - Restricted
+  - AllSigned
+  - RemoteSigned
+  - Unrestricted
+
+|===
+
+
+.Example
+[source, yaml]
+----
+PowershellExecutionPolicies:
+  Policies:
+    - ExecutionPolicyScope: CurrentUser
+      ExecutionPolicy: Unrestricted
+    - ExecutionPolicyScope: LocalMachine
+      ExecutionPolicy: RemoteSigned
+----

@@ -3,14 +3,13 @@
 
 :YmlCategory: SoftwarePackages
 
+:abstract:    {YmlCategory} installs software packages.
 
-[[dscyml_softwarepackages, {YmlCategory}]]
-= DSC Resource 'SoftwarePackages'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_softwarepackages]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_softwarepackages_abstract]]
-.{YmlCategory} installs software packages.
+[[dscyml_softwarepackages_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

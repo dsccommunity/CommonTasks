@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: SqlServer
-// ========================================
+// =====================================
 
 :YmlCategory: SqlServer
 
+:abstract:    {YmlCategory} is used for deployment and configuration of Microsoft SQL Server.
 
-[[dscyml_sqlserver, {YmlCategory}]]
-= DSC Resource 'SqlServer'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqlserver]
+= DSC Resource '{YmlCategory}' 
 
+[[dscyml_sqlserver_abstract, {abstract}]]
+{abstract}
 
-[[dscyml_sqlserver_abstract]]
-.{YmlCategory} is used for deployment and configuration of Microsoft SQL Server.
 
 // reference links as variables for using more than once
 :ref_sqlserverdsc_wiki:                             https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
@@ -23,9 +23,9 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlServer
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlsetup}, 
-                   {ref_sqlserverdsc_sqllogin}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlsetup}
+                   - {ref_sqlserverdsc_sqllogin}
                    
 |===
 
@@ -49,8 +49,9 @@ https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-ac
 | DefaultInstanceName
 |
 | String
-| Default SQL InstanceName +
-  If the `InstanceName` of an option is not explicitly set, the `DefaultInstanceName` will be used.
+| Default SQL InstanceName
+
+If the `InstanceName` of an option is not explicitly set, the `DefaultInstanceName` will be used.
 | Default: `MSSQLSERVER`
 
 | [[dscyml_sqlserver_setup, {YmlCategory}/Setup]]<<dscyml_sqlserver_setup_details, Setup>>
@@ -93,15 +94,17 @@ https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-ac
 | Mandatory
 | String
 | The path to the root of the source files for installation.
-  I.e and UNC path to a shared resource.
-  Environment variables can be used in the path.
+
+I.e and UNC path to a shared resource.
+Environment variables can be used in the path.
 |
 
 | SourceCredential
 |
 | PSCredential
 | Credentials used to access the path set in the parameter <<ref_sqlserver_sourcepath>>.
-  See {ref_sqlserverdsc_sourcecredential_considerations}.
+
+See {ref_sqlserverdsc_sourcecredential_considerations}.
 |
 
 | SuppressReboot
@@ -229,7 +232,8 @@ If not specified the value of `DefaultInstanceName` is used as default.
 |
 | String
 | Security mode to apply to the _SQL Server_ instance.
-  The value `SQL` indicates mixed-mode authentication while the value `Windows` indicates _Windows Authentication_.
+
+The value `SQL` indicates mixed-mode authentication while the value `Windows` indicates _Windows Authentication_.
 | - SQL
   - Windows (default)
 
@@ -348,13 +352,11 @@ If not specified the value of `DefaultInstanceName` is used as default.
 |
 |
 | The server mode for _SQL Server Analysis Services_ instance.
-  The default is to install in Multidimensional mode.
-+
-[IMPORTANT]
-====
-Parameter is case-sensitive.
-All values must be expressed in upper case.
-====
+
+The default is to install in Multidimensional mode.
+
+*Parameter is case-sensitive.*
+*All values must be expressed in upper case.*
 | - MULTIDIMENSIONAL
   - TABULAR
   - POWERPIVOT
@@ -423,8 +425,9 @@ All values must be expressed in upper case.
 |
 | String[]
 | Specifies an array of IP addresses to be assigned to the clustered _SQL Server_ instance.
-  IP addresses must be in https://en.wikipedia.org/wiki/Dot-decimal_notation[dotted-decimal notation], for example `10.0.0.100`.
-  If no IP address is specified, uses `DEFAULT` for this setup parameter.
+
+IP addresses must be in https://en.wikipedia.org/wiki/Dot-decimal_notation[dotted-decimal notation], for example `10.0.0.100`.
+If no IP address is specified, uses `DEFAULT` for this setup parameter.
 |
 
 | FailoverClusterNetworkName
@@ -467,15 +470,18 @@ All values must be expressed in upper case.
 |
 | Boolean
 | Specifies the state of the _Named Pipes_ protocol for the _SQL Server_ service.
-  The value `$true` will enable the _Named Pipes_ protocol and `$false` will disabled it.
-|
+
+The value `True` will enable the _Named Pipes_ protocol and `False` will disabled it.
+| - True
+  - False
 
 | TcpEnabled
 |
 | Boolean
 | Specifies the state of the _TCP_ protocol for the _SQL Server_ service.
-  The value `$true` will enable the _TCP_ protocol and `$false` will disabled it.
-|
+  The value `True` will enable the _TCP_ protocol and `False` will disabled it.
+| - True
+  - False
 
 | SetupProcessTimeout
 |
@@ -496,7 +502,8 @@ All values must be expressed in upper case.
 |
 | Boolean
 | Specifies to install the English version of _SQL Server_ on a localized operating system when the installation media includes language packs for both English and the language corresponding to the operating system.
-|
+| - True
+  - False
 
 | SkipRule
 |
@@ -556,7 +563,7 @@ If not specified the value of `DefaultInstanceName` is used as default.
 
 If LoginType is `WindowsUser` or `WindowsGroup` then provide the name in the format `DOMAIN\name`.
 
-NOTE: The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
+The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGroup` are not yet implemented and will currently throw an exception if used.
 | - *WindowsUser* (default)
   - WindowsGroup
   - SqlLogin
@@ -576,7 +583,7 @@ NOTE: The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `Extern
 | PSCredential
 | Specifies the password. 
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 |
 
 | LoginMustChangePassword
@@ -584,7 +591,7 @@ NOTE: Only applies to _SQL Logins_.
 | Boolean
 | Specifies if the login is required to have its password change on the next login.
 
-NOTE: Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQL Login_ and any attempt to do this will throw an exception.
+Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQL Login_ and any attempt to do this will throw an exception.
 | - *True* (default)
   - False
 
@@ -593,7 +600,7 @@ NOTE: Only applies to _SQL Logins_. This cannot be updated on a pre-existing _SQ
 | Boolean
 | Specifies if the login password is required to expire in accordance to the operating system security policy.
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 | - *True* (default)
   - False
 
@@ -602,7 +609,7 @@ NOTE: Only applies to _SQL Logins_.
 | Booelan
 | Specifies if the login password is required to conform to the password policy specified in the system security policy.
 
-NOTE: Only applies to _SQL Logins_.
+Only applies to _SQL Logins_.
 | - *True* (default)
   - False
 

@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerLegacySettings
 
+:abstract:  {YmlCategory} manages the Domain Name System (DNS) server settings and properties.
 
-[[dscyml_dnsserverlegacysettings, {YmlCategory}]]
-= DSC Resource 'DnsServerLegacySettings'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverlegacysettings]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverlegacysettings_abstract]]
-.{YmlCategory} manages the Domain Name System (DNS) server settings and properties.
+[[dscyml_dnsserverlegacysettings_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

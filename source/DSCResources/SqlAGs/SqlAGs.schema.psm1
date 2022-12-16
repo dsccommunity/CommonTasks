@@ -31,7 +31,7 @@ configuration SqlAGs {
     [PsDscRunAsCredential = [PSCredential]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAG
 
     foreach ($value in $Values)
     {

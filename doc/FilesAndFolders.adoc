@@ -3,24 +3,28 @@
 
 :YmlCategory: FilesAndFolders
 
+:abstract:  {YmlCategory} provides a mechanism to manage files and folders on the target node.
 
-[[dscyml_filesandfolders, {YmlCategory}]]
-= DSC Resource 'FilesAndFolders'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_filesandfolders]
+= DSC Resource '{YmlCategory}'
 
-:abstract:   {YmlCategory} provides a mechanism to manage files and folders on the target node.
 
 [[dscyml_filesandfolders_abstract, {abstract}]]
 {abstract}
 
-NOTE: `DestinationPath` and `SourcePath` must both be accessible by the target Node.
+[NOTE]
+====
+`DestinationPath` and `SourcePath` must both be accessible by the target Node.
+====
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FilesAndFolders
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-5.1[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/fileresource?view=powershell-5.1[File]
+| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
+| Documentation  | https://docs.microsoft.com/en-us/powershell/scripting/dsc/reference/resources/windows/fileresource[File]
 |===
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -39,6 +43,7 @@ NOTE: `DestinationPath` and `SourcePath` must both be accessible by the target N
 
 |===
 
+
 [[dscyml_filesandfolders_items_details]]
 .Attributes of category '<<dscyml_filesandfolders_items>>'
 [cols="1,1,1,2a,1a" options="header"]
@@ -54,7 +59,7 @@ NOTE: `DestinationPath` and `SourcePath` must both be accessible by the target N
 | String
 | The location on the target node
 
-NOTE: The specified path must be accessible by the target node.
+The specified path must be accessible by the target node.
 | 
 
 | Attributes
@@ -81,7 +86,7 @@ NOTE: The specified path must be accessible by the target node.
 | String
 | Indicates the contents to Ensure are `Present` or `Absent` from the targeted file.
 
-NOTE: Only valid when used with Type `File`.
+Only valid when used with Type `File`.
 |
 
 | ContentFromFile
@@ -89,9 +94,9 @@ NOTE: Only valid when used with Type `File`.
 | String
 | Loading contents from the specified file during DSC configuration build and append the loaded content to the `Contents` attribute
 
-NOTE: Only valid when used with type `File` and mandatory with type `BinaryFile`.
+Only valid when used with type `File` and mandatory with type `BinaryFile`.
 
-IMPORTANT: The specified path must be accessible at compile time.
+*The specified path must be accessible at compile time.*
 |
 
 | Credential
@@ -120,7 +125,7 @@ IMPORTANT: The specified path must be accessible at compile time.
 | String
 | The path from which to copy the file or folder resource.
 
-NOTE: The specified path must be accessible by the target node.
+*The specified path must be accessible by the target node.*
 |
 
 | Type
@@ -128,9 +133,9 @@ NOTE: The specified path must be accessible by the target node.
 | String
 | The type of resource being configured.
 
-IMPORTANT: The type `BinaryFile` embeds a bas64 encoded file stream in the compiled MOF file and can exceed the default `MaxEnvelopeSizeKb` of 500KB.
+*The type `BinaryFile` embeds a bas64 encoded file stream in the compiled MOF file and can exceed the default `MaxEnvelopeSizeKb` of 500KB.*
 
-NOTE: The type `BinaryFile` supports only the attributes `ContentFromFile`, `DestinationPath`, `Ensure`. A SHA256 checksum is used to identify file content changes.
+The type `BinaryFile` supports only the attributes `ContentFromFile`, `DestinationPath`, `Ensure`. A SHA256 checksum is used to identify file content changes.
 | - Directory
   - *File* (default)
   - BinaryFile
