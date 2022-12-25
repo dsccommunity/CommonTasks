@@ -1,0 +1,147 @@
+// CommonTasks YAML Reference: WebConfigPropertyCollections
+// ========================================================
+
+:YmlCategory: WebConfigPropertyCollections
+
+:abstract:    {YmlCategory} is used to ensure the value of an identified property collection item's property in the web.config file.
+
+[#dscyml_webconfigpropertycollections]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_webconfigpropertycollections_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebConfigPropertyCollections
+| DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+| Documentation  | https://github.com/dsccommunity/WebAdministrationDsc/wiki/xWebConfigPropertyCollection[xWebConfigPropertyCollection]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_webconfigpropertycollections_items, {YmlCategory}/Items]]<<dscyml_webconfigpropertycollections_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| set of web config properties
+|
+
+|===
+
+
+[[dscyml_webconfigpropertycollections_items_details]]
+.Attributes of category '<<dscyml_webconfigpropertycollections_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| WebsitePath
+| Key
+| String
+| Path to website location (IIS or WebAdministration format).	
+|
+
+| Filter
+| Key
+| String
+| Filter used to locate property to update.
+|
+
+| CollectionName
+| Key
+| String
+| Name of the property collection to update.
+|
+
+| ItemName
+| Key
+| String
+| Name of the property collection item to update.
+|
+
+| ItemKeyName
+| Key
+| String
+| Name of the key of the property collection item to update.
+|
+
+| ItemKeyValue
+| Key
+| String
+| Value of the key of the property collection item to update.
+|
+
+| ItemPropertyName
+| Key
+| String
+| Name of the property of the property collection item to update.
+|
+
+| ItemPropertyValue
+|
+| String
+| Value of the property of the property collection item to update.
+|
+
+| Ensure
+|
+| String
+| Indicates if the property and value of the property collection item should be present or absent.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WebConfigPropertyCollections:
+  Items:
+    - WebsitePath: MACHINE/WEBROOT/APPHOST
+      Filter: system.webServer/isapiFilters
+      CollectionName: .
+      ItemName: filter
+      ItemKeyName: name
+      ItemKeyValue: ASP.Net_2.0.50727-64
+      ItemPropertyName: enabled
+      ItemPropertyValue: true
+    - WebsitePath: MACHINE/WEBROOT/APPHOST
+      Filter: system.webServer/isapiFilters
+      CollectionName: .
+      ItemName: filter
+      ItemKeyName: name
+      ItemKeyValue: ASP.Net_4.0_64bit
+      ItemPropertyName: enabled
+      ItemPropertyValue: true
+    - WebsitePath: MACHINE/WEBROOT/APPHOST
+      Filter: system.webServer/security/isapiCgiRestriction
+      CollectionName: .
+      ItemName: add
+      ItemKeyName: path
+      ItemKeyValue: C:\WINDOWS\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
+      ItemPropertyName: allowed
+      ItemPropertyValue: True
+    - WebsitePath: MACHINE/WEBROOT/APPHOST
+      Filter: system.webServer/security/isapiCgiRestriction
+      CollectionName: .
+      ItemName: add
+      ItemKeyName: path
+      ItemKeyValue: C:\WINDOWS\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
+      ItemPropertyName: groupId
+      ItemPropertyValue: ASP.NET v2.0.50727
+----

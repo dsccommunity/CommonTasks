@@ -16,19 +16,18 @@
 :ref_xDscWebService:  https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService]
 
 
-
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DscPullServerSql
-| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
-                   https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/[PSDesiredStateConfiguration],
-                   https://github.com/dsccommunity/xWebAdministration[xWebAdministration],
-                   https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File],
-                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
-| Documentation  | {ref_xDscWebService},
-                   https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue],
-                   https://github.com/dsccommunity/xWebAdministration#xwebapppool[xWebAppPool],
-                   https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
+| DSC Resource   | - https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+                   - https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/[PSDesiredStateConfiguration]
+                   - https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+                   - https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/fileresource[File]
+                   - https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | - {ref_xDscWebService}
+                   - https://github.com/dsccommunity/xWebAdministration#xwebconfigkeyvalue-deprecated[xWebConfigKeyValue]
+                   - https://github.com/dsccommunity/xWebAdministration#xwebapppool[xWebAppPool]
+                   - https://github.com/dsccommunity/NetworkingDsc/wiki/Firewall[Firewall]
 |===
 
 

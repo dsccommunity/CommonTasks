@@ -1,0 +1,69 @@
+// CommonTasks YAML Reference: SharePointServiceInstances
+// ======================================================
+
+:YmlCategory: SharePointServiceInstances
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointserviceinstances]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointserviceinstances_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointServiceInstances
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPServiceInstance[SPServiceInstance]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointserviceinstances_serviceinstances, {YmlCategory}/ServiceInstances]]<<dscyml_sharepointserviceinstances_serviceinstances_details, ServiceInstances>>
+| Mandatory
+| Hashtable[]
+| set of service instances
+|
+
+|===
+
+
+[[dscyml_sharepointserviceinstances_serviceinstances_details]]
+.Attributes of category '<<dscyml_sharepointserviceinstances_serviceinstances>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointServiceInstances:
+  ServiceInstances:
+    - Name: Managed Metadata Web Service
+    - Name: User Profile Service
+    - Name: SharePoint Server Search
+----

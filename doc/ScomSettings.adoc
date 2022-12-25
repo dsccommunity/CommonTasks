@@ -1,0 +1,71 @@
+// CommonTasks YAML Reference: ScomSettings
+// ========================================
+
+:YmlCategory: ScomSettings
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_scomsettings]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_scomsettings_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomSettings
+| DSC Resource   | https://github.com/nyanhp/cScom[cScom]
+| Documentation  |
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ScomSettings:
+  ApprovalSetting: AutoApprove
+  AlertResolutionSetting:
+    AlertAutoResolveDays: 4
+    HealthyAlertAutoResolveDays: 1
+  DatabaseGroomingSetting:
+    AlertDaysToKeep: 7
+    AvailabilityHistoryDaysToKeep: 7
+    EventDaysToKeep: 7
+    JobStatusDaysToKeep: 7
+    MaintenanceModeHistoryDaysToKeep: 7
+    MonitoringJobDaysToKeep: 7
+    PerformanceDataDaysToKeep: 7
+    PerformanceSignatureDaysToKeep: 7
+    StateChangeEventDaysToKeep: 7
+  DataWarehouseSetting:
+    DatabaseName: SCOM2019
+    ServerName: SCBD1\SomeInstance
+  ErrorReportSetting: OptOut
+  HeartbeatSetting:
+    MissingHeartbeatThreshold: 10
+    HeartbeatIntervalSeconds: 60
+  ReportingServerUrl: http://SCRS1:80/ReportServer
+  WebAddressSetting:
+    WebConsoleUrl: http://OM01.contoso.com/OperationsManager
+    OnlineProductKnowledgeUrl: http://OM01.contoso.com/Knowledge
+----

@@ -1,0 +1,73 @@
+// CommonTasks YAML Reference: VSTSAgents
+// ======================================
+
+:YmlCategory: VSTSAgents
+
+:abstract:    {YmlCategory} is used to manage and automate Visual Studio Team Services Agents.
+
+[#dscyml_vstsagents]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_vstsagents_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VSTSAgents
+| DSC Resource   | https://github.com/microsoft/VSTSAgent.PowerShell[VSTSAgent]
+| Documentation  | https://github.com/microsoft/VSTSAgent.PowerShell/tree/develop/VSTSAgent/DSCResources/xVSTSAgent[xVSTSAgent]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_vstsagents_agents, {YmlCategory}/Agents]]<<dscyml_vstsagents_agents_details, Agents>>
+| Mandatory
+| Hashtable[]
+| set of web applications
+|
+
+|===
+
+
+[[dscyml_vstsagents_agents_details]]
+.Attributes of category '<<dscyml_vstsagents_agents>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+VSTSAgents:
+  Agents:
+    - Name: Build
+      AccountCredential: "[ENC=PE9ianMgVmVy...=]"
+      LogonCredential: "[ENC=PE9ianMgVmVy...=]"
+      ServerUrl: https://dev.azure.com/abc/
+      ProjectName: ABC
+      Pool: ABC
+      AgentDirectory: C:\VSTSAgent
+----

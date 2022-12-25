@@ -1,0 +1,69 @@
+// CommonTasks YAML Reference: SharePointCacheAccounts
+// ===================================================
+
+:YmlCategory: SharePointCacheAccounts
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointcacheaccounts]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointcacheaccounts_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointCacheAccounts
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPCacheAccounts[SPCacheAccounts]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointcacheaccounts_cacheaccounts, {YmlCategory}/CacheAccounts]]<<dscyml_sharepointcacheaccounts_cacheaccounts_details, CacheAccounts>>
+| Mandatory
+| Hashtable[]
+| set of cache accounts
+|
+
+|===
+
+
+[[dscyml_sharepointcacheaccounts_cacheaccounts_details]]
+.Attributes of category '<<dscyml_sharepointcacheaccounts_cacheaccounts>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointCacheAccounts:
+  CacheAccounts:
+    - SuperReaderAlias: contoso\SP_SuperReader
+      SuperUserAlias: contoso\SP_SuperUser
+      WebAppUrl: https://content.contoso.com/
+----

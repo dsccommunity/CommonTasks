@@ -1,0 +1,131 @@
+// CommonTasks YAML Reference: SqlAgentAlerts
+// ==========================================
+
+:YmlCategory: SqlAgentAlerts
+
+:abstract:    {YmlCategory} is used to add/remove SQL Agent Alerts.
+
+[#dscyml_sqlagentalerts]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sqlagentalerts_abstract, {abstract}]]
+{abstract}
+
+The resource can also update the severity or message id.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAgentAlerts
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | - https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+                   - https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAgentAlert[SqlAgentAlert]
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName
+| Default: `MSSQLSERVER`
+
+| [[dscyml_sqlagentalerts_alerts, {YmlCategory}/Alerts]]<<dscyml_sqlagentalerts_alerts_details, Alerts>>
+| Mandatory
+| Hashtable[]
+| List of SQL Agent Alerts.
+|
+
+|===
+
+
+[[dscyml_sqlagentalerts_alerts_details]]
+.Attributes of category '<<dscyml_sqlagentalerts_alerts>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the SQL Server Agent alert.
+|
+
+| ServerName
+| Key
+| String
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
+|
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| Severity
+|
+| String
+| The severity of the SQL Server Agent alert.
+|
+
+| MessageId
+|
+| String
+| The message id of the SQL Server Agent alert.
+|
+
+| Ensure
+|
+| String
+| Specifies if the SQL Server Agent alert should be present or absent.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlAgentAlerts:
+  DefaultInstanceName: MSSQLSERVER
+  Alerts:
+    - Name: 'Sev17'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      Severity: '17'
+    - Name: 'Sev16'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      Severity: '16'
+    - Name: 'Msg825'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      MessageId: '825'
+    - Name: 'Msg123'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      MessageId: '123'
+----

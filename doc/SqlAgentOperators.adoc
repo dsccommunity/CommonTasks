@@ -1,0 +1,117 @@
+// CommonTasks YAML Reference: SqlAgentOperators
+// =============================================
+
+:YmlCategory: SqlAgentOperators
+
+:abstract:    {YmlCategory} is used to add/remove SQL Agent Operators.
+
+[#dscyml_sqlagentoperators]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sqlagentoperators_abstract, {abstract}]]
+{abstract}
+
+The resource can also update the operators email address.
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlAgentOperators
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | - https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+                   - https://github.com/dsccommunity/SqlServerDsc/wiki/SqlAgentOperator[SqlAgentOperator]
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName
+| Default: `MSSQLSERVER`
+
+| [[dscyml_sqlagentoperators_agentoperators, {YmlCategory}/AgentOperators]]<<dscyml_sqlagentoperators_agentoperators_details, AgentOperators>>
+| Mandatory
+| Hashtable[]
+| List of SQL Agent Operators.
+|
+
+|===
+
+
+[[dscyml_sqlagentoperators_agentoperators_details]]
+.Attributes of category '<<dscyml_sqlagentoperators_agentoperators>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The name of the SQL Server Agent operator.
+|
+
+| ServerName
+| Key
+| String
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
+|
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| EmailAddress
+|
+| String
+| The email address to be used for the SQL Server Agent operator.
+|
+
+| Ensure
+|
+| String
+| Specifies if the SQL Server Agent operator should be present or absent.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlAgentOperators:
+  DefaultInstanceName: MSSQLSERVER
+  AgentOperators:
+    - Name: 'DbaTeam'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      EmailAddress: 'dbateam@company.com'
+    - Name: 'APPTeam'
+      ServerName: 'TestServer'
+      InstanceName: 'MSSQLServer'
+      EmailAddress: 'appteam@company.com'
+----

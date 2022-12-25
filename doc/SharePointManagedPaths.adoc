@@ -1,0 +1,78 @@
+// CommonTasks YAML Reference: SharePointManagedPaths
+// ==================================================
+
+:YmlCategory: SharePointManagedPaths
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointmanagedpaths]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointmanagedpaths_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedPaths
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedPath[SPManagedPath]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointmanagedpaths_managedpaths, {YmlCategory}/ManagedPaths]]<<dscyml_sharepointmanagedpaths_managedpaths_details, ManagedPaths>>
+| Mandatory
+| Hashtable[]
+| set of managed accounts
+|
+
+|===
+
+
+[[dscyml_sharepointmanagedpaths_managedpaths_details]]
+.Attributes of category '<<dscyml_sharepointmanagedpaths_managedpaths>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointManagedPaths:
+  ManagedPaths:
+    - WebAppUrl: t1 #https://content.contoso.com
+      RelativeUrl: mp1
+      Explicit: false
+      HostHeader: false
+    - WebAppUrl: t2 #https://content.contoso.com
+      RelativeUrl: mp2
+      Explicit: false
+      HostHeader: false
+    - WebAppUrl: t3 #https://my.contoso.com
+      RelativeUrl: personal
+      Explicit: false
+      HostHeader: false
+----

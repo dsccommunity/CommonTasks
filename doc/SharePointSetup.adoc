@@ -1,0 +1,65 @@
+// CommonTasks YAML Reference: SharePointSetup
+// ===========================================
+
+:YmlCategory: SharePointSetup
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointsetup]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointsetup_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointSetup
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | - https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPInstall[SPInstall]
+                   - https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPInstallLanguagePack[SPInstallLanguagePack]
+                   - https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs[SPInstallPrereqs]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointSetup:
+  InstallerPath: 'C:\SharePoint Server 2019\Setup\PrerequisiteInstaller.exe'
+  OnlineMode: false
+  KB3092423: 'C:\SharePoint Server 2019\Prerequisite Installer Files\AppFabric-KB3092423-x64-ENU.exe'
+  DotNet472: 'C:\SharePoint Server 2019\Prerequisite Installer Files\NDP472-KB4054530-x86-x64-AllOS-ENU.exe'
+  IDFX11: 'C:\\SharePoint Server 2019\Prerequisite Installer Files\MicrosoftIdentityExtensions-64.msi'
+  MSIPCClient: 'C:\SharePoint Server 2019\Prerequisite Installer Files\setup_msipc_x64.exe'
+  SQLNCli: 'C:\SharePoint Server 2019\Prerequisite Installer Files\sqlncli.msi'
+  Sync: 'C:\SharePoint Server 2019\Prerequisite Installer Files\Synchronization.msi'
+  WCFDataServices56: 'C:\SharePoint Server 2019\Prerequisite Installer Files\WcfDataServices.exe'
+  MSVCRT11: 'C:\SharePoint Server 2019\Prerequisite Installer Files\vc11redist_x64.exe'
+  MSVCRT141: 'C:\SharePoint Server 2019\Prerequisite Installer Files\vc_redist.x64.exe'
+  AppFabric: 'C:\SharePoint Server 2019\Prerequisite Installer Files\WindowsServerAppFabricSetup_x64.exe'
+  BinaryDir: 'C:\SharePoint Server 2019\Setup\'
+  ProductKey: key-key-key-key-key
+  InstallPath: 'C:\Program Files\Microsoft Office Servers'
+  DataPath: 'C:\Program Files\Microsoft Office Servers'
+  LanguagePacks:
+    - BinaryDir: 'C:\SharePoint Server 2019\Language Pack DE'
+----
