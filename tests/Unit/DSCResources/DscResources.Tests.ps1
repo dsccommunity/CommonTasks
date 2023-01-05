@@ -3,7 +3,7 @@ BeforeDiscovery {
     $here = $PSScriptRoot
 
     # SqlPermissions are in conflict with the Scom* resources
-    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment'
+    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment', 'SqlPermissions'
 
     Import-Module -Name datum
 
