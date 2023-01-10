@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SQLDatabaseMailSetups` Composite to configure one or more Database Mail Accounts/Profiles on a SQL Server/Instance
 - `SQLScriptQueries` Composite to run one or more SQL Scripts against a SQL Server/Instance
 - `RemoteDesktopCertificates` Composite to import Remote Desktop Certificates. Ideally combined with CertificateRequests and CertificateExports composites.
+- `RemoteDesktopHAMode` Composite to configure High Availability mode on a RDS connection broker.
 
 ### Changed
 

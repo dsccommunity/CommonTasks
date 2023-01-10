@@ -18,7 +18,7 @@ configuration SqlPermissions {
             [hashtable]
             $permissionValues
         )
-    
+
         $permission = $null
 
         if ($null -ne $permissionValues)
@@ -26,7 +26,7 @@ configuration SqlPermissions {
             $grant = @()
             $grantWithGrant = @()
             $deny = @()
-            
+
             if ($permissionValues.Grant)
             {
                 $grant += $permissionValues.Grant
@@ -36,7 +36,7 @@ configuration SqlPermissions {
             {
                 $grantWithGrant += $permissionValues.GrantWithGrant
             }
-            
+
             if ($permissionValues.Deny)
             {
                 $deny += $permissionValues.Deny
@@ -58,7 +58,7 @@ configuration SqlPermissions {
                     State      = 'Deny'
                     Permission = $deny
                 }
-            )   
+            )
         }
 
         return $permission
@@ -75,16 +75,16 @@ configuration SqlPermissions {
         # Refactored permissions with SqlServerDsc 16.0.0
         # see https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission
 
-        $permission          = Get-Permission( $value.Permission )
-        $permissionToInclude = Get-Permission( $value.PermissionToInclude )
-        $permissionToExclude = Get-Permission( $value.PermissionToExclude )
+        $permission          = Get-Permission -permissionValues $value.Permission
+        $permissionToInclude = Get-Permission -permissionValues $value.PermissionToInclude
+        $permissionToExclude = Get-Permission -permissionValues $value.PermissionToExclude
 
         $executionName = "$($value.InstanceName)_$($value.Name)" -replace '[().:\s]', '_'
 
         SqlPermission $executionName
         {
             InstanceName         = $value.InstanceName
-            Name                 = $value.Name 
+            Name                 = $value.Name
             ServerName           = $value.ServerName
             Credential           = $value.Credential
             Permission           = $permission

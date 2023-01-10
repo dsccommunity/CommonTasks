@@ -3,7 +3,7 @@ BeforeDiscovery {
     $here = $PSScriptRoot
 
     # SqlPermissions are in conflict with the Scom* resources
-    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment', 'SqlPermissions'
+    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment'
 
     Import-Module -Name datum
 
@@ -85,7 +85,7 @@ configuration "Config_$dscResourceName" {
 }
 '@
 
-        $dscConfiguration = $dscConfiguration.Replace('#<importStatements>', "Import-DscResource -Module $($moduleUnderTest.Name)")
+        $dscConfiguration = $dscConfiguration.Replace('#<importStatements>', "Import-DscResource -Module $($moduleUnderTest.Name) -Name $($DscResourceName)")
         Invoke-Expression -Command $dscConfiguration
 
         {
