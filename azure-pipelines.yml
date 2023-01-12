@@ -23,7 +23,7 @@ stages:
       - job: Package_Module
         displayName: 'Package Module'
         pool:
-          vmImage: 'ubuntu-latest'
+          vmImage: 'windows-latest'
         steps:
           - pwsh: |
               dotnet tool install --global GitVersion.Tool
@@ -59,7 +59,7 @@ stages:
       - job: Test_HQRM
         displayName: 'HQRM'
         pool:
-          vmImage: 'windows-2019'
+          vmImage: 'windows-latest'
         timeoutInMinutes: 60
         steps:
           - task: DownloadPipelineArtifact@2
@@ -89,7 +89,7 @@ stages:
         displayName: 'Windows (Windows PowerShell)'
         timeoutInMinutes: 120
         pool:
-          vmImage: 'windows-2019'
+          vmImage: 'windows-latest'
         steps:
           - task: DownloadPipelineArtifact@2
             displayName: 'Download Build Artifact'
