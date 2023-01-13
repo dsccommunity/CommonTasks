@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerResponseRateLimiting
 
+:abstract:  {YmlCategory} manages Response Rate Limiting (RRL) on a Windows DNS server.
 
-[[dscyml_dnsserverresponseratelimiting, {YmlCategory}]]
-= DSC Resource 'DnsServerResponseRateLimiting'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverresponseratelimiting]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverresponseratelimiting_abstract]]
-.{YmlCategory} manages Response Rate Limiting (RRL) on a Windows DNS server.
+[[dscyml_dnsserverresponseratelimiting_abstract, {abstract}]]
+{abstract}
 
 
 :ref_SetDnsServerResponseRateLimitingExceptionlist: https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverresponseratelimitingexceptionlist?view=win10-ps[Set-DnsServerResponseRateLimitingExceptionlist]

@@ -1,0 +1,47 @@
+// CommonTasks YAML Reference: MmaAgent
+// ====================================
+
+:YmlCategory: MmaAgent
+
+:abstract: {YmlCategory} is used to manage settings of the Microsoft Monitoring Agent.
+
+[#dscyml_mmaagent]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_mmaagent_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/MmaAgent
+| DSC Resource   | https://www.powershellgallery.com/packages/MMADsc[MmaDsc]
+| Documentation  | https://www.powershellgallery.com/packages/MMADsc/1.3.0/Content/DSCResources%5CWorkspaceConfiguration.psm1[WorkspaceConfiguration]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+MmaAgent:
+  WorkspaceId: ABC
+  WorkspaceKey: '[ENC=PE9ianMgVmVy...=]'
+----

@@ -20,7 +20,7 @@ configuration SqlConfigurations {
     [ServerName = [string]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlConfiguration
 
     foreach ($option in $Options)
     {

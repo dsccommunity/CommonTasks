@@ -3,12 +3,10 @@
 
 :YmlCategory: AddsDomainPrincipals
 
-
-[[dscyml_addsdomainprincipals, {YmlCategory}]]
-= DSC Resource 'AddsDomainPrincipals'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} manages Users and Managed Service Accounts within Active Directory.
+
+[#dscyml_addsdomainprincipals]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addsdomainprincipals_abstract, {abstract}]]
 {abstract}
@@ -62,7 +60,7 @@
 
 The KDS root keys are used to begin generating Group Managed Service Account (gMSA) passwords.
 
-IMPORTANT: KDSKey uses a localized date and shall be proceed after setting the timezone (`ComputerSettings`) otherwise two keys are be created.
+*KDSKey uses a localized date and shall be proceed after setting the timezone (`ComputerSettings`) otherwise two keys are be created.*
 |
 
 | [[dscyml_addsdomainprincipals_managedserviceaccounts, {YmlCategory}/ManagedServiceAccounts]]<<dscyml_addsdomainprincipals_managedserviceaccounts_details, ManagedServiceAccounts>>
@@ -189,7 +187,7 @@ Valid values are the user's or group's DistinguishedName, ObjectGUID, SID or Sam
 | String[]
 | List of Domain Groups of the computer.
 
-NOTE: Only domain groups of the member domain are supported.
+Only domain groups of the member domain are supported.
 |
 
 |===
@@ -255,7 +253,7 @@ If not specified the default value will be the same value provided in parameter 
 | String[]
 | List of Domain Groups of the user.
 
-NOTE: Only domain groups of the member domain are supported.
+Only domain groups of the member domain are supported.
 |
 
 |===
@@ -392,7 +390,7 @@ This value sets the encryption types supported flags of the Active Directory msD
 | String[]
 | Specifies the membership policy for systems which can use a group managed service account (ldapDisplayName `msDS-GroupMSAMembership`).
 
-NOTE: Only used when `Group` is selected for `AccountType`.
+Only used when `Group` is selected for `AccountType`.
 |
 
 | Computer
@@ -402,7 +400,7 @@ NOTE: Only used when `Group` is selected for `AccountType`.
 
 You can identify a computer by its distinguished name, GUID, security identifier (SID) or Security Accounts Manager (SAM) account name.
 
-NOTE: Only used when `Standalone` is selected for `AccountType`.
+Only used when `Standalone` is selected for `AccountType`.
 |
 
 | MembershipAttribute
@@ -427,7 +425,7 @@ Specified as a Distinguished Name (DN).
 | String[]
 | List of Domain Groups of the managed service account.
 
-NOTE: Only domain groups of the member domain are supported.
+Only domain groups of the member domain are supported.
 |
 
 |===

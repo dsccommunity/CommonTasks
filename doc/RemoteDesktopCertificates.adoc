@@ -1,0 +1,70 @@
+// CommonTasks YAML Reference: RemoteDesktopCertificates
+// =====================================================
+
+:YmlCategory: RemoteDesktopCertificates
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_remotedesktopcertificates]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktopcertificates_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopCertificates
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDCertificateConfiguration[xRDCertificateConfiguration]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_remotedesktopcertificates_certificates, {YmlCategory}/Certificates]]<<dscyml_remotedesktopcertificates_certificates_details, Certificates>>
+| Mandatory
+| Hashtable[]
+| set of remote desktop certificates
+|
+
+|===
+
+
+[[dscyml_remotedesktopcertificates_certificates_details]]
+.Attributes of category '<<dscyml_remotedesktopcertificates_certificates>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopCertificates:
+Certificates:
+  - Role: RDRedirector
+    ConnectionBroker: RDCB1
+    ImportPath: C:\RDSFARM.pfx
+    Credential: '[ENC=PE9ianMgVmVy...=]'
+----

@@ -1,0 +1,78 @@
+// CommonTasks YAML Reference: SharePointContentDatabases
+// ======================================================
+
+:YmlCategory: SharePointContentDatabases
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointcontentdatabases]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointcontentdatabases_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointContentDatabases
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPContentDatabase[SPContentDatabase]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_sharepointcontentdatabases_contentdatabases, {YmlCategory}/ContentDatabases]]<<dscyml_sharepointcontentdatabases_contentdatabases_details, ContentDatabases>>
+| Mandatory
+| Hashtable[]
+| set of content databases
+|
+
+|===
+
+
+[[dscyml_sharepointcontentdatabases_contentdatabases_details]]
+.Attributes of category '<<dscyml_sharepointcontentdatabases_contentdatabases>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointContentDatabases:
+  ContentDatabases:
+    - Name: SP2016_Content_My_02
+      DatabaseServer: SqlServer001
+      WebAppUrl: https://my.contoso.com/
+      Enabled: true
+      WarningSiteCount: 2000
+      MaximumSiteCount: 5000
+    - Name: SP2016_Content_CTH
+      DatabaseServer: SqlServer001
+      WebAppUrl: https://content.contoso.com
+      Enabled: true
+      WarningSiteCount: 2000
+      MaximumSiteCount: 5000
+----

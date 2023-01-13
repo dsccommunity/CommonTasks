@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerCNameRecords
 
+:abstract:  {YmlCategory} manages CNAME DNS records against a specific zone on a Domain Name System (DNS) server.
 
-[[dscyml_dnsservercnamerecords, {YmlCategory}]]
-= DSC Resource 'DnsServerCNameRecords'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsservercnamerecords]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsservercnamerecords_abstract]]
-.{YmlCategory} manages CNAME DNS records against a specific zone on a Domain Name System (DNS) server.
+[[dscyml_dnsservercnamerecords_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

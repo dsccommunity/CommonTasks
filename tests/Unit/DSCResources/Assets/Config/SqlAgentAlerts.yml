@@ -1,0 +1,18 @@
+DefaultInstanceName: MSSQLSERVER
+Alerts:
+  - Name: 'Sev17'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    Severity: '17'
+  - Name: 'Sev16'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    Severity: '16'
+  - Name: 'Msg825'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    MessageId: '825'
+  - Name: 'Msg123'
+    ServerName: 'TestServer'
+    InstanceName: 'MSSQLServer'
+    MessageId: '123'

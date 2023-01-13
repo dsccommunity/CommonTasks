@@ -3,14 +3,13 @@
 
 :YmlCategory: Wds
 
+:abstract:    {YmlCategory} contains the Windows Deployment Services DSC Resource Module.
 
-[[dscyml_wds, {YmlCategory}]]
-= DSC Resource 'Wds'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_wds]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_wds_abstract]]
-.{YmlCategory} contains the Windows Deployment Services DSC Resource Module.
+[[dscyml_wds_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once
@@ -20,13 +19,14 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Wds
-| DSC Resource   | {ref_WDSDsc}, https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage],
-                   https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation],
-                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope],
-                   https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
+| DSC Resource   | - {ref_WDSDsc}
+                   - https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | - https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage]
+                   - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation]
+                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
+                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
 |===
 
 
@@ -42,7 +42,7 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 ====
 This DSC resource requires an updated version (> 0.11.0) of the {ref_WDSDsc} resource.
 
-Until the next relase of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
+Until the next release of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
 ====
 
 
@@ -66,8 +66,9 @@ Until the next relase of {ref_WDSDsc} you can patch the version 0.11.0 with outs
 | PSCredential
 | Run WDS initialization and WDS device reservation under a specified set of credentials
 
-IMPORTANT: WDS requires for initialization and device reservation a valid domain user account with administrator privileges.
-           The specified user will be assigned to local administrators group to get the sufficient privileges.
+*WDS requires for initialization and device reservation a valid domain user account with administrator privileges.*
+
+The specified user will be assigned to local administrators group to get the sufficient privileges.
 |
 
 | AnswerClients
@@ -85,7 +86,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 | Boolean
 | Use existing DHCP Scope defined outside of this DSC resource. 
 
-IMPORTANT: Must be set to `true` if the DHCP server should not installed on the computer WDS server is running.
+*Must be set to `True` if the DHCP server should not installed on the computer WDS server is running.*
 | - True
   - *False* (default)
 
@@ -392,11 +393,9 @@ IMPORTANT: Must be set to `true` if the DHCP server should not installed on the 
 | DeviceID
 | Key
 | String
-| Unique identifier of the device +
-[NOTE]
-====
+| Unique identifier of the device
+
 Should be empty if a MAC-Address is used as device identifier.
-====
 |
 
 | MacAddress
@@ -416,10 +415,8 @@ Should be empty if a MAC-Address is used as device identifier.
 | 
 | String
 | IPv4 Address to reserve for this device in DHCP server. +
-[IMPORTANT]
-====
-If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.
-====
+
+*If the DHCP Server is not running on the current computer leave this field empty and make the IP reservation manually.*
 |
 
 | PxePromptPolicy

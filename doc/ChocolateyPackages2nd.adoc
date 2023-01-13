@@ -3,12 +3,10 @@
 
 :YmlCategory: ChocolateyPackages2nd
 
-
-[[dscyml_chocolateypackages2nd, {YmlCategory}]]
-= DSC Resource 'ChocolateyPackages2nd'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} is aimed to install additional packages using Chocolatey.
+
+[#dscyml_chocolateypackages2nd]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_chocolateypackages2nd_abstract, {abstract}]]
 {abstract}
@@ -19,7 +17,7 @@ Now you can configure additional configuration steps between installation of two
 ====
 This DSC resource can only be used if the required parent configuration https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ChocolateyPackages[ChocolateyPackages] is defined and activated in the YAML files.
 
-In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`.
+In the `Configuration` section `ChocolateyPackages` must be placed before `ChocolateyPackages2nd`. 
 ====
 
 
@@ -43,12 +41,10 @@ In the `Configuration` section `ChocolateyPackages` must be placed before `Choco
 | ForceRebootBefore
 |
 | Boolean
-| Force reboot before installation of first Chocolatey package. +
-[NOTE]
-====
+| Force reboot before installation of first Chocolatey package.
+
 Only one reboot after first start of a DSC configuration is supported. +
 To re-enable the system reboot feature the registry key value `RebootBefore_{YmlCategory}` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - *False* (default)
   - True
 
@@ -109,7 +105,7 @@ This is useful on multiple YAML layer scenarios to define the installation order
 | String[] (KeyValuePair)
 | https://docs.chocolatey.org/en-us/choco/commands/install#options-and-switches[Chocolatey Options]
 
-NOTE: All option values shall be provided as strings, so enclose numerical values in ''.
+All option values shall be provided as strings, so enclose numerical values in ''.
 |
 
 | UpdateOnly
@@ -128,13 +124,11 @@ NOTE: All option values shall be provided as strings, so enclose numerical value
 | ForceReboot
 |
 | Boolean
-| Force a reboot after first installation of the package. +
-[NOTE]
-====
+| Force a reboot after first installation of the package.
+
 Only one reboot after first start of a DSC configuration is supported. +
 A Reboot after upgrade of an installed package is currently not supported. +
 To re-enable the system reboot feature the registry key value `RebootAfter_Chocolatey_<Name>` at `HKLM:\SOFTWARE\DSC Community\CommonTasks\RebootRequests` must be deleted.
-====
 | - True
   - *False* (default)
 

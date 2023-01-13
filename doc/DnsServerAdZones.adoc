@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerAdZones
 
+:abstract:  {YmlCategory} sets AD integrated zones on a given DNS server.
 
-[[dscyml_dnsserveradzones, {YmlCategory}]]
-= DSC Resource 'DnsServerAdZones'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserveradzones]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserveradzones_abstract]]
-.{YmlCategory} sets AD integrated zones on a given DNS server.
+[[dscyml_dnsserveradzones_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

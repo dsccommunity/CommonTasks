@@ -1,30 +1,34 @@
 // CommonTasks YAML Reference: SqlPermissions
-// =============================================
+// ==========================================
 
 :YmlCategory: SqlPermissions
 
+:abstract:    {YmlCategory} is used to grant, deny or revoke Server permissions for a login.
 
-[[dscyml_sqlpermissions, {YmlCategory}]]
-= DSC Resource 'SqlPermissions'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqlpermissions]
+= DSC Resource '{YmlCategory}'
 
+[[dscyml_sqlpermissions_abstract, {abstract}]]
+{abstract}
+For more information about permissions, please read the article https://docs.microsoft.com/en-us/sql/relational-databases/security/permissions-database-engine[Permissions (Database Engine)].
 
-[[dscyml_sqlpermissions_abstract]]
-.The {YmlCategory} DSC resource sets server permissions for a user (login).
+[NOTE]
+====
+When revoking permission with PermissionState `GrantWithGrant`, both the grantee and all the other users the grantee has granted the same permission to, will also get their permission revoked.
+====
 
-> Note: Currently the resource only supports ConnectSql, AlterAnyAvailabilityGroup, AlterAnyEndPoint and ViewServerState.
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqlpermission:           https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission[SqlPermission]
+:ref_sqlserverdsc_wiki:            https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlpermission:   https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission[SqlPermission]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlPermissions
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlpermission}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlpermission}
                    
 |===
 
@@ -35,6 +39,7 @@
 - Target machine must be running SQL Server Database Engine 2012 or later.
 - Target machine must have access to the SQLPS PowerShell module or the SqlServer PowerShell module.
 
+
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
 |===
@@ -44,7 +49,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_SqlPermissions_Values, {YmlCategory}/Values]]<<dscyml_SqlPermissions_Values_Details, Values>>
+| [[dscyml_sqlpermissions_values, {YmlCategory}/Values]]<<dscyml_sqlpermissions_values_details, Values>>
 | Mandatory
 | Hashtable[]
 | List of SQL permissions.
@@ -52,8 +57,9 @@
 
 |===
 
-[[dscyml_SqlPermissions_Values_Details]]
-.Attributes of category '{YmlCategory}'
+
+[[dscyml_sqlpermissions_values_details]]
+.Attributes of category '<<dscyml_sqlpermissions_values>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -71,14 +77,17 @@
 | ServerName
 |
 | String
-| The host name of the SQL Server to be configured. Default value is the current computer name.
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
 |
 
 | Enure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
-| `Present`, `Absent`
+| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| - *Present* (default)
+  - Absent
 
 | Principal
 | Key
@@ -86,11 +95,62 @@
 | The login to which permission will be set.
 |
 
-| Permission
-| 
-| String[]
+| [[dscyml_sqlpermissions_permission, {YmlCategory}/Values/Permission]]<<dscyml_sqlpermissions_permission_details, Permission>>
+| Mandatory
+| Hashtable[]
 | The permission to set for the login.
-| `ConnectSql`, `AlterAnyAvailabilityGroup`, `ViewServerState`, `AlterAnyEndPoint`
+|
+
+|===
+
+
+[[dscyml_sqlpermissions_permission_details]]
+.Attributes of category '<<dscyml_sqlpermissions_permission>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Grant
+|
+| String[]
+| Permission state `Grant`
+
+All valid permission names can be found in the article https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.management.smo.serverpermissionset#properties[ServerPermissionSet Class properties].
+| - ConnectSql
+  - AlterAnyAvailabilityGroup
+  - ViewServerState
+  - AlterAnyEndPoint
+  - ...
+
+| GrantWithGrant
+|
+| String[]
+| Permission state `GrantWithGrant`
+
+When revoking permission with PermissionState `GrantWithGrant`, both the grantee and all the other users the grantee has granted the same permission to, will also get their permission revoked.
+
+All valid permission names can be found in the article https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.management.smo.serverpermissionset#properties[ServerPermissionSet Class properties].
+| - ConnectSql
+  - AlterAnyAvailabilityGroup
+  - ViewServerState
+  - AlterAnyEndPoint
+  - ...
+
+| Deny
+|
+| String[]
+| Permission state `Deny`
+
+All valid permission names can be found in the article https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.management.smo.serverpermissionset#properties[ServerPermissionSet Class properties].
+| - ConnectSql
+  - AlterAnyAvailabilityGroup
+  - ViewServerState
+  - AlterAnyEndPoint
+  - ...
 
 |===
 
@@ -100,17 +160,41 @@
 ----
 SqlPermissions:
   Values:
-  - Principal: NT SERVICE\ClusSvc
-    InstanceName: MSSQLSERVER
-    Permission:
-      - AlterAnyAvailabilityGroup
-      - ViewServerState
-  - Principal: contoso\dbadmin
-    InstanceName: MSSQLSERVER
-    Permission:
-      - AlterAnyAvailabilityGroup
-      - ViewServerState
-      - AlterAnyEndPoint
-      - ConnectSql
-
+    - Name: NT SERVICE\ClusSvc$
+      InstanceName: MSSQLSERVER
+      Permission:
+        Grant:
+          - AlterAnyAvailabilityGroup
+          - ViewServerState
+          - ConnectSql
+        GrantWithGrant:
+          - ViewServerState
+          - ConnectSql
+    - Name: contoso\dbadmin
+      InstanceName: MSSQLSERVER
+      ServerName: localhost
+      Permission:
+        Grant:
+          - AlterAnyEndPoint
+        GrantWithGrant:
+          - ViewServerState
+          - ConnectSql
+        Deny:
+          - AlterAnyAvailabilityGroup
+      PermissionToInclude:
+        Grant:
+          - AlterAnyEndPoint
+        GrantWithGrant:
+          - ViewServerState
+          - ConnectSql
+        Deny:
+          - AlterAnyAvailabilityGroup
+      PermissionToExclude:
+        Grant:
+          - AlterAnyEndPoint
+        GrantWithGrant:
+          - ViewServerState
+          - ConnectSql
+        Deny:
+          - AlterAnyAvailabilityGroup
 ----

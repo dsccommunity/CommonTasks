@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `AddsTrusts` Composite for establishing Forest trusts with more configuration options than using AddsDomain-property DomainTrusts.
 - `FilesAndFolder` Add property to embed binary files into MOF.
 - `SmbShares`  Add check and remove of duplicates from access properties in MOF.
-- Update documentation
+- Complete YAML documentation
 - `FileContents` Composite for managing file content.
 - `RemoteDesktopDeployment` Composite to configure a remote desktop deployment
 - `RemoteDesktopCollections` Composite to configure RD session collections, including their settings
@@ -27,6 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ScomSettings` Composite to set all available SCOM settings
 - `CertificateRequest` Composite to request certificates from a certificate authority, includes automatic wait for ADCS to become available
 - `ConfigurationManagerDistributionGroup` Composite to configure one or more distribution point groups
+- `SQLAgentAlerts` Composite to configure one or more SQL Server Agent Alert on a SQL Server/Instance
+- `SQLAgentOperators` Composite to configure one or more SQL Server Agent Operator on a SQL Server/Instance
+- `SQLDatabaseMailSetups` Composite to configure one or more Database Mail Accounts/Profiles on a SQL Server/Instance
+- `SQLScriptQueries` Composite to run one or more SQL Scripts against a SQL Server/Instance
+- `RemoteDesktopCertificates` Composite to import Remote Desktop Certificates. Ideally combined with CertificateRequests and CertificateExports composites.
+- `RemoteDesktopHAMode` Composite to configure High Availability mode on a RDS connection broker.
 
 ### Changed
 
@@ -83,3 +89,14 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - WindowsServices: fix support of absent services (Ensure: Absent)
 - HyperV: fix support of absent switches and VMs (Ensure: Absent)
 - Changing to `windows-latest` for all pipeline jobs.
+- Upgrade the following DSC resources to latest stable version:
+  - NetworkingDsc
+  - xWebAdministration
+  - ActiveDirectoryDsc
+  - xDhcpServer
+  - xFailoverCluster
+  - SqlServerDsc
+  - xHyper-V
+  - VSTSAgent
+- Refactoring of SqlPermissions after upgrade of SqlServerDsc to 16.0.0
+- WindowsFeatures: Include support for more elaborate lists of features, giving more control

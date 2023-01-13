@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DscLcmMaintenanceWindows
-// ========================================
+// ====================================================
 
 :YmlCategory: DscLcmMaintenanceWindows
 
+:abstract:  {YmlCategory} defines maintenance windows in which DSC is running in the `ApplyAndAutoCorrect` mode.
 
-[[dscyml_dsclcmmaintenancewindows, {YmlCategory}]]
-= DSC Resource 'DscLcmMaintenanceWindows'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dsclcmmaintenancewindows]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dsclcmmaintenancewindows_abstract]]
-.{YmlCategory} defines maintenance windows in which DSC is running in the `ApplyAndAutoCorrect` mode.
+[[dscyml_dsclcmmaintenancewindows_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

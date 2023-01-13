@@ -1,0 +1,133 @@
+// CommonTasks YAML Reference: DhcpServerOptionDefinitions
+// =======================================================
+
+:YmlCategory: DhcpServerOptionDefinitions
+
+:abstract: {YmlCategory} is used to manage DHCP option definitions.
+
+[#dscyml_dhcpserveroptiondefinitions]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dhcpserveroptiondefinitions_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServerOptionDefinitions
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerOptionDefinition[xDhcpServerOptionDefinition]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_dhcpserveroptiondefinitions_serveroptiondefinitions, {YmlCategory}/ServerOptionDefinitions]]<<dscyml_dhcpserveroptiondefinitions_serveroptiondefinitions_details, ServerOptionDefinitions>>
+|
+| Hashtable[]
+| Set of server option definitions.
+|
+
+|===
+
+
+[[dscyml_dhcpserveroptiondefinitions_serveroptiondefinitions_details]]
+.Attributes of category '<<dscyml_dhcpserveroptiondefinitions_serveroptiondefinitions>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| OptionId
+| Key
+| Number
+| Option ID, specify an integer between 1 and 255.
+| [1, 255]
+
+| VendorClass
+| Key
+| String
+| Vendor class.
+
+Use an empty string for default vendor class.
+|
+
+| AddressFamily
+| Key
+| String
+| Sets the address family for the option definition.
+
+Currently only IPv4 is supported.
+| - IPv4
+
+| Name
+| Mandatory
+| String
+| Option name.
+|
+
+| Type
+| Mandatory
+| String
+| Option data type.
+| - Byte
+  - Word
+  - Dword
+  - DwordDword
+  - IPv4Address
+  - String
+  - BinaryData
+  - EncapsulatedData
+
+| Multivalued
+|
+| Boolean
+| Whether option is multi-valued or not.
+| - True
+  - False
+
+| Description
+|
+| String
+| Option description.
+|
+
+| DefaultValue
+|
+| String
+| Default value for the option.
+|
+
+| Ensure
+|
+| String
+| Whether the DHCP server class should exist.
+| - Present
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DhcpServerOptionDefinitions:
+  ServerOptionDefinitions:
+    - AddressFamily: IPv4
+      Name: PXEClientType
+      OptionId: 60
+      Type: string
+      VendorClass: ''
+      Description: PXE Support
+
+----

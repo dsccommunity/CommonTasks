@@ -1,16 +1,15 @@
 // CommonTasks YAML Reference: WindowsEventLogs
-// ========================================
+// ============================================
 
 :YmlCategory: WindowsEventLogs
 
+:abstract:    {YmlCategory} allows configuration of a specified Windows Event Log.
 
-[[dscyml_windowseventlogs, {YmlCategory}]]
-= DSC Resource 'WindowsEventLogs'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_windowseventlogs]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_windowseventlogs_abstract]]
-.{YmlCategory} allows configuration of a specified Windows Event Log.
+[[dscyml_windowseventlogs_abstract, {abstract}]]
+{abstract}
 
 
 // reference links as variables for using more than once

@@ -1,0 +1,62 @@
+// CommonTasks YAML Reference: SharePointPrereq
+// ============================================
+
+:YmlCategory: SharePointPrereq
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointprereq]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointprereq_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointPrereq
+| DSC Resource   | - https://github.com/dsccommunity/StorageDsc[StorageDSC]
+                   - https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | - https://github.com/dsccommunity/StorageDsc/wiki/MountImage[MountImage]
+                   - https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPInstall[SPInstall]
+                   - https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs[SPInstallPrereqs]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointPrereq:
+  SQLNCli: C:\Install\sqlncli.msi
+  Sync: C:\Install\Synchronization.msi
+  AppFabric: C:\Install\WindowsServerAppFabricSetup_x64.exe
+  IDFX11: C:\Install\MicrosoftIdentityExtensions-64.msi
+  MSIPCClient: C:\Install\setup_msipc_x64.exe
+  WCFDataServices56: C:\Install\WcfDataServices.exe
+  MSVCRT11: C:\Install\vcredist_x64.exe
+  MSVCRT141: C:\Install\vc_redist.x64.exe
+  KB3092423: C:\Install\AppFabric-KB3092423-x64-ENU.exe
+  DotNet472: C:\Install\NDP472-KB4054530-x86-x64-AllOS-ENU.exe
+  InstallerPath: Z:\PrerequisiteInstaller.exe
+  IsoFilePath: C:\Install\en_sharepoint_server_2019_x64_dvd_68e34c9e.iso
+  IsoDriveLetter: 'Z:'
+  ProductKey: YourProductKey
+----

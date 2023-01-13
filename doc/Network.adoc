@@ -1,0 +1,59 @@
+// CommonTasks YAML Reference: Network
+// ===================================
+
+:YmlCategory: Network
+
+:abstract:    {YmlCategory} specifies the network layer Maximum Transmission Unit (MTU) value, in bytes, for an IP interface.
+
+[#dscyml_network]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_network_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Network
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NlMtu]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| NetworkZone
+| ValidateRange(1, 4)
+| int
+|
+|
+
+| MtuSize
+| Mandatory
+| int
+|
+|
+
+| InterfaceAlias
+|
+| string
+|
+| Default: Ethernet
+
+|===
+
+
+.Example
+[source, yaml]
+----
+Network:
+  NetworkZone: 1
+  MtuSize: 1360
+----

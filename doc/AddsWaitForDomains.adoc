@@ -3,12 +3,10 @@
 
 :YmlCategory: AddsWaitForDomains
 
-
-[[dscyml_addswaitfordomains, {YmlCategory}]]
-= DSC Resource 'AddsWaitForDomains'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} waits for a domain to be available.
+
+[#dscyml_addswaitfordomains]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addswaitfordomains_abstract, {abstract}]]
 {abstract}
@@ -75,8 +73,7 @@
 |
 | UInt64
 | SpecifSpecifies the timeout in seconds that the resource will wait for the domain to be accessible.
-  Default value is 300 seconds.
-|
+| Default: `300`
 
 | RestartCount
 |
@@ -89,12 +86,6 @@
 | Boolean
 | Specifies that the resource will not throw an error if authentication fails using the provided credentials and continue wait for the timeout.
   This can be used if the credentials are known to eventually exist but there are a potential timing issue before they are accessible.
-|
-
-| IsAvailable
-|
-| Boolean
-| Returns a value indicating if a domain controller was found.
 |
 
 |===

@@ -3,23 +3,24 @@
 
 :YmlCategory: AddsTrusts
 
+:abstract:    {YmlCategory} creates new forest or external trust.
 
-[[dscyml_addstrusts, {YmlCategory}]]
-= DSC Resource 'AddsTrusts'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
-:abstract:   {YmlCategory} creates new forest or external trust.
+[#dscyml_addstrusts]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_addstrusts_abstract, {abstract}]]
 {abstract}
+
+A trust is a relationship, which you establish between domains or forests. 
+To understand more about trusts in Active Directory, please see the article https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/forest-design-models[Forest Design Models] for more information.
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsTrusts
 | DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
-| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust],
-                   https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]
+| Documentation  | - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainTrust[ADDomainTrust]
+                   - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]
 |===
 
 
@@ -32,11 +33,75 @@
 | Description
 | Allowed Values
 
-| Trusts
+| [[dscyml_addstrusts_trusts, {YmlCategory}/Trusts]]<<dscyml_addstrusts_trusts_details, Trusts>>
 | Mandatory
 | Hashtable[]
-| The list of trusts to configure. Includes WaitForADDomain for each TargetDomainName
+| The list of trusts to configure.
+
+Includes `WaitForADDomain` for each `TargetDomainName`
 |
+
+|===
+
+
+[[dscyml_addstrusts_trusts_details]]
+.Attributes of DSC Resource '<<dscyml_addstrusts_trusts>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SourceDomainName
+| Key
+| String
+| Specifies the name of the Active Directory domain that is requesting the trust.
+|
+
+| TargetDomainName
+| Key
+| String
+| Specifies the name of the Active Directory domain that is being trusted.
+|
+
+| TargetCredential
+| Mandatory
+| PSCredential
+| Specifies the credentials to authenticate to the target domain.
+|
+
+| TrustType
+| Mandatory
+| String
+| Specifies the type of trust.
+
+The value `External` means the context _Domain_, while the value `Forest` means the context _Forest_.
+| - External
+  - Forest
+
+| TrustDirection
+| Mandatory
+| String
+| Specifies the direction of the trust.
+| - Bidirectional
+  - Inbound
+  - Outbound
+
+| AllowTrustRecreation
+| Mandatory
+| Boolean
+| Specifies if the is allowed to be recreated if required.
+| - True
+  - *False* (default)
+
+| Ensure
+| 
+| String
+| Specifies whether the computer account is present or absent.
+| - *Present* (default)
+  - Absent
 
 |===
 
@@ -47,12 +112,12 @@
 AddsTrusts:
   Trusts:
     - TargetDomainName: northwindtraders.com
-      TargetCredential: '[ENC=PE9...cz4=]'
+      TargetCredential: '[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9...=]'
       TrustDirection: Bidirectional
       TrustType: Forest
       SourceDomainName: contoso.com
     - TargetDomainName: partsunlimited.com
-      TargetCredential: '[ENC=PE9...ab3=]'
+      TargetCredential: '[ENC=PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9...=]'
       TrustDirection: Outbound
       TrustType: External
       SourceDomainName: contoso.com

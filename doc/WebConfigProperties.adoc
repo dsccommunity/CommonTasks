@@ -1,0 +1,99 @@
+// CommonTasks YAML Reference: WebConfigProperties
+// ===============================================
+
+:YmlCategory: WebConfigProperties
+
+:abstract:    {YmlCategory} is used to ensure the value of an identified property in the web.config file.
+
+[#dscyml_webconfigproperties]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_webconfigproperties_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WebConfigProperties
+| DSC Resource   | https://github.com/dsccommunity/xWebAdministration[xWebAdministration]
+| Documentation  | https://github.com/dsccommunity/WebAdministrationDsc/wiki/xWebConfigProperty[xWebConfigProperty]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_webconfigproperties_items, {YmlCategory}/Items]]<<dscyml_webconfigproperties_items_details, Items>>
+| Mandatory
+| Hashtable[]
+| set of web config properties
+|
+
+|===
+
+
+[[dscyml_webconfigproperties_items_details]]
+.Attributes of category '<<dscyml_webconfigproperties_items>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| WebsitePath
+| Key
+| String
+| Path to website location (IIS or WebAdministration format).	
+|
+
+| Filter
+| Key
+| String
+| Filter used to locate property to update.
+|
+
+| PropertyName
+| Key
+| String
+| Name of the property to update.
+|
+
+| Value
+|
+| String
+| Value of the property to update.
+|
+
+| Ensure
+|
+| String
+| Indicates if the property and value should be present or absent.
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+WebConfigProperties:
+  Items:
+    - WebsitePath: IIS:\Sites\Default Web Site\CertEnroll
+      Filter: system.webServer/directoryBrowse
+      PropertyName: enabled
+      Value: true
+    - WebsitePath: IIS:\Sites\Default Web Site\CertEnroll
+      Filter: system.webServer/security/requestFiltering
+      PropertyName: allowDoubleEscaping
+      Value: true
+----

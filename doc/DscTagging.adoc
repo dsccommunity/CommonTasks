@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DscTagging
-// ========================================
+// ======================================
 
 :YmlCategory: DscTagging
 
+:abstract:  {YmlCategory} contains information about the current DSC configuration (version, envrionment, modules, ...).
 
-[[dscyml_dsctagging, {YmlCategory}]]
-= DSC Resource 'DscTagging'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dsctagging]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dsctagging_abstract]]
-.{YmlCategory} contains information about the current DSC configuration (version, envrionment, modules, ...).
+[[dscyml_dsctagging_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

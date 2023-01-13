@@ -1,0 +1,53 @@
+// CommonTasks YAML Reference: ExchangeAutoMountPoints
+// ===================================================
+
+:YmlCategory: ExchangeAutoMountPoints
+
+:abstract: {YmlCategory} is used to ###TBD###
+
+[#dscyml_exchangeautomountpoints]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_exchangeautomountpoints_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeAutoMountPoints
+| DSC Resource   | https://github.com/dsccommunity/xExchange[xExchange]
+| Documentation  |
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ExchangeAutoMountPoints:
+  Identity: \ExchangeServer01
+  AutoDagDatabasesRootFolderPath: C:\ExchangeDatabases
+  AutoDagVolumesRootFolderPath: C:\ExchangeVolumes
+  DiskToDBMap:
+    - DAG01-DB1
+    - DAG01-DB2
+  SpareVolumeCount: 1
+  VolumePrefix: EXVOL
+----

@@ -1,0 +1,369 @@
+// CommonTasks YAML Reference: ConfigurationManagerConfiguration
+// =============================================================
+
+:YmlCategory: ConfigurationManagerConfiguration
+
+:abstract:   {YmlCategory} is used to ###TBD###.
+
+[#dscyml_configurationmanagerconfiguration]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_configurationmanagerconfiguration_abstract, {abstract}]]
+{abstract}
+
+
+:CMAccounts:                                    https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMAccounts]
+:CMAdministrativeUser:                          https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMAdministrativeUser]
+:CMBoundaries:                                  https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMBoundaries]
+:CMBoundaryGroups:                              https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMBoundaryGroups]
+:CMClientStatusSettings:                        https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMClientStatusSettings]
+:CMCollectionMembershipEvaluationComponent:     https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMCollectionMembershipEvaluationComponent]
+:CMDistributionGroup:                           https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]
+:CMDistributionPoint:                           https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionPoint]
+:CMDistributionPointGroupMembers:               https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionPointGroupMembers]
+:CMEmailNotificationComponent:                  https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMEmailNotificationComponent]
+:CMForestDiscovery:                             https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMForestDiscovery]
+:CMHeartbeatDiscovery:                          https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMHeartbeatDiscovery]
+:CMManagementPoint:                             https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMManagementPoint]
+:CMNetworkDiscovery:                            https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMNetworkDiscovery]
+:CMSiteMaintenance:                             https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMSiteMaintenance]
+:CMSoftwareUpdatePoint:                         https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMSoftwareUpdatePoint]
+:CMSoftwareUpdatePointComponent:                https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMSoftwareUpdatePointComponent]
+:CMStatusReportingComponent:                    https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMStatusReportingComponent]
+:CMSystemDiscovery:                             https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMSystemDiscovery]
+:CMUserDiscovery:                               https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMUserDiscovery]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationManagerConfiguration
+| DSC Resource   | - https://github.com/dsccommunity/ConfigMgrCBDsc[ConfigMgrCBDsc]
+                   - https://github.com/dsccommunity/UpdateServicesDsc[UpdateServicesDsc]
+| Documentation  | - {CMAccounts}
+                   - {CMAdministrativeUser}
+                   - {CMBoundaries}
+                   - {CMBoundaryGroups}
+                   - {CMClientStatusSettings}
+                   - {CMCollectionMembershipEvaluationComponent}
+                   - {CMDistributionGroup}
+                   - {CMDistributionPointGroupMembers}
+                   - {CMDistributionPoint}
+                   - {CMEmailNotificationComponent}
+                   - {CMForestDiscovery}
+                   - {CMHeartbeatDiscovery}
+                   - {CMManagementPoint}
+                   - {CMNetworkDiscovery}
+                   - {CMSiteMaintenance}
+                   - {CMSoftwareUpdatePointComponent}
+                   - {CMSoftwareUpdatePoint}
+                   - {CMStatusReportingComponent}
+                   - {CMSystemDiscovery}
+                   - {CMUserDiscovery}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SiteName
+|
+| String
+|
+|
+
+| SiteCode
+|
+| String
+|
+|
+
+| SccmInstallAccount
+| Mandatory
+| PSCredential
+|
+|
+
+| CMAccounts
+|
+| Hashtable[]
+| see {CMAccounts}
+|
+
+| LocalAdministrators
+|
+| String[]
+|
+| Default: 'contoso\SCCM-Servers', 'contoso\SCCM-CMInstall', 'contoso\Admin'
+
+| EmailSettings
+|
+| Hashtable
+|
+|
+
+| SystemDiscovery
+|
+| Hashtable
+| see {CMSystemDiscovery}
+|
+
+| ForestDiscovery
+|
+| Hashtable
+| see {CMForestDiscovery}
+|
+
+| NetworkDiscovery
+|
+| Hashtable
+| see {CMNetworkDiscovery}
+|
+
+| HeartbeatDiscovery
+|
+| Hashtable
+| see {CMHeartbeatDiscovery}
+|
+
+| UserDiscovery
+|
+| Hashtable
+| see {CMUserDiscovery}
+|
+
+| ClientStatusSettings
+|
+| Hashtable
+|
+|
+
+| SiteMaintenanceConfigurations
+|
+| Hashtable
+|
+|
+
+| BoundaryGroups
+|
+| Hashtable
+| see {CMBoundaryGroups}
+|
+
+| SiteAdmins
+|
+| Hashtable[]
+|
+|
+
+| CollectionSettings
+|
+|
+| Hashtable
+|
+
+| StatusReportingSettings
+|
+| Hashtable
+| see {CMStatusReportingComponent}
+|
+
+| DistributionPointGroups
+|
+| Hashtable[]
+| see {CMDistributionGroup}
+|
+
+| ManagementPoint
+|
+| Hashtable
+| see {CMManagementPoint}
+|
+
+| SoftwareUpdatePoint
+|
+| Hashtable
+| see {CMSoftwareUpdatePoint}
+|
+
+| SoftwareUpdatePointComponent
+|
+| Hashtable
+| see {CMSoftwareUpdatePointComponent}
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ConfigurationManagerConfiguration:
+  SiteCode: S00
+  SiteName: Eine Site
+  SccmInstallAccount: '[ENC=PE9ianMgVmVyc2l...=]'
+  LocalAdministrators:
+    - cm\SOME_GROUP_ACC
+    - cm\SomeUser123
+  CMAccounts:
+    - UserName: usr1
+      Password: "[ENC=PE9ianMgVmVyc2lvb...=]"
+    - UserName: usr2
+      Password: "[ENC=PE9ianMgVmVyc2lvb...=]"
+  EmailSettings:
+    SendFrom: somewhere
+    SmtpServerFqdn: exchange.somedomain.com
+    TypeOfAuthentication: Other
+    Port: 445
+    UseSsl: true
+    Enabled: true
+    UserName: cm\EmailUser
+  ForestDiscovery:
+    Enabled: true
+  NetworkDiscovery:
+    Enabled: true
+  HeartbeatDiscovery:
+    Enabled: true
+    ScheduleInterval: Days
+    ScheduleCount: 1
+  UserDiscovery:
+    Enabled: true
+    ScheduleInterval: Days
+    ScheduleCount: 7
+    EnableDeltaDiscovery: true
+    DeltaDiscoveryMins: 5
+    ADContainers:
+      - LDAP://CN=Users,DC=contoso,DC=com
+  ClientStatusSettings:
+    IsSingleInstance: Yes
+    ClientPolicyDays: 7
+    HeartbeatDiscoveryDays: 7
+    SoftwareInventoryDays: 7
+    HardwareInventoryDays: 7
+    StatusMessageDays: 7
+    HistoryCleanupDays: 31
+  SystemDiscovery:
+    Enabled: true
+    ScheduleInterval: "Days"
+    ScheduleCount: 7
+    EnableDeltaDiscovery: true
+    DeltaDiscoveryMins: 60
+    EnableFilteringExpiredLogon: true
+    TimeSinceLastLogonDays: 90
+    EnableFilteringExpiredPassword: true
+    TimeSinceLastPasswordUpdateDays: 90
+    ADContainers:
+      - LDAP://OU=Domain Controllers,DC=contoso,DC=com
+      - LDAP://CN=Computers,DC=contoso,DC=com
+  SiteMaintenanceConfigurations:
+    - TaskName: Backup SMS Site Server
+      Enabled: true
+      DaysOfWeek:
+        - Sunday
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+      BeginTime: 1500
+      LatestBeginTime: 2000
+      BackupLocation: E:\CmBackups
+    - TaskName: Delete Aged EP Health Status History Data
+      Enabled: false
+  BoundaryGroups:
+    - BoundaryGroup: Name 1
+      Boundaries:
+        - DisplayName: A Boundary
+          Value: 10.10.1.1-10.10.1.254
+          Type: IPRange
+        - DisplayName: Another Boundary
+          Value: 10.10.2.1-10.10.2.254
+          Type: IPRange
+  SiteAdmins:
+    - AdminName: Contoso\SCCM-SiteAdmins
+      RolesToInclude: Full Administrator
+      ScopesToInclude: All
+  CollectionSettings:
+    EvaluationMins: 5
+  StatusReportingSettings:
+    ClientLogChecked: false
+    ClientLogFailureChecked: false
+    ClientReportChecked: true
+    ClientReportFailureChecked: true
+    ClientReportType: AllMilestones
+    ServerLogChecked: false
+    ServerLogFailureChecked: false
+    ServerReportChecked: true
+    ServerReportFailureChecked: true
+    ServerReportType: AllMilestones
+  DistributionPointGroups:
+    - DistributionGroup: S00 - All Distribution Points
+      DistributionPoints:
+        - Description: Standard Distribution Point
+          MinimumFreeSpaceMB: 100
+          BoundaryGroups:
+            - Name 1
+          BoundaryGroupStatus: Add
+          AllowPrestaging: false
+          EnableAnonymous: true
+          EnableBranchCache: true
+          EnableLedbat: true
+          ClientCommunicationType: Http
+      Members:
+        DistributionGroups:
+          - TestGroup1
+          - TestGroup2
+          - TestGroup3
+        DistributionGroupsToInclude:
+          - TestGroup1
+          - TestGroup2
+        DistributionGroupsToExclude:
+          - TestGroup3
+          - TestGroup4
+  ManagementPoint:
+    Ensure: Present
+    GenerateAlert: true
+    UseSiteDatabase: true
+    UseComputerAccount: true
+  SoftwareUpdatePoint:
+    ClientConnectionType: Intranet
+    EnableCloudGateway: false
+    UseProxy: false
+    UseProxyForAutoDeploymentRule: false
+    WsusIisPort: 8530
+    WsusIisSslPort: 8531
+    WsusSsl: false
+  SoftwareUpdatePointComponent:
+    EnableSynchronization: true
+    SynchronizeAction: SynchronizeFromMicrosoftUpdate
+    ScheduleType: Days
+    RecurInterval: 7
+    LanguageSummaryDetailsToInclude:
+      - English
+    LanguageUpdateFilesToInclude:
+      - English
+    ProductsToInclude:
+      - Windows 10
+    UpdateClassificationsToInclude:
+      - Critical Updates
+      - Updates
+    ContentFileOption: FullFilesOnly
+    DefaultWsusServer: $($Node.Name)
+    EnableCallWsusCleanupWizard: true
+    EnableSyncFailureAlert: true
+    ImmediatelyExpireSupersedence: false
+    ImmediatelyExpireSupersedenceForFeature: false
+    ReportingEvent: DoNotCreateWsusReportingEvents
+    WaitMonth: 1
+    WaitMonthForFeature: 1
+    EnableThirdPartyUpdates: true
+    EnableManualCertManagement: false
+    FeatureUpdateMaxRuntimeMins: 300
+    NonFeatureUpdateMaxRuntimeMins: 300
+----

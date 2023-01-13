@@ -3,14 +3,13 @@
 
 :YmlCategory: OpticalDiskDrives
 
+:abstract:    {YmlCategory} is used to set the drive letter of an optical disk drive (e.g. a CDROM or DVD drive).
 
-[[dscyml_opticaldiskdrives, {YmlCategory}]]
-= DSC Resource 'OpticalDiskDrives'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_opticaldiskdrives]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_opticaldiskdrives_abstract]]
-.{YmlCategory} is used to set the drive letter of an optical disk drive (e.g. a CDROM or DVD drive).
+[[dscyml_opticaldiskdrives_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

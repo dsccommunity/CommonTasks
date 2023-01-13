@@ -3,38 +3,36 @@
 
 :YmlCategory: NetworkIpConfiguration
 
+:abstract:    {YmlCategory} sets the IP configuration and network routes.
 
-[[dscyml_networkipconfiguration, {YmlCategory}]]
-= DSC Resource 'NetworkIpConfiguration'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_networkipconfiguration]
+= DSC Resource '{YmlCategory}'
 
-
-[[dscyml_networkipconfiguration_abstract]]
-.{YmlCategory} sets the IP configuration and network routes.
-
+[[dscyml_networkipconfiguration_abstract, {abstract}]]
+{abstract}
 
 // reference links as variables for using more than once
-:ref_networkingdsc_ipaddress: https://github.com/dsccommunity/NetworkingDsc/wiki/IPAddress[IPAddress]
+:ref_networkingdsc_ipaddress:             https://github.com/dsccommunity/NetworkingDsc/wiki/IPAddress[IPAddress]
 :ref_networkingdsc_defaultgatewayaddress: https://github.com/dsccommunity/NetworkingDsc/wiki/DefaultGatewayAddress[DefaultGatewayAddress]
-:ref_networkingdsc_dnsserveraddress: https://github.com/dsccommunity/NetworkingDsc/wiki/DnsServerAddress[DNSServerAddress]
-:ref_networkingdsc_netipinterface: https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NetIPInterface]
-:ref_networkingdsc_netbios: https://github.com/dsccommunity/NetworkingDsc/wiki/NetBios[NetBios]
-:ref_networkingdsc_netadapterbinding: https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterBinding[NetAdapterBinding]
-:ref_networkingdsc_route: https://github.com/dsccommunity/NetworkingDsc/wiki/Route[Route]
+:ref_networkingdsc_dnsserveraddress:      https://github.com/dsccommunity/NetworkingDsc/wiki/DnsServerAddress[DNSServerAddress]
+:ref_networkingdsc_netipinterface:        https://github.com/dsccommunity/NetworkingDsc/wiki/NetIPInterface[NetIPInterface]
+:ref_networkingdsc_netbios:               https://github.com/dsccommunity/NetworkingDsc/wiki/NetBios[NetBios]
+:ref_networkingdsc_netadapterbinding:     https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterBinding[NetAdapterBinding]
+:ref_networkingdsc_route:                 https://github.com/dsccommunity/NetworkingDsc/wiki/Route[Route]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/NetworkIpConfiguration
-| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
-                   https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
-| Documentation  | {ref_networkingdsc_ipaddress},
-                   {ref_networkingdsc_defaultgatewayaddress},
-                   {ref_networkingdsc_dnsserveraddress},
-                   {ref_networkingdsc_netipinterface},
-                   {ref_networkingdsc_netbios},
-                   {ref_networkingdsc_netadapterbinding},
-                   {ref_networkingdsc_route}
+| DSC Resource   | - https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+                   - https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | - {ref_networkingdsc_ipaddress}
+                   - {ref_networkingdsc_defaultgatewayaddress}
+                   - {ref_networkingdsc_dnsserveraddress}
+                   - {ref_networkingdsc_netipinterface}
+                   - {ref_networkingdsc_netbios}
+                   - {ref_networkingdsc_netadapterbinding}
+                   - {ref_networkingdsc_route}
                    
 |===
 
@@ -93,49 +91,50 @@ https://docs.microsoft.com/en-US/troubleshoot/windows-server/networking/configur
 | Key
 | String
 | Alias of the network interface for which the IP address should be set.
-[NOTE]
-====
-To use a specifc InterfaceAlias a <<dscyml_ipconfiguration_adapter_details, network adapter configuration>> is necessary.
-====
-| Default: Ethernet +
-[NOTE]
-====
+
+To use a specific InterfaceAlias a <<dscyml_ipconfiguration_adapter_details, network adapter configuration>> is necessary. +
 If you define settings in different YAML layer files the `InterfaceAlias` must be specified in every file to support merging.
-====
+| Default: Ethernet
 
 | IpAddress
 | 
 | String
-| The desired IP address, optionally including prefix length using CIDR notation. +
-  See {ref_networkingdsc_ipaddress}
+| The desired IP address, optionally including prefix length using CIDR notation.
+
+See {ref_networkingdsc_ipaddress}
 |
 
 | Prefix
 | 
 | Int
-| IP address prefix. +
-  IPv4 classes:
+| IP address prefix.
 
-    - Class A - /8 +
-      -> 16.777.216 addresses
-    - Class B - /16 +
-      -> 65.536 addresses
-    - Class C - /24 +
-      -> 256 addresses
+IPv4 classes:
+
+- Class A - /8
+  ** 16.777.216 addresses
+
+- Class B - /16
+  ** 65.536 addresses
+
+- Class C - /24
+  ** 256 addresses
 | Default: 24
 
 | Gateway
 |
 | String
-| The desired default gateway address. +
-  See {ref_networkingdsc_defaultgatewayaddress}
+| The desired default gateway address.
+
+See {ref_networkingdsc_defaultgatewayaddress}
 |
 
 | DnsServer
 |
 | String[]
-| The desired DNS Server address(es). +
-  See {ref_networkingdsc_dnsserveraddress}
+| The desired DNS Server address(es).
+
+See {ref_networkingdsc_dnsserveraddress}
 |
 
 | InterfaceMetric
@@ -143,18 +142,16 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
 | UInt32
 | Specifies the metric for an IP interface (IPv4 and IPv6).
 
-[NOTE]
-====
 Typically, the interface metric gives preference to a particular interface, such as using wired if both wired and wireless are available.
 The default (empty) value is automatic.
-====
 |
 
 | DisableNetbios
 |
 | Boolean
-| Disable the NetBios on the network interface. +
-  See {ref_networkingdsc_netbios}
+| Disable the NetBios on the network interface.
+
+See {ref_networkingdsc_netbios}
 | - *False* (default)
   - True
 
@@ -168,20 +165,20 @@ The default (empty) value is automatic.
 | EnableDhcp
 |
 | Boolean
-| Enable the Dynamic Host Configuration Protocol (DHCP) for the IP interface. +
-  See {ref_networkingdsc_netipinterface} +
-[NOTE]
-====
+| Enable the Dynamic Host Configuration Protocol (DHCP) for the IP interface.
+
+See {ref_networkingdsc_netipinterface}
+
 If set to `True` the paramters `IpAddress`, `Gateway` and `DnsServers` must be empty.
-====
 | - *False* (default)
   - True
 
 | DisableIPv6
 |
 | Boolean
-| Disable IPv6 on the network interface. +
-  See {ref_networkingdsc_netadapterbinding}
+| Disable IPv6 on the network interface.
+
+See {ref_networkingdsc_netadapterbinding}
 | - *False* (default)
   - True
 
@@ -195,11 +192,16 @@ The server automatically sets the value of `DomainAuthenticated` when the networ
 
 The acceptable values for this parameter are:
 
-- Public - Networks in a public place such as an airport or coffee shop. 
-           Your PC is hidden from other devices on the network and can't be used for printer and file sharing.
-- Private - Networks at home or work, where you know and trust the people and devices on the network.
-            Your PC is discoverable and can be used for printer and file sharing if you set it up.
-- DomainAuthenticated - Networks at a workplace that are joined to a domain.
+- `Public`
+  ** Networks in a public place such as an airport or coffee shop. 
+  ** Your PC is hidden from other devices on the network and can't be used for printer and file sharing.
+
+- `Private`
+  ** Networks at home or work, where you know and trust the people and devices on the network.
+  ** Your PC is discoverable and can be used for printer and file sharing if you set it up.
+
+- `DomainAuthenticated`
+  ** Networks at a workplace that are joined to a domain.
 | - Public
   - Private
   - DomainAuthenticated
@@ -221,10 +223,8 @@ The acceptable values for this parameter are:
 | Key
 | String
 | Specifies the alias of a network interface.
-[NOTE]
-====
+
 To use a specifc InterfaceAlias a <<dscyml_ipconfiguration_adapter_details, network adapter configuration>> is necessary.
-====
 | Default: Ethernet
 
 | AddressFamily

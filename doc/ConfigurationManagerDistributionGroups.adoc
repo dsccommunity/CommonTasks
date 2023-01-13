@@ -1,0 +1,105 @@
+// CommonTasks YAML Reference: ConfigurationManagerDistributionGroups
+// ==================================================================
+
+:YmlCategory: ConfigurationManagerDistributionGroups
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_configurationmanagerdistributiongroups]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_configurationmanagerdistributiongroups_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationManagerDistributionGroups
+| DSC Resource   | https://github.com/dsccommunity/ConfigMgrCBDsc[ConfigMgrCBDsc]
+| Documentation  | https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]           
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| SiteCode
+| Mandatory
+| String
+|
+|
+
+| [[dscyml_configurationmanagerdistributiongroups_distributiongroups, {YmlCategory}/DistributionGroups]]<<dscyml_configurationmanagerdistributiongroups_distributiongroups_details, DistributionGroups>>
+| 
+| Hashtable[]
+| set of distribution groups
+|
+
+|===
+
+
+[[dscyml_configurationmanagerdistributiongroups_distributiongroups_details]]
+.Attributes of category '<<dscyml_configurationmanagerdistributiongroups_distributiongroups>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ConfigurationManagerDistributionGroups:
+  SiteCode: AL1
+  DistributionGroups:
+    - DistributionGroup: DG1
+      #Collections: # 1:1 match, supported in future release of ConfigMgrCBDsc
+      #  - Collection 1
+      #  - Collection 2
+      DistributionPointsToExclude:
+        - DP2
+      DistributionPointsToInclude:
+        - DP1
+      SecurityScopesToExclude:
+        - Scope1
+      SecurityScopesToInclude:
+        - Scope2
+    - DistributionGroup: DG2
+      #CollectionsToExclude: # supported in future release of ConfigMgrCBDsc
+      #  - Collection 1
+      #CollectionsToInclude: # supported in future release of ConfigMgrCBDsc
+      #  - Collection 2
+      DistributionPoints: # 1:1 match
+        - DP1
+        - DP2
+      SecurityScopes: # 1:1 match
+        - Scope1
+        - Scope2
+    - DistributionGroup: DG3
+      SiteCode: AL2 # Override SiteCode for individual groups
+      DistributionPointsToExclude:
+        - DP2
+      DistributionPointsToInclude:
+        - DP1
+      SecurityScopesToExclude:
+        - Scope1
+      SecurityScopesToInclude:
+        - Scope2
+----

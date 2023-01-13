@@ -1,0 +1,196 @@
+// CommonTasks YAML Reference: CertificateAuthorities
+// ==================================================
+
+:YmlCategory: CertificateAuthorities
+
+:abstract:   {YmlCategory} is used to install the ADCS Certificate Authority.
+
+[#dscyml_certificateauthorities]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_certificateauthorities_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateAuthorities
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryCSDsc[ActiveDirectoryCSDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryCSDsc/wiki/AdcsCertificationAuthority[AdcsCertificationAuthority]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| IsSingleInstance
+| Key
+| String
+| Specifies the resource is a single instance, the value must be `Yes`.
+| - Yes
+
+| CAType
+| Mandatory
+| String
+| Specifies the type of certification authority to install.
+| - EnterpriseRootCA
+  - EnterpriseSubordinateCA
+  - StandaloneRootCA
+  - StandaloneSubordinateCA
+
+| Credential
+| Mandatory
+| PSCredential
+| To install an enterprise certification authority, the computer must be joined to an Active Directory Domain Services domain
+  and a user account that is a member of the Enterprise Admin group is required.
+  To install a standalone certification authority, the computer can be in a workgroup or AD DS domain.
+  If the computer is in a workgroup, a user account that is a member of Administrators is required.
+  If the computer is in an AD DS domain, a user account that is a member of Domain Admins is required.
+|
+
+| Ensure
+| 
+| String
+| Specifies whether the Certificate Authority should be installed or uninstalled.
+| - *Present* (default)
+  - Absent
+
+| CACommonName
+|
+| String
+| Specifies the certification authority common name.
+|
+
+| CADistinguishedNameSuffix
+|
+| String
+| Specifies the certification authority distinguished name suffix.
+|
+
+| CertFile
+|
+| String
+| Specifies the file name of certification authority PKCS 12 formatted certificate file.
+|
+
+| CertFilePassword
+|
+| PSCredential
+| Specifies the password for certification authority certificate file.
+|
+
+| CertificateID
+|
+| String
+| Specifies the password for certification authority certificate file.
+|
+
+| CryptoProviderName
+|
+| String
+| The name of the cryptographic service provider or key storage provider that is used to generate or store the private key for the CA.
+|
+
+| DatabaseDirectory
+|
+| String
+| Specifies the folder location of the certification authority database.
+|
+
+| HashAlgorithmName
+|
+| String
+| Specifies the signature hash algorithm used by the certification authority.
+|
+
+| IgnoreUnicode
+|
+| Boolean
+| Specifies that Unicode characters are allowed in certification authority name string.
+| - True
+  - False
+
+| KeyContainerName
+|
+| String
+| Specifies the name of an existing private key container.	
+|
+
+| KeyLength
+|
+| UInt32
+| Specifies the bit length for new certification authority key.
+|
+
+| LogDirectory
+|
+| String
+| Specifies the folder location of the certification authority database log.
+|
+
+| OutputCertRequestFile
+|
+| String
+| Specifies the folder location for certificate request file.
+|
+
+| OverwriteExistingCAinDS
+|
+| Boolean
+| Specifies that the computer object in the Active Directory Domain Service domain should be overwritten with the same computer name.
+|
+
+| OverwriteExistingDatabase
+|
+| Boolean
+| Specifies that the existing certification authority database should be overwritten.
+|
+
+| OverwriteExistingKey
+|
+| Boolean
+| Overwrite existing key container with the same name
+| - True
+  - False
+
+| ParentCA
+|
+| String
+| Specifies the configuration string of the parent certification authority that will certify this CA.
+|
+
+| ValidityPeriod
+|
+| String
+| Specifies the validity period of the certification authority certificate in hours, days, weeks, months or years.
+  If this is a subordinate CA, do not use this parameter, because the validity period is determined by the parent CA.
+| - Hours
+  - Days
+  - Months
+  - Years
+
+| ValidityPeriodUnits
+|
+| UInt32
+| Validity period of the certification authority certificate.
+  If this is a subordinate CA, do not specify this parameter because the validity period is determined by the parent CA.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+CertificateAuthorities:
+  IsSingleInstance: Yes
+  Credential: '[ENC=PE9ianMgVmVyc2lv...=]'
+  CAType: EnterpriseSubordinateCA
+  CACommonName: Contoso Issuing CA
+----

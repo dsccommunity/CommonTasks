@@ -1,32 +1,34 @@
 // CommonTasks YAML Reference: SqlRoles
-// =============================================
+// ====================================
 
 :YmlCategory: SqlRoles
 
+:abstract:    {YmlCategory} is used to manage the SQL Server Configuration Options on a SQL Server instance.
 
-[[dscyml_sqlroles, {YmlCategory}]]
-= DSC Resource 'SqlRoles'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqlroles]
+= DSC Resource '{YmlCategory}'
 
+[[dscyml_sqlroles_abstract, {abstract}]]
+{abstract}
 
-[[dscyml_sqlroles_abstract]]
-.The {YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+The SqlRole DSC resource is used to create a server role, when Ensure is set to `Present`, or remove a server role, when Ensure is set to `Absent`.
+The resource also manages members in both built-in and user created server roles.
 
-The SqlRole DSC resource is used to create a server role, when Ensure is set to 'Present', or remove a server role, when Ensure is set to 'Absent'. The resource also manages members in both built-in and user created server roles.
+When the target role is sysadmin the DSC resource will prevent the user `sa` from being removed.
+This is done to keep the DSC resource from throwing an error since SQL Server does not allow this user to be removed.
 
-When the target role is sysadmin the DSC resource will prevent the user 'sa' from being removed. This is done to keep the DSC resource from throwing an error since SQL Server does not allow this user to be removed.
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqlrole:                 https://github.com/dsccommunity/SqlServerDsc/wiki/SqlRole[SqlRole]
+:ref_sqlserverdsc_wiki:      https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqlrole:   https://github.com/dsccommunity/SqlServerDsc/wiki/SqlRole[SqlRole]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlRoles
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqlrole}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqlrole}
                    
 |===
 
@@ -35,6 +37,7 @@ When the target role is sysadmin the DSC resource will prevent the user 'sa' fro
 
 - Target machine must be running Windows Server 2012 or later.
 - Target machine must be running SQL Server Database Engine 2012 or later.
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
@@ -45,7 +48,7 @@ When the target role is sysadmin the DSC resource will prevent the user 'sa' fro
 | Description
 | Allowed Values
 
-| [[dscyml_SqlRoles_Values, {YmlCategory}/Values]]<<dscyml_SqlRoles_Values_Details, Values>>
+| [[dscyml_sqlroles_values, {YmlCategory}/Values]]<<dscyml_sqlroles_values_details, Values>>
 | Mandatory
 | Hashtable[]
 | List of SQL roles.
@@ -53,8 +56,9 @@ When the target role is sysadmin the DSC resource will prevent the user 'sa' fro
 
 |===
 
-[[dscyml_SqlRoles_Values_Details]]
-.Attributes of category '{YmlCategory}'
+
+[[dscyml_sqlroles_values_details]]
+.Attributes of category '<<dscyml_sqlroles_values>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -78,32 +82,44 @@ When the target role is sysadmin the DSC resource will prevent the user 'sa' fro
 | ServerName
 |
 | String
-| The host name of the SQL Server to be configured. Default value is the current computer name.
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
 |
 
 | Members
 |
 | String[]
-| The members the server role should have. This parameter will replace all the current server role members with the specified members.
+| The members the server role should have.
+
+This parameter will replace all the current server role members with the specified members.
 |
 
 | MembersToInclude
 |
 | String[]
-| The members the server role should include. This parameter will only add members to a server role. Can not be used at the same time as parameter *Members*.
+| The members the server role should include.
+
+This parameter will only add members to a server role.
+Can not be used at the same time as parameter *Members*.
 |
 
 | MembersToExclude
 |
 | String[]
-| The members the server role should exclude. This parameter will only remove members from a server role. Can only be used when parameter *Ensure* is set to `'Present'`. Can not be used at the same time as parameter Members.
+| The members the server role should exclude.
+
+This parameter will only remove members from a server role.
+Can only be used when parameter *Ensure* is set to `Present`.
+Can not be used at the same time as parameter Members.
 |
 
 | Enure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
-| `Present`, `Absent`
+| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| - *Present*
+  - Absent
 
 |===
 

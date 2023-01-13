@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DnsServerRootHints
-// ========================================
+// ==============================================
 
 :YmlCategory: DnsServerRootHints
 
+:abstract:  {YmlCategory} manages root hints on a Domain Name System (DNS) server.
 
-[[dscyml_dnsserverroothints, {YmlCategory}]]
-= DSC Resource 'DnsServerRootHints'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverroothints]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverroothints_abstract]]
-.{YmlCategory} manages root hints on a Domain Name System (DNS) server.
+[[dscyml_dnsserverroothints_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

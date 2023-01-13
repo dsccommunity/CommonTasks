@@ -1,0 +1,104 @@
+// CommonTasks YAML Reference: AddsDomainController
+// ================================================
+
+:YmlCategory: AddsDomainController
+
+:abstract:    {YmlCategory} installs and configures domain controllers in Active Directory.
+
+[#dscyml_addsdomaincontroller, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_addsdomaincontroller_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AddsDomainController
+| DSC Resource   | https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
+| Documentation  | https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADDomainController[AddsDomainController]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DomainName
+| Key
+| String
+| The fully qualified domain name (FQDN) of the domain the Domain Controller will be joining.
+|
+
+| Credential
+| Mandatory
+| PSCredential
+| The credentials of a user that has Domain Administrator rights to add the Domain Controller to the domain.
+|
+
+| SafemodeAdministratorPassword
+| Mandatory
+| PSCredential
+| Credentials containing the password to use for Directory Services Restore Mode (DSRM).
+|
+
+| DatabasePath
+|
+| String
+| The path where the database will be stored.
+| Default: `C:\Windows\NTDS`
+
+| LogPath
+|
+| String
+| The path where the logs will be stored.
+| Default: `C:\Windows\Logs`
+
+| SysvolPath
+|
+| String
+| The path where the Sysvol will be stored.
+| Default: `C:\Windows\SYSVOL`
+
+| SiteName
+|
+| String
+| The name of the site this Domain Controller will be added to.
+|
+
+| IsGlobalCatalog
+|
+| Boolean
+| Specifies if the domain controller will be a Global Catalog (GC).
+| - *True* (default)
+  - False
+
+| InstallationMediaPath
+|
+| String
+| The path of the media you want to use install the Domain Controller.
+
+##(not used inside)##
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+AddsDomainController:
+  DomainName: contoso.com
+  Credential: '[ENC=PE9ian...=]'
+  SafeModeAdministratorPassword: '[ENC=PE9ian...=]'
+  LogPath: C:\Windows\Logs
+  SysvolPath: C:\Windows\SYSVOL
+  SiteName: London
+  IsGlobalCatalog: true
+  InstallationMediaPath: \\Server\Share
+----

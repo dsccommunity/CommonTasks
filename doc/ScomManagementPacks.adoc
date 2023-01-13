@@ -1,0 +1,74 @@
+// CommonTasks YAML Reference: ScomManagementPacks
+// ===============================================
+
+:YmlCategory: ScomManagementPacks
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_scommanagementpacks]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_scommanagementpacks_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomManagementPacks
+| DSC Resource   | https://github.com/nyanhp/cScom[cScom]
+| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/DscResources/JHP_ScomManagementPack.psm1[ScomManagementPack]
+                   
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_scommanagementpacks_managementpacks, {YmlCategory}/ManagementPacks]]<<dscyml_scommanagementpacks_managementpacks_details, ManagementPacks>>
+| Mandatory
+| Hashtable[]
+| set of SCOM management packs
+|
+
+|===
+
+
+[[dscyml_scommanagementpacks_managementpacks_details]]
+.Attributes of category '<<dscyml_scommanagementpacks_managementpacks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+ScomManagementPacks:
+  ManagementPacks:
+    - Name: CustomPack1
+      ManagementPackPath: \\SomeShare\SomePath\MyCustomPack.mp
+    - Name: Dsc.ManagedNodes
+      ManagementPackContent : |
+          <?xml version="1.0" encoding="utf-8"?>
+          <ManagementPack ContentReadable="true" SchemaVersion="2.0" OriginalSchemaVersion="1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+            <Abbreviated>...</Abbreviated>
+          </ManagementPack>
+----

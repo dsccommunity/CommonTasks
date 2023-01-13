@@ -3,12 +3,10 @@
 
 :YmlCategory: DiskAccessPaths
 
-
-[[dscyml_diskaccesspaths, {YmlCategory}]]
-= DSC Resource 'DiskAccessPaths'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:  {YmlCategory} configuration is used to initialize, format and mount the partition to a folder access path.
+
+[#dscyml_diskaccesspaths]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_diskaccesspaths_abstract, {abstract}]]
 {abstract}

@@ -1,16 +1,16 @@
 // CommonTasks YAML Reference: DscLcmController
-// ========================================
+// ============================================
 
 :YmlCategory: DscLcmController
 
+:abstract:  {YmlCategory} replaces most of the default settings controlling the LCM that you usually set with `Set-DscLocalConfigurationManager`.
 
-[[dscyml_dsclcmcontroller, {YmlCategory}]]
-= DSC Resource 'DscLcmController'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dsclcmcontroller]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dsclcmcontroller_abstract]]
-.{YmlCategory} replaces most of the default settings controlling the LCM that you usually set with `Set-DscLocalConfigurationManager`.
+[[dscyml_dsclcmcontroller_abstract, {abstract}]]
+{abstract}
 
 These new settings are controlling the external trigger of the LCM.
 There is no `ConfigurationModeFrequencyMins` anymore. 

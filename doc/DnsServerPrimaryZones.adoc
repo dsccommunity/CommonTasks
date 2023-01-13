@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerPrimaryZones
 
+:abstract:  {YmlCategory} manages a standalone file-backed Primary zone on a given Domain Name System (DNS) server.
 
-[[dscyml_dnsserverprimaryzones, {YmlCategory}]]
-= DSC Resource 'DnsServerPrimaryZones'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverprimaryzones]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverprimaryzones_abstract]]
-.{YmlCategory} manages a standalone file-backed Primary zone on a given Domain Name System (DNS) server.
+[[dscyml_dnsserverprimaryzones_abstract, {abstract}]]
+{abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]

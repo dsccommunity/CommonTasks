@@ -3,14 +3,14 @@
 
 :YmlCategory: DnsServerConditionalForwarders
 
+:abstract:  {YmlCategory} manages a conditional forwarder on a Domain Name System (DNS) server.
 
-[[dscyml_dnsserverconditionalforwarders, {YmlCategory}]]
-= DSC Resource 'DnsServerConditionalForwarders'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_dnsserverconditionalforwarders]
+= DSC Resource '{YmlCategory}'
 
 
-[[dscyml_dnsserverconditionalforwarders_abstract]]
-.{YmlCategory} manages a conditional forwarder on a Domain Name System (DNS) server.
+[[dscyml_dnsserverconditionalforwarders_abstract, {abstract}]]
+{abstract}
 
 You can manage the master servers, forwarder time-out, recursion, recursion scope, and directory partition name for a conditional forwarder zone.
 

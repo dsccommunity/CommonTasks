@@ -1,30 +1,32 @@
 // CommonTasks YAML Reference: SqlDatabases
-// =============================================
+// ========================================
 
 :YmlCategory: SqlDatabases
 
+:abstract:    {YmlCategory} is used to create or delete a database.
 
-[[dscyml_sqldatabases, {YmlCategory}]]
-= DSC Resource 'SqlDatabases'
-// didn't work in production: = DSC Resource '{YmlCategory}'
+[#dscyml_sqldatabases]
+= DSC Resource '{YmlCategory}'
 
+[[dscyml_sqldatabases_abstract, {abstract}]]
+{abstract}
+For more information about SQL Server databases, please read the following articles https://docs.microsoft.com/en-us/sql/relational-databases/databases/create-a-database[Create a Database] and https://docs.microsoft.com/en-us/sql/relational-databases/databases/delete-a-database[Delete a Database].
 
-[[dscyml_sqldatabases_abstract]]
-.The {YmlCategory} DSC resource is used to create or delete a database. For more information about SQL Server databases, please read the following articles Create a Database and Delete a Database.
-
-This resource sets the recovery model for a database. The recovery model controls how transactions are logged, whether the transaction log requires (and allows) backing up, and what kinds of restore operations are available. Three recovery models exist: full, simple, and bulk-logged. Read more about recovery model in the article View or Change the Recovery Model of a Database.
+This resource sets the recovery model for a database.
+The recovery model controls how transactions are logged, whether the transaction log requires (and allows) backing up, and what kinds of restore operations are available.
+Three recovery models exist: full, simple, and bulk-logged. Read more about recovery model in the article View or Change the Recovery Model of a Database.
 
 // reference links as variables for using more than once
-:ref_sqlserverdsc_wiki:                    https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
-:ref_sqlserverdsc_sqldatabase:               https://github.com/dsccommunity/SqlServerDsc/wiki/SqlDatabase[SqlDatabase]
+:ref_sqlserverdsc_wiki:         https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+:ref_sqlserverdsc_sqldatabase:  https://github.com/dsccommunity/SqlServerDsc/wiki/SqlDatabase[SqlDatabase]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlDatabases
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
-| Documentation  | {ref_sqlserverdsc_wiki},
-                   {ref_sqlserverdsc_sqldatabase}
+| Documentation  | - {ref_sqlserverdsc_wiki}
+                   - {ref_sqlserverdsc_sqldatabase}
                    
 |===
 
@@ -33,7 +35,8 @@ This resource sets the recovery model for a database. The recovery model control
 
 - Target machine must be running Windows Server 2012 or later.
 - Target machine must be running SQL Server Database Engine 2012 or later.
-- Valid values per SQL Server version for the parameter `CompatibilityLevel` can be found in the article ALTER DATABASE (Transact-SQL) Compatibility Level.
+- Valid values per SQL Server version for the parameter `CompatibilityLevel` can be found in the article https://docs.microsoft.com/en-us/sql/t-sql/statements/alter-database-transact-sql-compatibility-level[ALTER DATABASE (Transact-SQL) Compatibility Level].
+
 
 .Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]

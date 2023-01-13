@@ -1,0 +1,51 @@
+// CommonTasks YAML Reference: SharePointProvisioning
+// ==================================================
+
+:YmlCategory: SharePointProvisioning
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_sharepointprovisioning]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sharepointprovisioning_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointProvisioning
+| DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
+| Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPFarm[SPFarm]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+|
+|
+|
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SharePointProvisioning:
+  FarmConfigDatabaseName: SP2019_Config
+  AdminContentDatabaseName: SP2019_AdminDb
+  DatabaseServer: SqlServer001
+  FarmAccount: '[ENC=PE9ianMgVmVyc...=]'
+  Passphrase: '[ENC=PE9ianMgVmVyc...=]'
+  RunCentralAdmin: true
+----

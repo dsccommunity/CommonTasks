@@ -16,7 +16,7 @@ configuration SqlAliases {
     [UseDynamicTcpPort = [bool]]
     #>
 
-    Import-DscResource -ModuleName SqlServerDsc
+    Import-DscResource -ModuleName SqlServerDsc -Name SqlAlias
 
     foreach ($value in $Values)
     {

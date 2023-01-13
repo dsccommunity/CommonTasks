@@ -1,0 +1,187 @@
+// CommonTasks YAML Reference: SqlDatabaseMailSetups
+// =================================================
+
+:YmlCategory: SqlDatabaseMailSetups
+
+:abstract:    {YmlCategory} is used to manage SQL Server Database Mail.
+
+[#dscyml_sqldatabasemailsetups]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_sqldatabasemailsetups_abstract, {abstract}]]
+{abstract}
+
+[NOTE]
+====
+Database Mail XPs can be enabled using the resource <<dscyml_sqlconfigurations, `SqlConfigurations`>>.
+====
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SqlDatabaseMailSetups
+| DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
+| Documentation  | - https://github.com/dsccommunity/SqlServerDsc/wiki[SqlServerDsc Wiki]
+                   - https://github.com/dsccommunity/SqlServerDsc/wiki/SqlDatabaseMail[SqlDatabaseMail]
+                   
+|===
+
+
+.Requirements
+
+- Target machine must be running Windows Server 2012 or later.
+- Target machine must be running SQL Server Database Engine 2012 or later.
+- Target machine must be running SQL Server Agent.
+- Target machine must have enabled Database Mail XPs.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName
+| Default: `MSSQLSERVER`
+
+| [[dscyml_sqldatabasemailsetups_mailsetups, {YmlCategory}/MailSetups]]<<dscyml_sqldatabasemailsetups_mailsetups_details, MailSetups>>
+| Mandatory
+| Hashtable[]
+| List of SQL database mail setups.
+|
+
+|===
+
+
+[[dscyml_sqldatabasemailsetups_mailsetups_details]]
+.Attributes of category '<<dscyml_sqldatabasemailsetups_mailsetups>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| AccountName
+| Key
+| String
+| The name of the Database Mail account.
+|
+
+| InstanceName
+| Key
+| String
+| The name of the SQL Server instance to be configured.
+|
+
+| ServerName
+|
+| String
+| The host name of the SQL Server to be configured.
+
+Default value is the current computer name.
+|
+
+| EmailAddress
+| Mandatory
+| String
+| The e-mail address from which mail will originate.
+|
+
+| MailServerName
+| Mandatory
+| String
+| The fully qualified domain name (FQDN) of the mail server name to which e-mail are sent.
+|
+
+| ProfileName
+| Mandatory
+| String
+| The name of the Database Mail profile.
+|
+
+| DisplayName
+|
+| String
+| The display name of the originating email address.
+
+Default value is the same value assigned to the parameter `EmailAddress`.
+|
+
+| ReplyToAddress
+|
+| String
+| The e-mail address to which the receiver of e-mails will reply to.
+
+Default value is the same value assigned to the parameter `EmailAddress`.
+|
+
+| Description
+|
+| String
+| The description for the Database Mail profile and account.
+|
+
+| LoggingLevel
+|
+| String
+| The logging level that the Database Mail will use.
+| - Normal
+  - *Extended* (default)
+  - Verbose
+
+| TcpPort
+|
+| UInt16
+| The TCP port used for communication.
+| Default: `25`
+
+| Ensure
+|
+| String
+| Specifies the desired state of the Database Mail account.
+
+When set to `Present` the Database Mail account will be created.
+When set to `Absent` the Database Mail account will be removed. 
+| - *Present* (default)
+  - Absent
+
+|===
+
+
+.Example
+[source, yaml]
+----
+SqlDatabaseMailSetups:
+  DefaultInstanceName: MSSQLSERVER
+  MailSetups:
+    - ServerName: 'Servername'
+      InstanceName: 'DSCSQLTEST'
+      AccountName : 'MyMail'
+      ProfileName : 'MyMailProfile'
+      EmailAddress: 'NoReply@company.local'
+      ReplyToAddress: 'NoReply@company.local'
+      DisplayName : 'mail.company.local'
+      MailServerName: 'mail.company.local'
+      Description : 'Default mail account and profile.'
+      LoggingLevel: 'Normal'
+      TcpPort: 25
+    - ServerName: 'Servername'
+      InstanceName: 'DSCSQLTEST'
+      AccountName : 'MyMail2'
+      ProfileName : 'MyMailProfile2'
+      EmailAddress: 'NoReply2@company.local'
+      ReplyToAddress: 'NoReply2@company.local'
+      DisplayName : 'mail.company.local'
+      MailServerName: 'mail.company.local'
+      Description : 'Second Default mail account and profile.'
+      LoggingLevel: 'Normal'
+      TcpPort: 25
+----

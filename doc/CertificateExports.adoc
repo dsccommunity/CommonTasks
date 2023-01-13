@@ -3,19 +3,18 @@
 
 :YmlCategory: CertificateExports
 
-
-[[dscyml_certificateexports, {YmlCategory}]]
-= DSC Resource 'CertificateImports'
-// didn't work in production: = DSC Resource '{YmlCategory}'
-
 :abstract:   {YmlCategory} is used to export a certificate from the Windows certificate store.
+
+[#dscyml_certificateexports]
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateexports_abstract, {abstract}]]
 {abstract}
 
+
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | \https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateImports
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/CertificateExports
 | DSC Resource   | https://github.com/dsccommunity/CertificateDsc[CertificateDsc]
 | Documentation  | https://github.com/dsccommunity/CertificateDsc/wiki/CertificateExport[CertificateExport]
 |===
@@ -170,7 +169,7 @@ Either the `ProtectTo` or this attribute must be specified, or an error will be 
 
 Either the `Password` or this attribute must be specified, or an error will be displayed.
 
-NOTE: This requires a Windows Server® 2012 domain controller.
+This requires a Windows Server® 2012 domain controller.
 |
 
 |===
