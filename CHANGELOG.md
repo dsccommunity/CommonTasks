@@ -99,4 +99,7 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   - xHyper-V
   - VSTSAgent
 - Refactoring of SqlPermissions after upgrade of SqlServerDsc to 16.0.0
-- WindowsFeatures: Include support for more elaborate lists of features, giving more control
+- WindowsFeatures: Include support for more elaborate lists of features, giving
+  more control.
+- Added task `FixEncoding` for being able to run the build on Windows PowerShell
+  due to an encoding issue with the psd1 file.

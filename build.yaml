@@ -45,6 +45,7 @@ BuildWorkflow:
     - Create_Changelog_Release_Output
     - Generate_Conceptual_Help
     - Generate_Wiki_Content
+    - FixEncoding
 
   pack:
     - build
