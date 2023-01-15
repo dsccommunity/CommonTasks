@@ -16,7 +16,6 @@ configuration CertificateImports
 
     function EmbedFile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '')]
         param
         (
             [Parameter()]
