@@ -52,7 +52,7 @@ BuildWorkflow:
     - package_module_nupkg
 
   hqrmtest:
-    - DscResource_Tests_Stop_On_Fail
+    - Invoke_HQRM_Tests_Stop_On_Fail
 
   test:
     - Pester_Tests_Stop_On_Fail
@@ -61,7 +61,7 @@ BuildWorkflow:
   publish:
     - publish_module_to_gallery
     - Publish_Release_To_GitHub
-    - Publish_GitHub_Wiki_Content
+    #- Publish_GitHub_Wiki_Content
     - Create_ChangeLog_GitHub_PR
 
 ####################################################
@@ -96,7 +96,7 @@ DscTest:
         ExcludeTag:
           - Common Tests - New Error-Level Script Analyzer Rules
           - Common Tests - Validate Localization
-          - Common Tests - Required Script Analyzer Rules
+          #- Common Tests - Required Script Analyzer Rules
       Output:
         Verbosity: Detailed
         CIFormat: Auto
@@ -120,3 +120,10 @@ GitHubConfig:
   GitHubConfigUserName: dscbot
   GitHubConfigUserEmail: dsccommunity@outlook.com
   UpdateChangelogOnPrerelease: false
+
+####################################################
+#             DscResource.DocGenerator             #
+####################################################
+DscResource.DocGenerator:
+  Generate_Conceptual_Help:
+    BuiltModuleSubdirectory: Module
