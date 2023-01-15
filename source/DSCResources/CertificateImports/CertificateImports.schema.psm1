@@ -30,7 +30,7 @@ configuration CertificateImports
             {
                 if (-not (Test-Path -Path $certFile.Path))
                 {
-                    Write-Host "ERROR: Certificate file '$($certFile.Path)' not found. Current working directory is: $(Get-Location)" -ForegroundColor Red
+                    Write-Error "Certificate file '$($certFile.Path)' not found. Current working directory is: $(Get-Location)"
                 }
                 else
                 {
