@@ -31,7 +31,7 @@ TaskHeader: |
   ""
 
 ####################################################
-# Pipeline Build Task Configuration (Invoke-Build) #
+#       Pipeline Configuration                     #
 ####################################################
 BuildWorkflow:
   '.':
@@ -43,8 +43,9 @@ BuildWorkflow:
     - Build_Module_ModuleBuilder
     - Build_NestedModules_ModuleBuilder
     - Create_Changelog_Release_Output
-    #- Generate_Conceptual_Help
-    #- Generate_Wiki_Content
+    - Generate_Conceptual_Help
+    - Generate_Wiki_Content
+    - FixEncoding
 
   pack:
     - build
@@ -58,12 +59,10 @@ BuildWorkflow:
     - Pester_If_Code_Coverage_Under_Threshold
 
   publish:
-    #- Publish_Release_To_GitHub
-    - UpdateTag
-    - SetChangeLog
     - publish_module_to_gallery
+    - Publish_Release_To_GitHub
     #- Publish_GitHub_Wiki_Content
-    #- Create_ChangeLog_GitHub_PR
+    - Create_ChangeLog_GitHub_PR
 
 ####################################################
 #          Pester Configuration (Sampler)          #
@@ -97,7 +96,7 @@ DscTest:
         ExcludeTag:
           - Common Tests - New Error-Level Script Analyzer Rules
           - Common Tests - Validate Localization
-          - Common Tests - Required Script Analyzer Rules
+          #- Common Tests - Required Script Analyzer Rules
       Output:
         Verbosity: Detailed
         CIFormat: Auto
@@ -121,3 +120,10 @@ GitHubConfig:
   GitHubConfigUserName: dscbot
   GitHubConfigUserEmail: dsccommunity@outlook.com
   UpdateChangelogOnPrerelease: false
+
+####################################################
+#             DscResource.DocGenerator             #
+####################################################
+DscResource.DocGenerator:
+  Generate_Conceptual_Help:
+    BuiltModuleSubdirectory: Module
