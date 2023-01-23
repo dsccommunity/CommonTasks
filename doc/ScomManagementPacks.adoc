@@ -16,7 +16,7 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomManagementPacks
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
-| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/DscResources/JHP_ScomManagementPack.psm1[ScomManagementPack]
+| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/resources/JHP_ScomManagementPack.ps1[ScomManagementPack]
                    
 |===
 
