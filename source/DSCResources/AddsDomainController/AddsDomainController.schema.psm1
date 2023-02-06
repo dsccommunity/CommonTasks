@@ -35,6 +35,10 @@ configuration AddsDomainController
         $IsGlobalCatalog = $true,
 
         [Parameter()]
+        [bool]
+        $IsReadOnlyReplica = $false,
+
+        [Parameter()]
         [string]
         $InstallationMediaPath
     )
@@ -67,6 +71,7 @@ configuration AddsDomainController
         LogPath                       = $LogPath
         SysvolPath                    = $SysvolPath
         SiteName                      = $SiteName
+        ReadOnlyReplica               = $IsReadOnlyReplica
         IsGlobalCatalog               = $IsGlobalCatalog
         DependsOn                     = '[WaitForADDomain]WaitForestAvailability'
     }

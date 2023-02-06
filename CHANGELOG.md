@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SQLScriptQueries` Composite to run one or more SQL Scripts against a SQL Server/Instance
 - `RemoteDesktopCertificates` Composite to import Remote Desktop Certificates. Ideally combined with CertificateRequests and CertificateExports composites.
 - `RemoteDesktopHAMode` Composite to configure High Availability mode on a RDS connection broker.
+- 
 
 ### Changed
 
@@ -103,3 +104,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   more control.
 - Added task `FixEncoding` for being able to run the build on Windows PowerShell
   due to an encoding issue with the psd1 file.
+- Added Read-Only Domaincontroller Variable to AddsDomainController
