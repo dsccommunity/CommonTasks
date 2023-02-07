@@ -103,3 +103,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   more control.
 - Added task `FixEncoding` for being able to run the build on Windows PowerShell
   due to an encoding issue with the psd1 file.
+- Added Read-Only Domaincontroller Variable to AddsDomainController
