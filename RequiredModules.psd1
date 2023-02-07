@@ -51,7 +51,7 @@
     OfficeOnlineServerDsc        = '1.5.0'
     xBitlocker                   = '1.4.0.0'
     ActiveDirectoryCSDsc         = '5.0.0'
-    'xHyper-V'                   = '3.18.0'
+    HyperVDsc                    = '4.0.0-preview0005'
     DSCR_PowerPlan               = '1.3.0'
     FileSystemDsc                = '1.1.1'
     PackageManagement            = '1.4.8.1'
