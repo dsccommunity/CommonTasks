@@ -83,3 +83,18 @@ HostsFileEntries:
     - HostName:  server03
       Ensure:    Absent
 ----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  HostsFileEntries:
+    merge_hash: deep
+  HostsFileEntries\Entries:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - HostName
+----

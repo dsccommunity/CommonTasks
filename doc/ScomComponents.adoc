@@ -16,7 +16,7 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomComponents
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
-| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/DscResources/JHP_ScomComponent.psm1[ScomComponent]
+| Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/resources/JHP_ScomComponent.ps1[ScomComponent]
                    
 |===
 

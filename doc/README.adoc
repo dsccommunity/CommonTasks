@@ -149,6 +149,7 @@ ifdef::env-github[]
 - <<RemoteDesktopCertificates.adoc#, RemoteDesktopCertificates>>
 - <<RemoteDesktopCollections.adoc#, RemoteDesktopCollections>>
 - <<RemoteDesktopDeployment.adoc#, RemoteDesktopDeployment>>
+- <<RemoteDesktopHAMode.adoc#, RemoteDesktopHAMode>>
 - <<RemoteDesktopLicensing.adoc#, RemoteDesktopLicensing>>
 - <<RestartSystem.adoc#, RestartSystem>>
 - <<Robocopies.adoc#, Robocopies>>
@@ -311,6 +312,7 @@ ifndef::env-github[]
 | <<dscyml_remotedesktopcertificates>>              | <<dscyml_remotedesktopcertificates_abstract>>
 | <<dscyml_remotedesktopcollections>>               | <<dscyml_remotedesktopcollections_abstract>>
 | <<dscyml_remotedesktopdeployment>>                | <<dscyml_remotedesktopdeployment_abstract>>
+| <<dscyml_remotedesktophamode>>                    | <<dscyml_remotedesktophamode_abstract>>
 | <<dscyml_remotedesktoplicensing>>                 | <<dscyml_remotedesktoplicensing_abstract>>
 | <<dscyml_restartsystem>>                          | <<dscyml_restartsystem_abstract>>
 | <<dscyml_robocopies>>                             | <<dscyml_robocopies_abstract>>
@@ -552,6 +554,8 @@ include::RemoteDesktopCertificates.adoc[leveloffset=+1]
 include::RemoteDesktopCollections.adoc[leveloffset=+1]
 <<<<
 include::RemoteDesktopDeployment.adoc[leveloffset=+1]
+<<<<
+include::RemoteDesktopHAMode.adoc[leveloffset=+1]
 <<<<
 include::RemoteDesktopLicensing.adoc[leveloffset=+1]
 <<<<

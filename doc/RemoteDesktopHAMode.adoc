@@ -1,0 +1,78 @@
+// CommonTasks YAML Reference: RemoteDesktopHAMode
+// ===============================================
+
+:YmlCategory: RemoteDesktopHAMode
+
+:abstract:    {YmlCategory} is used to ###TBD###
+
+[#dscyml_remotedesktophamode]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktophamode_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopHAMode
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost#xrdconnectionbrokerhamode[xRDConnectionBrokerHAMode]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| ConnectionBroker
+|
+| string
+| Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment.
+|
+
+| ClientAccessName
+| Mandatory
+| string
+| Specifies the FQDN of client access name.
+|
+
+| DatabaseConnectionString
+| Mandatory
+| string
+| Specifies the primary connection string to the database.
+|
+
+| DatabaseSecondaryConnectionString
+|
+| string
+| Specifies the secondary connection string to the database.
+|
+
+| DatabaseFilePath
+|
+| string
+| Specifies the database file path of SQL Server.
+|
+
+| Config
+|
+| hashtable
+|
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopHAMode:
+  ConnectionBroker: RDCB01
+  ClientAccessName: CONTOSOFARM
+  DatabaseConnectionString: "DRIVER=ODBC Driver 17 for SQL Server;Server=DB01;Trusted_Connection=Yes;APP=Remote Desktop Services Connection Broker;DATABASE=RDS"
+----

@@ -22,6 +22,7 @@ task FixEncoding {
     Get-ChildItem -Path $BuildModuleOutput -Filter *.psd1 -Recurse -File | ForEach-Object {
 
         Write-Build DarkGray "`t'$($_.FullName)'."
+        Set-ItemProperty -Path $_.FullName -Name IsReadOnly -Value $false
         $c = [System.IO.File]::ReadAllLines($_.FullName)
         [System.IO.File]::WriteAllLines($_.FullName, $c, $utf8NoBomEncoding)
     }
