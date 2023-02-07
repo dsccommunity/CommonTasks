@@ -1,15 +1,15 @@
 // CommonTasks YAML Reference: Cluster
 // ===================================
 
-:YmlCategory: Cluster
+:YmlCategory: FailoverCluster
 
 :abstract:    {YmlCategory} is used for the management and configuration of Windows Server Failover Cluster..
 
-[#dscyml_cluster, {YmlCategory}]
+[#dscyml_failovercluster, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_cluster_abstract, {abstract}]]
+[[dscyml_failover_abstract, {abstract}]]
 {abstract}
 
 
@@ -85,7 +85,7 @@ If this is not specified then the cluster computer object must have been prestag
 This parameter is optional if the quorum type is set to `NodeMajority`.
 |
 
-| [[dscyml_cluster_disks, {YmlCategory}/Disks]]<<dscyml_cluster_disks_details, Disks>>
+| [[dscyml_failover_disks, {YmlCategory}/Disks]]<<dscyml_failover_disks_details, Disks>>
 |
 | Hashtable[]
 | Configures shared disks in a cluster.
@@ -129,8 +129,8 @@ When creating a cluster role the cluster service is creating the needed computer
 |===
 
 
-[[dscyml_cluster_disks_details]]
-.Attributes of DSC Resource '<<dscyml_cluster_disks>>'
+[[dscyml_failover_disks_details]]
+.Attributes of DSC Resource '<<dscyml_failover_disks>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -146,13 +146,13 @@ When creating a cluster role the cluster service is creating the needed computer
 |
 
 | Label
-| 
+|
 | String
 | The disk label that should be assigned to the disk on the Failover Cluster disk resource.
 |
 
 | Ensure
-| 
+|
 | String
 | Define if the cluster disk should be added (`Present`) or removed.
 | - *Present* (default)
@@ -164,7 +164,7 @@ When creating a cluster role the cluster service is creating the needed computer
 .Example
 [source, yaml]
 ----
-Cluster:
+FailoverCluster:
   Name: Cluster1
   StaticIPAddress: 10.0.0.1
   IgnoreNetwork:

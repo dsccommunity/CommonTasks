@@ -1,4 +1,4 @@
-configuration Cluster
+configuration FailoverCluster
 {
     param
     (
@@ -53,23 +53,23 @@ configuration Cluster
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xFailoverCluster
+    Import-DscResource -ModuleName FailoverClusterDsc
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
     if ($Join)
     {
-        xWaitForCluster WaitForCluster
+        WaitForCluster WaitForCluster
         {
             Name             = $Name
             RetryIntervalSec = $WaitForClusterRetryIntervalSec
             RetryCount       = $WaitForClusterRetryCount
         }
 
-        xCluster JoinSecondNodeToCluster
+        Cluster JoinSecondNodeToCluster
         {
             Name                          = $Name
             DomainAdministratorCredential = $DomainAdministratorCredential
-            DependsOn                     = '[xWaitForCluster]WaitForCluster'
+            DependsOn                     = '[WaitForCluster]WaitForCluster'
         }
     }
     else
@@ -85,12 +85,12 @@ configuration Cluster
             $parameters['IgnoreNetwork'] = $IgnoreNetwork
         }
 
-        (Get-DscSplattedResource -ResourceName xCluster -ExecutionName NewCluster -Properties $parameters -NoInvoke).Invoke($parameters)
+        (Get-DscSplattedResource -ResourceName Cluster -ExecutionName NewCluster -Properties $parameters -NoInvoke).Invoke($parameters)
     }
 
     foreach ($disk in $Disks)
     {
-        xClusterDisk $disk.Number
+        ClusterDisk $disk.Number
         {
             Number = $disk.Number
             Label  = $disk.Label
@@ -101,7 +101,7 @@ configuration Cluster
     {
         if ($QuorumType -eq 'NodeMajority')
         {
-            xClusterQuorum ClusterQuorum
+            ClusterQuorum ClusterQuorum
             {
                 IsSingleInstance = 'Yes'
                 Type             = $QuorumType
@@ -109,7 +109,7 @@ configuration Cluster
         }
         elseif ($QuorumResource)
         {
-            xClusterQuorum ClusterQuorum
+            ClusterQuorum ClusterQuorum
             {
                 IsSingleInstance = 'Yes'
                 Type             = $QuorumType

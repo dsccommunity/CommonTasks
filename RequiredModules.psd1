@@ -40,7 +40,7 @@
     xDhcpServer                  = '3.1.0'
     xDscDiagnostics              = '2.8.0'
     DnsServerDsc                 = '3.0.0'
-    xFailoverCluster             = '1.16.1'
+    FailoverClusterDsc           = '2.1.0'
     GPRegistryPolicyDsc          = '1.2.0'
     AuditPolicyDsc               = '1.4.0.0'
     SharePointDSC                = '4.8.0'
