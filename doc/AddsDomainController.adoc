@@ -74,6 +74,13 @@
 | IsGlobalCatalog
 |
 | Boolean
+| Specifies if the domain controller will be a Read-Only Domain Controller (RODC).
+| - *False* (default)
+  - true
+
+| IsGlobalCatalog
+|
+| Boolean
 | Specifies if the domain controller will be a Global Catalog (GC).
 | - *True* (default)
   - False
@@ -101,4 +108,15 @@ AddsDomainController:
   SiteName: London
   IsGlobalCatalog: true
   InstallationMediaPath: \\Server\Share
+
+  AddsDomainController:
+  DomainName: contoso.com
+  Credential: '[ENC=PE9ian...=]'
+  SafeModeAdministratorPassword: '[ENC=PE9ian...=]'
+  LogPath: C:\Windows\Logs
+  SysvolPath: C:\Windows\SYSVOL
+  SiteName: Berlin
+  IsReadOnlyReplica: true
+  IsGlobalCatalog: true
+
 ----

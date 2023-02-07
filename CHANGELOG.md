@@ -102,5 +102,6 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - WindowsFeatures: Include support for more elaborate lists of features, giving
   more control.
 - Added task `FixEncoding` for being able to run the build on Windows PowerShell
-  due to an encoding issue with the psd1 file.
+  due to an encoding issue with the psd1 file
 - Add missing documentation
+- Added Read-Only Domaincontroller Variable to AddsDomainController
