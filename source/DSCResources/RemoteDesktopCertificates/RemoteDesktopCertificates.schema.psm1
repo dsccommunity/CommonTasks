@@ -17,6 +17,9 @@ configuration RemoteDesktopCertificates
             [PsDscRunAsCredential = [PSCredential]]
         }
     #>
+
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xRemoteDesktopSessionHost
 
     foreach ($certificate in $Certificates)
@@ -25,4 +28,7 @@ configuration RemoteDesktopCertificates
 
         (Get-DscSplattedResource -ResourceName xRDCertificateConfiguration -ExecutionName $executionName -Properties $certificate -NoInvoke).Invoke($certificate)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

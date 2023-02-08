@@ -4,6 +4,8 @@ configuration FirewallProfiles {
         [hashtable[]]$Profile
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
@@ -14,4 +16,6 @@ configuration FirewallProfiles {
         (Get-DscSplattedResource -ResourceName FirewallProfile -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

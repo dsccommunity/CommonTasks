@@ -41,6 +41,9 @@ configuration RemoteDesktopCollections
             }
         }
     #>
+
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xRemoteDesktopSessionHost
 
     foreach ($collection in $Collections)
@@ -70,4 +73,7 @@ configuration RemoteDesktopCollections
             (Get-DscSplattedResource -ResourceName xRDSessionCollectionConfiguration -ExecutionName $executionName -Properties $collectionSettings -NoInvoke).Invoke($collectionSettings)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

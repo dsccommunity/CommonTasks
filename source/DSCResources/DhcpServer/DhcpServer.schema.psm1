@@ -28,6 +28,8 @@ configuration DhcpServer
         $EnableSecurityGroups
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDhcpServer
 
@@ -207,4 +209,7 @@ configuration DhcpServer
 
         (Get-DscSplattedResource -ResourceName xDhcpServerAuthorization -ExecutionName 'dhcpSrvAuth' -Properties $Authorization -NoInvoke).Invoke($Authorization)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

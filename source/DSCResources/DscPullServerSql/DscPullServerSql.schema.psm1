@@ -46,6 +46,8 @@ configuration DscPullServerSql
         $ConfigureFirewall = $false
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DSCResource -ModuleName PSDesiredStateConfiguration
     Import-DSCResource -ModuleName xPSDesiredStateConfiguration
     Import-DSCResource -ModuleName NetworkingDsc
@@ -222,4 +224,7 @@ configuration DscPullServerSql
             DependsOn   = '[xDscWebService]PSDSCPullServer'
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -19,6 +19,8 @@ configuration MmaAgent
         $ProxyCredential
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName MmaDsc
 
@@ -26,4 +28,7 @@ configuration MmaAgent
     $PSBoundParameters.Remove('DependsOn')
 
     (Get-DscSplattedResource -ResourceName WorkspaceConfiguration -ExecutionName MmaConfig -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

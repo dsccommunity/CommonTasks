@@ -17,6 +17,8 @@ configuration SwitchLcmMode
         $ConfigurationName
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     $TaskName = 'SwitchLcmMode'
@@ -136,4 +138,7 @@ configuration SwitchLcmMode
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

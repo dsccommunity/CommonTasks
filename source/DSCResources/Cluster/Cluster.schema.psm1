@@ -52,6 +52,8 @@ configuration Cluster
         $OrganizationalUnitDn
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xFailoverCluster
     Import-DscResource -ModuleName ActiveDirectoryDsc
@@ -134,4 +136,7 @@ configuration Cluster
             PsDscRunAsCredential               = $DomainAdministratorCredential
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

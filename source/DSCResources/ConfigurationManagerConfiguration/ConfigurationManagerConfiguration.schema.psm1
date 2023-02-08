@@ -89,6 +89,8 @@ Configuration ConfigurationManagerConfiguration
         $SoftwareUpdatePointComponent
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ConfigMgrCBDsc
     Import-DscResource -ModuleName UpdateServicesDsc
@@ -264,4 +266,7 @@ Configuration ConfigurationManagerConfiguration
         }
         (Get-DscSplattedResource -ResourceName CMSoftwareUpdatePointComponent -ExecutionName "UpdatePointConfig$($SiteName -replace '\W')" -Properties $SoftwareUpdatePointComponent -NoInvoke).Invoke($SoftwareUpdatePointComponent)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

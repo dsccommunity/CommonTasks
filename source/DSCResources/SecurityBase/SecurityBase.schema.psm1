@@ -6,6 +6,8 @@ configuration SecurityBase {
         $Role
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
@@ -61,4 +63,7 @@ configuration SecurityBase {
             Network_security_Do_not_store_LAN_Manager_hash_value_on_next_password_change = 'Enabled'
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

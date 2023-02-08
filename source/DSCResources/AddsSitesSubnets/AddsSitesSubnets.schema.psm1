@@ -11,6 +11,8 @@ configuration AddsSitesSubnets
         $Subnets
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
@@ -30,4 +32,7 @@ configuration AddsSitesSubnets
 
         (Get-DscSplattedResource -ResourceName ADReplicationSubnet -ExecutionName $subnet.Name -Properties $subnet -NoInvoke).Invoke($subnet)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

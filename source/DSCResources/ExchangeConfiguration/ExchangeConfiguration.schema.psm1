@@ -26,6 +26,8 @@ configuration ExchangeConfiguration {
         $AutoDiscoverSiteScope
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     #Import required DSC Modules
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
@@ -111,4 +113,6 @@ configuration ExchangeConfiguration {
         InternalUrl          = "https://$InternalNamespace/ews/exchange.asmx"
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

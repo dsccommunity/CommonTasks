@@ -5,7 +5,10 @@ configuration WaitForAllNodes {
         $Items
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+
     <#
     NodeName = [string[]]
     ResourceName = [string]
@@ -23,4 +26,6 @@ configuration WaitForAllNodes {
         (Get-DscSplattedResource -ResourceName WaitForAll -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

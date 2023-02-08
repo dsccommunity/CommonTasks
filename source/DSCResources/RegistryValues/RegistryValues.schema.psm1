@@ -5,6 +5,8 @@ configuration RegistryValues {
         $Values
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
@@ -25,4 +27,7 @@ configuration RegistryValues {
         $executionName = ($value.Key + '__' + $value.ValueName) -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xRegistry -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -19,7 +19,9 @@ configuration SharePointContentDatabases
     [PsDscRunAsCredential = [PSCredential]]
     [UseSQLAuthentication = [bool]]
     [WarningSiteCount = [UInt16]]
-#>
+    #>
+
+    $curPSModulePath = $env:PSModulePath
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SharePointDSC
@@ -34,4 +36,7 @@ configuration SharePointContentDatabases
         $executionName = $item.Name
         (Get-DscSplattedResource -ResourceName SPContentDatabase -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

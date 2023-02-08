@@ -13,6 +13,8 @@ configuration VirtualMemoryFiles
         $Files
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName ComputerManagementDsc
 
     foreach ($file in $Files)
@@ -20,4 +22,7 @@ configuration VirtualMemoryFiles
         $executionName = $file.Drive
         (Get-DscSplattedResource -ResourceName VirtualMemory -ExecutionName $executionName -Properties $file -NoInvoke).Invoke($file)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -99,6 +99,8 @@ configuration CertificateAuthorities {
         $ValidityPeriodUnits
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module ActiveDirectoryCSDsc
 
@@ -124,4 +126,7 @@ configuration CertificateAuthorities {
     $executionName = 'CaDeployment'
     (Get-DscSplattedResource -ResourceName AdcsCertificationAuthority -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

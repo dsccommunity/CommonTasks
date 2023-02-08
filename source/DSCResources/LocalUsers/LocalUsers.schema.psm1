@@ -5,6 +5,8 @@ configuration LocalUsers {
         $Users
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
@@ -77,4 +79,7 @@ configuration LocalUsers {
 
         AddMemberOf -ExecutionName $executionName -ExecutionType xUser -AccountName $user.UserName -MemberOf $memberOf
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

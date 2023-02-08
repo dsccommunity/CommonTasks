@@ -7,6 +7,8 @@ configuration DnsServerZonesAging
         $Zones
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -24,4 +26,7 @@ configuration DnsServerZonesAging
 
         (Get-DscSplattedResource -ResourceName DnsServerZoneAging -ExecutionName $executionName -Properties $zone -NoInvoke).Invoke($zone)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

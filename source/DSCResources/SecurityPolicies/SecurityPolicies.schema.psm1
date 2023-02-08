@@ -20,6 +20,8 @@ configuration SecurityPolicies
         $SecurityTemplatePath
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SecurityPolicyDsc
 
@@ -68,4 +70,7 @@ configuration SecurityPolicies
         }
         (Get-DscSplattedResource -ResourceName SecurityTemplate -ExecutionName "secTemplate" -Properties $securityTemplate -NoInvoke).Invoke( $securityTemplate )
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

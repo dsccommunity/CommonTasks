@@ -6,6 +6,8 @@ Configuration PowershellExecutionPolicies
         [hashtable[]] $Policies
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName ComputerManagementDsc
 
     foreach ($policy in $Policies)
@@ -15,4 +17,7 @@ Configuration PowershellExecutionPolicies
         $executionName = "PowershellExecutionPolicy_$($policy.ExecutionPolicyScope)" -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName PowershellExecutionPolicy -ExecutionName $executionName -Properties $policy -NoInvoke).Invoke($policy)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

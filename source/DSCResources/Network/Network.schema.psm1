@@ -12,6 +12,8 @@ configuration Network {
         $InterfaceAlias = 'Ethernet'
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
@@ -44,4 +46,7 @@ configuration Network {
             Set-NetIPInterface -InterfaceAlias $using:InterfaceAlias -NlMtuBytes $using:MtuSize
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

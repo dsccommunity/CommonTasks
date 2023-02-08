@@ -25,6 +25,8 @@ configuration SqlEndpoints {
     [State = [string]{ Disabled | Started | Stopped }]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlEndpoint
 
     foreach ($value in $Values)
@@ -42,4 +44,7 @@ configuration SqlEndpoints {
         $executionName = "$($value.InstanceName)_$($value.EndpointName -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlEndpoint -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

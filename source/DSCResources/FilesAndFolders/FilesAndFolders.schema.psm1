@@ -5,6 +5,8 @@ configuration FilesAndFolders
         [hashtable[]]$Items
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName FileSystemDsc
 
@@ -142,4 +144,7 @@ configuration FilesAndFolders
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

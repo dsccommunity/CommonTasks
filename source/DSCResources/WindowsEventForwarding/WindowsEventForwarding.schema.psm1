@@ -23,6 +23,8 @@ configuration WindowsEventForwarding
         $Subscriptions
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWindowsEventForwarding
 
@@ -30,7 +32,7 @@ configuration WindowsEventForwarding
     {
         Script NetworkServiceInLocalEventLogReadersGroup
         {
-            TestScript = 
+            TestScript =
             {
                 [boolean] $result = $false
 
@@ -40,7 +42,7 @@ configuration WindowsEventForwarding
                 # - Standalone_Server         = 2
                 # - Member_Server_            = 3
                 # - Backup_Domain_Controller  = 4
-                # - Primary_Domain_Controller = 5       
+                # - Primary_Domain_Controller = 5
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
                 # SID 'S-1-5-32-573' -> builtin group 'Event Log Readers'
@@ -73,7 +75,7 @@ configuration WindowsEventForwarding
 
                 return $result
             }
-            SetScript = 
+            SetScript =
             {
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
@@ -92,7 +94,7 @@ configuration WindowsEventForwarding
                     Write-Error "ATTENTION: Adding builtin account 'NT AUTHORITY\NETWORK SERVICE' to domain group 'Event Log Readers' via Powershell is not supported and shall be done manually with RSAT or automatically with a GPO."
                 }
             }
-            GetScript = { return 'NA' }   
+            GetScript = { return 'NA' }
         }
     }
 
@@ -178,4 +180,7 @@ configuration WindowsEventForwarding
             MembersToInclude = "$CollectorName"
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

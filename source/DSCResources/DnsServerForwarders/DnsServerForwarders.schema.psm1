@@ -11,6 +11,8 @@ configuration DnsServerForwarders
         $UseRootHint
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -27,4 +29,7 @@ configuration DnsServerForwarders
         IPAddresses      = $IPAddresses
         UseRootHint      = $UseRootHint
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

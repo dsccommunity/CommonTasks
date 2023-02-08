@@ -11,6 +11,8 @@ configuration DhcpScopes
         $DomainCredential
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
@@ -34,4 +36,7 @@ configuration DhcpScopes
         $executionName = "$($node.Name)_$($scope.ScopeId)"
         (Get-DscSplattedResource -ResourceName xDhcpServerScope -ExecutionName $executionName -Properties $scope -NoInvoke).Invoke($scope)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

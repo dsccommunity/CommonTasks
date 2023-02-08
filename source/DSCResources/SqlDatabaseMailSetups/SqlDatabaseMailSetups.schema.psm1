@@ -25,6 +25,8 @@ configuration SqlDatabaseMailSetups {
           TcpPort: 25 [String]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlDatabaseMail
 
     foreach ($setup in $MailSetups)
@@ -37,4 +39,7 @@ configuration SqlDatabaseMailSetups {
         $executionName = "SqlMailProfile_$($setup.Servername)_$($setup.InstanceName)_$($setup.AccountName)"
         (Get-DscSplattedResource -ResourceName SqlDatabaseMail -ExecutionName $executionName -Properties $setup -NoInvoke).Invoke($setup)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -9,6 +9,8 @@ configuration WindowsFeatures {
         $Features
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     foreach ($n in $Names)
@@ -54,4 +56,7 @@ configuration WindowsFeatures {
     {
         (Get-DscSplattedResource -ResourceName WindowsFeature -ExecutionName $feature.Name -Properties $feature -NoInvoke).Invoke($feature)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

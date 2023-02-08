@@ -7,6 +7,8 @@ configuration DnsServerCNameRecords
         $Records
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -46,4 +48,7 @@ configuration DnsServerCNameRecords
             (Get-DscSplattedResource -ResourceName DnsRecordCname -ExecutionName $executionName -Properties $record -NoInvoke).Invoke($record)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

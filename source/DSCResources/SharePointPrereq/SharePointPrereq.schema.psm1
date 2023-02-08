@@ -58,6 +58,8 @@ configuration SharePointPrereq
         $ProductKey
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SharePointDSC
     Import-DscResource -ModuleName storageDsc
@@ -96,4 +98,7 @@ configuration SharePointPrereq
         #PsDscRunAsCredential = $SetupAccount
         DependsOn        = '[SPInstallPrereqs]SharePointInstallationPrerequisite'
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

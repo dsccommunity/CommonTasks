@@ -4,6 +4,8 @@ configuration SoftwarePackages {
         [hashtable[]]$Packages
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
@@ -18,4 +20,7 @@ configuration SoftwarePackages {
         $executionName = $p.Name -replace '\(|\)|\.| ', ''
         (Get-DscSplattedResource -ResourceName xPackage -ExecutionName $executionName -Properties $p -NoInvoke).Invoke($p)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

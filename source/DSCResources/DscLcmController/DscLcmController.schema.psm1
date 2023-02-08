@@ -670,6 +670,8 @@ configuration DscLcmController {
         $WriteTranscripts
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
@@ -814,4 +816,7 @@ configuration DscLcmController {
         RepetitionDuration = 'Indefinitely'
         StartTime          = (Get-Date)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

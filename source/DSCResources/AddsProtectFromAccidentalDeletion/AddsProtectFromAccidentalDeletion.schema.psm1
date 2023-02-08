@@ -57,6 +57,8 @@ configuration AddsProtectFromAccidentalDeletion
         $FilterReplicationSite = '*'
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     if ( $ProtectDomain -eq $true )
@@ -231,4 +233,7 @@ configuration AddsProtectFromAccidentalDeletion
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

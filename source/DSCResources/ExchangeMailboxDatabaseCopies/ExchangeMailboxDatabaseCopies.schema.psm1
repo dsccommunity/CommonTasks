@@ -20,6 +20,8 @@ configuration ExchangeMailboxDatabaseCopies {
     [TruncationLagTime = [string]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
 
@@ -38,4 +40,7 @@ configuration ExchangeMailboxDatabaseCopies {
         $executionName = $item.Identity
         (Get-DscSplattedResource -ResourceName xExchMailboxDatabaseCopy -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

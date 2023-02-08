@@ -9,6 +9,8 @@ configuration RegistryPolicies {
         $GpUpdateInterval = 20
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName GPRegistryPolicyDsc
 
@@ -83,4 +85,7 @@ configuration RegistryPolicies {
             DependsOn        = "[RegistryPolicyFile]$executionName"
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

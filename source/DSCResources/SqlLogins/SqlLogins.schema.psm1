@@ -25,6 +25,8 @@ configuration SqlLogins {
     [ServerName = [string]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlLogin
 
     foreach ($value in $Values)
@@ -42,4 +44,7 @@ configuration SqlLogins {
         $executionName = "$($value.InstanceName)_$($value.Name -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

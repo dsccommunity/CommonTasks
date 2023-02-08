@@ -5,6 +5,8 @@ configuration WebVirtualDirectories {
         $Items
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
@@ -18,4 +20,7 @@ configuration WebVirtualDirectories {
         $executionName = $item.Name
         (Get-DscSplattedResource -ResourceName xWebVirtualDirectory -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

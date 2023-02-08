@@ -7,6 +7,8 @@ configuration DnsServerQueryResolutionPolicies
         $Policies
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     foreach ($dnsPol in $Policies)
@@ -66,4 +68,7 @@ configuration DnsServerQueryResolutionPolicies
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

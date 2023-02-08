@@ -265,6 +265,8 @@ configuration DnsServerSettings {
         $ZoneWritebackInterval
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -273,4 +275,7 @@ configuration DnsServerSettings {
 
     $executionName = 'DnsServerSetting'
     (Get-DscSplattedResource -ResourceName DnsServerSetting -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

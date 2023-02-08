@@ -19,6 +19,8 @@ configuration DhcpScopeOptions
     [Value = [string[]]]
 #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
@@ -32,4 +34,7 @@ configuration DhcpScopeOptions
         $executionName = "$($node.Name)_$($scopeOption.ScopeId)_$($scopeOption.OptionId)"
         (Get-DscSplattedResource -ResourceName DhcpScopeOptionValue  -ExecutionName $executionName -Properties $scopeOption -NoInvoke).Invoke($scopeOption)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

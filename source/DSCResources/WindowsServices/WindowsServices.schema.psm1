@@ -5,6 +5,8 @@ configuration WindowsServices {
         $Services
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
@@ -84,4 +86,7 @@ configuration WindowsServices {
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

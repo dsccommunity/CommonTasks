@@ -5,6 +5,8 @@ configuration ConfigurationBase {
         [string]$SystemType
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
@@ -16,4 +18,7 @@ configuration ConfigurationBase {
         ValueType = 'Dword'
         Ensure    = 'Present'
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

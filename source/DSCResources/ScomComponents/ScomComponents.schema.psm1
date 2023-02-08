@@ -7,6 +7,8 @@ configuration ScomComponents
         $Components
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName cScom
     <#
     [-IsSingleInstance] <string> [-Role] <Role> [-SourcePath] <string> [[-ManagementServer] <string>]
@@ -27,4 +29,7 @@ configuration ScomComponents
 
         (Get-DscSplattedResource -ResourceName ScomComponent -ExecutionName $executionName -Properties $component -NoInvoke).Invoke($component)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -5,6 +5,8 @@ configuration WebApplications {
         $Items
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
@@ -23,4 +25,7 @@ configuration WebApplications {
         $executionName = "webapp_$($item.Name -replace '[{}#\-\s]','_')"
         (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

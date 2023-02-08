@@ -31,6 +31,8 @@ configuration CertificateRequests
         [UseMachineContext = [bool]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module CertificateDsc
 
@@ -54,4 +56,7 @@ configuration CertificateRequests
         $executionName = "req_$($request.Subject)" -replace '[\s(){}/\\:=\.-]', '_'
         (Get-DscSplattedResource -ResourceName CertReq -ExecutionName $executionName -Properties $request -NoInvoke).Invoke($request)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

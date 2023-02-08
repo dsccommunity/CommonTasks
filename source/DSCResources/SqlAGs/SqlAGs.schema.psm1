@@ -31,6 +31,8 @@ configuration SqlAGs {
     [PsDscRunAsCredential = [PSCredential]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAG
 
     foreach ($value in $Values)
@@ -48,4 +50,7 @@ configuration SqlAGs {
         $executionName = "$($value.InstanceName)_$($value.Name)"
         (Get-DscSplattedResource -ResourceName SqlAG -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

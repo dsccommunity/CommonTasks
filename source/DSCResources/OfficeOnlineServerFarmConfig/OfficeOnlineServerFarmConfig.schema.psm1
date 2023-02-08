@@ -204,6 +204,8 @@ configuration OfficeOnlineServerFarmConfig
         $PicturePasteDisabled
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName OfficeOnlineServerDsc
 
@@ -225,4 +227,6 @@ configuration OfficeOnlineServerFarmConfig
     $exeutionName = "$($node.Name)_FarmCreate"
     (Get-DscSplattedResource -ResourceName OfficeOnlineServerFarm -ExecutionName $exeutionName -Properties $param -NoInvoke).Invoke($param)
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

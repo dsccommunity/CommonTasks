@@ -11,6 +11,8 @@ configuration ChocolateyPackages3rd {
         [hashtable[]]$Packages
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName Chocolatey
 
@@ -129,4 +131,7 @@ configuration ChocolateyPackages3rd {
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -16,6 +16,8 @@ configuration SqlAliases {
     [UseDynamicTcpPort = [bool]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAlias
 
     foreach ($value in $Values)
@@ -28,4 +30,7 @@ configuration SqlAliases {
         $executionName = $value.Name
         (Get-DscSplattedResource -ResourceName SqlAlias -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

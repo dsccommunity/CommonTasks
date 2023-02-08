@@ -105,3 +105,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   due to an encoding issue with the psd1 file
 - Add missing documentation
 - Added Read-Only Domaincontroller Variable to AddsDomainController
+- Save & Restore PSModulePath on each DSC resource to reset changes during MOF compilation

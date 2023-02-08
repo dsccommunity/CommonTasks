@@ -13,6 +13,8 @@ Configuration ConfigurationManagerDistributionGroups
         $DistributionGroups
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ConfigMgrCBDsc
 
@@ -51,4 +53,7 @@ Configuration ConfigurationManagerDistributionGroups
 
         (Get-DscSplattedResource -ResourceName CMDistributionGroup -ExecutionName "configmgr_dg_$($distributionPointGroup.SiteCode)_$($distributionPointGroup.DistributionGroup)" -Properties $distributionPointGroup -NoInvoke).Invoke($distributionPointGroup)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -19,6 +19,8 @@ configuration DnsServerResponseRateLimiting
         $Exceptions
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     $RrlParams = @{
@@ -117,4 +119,7 @@ configuration DnsServerResponseRateLimiting
             }
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

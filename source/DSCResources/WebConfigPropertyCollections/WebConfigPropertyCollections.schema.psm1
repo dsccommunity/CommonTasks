@@ -19,6 +19,8 @@ configuration WebConfigPropertyCollections {
     [PsDscRunAsCredential = [PSCredential]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xWebAdministration
 
@@ -32,4 +34,7 @@ configuration WebConfigPropertyCollections {
         $executionName = "$($item.WebsitePath)_$($item.Filter)_$($item.CollectionName)_$($item.ItemKeyValue)_$($item.ItemPropertyName)" -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xWebConfigPropertyCollection -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

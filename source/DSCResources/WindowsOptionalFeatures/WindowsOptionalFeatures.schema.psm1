@@ -13,6 +13,8 @@ configuration WindowsOptionalFeatures {
         $NoWindowsUpdateCheck = $false
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
 
     foreach ($n in $Names)
@@ -37,4 +39,7 @@ configuration WindowsOptionalFeatures {
 
         (Get-DscSplattedResource -ResourceName WindowsOptionalFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

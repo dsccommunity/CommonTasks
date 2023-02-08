@@ -17,6 +17,8 @@ configuration UpdateServices
         $ApprovalRules
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName UpdateServicesDsc
 
@@ -190,4 +192,7 @@ configuration UpdateServices
 
         (Get-DscSplattedResource -ResourceName UpdateServicesCleanup  -ExecutionName wsusCleanup -Properties $CleanUp -NoInvoke).Invoke($CleanUp)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -22,6 +22,8 @@ configuration SqlDatabases {
     [ServerName = [string]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlDatabase
 
     foreach ($value in $Values)
@@ -39,4 +41,7 @@ configuration SqlDatabases {
         $executionName = "$($value.InstanceName)_$($value.Name -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlDatabase -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

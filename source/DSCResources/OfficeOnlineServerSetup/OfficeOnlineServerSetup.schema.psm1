@@ -36,6 +36,8 @@ configuration OfficeOnlineServerSetup
         $Path
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName OfficeOnlineServerDsc
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -169,4 +171,6 @@ configuration OfficeOnlineServerSetup
     }
     $dependsOnInstallAndLanguagePack += '[OfficeOnlineServerInstall]InstallBinaries'
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

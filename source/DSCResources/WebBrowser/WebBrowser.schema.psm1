@@ -10,6 +10,8 @@ configuration WebBrowser
         $Edge
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName GPRegistryPolicyDsc
 
@@ -96,4 +98,7 @@ configuration WebBrowser
             DependsOn        = '[RegistryPolicyFile]MicrosoftEdge_RestoreOnStartupURLs'
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

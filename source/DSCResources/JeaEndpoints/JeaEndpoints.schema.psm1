@@ -5,6 +5,8 @@ configuration JeaEndpoints {
         $Endpoints
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-Module JeaDsc
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -26,4 +28,6 @@ configuration JeaEndpoints {
 
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -7,6 +7,8 @@ configuration OpticalDiskDrives
         $Drives
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName StorageDsc
 
@@ -27,4 +29,7 @@ configuration OpticalDiskDrives
 
         (Get-DscSplattedResource -ResourceName OpticalDiskDriveLetter -ExecutionName "optDiskDrive$($drive.DiskId)" -Properties $drive -NoInvoke).Invoke($drive)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

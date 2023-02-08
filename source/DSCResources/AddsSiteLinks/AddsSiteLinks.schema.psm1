@@ -7,6 +7,8 @@ configuration AddsSiteLinks
         $SiteLinks
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
@@ -21,4 +23,6 @@ configuration AddsSiteLinks
         (Get-DscSplattedResource -ResourceName ADReplicationSiteLink -ExecutionName $executionName -Properties $siteLink -NoInvoke).Invoke($siteLink)
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

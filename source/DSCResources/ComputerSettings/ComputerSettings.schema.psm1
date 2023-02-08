@@ -36,6 +36,8 @@ configuration ComputerSettings {
         [string]$RemoteDesktopUserAuthentication
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
@@ -75,4 +77,7 @@ configuration ComputerSettings {
         }
         (Get-DscSplattedResource -ResourceName RemoteDesktopAdmin -ExecutionName "RemoteDesktopAdmin$($params.Name)" -Properties $params -NoInvoke).Invoke($params)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

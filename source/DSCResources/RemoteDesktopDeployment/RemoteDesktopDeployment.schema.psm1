@@ -19,6 +19,8 @@ configuration RemoteDesktopDeployment
         $Gateways
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xRemoteDesktopSessionHost
 
 
@@ -35,4 +37,7 @@ configuration RemoteDesktopDeployment
 
         (Get-DscSplattedResource -ResourceName xRDSessionDeployment -ExecutionName $executionName -Properties $gateway -NoInvoke).Invoke($gateway)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

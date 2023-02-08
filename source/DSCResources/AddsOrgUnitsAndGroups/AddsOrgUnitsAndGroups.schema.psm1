@@ -15,6 +15,8 @@ configuration AddsOrgUnitsAndGroups
         $Groups
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
@@ -113,4 +115,7 @@ configuration AddsOrgUnitsAndGroups
 
         (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

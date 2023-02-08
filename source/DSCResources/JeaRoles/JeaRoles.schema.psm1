@@ -4,6 +4,8 @@ configuration JeaRoles {
         [hashtable[]]$Roles
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-Module JeaDsc
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -83,4 +85,7 @@ configuration JeaRoles {
         (Get-DscSplattedResource -ResourceName JeaRoleCapabilities -ExecutionName $executionName -Properties $role -NoInvoke).Invoke($role)
 
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

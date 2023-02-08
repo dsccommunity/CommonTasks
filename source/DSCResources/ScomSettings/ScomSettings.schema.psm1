@@ -38,6 +38,8 @@ Configuration ScomSettings
         $WebAddressSetting
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName cScom
 
     if (-not [string]::IsNullOrWhiteSpace($ApprovalSetting))
@@ -101,4 +103,7 @@ Configuration ScomSettings
         $WebAddressSetting.IsSingleInstance = 'Yes'
         (Get-DscSplattedResource -ResourceName ScomWebAddressSetting -ExecutionName $executionName -Properties $WebAddressSetting -NoInvoke).Invoke($WebAddressSetting)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -25,7 +25,9 @@ configuration SharePointSites
     [SecondaryEmail = [string]]
     [SecondaryOwnerAlias = [string]]
     [Template = [string]]
-#>
+    #>
+
+    $curPSModulePath = $env:PSModulePath
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SharePointDSC
@@ -35,4 +37,7 @@ configuration SharePointSites
         $executionName = $item.Name -replace ' ', ''
         (Get-DscSplattedResource -ResourceName SPSite -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

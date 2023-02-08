@@ -7,6 +7,8 @@ configuration DnsServerConditionalForwarders
         $ConditionalForwarders
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -20,4 +22,7 @@ configuration DnsServerConditionalForwarders
         $executionName = "$($node.Name)_$($conditionalForwarder.Name)"
         (Get-DscSplattedResource -ResourceName DnsServerConditionalForwarder -ExecutionName $executionName -Properties $conditionalForwarder -NoInvoke).Invoke($conditionalForwarder)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

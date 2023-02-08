@@ -30,6 +30,8 @@ configuration SqlAGReplicas {
     [ReadOnlyRoutingList = [string[]]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAGReplica
 
     foreach ($value in $Values)
@@ -47,4 +49,7 @@ configuration SqlAGReplicas {
         $executionName = "$($value.InstanceName)_$($value.AvailabilityGroupName)_$($value.Name)"
         (Get-DscSplattedResource -ResourceName SqlAGReplica -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

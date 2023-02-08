@@ -7,6 +7,8 @@ configuration HostsFileEntries
         $Entries
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName NetworkingDsc
 
@@ -24,4 +26,7 @@ configuration HostsFileEntries
 
         (Get-DscSplattedResource -ResourceName HostsFile -ExecutionName $executionName -Properties $entry -NoInvoke).Invoke($entry)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

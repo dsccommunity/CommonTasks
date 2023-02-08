@@ -7,6 +7,8 @@ configuration AddsTrusts
         $Trusts
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
@@ -29,4 +31,7 @@ configuration AddsTrusts
         $executionName = "$($trust.SourceDomainName)-to-$($trust.TargetDomainName)".Replace('.','-')
         (Get-DscSplattedResource -ResourceName ADDomainTrust -ExecutionName $executionName -Properties $trust -NoInvoke).Invoke($trust)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

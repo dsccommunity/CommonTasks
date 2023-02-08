@@ -5,6 +5,8 @@ configuration XmlContent {
         $XmlData
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName XmlContentDsc
 
@@ -16,4 +18,7 @@ configuration XmlContent {
         }
         (Get-DscSplattedResource -ResourceName XmlFileContentResource -ExecutionName ($xmlRecord.Path + '_' + $xmlRecord.XPath) -Properties $xmlRecord -NoInvoke).Invoke($xmlRecord)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -7,6 +7,8 @@ configuration ScheduledTasks
         $Tasks
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
@@ -25,4 +27,7 @@ configuration ScheduledTasks
 
         (Get-DscSplattedResource -ResourceName ScheduledTask -ExecutionName $executionName -Properties $task -NoInvoke).Invoke($task)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

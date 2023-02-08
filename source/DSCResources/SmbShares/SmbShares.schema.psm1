@@ -14,6 +14,8 @@ configuration SmbShares
         $Shares
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ComputerManagementDsc
 
@@ -94,7 +96,7 @@ configuration SmbShares
                 $share.Path = 'Unused'
             }
 
-            # remove duplicates from access rights 
+            # remove duplicates from access rights
             $share.FullAccess   = $() + $share.FullAccess
             $share.ChangeAccess = $() + ($share.ChangeAccess | Where-Object { $share.FullAccess -notcontains $_ })
             $share.ReadAccess   = $() + ($share.ReadAccess   | Where-Object { $share.FullAccess -notcontains $_ -and `
@@ -106,4 +108,7 @@ configuration SmbShares
             (Get-DscSplattedResource -ResourceName SmbShare -ExecutionName "SmbShare_$shareId" -Properties $share -NoInvoke).Invoke($share)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

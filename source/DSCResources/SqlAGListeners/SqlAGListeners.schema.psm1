@@ -20,6 +20,8 @@ configuration SqlAGListeners {
     [PsDscRunAsCredential = [PSCredential]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAGListener
 
     foreach ($value in $Values)
@@ -37,4 +39,7 @@ configuration SqlAGListeners {
         $executionName = "$($value.InstanceName)_$($value.AvailabilityGroup)_$($value.Name)"
         (Get-DscSplattedResource -ResourceName SqlAGListener -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

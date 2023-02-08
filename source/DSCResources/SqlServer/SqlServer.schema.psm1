@@ -14,6 +14,8 @@ configuration SqlServer
         $SqlLogins
     )
 
+    $curPSModulePath = $env:PSModulePath
+    
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SqlServerDsc -Name SqlSetup, SqlLogin
 
@@ -123,4 +125,7 @@ configuration SqlServer
             (Get-DscSplattedResource -ResourceName SqlLogin -ExecutionName $executionName -Properties $login -NoInvoke).Invoke($login)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

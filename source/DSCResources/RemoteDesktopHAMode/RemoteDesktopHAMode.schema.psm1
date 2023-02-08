@@ -28,6 +28,8 @@ configuration RemoteDesktopHAMode
         $Config
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xRemoteDesktopSessionHost
 
     if ($DependsOn -and -not $Config)
@@ -48,4 +50,7 @@ configuration RemoteDesktopHAMode
     }
 
     (Get-DscSplattedResource -ResourceName xRDConnectionBrokerHAMode -ExecutionName RDCBHAMode -Properties $param -NoInvoke).Invoke($param)
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

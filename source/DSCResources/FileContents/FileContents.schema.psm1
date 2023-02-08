@@ -16,6 +16,8 @@ configuration FileContents
 
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName FileContentDsc
 
@@ -43,4 +45,6 @@ configuration FileContents
         (Get-DscSplattedResource -ResourceName ReplaceText -ExecutionName $executionName -Properties $replaceText -NoInvoke).Invoke($replaceText)
     }
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

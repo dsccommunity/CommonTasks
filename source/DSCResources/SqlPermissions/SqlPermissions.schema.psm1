@@ -9,6 +9,8 @@ configuration SqlPermissions {
         $Values
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlPermission, ServerPermission
 
     function Get-Permission
@@ -92,4 +94,7 @@ configuration SqlPermissions {
             PermissionToExclude  = $permissionToExclude
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

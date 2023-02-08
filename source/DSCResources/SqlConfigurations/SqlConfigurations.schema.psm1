@@ -20,6 +20,8 @@ configuration SqlConfigurations {
     [ServerName = [string]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlConfiguration
 
     foreach ($option in $Options)
@@ -35,4 +37,7 @@ configuration SqlConfigurations {
         $executionName = "$($option.InstanceName)_$($option.OptionName -replace '[().:\s]', '_')"
         (Get-DscSplattedResource -ResourceName SqlConfiguration -ExecutionName $executionName -Properties $option -NoInvoke).Invoke($option)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

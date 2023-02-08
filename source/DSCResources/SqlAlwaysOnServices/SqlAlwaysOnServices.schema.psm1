@@ -17,6 +17,8 @@ configuration SqlAlwaysOnServices {
         $Ensure
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAlwaysOnService
 
     if (-not $PSBoundParameters.ContainsKey('Ensure'))
@@ -31,4 +33,6 @@ configuration SqlAlwaysOnServices {
     $executionName = "$($ServerName)_$($InstanceName)"
     (Get-DscSplattedResource -ResourceName SqlAlwaysOnService -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -49,6 +49,8 @@ configuration AddsDomain
         $EnablePrivilegedAccessManagement = $false
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
@@ -160,4 +162,7 @@ configuration AddsDomain
             DependsOn        = "[WaitForAdDomain]$($trust.Name)"
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

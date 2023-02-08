@@ -18,6 +18,8 @@ configuration SqlAgentOperators {
           EmailAddress: 'dbateam@company.com' [string]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAgentOperator
 
     foreach ($operator in $AgentOperators)
@@ -30,4 +32,7 @@ configuration SqlAgentOperators {
         $executionName = "SqlAgentOperators_$($operator.ServerName)_$($operator.InstanceName)_$($operator.Name -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlAgentOperator -ExecutionName $executionName -Properties $operator -NoInvoke).Invoke($operator)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

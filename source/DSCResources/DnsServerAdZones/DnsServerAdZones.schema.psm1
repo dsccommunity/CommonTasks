@@ -11,6 +11,8 @@ configuration DnsServerAdZones
         $DomainCredential
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DnsServerDsc
 
@@ -29,4 +31,7 @@ configuration DnsServerAdZones
         $executionName = "$($node.Name)_$($adZone.Name)"
         (Get-DscSplattedResource -ResourceName DnsServerADZone -ExecutionName $executionName -Properties $adZone -NoInvoke).Invoke($adZone)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

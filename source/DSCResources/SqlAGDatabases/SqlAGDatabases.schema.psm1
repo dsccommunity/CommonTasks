@@ -22,6 +22,8 @@ configuration SqlAGDatabases {
     [ReplaceExisting = [bool]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAGDatabase
 
     foreach ($value in $Values)
@@ -39,4 +41,7 @@ configuration SqlAGDatabases {
         $executionName = "$($value.InstanceName)_$($value.DatabaseName -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlAGDatabase -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

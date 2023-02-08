@@ -16,7 +16,9 @@ configuration DhcpServerOptions
     [Ensure = [string]{ Absent | Present }]
     [PsDscRunAsCredential = [PSCredential]]
     [Value = [string[]]]
-#>
+    #>
+
+    $curPSModulePath = $env:PSModulePath
 
     Import-DscResource -ModuleName xDhcpServer
     Import-DscResource -ModuleName PsDesiredStateConfiguration
@@ -31,4 +33,7 @@ configuration DhcpServerOptions
         $executionName = "$($node.Name)_$($serverOption.ScopeId)_$($serverOption.OptionId)"
         (Get-DscSplattedResource -ResourceName DhcpServerOptionValue -ExecutionName $executionName -Properties $serverOption -NoInvoke).Invoke($serverOption)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

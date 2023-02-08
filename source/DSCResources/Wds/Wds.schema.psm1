@@ -60,6 +60,8 @@ configuration Wds
         $DeviceReservations
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName WdsDsc
     Import-DscResource -ModuleName xDhcpServer
@@ -395,4 +397,7 @@ configuration Wds
             (Get-DscSplattedResource -ResourceName WdsDeviceReservation -ExecutionName $executionName -Properties $devRes -NoInvoke).Invoke($devRes)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

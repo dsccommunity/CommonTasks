@@ -22,6 +22,8 @@ configuration DscPullServer
         $UseSecurityBestPractices = $false
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DSCResource -ModuleName xPSDesiredStateConfiguration
 
@@ -37,4 +39,7 @@ configuration DscPullServer
         State                    = 'Started'
         UseSecurityBestPractices = $UseSecurityBestPractices
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -11,6 +11,8 @@ configuration CertificateImports
         $PfxFiles
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module CertificateDsc
 
@@ -29,7 +31,7 @@ configuration CertificateImports
             {
                 if (-not (Test-Path -Path $certFile.Path))
                 {
-                    Write-Error "Certificate file '$($certFile.Path)' not found. Current working directory is: $(Get-Location)"
+                    throw "ERROR: Certificate file '$($certFile.Path)' not found. Current working directory is: $(Get-Location)"
                 }
                 else
                 {
@@ -64,4 +66,7 @@ configuration CertificateImports
             (Get-DscSplattedResource -ResourceName PfxImport -ExecutionName $executionName -Properties $pfxFile -NoInvoke).Invoke($pfxFile)
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -78,6 +78,8 @@ configuration SharePointProvisioning
         $CentralAdminServerName
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName SharePointDSC
 
@@ -106,4 +108,6 @@ configuration SharePointProvisioning
 
     (Get-DscSplattedResource -ResourceName SPFarm -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

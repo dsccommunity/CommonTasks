@@ -15,6 +15,8 @@ configuration RemoteDesktopLicensing
         $LicenseMode
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xRemoteDesktopSessionHost
 
 
@@ -32,4 +34,7 @@ configuration RemoteDesktopLicensing
         LicenseServer    = $LicenseServer
         LicenseMode      = $LicenseMode
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -146,6 +146,8 @@ configuration SharePointSetup
         $LanguagePacks
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SharePointDSC
 
     # SharePoint Prerequisits Installer
@@ -195,4 +197,7 @@ configuration SharePointSetup
         $i++
         (Get-DscSplattedResource -ResourceName SPInstallLanguagePack -ExecutionName $executionName -Properties $languagePack -NoInvoke).Invoke($languagePack)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

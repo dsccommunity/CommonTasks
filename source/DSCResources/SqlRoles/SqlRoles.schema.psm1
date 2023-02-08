@@ -21,6 +21,8 @@ configuration SqlRoles {
     [ServerName = [string]]
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlRole
 
     foreach ($value in $Values)
@@ -38,4 +40,7 @@ configuration SqlRoles {
         $executionName = "$($value.InstanceName)_$($value.ServerRoleName -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlRole -ExecutionName $executionName -Properties $value -NoInvoke).Invoke($value)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

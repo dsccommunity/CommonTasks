@@ -52,6 +52,8 @@ configuration ExchangeAutoMountPoints {
         $VolumePrefix = 'EXVOL'
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
 
@@ -70,4 +72,6 @@ configuration ExchangeAutoMountPoints {
 
     (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

@@ -22,8 +22,12 @@ configuration SqlScriptQueries {
         Variable = [String]
         DisableVariables = [Boolean]
     #>
+
+    $curPSModulePath = $env:PSModulePath
+
     #Hashing Queries for unique Execution/Resourcename
     $HashClass = New-Object System.Security.Cryptography.SHA1Managed
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlScriptQuery
 
     foreach ($query in $Queries)
@@ -38,4 +42,7 @@ configuration SqlScriptQueries {
         $executionName = "SqlQuery_$($query.ServerName)_$($query.InstanceName)_$($hash)"
         (Get-DscSplattedResource -ResourceName SqlScriptQuery -ExecutionName $executionName -Properties $query -NoInvoke).Invoke($query)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

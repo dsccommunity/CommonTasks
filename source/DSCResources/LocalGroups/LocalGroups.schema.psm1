@@ -5,6 +5,8 @@ configuration LocalGroups {
         $Groups
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($group in $Groups)
@@ -12,4 +14,7 @@ configuration LocalGroups {
         $executionName = $group.GroupName -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName xGroup -ExecutionName $executionName -Properties $group -NoInvoke).Invoke($group)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

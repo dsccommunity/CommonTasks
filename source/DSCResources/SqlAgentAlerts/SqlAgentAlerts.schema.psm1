@@ -22,6 +22,8 @@ configuration SqlAgentAlerts {
           MessageId: '825'
     #>
 
+    $curPSModulePath = $env:PSModulePath
+
     Import-DscResource -ModuleName SqlServerDsc -Name SqlAgentAlert
 
     foreach ($alert in $Alerts)
@@ -34,4 +36,7 @@ configuration SqlAgentAlerts {
         $executionName = "SqlAgentAlert_$($alert.Servername)_$($alert.InstanceName)_$($alert.Name -replace ' ','')"
         (Get-DscSplattedResource -ResourceName SqlAgentAlert -ExecutionName $executionName -Properties $alert -NoInvoke).Invoke($alert)
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }

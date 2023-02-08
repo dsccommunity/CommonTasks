@@ -52,6 +52,8 @@ configuration ExchangeDagProvisioning
         $FirstDagMemberName
     )
 
+    $curPSModulePath = $env:PSModulePath
+
     #Import required DSC Modules
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xExchange
@@ -105,4 +107,7 @@ configuration ExchangeDagProvisioning
             DependsOn         = '[xExchWaitForDAG]WaitForDag'
         }
     }
+
+    # restore PSModulePath to reset changes made during MOF compilation
+    $env:PSModulePath = $curPSModulePath
 }
