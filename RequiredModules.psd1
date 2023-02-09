@@ -64,4 +64,5 @@
     FileContentDsc               = '1.3.0.151'
     xRemoteDesktopSessionHost    = '2.1.1-preview0001'
     cScom                        = '1.0.4'
+    AzureConnectedMachineDsc     = '1.4.0'
 }

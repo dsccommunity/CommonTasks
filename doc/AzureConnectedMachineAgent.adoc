@@ -1,0 +1,78 @@
+// CommonTasks YAML Reference: AzureConnectedMachineAgent
+// ======================================
+
+:YmlCategory: AzureConnectedMachineAgent
+
+:abstract:    {YmlCategory} installs the Azure Connected Machine Agent und connects it to your Tenant.
+
+[#dscyml_AzureConnectedMachineAgent]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_AzureConnectedMachineAgent_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/AzureConnectedMachineAgent
+| DSC Resource   | https://github.com/Azure/AzureConnectedMachineDsc[AzureConnectedMachineDsc]
+| Documentation  | https://github.com/Azure/AzureConnectedMachineDsc/blob/master/README.md[AzureConnectedMachineDsc]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| TenantId
+| Mandatory
+| String
+| The ID of your Tenant.
+|
+
+| SubscriptionId
+| Mandatory
+| String
+| NetBIOS name for the new domain.
+|
+
+| ResourceGroup
+| Mandatory
+| String
+| The DomainTrust resource will manage _Bidirectional Forest_ Domain Trusts.
+|
+
+| Location
+| Mandatory
+| String
+| Specifies the Azure Location in which your Tenant is located. https://azure.microsoft.com/global-infrastructure/services/?products=azure-arc[Available Regions]
+|
+
+| Credential
+|
+| PSCredential
+| Credentials for your Tenant.
+|
+
+| Tags
+|
+|
+|.
+|
+
+.Example
+[source, yaml]
+----
+AzureConnectedMachineAgent:
+  TenantId: 1234567-ABC-DEFG-1234-ABCDEFGHIJKL
+  SubscriptionId: 00000000-0000-0000-0000-000000000000
+  ResourceGroup: myAzureConnectedMachineRG
+  Location: germanywestcentral
+  Credential: '[ENC=PE9ianMgVmVyc2lvbj...=]'
+
+----
