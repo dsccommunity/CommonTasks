@@ -1,4 +1,4 @@
-configuration AzureConnectedMachineAgent
+configuration AzureConnectedMachine
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
@@ -58,9 +58,4 @@ configuration AzureConnectedMachineAgent
             Credential      = $Credential
             DependsOn       = '[xService]HIMDS'
         }
-
-
-
-
-
 }

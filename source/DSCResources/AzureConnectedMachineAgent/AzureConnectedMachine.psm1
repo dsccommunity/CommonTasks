@@ -1,5 +1,5 @@
 @{
-    RootModule           = 'AzureConnectedMachineAgent.schema.psm1'
+    RootModule           = 'AzureConnectedMachine.schema.psm1'
 
     ModuleVersion        = '0.0.1'
 
@@ -11,5 +11,5 @@
 
     Copyright            = 'NA'
 
-    DscResourcesToExport = @('AzureConnectedMachineAgent')
+    DscResourcesToExport = @('AzureConnectedMachine')
 }
