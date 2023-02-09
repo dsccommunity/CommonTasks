@@ -38,13 +38,13 @@
 | SubscriptionId
 | Mandatory
 | String
-| NetBIOS name for the new domain.
+| The ID of your Subscription.
 |
 
 | ResourceGroup
 | Mandatory
 | String
-| The DomainTrust resource will manage _Bidirectional Forest_ Domain Trusts.
+| Name of your Resource Group.
 |
 
 | Location
