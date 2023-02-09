@@ -100,6 +100,7 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   - SqlServerDsc
   - xHyper-V
   - VSTSAgent
+  - xHyper-V ==> HyperVDsc
 - Refactoring of SqlPermissions after upgrade of SqlServerDsc to 16.0.0
 - WindowsFeatures: Include support for more elaborate lists of features, giving
   more control.

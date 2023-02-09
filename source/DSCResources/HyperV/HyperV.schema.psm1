@@ -1,4 +1,4 @@
-# see https://github.com/dsccommunity/xHyper-V
+# see https://github.com/dsccommunity/HyperVDsc
 configuration HyperV
 {
     param
@@ -29,7 +29,7 @@ configuration HyperV
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName 'xHyper-V'
+    Import-DscResource -ModuleName HyperVDsc
 
     [string]$dependsOnHostOS = $null
 
@@ -80,7 +80,7 @@ configuration HyperV
         $configHyperV.VirtualMachinePath = $VirtualMachinePath
     }
 
-    (Get-DscSplattedResource -ResourceName xVMHost -ExecutionName 'config_HyperVHost' -Properties $configHyperV -NoInvoke).Invoke($configHyperV)
+    (Get-DscSplattedResource -ResourceName VMHost -ExecutionName 'config_HyperVHost' -Properties $configHyperV -NoInvoke).Invoke($configHyperV)
     #endregion
 
     #######################################################################
@@ -143,7 +143,7 @@ configuration HyperV
 
             $vmswitch.DependsOn = $dependsOnHostOS
             $executionName = $vmswitch.Name -replace '[().:\s]', '_'
-            (Get-DscSplattedResource -ResourceName xVMSwitch -ExecutionName "vmswitch_$executionName" -Properties $vmswitch -NoInvoke).Invoke($vmswitch)
+            (Get-DscSplattedResource -ResourceName VMSwitch -ExecutionName "vmswitch_$executionName" -Properties $vmswitch -NoInvoke).Invoke($vmswitch)
 
             if ($vmswitch.Ensure -ne 'Absent')
             {
@@ -316,7 +316,7 @@ configuration HyperV
                             result = 'N/A'
                         }
                     }
-                    DependsOn  = "[xVMSwitch]vmswitch_$executionName"
+                    DependsOn  = "[VMSwitch]vmswitch_$executionName"
                 }
             }
 
@@ -389,13 +389,13 @@ configuration HyperV
             $vmState = $vmmachine.State
             $vmmachine.Remove('State')
 
-            $strVMDepend = "[xVMHyperV]$vmName"
+            $strVMDepend = "[VMHyperV]$vmName"
             $strVHDPath = "$($vmmachine.Path)\$vmName\Disks"
             $iMemorySize = ($vmmachine.StartupMemory / 1MB) * 1MB
 
             if ($vmmachine.Ensure -eq 'Absent')
             {
-                xVMHyperV $vmName
+                VMHyperV $vmName
                 {
                     Ensure  = 'Absent'
                     Name    = $vmName
@@ -454,8 +454,8 @@ configuration HyperV
             else
             {
                 $iDiskSize = ($disk.Size / 1GB) * 1GB
-                $strVHDDepend = "[xVHD]$strVHD"
-                xVHD $strVHD
+                $strVHDDepend = "[VHD]$strVHD"
+                VHD $strVHD
                 {
                     Name             = $strVHDName
                     Path             = $strVHDPath
@@ -684,9 +684,9 @@ configuration HyperV
                 $vmmachine.MacAddress = $macAddrList
             }
 
-            (Get-DscSplattedResource -ResourceName xVMHyperV -ExecutionName $vmName -Properties $vmmachine -NoInvoke).Invoke($vmmachine)
+            (Get-DscSplattedResource -ResourceName VMHyperV -ExecutionName $vmName -Properties $vmmachine -NoInvoke).Invoke($vmmachine)
 
-            $strVMdepends = "[xVMHyperV]$vmName"
+            $strVMdepends = "[VMHyperV]$vmName"
 
             # additional VM settings
             if ($null -ne $checkpointType -or
@@ -952,7 +952,7 @@ configuration HyperV
 
                 if ($netAdapter.NetworkSetting -ne $null)
                 {
-                    $netSetting = xNetworkSettings
+                    $netSetting = VMNetworkAdapterNetworkSettings
                     {
                         IpAddress      = $netAdapter.NetworkSetting.IpAddress
                         Subnet         = $netAdapter.NetworkSetting.Subnet
@@ -979,7 +979,7 @@ configuration HyperV
 
                 $execName = "netadapter_$($netAdapter.Id)"
 
-                (Get-DscSplattedResource -ResourceName xVMNetworkAdapter -ExecutionName $execName -Properties $netAdapter -NoInvoke).Invoke($netAdapter)
+                (Get-DscSplattedResource -ResourceName VMNetworkAdapter -ExecutionName $execName -Properties $netAdapter -NoInvoke).Invoke($netAdapter)
 
                 Script "$($execName)_properties"
                 {
@@ -1044,7 +1044,7 @@ configuration HyperV
                             result = 'N/A'
                         }
                     }
-                    DependsOn  = "[xVMNetworkAdapter]$execName"
+                    DependsOn  = "[VMNetworkAdapter]$execName"
                 }
             }
 
@@ -1092,8 +1092,8 @@ configuration HyperV
                 else
                 {
                     $iDiskSize = ($disk.Size / 1GB) * 1GB
-                    $strVHDDepend = "[xVHD]$strVHD"
-                    xVHD $strVHD
+                    $strVHDDepend = "[VHD]$strVHD"
+                    VHD $strVHD
                     {
                         Name             = $strVHDName
                         Path             = $disk.Path
@@ -1106,7 +1106,7 @@ configuration HyperV
 
                 # attach the VHD file to the virtual machine
                 $executionName = "$($vmName)_DiskAttach_$($disk.Name)"
-                xVMHardDiskDrive $executionName
+                VMHardDiskDrive $executionName
                 {
                     Ensure             = 'Present'
                     VMName             = $vmName
@@ -1118,7 +1118,7 @@ configuration HyperV
                 }
 
                 ++$iLocation
-                $strHddDepends = "[xVMHardDiskDrive]$executionName"
+                $strHddDepends = "[VMHardDiskDrive]$executionName"
             }
 
             # create virtual drives and mount ISO files
@@ -1130,7 +1130,7 @@ configuration HyperV
 
                 if ($drive.Path.Length)
                 {
-                    xVMDvdDrive $executionName
+                    VMDvdDrive $executionName
                     {
                         Ensure             = 'Present'
                         VMName             = $vmName
@@ -1142,7 +1142,7 @@ configuration HyperV
                 }
                 else
                 {
-                    xVMDvdDrive $executionName
+                    VMDvdDrive $executionName
                     {
                         Ensure             = 'Present'
                         VMName             = $vmName
@@ -1153,7 +1153,7 @@ configuration HyperV
                 }
 
                 ++$iLocation
-                $strDvdDepends = "[xVMDvdDrive]$executionName"
+                $strDvdDepends = "[VMDvdDrive]$executionName"
             }
 
             # change boot order: first hdd -> system drive, last dvd -> OS install

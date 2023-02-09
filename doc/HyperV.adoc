@@ -13,14 +13,14 @@
 
 
 // reference links as variables for using more than once
-:ref_xHyper-V: https://github.com/dsccommunity/xHyper-V[xHyper-V]
+:ref_HyperVDsc: https://github.com/dsccommunity/HyperVDsc[HyperVDsc]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/HyperV
-| DSC Resource   | https://github.com/dsccommunity/xHyper-V
-| Documentation  | {ref_xHyper-V}
+| DSC Resource   | https://github.com/dsccommunity/HyperVDsc
+| Documentation  | {ref_HyperVDsc}
 |===
 
 
@@ -150,7 +150,7 @@ Only one NAT switch is supported on a Hyper-V host.
 |
 
 | AddressSpace
-| 
+|
 | String
 | Address space of virtual network defined in the format '192.168.10.0/24'
 
@@ -158,11 +158,11 @@ Mandatory attribute for a NAT switch!
 |
 
 | IpAddress
-| 
+|
 | String
-| The desired IP address of the network adapter which is connected to the Hyper-V switch. 
+| The desired IP address of the network adapter which is connected to the Hyper-V switch.
 
-Not applicable for `Private` switches! 
+Not applicable for `Private` switches!
 
 Mandatory attribute for a NAT switch and is used as default gateway for the virtual network.
 |
@@ -196,7 +196,7 @@ The server automatically sets the value of `DomainAuthenticated` when the networ
 
 The acceptable values for this parameter are:
 
-- Public - Networks in a public place such as an airport or coffee shop. 
+- Public - Networks in a public place such as an airport or coffee shop.
            Your PC is hidden from other devices on the network and can't be used for printer and file sharing.
 - Private - Networks at home or work, where you know and trust the people and devices on the network.
             Your PC is discoverable and can be used for printer and file sharing if you set it up.
@@ -326,7 +326,7 @@ The acceptable values for this parameter are:
   - Standard       -> Create standard checkpoints.
   - Production     -> Create production checkpoints if supported by guest operating system.
                       Otherwise, create standard checkpoints.
-  - ProductionOnly -> Create production checkpoints if supported by guest operating system. 
+  - ProductionOnly -> Create production checkpoints if supported by guest operating system.
                       Otherwise, the operation fails.
 | - Disabled
   - Standard
@@ -483,13 +483,13 @@ Allowed values are On, which drops DHCP messages because the virtualized DHCP se
 | - On
   - Off
 
-| RouterGuard 
+| RouterGuard
 |
 | String
 | Specifies whether to drop Router Advertisement and Redirection messages from unauthorized virtual machines.
 
-The value can be either On or Off. 
-If On is specified, such messages are dropped. 
+The value can be either On or Off.
+If On is specified, such messages are dropped.
 If Off is specified, such messages are sent.
 | - On
   - Off
@@ -572,7 +572,7 @@ If Off is specified, such messages are sent.
 |
 
 | [[dscyml_hyperv_vmmachines_disks_copyonce, {YmlCategory}/VMMachines/Disks/CopyOnce]]<<dscyml_hyperv_vmmachines_disks_copyonce_details, CopyOnce>>
-| 
+|
 | Hashtable[]
 | Copy files from host to VM system disk *before first start* of VM
 |
@@ -612,9 +612,9 @@ Attribute shall be specified without drive letter (e.g: `Users\Default\Documents
 | Specifies a items that are excluded from the copy operation.
 
 The value of this attributes qualifies the `Source` attribute.
-Enter a path element or pattern, such as `*.txt`. 
+Enter a path element or pattern, such as `*.txt`.
 Wildcard characters are permitted.
-  
+
 The attribute is effective only when the command includes the contents of an item, such as `C:\Windows\*``, where the wildcard character specifies the contents of the `C:\Windows` directory.
 |
 
