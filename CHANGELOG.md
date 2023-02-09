@@ -105,3 +105,4 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
   due to an encoding issue with the psd1 file
 - Add missing documentation
 - Added Read-Only Domaincontroller Variable to AddsDomainController
+- Fixed Typo in AddsDomainController documentation
