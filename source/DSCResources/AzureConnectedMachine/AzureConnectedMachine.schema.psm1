@@ -52,7 +52,6 @@ configuration AzureConnectedMachine
         [Parameter()]
         [boolean]
         $guestconfiguration_enabled
-
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
@@ -90,5 +89,6 @@ configuration AzureConnectedMachine
         extensions_blocklist        = $extensions_blocklist
         proxy_bypass                = $proxy_bypass
         guestconfiguration_enabled  = $guestconfiguration_enabled
+        DependsOn                   = '[AzureConnectedMachineAgentDsc]Connect'
     }
 }
