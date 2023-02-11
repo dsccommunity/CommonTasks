@@ -71,7 +71,7 @@
 | The name of the site this Domain Controller will be added to.
 |
 
-| IsGlobalCatalog
+| IsReadOnlyReplica
 |
 | Boolean
 | Specifies if the domain controller will be a Read-Only Domain Controller (RODC).

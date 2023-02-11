@@ -4,6 +4,13 @@ The format is based on and uses the types of changes according to [Keep a Change
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## Added
+
+- `AzureConnectedMachine` Composite to install and configure the Azure Connected Machine Agent
+
+## Changed
+
+- Fixed Typo in AddsDomainController documentation
 
 ## [0.9.0] - 2023-02-08
 
