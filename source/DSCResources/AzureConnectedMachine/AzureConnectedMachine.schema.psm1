@@ -3,16 +3,12 @@ configuration AzureConnectedMachine
     param
     (
         [Parameter()]
-        [boolean]
-        $UseDownloadProxy = $false,
+        [string]
+        $DownloadProxy,
 
         [Parameter()]
         [string]
-        $DownloadProxy = '',
-
-        [Parameter()]
-        [string]
-        $DownloadPath = 'C:\temp\ACMA',
+        $DownloadPath = 'C:\DSCData\ACMA',
 
         [Parameter()]
         [string]
@@ -73,40 +69,27 @@ configuration AzureConnectedMachine
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName AzureConnectedMachineDsc
 
-    if ($UseDownloadProxy -eq $false)
+    xRemoteFile DownloadHIMDS
     {
-        xPackage AzureHIMDService{
-            Name        = 'Azure Connected Machine Agent'
-            Ensure      = 'Present'
-            ProductId   = ''
-            Path        = $DownloadURL
-        }
+        DestinationPath = "$DownloadPath\AzureConnectedMachineAgent.msi"
+        Uri             = $DownloadURL
+        Proxy           = $DownloadProxy
     }
-    if ($UseDownloadProxy -eq $true)
+
+    xPackage InstallHIMDS
     {
-        xRemoteFile DownloadFileUsingProxy
-        {
-            DestinationPath = $DownloadPath
-            Uri             = $DownloadURL
-            UserAgent       = $UserAgent
-            Headers         = $Headers
-            Proxy           = $DownloadProxy
-        }
-
-        xPackage InstallFile
-        {
-            Name            = 'Azure Connected Machine Agent'
-            Ensure          = 'Present'
-            ProductId       = ''
-            Path            = "$DownloadPath\AzureConnectedMachineAgent.msi"
-        }
-
+        Name            = 'Azure Connected Machine Agent'
+        Ensure          = 'Present'
+        ProductId       = ''
+        Path            = "$DownloadPath\AzureConnectedMachineAgent.msi"
+        DependsOn       = '[xRemoteFile]DownloadHIMDS'
     }
 
     xService HIMDS{
-        Ensure      = 'Present'
-        Name        = 'HIMDS'
-        State       = 'Running'
+        Ensure          = 'Present'
+        Name            = 'HIMDS'
+        State           = 'Running'
+        DependsOn       = '[xPackage]InstallHIMDS'
     }
 
     AzureConnectedMachineAgentDsc Connect{

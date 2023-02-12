@@ -71,6 +71,18 @@
 | If you want to use a different URL, e.g. an internal Server, to download the ACMA msi
 | Default https://aka.ms/AzureConnectedMachineAgent[Microsoft Source]
 
+| DownloadProxy
+|
+| string
+| Define your proxy for ACMA download
+|
+
+| DownloadPath
+|
+| string
+| Define where the Setup should be downloaded to
+| Default: C:\DSCData\ACMA
+
 |===
 
 To configure Azure Connected Machine Settings
@@ -129,35 +141,6 @@ To configure Azure Connected Machine Settings
 
 |===
 
-To configure an alternate file download using a Proxy
-[cols="1,1,1,2a,1a" options="header"]
-|===
-| Parameter
-| Attribute
-| DataType
-| Description
-| Allowed Values
-
-| UseDownloadProxy
-|
-| boolean
-| Defines if the download of the Agent should Use a Proxy or not
-| - *false* (default)
-  - true
-
-| DownloadProxy
-|
-| string
-| Define your proxy
-|
-
-| DownloadPath
-|
-| string
-| Define where the Setup should be downloaded to
-| Default: C:\temp\ACMA
-
-|===
 
 .Example
 [source, yaml]
@@ -182,7 +165,6 @@ AzureConnectedMachine:
 [source, yaml]
 ----
 AzureConnectedMachine:
-  UseDownloadProxy: true
   DownloadProxy: https://yourdownload-proxy.com:1234
 ----
 

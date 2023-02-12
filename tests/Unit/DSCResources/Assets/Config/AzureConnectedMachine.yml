@@ -1,5 +1,3 @@
-UseDownloadProxy: true
-DownloadProxy: https://yourdownload-proxy.com:1234
 TenantId: 1234567-ABC-DEFG-1234-ABCDEFGHIJKL
 SubscriptionId: 00000000-0000-0000-0000-000000000000
 ResourceGroup: myAzureConnectedMachineRG
