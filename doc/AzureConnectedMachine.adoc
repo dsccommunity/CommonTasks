@@ -3,7 +3,7 @@
 
 :YmlCategory: AzureConnectedMachine
 
-:abstract:    {YmlCategory} installs the Azure Connected Machine Agent und connects it to your Tenant.
+:abstract:    {YmlCategory} downloads and installs the Azure Connected Machine Agent und connects it to your Tenant. A proxy for the download is supported.
 
 [#dscyml_AzureConnectedMachine]
 = DSC Resource '{YmlCategory}'
@@ -65,6 +65,12 @@
 | Add Tags for your Server e.g. Location
 |
 
+| DownloadURL
+|
+| String
+| If you want to use a different URL, e.g. an internal Server, to download the ACMA msi
+| Default https://aka.ms/AzureConnectedMachineAgent[Microsoft Source]
+
 |===
 
 To configure Azure Connected Machine Settings
@@ -123,6 +129,36 @@ To configure Azure Connected Machine Settings
 
 |===
 
+To configure an alternate file download using a Proxy
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| UseDownloadProxy
+|
+| boolean
+| Defines if the download of the Agent should Use a Proxy or not
+| - *false* (default)
+  - true
+
+| DownloadProxy
+|
+| string
+| Define your proxy
+|
+
+| DownloadPath
+|
+| string
+| Define where the Setup should be downloaded to
+| Default: C:\temp\ACMA
+
+|===
+
 .Example
 [source, yaml]
 ----
@@ -140,6 +176,14 @@ AzureConnectedMachine:
 ----
 AzureConnectedMachine:
   proxy_url: https://your-proxy.com:1234
+----
+
+.Example for download with proxy
+[source, yaml]
+----
+AzureConnectedMachine:
+  UseDownloadProxy: true
+  DownloadProxy: https://yourdownload-proxy.com:1234
 ----
 
 .Recommended Lookup Options in `Datum.yml` (Excerpt)

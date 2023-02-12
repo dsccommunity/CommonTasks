@@ -2,6 +2,22 @@ configuration AzureConnectedMachine
 {
     param
     (
+        [Parameter()]
+        [boolean]
+        $UseDownloadProxy = $false,
+
+        [Parameter()]
+        [string]
+        $DownloadProxy = '',
+
+        [Parameter()]
+        [string]
+        $DownloadPath = 'C:\temp\ACMA',
+
+        [Parameter()]
+        [string]
+        $DownloadURL = 'https://aka.ms/AzureConnectedMachineAgent',
+
         [Parameter(Mandatory = $true)]
         [string]
         $TenantId,
@@ -57,18 +73,40 @@ configuration AzureConnectedMachine
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
     Import-DscResource -ModuleName AzureConnectedMachineDsc
 
-    xPackage AzureHIMDService{
-        Name        = 'Azure Connected Machine Agent'
-        Ensure      = 'Present'
-        ProductId   = ''
-        Path        = 'https://aka.ms/AzureConnectedMachineAgent'
+    if ($UseDownloadProxy -eq $false)
+    {
+        xPackage AzureHIMDService{
+            Name        = 'Azure Connected Machine Agent'
+            Ensure      = 'Present'
+            ProductId   = ''
+            Path        = $DownloadURL
+        }
+    }
+    if ($UseDownloadProxy -eq $true)
+    {
+        xRemoteFile DownloadFileUsingProxy
+        {
+            DestinationPath = $DownloadPath
+            Uri             = $DownloadURL
+            UserAgent       = $UserAgent
+            Headers         = $Headers
+            Proxy           = $DownloadProxy
+        }
+
+        xPackage InstallFile
+        {
+            Name            = 'Azure Connected Machine Agent'
+            Ensure          = 'Present'
+            ProductId       = ''
+            Path            = "$DownloadPath\AzureConnectedMachineAgent.msi"
+        }
+
     }
 
     xService HIMDS{
         Ensure      = 'Present'
         Name        = 'HIMDS'
         State       = 'Running'
-        DependsOn   = '[xPackage]AzureHIMDService'
     }
 
     AzureConnectedMachineAgentDsc Connect{
