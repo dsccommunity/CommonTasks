@@ -32,6 +32,10 @@ configuration FailoverCluster
         $Disks,
 
         [Parameter()]
+        [hashtable[]]
+        $Networks,
+        
+        [Parameter()]
         [switch]
         $Join,
 
@@ -56,6 +60,19 @@ configuration FailoverCluster
     Import-DscResource -ModuleName FailoverClusterDsc
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
+    WindowsFeature RSATADFeatures
+    {
+        Name   = 'RSAT-AD-PowerShell'
+        Ensure = 'Present'
+    }
+
+    WindowsFeature ClusterFeatures
+    {
+        Name      = 'Failover-Clustering'
+        Ensure    = 'Present'
+        DependsOn = '[WindowsFeature]RSATADFeatures'
+    }
+
     if ($Join)
     {
         WaitForCluster WaitForCluster
@@ -63,6 +80,7 @@ configuration FailoverCluster
             Name             = $Name
             RetryIntervalSec = $WaitForClusterRetryIntervalSec
             RetryCount       = $WaitForClusterRetryCount
+            DependsOn        = '[WindowsFeature]ClusterFeatures'
         }
 
         Cluster JoinSecondNodeToCluster
@@ -94,6 +112,20 @@ configuration FailoverCluster
         {
             Number = $disk.Number
             Label  = $disk.Label
+        }
+    }
+
+    foreach ($network in $Networks)
+    {
+        $net = "$($network.Address)__$($network.AddressMask)" -replace '\(|\)|\.|:| ', '_'
+
+        ClusterNetwork $net
+        {
+            Address     = $network.Address
+            AddressMask = $network.AddressMask
+            Name        = $network.Name
+            Role        = $network.Role
+            Metric      = $network.Metric
         }
     }
 

@@ -92,6 +92,7 @@ ifdef::env-github[]
 - <<DhcpScopeOptions.adoc#, DhcpScopeOptions>>
 - <<DhcpScopes.adoc#, DhcpScopes>>
 - <<DhcpServer.adoc#, DhcpServer>>
+- <<DhcpServerAuthorization.adoc#, DhcpServerAuthorization>>
 - <<DhcpServerOptionDefinitions.adoc#, DhcpServerOptionDefinitions>>
 - <<DhcpServerOptions.adoc#, DhcpServerOptions>>
 - <<DiskAccessPaths.adoc#, DiskAccessPaths>>
@@ -245,7 +246,6 @@ ifndef::env-github[]
 | <<dscyml_chocolateypackages>>                     | <<dscyml_chocolateypackages_abstract>>
 | <<dscyml_chocolateypackages2nd>>                  | <<dscyml_chocolateypackages2nd_abstract>>
 | <<dscyml_chocolateypackages3rd>>                  | <<dscyml_chocolateypackages3rd_abstract>>
-| <<dscyml_cluster>>                                | <<dscyml_cluster_abstract>>
 | <<dscyml_computersettings>>                       | <<dscyml_computersettings_abstract>>
 | <<dscyml_configurationbase>>                      | <<dscyml_configurationbase_abstract>>
 | <<dscyml_configurationmanagerconfiguration>>      | <<dscyml_configurationmanagerconfiguration_abstract>>
@@ -255,6 +255,7 @@ ifndef::env-github[]
 | <<dscyml_dhcpscopeoptions>>                       | <<dscyml_dhcpscopeoptions_abstract>>
 | <<dscyml_dhcpscopes>>                             | <<dscyml_dhcpscopes_abstract>>
 | <<dscyml_dhcpserver>>                             | <<dscyml_dhcpserver_abstract>>
+| <<dscyml_dhcpserverauthorization>>                | <<dscyml_dhcpserverauthorization_abstract>>
 | <<dscyml_dhcpserveroptiondefinitions>>            | <<dscyml_dhcpserveroptiondefinitions_abstract>>
 | <<dscyml_dhcpserveroptions>>                      | <<dscyml_dhcpserveroptions_abstract>>
 | <<dscyml_diskaccesspaths>>                        | <<dscyml_diskaccesspaths_abstract>>
@@ -285,6 +286,7 @@ ifndef::env-github[]
 | <<dscyml_exchangemailboxdatabasecopies>>          | <<dscyml_exchangemailboxdatabasecopies_abstract>>
 | <<dscyml_exchangemailboxdatabases>>               | <<dscyml_exchangemailboxdatabases_abstract>>
 | <<dscyml_exchangeprovisioning>>                   | <<dscyml_exchangeprovisioning_abstract>>
+| <<dscyml_failovercluster>>                        | <<dscyml_failovercluster_abstract>>
 | <<dscyml_filecontents>>                           | <<dscyml_filecontents_abstract>>
 | <<dscyml_filesandfolders>>                        | <<dscyml_filesandfolders_abstract>>
 | <<dscyml_firewallprofiles>>                       | <<dscyml_firewallprofiles_abstract>>
@@ -421,8 +423,6 @@ include::ChocolateyPackages2nd.adoc[leveloffset=+1]
 <<<<
 include::ChocolateyPackages3rd.adoc[leveloffset=+1]
 <<<<
-include::Cluster.adoc[leveloffset=+1]
-<<<<
 include::ComputerSettings.adoc[leveloffset=+1]
 <<<<
 include::ConfigurationBase.adoc[leveloffset=+1]
@@ -440,6 +440,8 @@ include::DhcpScopeOptions.adoc[leveloffset=+1]
 include::DhcpScopes.adoc[leveloffset=+1]
 <<<<
 include::DhcpServer.adoc[leveloffset=+1]
+<<<<
+include::DhcpServerAuthorization.adoc[leveloffset=+1]
 <<<<
 include::DhcpServerOptionDefinitions.adoc[leveloffset=+1]
 <<<<
@@ -500,6 +502,8 @@ include::ExchangeMailboxDatabaseCopies.adoc[leveloffset=+1]
 include::ExchangeMailboxDatabases.adoc[leveloffset=+1]
 <<<<
 include::ExchangeProvisioning.adoc[leveloffset=+1]
+<<<<
+include::FailoverCluster.adoc[leveloffset=+1]
 <<<<
 include::FileContents.adoc[leveloffset=+1]
 <<<<

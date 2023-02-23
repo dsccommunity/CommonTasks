@@ -31,10 +31,20 @@ configuration DhcpServer
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xDhcpServer
 
+    # install AD tools if AD integration is activated
+    if ($null -ne $Authorization -or $EnableSecurityGroups -eq $true)
+    {
+        WindowsFeature RSATADFeatures
+        {
+            Name   = 'RSAT-AD-PowerShell'
+            Ensure = 'Present'
+        }
+    }
+
     WindowsFeature DHCPServer
     {
-        Name   = 'DHCP'
-        Ensure = 'Present'
+        Name      = 'DHCP'
+        Ensure    = 'Present'
     }
 
     if ($EnableSecurityGroups -eq $true)
@@ -46,16 +56,26 @@ configuration DhcpServer
                 Restart-Service dhcpserver
             }
             TestScript = {
-                $checkDhcpSecGrpA = Get-ADGroup -filter "Name -eq 'DHCP Administrators'"
-                $checkDhcpSecGrpU = Get-ADGroup -filter "Name -eq 'DHCP Users'"
+                $adList = Get-ADDomainController -Filter '*' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+
+                if ( $null -ne $adList -and $env:ComputerName -in $adList )
+                {
+                    $checkDhcpSecGrpA = Get-ADGroup -filter 'Name -eq "DHCP Administrators"' -ErrorAction SilentlyContinue
+                    $checkDhcpSecGrpU = Get-ADGroup -filter 'Name -eq "DHCP Users"' -ErrorAction SilentlyContinue
+                }
+                else
+                {
+                    $checkDhcpSecGrpA = Get-LocalGroup -Name 'DHCP Administrators' -ErrorAction SilentlyContinue
+                    $checkDhcpSecGrpU = Get-LocalGroup -Name 'DHCP Users' -ErrorAction SilentlyContinue
+                }
 
                 if ( $null -eq $checkDhcpSecGrpA -or $null -eq $checkDhcpSecGrpU )
                 {
-                    Write-Verbose -Message 'Missing ADGroup DHCP Security groups.'
+                    Write-Verbose -Message 'Missing DHCP Security groups.'
                     return $false
                 }
 
-                Write-Verbose -Message 'ADGroup DHCP Security groups are existing.'
+                Write-Verbose -Message 'DHCP Security groups are existing.'
                 return $true
             }
             GetScript  = { return `

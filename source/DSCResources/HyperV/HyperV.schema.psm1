@@ -153,216 +153,216 @@ configuration HyperV
                     # Default is adapter auto configuration with 255.255.0.0 -> 16
                     [int]$netPrefixLength = 16;
 
-                if (-not [string]::IsNullOrWhiteSpace($netAddressSpace))
-                {
-                    $prefixSelect = $netAddressSpace | Select-String '\d+\.\d+\.\d+\.\d+/(\d+)'
-
-                    if ($null -eq $prefixSelect)
+                    if (-not [string]::IsNullOrWhiteSpace($netAddressSpace))
                     {
-                        throw "ERROR: Invalid format of attribute 'AddressSpace'."
+                        $prefixSelect = $netAddressSpace | Select-String '\d+\.\d+\.\d+\.\d+/(\d+)'
+
+                        if ($null -eq $prefixSelect)
+                        {
+                            throw "ERROR: Invalid format of attribute 'AddressSpace'."
+                        }
+
+                        $netPrefixLength = $prefixSelect.Matches.Groups[1].Value
                     }
 
-                    $netPrefixLength = $prefixSelect.Matches.Groups[1].Value
-                }
-
-                if (-not [string]::IsNullOrWhiteSpace($netIpAddress) -and -not ($netIpAddress -match '\d+\.\d+\.\d+\.\d+'))
-                {
-                    throw "ERROR: Invalid format of attribute 'IpAddress'."
-                }
-
-                if (-not [string]::IsNullOrWhiteSpace($netGateway) -and -not ($netGateway -match '\d+\.\d+\.\d+\.\d+'))
-                {
-                    throw "ERROR: Invalid format of attribute 'Gateway'."
-                }
-
-                if (-not [string]::IsNullOrWhiteSpace($netCategory) -and -not ($netCategory -match '^(Public|Private|DomainAuthenticated)$'))
-                {
-                    throw "ERROR: Invalid value of attribute 'NetworkCategory'."
-                }
-
-                Script "vmnet_$executionName"
-                {
-                    TestScript =
+                    if (-not [string]::IsNullOrWhiteSpace($netIpAddress) -and -not ($netIpAddress -match '\d+\.\d+\.\d+\.\d+'))
                     {
-                        [boolean]$result = $true
-                        $netAdapter = Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $using:netName }
-
-                        if ($null -eq $netAdapter)
-                        {
-                            $result = $false
-                            Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
-                        }
-                        elseif (-not [string]::IsNullOrWhiteSpace($using:netGateway))
-                        {
-                            $netIpConfig = Get-NetIPConfiguration -InterfaceIndex $netAdapter.InterfaceIndex
-
-                            if ($null -eq $netIpConfig -or $netIpConfig.IPv4DefaultGateway -ne $using:netGateway)
-                            {
-                                Write-Verbose "NetAdapter '$using:netName' has not the expected default gateway ($using:netGateway)."
-                            }
-                        }
-
-                        if (-not [string]::IsNullOrWhiteSpace($using:netIpAddress))
-                        {
-                            $netIpAddr = Get-NetIPAddress -IPAddress $using:netIpAddress -ErrorAction SilentlyContinue
-
-                            if ($null -eq $netIpAddr -or
-                                $netIpAddr.InterfaceIndex -ne $netAdapter.InterfaceIndex -or
-                                $netIpAddr.PrefixLength -ne $using:netPrefixLength)
-                            {
-                                $result = $false
-                                Write-Verbose "NetAdapter '$using:netName' has not the expected IP configuration ($using:netIpAddress/$using:netPrefixLength)."
-                            }
-                        }
-
-                        # check network category
-                        if (-not [string]::IsNullOrWhiteSpace($using:netCategory))
-                        {
-                            $netProfile = Get-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex
-
-                            if ($null -eq $netProfile -or $netProfile.NetworkCategory -ne $using:netCategory)
-                            {
-                                $result = $false
-                                Write-Verbose "NetAdapter '$using:netName' has not the expected network category ($using:netCategory)."
-                            }
-                        }
-
-                        # check NAT switch
-                        if ($using:netName -eq $using:natSwitch)
-                        {
-                            $netNat = Get-NetNat -Name $using:netName -ErrorAction SilentlyContinue
-
-                            if (($null -eq $netNat -or
-                                    $netNat.InternalIPInterfaceAddressPrefix -ne $using:netAddressSpace))
-                            {
-                                $result = $false
-                                Write-Verbose "NetNAT '$using:netName' not found or has not the expected configuration."
-                            }
-                        }
-
-                        $result
-                        return $result
+                        throw "ERROR: Invalid format of attribute 'IpAddress'."
                     }
-                    SetScript  =
+
+                    if (-not [string]::IsNullOrWhiteSpace($netGateway) -and -not ($netGateway -match '\d+\.\d+\.\d+\.\d+'))
                     {
-                        $netAdapter = Get-NetAdapter | Where-Object { $_.Name -match $using:netName }
+                        throw "ERROR: Invalid format of attribute 'Gateway'."
+                    }
 
-                        if ($null -eq $netAdapter)
+                    if (-not [string]::IsNullOrWhiteSpace($netCategory) -and -not ($netCategory -match '^(Public|Private|DomainAuthenticated)$'))
+                    {
+                        throw "ERROR: Invalid value of attribute 'NetworkCategory'."
+                    }
+
+                    Script "vmnet_$executionName"
+                    {
+                        TestScript =
                         {
-                            Write-Error "ERROR: NetAdapter containing switch name '$using:netName' not found."
-                            return
-                        }
+                            [boolean]$result = $true
+                            $netAdapter = Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $using:netName }
 
-                        if (-not [string]::IsNullOrWhiteSpace($using:netIpAddress))
-                        {
-                            # remove existing configuration
-                            Remove-NetIPAddress -IPAddress $using:netIpAddress -Confirm:$false -ErrorAction SilentlyContinue
-
-                            # Remove all routes including the default gateway
-                            Remove-NetRoute -InterfaceIndex $netAdapter.InterfaceIndex
-
-                            Write-Verbose "Create IP Address '$using:netIpAddress'..."
-                            $ipAddrParams = @{
-                                IPAddress      = $using:netIpAddress
-                                PrefixLength   = $using:netPrefixLength
-                                InterfaceIndex = $netAdapter.InterfaceIndex
-                            }
-                            if (-not [string]::IsNullOrWhiteSpace($using:netGateway))
+                            if ($null -eq $netAdapter)
                             {
-                                $ipAddrParams.DefaultGateway = $using:netGateway
+                                $result = $false
+                                Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
                             }
-                            New-NetIPAddress @ipAddrParams
-                        }
-
-                        # set network category
-                        if (-not [string]::IsNullOrWhiteSpace($using:netCategory))
-                        {
-                            if ($using:netCategory -eq 'DomainAuthenticated')
+                            elseif (-not [string]::IsNullOrWhiteSpace($using:netGateway))
                             {
-                                Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory ' is not supported. The computer automatically sets this value when the network is authenticated to a domain controller."
+                                $netIpConfig = Get-NetIPConfiguration -InterfaceIndex $netAdapter.InterfaceIndex
 
-                                # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
-                                # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
-                                Write-Verbose 'Restarting NLA service to reinitialize the network location check...'
-                                Restart-Service nlasvc -Force
-                                Start-Sleep 5
+                                if ($null -eq $netIpConfig -or $netIpConfig.IPv4DefaultGateway -ne $using:netGateway)
+                                {
+                                    Write-Verbose "NetAdapter '$using:netName' has not the expected default gateway ($using:netGateway)."
+                                }
+                            }
 
+                            if (-not [string]::IsNullOrWhiteSpace($using:netIpAddress))
+                            {
+                                $netIpAddr = Get-NetIPAddress -IPAddress $using:netIpAddress -ErrorAction SilentlyContinue
+
+                                if ($null -eq $netIpAddr -or
+                                    $netIpAddr.InterfaceIndex -ne $netAdapter.InterfaceIndex -or
+                                    $netIpAddr.PrefixLength -ne $using:netPrefixLength)
+                                {
+                                    $result = $false
+                                    Write-Verbose "NetAdapter '$using:netName' has not the expected IP configuration ($using:netIpAddress/$using:netPrefixLength)."
+                                }
+                            }
+
+                            # check network category
+                            if (-not [string]::IsNullOrWhiteSpace($using:netCategory))
+                            {
                                 $netProfile = Get-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex
 
-                                Write-Verbose "Current NetworkCategory is now: $($netProfile.NetworkCategory)"
-
-                                if ($netProfile.NetworkCategory -ne $using:netCategory)
+                                if ($null -eq $netProfile -or $netProfile.NetworkCategory -ne $using:netCategory)
                                 {
-                                    Write-Error "NetAdapter '$using:netName' is not '$using:netCategory'."
+                                    $result = $false
+                                    Write-Verbose "NetAdapter '$using:netName' has not the expected network category ($using:netCategory)."
                                 }
+                            }
+
+                            # check NAT switch
+                            if ($using:netName -eq $using:natSwitch)
+                            {
+                                $netNat = Get-NetNat -Name $using:netName -ErrorAction SilentlyContinue
+
+                                if (($null -eq $netNat -or
+                                        $netNat.InternalIPInterfaceAddressPrefix -ne $using:netAddressSpace))
+                                {
+                                    $result = $false
+                                    Write-Verbose "NetNAT '$using:netName' not found or has not the expected configuration."
+                                }
+                            }
+
+                            $result
+                            return $result
+                        }
+                        SetScript  =
+                        {
+                            $netAdapter = Get-NetAdapter | Where-Object { $_.Name -match $using:netName }
+
+                            if ($null -eq $netAdapter)
+                            {
+                                Write-Error "ERROR: NetAdapter containing switch name '$using:netName' not found."
+                                return
+                            }
+
+                            if (-not [string]::IsNullOrWhiteSpace($using:netIpAddress))
+                            {
+                                # remove existing configuration
+                                Remove-NetIPAddress -IPAddress $using:netIpAddress -Confirm:$false -ErrorAction SilentlyContinue
+
+                                # Remove all routes including the default gateway
+                                Remove-NetRoute -InterfaceIndex $netAdapter.InterfaceIndex
+
+                                Write-Verbose "Create IP Address '$using:netIpAddress'..."
+                                $ipAddrParams = @{
+                                    IPAddress      = $using:netIpAddress
+                                    PrefixLength   = $using:netPrefixLength
+                                    InterfaceIndex = $netAdapter.InterfaceIndex
+                                }
+                                if (-not [string]::IsNullOrWhiteSpace($using:netGateway))
+                                {
+                                    $ipAddrParams.DefaultGateway = $using:netGateway
+                                }
+                                New-NetIPAddress @ipAddrParams
+                            }
+
+                            # set network category
+                            if (-not [string]::IsNullOrWhiteSpace($using:netCategory))
+                            {
+                                if ($using:netCategory -eq 'DomainAuthenticated')
+                                {
+                                    Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory ' is not supported. The computer automatically sets this value when the network is authenticated to a domain controller."
+
+                                    # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
+                                    # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
+                                    Write-Verbose 'Restarting NLA service to reinitialize the network location check...'
+                                    Restart-Service nlasvc -Force
+                                    Start-Sleep 5
+
+                                    $netProfile = Get-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex
+
+                                    Write-Verbose "Current NetworkCategory is now: $($netProfile.NetworkCategory)"
+
+                                    if ($netProfile.NetworkCategory -ne $using:netCategory)
+                                    {
+                                        Write-Error "NetAdapter '$using:netName' is not '$using:netCategory'."
+                                    }
+                                }
+                                else
+                                {
+                                    Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory '."
+                                    Set-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex -NetworkCategory $using:netCategory
+                                }
+                            }
+
+                            if ($using:netName -eq $using:natSwitch)
+                            {
+                                Remove-NetNat $using:netName -Confirm:$false -ErrorAction SilentlyContinue
+
+                                Write-Verbose "Create NetNat '$using:netName'..."
+                                New-NetNat -Name $using:netName -InternalIPInterfaceAddressPrefix $using:netAddressSpace
+                            }
+                        }
+                        GetScript  = { return `
+                            @{
+                                result = 'N/A'
+                            }
+                        }
+                        DependsOn  = "[VMSwitch]vmswitch_$executionName"
+                    }
+                }
+
+                if ($null -ne $netInterfaceMetric -and $netInterfaceMetric -gt 0)
+                {
+                    Script "vmnetInterfaceMetric_$executionName"
+                    {
+                        TestScript =
+                        {
+                            #the rule 'PSUseDeclaredVarsMoreThanAssignments' is triggered by the result variable even if it is used.
+                            [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
+                            $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
+                            if ($null -eq $netIf)
+                            {
+                                Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
+                                return $false
+                            }
+
+                            [boolean]$result = $true
+                            $netIf | ForEach-Object {
+                                Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"
+                                if ($_.InterfaceMetric -ne $using:netInterfaceMetric)
+                                {
+                                    $result = $false
+                                }
+                            }
+
+                            Write-Verbose "Expected Interface Metric: $using:netInterfaceMetric"
+                            return $result
+                        }
+                        SetScript  =
+                        {
+                            $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
+                            if ($null -eq $netIf)
+                            {
+                                Write-Error "NetAdapter containing switch name '$using:netName' not found."
                             }
                             else
                             {
-                                Write-Verbose "Set NetworkCategory of NetAdapter '$using:netName' to '$using:netCategory '."
-                                Set-NetConnectionProfile -InterfaceIndex $netAdapter.InterfaceIndex -NetworkCategory $using:netCategory
+                                $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $($using:netInterfaceMetric)";
+                                    $_ | Set-NetIPInterface -InterfaceMetric $using:netInterfaceMetric }
                             }
                         }
-
-                        if ($using:netName -eq $using:natSwitch)
-                        {
-                            Remove-NetNat $using:netName -Confirm:$false -ErrorAction SilentlyContinue
-
-                            Write-Verbose "Create NetNat '$using:netName'..."
-                            New-NetNat -Name $using:netName -InternalIPInterfaceAddressPrefix $using:netAddressSpace
-                        }
-                    }
-                    GetScript  = { return `
-                        @{
-                            result = 'N/A'
-                        }
-                    }
-                    DependsOn  = "[VMSwitch]vmswitch_$executionName"
-                }
-            }
-
-            if ($null -ne $netInterfaceMetric -and $netInterfaceMetric -gt 0)
-            {
-                Script "vmnetInterfaceMetric_$executionName"
-                {
-                    TestScript =
-                    {
-                        #the rule 'PSUseDeclaredVarsMoreThanAssignments' is triggered by the result variable even if it is used.
-                        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
-                        $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
-                        if ($null -eq $netIf)
-                        {
-                            Write-Verbose "NetAdapter containing switch name '$using:netName' not found."
-                            return $false
-                        }
-
-                        [boolean]$result = $true
-                        $netIf | ForEach-Object {
-                            Write-Verbose "InterfaceMetric $($_.AddressFamily): $($_.InterfaceMetric)"
-                            if ($_.InterfaceMetric -ne $using:netInterfaceMetric)
-                            {
-                                $result = $false
-                            }
-                        }
-
-                        Write-Verbose "Expected Interface Metric: $using:netInterfaceMetric"
-                        return $result
-                    }
-                    SetScript  =
-                    {
-                        $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
-                        if ($null -eq $netIf)
-                        {
-                            Write-Error "NetAdapter containing switch name '$using:netName' not found."
-                        }
-                        else
-                        {
-                            $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $($using:netInterfaceMetric)";
-                                $_ | Set-NetIPInterface -InterfaceMetric $using:netInterfaceMetric }
-                        }
-                    }
-                    GetScript  = { return `
-                        @{
-                            result = 'N/A'
+                        GetScript  = { return `
+                            @{
+                                result = 'N/A'
                             }
                         }
                     }
@@ -461,7 +461,7 @@ configuration HyperV
                     Path             = $strVHDPath
                     MaximumSizeBytes = $iDiskSize
                     Generation       = 'Vhdx'
-                    type             = 'Dynamic'
+                    Type             = 'Dynamic'
                     DependsOn        = "[File]$folderVHD"
                 }
             }
@@ -962,13 +962,6 @@ configuration HyperV
 
                     $netAdapter.NetworkSetting = $netSetting
                 }
-                # Disabled until Pull Request #189 is merged into xHyper-V DSC resource
-                # see https://github.com/dsccommunity/xHyper-V/pull/189
-                # elseif($null -eq $netAdapter.IgnoreNetworkSetting)
-                # {
-                #     # if no network settings are specified -> enable IgnoreNetworkSetting as default
-                #     $netAdapter.IgnoreNetworkSetting = $true
-                # }
 
                 # extract additional attributed
                 $dhcpGuard = $netAdapter.DhcpGuard
@@ -1099,7 +1092,7 @@ configuration HyperV
                         Path             = $disk.Path
                         MaximumSizeBytes = $iDiskSize
                         Generation       = 'Vhdx'
-                        type             = 'Dynamic'
+                        Type             = 'Dynamic'
                         DependsOn        = "[File]$folderVHD"
                     }
                 }

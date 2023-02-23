@@ -5,6 +5,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Added
+
+- AddsDomainController:
+    - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+- DhcpServerAuthorization:
+    - new resource to authorize DHCP server in AD
+- FailoverCluster:
+    - add Networks support
+    - add installation of required Windows Features
+    - update documentation
+
+### Changed
+
+- DHCPServer:
+    - fix EnableSecurityGroups if resource is not running on a domain controller
+- HyperV:
+    - remove unused code after migration to HyperVDsc
+
+
 ## [0.9.0] - 2023-02-08
 
 ### Added

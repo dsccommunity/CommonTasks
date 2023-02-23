@@ -451,21 +451,10 @@ The first entry will be the OS disk (C:\).
 | MAC-Address of the network adapter
 |
 
-| IgnoreNetworkSetting
-|
-| Boolean
-| Specifies whether the IpAddress information for the network adapter is set or ignored
-| - *True* (default)
-  - False
-
 | [[dscyml_hyperv_vmmachines_networkadapters_networksetting, {YmlCategory}/VMMachines/NetworkAdapters/NetworkSetting]]<<dscyml_hyperv_vmmachines_networkadapters_networksetting_details, NetworkSetting>>
 |
 | Hashtable
 | Network settings
-
-If `IgnoreNetworkSetting` is set to `True` the network settings are ignored.
-
-*If network settings are not specified and parameter `IgnoreNetworkSetting` is set to `False` DHCP will be enabled on the network adapter.*
 |
 
 | VlanId
