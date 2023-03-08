@@ -19,3 +19,12 @@ Disks:
     Label: Disk4
   - Number: 5
     Label: Disk5
+Networks:
+  - Address:     192.168.0.0
+    AddressMask: 255.255.255.0
+    Name:        ClusterCom
+    Role:        3
+  - Address:     192.168.1.0
+    AddressMask: 255.255.255.0
+    Name:        NoClusterCom
+    Role:        0

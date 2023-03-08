@@ -5,6 +5,7 @@ DatabasePath: C:\Windows\NTDS
 LogPath: C:\Windows\Logs
 SysvolPath: C:\Windows\SYSVOL
 SiteName: London
-IsReadOnlyReplica: true
 IsGlobalCatalog: true
+IsReadOnlyReplica: false
+UnprotectFromAccidentalDeletion: true
 InstallationMediaPath: \\Server\Share

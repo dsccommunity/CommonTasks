@@ -66,9 +66,11 @@
 | Default: `C:\Windows\SYSVOL`
 
 | SiteName
-|
+| Mandatory
 | String
 | The name of the site this Domain Controller will be added to.
+
+Set value to 'Default-First-Site-Name' if the Domain Controller shall be added to default site.
 |
 
 | IsReadOnlyReplica
@@ -84,6 +86,15 @@
 | Specifies if the domain controller will be a Global Catalog (GC).
 | - *True* (default)
   - False
+
+| UnprotectFromAccidentalDeletion
+|
+| Boolean
+| Specifies if the 'Protect from accidental deletion' flag shall be removed from the AD computer account *before* promoting to a domain controller.
+
+If the computer acts as domain controller the 'Protect from accidental deletion' flag will not changed anymore.
+| - *False* (default)
+  - True
 
 | InstallationMediaPath
 |
@@ -107,16 +118,7 @@ AddsDomainController:
   SysvolPath: C:\Windows\SYSVOL
   SiteName: London
   IsGlobalCatalog: true
-  InstallationMediaPath: \\Server\Share
-
-  AddsDomainController:
-  DomainName: contoso.com
-  Credential: '[ENC=PE9ian...=]'
-  SafeModeAdministratorPassword: '[ENC=PE9ian...=]'
-  LogPath: C:\Windows\Logs
-  SysvolPath: C:\Windows\SYSVOL
-  SiteName: Berlin
   IsReadOnlyReplica: true
-  IsGlobalCatalog: true
-
+  UnprotectFromAccidentalDeletion: true
+  InstallationMediaPath: \\Server\Share
 ----

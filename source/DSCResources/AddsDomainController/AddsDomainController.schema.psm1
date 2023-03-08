@@ -39,6 +39,10 @@ configuration AddsDomainController
         $IsReadOnlyReplica = $false,
 
         [Parameter()]
+        [bool]
+        $UnprotectFromAccidentalDeletion = $false,
+
+        [Parameter()]
         [string]
         $InstallationMediaPath
     )
@@ -63,6 +67,42 @@ configuration AddsDomainController
         DependsOn  = '[WindowsFeature]RSATADPowerShell'
     }
 
+    $depOn = '[WaitForADDomain]WaitForestAvailability'
+
+    if ( $UnprotectFromAccidentalDeletion )
+    {
+        Script RemoveProtectFromAccidentalDeletionBeforeDcPromo
+        {
+            TestScript =
+            {
+                try
+                {
+                    Get-ADDomainController -Identity $env:ComputerName
+                    Write-Verbose "Computer '$env:ComputerName' is a domain controller. Nothing to do"
+                     return $true
+                }
+                catch
+                {
+                    Write-Verbose "Computer '$env:ComputerName' is not a domain controller. Reset of 'Protect from Accidental Deletion' before DC promote is necessary"
+                    return $false
+                }
+            }
+            SetScript  =
+            {
+                Write-Verbose "Reset flag 'Protect from Accidental Deletion' from computer account '$env:ComputerName'."
+                Get-ADComputer $env:ComputerName | Set-ADObject -ProtectedFromAccidentalDeletion $false
+            }
+            GetScript  = { return `
+                @{
+                    result = 'N/A'
+                }
+            }
+            DependsOn  = $depOn
+        }
+
+        $depOn = '[Script]RemoveProtectFromAccidentalDeletionBeforeDcPromo'
+    }
+
     ADDomainController 'DomainControllerAllProperties' {
         DomainName                    = $DomainName
         Credential                    = $Credential
@@ -73,6 +113,6 @@ configuration AddsDomainController
         SiteName                      = $SiteName
         ReadOnlyReplica               = $IsReadOnlyReplica
         IsGlobalCatalog               = $IsGlobalCatalog
-        DependsOn                     = '[WaitForADDomain]WaitForestAvailability'
+        DependsOn                     = $depOn
     }
 }

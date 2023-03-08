@@ -1,0 +1,65 @@
+// CommonTasks YAML Reference: DhcpServerAuthorization
+// ===================================================
+
+:YmlCategory: DhcpServerAuthorization
+
+:abstract: {YmlCategory} manages the authorizations of a DHCP server in Active Directory.
+
+[#dscyml_dhcpserverauthorization]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dhcpserverauthorization_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServerAuthorization
+| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
+|===
+
+
+IMPORTANT: This resource must run on an Active Directory domain controller.
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| DnsName
+|
+| String
+| DHCP Server FQDN or empty string for `localhost`.
+|
+
+| IPAddress
+|
+| String
+| DHCP Server IP Address or empty string for `localhost`.
+|
+
+| Ensure
+|
+| String
+| Whether the DHCP server should be authorized within Active Directory
+| - *Present* (default)
+  - Removed
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DhcpServerAuthorization:
+    # authorize remote DHCP server
+    DnsName: dhcp.contoso.com
+    IPAddress: 192.168.1.12
+    Ensure: Present
+----

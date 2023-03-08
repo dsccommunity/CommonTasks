@@ -1,5 +1,5 @@
-// CommonTasks YAML Reference: Cluster
-// ===================================
+// CommonTasks YAML Reference: FailoverCluster
+// ===========================================
 
 :YmlCategory: FailoverCluster
 
@@ -9,19 +9,20 @@
 = DSC Resource '{YmlCategory}'
 
 
-[[dscyml_failover_abstract, {abstract}]]
+[[dscyml_failovercluster_abstract, {abstract}]]
 {abstract}
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Cluster
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/FailoverCluster
 | DSC Resource   | - https://github.com/dsccommunity/FailoverClusterDsc[FailoverClusterDsc]
                    - https://github.com/dsccommunity/ActiveDirectoryDsc[ActiveDirectoryDsc]
-| Documentation  | - https://github.com/dsccommunity/FailoverClusterDsc/wiki/WaitForCluster[WaitForCluster]
-                   - https://github.com/dsccommunity/FailoverClusterDsc/wiki/Cluster[Cluster]
+| Documentation  | - https://github.com/dsccommunity/FailoverClusterDsc/wiki/Cluster[Cluster]
                    - https://github.com/dsccommunity/FailoverClusterDsc/wiki/ClusterDisk[ClusterDisk]
+                   - https://github.com/dsccommunity/FailoverClusterDsc/wiki/ClusterNetwork[ClusterNetwork]
                    - https://github.com/dsccommunity/FailoverClusterDsc/wiki/ClusterQuorum[ClusterQuorum]
+                   - https://github.com/dsccommunity/FailoverClusterDsc/wiki/WaitForCluster[WaitForCluster]
                    - https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADObjectPermissionEntry[ADObjectPermissionEntry]
 |===
 
@@ -85,10 +86,16 @@ If this is not specified then the cluster computer object must have been prestag
 This parameter is optional if the quorum type is set to `NodeMajority`.
 |
 
-| [[dscyml_failover_disks, {YmlCategory}/Disks]]<<dscyml_failover_disks_details, Disks>>
+| [[dscyml_failovercluster_disks, {YmlCategory}/Disks]]<<dscyml_failovercluster_disks_details, Disks>>
 |
 | Hashtable[]
 | Configures shared disks in a cluster.
+|
+
+| [[dscyml_failovercluster_networks, {YmlCategory}/Networks]]<<dscyml_failovercluster_networks_details, Networks>>
+|
+| Hashtable[]
+| Configures cluster networks in a failover cluster.
 |
 
 | Join
@@ -129,8 +136,8 @@ When creating a cluster role the cluster service is creating the needed computer
 |===
 
 
-[[dscyml_failover_disks_details]]
-.Attributes of DSC Resource '<<dscyml_failover_disks>>'
+[[dscyml_failovercluster_disks_details]]
+.Attributes of DSC Resource '<<dscyml_failovercluster_disks>>'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -161,6 +168,63 @@ When creating a cluster role the cluster service is creating the needed computer
 |===
 
 
+[[dscyml_failovercluster_networks_details]]
+.Attributes of DSC Resource '<<dscyml_failovercluster_networks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Address
+| Key
+| String
+| The address for the cluster network in the format `10.0.0.0`.
+|
+
+| AddressMask
+| Key
+| String
+| The address mask for the cluster network in the format `255.255.255.0`.
+|
+
+| Name
+|
+| String
+| The name of the cluster network.
+
+If the cluster network name is not in desired state it will be renamed to match this name.
+|
+
+| Role
+|
+| String
+| The role of the cluster network.
+
+If the cluster network role is not in desired state it will change to match this role.
+
+The cluster network role can be set to either the value 0, 1 or 3.
+
+- 0 -> Do not allow cluster network communication
+- 1 -> Allow cluster network communication only
+- 3 -> Allow cluster network communication and client connectivity
+| - 0
+  - 1
+  - 3
+
+| Metric
+|
+| String
+| The metric number for the cluster network.
+
+If the cluster network metric number is not in desired state it will be changed to match this metric number.	
+|
+
+|===
+
+
 .Example
 [source, yaml]
 ----
@@ -186,4 +250,34 @@ FailoverCluster:
       Label: Disk4
     - Number: 5
       Label: Disk5
+  Networks:
+    - Address:     192.168.0.0
+      AddressMask: 255.255.255.0
+      Name:        ClusterCom
+      Role:        3
+    - Address:     192.168.1.0
+      AddressMask: 255.255.255.0
+      Name:        NoClusterCom
+      Role:        0
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  FailoverCluster:
+    merge_hash: deep
+  FailoverCluster\Disks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Number
+  FailoverCluster\Networks:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Address
+        - AddressMask
 ----
