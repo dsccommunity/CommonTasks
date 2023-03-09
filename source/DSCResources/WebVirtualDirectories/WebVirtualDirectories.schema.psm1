@@ -6,7 +6,7 @@ configuration WebVirtualDirectories {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName WebAdministrationDsc
 
     foreach ($item in $Items)
     {
@@ -16,6 +16,6 @@ configuration WebVirtualDirectories {
         }
 
         $executionName = $item.Name
-        (Get-DscSplattedResource -ResourceName xWebVirtualDirectory -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName WebVirtualDirectory -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

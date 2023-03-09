@@ -6,9 +6,9 @@ configuration WebSites {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName WebAdministrationDsc
 
-    $dscResourceName = 'xWebSite'
+    $dscResourceName = 'WebSite'
 
     foreach ($item in $Items)
     {
@@ -18,6 +18,20 @@ configuration WebSites {
         if (-not $item.ContainsKey('Ensure'))
         {
             $item.Ensure = 'Present'
+        }
+
+        if ($item.BindingINfo)
+        {
+            $dscBindingInfos = foreach ($bindingInfo in $item.BindingInfo)
+            {
+            (Get-DscSplattedResource -ResourceName DSC_WebBindingInformation -Properties $bindingInfo -NoInvoke).Invoke($bindingInfo)
+            }
+            $item.BindingInfo = $dscBindingInfos
+        }
+
+        if ($item.AuthenticationInfo)
+        {
+            $item.AuthenticationInfo = (Get-DscSplattedResource -ResourceName DSC_WebAuthenticationInformation -Properties $item.AuthenticationInfo -NoInvoke).Invoke($item.AuthenticationInfo)
         }
 
         $executionName = "website_$($item.Name -replace '[{}#\-\s]','_')"

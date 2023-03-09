@@ -49,7 +49,7 @@ configuration DscPullServerSql
     Import-DSCResource -ModuleName PSDesiredStateConfiguration
     Import-DSCResource -ModuleName xPSDesiredStateConfiguration
     Import-DSCResource -ModuleName NetworkingDsc
-    Import-DSCResource -ModuleName xWebAdministration
+    Import-DSCResource -ModuleName WebAdministrationDsc
 
     [string]$applicationPoolName = 'DscPullSrvSqlPool'
 
@@ -70,7 +70,7 @@ configuration DscPullServerSql
     }
 
     # Test-TargetResource with default ApplicationPool 'PSWS' doesn't work with xPSDesiredStateConfiguration 9.1.0
-    xWebAppPool PSDSCPullServerPool
+    WebAppPool PSDSCPullServerPool
     {
         Ensure       = 'Present'
         Name         = $applicationPoolName
@@ -97,16 +97,17 @@ configuration DscPullServerSql
         ApplicationPoolName          = $applicationPoolName
         # don't use this parameter: https://github.com/dsccommunity/xPSDesiredStateConfiguration/issues/199
         # RegistrationKeyPath          = $regKeyPath
-        DependsOn                    = '[WindowsFeature]DSCServiceFeature', '[xWebAppPool]PSDSCPullServerPool'
+        DependsOn                    = '[WindowsFeature]DSCServiceFeature', '[WebAppPool]PSDSCPullServerPool'
     }
 
-    xWebConfigKeyValue CorrectDBProvider
+    WebConfigProperty CorrectDBProvider
     {
-        WebsitePath   = "IIS:\sites\$EndpointName"
-        ConfigSection = 'AppSettings'
-        Key           = 'dbprovider'
-        Value         = 'System.Data.OleDb'
-        DependsOn     = '[xDSCWebService]PSDSCPullServer'
+        WebsitePath  = "IIS:\sites\$EndpointName"
+        Filter       = '/appSettings/add[@key="dbprovider"]'
+        PropertyName = 'value'
+        Value        = 'System.Data.OleDb'
+        Ensure       = 'Present'
+        DependsOn    = '[xDSCWebService]PSDSCPullServer'
     }
 
     # Fix RequestEntityTooLarge (EventID 4260) Error

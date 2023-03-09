@@ -20,7 +20,7 @@ configuration WebConfigPropertyCollections {
     #>
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName WebAdministrationDsc
 
     foreach ($item in $Items)
     {
@@ -30,6 +30,6 @@ configuration WebConfigPropertyCollections {
         }
 
         $executionName = "$($item.WebsitePath)_$($item.Filter)_$($item.CollectionName)_$($item.ItemKeyValue)_$($item.ItemPropertyName)" -replace '[\s(){}/\\:-]', '_'
-        (Get-DscSplattedResource -ResourceName xWebConfigPropertyCollection -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName WebConfigPropertyCollection -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

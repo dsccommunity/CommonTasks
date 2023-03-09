@@ -30,7 +30,7 @@
     NetworkingDsc                = '9.0.0'
     JeaDsc                       = '0.7.2'
     XmlContentDsc                = '0.0.1'
-    xWebAdministration           = '3.3.0'
+    WebAdministrationDsc         = '4.1.0'
     SecurityPolicyDsc            = '2.10.0.0'
     StorageDsc                   = '5.0.1'
     Chocolatey                   = '0.0.79'

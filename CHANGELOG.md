@@ -120,7 +120,7 @@ set to true when the LCM is already in ApplyAndAutoCorrect mode.
 - Changing to `windows-latest` for all pipeline jobs.
 - Upgrade the following DSC resources to latest stable version:
   - NetworkingDsc
-  - xWebAdministration
+  - xWebAdministration ==> WebAdministrationDsc
   - ActiveDirectoryDsc
   - xDhcpServer
   - xFailoverCluster
