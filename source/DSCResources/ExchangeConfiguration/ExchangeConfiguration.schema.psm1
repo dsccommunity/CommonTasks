@@ -29,7 +29,6 @@ configuration ExchangeConfiguration {
     #Import required DSC Modules
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module xExchange
-    Import-DscResource -Module xWebAdministration
 
     ###CAS specific settings###
     #The following section shows how to configure commonly configured URL's on various virtual directories

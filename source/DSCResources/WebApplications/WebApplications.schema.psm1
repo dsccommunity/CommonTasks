@@ -6,9 +6,9 @@ configuration WebApplications {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName WebAdministrationDsc
 
-    $dscResourceName = 'xWebApplication'
+    $dscResourceName = 'WebApplication'
 
     foreach ($item in $Items)
     {
@@ -21,6 +21,12 @@ configuration WebApplications {
         }
 
         $executionName = "webapp_$($item.Name -replace '[{}#\-\s]','_')"
+
+        if ($item.AuthenticationInfo)
+        {
+            $item.AuthenticationInfo = (Get-DscSplattedResource -ResourceName DSC_WebApplicationAuthenticationInformation -Properties $item.AuthenticationInfo -NoInvoke).Invoke($item.AuthenticationInfo)
+        }
+
         (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

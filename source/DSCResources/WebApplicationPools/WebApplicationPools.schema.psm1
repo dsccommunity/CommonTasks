@@ -6,7 +6,7 @@ configuration WebApplicationPools {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xWebAdministration
+    Import-DscResource -ModuleName WebAdministrationDsc
 
     foreach ($item in $Items)
     {
@@ -16,6 +16,6 @@ configuration WebApplicationPools {
         }
 
         $executionName = $item.Name
-        (Get-DscSplattedResource -ResourceName xWebAppPool -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName WebAppPool -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }
