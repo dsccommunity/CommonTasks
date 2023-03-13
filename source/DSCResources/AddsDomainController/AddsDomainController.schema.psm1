@@ -39,6 +39,14 @@ configuration AddsDomainController
         $IsReadOnlyReplica = $false,
 
         [Parameter()]
+        [string[]]
+        $AllowPasswordReplication = "",
+
+        [Parameter()]
+        [string[]]
+        $DenyPasswordReplication  = "",
+
+        [Parameter()]
         [bool]
         $UnprotectFromAccidentalDeletion = $false,
 
@@ -103,16 +111,38 @@ configuration AddsDomainController
         $depOn = '[Script]RemoveProtectFromAccidentalDeletionBeforeDcPromo'
     }
 
-    ADDomainController 'DomainControllerAllProperties' {
-        DomainName                    = $DomainName
-        Credential                    = $Credential
-        SafeModeAdministratorPassword = $SafeModeAdministratorPassword
-        DatabasePath                  = $DatabasePath
-        LogPath                       = $LogPath
-        SysvolPath                    = $SysvolPath
-        SiteName                      = $SiteName
-        ReadOnlyReplica               = $IsReadOnlyReplica
-        IsGlobalCatalog               = $IsGlobalCatalog
-        DependsOn                     = $depOn
+    if ($IsReadOnlyReplica -eq $false)
+    {
+        ADDomainController 'DomainControllerAllProperties'
+        {
+
+            DomainName                    = $DomainName
+            Credential                    = $Credential
+            SafeModeAdministratorPassword = $SafeModeAdministratorPassword
+            DatabasePath                  = $DatabasePath
+            LogPath                       = $LogPath
+            SysvolPath                    = $SysvolPath
+            SiteName                      = $SiteName
+            ReadOnlyReplica               = $IsReadOnlyReplica
+            IsGlobalCatalog               = $IsGlobalCatalog
+            DependsOn                     = $depOn
+        }
+    }elseif ($IsReadOnlyReplica -eq $true)
+    {
+        ADDomainController 'DomainControllerAllProperties'
+        {
+            DomainName                          = $DomainName
+            Credential                          = $Credential
+            SafeModeAdministratorPassword       = $SafeModeAdministratorPassword
+            DatabasePath                        = $DatabasePath
+            LogPath                             = $LogPath
+            SysvolPath                          = $SysvolPath
+            SiteName                            = $SiteName
+            ReadOnlyReplica                     = $IsReadOnlyReplica
+            IsGlobalCatalog                     = $IsGlobalCatalog
+            AllowPasswordReplicationAccountName = $AllowPasswordReplication
+            DenyPasswordReplicationAccountName  = $DenyPasswordReplication
+            DependsOn                           = $depOn
+        }
     }
 }
