@@ -81,13 +81,13 @@ Set value to 'Default-First-Site-Name' if the Domain Controller shall be added t
   - true
 
 | AllowPasswordReplication
-|
+| Mandatory if RODC, DSC will remove all not listet groups if you add them manually in AD.
 | String[]
 | Specifies an array of names of user accounts, group accounts, and computer accounts whose passwords can be replicated to this Read-Only Domain Controller (RODC).
 |
 
 | DenyPasswordReplication
-|
+| Mandatory if RODC, DSC will remove all not listet groups if you add them manually in AD.
 | String[]
 | Specifies the names of user accounts, group accounts, and computer accounts whose passwords are not to be replicated to this Read-Only Domain Controller (RODC).
 |
