@@ -5,10 +5,10 @@ LogPath: C:\Windows\Logs
 SysvolPath: C:\Windows\SYSVOL
 SiteName: London
 IsGlobalCatalog: true
-AllowPasswordReplication:
+AllowPWReplication:
   - 'SiteGroup-AllowPasswordReplication'
   - 'TestGroup'
-DenyPasswordReplication:
+DenyPWReplication:
   - 'SiteGroup-DenyPasswordReplication'
 IsReadOnlyReplica: true
 UnprotectFromAccidentalDeletion: true

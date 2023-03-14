@@ -40,11 +40,11 @@ configuration AddsDomainController
 
         [Parameter()]
         [string[]]
-        $AllowPasswordReplication = "",
+        $AllowPWReplication,
 
         [Parameter()]
         [string[]]
-        $DenyPasswordReplication  = "",
+        $DenyPWReplication,
 
         [Parameter()]
         [bool]
@@ -58,12 +58,14 @@ configuration AddsDomainController
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
-    WindowsFeature ADDS {
+    WindowsFeature ADDS
+    {
         Name   = 'AD-Domain-Services'
         Ensure = 'Present'
     }
 
-    WindowsFeature RSATADPowerShell {
+    WindowsFeature RSATADPowerShell
+    {
         Name      = 'RSAT-AD-PowerShell'
         Ensure    = 'Present'
         DependsOn = '[WindowsFeature]ADDS'
@@ -87,7 +89,7 @@ configuration AddsDomainController
                 {
                     Get-ADDomainController -Identity $env:ComputerName
                     Write-Verbose "Computer '$env:ComputerName' is a domain controller. Nothing to do"
-                     return $true
+                    return $true
                 }
                 catch
                 {
@@ -115,7 +117,6 @@ configuration AddsDomainController
     {
         ADDomainController 'DomainControllerAllProperties'
         {
-
             DomainName                    = $DomainName
             Credential                    = $Credential
             SafeModeAdministratorPassword = $SafeModeAdministratorPassword
@@ -127,7 +128,8 @@ configuration AddsDomainController
             IsGlobalCatalog               = $IsGlobalCatalog
             DependsOn                     = $depOn
         }
-    }elseif ($IsReadOnlyReplica -eq $true)
+    }
+    elseif ($IsReadOnlyReplica -eq $true)
     {
         ADDomainController 'DomainControllerAllProperties'
         {
@@ -140,8 +142,8 @@ configuration AddsDomainController
             SiteName                            = $SiteName
             ReadOnlyReplica                     = $IsReadOnlyReplica
             IsGlobalCatalog                     = $IsGlobalCatalog
-            AllowPasswordReplicationAccountName = $AllowPasswordReplication
-            DenyPasswordReplicationAccountName  = $DenyPasswordReplication
+            AllowPasswordReplicationAccountName = $AllowPWReplication
+            DenyPasswordReplicationAccountName  = $DenyPWReplication
             DependsOn                           = $depOn
         }
     }
