@@ -4,28 +4,26 @@ The format is based on and uses the types of changes according to [Keep a Change
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## Added
-
-- `AzureConnectedMachine` Composite to install and configure the Azure Connected Machine Agent
-
-## Changed
-
-- Fixed Typo in AddsDomainController documentation
-
-
 ### Added
 
 - AddsDomainController:
     - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+- AzureConnectedMachine:
+    - Composite to install and configure the Azure Connected Machine Agent
 - DhcpServerAuthorization:
     - new resource to authorize DHCP server in AD
 - FailoverCluster:
     - add Networks support
     - add installation of required Windows Features
     - update documentation
+- HyperVReplica
+    - new resource to configure replication of Hyper-V virtual machines
+- HyperVState
+    - new resource to control state parameters of Hyper-V virtual machines
 
 ### Changed
 
+- Fixed Typo in AddsDomainController documentation
 - DHCPServer:
     - fix EnableSecurityGroups if resource is not running on a domain controller
 - HyperV:

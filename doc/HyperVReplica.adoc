@@ -1,0 +1,298 @@
+// CommonTasks YAML Reference: HyperVReplica
+// =========================================
+
+:YmlCategory: HyperVReplica
+
+:abstract:    {YmlCategory} contains DSC resources to configure replication of Hyper-V virtual machines.
+
+[#dscyml_hypervreplica]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_hypervreplica_abstract, {abstract}]]
+{abstract}
+
+[IMPORTANT]
+====
+This DSC resource can only be used to configure Hyper-V Replica.
+
+Start and control of the replication process is currently *not supported*.
+====
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/HyperVReplica
+| DSC Resource   | https://learn.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
+| Documentation  | - https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmreplicationserver[Set-VMReplicationServer]
+                   - https://learn.microsoft.com/en-us/powershell/module/hyper-v/enable-vmreplication[Enable-VMReplication]
+                   - https://learn.microsoft.com/en-us/powershell/module/hyper-v/set-vmreplication[Set-VMReplication]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| AllowedAuthenticationType
+| Mandatory
+| String
+| Specifies which authentication types the Replica server will use.
+| - Kerberos
+  - Certificate
+  - CertificateAndKerberos
+
+| CertificateAuthenticationPort
+|
+| Int32
+| Specifies the port on which the Replica server will receive replication data using certificate-based authentication.
+
+This parameter can be set only when the value of the `AllowedAuthType` parameter is `Certificate` or `CertificateAndKerberos`.
+|
+
+| CertificateThumbprint
+|
+| String
+| Specifies the certificate to use for mutual authentication of the replication data.
+
+This parameter is required only when Certificate is specified as the type of authentication.
+Specify the thumbprint of a valid computer certificate from the Personal store.
+
+The certificate must have all of the following properties to be valid:
+
+- It must not be expired.
+- It must include both client and server authentication extensions for extended key usage (EKU), and an associated private key.
+- It must terminate at a valid root certificate.
+- It must meet the requirements for the subject common name (CN):
+- For servers that are not clustered, the subject common name (CN) must be equal to, or subject alternative name (DNS Name) should contain, the FQDN of the host.
+- For servers that are clustered, each node must have two certificates - one in which the subject common name (CN) or subject alternative name (DNS Name) is the name of the node, and the other in which subject common name (CN) or subject alternative name (DNS Name) is FQDN of the Hyper-V Replica Broker.
+|
+
+| DefaultStorageLocation
+|
+| String
+| Specifies the default location to store the virtual hard disk files when a Replica virtual machine is created.
+
+You must specify this parameter when `ReplicationAllowedFromAnyServer` is `True`.
+|
+
+| KerberosAuthenticationPort
+|
+| Int32
+| Specifies the port that the HTTP listener uses on the Replica server host.
+|
+
+| MonitoringInterval
+|
+| String
+| Specifies how often (the monitoring interval) replication statistics are computed.
+
+Valid values are: 1 hour, 2 hours, 3 hours, 4 hours, 6 hours, 8 hours, 12 hours, 24 hours, 2 days, 3 days, 4 days, 5 days, 6 days, 7 days.
+
+Specify in the format days:hours:minutes:seconds, such as 01:00:00 for 1 hour, or 1.00:00:00 for 1 day.
+|
+
+| MonitoringStartTime
+|
+| String
+| Specifies when the monitoring interval starts.
+|
+
+| ReplicationAllowedFromAnyServer
+|
+| Bool
+| Specifies whether to accept replication requests from any server.
+
+When specified as `True`, `DefaultStorageLocation` must also be specified.
+The default storage location and DEFAULT trust group tag are used for virtual machine replicas.
+| - True
+  - *False* (default)
+
+| [[dscyml_hyperveplica_vmmachines, {YmlCategory}/VMMachines]]<<dscyml_hyperveplica_vmmachines_details, VMMachines>>
+|
+| Hashtable[]
+| Set of virtual machines
+
+*Only Generation 2 machines are supported!*
+|
+
+|===
+
+
+[[dscyml_hyperveplica_vmmachines_details]]
+.Attributes of category '<<dscyml_hyperveplica_vmmachines>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The desired VM name.
+|
+
+| AuthenticationType
+| Mandatory
+| String
+| Specifies the authentication type to use for virtual machine replication, either Kerberos or Certificate.
+
+The specified Replica server must support the chosen authentication type.
+
+*NOTE:* This parameter is used for initial setup of the replication and will not changed on an existing replication configuration.
+| - Kerberos
+  - Certificate
+
+| AutoResynchronizeEnabled
+|
+| Boolean
+| Enables replicating virtual machines that require resynchronization to be resynchronized automatically.
+
+(For example, a virtual machine requires resynchronization if the primary server shuts down abruptly).
+Resynchronization requires significant storage and processing resources.
+We recommended scheduling resynchronization during off-peak hours to reduce the impact to the host and other virtual machines running on the host.
+Use the `AutoResynchronizeIntervalStart` and `AutoResynchronizeIntervalEnd` parameters to specify an off-peak time to start the automatic resynchronization.
+
+| AutoResynchronizeIntervalStart
+|
+| String
+| Specifies the start of the time period in which you want resynchronization to start automatically.
+|
+
+| AutoResynchronizeIntervalEnd
+|
+| String
+| Specifies the end of the time period in which you want resynchronization to start automatically.
+|
+
+| BypassProxyServer
+|
+| Boolean
+| Specifies whether to bypass a proxy server while replicating data to the Replica server.
+| - True
+  - False
+
+| CompressionEnabled
+|
+| Boolean
+| Specifies whether to compress replication data for this virtual machine when it is sent over the network.
+| - True
+  - False
+
+| EnableWriteOrderPreservationAcrossDisks
+|
+| Boolean
+| Determines whether all virtual hard disks selected for replication are replicated to the same point in time.
+
+This is useful if the virtual machine runs an application that saves data across virtual hard disks (for example, one virtual hard disk dedicated for application data, and another virtual hard disk dedicated for application log files).
+| - True
+  - False
+
+| RecoveryHistory
+|
+| Int32
+| Specifies whether to store additional recovery points on the replica virtual machine.
+
+Storing more than the most recent recovery point of the primary virtual machine allows you to recover to an earlier point in time.
+However, storing additional recovery points requires more storage and processing resources.
+You can configure as many as 24 recovery points to be stored.
+|
+
+| ReplicateHostKvpItems
+|
+| Boolean
+| Specifies whether to replicate host-only key value pairs (KVP) for this virtual machine.
+| - True
+  - False
+
+| ReplicationFrequencySec
+|
+| Int32
+| Specifies the frequency, in seconds, at which Hyper-V replicates changes to the Replica server.
+|
+
+| ReplicaServerName
+| Mandatory
+| String
+| Specifies the name of the Replica server to which this virtual machine will be replicated.
+
+*NOTE:* This parameter is used for initial setup of the replication and will not changed on an existing replication configuration.
+|
+
+| ReplicaServerPort
+| Mandatory
+| Int32
+| Specifies the port on the Replica server to use for replication traffic.
+
+Make sure you specify a port that is configured on the Replica server to support the same authentication type you specify using the `AuthenticationType` parameter.
+
+*NOTE:* This parameter is used for initial setup of the replication and will not changed on an existing replication configuration.
+|
+
+| VSSSnapshotFrequencyHour
+|
+| Int32
+| Specifies the frequency, in hours, at which Volume Shadow Copy Service (VSS) performs a snapshot backup of the virtual machines.
+
+Specify this parameter only if application-consistent replication is enabled for the virtual machines and the value you set for the RecoveryHistory parameter is not zero.
+The cmdlet sets a value of zero for this parameter if application-consistent replication is disabled.
+Do not specify this parameter if you are extending replication from the Replica virtual machine.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+HyperVReplica:
+  AllowedAuthenticationType: Certificate
+  CertificateAuthenticationPort: 8000
+  CertificateThumbprint: c81b94933420221a7ac004a90242d8b1d3e5070d
+  DefaultStorageLocation: D:\VServer
+  KerberosAuthenticationPort: 8080
+  MonitoringInterval: '1.00:00:00' # for 1 day
+  MonitoringStartTime: '00:00:00'  # start at 00:00
+  ReplicationAllowedFromAnyServer: True
+  VMMachines:
+    - Name:               TESTS01
+      ReplicaServerName:  ReplicaHost2
+      ReplicaServerPort:  443
+      AuthenticationType: Certificate
+    - Name:               TESTS02
+      ReplicaServerName:  ReplicaHost3
+      ReplicaServerPort:  443
+      AuthenticationType: Kerberos
+      CompressionEnabled: True
+      ReplicateHostKvpItems: True
+      BypassProxyServer: False
+      VSSSnapshotFrequencyHour: 4
+      RecoveryHistory: 4
+      ReplicationFrequencySec: 180
+      AutoResynchronizeEnabled: True
+      AutoResynchronizeIntervalStart: '01:00:00'   # Start at 01:00 am
+      AutoResynchronizeIntervalEnd:   '06:00:00'   # Stop  at 06:00 am
+      EnableWriteOrderPreservationAcrossDisks: True
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  HyperVReplica:
+    merge_hash: deep
+  HyperVReplica\VMMachines:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+----
