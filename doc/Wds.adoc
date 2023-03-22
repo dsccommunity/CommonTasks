@@ -11,6 +11,29 @@
 [[dscyml_wds_abstract, {abstract}]]
 {abstract}
 
+Fully administration of a Windows Deployment Services server requires the following permissions:
+
+- *Local administrator* of the Windows Deployment Services server. +
+  This gives you the following rights:
+
+  * File permissions and permissions to the RemoteInstall folder (the management tools interact with the image store using UNC paths).
+  * Registry hive permissions. +
+    Many settings for the Windows Deployment Services server are stored in `HKEY_LOCAL_MACHINE\System`, and you need appropriate permissions to these locations to change them.
+
+- *Domain administrator* of the domain that contains the Windows Deployment Services server. +
+  This gives you permissions on the Service Control Point (SCP) in Active Directory Domain Services (AD DS) for the Windows Deployment Services server.
+  Some configuration settings for the server are stored here.
+
+- *Enterprise administrator* (optional). +
+  This gives you Dynamic Host Configuration Protocol (DHCP) authorization permissions. 
+  If DHCP authorization is enabled, the Windows Deployment Services server must be authorized in AD DS before it will be allowed to answer incoming client PXE requests.
+  DHCP authorization is stored in the Configuration container in AD DS.
+
+Check these links for more details:
+
+//- https://social.technet.microsoft.com/Forums/Lync/en-US/16ee1d84-2a3c-4188-a80e-167f15b6de64/minimum-permissions-to-complete-wds-installation?forum=winserversetup[Minimum permissions to complete WDS installation]
+- http://systemscenter.ru/wds_deploymentguide.en/html/4aca2aae-a9cf-4b5c-afb2-573603cf77b0.htm[Required Permissions]
+
 
 // reference links as variables for using more than once
 :ref_WDSDsc:    https://github.com/nyanhp/WDSDsc[WDSDsc]
@@ -42,7 +65,7 @@ Use of this DSC Resource on a Windows Server Core installation is not supported.
 ====
 This DSC resource requires an updated version (> 0.11.0) of the {ref_WDSDsc} resource.
 
-Until the next release of {ref_WDSDsc} you can patch the version 0.11.0 with outstanding pull requests on GitHub.
+Until the next release of {ref_WDSDsc} you can patch the version 0.11.0 with latest commit on `dev` branch on GitHub.
 ====
 
 
