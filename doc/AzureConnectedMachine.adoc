@@ -1,14 +1,14 @@
 // CommonTasks YAML Reference: AzureConnectedMachine
-// ======================================
+// =================================================
 
 :YmlCategory: AzureConnectedMachine
 
 :abstract:    {YmlCategory} downloads and installs the Azure Connected Machine Agent und connects it to your Tenant. A proxy for the download is supported.
 
-[#dscyml_AzureConnectedMachine]
+[#dscyml_azureconnectedmachine]
 = DSC Resource '{YmlCategory}'
 
-[[dscyml_AzureConnectedMachine_abstract, {abstract}]]
+[[dscyml_azureconnectedmachine_abstract, {abstract}]]
 {abstract}
 
 
@@ -50,7 +50,9 @@
 | Location
 | Mandatory
 | String
-| Specifies the Azure Location in which your Tenant is located. https://azure.microsoft.com/global-infrastructure/services/?products=azure-arc[Available Regions]
+| Specifies the Azure Location in which your Tenant is located.
+
+https://azure.microsoft.com/global-infrastructure/services/?products=azure-arc[Available Regions]
 |
 
 | Credential
@@ -69,7 +71,7 @@
 |
 | String
 | If you want to use a different URL, e.g. an internal Server, to download the ACMA msi
-| Default https://aka.ms/AzureConnectedMachineAgent[Microsoft Source]
+| Default: https://aka.ms/AzureConnectedMachineAgent[Microsoft Source]
 
 | DownloadProxy
 |
@@ -81,11 +83,13 @@
 |
 | string
 | Define where the Setup should be downloaded to
-| Default: C:\DSCData\ACMA
+| Default: `C:\DSCData\ACMA`
 
 |===
 
-To configure Azure Connected Machine Settings
+
+To configure Azure Connected Machine Settings:
+
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -94,7 +98,7 @@ To configure Azure Connected Machine Settings
 | Description
 | Allowed Values
 
-| IsSingelInstance
+| IsSingleInstance
 |
 | String
 | Defines if it is a Single Instance or not. Due to the DSC Ressource it has to be the following way
@@ -135,8 +139,8 @@ To configure Azure Connected Machine Settings
 |
 | boolean
 |
-|- true
-- false
+| - true
+  - false
 
 
 |===

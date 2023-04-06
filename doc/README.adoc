@@ -74,6 +74,7 @@ ifdef::env-github[]
 - <<AddsTrusts.adoc#, AddsTrusts>>
 - <<AddsWaitForDomains.adoc#, AddsWaitForDomains>>
 - <<AuditPolicies.adoc#, AuditPolicies>>
+- <<AzureConnectedMachine.adoc#, AzureConnectedMachine>>
 - <<Bitlocker.adoc#, Bitlocker>>
 - <<CertificateAuthorities.adoc#, CertificateAuthorities>>
 - <<CertificateExports.adoc#, CertificateExports>>
@@ -129,6 +130,8 @@ ifdef::env-github[]
 - <<FirewallRules.adoc#, FirewallRules>>
 - <<HostsFileEntries.adoc#, HostsFileEntries>>
 - <<HyperV.adoc#, HyperV>>
+- <<HyperVReplica.adoc#, HyperVReplica>>
+- <<HyperVState.adoc#, HyperVState>>
 - <<IpConfiguration.adoc#, IpConfiguration>>
 - <<JeaEndpoints.adoc#, JeaEndpoints>>
 - <<JeaRoles.adoc#, JeaRoles>>
@@ -238,6 +241,7 @@ ifndef::env-github[]
 | <<dscyml_addstrusts>>                             | <<dscyml_addstrusts_abstract>>
 | <<dscyml_addswaitfordomains>>                     | <<dscyml_addswaitfordomains_abstract>>
 | <<dscyml_auditpolicies>>                          | <<dscyml_auditpolicies_abstract>>
+| <<dscyml_azureconnectedmachine>>                  | <<dscyml_azureconnectedmachine_abstract>>
 | <<dscyml_bitlocker>>                              | <<dscyml_bitlocker_abstract>>
 | <<dscyml_certificateauthorities>>                 | <<dscyml_certificateauthorities_abstract>>
 | <<dscyml_certificateexports>>                     | <<dscyml_certificateexports_abstract>>
@@ -293,6 +297,8 @@ ifndef::env-github[]
 | <<dscyml_firewallrules>>                          | <<dscyml_firewallrules_abstract>>
 | <<dscyml_hostsfileentries>>                       | <<dscyml_hostsfileentries_abstract>>
 | <<dscyml_hyperv>>                                 | <<dscyml_hyperv_abstract>>
+| <<dscyml_hypervreplica>>                          | <<dscyml_hypervreplica_abstract>>
+| <<dscyml_hypervstate>>                            | <<dscyml_hypervstate_abstract>>
 | <<dscyml_ipconfiguration>>                        | <<dscyml_ipconfiguration_abstract>>
 | <<dscyml_jeaendpoints>>                           | <<dscyml_jeaendpoints_abstract>>
 | <<dscyml_jearoles>>                               | <<dscyml_jearoles_abstract>>
@@ -407,6 +413,8 @@ include::AddsWaitForDomains.adoc[leveloffset=+1]
 <<<<
 include::AuditPolicies.adoc[leveloffset=+1]
 <<<<
+include::AzureConnectedMachine.adoc[leveloffset=+1]
+<<<<
 include::Bitlocker.adoc[leveloffset=+1]
 <<<<
 include::CertificateAuthorities.adoc[leveloffset=+1]
@@ -516,6 +524,10 @@ include::FirewallRules.adoc[leveloffset=+1]
 include::HostsFileEntries.adoc[leveloffset=+1]
 <<<<
 include::HyperV.adoc[leveloffset=+1]
+<<<<
+include::HyperVReplica.adoc[leveloffset=+1]
+<<<<
+include::HyperVState.adoc[leveloffset=+1]
 <<<<
 include::IpConfiguration.adoc[leveloffset=+1]
 <<<<

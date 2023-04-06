@@ -1,0 +1,128 @@
+// CommonTasks YAML Reference: HyperVState
+// =======================================
+
+:YmlCategory: HyperVState
+
+:abstract:    {YmlCategory} contains DSC resources to control state parameters of Hyper-V virtual machines.
+
+[#dscyml_hypervstate]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_hypervstate_abstract, {abstract}]]
+{abstract}
+
+It can be used to switch the default parameters of the <<dscyml_hyperv, HyperV>> configuration at the end of the DSC configuration.
+So you can create all VM definitions at the beginning, install Windows Updates, make some necessary reboots and safely start these VMs at last step in the DSC configuration after all critical actions are done.
+
+// reference links as variables for using more than once
+:ref_HyperVDsc: https://github.com/dsccommunity/HyperVDsc[HyperVDsc]
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/HyperVState
+| DSC Resource   | https://github.com/dsccommunity/HyperVDsc
+| Documentation  | {ref_HyperVDsc}
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| [[dscyml_hypervstate_vmmachines, {YmlCategory}/VMMachines]]<<dscyml_hypervstate_vmmachines_details, VMMachines>>
+|
+| Hashtable[]
+| Set of virtual machines
+
+*Only Generation 2 machines are supported!*
+|
+
+|===
+
+
+[[dscyml_hypervstate_vmmachines_details]]
+.Attributes of category '<<dscyml_hypervstate_vmmachines>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+| Key
+| String
+| The desired VM name.
+|
+
+| State
+|
+| String
+| State of the VM.
+| - Running
+  - Paused
+  - Off
+
+| AutomaticStartAction
+|
+| String
+| Specifies the action the virtual machine is to take upon start.
+| - Nothing
+  - StartIfRunning
+  - Start
+
+| AutomaticStartDelay
+|
+| Int32
+| Specifies the number of seconds by which the virtual machine's start should be delayed.
+|
+
+| AutomaticStopAction
+|
+| String
+| Specifies the action the virtual machine is to take when the virtual machine host shuts down.
+| - TurnOff
+  - Save
+  - ShutDown
+
+|===
+
+
+.Example
+[source, yaml]
+----
+HyperVState:
+  VMMachines:
+    - Name: XXXADC
+      State: Running
+      AutomaticStartAction: Start
+      AutomaticStartDelay: 30
+      AutomaticStopAction: Shutdown
+
+    - Name: XXXAPP
+      State: Running
+      AutomaticStartDelay: 60
+      AutomaticStopAction: Save
+----
+
+
+.Recommended Lookup Options in `Datum.yml` (Excerpt)
+[source, yaml]
+----
+lookup_options:
+
+  HyperVState:
+    merge_hash: deep
+  HyperVState\VMMachines:
+    merge_hash_array: UniqueKeyValTuples
+    merge_options:
+      tuple_keys:
+        - Name
+----
