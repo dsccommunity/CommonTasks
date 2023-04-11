@@ -39,6 +39,14 @@ configuration AddsDomainController
         $IsReadOnlyReplica = $false,
 
         [Parameter()]
+        [string[]]
+        $AllowPWReplication,
+
+        [Parameter()]
+        [string[]]
+        $DenyPWReplication,
+
+        [Parameter()]
         [bool]
         $UnprotectFromAccidentalDeletion = $false,
 
@@ -50,12 +58,14 @@ configuration AddsDomainController
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName ActiveDirectoryDsc
 
-    WindowsFeature ADDS {
+    WindowsFeature ADDS
+    {
         Name   = 'AD-Domain-Services'
         Ensure = 'Present'
     }
 
-    WindowsFeature RSATADPowerShell {
+    WindowsFeature RSATADPowerShell
+    {
         Name      = 'RSAT-AD-PowerShell'
         Ensure    = 'Present'
         DependsOn = '[WindowsFeature]ADDS'
@@ -79,7 +89,7 @@ configuration AddsDomainController
                 {
                     Get-ADDomainController -Identity $env:ComputerName
                     Write-Verbose "Computer '$env:ComputerName' is a domain controller. Nothing to do"
-                     return $true
+                    return $true
                 }
                 catch
                 {
@@ -103,16 +113,38 @@ configuration AddsDomainController
         $depOn = '[Script]RemoveProtectFromAccidentalDeletionBeforeDcPromo'
     }
 
-    ADDomainController 'DomainControllerAllProperties' {
-        DomainName                    = $DomainName
-        Credential                    = $Credential
-        SafeModeAdministratorPassword = $SafeModeAdministratorPassword
-        DatabasePath                  = $DatabasePath
-        LogPath                       = $LogPath
-        SysvolPath                    = $SysvolPath
-        SiteName                      = $SiteName
-        ReadOnlyReplica               = $IsReadOnlyReplica
-        IsGlobalCatalog               = $IsGlobalCatalog
-        DependsOn                     = $depOn
+    if ($IsReadOnlyReplica -eq $false)
+    {
+        ADDomainController 'DomainControllerAllProperties'
+        {
+            DomainName                    = $DomainName
+            Credential                    = $Credential
+            SafeModeAdministratorPassword = $SafeModeAdministratorPassword
+            DatabasePath                  = $DatabasePath
+            LogPath                       = $LogPath
+            SysvolPath                    = $SysvolPath
+            SiteName                      = $SiteName
+            ReadOnlyReplica               = $IsReadOnlyReplica
+            IsGlobalCatalog               = $IsGlobalCatalog
+            DependsOn                     = $depOn
+        }
+    }
+    elseif ($IsReadOnlyReplica -eq $true)
+    {
+        ADDomainController 'DomainControllerAllProperties'
+        {
+            DomainName                          = $DomainName
+            Credential                          = $Credential
+            SafeModeAdministratorPassword       = $SafeModeAdministratorPassword
+            DatabasePath                        = $DatabasePath
+            LogPath                             = $LogPath
+            SysvolPath                          = $SysvolPath
+            SiteName                            = $SiteName
+            ReadOnlyReplica                     = $IsReadOnlyReplica
+            IsGlobalCatalog                     = $IsGlobalCatalog
+            AllowPasswordReplicationAccountName = $AllowPWReplication
+            DenyPasswordReplicationAccountName  = $DenyPWReplication
+            DependsOn                           = $depOn
+        }
     }
 }

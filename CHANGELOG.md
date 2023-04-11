@@ -4,10 +4,12 @@ The format is based on and uses the types of changes according to [Keep a Change
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 ### Added
 
 - AddsDomainController:
     - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+    - AllowPasswordReplication and DenyPasswordReplication Variables for RODCs
 - AzureConnectedMachine:
     - Composite to install and configure the Azure Connected Machine Agent
 - DhcpServerAuthorization:

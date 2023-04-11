@@ -80,6 +80,18 @@ Set value to 'Default-First-Site-Name' if the Domain Controller shall be added t
 | - *False* (default)
   - true
 
+| AllowPWReplication
+| Mandatory if RODC, DSC will remove all not listet groups if you add them manually in AD.
+| String[]
+| Specifies an array of names of user accounts, group accounts, and computer accounts whose passwords can be replicated to this Read-Only Domain Controller (RODC).
+|
+
+| DenyPWReplication
+| Mandatory if RODC, DSC will remove all not listet groups if you add them manually in AD.
+| String[]
+| Specifies the names of user accounts, group accounts, and computer accounts whose passwords are not to be replicated to this Read-Only Domain Controller (RODC).
+|
+
 | IsGlobalCatalog
 |
 | Boolean
@@ -117,7 +129,24 @@ AddsDomainController:
   LogPath: C:\Windows\Logs
   SysvolPath: C:\Windows\SYSVOL
   SiteName: London
+  IsGlobalCatalog: false
+  IsReadOnlyReplica: true
+  UnprotectFromAccidentalDeletion: true
+  InstallationMediaPath: \\Server\Share
+
+  AddsDomainController:
+  DomainName: contoso.com
+  Credential: '[ENC=PE9ian...=]'
+  SafeModeAdministratorPassword: '[ENC=PE9ian...=]'
+  LogPath: C:\Windows\Logs
+  SysvolPath: C:\Windows\SYSVOL
+  SiteName: London
   IsGlobalCatalog: true
+  AllowPasswordReplication:
+    - 'SiteGroup-AllowPasswordReplication'
+    - 'TestGroup'
+  DenyPasswordReplication:
+    - 'SiteGroup-DenyPasswordReplication'
   IsReadOnlyReplica: true
   UnprotectFromAccidentalDeletion: true
   InstallationMediaPath: \\Server\Share
