@@ -127,7 +127,7 @@ stages:
         dependsOn:
           - test_windows_ps
         pool:
-          vmImage: 'ubuntu 18.04'
+          vmImage: 'ubuntu-latest'
         timeoutInMinutes: 5
         steps:
           - pwsh: |

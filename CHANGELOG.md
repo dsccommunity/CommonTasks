@@ -8,18 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - AddsDomainController:
-    - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
-    - AllowPasswordReplication and DenyPasswordReplication Variables for RODCs
+  - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+  - AllowPasswordReplication and DenyPasswordReplication Variables for RODCs
 - AzureConnectedMachine:
-    - Composite to install and configure the Azure Connected Machine Agent
+  - Composite to install and configure the Azure Connected Machine Agent
 - DhcpServerAuthorization:
-    - new resource to authorize DHCP server in AD
+  - new resource to authorize DHCP server in AD
 - FailoverCluster:
-    - add Networks support
-    - add installation of required Windows Features
-    - update documentation
+  - add Networks support
+  - add installation of required Windows Features
+  - update documentation
 - HyperVReplica
-    - new resource to configure replication of Hyper-V virtual machines
+  - new resource to configure replication of Hyper-V virtual machines
 - HyperVState
     - new resource to control state parameters of Hyper-V virtual machines
 - RenameNetworkAdapters
@@ -29,10 +29,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed Typo in AddsDomainController documentation
 - DHCPServer:
-    - fix EnableSecurityGroups if resource is not running on a domain controller
+  - fix EnableSecurityGroups if resource is not running on a domain controller
 - HyperV:
-    - remove unused code after migration to HyperVDsc
-
+  - remove unused code after migration to HyperVDsc
+- Pipeline
+  - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
 
 ## [0.9.0] - 2023-02-08
 
