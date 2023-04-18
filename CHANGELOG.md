@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - new resource to configure replication of Hyper-V virtual machines
 - HyperVState
     - new resource to control state parameters of Hyper-V virtual machines
+- RenameNetworkAdapters
+    - Add composite to rename network adapters
 
 ### Changed
 

@@ -1,0 +1,7 @@
+Adapters:
+  - Name: OldDeviceName
+    NewName: en-0
+  - Name: MacAddress
+    NewName: en-1
+  - Name: InterfaceIndex
+    NewName: en-2
