@@ -14,7 +14,7 @@
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/NetworkIpConfiguration
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RenameNetworkAdapters
 | DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
 | Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterName[NetAdapterName]
 
@@ -39,7 +39,8 @@
 | NewName
 |
 | String
-| Old name of the Network Adapter
+| New Name name of the Network Adapter
+|
 
 |===
 
