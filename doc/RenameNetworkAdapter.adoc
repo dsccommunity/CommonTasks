@@ -1,0 +1,58 @@
+// CommonTasks YAML Reference: RenameNetworkAdapters
+// ==================================================
+
+:YmlCategory: RenameNetworkAdapters
+
+:abstract:    {YmlCategory} renames network adapters.
+
+[#dscyml_RenameNetworkAdapters]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_RenameNetworkAdapters_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RenameNetworkAdapters
+| DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/NetAdapterName[NetAdapterName]
+
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Name
+|
+| String
+| Old name of the network adapter
+|
+
+| NewName
+|
+| String
+| New name of the network adapter
+|
+
+|===
+
+.Example
+[source, yaml]
+----
+RenameNetworkAdapters:
+  Adapters:
+  - Name: OldDeviceName
+    NewName: en-0
+  - Name: MacAddress
+    NewName: en-1
+  - Name: InterfaceIndex
+    NewName: en-2
+----
