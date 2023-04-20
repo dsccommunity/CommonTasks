@@ -3,7 +3,7 @@
 
 :YmlCategory: RenameNetworkAdapters
 
-:abstract:    {YmlCategory} sets the IP configuration and network routes.
+:abstract:    {YmlCategory} renames network adapters.
 
 [#dscyml_RenameNetworkAdapters]
 = DSC Resource '{YmlCategory}'
@@ -33,13 +33,13 @@
 | Name
 |
 | String
-| Old name of the Network Adapter
+| Old name of the network adapter
 |
 
 | NewName
 |
 | String
-| New Name name of the Network Adapter
+| New name of the network adapter
 |
 
 |===
