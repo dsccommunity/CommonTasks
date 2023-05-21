@@ -14,6 +14,7 @@ configuration WindowsOptionalFeatures {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($n in $Names)
     {
@@ -35,6 +36,6 @@ configuration WindowsOptionalFeatures {
             NoWindowsUpdateCheck = $NoWindowsUpdateCheck
         }
 
-        (Get-DscSplattedResource -ResourceName WindowsOptionalFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
+        (Get-DscSplattedResource -ResourceName xWindowsOptionalFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
     }
 }
