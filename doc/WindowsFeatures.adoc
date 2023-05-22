@@ -11,12 +11,15 @@
 [[dscyml_windowsfeatures_abstract, {abstract}]]
 {abstract}
 
+// reference links as variables for using more than once
+:ref_xpsdesiredstateconfiguration_xwindowsfeature:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xwindowsfeature[xwindowsfeature]
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsFeatures
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsfeatureresource[WindowsFeature]
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsOptionalFeatures
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | {ref_xpsdesiredstateconfiguration_xwindowsfeature}
 |===
 
 
@@ -45,7 +48,7 @@ This is the same as the Name property from the `Get-WindowsFeature` cmdlet, and 
 | [+ \| -]<name>
 
 | [[dscyml_windowsfeatures_features, {YmlCategory}/Features]]<<dscyml_windowsfeatures_features_details, Features>>
-| 
+|
 | Hashtable[]
 | List windows features with additional properties
 |
@@ -108,6 +111,14 @@ To ensure that the role or feature is removed, set the property to `Absent`.
 | - *Present* (default)
   - Absent
 
+| UseLegacyResource
+|
+| String
+| Indicates if the resource `WindowsFeature` should be used instead of the `xWindowsFeature` resource.
+
+| - *false* (default)
+  - true
+
 |===
 
 
@@ -123,6 +134,7 @@ WindowsFeatures:
   Features:
     - Name: NET-Framework-Core
       Source: \\contoso.com\InstallationSources\WinSxs
+      UseLegacyResource: true
     - Name: RSAT-AD-Tools
       IncludeAllSubFeature: true
 ----

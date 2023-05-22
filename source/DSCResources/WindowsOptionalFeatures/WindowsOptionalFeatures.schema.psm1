@@ -18,13 +18,13 @@ configuration WindowsOptionalFeatures {
 
     foreach ($n in $Names)
     {
-        $ensure = 'Enable'
+        $ensure = 'Present'
 
         if ($n[0] -in '-', '+')
         {
             if ($n[0] -eq '-')
             {
-                $ensure = 'Disable'
+                $ensure = 'Absent'
             }
             $n = $n.Substring(1)
         }
