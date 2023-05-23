@@ -14,16 +14,17 @@ configuration WindowsOptionalFeatures {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration
 
     foreach ($n in $Names)
     {
-        $ensure = 'Enable'
+        $ensure = 'Present'
 
         if ($n[0] -in '-', '+')
         {
             if ($n[0] -eq '-')
             {
-                $ensure = 'Disable'
+                $ensure = 'Absent'
             }
             $n = $n.Substring(1)
         }
@@ -35,6 +36,6 @@ configuration WindowsOptionalFeatures {
             NoWindowsUpdateCheck = $NoWindowsUpdateCheck
         }
 
-        (Get-DscSplattedResource -ResourceName WindowsOptionalFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
+        (Get-DscSplattedResource -ResourceName xWindowsOptionalFeature -ExecutionName $params.Name -Properties $params -NoInvoke).Invoke($params)
     }
 }
