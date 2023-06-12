@@ -55,13 +55,13 @@
 |
 
 | CAType
-| 
+|
 | String
 | The type of CA in use, Standalone/Enterprise.
 |
 
 | CAServerFQDN
-| 
+|
 | String
 | The FQDN of the Active Directory Certificate Authority on the local area network.
 
@@ -69,7 +69,7 @@ Leave empty to automatically locate.
 |
 
 | CARootName
-| 
+|
 | String
 | The name of the certificate authority, by default this will be in format domain-servername-ca.
 
@@ -77,7 +77,7 @@ Leave empty to automatically locate.
 |
 
 | KeyLength
-| 
+|
 | String
 | The bit length of the encryption key to be used.
 | - 192
@@ -91,69 +91,69 @@ Leave empty to automatically locate.
   - 8192
 
 | Exportable
-| 
+|
 | Boolean
 | The option to allow the certificate to be exportable.
 | - *True* (default)
   - False
 
 | ProviderName
-| 
+|
 | String
 | The selection of provider for the type of encryption to be used.
 |
 
 | OID
-| 
+|
 | String
 | The Object Identifier that is used to name the object.
 |
 
 | KeyUsage
-| 
+|
 | String
 | The Keyusage is a restriction method that determines what a certificate can be used for.
 |
 
 | CertificateTemplate
-| 
+|
 | String
 | The template used for the definition of the certificate.
 |
 
 | SubjectAltName
-| 
+|
 | String
 | The subject alternative name used to create the certificate.
 |
 
 | Credential
-| 
+|
 | PSCredential
 | The `PSCredential` object containing the credentials that will be used to access the template in the Certificate Authority.
 |
 
 | AutoRenew
-| 
+|
 | Boolean
 | Determines if the resource will also renew a certificate within 7 days of expiration.
 | - True
   - False
 
 | CepURL
-| 
+|
 | String
 | The URL to the Certification Enrollment Policy Service.
 |
 
 | CesURL
-| 
+|
 | String
 | The URL to the Certification Enrollment Service.
 |
 
 | UseMachineContext
-| 
+|
 | Boolean
 | Indicates whether or not the flag `-adminforcemachine` will be used when requesting certificates.
   Necessary for certain templates like e.g. DomainControllerAuthentication
@@ -161,20 +161,20 @@ Leave empty to automatically locate.
   - False
 
 | FriendlyName
-| 
+| Key
 | String
 | Specifies a friendly name for the certificate.
 |
 
 | KeyType
-| 
+|
 | String
 | Specifies if the key type should be `RSA` or `ECDH`.
 | - *RSA* (default)
   - ECDH
 
-| RequestType	
-| 
+| RequestType
+|
 | String
 | Specifies if the request type should be `CMC` or `PKCS10`.
 | - *CMC* (default)
