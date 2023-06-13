@@ -37,6 +37,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
 - `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
 
+### Fixed
+
+- Fixed bugs in 'DscTagging'
+
 ## [0.9.0] - 2023-02-08
 
 ### Added
