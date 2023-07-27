@@ -38,6 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
 - `CertificateRequests` supports multiple certificates with the same issuer and subject by making friendlyName a mandatory (key) parameter.
 
+### Fixed
+
+- Fixed bugs in 'DscTagging'
+
 ## [0.9.0] - 2023-02-08
 
 ### Added
