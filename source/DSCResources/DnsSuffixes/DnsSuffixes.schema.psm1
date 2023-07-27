@@ -2,6 +2,7 @@ configuration DnsSuffixes
 {
     param
     (
+        [Parameter(Mandatory = $true)]
         [hashtable[]]
         $Suffixes
     )
