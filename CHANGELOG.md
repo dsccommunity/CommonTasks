@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RenameNetworkAdapters
     - Add composite to rename network adapters
     - Add documentation
+- RemoteDesktopServers
+  - new composite to add a number of servers to a RDS deployment
 
 ### Changed
 
