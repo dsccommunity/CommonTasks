@@ -6,5 +6,8 @@ Names:
 Features:
   - Name: NET-Framework-Core
     Source: \\contoso.com\InstallationSources\WinSxs
+    UseLegacyResource: true
+  - Name: NET-Framework-Core
+    UseLegacyResource: false
   - Name: RSAT-AD-Tools
     IncludeAllSubFeature: true

@@ -8,15 +8,18 @@
 [#dscyml_windowsoptionalfeatures]
 = DSC Resource '{YmlCategory}'
 
-[[dscyml_windowsoptionalfeatures_abstract, {abstract}]]
+[[dscyml_windowsoptionalfeature_abstract, {abstract}]]
 {abstract}
+
+// reference links as variables for using more than once
+:ref_xpsdesiredstateconfiguration_xwindowsoptionalfeature:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xWindowsOptionalFeature[xWindowsOptionalFeature]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/WindowsOptionalFeatures
-| DSC Resource   | https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration[PSDesiredStateConfiguration]
-| Documentation  | https://docs.microsoft.com/de-de/powershell/scripting/dsc/reference/resources/windows/windowsoptionalfeatureresource[WindowsOptionalFeature]
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
+| Documentation  | {ref_xpsdesiredstateconfiguration_xwindowsoptionalfeature}
 |===
 
 
@@ -33,7 +36,7 @@
 | Mandatory
 | string
 | Indicates the name of the feature that you want to ensure is added or removed.
-  This is the same as the Name property from the Get-WindowsOptionalFeature cmdlet, and not the display name of the feature.
+  This is the same as the Name property from the `Get-WindowsOptionalFeature` cmdlet, and not the display name of the feature.
 | [+ \| -]<name>
 
 | RemoveFilesOnDisable
