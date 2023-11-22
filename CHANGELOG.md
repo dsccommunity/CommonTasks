@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add documentation
 - RemoteDesktopServers
   - new composite to add a number of servers to a RDS deployment
+- DnsSuffixes
+  - new resource to configure connection-specific DNS suffixes
 
 ### Changed
 
@@ -38,6 +40,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pipeline
   - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
 - `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
+- `CertificateRequests` supports multiple certificates with the same issuer and subject by making friendlyName a mandatory (key) parameter.
+
+### Fixed
+
+- Fixed bugs in 'DscTagging'
 
 ## [0.9.0] - 2023-02-08
 

@@ -58,7 +58,7 @@
     PowerShellGet                = '2.2.5'
     ConfigMgrCBDsc               = '3.0.0'
     MmaDsc                       = '1.3.0'
-    CertificateDsc               = '5.1.0'
+    CertificateDsc               = '6.0.0-preview0001'
     xRobocopy                    = '2.0.0.0'
     VSTSAgent                    = '2.0.14'
     FileContentDsc               = '1.3.0.151'
