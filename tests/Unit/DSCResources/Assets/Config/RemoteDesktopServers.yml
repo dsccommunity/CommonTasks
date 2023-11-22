@@ -1,0 +1,13 @@
+Servers:
+  - Role: RDS-Licensing
+    Server: RDSLIC001.contoso.com
+    ConnectionBroker: RDSCB001.contoso.com
+  - Role: RDS-Connection-Broker
+    Server: RDSCB002.contoso.com
+    ConnectionBroker: RDSCB001.contoso.com
+  - Role: RDS-Gateway
+    Server: RDSGW001.contoso.com
+    ConnectionBroker: RDSCB001.contoso.com
+  - Role: RDS-Web-Access
+    Server: RDSWEB001.contoso.com
+    ConnectionBroker: RDSCB001.contoso.com
