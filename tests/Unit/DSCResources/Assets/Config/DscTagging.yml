@@ -1,5 +1,6 @@
 Version: 1.0.0
 Environment: Dev
+BuildNumber: 100
 NodeVersion:
 NodeRole: FileServer
 DisableGitCommitId: false

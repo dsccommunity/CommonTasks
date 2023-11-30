@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed bugs in 'DscTagging'
+- Fixed bugs in 'DscTagging' and added parameter 'BuildNumber'.
 
 ## [0.9.0] - 2023-02-08
 
