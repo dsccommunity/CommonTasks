@@ -35,7 +35,7 @@
     StorageDsc                   = '5.0.1'
     Chocolatey                   = '0.0.79'
     ActiveDirectoryDsc           = '6.2.0'
-    DfsDsc                       = '4.4.0.0'
+    DFSDsc                       = '4.4.0.0'
     WdsDsc                       = '0.11.0'
     xDhcpServer                  = '3.1.0'
     xDscDiagnostics              = '2.8.0'
@@ -45,7 +45,7 @@
     AuditPolicyDsc               = '1.4.0.0'
     SharePointDSC                = '4.8.0'
     xExchange                    = '1.33.0'
-    SqlServerDsc                 = '16.1.0-preview0009'
+    SqlServerDsc                 = '16.5.0'
     UpdateServicesDsc            = '1.2.1'
     xWindowsEventForwarding      = '1.0.0.0'
     OfficeOnlineServerDsc        = '1.5.0'
@@ -62,7 +62,8 @@
     xRobocopy                    = '2.0.0.0'
     VSTSAgent                    = '2.0.14'
     FileContentDsc               = '1.3.0.151'
-    xRemoteDesktopSessionHost    = '2.1.1-preview0001'
+    xRemoteDesktopSessionHost    = '3.0.0-preview0001'
     cScom                        = '1.0.4'
     AzureConnectedMachineDsc     = '1.4.0'
+
 }
