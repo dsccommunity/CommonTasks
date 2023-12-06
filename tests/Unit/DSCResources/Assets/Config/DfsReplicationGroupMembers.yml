@@ -1,0 +1,7 @@
+Items:
+  - GroupName: Public
+    DomainName: contoso.com
+    ComputerName: server1.contoso.com
+  - GroupName: Public
+    DomainName: contoso.com
+    ComputerName: server2.contoso.com

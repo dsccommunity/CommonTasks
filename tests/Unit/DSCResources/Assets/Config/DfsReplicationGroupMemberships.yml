@@ -1,0 +1,11 @@
+Items:
+  - GroupName: Public
+    FolderName: Test1
+    ContentPath: C:\Data\Test1
+    DomainName: contoso.com
+    ComputerName: server1.contoso.com
+  - GroupName: Public
+    FolderName: Test1
+    ContentPath: C:\Data\Test1
+    DomainName: contoso.com
+    ComputerName: server2.contoso.com
