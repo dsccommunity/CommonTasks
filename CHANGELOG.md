@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
 - `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
 - `CertificateRequests` supports multiple certificates with the same issuer and subject by making friendlyName a mandatory (key) parameter.
+- Updated versions of `SqlServerDsc` and `xRemoteDesktopSessionHost`.
 
 ### Fixed
 
