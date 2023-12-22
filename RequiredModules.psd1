@@ -35,7 +35,7 @@
     StorageDsc                   = '5.0.1'
     Chocolatey                   = '0.0.79'
     ActiveDirectoryDsc           = '6.2.0'
-    DfsDsc                       = '4.4.0.0'
+    DFSDsc                       = '5.0.1'
     WdsDsc                       = '0.11.0'
     xDhcpServer                  = '3.1.0'
     xDscDiagnostics              = '2.8.0'

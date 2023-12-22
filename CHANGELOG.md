@@ -29,6 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - new composite to add a number of servers to a RDS deployment
 - DnsSuffixes
   - new resource to configure connection-specific DNS suffixes
+- DfsReplicationGroupMembers
+  - new resource to configure DFSR group members
+- DfsReplicationGroupMemberships
+  - new resource to configure DFSR group memberships
+- DfsReplicationGroupConnections
+  - new resource to configure DFSR replication connections
 
 ### Changed
 

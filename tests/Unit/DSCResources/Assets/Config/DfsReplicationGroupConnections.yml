@@ -1,0 +1,13 @@
+Items:
+  - GroupName: Public
+    DomainName: contoso.com
+    SourceComputerName: server1.contoso.com
+    DestinationComputerName: server2.contoso.com
+  - GroupName: Public
+    DomainName: contoso.com
+    SourceComputerName: server1.contoso.com
+    DestinationComputerName: server3.contoso.com
+  - GroupName: Public
+    DomainName: contoso.com
+    SourceComputerName: server1.contoso.com
+    DestinationComputerName: server4.contoso.com
