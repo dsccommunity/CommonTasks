@@ -4,6 +4,10 @@ configuration DscTagging {
         [System.Version]
         $Version,
 
+        [Parameter()]
+        [int]
+        $BuildNumber,
+
         [Parameter(Mandatory = $true)]
         [string]
         $Environment,
@@ -85,7 +89,7 @@ configuration DscTagging {
     {
         Key       = 'HKEY_LOCAL_MACHINE\SOFTWARE\DscTagging'
         ValueName = 'BuildNumber'
-        ValueData = "$($env:BUILD_BUILDID)"
+        ValueData = $BuildNumber
         ValueType = 'String'
         Ensure    = 'Present'
         Force     = $true

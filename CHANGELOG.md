@@ -25,6 +25,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - RenameNetworkAdapters
     - Add composite to rename network adapters
     - Add documentation
+- RemoteDesktopServers
+  - new composite to add a number of servers to a RDS deployment
+- DnsSuffixes
+  - new resource to configure connection-specific DNS suffixes
+- DfsReplicationGroupMembers
+  - new resource to configure DFSR group members
+- DfsReplicationGroupMemberships
+  - new resource to configure DFSR group memberships
+- DfsReplicationGroupConnections
+  - new resource to configure DFSR replication connections
 
 ### Changed
 
@@ -37,10 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
 - `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
 - `CertificateRequests` supports multiple certificates with the same issuer and subject by making friendlyName a mandatory (key) parameter.
+- Updated versions of `SqlServerDsc` and `xRemoteDesktopSessionHost`.
 
 ### Fixed
 
-- Fixed bugs in 'DscTagging'
+- Fixed bugs in 'DscTagging' and added parameter 'BuildNumber'.
 
 ## [0.9.0] - 2023-02-08
 
