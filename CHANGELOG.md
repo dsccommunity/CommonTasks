@@ -53,6 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed bugs in 'DscTagging' and added parameter 'BuildNumber'.
 
+### Removed
+- AzureConnectedMachine:
+  - Module has been removed from PSGallery
+
 ## [0.9.0] - 2023-02-08
 
 ### Added
