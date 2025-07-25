@@ -1,12 +1,14 @@
 DefaultInstanceName: MSSQLSERVER
 Queries:
   - InstanceName: MSSQLSERVER
+    Id: Test1
     GetQuery: '--Get Query 1'
     TestQuery: '--Test Query 1'
     SetQuery: '--Set Query 1'
     ServerName : 'ServerName'
     QueryTimeout: 60
   - InstanceName: MSSQLSERVER
+    Id: Test2
     GetQuery: '--Get Query 2'
     TestQuery: '--Test Query 2'
     SetQuery: '--Set Query 2'
