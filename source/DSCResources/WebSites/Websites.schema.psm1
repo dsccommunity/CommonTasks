@@ -20,20 +20,6 @@ configuration WebSites {
             $item.Ensure = 'Present'
         }
 
-        if ($item.BindingINfo)
-        {
-            $dscBindingInfos = foreach ($bindingInfo in $item.BindingInfo)
-            {
-            (Get-DscSplattedResource -ResourceName DSC_WebBindingInformation -Properties $bindingInfo -NoInvoke).Invoke($bindingInfo)
-            }
-            $item.BindingInfo = $dscBindingInfos
-        }
-
-        if ($item.AuthenticationInfo)
-        {
-            $item.AuthenticationInfo = (Get-DscSplattedResource -ResourceName DSC_WebAuthenticationInformation -Properties $item.AuthenticationInfo -NoInvoke).Invoke($item.AuthenticationInfo)
-        }
-
         $executionName = "website_$($item.Name -replace '[{}#\-\s]','_')"
         (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
