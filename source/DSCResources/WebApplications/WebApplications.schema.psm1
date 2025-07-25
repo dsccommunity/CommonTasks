@@ -22,11 +22,6 @@ configuration WebApplications {
 
         $executionName = "webapp_$($item.Name -replace '[{}#\-\s]','_')"
 
-        if ($item.AuthenticationInfo)
-        {
-            $item.AuthenticationInfo = (Get-DscSplattedResource -ResourceName DSC_WebApplicationAuthenticationInformation -Properties $item.AuthenticationInfo -NoInvoke).Invoke($item.AuthenticationInfo)
-        }
-
         (Get-DscSplattedResource -ResourceName $dscResourceName -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }
