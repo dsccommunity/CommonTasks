@@ -18,7 +18,7 @@ configuration DhcpServerOptions
     [Value = [string[]]]
 #>
 
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     foreach ($serverOption in $ServerOptions)

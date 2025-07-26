@@ -1,4 +1,4 @@
-# see https://github.com/dsccommunity/xDhcpServer
+# see https://github.com/dsccommunity/DhcpServerDsc
 Scopes:
   - ScopeID:           192.169.162.0
     Name:              Domain Scope 1
@@ -54,7 +54,7 @@ OptionValues:
     UserClass:
     AddressFamily: IPv4
     Ensure:        Present
-  
+
   - OptionId:      2
     Value:         192.168.162.2
     AddressFamily: IPv4

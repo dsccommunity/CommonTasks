@@ -20,7 +20,7 @@ configuration DhcpServerOptionDefinitions
     [PsDscRunAsCredential = [PSCredential]]
 #>
 
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     foreach ($serverOptionDefinition in $ServerOptionDefinitions)
@@ -31,6 +31,6 @@ configuration DhcpServerOptionDefinitions
         }
 
         $executionName = "$($node.Name)_$($serverOption.OptionId)"
-        (Get-DscSplattedResource -ResourceName xDhcpServerOptionDefinition -ExecutionName $executionName -Properties $serverOptionDefinition -NoInvoke).Invoke($serverOptionDefinition)
+        (Get-DscSplattedResource -ResourceName DhcpServerOptionDefinition -ExecutionName $executionName -Properties $serverOptionDefinition -NoInvoke).Invoke($serverOptionDefinition)
     }
 }

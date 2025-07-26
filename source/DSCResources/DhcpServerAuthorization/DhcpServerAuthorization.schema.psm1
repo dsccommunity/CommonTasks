@@ -1,4 +1,4 @@
-# see https://github.com/dsccommunity/xDhcpServer
+# see https://github.com/dsccommunity/DhcpServerDsc
 configuration DhcpServerAuthorization
 {
     param
@@ -15,7 +15,7 @@ configuration DhcpServerAuthorization
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
 
     WindowsFeature DHCPServerTools
     {

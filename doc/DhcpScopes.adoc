@@ -17,9 +17,9 @@ An IP-address scope is a consecutive range of possible IP addresses that the DHC
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopes
-| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | - https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerScope[xDhcpServerScope]
-                   - https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
+| DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
+| Documentation  | - https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerScope[xDhcpServerScope]
+                   - https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
 |===
 
 

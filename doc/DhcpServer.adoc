@@ -13,17 +13,17 @@
 
 
 // reference links as variables for using more than once
-:ref_xDhcpServerScope:          https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerScope[xDhcpServerScope]
-:ref_DhcpServerExclusionRange:  https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerExclusionRange[DhcpServerExclusionRange]
-:ref_xDhcpServerReservation:    https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerReservation[xDhcpServerReservation]
-:ref_DhcpServerOptionValue:     https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
-:ref_xDhcpServerAuthorization:  https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
+:ref_xDhcpServerScope:          https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerScope[xDhcpServerScope]
+:ref_DhcpServerExclusionRange:  https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpServerExclusionRange[DhcpServerExclusionRange]
+:ref_xDhcpServerReservation:    https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerReservation[xDhcpServerReservation]
+:ref_DhcpServerOptionValue:     https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
+:ref_xDhcpServerAuthorization:  https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerAuthorization[xDhcpServerAuthorization]
 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServer
-| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+| DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
 | Documentation  | - {ref_xDhcpServerScope}
                    - {ref_DhcpServerExclusionRange}
                    - {ref_xDhcpServerReservation}

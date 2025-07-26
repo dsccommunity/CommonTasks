@@ -15,8 +15,8 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
-| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
+| DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
+| Documentation  | https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
 |===
 
 
@@ -102,7 +102,7 @@ Could be an array of string for a multi-valued option.
 DhcpServerOptions:
   ServerOptions:
     - OptionId: 15
-      AddressFamily: IPv4    
+      AddressFamily: IPv4
       UserClass: ''
       VendorClass: ''
       Value: contoso.com

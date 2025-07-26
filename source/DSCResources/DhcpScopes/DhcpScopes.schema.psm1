@@ -11,7 +11,7 @@ configuration DhcpScopes
         $DomainCredential
     )
 
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     if ($DomainCredential)
