@@ -31,7 +31,7 @@ configuration ExchangeProvisioning {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xExchange
+    Import-DscResource -ModuleName ExchangeDsc
     Import-DscResource -ModuleName ComputerManagementDsc
     Import-DscResource -ModuleName StorageDsc
 
@@ -60,7 +60,7 @@ configuration ExchangeProvisioning {
         $installationArguments += " /TargetDir:$TargetDir"
     }
 
-    xExchInstall InstallExchange
+    ExchInstall InstallExchange
     {
         Path       = "$($IsoDriveLetter)\Setup.exe"
         Arguments  = $installationArguments
@@ -69,19 +69,19 @@ configuration ExchangeProvisioning {
     }
 
     #This section licenses the server
-    xExchExchangeServer EXServer
+    ExchExchangeServer EXServer
     {
         Identity            = $Node.NodeName
         Credential          = $InstallCreds
         ProductKey          = $ProductKey
         AllowServiceRestart = $true
-        DependsOn           = '[xExchInstall]InstallExchange'
+        DependsOn           = '[ExchInstall]InstallExchange'
     }
 
     #See if a reboot is required after installing Exchange
     PendingReboot AfterExchangeInstall
     {
         Name      = 'AfterExchangeInstall'
-        DependsOn = '[xExchInstall]InstallExchange'
+        DependsOn = '[ExchInstall]InstallExchange'
     }
 }

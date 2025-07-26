@@ -1,4 +1,4 @@
-# see https://github.com/dsccommunity/xDhcpServer
+# see https://github.com/dsccommunity/DhcpServerDsc
 configuration DhcpServer
 {
     param
@@ -29,7 +29,7 @@ configuration DhcpServer
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
 
     # install AD tools if AD integration is activated
     if ($null -ne $Authorization -or $EnableSecurityGroups -eq $true)

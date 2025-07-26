@@ -20,7 +20,7 @@ configuration DhcpServerOptionDefinitions
     [PsDscRunAsCredential = [PSCredential]]
 #>
 
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
     Import-DscResource -ModuleName PsDesiredStateConfiguration
 
     foreach ($serverOptionDefinition in $ServerOptionDefinitions)

@@ -28,11 +28,11 @@ configuration ExchangeConfiguration {
 
     #Import required DSC Modules
     Import-DscResource -Module PSDesiredStateConfiguration
-    Import-DscResource -Module xExchange
+    Import-DscResource -Module ExchangeDsc
 
     ###CAS specific settings###
     #The following section shows how to configure commonly configured URL's on various virtual directories
-    xExchClientAccessServer CAS
+    ExchClientAccessServer CAS
     {
         Identity                       = $Node.NodeName
         Credential                     = $ShellCreds
@@ -40,7 +40,7 @@ configuration ExchangeConfiguration {
         AutoDiscoverSiteScope          = $AutoDiscoverSiteScope
     }
 
-    xExchActiveSyncVirtualDirectory ASVdir
+    ExchActiveSyncVirtualDirectory ASVdir
     {
         Identity    = "$($Node.NodeName)\Microsoft-Server-ActiveSync (Default Web Site)"
         Credential  = $ShellCreds
@@ -48,7 +48,7 @@ configuration ExchangeConfiguration {
         InternalUrl = "https://$InternalNamespace/Microsoft-Server-ActiveSync"
     }
 
-    xExchEcpVirtualDirectory ECPVDir
+    ExchEcpVirtualDirectory ECPVDir
     {
         Identity    = "$($Node.NodeName)\ecp (Default Web Site)"
         Credential  = $ShellCreds
@@ -56,7 +56,7 @@ configuration ExchangeConfiguration {
         InternalUrl = "https://$InternalNamespace/ecp"
     }
 
-    xExchMapiVirtualDirectory MAPIVdir
+    ExchMapiVirtualDirectory MAPIVdir
     {
         Identity                 = "$($Node.NodeName)\mapi (Default Web Site)"
         Credential               = $ShellCreds
@@ -65,7 +65,7 @@ configuration ExchangeConfiguration {
         IISAuthenticationMethods = 'Ntlm', 'OAuth', 'Negotiate'
     }
 
-    xExchOabVirtualDirectory OABVdir
+    ExchOabVirtualDirectory OABVdir
     {
         Identity    = "$($Node.NodeName)\OAB (Default Web Site)"
         Credential  = $ShellCreds
@@ -73,7 +73,7 @@ configuration ExchangeConfiguration {
         InternalUrl = "https://$InternalNamespace/oab"
     }
 
-    xExchOutlookAnywhere OAVdir
+    ExchOutlookAnywhere OAVdir
     {
         Identity                           = "$($Node.NodeName)\Rpc (Default Web Site)"
         Credential                         = $ShellCreds
@@ -87,7 +87,7 @@ configuration ExchangeConfiguration {
     }
 
     #Sets OWA url's, and enables Lync integration on the OWA front end directory
-    xExchOwaVirtualDirectory OWAVdir
+    ExchOwaVirtualDirectory OWAVdir
     {
         Identity    = "$($Node.NodeName)\owa (Default Web Site)"
         Credential  = $ShellCreds
@@ -98,10 +98,10 @@ configuration ExchangeConfiguration {
         #InstantMessagingServerName            = $casSettingsPerSite.InstantMessagingServerName
         #InstantMessagingType                  = 'Ocs'
 
-        #DependsOn                             = '[xExchExchangeCertificate]Certificate' #Can't configure the IM cert until it's valid
+        #DependsOn                             = '[ExchExchangeCertificate]Certificate' #Can't configure the IM cert until it's valid
     }
 
-    xExchWebServicesVirtualDirectory EWSVdir
+    ExchWebServicesVirtualDirectory EWSVdir
     {
         Identity             = "$($Node.NodeName)\EWS (Default Web Site)"
         Credential           = $ShellCreds

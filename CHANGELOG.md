@@ -5,6 +5,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Migrated from legacy DSC modules to community-supported modules:
+  - `xDhcpServer` to `DhcpServerDsc` (v4.0.0)
+  - `xExchange` to `ExchangeDsc` (v2.0.0)
+- Updated dependency versions:
+  - `xPSDesiredStateConfiguration` to `9.2.1`.
+  - `ComputerManagementDsc` to `10.0.0`.
+  - `NetworkingDsc` to `9.1.0`.
+  - `StorageDsc` to `6.0.1`.
+  - `ActiveDirectoryDsc` to `6.7.0`.
+  - `DFSDsc` to `5.1.1`.
+  - `FailoverClusterDsc` to `2.2.0`.
+  - `GPRegistryPolicyDsc` to `1.3.1`.
+  - `SharePointDSC` to `5.6.1`.
+  - `ConfigMgrCBDsc` to `4.0.0`.
+
 ## [0.10.0] - 2025-07-26
 
 ### Added

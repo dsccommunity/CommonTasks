@@ -54,13 +54,13 @@ configuration ExchangeDagProvisioning
 
     #Import required DSC Modules
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xExchange
+    Import-DscResource -ModuleName ExchangeDsc
 
     #This first section only configures a single DAG node, the first member of the DAG.
     #The first member of the DAG will be responsible for DAG creation and maintaining its configuration
     if ($Node.NodeName -eq $FirstDagMemberName)
     {
-        xExchDatabaseAvailabilityGroup Dag
+        ExchDatabaseAvailabilityGroup Dag
         {
             Name                           = $DagName
             Credential                     = $ShellCreds
@@ -76,33 +76,33 @@ configuration ExchangeDagProvisioning
             WitnessServer                  = $WitnessServer
         }
 
-        xExchDatabaseAvailabilityGroupMember DAGMember
+        ExchDatabaseAvailabilityGroupMember DAGMember
         {
             MailboxServer     = $Node.NodeName
             Credential        = $ShellCreds
             DAGName           = $DagName
             SkipDagValidation = $true
 
-            DependsOn         = '[xExchDatabaseAvailabilityGroup]Dag'
+            DependsOn         = '[ExchDatabaseAvailabilityGroup]Dag'
         }
     }
     else
     {
         #Add this server as member
-        xExchWaitForDAG WaitForDag
+        ExchWaitForDAG WaitForDag
         {
             Identity   = $DagName
             Credential = $ShellCreds
         }
 
-        xExchDatabaseAvailabilityGroupMember DagMember
+        ExchDatabaseAvailabilityGroupMember DagMember
         {
             MailboxServer     = $Node.NodeName
             Credential        = $ShellCreds
             DAGName           = $DagName
             SkipDagValidation = $true
 
-            DependsOn         = '[xExchWaitForDAG]WaitForDag'
+            DependsOn         = '[ExchWaitForDAG]WaitForDag'
         }
     }
 }

@@ -62,7 +62,7 @@ configuration Wds
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName WdsDsc
-    Import-DscResource -ModuleName xDhcpServer
+    Import-DscResource -ModuleName DhcpServerDsc
 
     $dependsOnClientScope = ''
 

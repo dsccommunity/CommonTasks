@@ -15,8 +15,8 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServerOptionDefinitions
-| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/xDhcpServerOptionDefinition[xDhcpServerOptionDefinition]
+| DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
+| Documentation  | https://github.com/dsccommunity/DhcpServerDsc/wiki/xDhcpServerOptionDefinition[xDhcpServerOptionDefinition]
 |===
 
 

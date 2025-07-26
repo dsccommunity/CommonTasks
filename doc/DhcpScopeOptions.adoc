@@ -15,8 +15,8 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
-| DSC Resource   | https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
-| Documentation  | https://github.com/dsccommunity/xDhcpServer/wiki/DhcpScopeOptionValue[DhcpScopeOptionValue]
+| DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
+| Documentation  | https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpScopeOptionValue[DhcpScopeOptionValue]
 |===
 
 
@@ -109,7 +109,7 @@ DhcpScopeOptions:
   ScopeOptions:
     - ScopeId: 192.169.1.0
       OptionId: 6
-      AddressFamily: IPv4    
+      AddressFamily: IPv4
       UserClass: ''
       VendorClass: ''
       Value:
