@@ -31,6 +31,6 @@ configuration DhcpServerOptionDefinitions
         }
 
         $executionName = "$($node.Name)_$($serverOption.OptionId)"
-        (Get-DscSplattedResource -ResourceName DhcpServerOptionDefinition -ExecutionName $executionName -Properties $serverOptionDefinition -NoInvoke).Invoke($serverOptionDefinition)
+        (Get-DscSplattedResource -ResourceName xDhcpServerOptionDefinition -ExecutionName $executionName -Properties $serverOptionDefinition -NoInvoke).Invoke($serverOptionDefinition)
     }
 }
