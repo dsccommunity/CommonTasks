@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - AddsDomainController:
-  - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+  - Add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD
+    computer account is protected
   - AllowPasswordReplication and DenyPasswordReplication Variables for RODCs
 - AzureConnectedMachine:
   - Composite to install and configure the Azure Connected Machine Agent
@@ -51,6 +52,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   subject by making friendlyName a mandatory (key) parameter.
 - Updated versions of `SqlServerDsc` and `xRemoteDesktopSessionHost`.
 - Updated build scripts to the latest version of Sampler.
+- Updated dependency versions:
+  - `JeaDsc` to `4.0.0-preview0005`.
+  - `SqlServerDsc` to `17.1.0`.
+  - `DscBuildHelpers` to `0.3.0-preview0003`.
+- Updated test data for `SqlScriptQueries` according to new requirements.
+- Updated the following resources according to new `DscBuildHelpers` version.
+  - `WebApplication`
+  - `Websites`
+  - `HyperV`
+  - `ConfigurationManagerConfiguration`
 
 ### Fixed
 
@@ -58,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed gitversion task in the pipeline.
 
 ### Removed
+
 - AzureConnectedMachine:
   - Module has been removed from PSGallery
 
