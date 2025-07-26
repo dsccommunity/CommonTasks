@@ -1,5 +1,5 @@
 
-Configuration ConfigurationManagerConfiguration
+configuration ConfigurationManagerConfiguration
 {
     [CmdletBinding()]
     param
@@ -96,7 +96,7 @@ Configuration ConfigurationManagerConfiguration
     # region ConfigCBMgr configurations
     foreach ($account in $CMAccounts)
     {
-        CMAccounts "AddingAccount-$($account.UserName)"
+        cmaccounts "AddingAccount-$($account.UserName)"
         {
             SiteCode             = $SiteCode
             Account              = $account.UserName
@@ -164,27 +164,7 @@ Configuration ConfigurationManagerConfiguration
 
     foreach ($bg in $BoundaryGroups)
     {
-        $boundaryDependencies = @()
-        foreach ($boundary in $bg.Boundaries)
-        {
-            $boundary['SiteCode'] = $SiteCode
-            $boundary['PsDscRunAsCredential'] = $SccmInstallAccount
-            (Get-DscSplattedResource -ResourceName CMBoundaries -ExecutionName "CMBoundary$($boundary.DisplayName -replace '\W')" -Properties $boundary -NoInvoke).Invoke($boundary)
-            $boundaryDependencies += "[CMBoundaries]CMBoundary$($boundary.DisplayName -replace '\W')"
-        }
-
-        $bg['SiteCode'] = $SiteCode
-        $bg['PsDscRunAsCredential'] = $SccmInstallAccount
-        $bg['DependsOn'] = $boundaryDependencies
-
-        $bg.Boundaries = foreach ($bound in $bg.Boundaries)
-        {
-            DSC_CMBoundaryGroupsBoundaries
-            {
-                Value = $bound.Value
-                Type  = $bound.Type
-            }
-        }
+        $bg.SiteCode = $SiteCode
         (Get-DscSplattedResource -ResourceName CMBoundaryGroups -ExecutionName "BoundaryGroup$($bg.BoundaryGroup -replace '\W')" -Properties $bg -NoInvoke).Invoke($bg)
     }
 
@@ -211,7 +191,7 @@ Configuration ConfigurationManagerConfiguration
 
     foreach ($dg in $DistributionPointGroups)
     {
-        CMDistributionGroup ($dg.DistributionGroup -replace '\W')
+        cmdistributiongroup ($dg.DistributionGroup -replace '\W')
         {
             SiteCode             = $SiteCode
             DistributionGroup    = $dg.DistributionGroup

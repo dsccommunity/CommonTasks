@@ -950,19 +950,6 @@ configuration HyperV
                     $netAdapter.MacAddress = $netAdapter.MacAddress -replace '[-:\s]', ''
                 }
 
-                if ($netAdapter.NetworkSetting -ne $null)
-                {
-                    $netSetting = VMNetworkAdapterNetworkSettings
-                    {
-                        IpAddress      = $netAdapter.NetworkSetting.IpAddress
-                        Subnet         = $netAdapter.NetworkSetting.Subnet
-                        DefaultGateway = $netAdapter.NetworkSetting.DefaultGateway
-                        DnsServer      = $netAdapter.NetworkSetting.DnsServer
-                    }
-
-                    $netAdapter.NetworkSetting = $netSetting
-                }
-
                 # extract additional attributed
                 $dhcpGuard = $netAdapter.DhcpGuard
                 $routerGuard = $netAdapter.RouterGuard

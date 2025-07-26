@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - AddsDomainController:
-  - add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD computer account is protected
+  - Add UnprotectFromAccidentalDeletion to allow dc promote if an existing AD
+    computer account is protected
   - AllowPasswordReplication and DenyPasswordReplication Variables for RODCs
 - AzureConnectedMachine:
   - Composite to install and configure the Azure Connected Machine Agent
@@ -21,10 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HyperVReplica
   - new resource to configure replication of Hyper-V virtual machines
 - HyperVState
-    - new resource to control state parameters of Hyper-V virtual machines
+  - new resource to control state parameters of Hyper-V virtual machines
 - RenameNetworkAdapters
-    - Add composite to rename network adapters
-    - Add documentation
+  - Add composite to rename network adapters
+  - Add documentation
 - RemoteDesktopServers
   - new composite to add a number of servers to a RDS deployment
 - DnsSuffixes
@@ -45,15 +46,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - remove unused code after migration to HyperVDsc
 - Pipeline
   - Updated to latest Sampler files and update an vmImage reference to `ubuntu-latest`
-- `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in `xPSDesiredStateConfiguration` now.
-- `CertificateRequests` supports multiple certificates with the same issuer and subject by making friendlyName a mandatory (key) parameter.
+- `WindowsOptionalFeatures` and `WindowsFeatures` are using the DSC resource in
+  `xPSDesiredStateConfiguration` now.
+- `CertificateRequests` supports multiple certificates with the same issuer and
+  subject by making friendlyName a mandatory (key) parameter.
 - Updated versions of `SqlServerDsc` and `xRemoteDesktopSessionHost`.
+- Updated build scripts to the latest version of Sampler.
+- Updated dependency versions:
+  - `JeaDsc` to `4.0.0-preview0005`.
+  - `SqlServerDsc` to `17.1.0`.
+  - `DscBuildHelpers` to `0.3.0-preview0003`.
+- Updated test data for `SqlScriptQueries` according to new requirements.
+- Updated the following resources according to new `DscBuildHelpers` version.
+  - `WebApplication`
+  - `Websites`
+  - `HyperV`
+  - `ConfigurationManagerConfiguration`
 
 ### Fixed
 
 - Fixed bugs in 'DscTagging' and added parameter 'BuildNumber'.
+- Fixed gitversion task in the pipeline.
 
 ### Removed
+
 - AzureConnectedMachine:
   - Module has been removed from PSGallery
 
