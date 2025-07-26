@@ -45,13 +45,13 @@ configuration ExchangeMailboxDatabases {
     #>
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -Module xExchange
+    Import-DscResource -Module ExchangeDsc
 
     foreach ($item in $Items)
     {
         $item.Server = $Node.NodeName
 
         $executionName = $item.Name
-        (Get-DscSplattedResource -ResourceName xExchMailboxDatabase -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName ExchMailboxDatabase -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

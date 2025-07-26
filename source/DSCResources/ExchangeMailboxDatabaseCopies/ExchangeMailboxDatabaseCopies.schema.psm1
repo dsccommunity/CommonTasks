@@ -21,21 +21,21 @@ configuration ExchangeMailboxDatabaseCopies {
     #>
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -Module xExchange
+    Import-DscResource -Module ExchangeDsc
 
     foreach ($item in $Items)
     {
         $waitResourceId = "WaitForDB_$($item.Identity)"
-        xExchWaitForMailboxDatabase $waitResourceId
+        ExchWaitForMailboxDatabase $waitResourceId
         {
             Identity   = $item.Identity
             Credential = $item.Credential
         }
 
         $item.MailboxServer = $Node.NodeName
-        $item.DependsOn = "[xExchWaitForMailboxDatabase]$waitResourceId"
+        $item.DependsOn = "[ExchWaitForMailboxDatabase]$waitResourceId"
 
         $executionName = $item.Identity
-        (Get-DscSplattedResource -ResourceName xExchMailboxDatabaseCopy -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
+        (Get-DscSplattedResource -ResourceName ExchMailboxDatabaseCopy -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }

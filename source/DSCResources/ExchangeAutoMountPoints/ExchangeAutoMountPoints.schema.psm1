@@ -53,7 +53,7 @@ configuration ExchangeAutoMountPoints {
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -Module xExchange
+    Import-DscResource -Module ExchangeDsc
 
     if (-not $PSBoundParameters.ContainsKey('Identity'))
     {
@@ -68,6 +68,6 @@ configuration ExchangeAutoMountPoints {
     $PSBoundParameters.Remove('DependsOn')
 
 
-    (Get-DscSplattedResource -ResourceName xExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
+    (Get-DscSplattedResource -ResourceName ExchAutoMountPoint -ExecutionName $executionName -Properties $PSBoundParameters -NoInvoke).Invoke($PSBoundParameters)
 
 }

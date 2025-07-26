@@ -15,7 +15,7 @@
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeProvisioning
-| DSC Resource   | - https://github.com/dsccommunity/xExchange[xExchange]
+| DSC Resource   | - https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc]
                    - https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
                    - https://github.com/dsccommunity/StorageDsc[StorageDSC]
 | Documentation  |
