@@ -25,7 +25,7 @@ Fully administration of a Windows Deployment Services server requires the follow
   Some configuration settings for the server are stored here.
 
 - *Enterprise administrator* (optional). +
-  This gives you Dynamic Host Configuration Protocol (DHCP) authorization permissions. 
+  This gives you Dynamic Host Configuration Protocol (DHCP) authorization permissions.
   If DHCP authorization is enabled, the Windows Deployment Services server must be authorized in AD DS before it will be allowed to answer incoming client PXE requests.
   DHCP authorization is stored in the Configuration container in AD DS.
 
@@ -43,13 +43,13 @@ Check these links for more details:
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Wds
 | DSC Resource   | - {ref_WDSDsc}
-                   - https://github.com/dsccommunity/xDhcpServer[xDhcpServer]
+                   - https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
 | Documentation  | - https://github.com/nyanhp/WDSDsc#wdsinitialize[WdsInitialize]
                    - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsBootImage[WdsBootImage]
                    - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsInstallImage[WdsInstallImage]
                    - https://github.com/nyanhp/WDSDsc/blob/dev/WdsDsc/DscResources/JHP_WdsDeviceReservation[WdsDeviceReservation]
-                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverscope[xDhcpServerScope]
-                   - https://github.com/dsccommunity/xDhcpServer#xdhcpserverreservation[xDhcpServerReservation]
+                   - https://github.com/dsccommunity/DhcpServerDsc#xdhcpserverscope[xDhcpServerScope]
+                   - https://github.com/dsccommunity/DhcpServerDsc#xdhcpserverreservation[xDhcpServerReservation]
 |===
 
 
@@ -107,7 +107,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 | UseExistingDhcpScope
 |
 | Boolean
-| Use existing DHCP Scope defined outside of this DSC resource. 
+| Use existing DHCP Scope defined outside of this DSC resource.
 
 *Must be set to `True` if the DHCP server should not installed on the computer WDS server is running.*
 | - True
@@ -156,25 +156,25 @@ If you set this value to Known, a computer must be prestaged in active directory
 |
 
 | [[dscyml_wds_bootimages, {YmlCategory}/BootImages]]<<dscyml_wds_bootimages_details, BootImages>>
-| 
+|
 | Hashtable[]
 | List of boot images
 |
 
 | [[dscyml_wds_imagegroups, {YmlCategory}/ImageGroups]]<<dscyml_wds_imagegroups_details, ImageGroups>>
-| 
+|
 | Hashtable[]
 | List of image groups
 |
 
 | [[dscyml_wds_installimages, {YmlCategory}/InstallImages]]<<dscyml_wds_installimages_details, InstallImages>>
-| 
+|
 | Hashtable[]
 | List of installation images
 |
 
 | [[dscyml_wds_devicereservations, {YmlCategory}/DeviceReservations]]<<dscyml_wds_devicereservations_details, DeviceReservations>>
-| 
+|
 | Hashtable[]
 | List of device reservations
 |
@@ -211,7 +211,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 |
 
 | NewFileName
-| 
+|
 | String
 | The new file name of the boot image
 |
@@ -231,14 +231,14 @@ If you set this value to Known, a computer must be prestaged in active directory
 | Architecture
 |
 | String
-| Architecture of the image, only valid and required if `Ensure` equals `Absent` 
+| Architecture of the image, only valid and required if `Ensure` equals `Absent`
 | - X86
   - Ia64
   - X64
   - Arm
 
 | Multicast
-| 
+|
 | Boolean
 | Indicates that AutoCast or ScheduledCast should be used
 | - True
@@ -337,7 +337,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 |
 
 | NewFileName
-| 
+|
 | String
 | The new file name of the installation image
 |
@@ -358,7 +358,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 |
 | Uint32
 | The minimum client count to start a multicast transmission
-| 
+|
 
 | StartTime
 |
@@ -371,7 +371,7 @@ If you set this value to Known, a computer must be prestaged in active directory
 | String
 | The name of the transmission
 |
-    
+
 | ManualStart
 |
 | Boolean
@@ -380,7 +380,7 @@ If you set this value to Known, a computer must be prestaged in active directory
   - False
 
 | Multicast
-| 
+|
 | Boolean
 | Indicates that AutoCast or ScheduledCast should be used
 | - True
@@ -435,7 +435,7 @@ Should be empty if a MAC-Address is used as device identifier.
 |
 
 | IpAddress
-| 
+|
 | String
 | IPv4 Address to reserve for this device in DHCP server. +
 
@@ -487,7 +487,7 @@ Should be empty if a MAC-Address is used as device identifier.
 |
 | String
 | Specifies the distinguished name of an OU. +
-  The cmdlet creates the computer account object in this location. 
+  The cmdlet creates the computer account object in this location.
   If you do not specify this parameter, Windows Deployment Services creates the account in the default computer container in the domain of the server that runs Windows Deployment Services.
 |
 
@@ -511,7 +511,7 @@ Should be empty if a MAC-Address is used as device identifier.
 | Ensure
 |
 | String
-| 
+|
 | - *Present* (default)
   - Absent
 
