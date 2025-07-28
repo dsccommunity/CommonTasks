@@ -14,6 +14,6 @@ EndPoints:
   #    Everyone:
   #      RoleCapabilities: Test1
   #  SessionType: RestrictedRemoteServer
-    #ModulesToImport:
-    #- PSDesiredStateConfiguration
-    #- xDscDiagnostics
+  #ModulesToImport:
+  #- PSDesiredStateConfiguration
+  #- xDscDiagnostics

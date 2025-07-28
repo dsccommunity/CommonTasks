@@ -1,16 +1,16 @@
 VMMachines:
-  - Name:           EUATESTS01  # Name of the virtual machine
-    State:          Running     # Running | Paused | Off
+  - Name: EUATESTS01 # Name of the virtual machine
+    State: Running # Running | Paused | Off
     AutomaticStartAction: Start
     AutomaticStartDelay: 30
     AutomaticStopAction: Save
 
-  - Name:           EUATESTS02  # Name of the virtual machine
-    State:          Paused      # Running | Paused | Off
+  - Name: EUATESTS02 # Name of the virtual machine
+    State: Paused # Running | Paused | Off
     AutomaticStopAction: Save
 
-  - Name:           EUATESTA01   # Name of the virtual machine
-    State:          Off          # Running | Paused | Off
+  - Name: EUATESTA01 # Name of the virtual machine
+    State: Off # Running | Paused | Off
 
-  - Name:           EUATESTA02   # Name of the virtual machine
+  - Name: EUATESTA02 # Name of the virtual machine
     AutomaticStartAction: StartIfRunning
