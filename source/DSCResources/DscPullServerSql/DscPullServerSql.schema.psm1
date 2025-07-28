@@ -214,7 +214,7 @@ configuration DscPullServerSql
             Ensure      = 'Present'
             Name        = "DSC_PullServer_$Port"
             DisplayName = "DSC PullServer $Port"
-            group       = 'DSC PullServer'
+            Group       = 'DSC PullServer'
             Enabled     = $true
             Action      = 'Allow'
             Direction   = 'InBound'
