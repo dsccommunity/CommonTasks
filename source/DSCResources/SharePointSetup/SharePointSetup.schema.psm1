@@ -170,9 +170,9 @@ configuration SharePointSetup
     # SharePoint Setup
     $spInstall = @{
         IsSingleInstance = 'Yes'
-        BinaryDir = $BinaryDir
-        ProductKey = $ProductKey
-        DependsOn = '[SPInstallPrereqs]InstallPrerequisites'
+        BinaryDir        = $BinaryDir
+        ProductKey       = $ProductKey
+        DependsOn        = '[SPInstallPrereqs]InstallPrerequisites'
     }
     $spInstallOptional = @(
         'InstallPath', 'DataPath'

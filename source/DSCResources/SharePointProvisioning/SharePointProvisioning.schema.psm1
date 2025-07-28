@@ -45,23 +45,23 @@ configuration SharePointProvisioning
 
         [Parameter()]
         [System.String]
-        [ValidateSet("NTLM", "Kerberos")]
+        [ValidateSet('NTLM', 'Kerberos')]
         $CentralAdministrationAuth,
 
         [Parameter()]
         [System.String]
-        [ValidateSet("Application",
-            "ApplicationWithSearch",
-            "Custom",
-            "DistributedCache",
-            "Search",
-            "SingleServerFarm",
-            "WebFrontEnd",
-            "WebFrontEndWithDistributedCache")]
+        [ValidateSet('Application',
+            'ApplicationWithSearch',
+            'Custom',
+            'DistributedCache',
+            'Search',
+            'SingleServerFarm',
+            'WebFrontEnd',
+            'WebFrontEndWithDistributedCache')]
         $ServerRole,
 
         [Parameter()]
-        [ValidateSet("Off", "On", "OnDemand")]
+        [ValidateSet('Off', 'On', 'OnDemand')]
         [System.String]
         $DeveloperDashboard,
 
@@ -93,7 +93,7 @@ configuration SharePointProvisioning
         WaitForAll WaitForFarmCreation
         {
             NodeName         = $CentralAdminServerName
-            ResourceName     = "[SPFarm]SharePointFarmCreate::[SharePointProvisioning]"
+            ResourceName     = '[SPFarm]SharePointFarmCreate::[SharePointProvisioning]'
             RetryIntervalSec = 20
             RetryCount       = 180
         }

@@ -11,7 +11,7 @@ configuration RemoteDesktopLicensing
         $LicenseServer = $Node.NodeName,
 
         [Parameter(Mandatory = $true)]
-        [ValidateSet("PerUser", "PerDevice", "NotConfigured")]
+        [ValidateSet('PerUser', 'PerDevice', 'NotConfigured')]
         $LicenseMode
     )
 

@@ -8,6 +8,7 @@ configuration ScomComponents
     )
 
     Import-DscResource -ModuleName cScom
+
     <#
     [-IsSingleInstance] <string> [-Role] <Role> [-SourcePath] <string> [[-ManagementServer] <string>]
     [[-ManagementGroupName] <string>] [[-DataReader] <pscredential>] [[-DataWriter] <pscredential>]
@@ -21,7 +22,10 @@ configuration ScomComponents
     foreach ($component in $Components)
     {
         $component = @{} + $component
-        if (-not $component.Contains('IsSingleInstance')) {$component['IsSingleInstance'] = 'yes'}
+        if (-not $component.Contains('IsSingleInstance'))
+        {
+            $component['IsSingleInstance'] = 'yes'
+        }
 
         $executionName = "scomcomponent_$($component.Role)"
 

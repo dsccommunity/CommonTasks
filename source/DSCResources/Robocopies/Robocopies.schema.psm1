@@ -1,4 +1,4 @@
-Configuration Robocopies
+configuration Robocopies
 {
     param
     (
