@@ -1,8 +1,8 @@
 ﻿Entries:
-  - HostName:  server01
+  - HostName: server01
     IPAddress: 192.168.0.1
-  - HostName:  server02
+  - HostName: server02
     IPAddress: 192.168.0.2
-    Ensure:    Present
-  - HostName:  server03
-    Ensure:    Absent
+    Ensure: Present
+  - HostName: server03
+    Ensure: Absent

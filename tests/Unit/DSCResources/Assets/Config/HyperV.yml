@@ -7,39 +7,39 @@ VMSwitches:
   - Name: VMSwitchInt
     Type: Internal
     AddressSpace: 192.168.100.0/24
-    IpAddress:    192.168.100.1
-    Gateway:      192.168.100.3
+    IpAddress: 192.168.100.1
+    Gateway: 192.168.100.3
     NetworkCategory: Private
     InterfaceMetric: 50
-    
-  - Name: VMSwitchExt  
+
+  - Name: VMSwitchExt
     Type: External
     NetAdapterName: Ethernet2
     NetworkCategory: Public
 
-  - Name: VMSwitchNat 
+  - Name: VMSwitchNat
     Type: NAT
     AddressSpace: 192.168.0.0/24
-    IpAddress:    192.168.0.1
+    IpAddress: 192.168.0.1
 
-  - Name: VMSwitchPrivate  
+  - Name: VMSwitchPrivate
     Type: Private
 
-  - Name: VMSwitchNATAbsent 
+  - Name: VMSwitchNATAbsent
     Type: NAT
     Ensure: Absent
 
-  - Name: VMSwitchPrivateAbsent 
+  - Name: VMSwitchPrivateAbsent
     Type: Private
     Ensure: Absent
 
 VMMachines:
-  - Name:           EUATESTS01  # Name of the virtual machine
-    Path:           D:\VServer  # Folder where the VM data will be stored
-    State:          Running     # Running | Paused | Off
-    ProcessorCount: 2           # Processor count for the VM
-    StartupMemory:  4GB         # Startup RAM for the VM in GB
-    Notes:          Module server with 3 disks
+  - Name: EUATESTS01 # Name of the virtual machine
+    Path: D:\VServer # Folder where the VM data will be stored
+    State: Running # Running | Paused | Off
+    ProcessorCount: 2 # Processor count for the VM
+    StartupMemory: 4GB # Startup RAM for the VM in GB
+    Notes: Module server with 3 disks
     CheckpointType: Standard
     AutomaticCheckpointsEnabled: True
     AutomaticStartAction: Start
@@ -63,10 +63,10 @@ VMMachines:
           DnsServer: 192.168.0.1
       - Name: HostNet
         SwitchName: VMSwitchInt
-    Disks:           # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
-      - Name: C      # VHD file name: The first entry is the OS disk.
-        Size: 100GB  # Size of the VHD file
-        CopyOnce:    # Copy Files from Host into VHDX before VM starts at first time
+    Disks: # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
+      - Name: C # VHD file name: The first entry is the OS disk.
+        Size: 100GB # Size of the VHD file
+        CopyOnce: # Copy Files from Host into VHDX before VM starts at first time
           - Sources:
               - D:\DSC_Config\Push\CompressedModules\*
               - D:\DSC_Config\Push\MOF\*
@@ -79,27 +79,27 @@ VMMachines:
             Destination: DSC_Config\
           - Sources: T:\DSC_Config\Pull
             Destination: DSCPullserver_Config\
-      - Name: D      # VHD file name
-        Path: C:\VirtualDisks  # VHD will be created in the specified path
-        Size: 200GB  # Size of the VHD file
-      - Name: E      # VHD file name
-        CopyFrom: T:\Disks\Backup.vhdx  # VHD file will not be created but copied
+      - Name: D # VHD file name
+        Path: C:\VirtualDisks # VHD will be created in the specified path
+        Size: 200GB # Size of the VHD file
+      - Name: E # VHD file name
+        CopyFrom: T:\Disks\Backup.vhdx # VHD file will not be created but copied
     Drives:
-      - Name: S      # Drive letter
-        Path: T:\ISOs\SoftwarePackages.iso  # Name of the ISO file to be mounted
-      - Name: T      # Drive letter
-        Path: T:\ISOs\ModuleConfig.iso      # Name of the ISO file to be mounted
-      - Name: U      # Drive letter
-        Path: T:\ISOs\SystemConfig.iso      # Name of the ISO file to be mounted
-      - Name: Z      # Drive letter
-        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso  # Name of the ISO file to be mounted
+      - Name: S # Drive letter
+        Path: T:\ISOs\SoftwarePackages.iso # Name of the ISO file to be mounted
+      - Name: T # Drive letter
+        Path: T:\ISOs\ModuleConfig.iso # Name of the ISO file to be mounted
+      - Name: U # Drive letter
+        Path: T:\ISOs\SystemConfig.iso # Name of the ISO file to be mounted
+      - Name: Z # Drive letter
+        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso # Name of the ISO file to be mounted
 
-  - Name:           EUATESTS02  # Name of the virtual machine
-    Path:           D:\VServer  # Folder where the VM data will be stored
-    State:          Running     # Running | Paused | Off
-    ProcessorCount: 2           # Processor count for the VM
-    StartupMemory:  4GB         # Startup RAM for the VM in GB
-    Notes:          Module server with 3 disks
+  - Name: EUATESTS02 # Name of the virtual machine
+    Path: D:\VServer # Folder where the VM data will be stored
+    State: Running # Running | Paused | Off
+    ProcessorCount: 2 # Processor count for the VM
+    StartupMemory: 4GB # Startup RAM for the VM in GB
+    Notes: Module server with 3 disks
     CheckpointType: Standard
     AutomaticCheckpointsEnabled: True
     AutomaticStartAction: Start
@@ -120,64 +120,64 @@ VMMachines:
           DnsServer: 192.168.0.1
       - Name: HostNet
         SwitchName: VMSwitchInt
-    Disks:           # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
-      - Name: C      # VHD file name: The first entry is the OS disk.
-        Size: 100GB  # Size of the VHD file
-        CopyOnce:    # Copy Files from Host into VHDX before VM starts at first time
+    Disks: # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
+      - Name: C # VHD file name: The first entry is the OS disk.
+        Size: 100GB # Size of the VHD file
+        CopyOnce: # Copy Files from Host into VHDX before VM starts at first time
           Sources: T:\DSC_Config\Push
           Destination: DSC_Config\
     Drives:
-      - Name: S      # Drive letter
-        Path: T:\ISOs\SoftwarePackages.iso  # Name of the ISO file to be mounted
-      - Name: T      # Drive letter
-        Path: T:\ISOs\ModuleConfig.iso      # Name of the ISO file to be mounted
+      - Name: S # Drive letter
+        Path: T:\ISOs\SoftwarePackages.iso # Name of the ISO file to be mounted
+      - Name: T # Drive letter
+        Path: T:\ISOs\ModuleConfig.iso # Name of the ISO file to be mounted
 
-  - Name:           EUATESTA01   # Name of the virtual machine
-    Path:           D:\VServer   # Folder where the VM data will be stored
-    State:          Running      # Running | Paused | Off
-    ProcessorCount: 2            # Processor count for the VM
-    StartupMemory:  4GB          # Startup RAM for the VM in GB
+  - Name: EUATESTA01 # Name of the virtual machine
+    Path: D:\VServer # Folder where the VM data will be stored
+    State: Running # Running | Paused | Off
+    ProcessorCount: 2 # Processor count for the VM
+    StartupMemory: 4GB # Startup RAM for the VM in GB
     TpmEnabled: False
-    SwitchName:                 # Virtual switch(es) associated with the VM
+    SwitchName: # Virtual switch(es) associated with the VM
       - VMSwitchInt
       - VMSwitchExt
     MacAddress:
       - 00-17-FB-00-00-B0
       - 00-17-FB-00-00-A0
-    Notes:          Module client
-    Disks:           # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
-      - Name: C      # VHD file name: The first entry is the OS disk.
-        Size: 100GB  # Size of the VHD file
+    Notes: Module client
+    Disks: # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
+      - Name: C # VHD file name: The first entry is the OS disk.
+        Size: 100GB # Size of the VHD file
     Drives:
-      - Name: S      # Drive letter
-        Path: T:\ISOs\SoftwarePackages.iso  # Name of the ISO file to be mounted
-      - Name: T      # Drive letter
-        Path: T:\ISOs\ModuleConfig.iso      # Name of the ISO file to be mounted
-      - Name: U      # Drive letter
-        Path: T:\ISOs\SystemConfig.iso      # Name of the ISO file to be mounted
-      - Name: Z      # Drive letter: The last entry is the OS install drive.
-        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso  # The last entry is the OS install drive.
+      - Name: S # Drive letter
+        Path: T:\ISOs\SoftwarePackages.iso # Name of the ISO file to be mounted
+      - Name: T # Drive letter
+        Path: T:\ISOs\ModuleConfig.iso # Name of the ISO file to be mounted
+      - Name: U # Drive letter
+        Path: T:\ISOs\SystemConfig.iso # Name of the ISO file to be mounted
+      - Name: Z # Drive letter: The last entry is the OS install drive.
+        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso # The last entry is the OS install drive.
 
-  - Name:           EUATESTA02   # Name of the virtual machine
-    Path:           D:\VServer   # Folder where the VM data will be stored
-    State:          Running      # Running | Paused | Off
-    ProcessorCount: 2            # Processor count for the VM
-    StartupMemory:  4GB          # Startup RAM for the VM in GB
-    SwitchName:     VMSwitchExt
-    MacAddress:     00-17-FB-00-00-C0
-    Notes:          Module client
-    Disks:           # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
-      - Name: C      # VHD file name: The first entry is the OS disk.
-        Size: 100GB  # Size of the VHD file
+  - Name: EUATESTA02 # Name of the virtual machine
+    Path: D:\VServer # Folder where the VM data will be stored
+    State: Running # Running | Paused | Off
+    ProcessorCount: 2 # Processor count for the VM
+    StartupMemory: 4GB # Startup RAM for the VM in GB
+    SwitchName: VMSwitchExt
+    MacAddress: 00-17-FB-00-00-C0
+    Notes: Module client
+    Disks: # Disks will be created in VMMachine.Path\VMMachine.Name\Disks
+      - Name: C # VHD file name: The first entry is the OS disk.
+        Size: 100GB # Size of the VHD file
     Drives:
-      - Name: S      # Drive letter
-        Path: T:\ISOs\SoftwarePackages.iso  # Name of the ISO file to be mounted
-      - Name: T      # Drive letter
-        Path: T:\ISOs\ModuleConfig.iso      # Name of the ISO file to be mounted
-      - Name: U      # Drive letter
-        Path: T:\ISOs\SystemConfig.iso      # Name of the ISO file to be mounted
-      - Name: Z      # Drive letter: The last entry is the OS install drive.
-        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso  # The last entry is the OS install drive.
+      - Name: S # Drive letter
+        Path: T:\ISOs\SoftwarePackages.iso # Name of the ISO file to be mounted
+      - Name: T # Drive letter
+        Path: T:\ISOs\ModuleConfig.iso # Name of the ISO file to be mounted
+      - Name: U # Drive letter
+        Path: T:\ISOs\SystemConfig.iso # Name of the ISO file to be mounted
+      - Name: Z # Drive letter: The last entry is the OS install drive.
+        Path: T:\ISOs\WinSrv_IoT_2019_Standard.iso # The last entry is the OS install drive.
 
-  - Name:    VMABSENT  # Name of the virtual machine
-    Ensure:  Absent
+  - Name: VMABSENT # Name of the virtual machine
+    Ensure: Absent

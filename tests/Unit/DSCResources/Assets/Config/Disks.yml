@@ -1,14 +1,14 @@
 Disks:
-  - DiskId:             0
-    DiskIdType:         Number
-    DriveLetter:        C
-    PartitionStyle:     MBR
-    FSLabel:            System
-    Size:               1000000
+  - DiskId: 0
+    DiskIdType: Number
+    DriveLetter: C
+    PartitionStyle: MBR
+    FSLabel: System
+    Size: 1000000
     AllocationUnitSize: 4096
-    FSFormat:           NTFS
-    AllowDestructive:   true
-    ClearDisk:          true
+    FSFormat: NTFS
+    AllowDestructive: true
+    ClearDisk: true
   - DiskId: 1
     DiskIdType: Number
     DriveLetter: D
