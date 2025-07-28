@@ -1,24 +1,24 @@
 DefaultInstanceName: MSSQLSERVER
 MailSetups:
-  - ServerName: 'Servername'
-    InstanceName: 'DSCSQLTEST'
-    AccountName : 'MyMail'
-    ProfileName : 'MyMailProfile'
-    EmailAddress: 'NoReply@company.local'
-    ReplyToAddress: 'NoReply@company.local'
-    DisplayName : 'mail.company.local'
-    MailServerName: 'mail.company.local'
-    Description : 'Default mail account and profile.'
-    LoggingLevel: 'Normal'
+  - ServerName: Servername
+    InstanceName: DSCSQLTEST
+    AccountName: MyMail
+    ProfileName: MyMailProfile
+    EmailAddress: NoReply@company.local
+    ReplyToAddress: NoReply@company.local
+    DisplayName: mail.company.local
+    MailServerName: mail.company.local
+    Description: Default mail account and profile.
+    LoggingLevel: Normal
     TcpPort: 25
-  - ServerName: 'Servername'
-    InstanceName: 'DSCSQLTEST'
-    AccountName : 'MyMail2'
-    ProfileName : 'MyMailProfile2'
-    EmailAddress: 'NoReply2@company.local'
-    ReplyToAddress: 'NoReply2@company.local'
-    DisplayName : 'mail.company.local'
-    MailServerName: 'mail.company.local'
-    Description : 'Second Default mail account and profile.'
-    LoggingLevel: 'Normal'
+  - ServerName: Servername
+    InstanceName: DSCSQLTEST
+    AccountName: MyMail2
+    ProfileName: MyMailProfile2
+    EmailAddress: NoReply2@company.local
+    ReplyToAddress: NoReply2@company.local
+    DisplayName: mail.company.local
+    MailServerName: mail.company.local
+    Description: Second Default mail account and profile.
+    LoggingLevel: Normal
     TcpPort: 25

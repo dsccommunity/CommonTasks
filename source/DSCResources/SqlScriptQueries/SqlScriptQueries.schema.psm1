@@ -33,8 +33,8 @@ configuration SqlScriptQueries {
             $query.InstanceName = $DefaultInstanceName
         }
 
-        $ByteString = [System.Text.Encoding]::UTF8.GetBytes(($query.ServerName+$query.InstanceName+$query.TestQuery+$query.SetQuery+$query.GetQuery))
-        $hash = [System.BitConverter]::ToString($HashClass.ComputeHash($ByteString)) -replace '-',''
+        $ByteString = [System.Text.Encoding]::UTF8.GetBytes(($query.ServerName + $query.InstanceName + $query.TestQuery + $query.SetQuery + $query.GetQuery))
+        $hash = [System.BitConverter]::ToString($HashClass.ComputeHash($ByteString)) -replace '-', ''
         $executionName = "SqlQuery_$($query.ServerName)_$($query.InstanceName)_$($hash)"
         (Get-DscSplattedResource -ResourceName SqlScriptQuery -ExecutionName $executionName -Properties $query -NoInvoke).Invoke($query)
     }

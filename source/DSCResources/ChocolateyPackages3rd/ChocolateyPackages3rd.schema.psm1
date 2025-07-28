@@ -35,7 +35,7 @@ configuration ChocolateyPackages3rd {
                 {
                     New-Item -Path $using:rebootKeyName -Force
                 }
-                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -Value 1
                 $global:DSCMachineStatus = 1
             }
             GetScript  = { return `
@@ -116,7 +116,7 @@ configuration ChocolateyPackages3rd {
                         {
                             New-Item -Path $using:rebootKeyName -Force
                         }
-                        Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                        Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -Value 1
                         $global:DSCMachineStatus = 1
                     }
                     GetScript  = { return `

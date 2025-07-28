@@ -27,7 +27,7 @@ configuration SecurityPolicies
     {
         foreach ($policy in $AccountPolicies)
         {
-            $executionName = "secPolAcc_" + ($policy.Name -replace '\(|\)|\.|:| ', '')
+            $executionName = 'secPolAcc_' + ($policy.Name -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName AccountPolicy -ExecutionName $executionName -Properties $policy -NoInvoke).Invoke( $policy )
         }
     }
@@ -36,7 +36,7 @@ configuration SecurityPolicies
     {
         foreach ($option in $SecurityOptions)
         {
-            $executionName = "secPolOpt_" + ($option.Name -replace '\(|\)|\.|:| ', '')
+            $executionName = 'secPolOpt_' + ($option.Name -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName SecurityOption -ExecutionName $executionName -Properties $option -NoInvoke).Invoke( $option )
         }
     }
@@ -55,7 +55,7 @@ configuration SecurityPolicies
                 throw "UserRightsAssignment: Attribute 'Identity' of policy '$($assign.Policy)' is missing and must have a value (specify an empty value with '')."
             }
 
-            $executionName = "secPolUsr_" + ($assign.Policy -replace '\(|\)|\.|:| ', '')
+            $executionName = 'secPolUsr_' + ($assign.Policy -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName UserRightsAssignment -ExecutionName $executionName -Properties $assign -NoInvoke).Invoke( $assign )
         }
     }
@@ -66,6 +66,6 @@ configuration SecurityPolicies
             Path             = $SecurityTemplatePath
             IsSingleInstance = 'Yes'
         }
-        (Get-DscSplattedResource -ResourceName SecurityTemplate -ExecutionName "secTemplate" -Properties $securityTemplate -NoInvoke).Invoke( $securityTemplate )
+        (Get-DscSplattedResource -ResourceName SecurityTemplate -ExecutionName 'secTemplate' -Properties $securityTemplate -NoInvoke).Invoke($securityTemplate)
     }
 }

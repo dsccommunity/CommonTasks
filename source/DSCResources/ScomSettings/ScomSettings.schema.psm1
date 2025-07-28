@@ -1,4 +1,4 @@
-Configuration ScomSettings
+configuration ScomSettings
 {
     [CmdletBinding()]
     param

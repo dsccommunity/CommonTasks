@@ -9,7 +9,6 @@ Subscriptions:
     Address:
       - tester.contoso.com
       - tester2.contoso.com
-
 # Test: Source Node
 # NodeType: Source
 # CollectorName: collector.contoso.com

@@ -36,13 +36,13 @@ configuration DnsServerQueryResolutionPolicies
                     # FQDN ends with . -> this character is added by Add/Set function if not present in YAML FQDN definition
                     if ( $critType -eq 'Fqdn' -and
                         (($critVal -eq $using:fqdn) -or
-                         ($critVal.EndsWith('.') -and ($critVal.Substring(0, $critVal.Length - 1)) -eq $using:fqdn)) )
+                        ($critVal.EndsWith('.') -and ($critVal.Substring(0, $critVal.Length - 1)) -eq $using:fqdn)) )
                     {
                         return $true
                     }
                 }
 
-                Write-Verbose "Differences found."
+                Write-Verbose 'Differences found.'
                 return $false
             }
             SetScript  = {

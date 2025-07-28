@@ -1,4 +1,4 @@
 ﻿InternetExplorer:
-  StartPage: 'https://www.contoso.com'
+  StartPage: https://www.contoso.com
 Edge:
-  StartPage: 'https://www.contoso.com'
+  StartPage: https://www.contoso.com

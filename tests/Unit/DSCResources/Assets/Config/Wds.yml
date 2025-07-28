@@ -17,11 +17,11 @@ ImageGroups:
     Ensure: Absent
 BootImages:
   - NewImageName: contoso boot
-    Path:         D:\sources\boot.wim
+    Path: D:\sources\boot.wim
   - NewImageName: contoso second boot
-    Path:         D:\sources\boot2.wim
+    Path: D:\sources\boot2.wim
     NewDescription: New boot image
-    NewFileName:  boot_arm.wim
+    NewFileName: boot_arm.wim
     TransmissionName: BootTransmission
     DisplayOrder: 2
     Ensure: Present
@@ -45,17 +45,17 @@ InstallImages:
     ManualStart: false
     Ensure: Present
   - NewImageName: Contoso custom Windows Server
-    ImageName:    Windows Server SERVERDATACENTERACORE
-    Path:         D:\sources\install.wim
+    ImageName: Windows Server SERVERDATACENTERACORE
+    Path: D:\sources\install.wim
 DeviceReservations:
-  - DeviceName:      Client01
-    MacAddress:      00-15-5D-02-28-37
-    IPAddress:       192.168.12.22
+  - DeviceName: Client01
+    MacAddress: 00-15-5D-02-28-37
+    IPAddress: 192.168.12.22
     PxePromptPolicy: NoPrompt
-    JoinDomain:      true
-    OU:              OU=SpecialClients,OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
-    JoinRights:      JoinOnly
-    User:            contoso\joinuser
-    Ensure:          Present
-  - DeviceName:      Server02
-    DeviceID:        123456781234-567812345678
+    JoinDomain: true
+    OU: OU=SpecialClients,OU=Clients,OU=Computer,OU=Contoso,DC=contoso,DC=com
+    JoinRights: JoinOnly
+    User: contoso\joinuser
+    Ensure: Present
+  - DeviceName: Server02
+    DeviceID: 123456781234-567812345678

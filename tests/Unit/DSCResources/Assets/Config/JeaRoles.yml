@@ -1,5 +1,4 @@
 Roles:
-
   - Path: C:\Program Files\WindowsPowerShell\Modules\Test\RoleCapabilities\Test1.psrc
     VisibleFunctions:
       - F1

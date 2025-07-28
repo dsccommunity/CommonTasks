@@ -41,7 +41,7 @@ configuration ChocolateyPackages {
 
                     try
                     {
-                        Write-Verbose "Loading machine Path Environment variable into session."
+                        Write-Verbose 'Loading machine Path Environment variable into session.'
                         $envPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
                         [Environment]::SetEnvironmentVariable($envPath, 'Process')
 
@@ -52,7 +52,7 @@ configuration ChocolateyPackages {
                             $installDir = (Resolve-Path $installDir -ErrorAction Stop).Path
                         }
 
-                        if ($chocoCmd = get-command choco.exe -CommandType Application -ErrorAction SilentlyContinue)
+                        if ($chocoCmd = Get-Command choco.exe -CommandType Application -ErrorAction SilentlyContinue)
                         {
                             if (
                                 !$installDir -or
@@ -72,7 +72,7 @@ configuration ChocolateyPackages {
                         }
                         else
                         {
-                            Write-Verbose "Chocolatey Software not found."
+                            Write-Verbose 'Chocolatey Software not found.'
                             return $false
                         }
                     }
@@ -94,7 +94,7 @@ configuration ChocolateyPackages {
                     $tempDir = [io.path]::Combine($Env:TEMP, 'chocolatey', 'chocInstall')
                     if (![System.IO.Directory]::Exists($tempDir))
                     {
-                        $null = New-Item -path $tempDir -ItemType Directory
+                        $null = New-Item -Path $tempDir -ItemType Directory
                     }
 
                     if ( -not (Test-Path $using:swOfflineInstallZip) )
@@ -122,7 +122,7 @@ configuration ChocolateyPackages {
                     {
                         try
                         {
-                            $shellApplication = new-object -com shell.application
+                            $shellApplication = New-Object -com shell.application
                             $zipPackage = $shellApplication.NameSpace($zipFile)
                             $destinationFolder = $shellApplication.NameSpace($tempDir)
                             $destinationFolder.CopyHere($zipPackage.Items(), 0x10)
@@ -135,7 +135,7 @@ configuration ChocolateyPackages {
                     }
 
                     # Call chocolatey install
-                    Write-Verbose "Installing chocolatey on this machine."
+                    Write-Verbose 'Installing chocolatey on this machine.'
                     $TempTools = [io.path]::combine($tempDir, 'tools')
                     #   To be able to mock
                     $chocInstallPS1 = Join-Path $TempTools 'chocolateyInstall.ps1'
@@ -264,7 +264,7 @@ configuration ChocolateyPackages {
                 {
                     New-Item -Path $using:rebootKeyName -Force
                 }
-                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -Value 1
                 $global:DSCMachineStatus = 1
             }
             GetScript  = { return `
@@ -350,7 +350,7 @@ configuration ChocolateyPackages {
                         {
                             New-Item -Path $using:rebootKeyName -Force
                         }
-                        Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                        Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -Value 1
                         $global:DSCMachineStatus = 1
                     }
                     GetScript  = { return `

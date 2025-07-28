@@ -11,7 +11,7 @@ configuration HyperVReplica
         [Parameter()]
         [Int32]
         $CertificateAuthenticationPort = 0,
-    
+
         [Parameter()]
         [String]
         $CertificateThumbprint,
@@ -99,7 +99,7 @@ configuration HyperVReplica
                         Write-Verbose "MonitoringStartTime is $($repSrv.MonitoringStartTime) -> expected: $using:MonitoringStartTime"
                         $status = $false
                     }
-            
+
                     if ( $using:ReplicationAllowedFromAnyServer -ne $repSrv.ReplicationAllowedFromAnyServer )
                     {
                         Write-Verbose "ReplicationAllowedFromAnyServer is $($repSrv.ReplicationAllowedFromAnyServer) -> expected: $using:ReplicationAllowedFromAnyServer"
@@ -108,7 +108,7 @@ configuration HyperVReplica
                 }
                 else
                 {
-                    Write-Verbose "VM Replication is not enabled."
+                    Write-Verbose 'VM Replication is not enabled.'
                 }
             }
 
@@ -119,13 +119,34 @@ configuration HyperVReplica
                 ReplicationEnabled              = $True
                 ReplicationAllowedFromAnyServer = $using:ReplicationAllowedFromAnyServer
             }
-            if ( -not [string]::IsNullOrWhiteSpace( $using:AllowedAuthenticationType ) ) { $params.AllowedAuthenticationType     = $using:AllowedAuthenticationType }
-            if ( $using:CertificateAuthenticationPort -gt 0 )                            { $params.CertificateAuthenticationPort = $using:CertificateAuthenticationPort }
-            if ( -not [string]::IsNullOrWhiteSpace( $using:CertificateThumbprint ) )     { $params.CertificateThumbprint         = $using:CertificateThumbprint }
-            if ( -not [string]::IsNullOrWhiteSpace( $using:DefaultStorageLocation ) )    { $params.DefaultStorageLocation        = $using:DefaultStorageLocation }
-            if ( $using:KerberosAuthenticationPort -gt 0 )                               { $params.KerberosAuthenticationPort    = $using:KerberosAuthenticationPort }
-            if ( -not [string]::IsNullOrWhiteSpace( $using:MonitoringInterval ) )        { $params.MonitoringInterval            = $using:MonitoringInterval }
-            if ( -not [string]::IsNullOrWhiteSpace( $using:MonitoringStartTime ) )       { $params.MonitoringStartTime           = $using:MonitoringStartTime }
+            if ( -not [string]::IsNullOrWhiteSpace( $using:AllowedAuthenticationType ) )
+            {
+                $params.AllowedAuthenticationType = $using:AllowedAuthenticationType
+            }
+            if ( $using:CertificateAuthenticationPort -gt 0 )
+            {
+                $params.CertificateAuthenticationPort = $using:CertificateAuthenticationPort
+            }
+            if ( -not [string]::IsNullOrWhiteSpace( $using:CertificateThumbprint ) )
+            {
+                $params.CertificateThumbprint = $using:CertificateThumbprint
+            }
+            if ( -not [string]::IsNullOrWhiteSpace( $using:DefaultStorageLocation ) )
+            {
+                $params.DefaultStorageLocation = $using:DefaultStorageLocation
+            }
+            if ( $using:KerberosAuthenticationPort -gt 0 )
+            {
+                $params.KerberosAuthenticationPort = $using:KerberosAuthenticationPort
+            }
+            if ( -not [string]::IsNullOrWhiteSpace( $using:MonitoringInterval ) )
+            {
+                $params.MonitoringInterval = $using:MonitoringInterval
+            }
+            if ( -not [string]::IsNullOrWhiteSpace( $using:MonitoringStartTime ) )
+            {
+                $params.MonitoringStartTime = $using:MonitoringStartTime
+            }
 
             Write-Verbose "Set-VMReplicationServer with:`n $($s=''; $params.GetEnumerator() | ForEach-Object { $s+="$($_.Name)='$($_.Value)'  " }; $s)"
             Set-VMReplicationServer @params
@@ -142,9 +163,9 @@ configuration HyperVReplica
         foreach ($vmDef in $VMMachines)
         {
             if ( [string]::IsNullOrWhiteSpace( $vmDef.Name ) -or
-                 [string]::IsNullOrWhiteSpace( $vmDef.ReplicaServerName ) -or
-                 [string]::IsNullOrWhiteSpace( $vmDef.ReplicaServerPort ) -or
-                 [string]::IsNullOrWhiteSpace( $vmDef.AuthenticationType ) )
+                [string]::IsNullOrWhiteSpace( $vmDef.ReplicaServerName ) -or
+                [string]::IsNullOrWhiteSpace( $vmDef.ReplicaServerPort ) -or
+                [string]::IsNullOrWhiteSpace( $vmDef.AuthenticationType ) )
             {
                 throw "ERROR: VM '$($vmDef.Name)': Missing mandatory parameters 'Name', 'ReplicaServerName', 'ReplicaServerPort' or 'AuthenticationType'."
             }
@@ -163,17 +184,17 @@ configuration HyperVReplica
                         $status = $true
 
                         if ( (-not [string]::IsNullOrWhiteSpace( $using:vmDef.CompressionEnabled ) -and $vmRep.CompressionEnabled -ne $using:vmDef.CompressionEnabled) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicateHostKvpItems ) -and $vmRep.ReplicateHostKvpItems -ne $using:vmDef.ReplicateHostKvpItems) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.BypassProxyServer ) -and $vmRep.BypassProxyServer -ne $using:vmDef.BypassProxyServer) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.VSSSnapshotFrequencyHour ) -and $vmRep.VSSSnapshotFrequencyHour -ne $using:vmDef.VSSSnapshotFrequencyHour) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.RecoveryHistory ) -and $vmRep.RecoveryHistory -ne $using:vmDef.RecoveryHistory) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicationFrequencySec ) -and $vmRep.ReplicationFrequencySec -ne $using:vmDef.ReplicationFrequencySec) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeEnabled ) -and $vmRep.AutoResynchronizeEnabled -ne $using:vmDef.AutoResynchronizeEnabled) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalStart ) -and $vmRep.AutoResynchronizeIntervalStart -ne $using:vmDef.AutoResynchronizeIntervalStart) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalEnd ) -and $vmRep.AutoResynchronizeIntervalEnd -ne $using:vmDef.AutoResynchronizeIntervalEnd) -or
-                             (-not [string]::IsNullOrWhiteSpace( $using:vmDef.EnableWriteOrderPreservationAcrossDisks ) -and $vmRep.EnableWriteOrderPreservationAcrossDisks -ne $using:vmDef.EnableWriteOrderPreservationAcrossDisks) )
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicateHostKvpItems ) -and $vmRep.ReplicateHostKvpItems -ne $using:vmDef.ReplicateHostKvpItems) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.BypassProxyServer ) -and $vmRep.BypassProxyServer -ne $using:vmDef.BypassProxyServer) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.VSSSnapshotFrequencyHour ) -and $vmRep.VSSSnapshotFrequencyHour -ne $using:vmDef.VSSSnapshotFrequencyHour) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.RecoveryHistory ) -and $vmRep.RecoveryHistory -ne $using:vmDef.RecoveryHistory) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicationFrequencySec ) -and $vmRep.ReplicationFrequencySec -ne $using:vmDef.ReplicationFrequencySec) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeEnabled ) -and $vmRep.AutoResynchronizeEnabled -ne $using:vmDef.AutoResynchronizeEnabled) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalStart ) -and $vmRep.AutoResynchronizeIntervalStart -ne $using:vmDef.AutoResynchronizeIntervalStart) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalEnd ) -and $vmRep.AutoResynchronizeIntervalEnd -ne $using:vmDef.AutoResynchronizeIntervalEnd) -or
+                            (-not [string]::IsNullOrWhiteSpace( $using:vmDef.EnableWriteOrderPreservationAcrossDisks ) -and $vmRep.EnableWriteOrderPreservationAcrossDisks -ne $using:vmDef.EnableWriteOrderPreservationAcrossDisks) )
                         {
-                            Write-Verbose "Optional replication parameters are diffent."
+                            Write-Verbose 'Optional replication parameters are diffent.'
                             $status = $false
                         }
                     }
@@ -181,40 +202,73 @@ configuration HyperVReplica
                     {
                         Write-Verbose "Replication of VM '$($using:vmDef.Name)' is not enabled."
                     }
-    
+
                     return $status
                 }
                 SetScript  = {
                     $params = @{
                         VMName = $using:vmDef.Name
                     }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.CompressionEnabled ) )       { $params.CompressionEnabled       = $using:vmDef.CompressionEnabled }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicateHostKvpItems ) )    { $params.ReplicateHostKvpItems    = $using:vmDef.ReplicateHostKvpItems }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.BypassProxyServer ) )        { $params.BypassProxyServer        = $using:vmDef.BypassProxyServer }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.VSSSnapshotFrequencyHour ) ) { $params.VSSSnapshotFrequencyHour = $using:vmDef.VSSSnapshotFrequencyHour }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.RecoveryHistory ) )          { $params.RecoveryHistory          = $using:vmDef.RecoveryHistory }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicationFrequencySec ) )  { $params.ReplicationFrequencySec  = $using:vmDef.ReplicationFrequencySec }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeEnabled ) )       { $params.AutoResynchronizeEnabled       = $using:vmDef.AutoResynchronizeEnabled }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalStart ) ) { $params.AutoResynchronizeIntervalStart = $using:vmDef.AutoResynchronizeIntervalStart }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalEnd ) )   { $params.AutoResynchronizeIntervalEnd   = $using:vmDef.AutoResynchronizeIntervalEnd }
-                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.EnableWriteOrderPreservationAcrossDisks ) ) { $params.EnableWriteOrderPreservationAcrossDisks = $using:vmDef.EnableWriteOrderPreservationAcrossDisks }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.CompressionEnabled ) )
+                    {
+                        $params.CompressionEnabled = $using:vmDef.CompressionEnabled
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicateHostKvpItems ) )
+                    {
+                        $params.ReplicateHostKvpItems = $using:vmDef.ReplicateHostKvpItems
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.BypassProxyServer ) )
+                    {
+                        $params.BypassProxyServer = $using:vmDef.BypassProxyServer
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.VSSSnapshotFrequencyHour ) )
+                    {
+                        $params.VSSSnapshotFrequencyHour = $using:vmDef.VSSSnapshotFrequencyHour
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.RecoveryHistory ) )
+                    {
+                        $params.RecoveryHistory = $using:vmDef.RecoveryHistory
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.ReplicationFrequencySec ) )
+                    {
+                        $params.ReplicationFrequencySec = $using:vmDef.ReplicationFrequencySec
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeEnabled ) )
+                    {
+                        $params.AutoResynchronizeEnabled = $using:vmDef.AutoResynchronizeEnabled
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalStart ) )
+                    {
+                        $params.AutoResynchronizeIntervalStart = $using:vmDef.AutoResynchronizeIntervalStart
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.AutoResynchronizeIntervalEnd ) )
+                    {
+                        $params.AutoResynchronizeIntervalEnd = $using:vmDef.AutoResynchronizeIntervalEnd
+                    }
+                    if ( -not [string]::IsNullOrWhiteSpace( $using:vmDef.EnableWriteOrderPreservationAcrossDisks ) )
+                    {
+                        $params.EnableWriteOrderPreservationAcrossDisks = $using:vmDef.EnableWriteOrderPreservationAcrossDisks
+                    }
 
                     $vmRep = Get-VMReplication -VMName $using:vmDef.Name -ErrorAction SilentlyContinue
 
                     if ( $null -eq $vmRep )
                     {
-                        $params.ReplicaServerName  = $using:vmDef.ReplicaServerName
-                        $params.ReplicaServerPort  = $using:vmDef.ReplicaServerPort
+                        $params.ReplicaServerName = $using:vmDef.ReplicaServerName
+                        $params.ReplicaServerPort = $using:vmDef.ReplicaServerPort
                         $params.AuthenticationType = $using:vmDef.AuthenticationType
-                        if ( -not [string]::IsNullOrWhiteSpace( $using:CertificateThumbprint ) )  { $params.CertificateThumbprint = $using:CertificateThumbprint }
+                        if ( -not [string]::IsNullOrWhiteSpace( $using:CertificateThumbprint ) )
+                        {
+                            $params.CertificateThumbprint = $using:CertificateThumbprint
+                        }
 
                         Write-Verbose "Enable-VMReplication with:`n $($s=''; $params.GetEnumerator() | ForEach-Object { $s+="$($_.Name)='$($_.Value)'  " }; $s)"
-                        Enable-VMReplication @params    
+                        Enable-VMReplication @params
                     }
                     else
                     {
                         Write-Verbose "Set-VMReplication with:`n $($s=''; $params.GetEnumerator() | ForEach-Object { $s+="$($_.Name)='$($_.Value)'  " }; $s)"
-                        Set-VMReplication @params    
+                        Set-VMReplication @params
                     }
                 }
                 GetScript  = { return `
@@ -225,7 +279,7 @@ configuration HyperVReplica
             }
         }
     }
-    
+
     # restore PSModulePath to reset changes made during MOF compilation
     $env:PSModulePath = $curPSModulePath
 }

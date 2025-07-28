@@ -1,4 +1,4 @@
-Sites:    
+Sites:
   - Name: Contoso Content
     Url: https://content.contoso.com
     OwnerAlias: contoso\sp_setup

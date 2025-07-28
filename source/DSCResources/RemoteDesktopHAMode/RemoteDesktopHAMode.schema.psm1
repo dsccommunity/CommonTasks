@@ -1,29 +1,29 @@
 configuration RemoteDesktopHAMode
 {
-    [CmdletBinding(DefaultParameterSetName='NoDependsOn')]
+    [CmdletBinding(DefaultParameterSetName = 'NoDependsOn')]
     param
     (
-        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'NoDependsOn')]
         [string]
         $ConnectionBroker,
 
-        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'NoDependsOn')]
         [string]
         $ClientAccessName,
 
-        [Parameter(Mandatory = $true, ParameterSetName='NoDependsOn')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'NoDependsOn')]
         [string]
         $DatabaseConnectionString,
 
-        [Parameter(ParameterSetName='NoDependsOn')]
+        [Parameter(ParameterSetName = 'NoDependsOn')]
         [string]
         $DatabaseSecondaryConnectionString,
 
-        [Parameter(ParameterSetName='NoDependsOn')]
+        [Parameter(ParameterSetName = 'NoDependsOn')]
         [string]
         $DatabaseFilePath,
 
-        [Parameter(ParameterSetName='DependsOn')]
+        [Parameter(ParameterSetName = 'DependsOn')]
         [hashtable]
         $Config
     )
@@ -32,7 +32,7 @@ configuration RemoteDesktopHAMode
 
     if ($DependsOn -and -not $Config)
     {
-        throw "If DependsOn is specified, the configuration must be indented and passed using the Config parameter."
+        throw 'If DependsOn is specified, the configuration must be indented and passed using the Config parameter.'
     }
 
     if ($Config)

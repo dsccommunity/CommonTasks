@@ -60,7 +60,7 @@ configuration AddsOrgUnitsAndGroups
 
         if ($SkipDepend)
         {
-            ADOrganizationalUnit ($ouPath -Replace '\W')
+            ADOrganizationalUnit ($ouPath -replace '\W')
             {
                 Name      = $Object.Name
                 Path      = $Object.Path
@@ -69,7 +69,7 @@ configuration AddsOrgUnitsAndGroups
         }
         else
         {
-            ADOrganizationalUnit ($ouPath -Replace '\W')
+            ADOrganizationalUnit ($ouPath -replace '\W')
             {
                 Name      = $Object.Name
                 Path      = $Object.Path

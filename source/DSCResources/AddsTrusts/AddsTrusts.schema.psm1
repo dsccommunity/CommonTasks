@@ -26,7 +26,7 @@ configuration AddsTrusts
         (Get-DscSplattedResource -ResourceName WaitForADDomain -ExecutionName $trust.TargetDomainName -Properties $waitFor -NoInvoke).Invoke($waitFor)
 
         $trust['DependsOn'] = "[WaitForADDomain]$($trust.TargetDomainName)"
-        $executionName = "$($trust.SourceDomainName)-to-$($trust.TargetDomainName)".Replace('.','-')
+        $executionName = "$($trust.SourceDomainName)-to-$($trust.TargetDomainName)".Replace('.', '-')
         (Get-DscSplattedResource -ResourceName ADDomainTrust -ExecutionName $executionName -Properties $trust -NoInvoke).Invoke($trust)
     }
 }

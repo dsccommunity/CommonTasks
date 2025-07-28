@@ -1,4 +1,4 @@
-Configuration PowershellExecutionPolicies
+configuration PowershellExecutionPolicies
 {
     param
     (

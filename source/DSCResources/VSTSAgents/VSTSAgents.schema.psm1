@@ -1,6 +1,6 @@
-Configuration VSTSAgents
+configuration VSTSAgents
 {
-    param 
+    param
     (
         [Parameter(Mandatory = $true)]
         [hashtable[]] $Agents
@@ -12,9 +12,9 @@ Configuration VSTSAgents
     {
         $agent = @{} + $agent
 
-        if (-not $agent.ContainsKey("Ensure"))
+        if (-not $agent.ContainsKey('Ensure'))
         {
-            $agent.Ensure = "Present"
+            $agent.Ensure = 'Present'
         }
 
         $executionName = "xVSTSAgent_$($agent.Name)" -replace '[\s(){}/\\:-]', '_'

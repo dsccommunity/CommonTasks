@@ -30,8 +30,7 @@ configuration WindowsEventForwarding
     {
         Script NetworkServiceInLocalEventLogReadersGroup
         {
-            TestScript = 
-            {
+            TestScript = {
                 [boolean] $result = $false
 
                 # enum DomainRole
@@ -40,7 +39,7 @@ configuration WindowsEventForwarding
                 # - Standalone_Server         = 2
                 # - Member_Server_            = 3
                 # - Backup_Domain_Controller  = 4
-                # - Primary_Domain_Controller = 5       
+                # - Primary_Domain_Controller = 5
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
                 # SID 'S-1-5-32-573' -> builtin group 'Event Log Readers'
@@ -73,8 +72,7 @@ configuration WindowsEventForwarding
 
                 return $result
             }
-            SetScript = 
-            {
+            SetScript  = {
                 $domainRole = Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -ExpandProperty DomainRole
 
                 # SID 'S-1-5-32-573' -> builtin group 'Event Log Readers'
@@ -92,7 +90,7 @@ configuration WindowsEventForwarding
                     Write-Error "ATTENTION: Adding builtin account 'NT AUTHORITY\NETWORK SERVICE' to domain group 'Event Log Readers' via Powershell is not supported and shall be done manually with RSAT or automatically with a GPO."
                 }
             }
-            GetScript = { return 'NA' }   
+            GetScript  = { return 'NA' }
         }
     }
 
@@ -134,14 +132,13 @@ configuration WindowsEventForwarding
                     Write-Verbose "Urlacl of '$using:httpUrl' and '$using:httpsUrl'' is valid."
                     return $true
                 }
-                SetScript  =
-                {
+                SetScript = {
                     netsh http delete urlacl url=$using:httpUrl
                     netsh http add urlacl url=$using:httpUrl sddl=$using:newUrlAcl
                     netsh http delete urlacl url=$using:httpsUrl
                     netsh http add urlacl url=$using:httpsUrl sddl=$using:newUrlAcl
                 }
-                GetScript  = { return 'NA' }
+                GetScript = { return 'NA' }
             }
         }
 
@@ -156,7 +153,7 @@ configuration WindowsEventForwarding
             $subscription.DependsOn = '[xWEFCollector]wefCollector'
 
             $executionName = "wefsub_$($subscription.SubscriptionID -replace '[().:\s]', '')"
-            (Get-DscSplattedResource -ResourceName xWEFSubscription  -ExecutionName $executionName -Properties $subscription -NoInvoke).Invoke($subscription)
+            (Get-DscSplattedResource -ResourceName xWEFSubscription -ExecutionName $executionName -Properties $subscription -NoInvoke).Invoke($subscription)
         }
     }
     elseif ($NodeType -eq 'Source')
@@ -171,7 +168,7 @@ configuration WindowsEventForwarding
             throw 'ERROR: A CollectorName is required on source nodes.'
         }
 
-        Group CollectorInLocalEventLogReadersGroup
+        group CollectorInLocalEventLogReadersGroup
         {
             GroupName        = 'Event Log Readers'
             Ensure           = 'Present'

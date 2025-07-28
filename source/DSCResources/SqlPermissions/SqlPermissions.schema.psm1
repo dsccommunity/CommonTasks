@@ -75,7 +75,7 @@ configuration SqlPermissions {
         # Refactored permissions with SqlServerDsc 16.0.0
         # see https://github.com/dsccommunity/SqlServerDsc/wiki/SqlPermission
 
-        $permission          = Get-Permission -permissionValues $value.Permission
+        $permission = Get-Permission -permissionValues $value.Permission
         $permissionToInclude = Get-Permission -permissionValues $value.PermissionToInclude
         $permissionToExclude = Get-Permission -permissionValues $value.PermissionToExclude
 
@@ -83,13 +83,13 @@ configuration SqlPermissions {
 
         SqlPermission $executionName
         {
-            InstanceName         = $value.InstanceName
-            Name                 = $value.Name
-            ServerName           = $value.ServerName
-            Credential           = $value.Credential
-            Permission           = $permission
-            PermissionToInclude  = $permissionToInclude
-            PermissionToExclude  = $permissionToExclude
+            InstanceName        = $value.InstanceName
+            Name                = $value.Name
+            ServerName          = $value.ServerName
+            Credential          = $value.Credential
+            Permission          = $permission
+            PermissionToInclude = $permissionToInclude
+            PermissionToExclude = $permissionToExclude
         }
     }
 }

@@ -125,9 +125,9 @@ configuration AddsProtectFromAccidentalDeletion
             SetScript  = {
                 Get-ADUser -Filter $using:FilterUser | Set-ADObject -ProtectedFromAccidentalDeletion $true
             }
-            GetScript  = { return `@{
-                result = 'N/A'
-             }
+            GetScript  = { return `@ {
+                    result = 'N/A'
+                }
             }
         }
     }

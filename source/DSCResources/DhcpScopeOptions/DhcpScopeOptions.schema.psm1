@@ -30,6 +30,6 @@ configuration DhcpScopeOptions
         }
 
         $executionName = "$($node.Name)_$($scopeOption.ScopeId)_$($scopeOption.OptionId)"
-        (Get-DscSplattedResource -ResourceName DhcpScopeOptionValue  -ExecutionName $executionName -Properties $scopeOption -NoInvoke).Invoke($scopeOption)
+        (Get-DscSplattedResource -ResourceName DhcpScopeOptionValue -ExecutionName $executionName -Properties $scopeOption -NoInvoke).Invoke($scopeOption)
     }
 }

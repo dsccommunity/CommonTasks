@@ -34,7 +34,7 @@ configuration FailoverCluster
         [Parameter()]
         [hashtable[]]
         $Networks,
-        
+
         [Parameter()]
         [switch]
         $Join,

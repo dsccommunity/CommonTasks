@@ -1,16 +1,16 @@
 Items:
   - ResourceName: '[Service]StartSQLService'
     NodeName:
-    - SQLServer1
-    - SQLServer2
+      - SQLServer1
+      - SQLServer2
     NodeCount: 1
     RetryIntervalSec: 60
     RetryCount: 60
   - ResourceName: '[xADDomain]NewDomain'
     NodeName:
-    - DC1
-    - DC2
-    - DC3
+      - DC1
+      - DC2
+      - DC3
     NodeCount: 2
     RetryIntervalSec: 15
     RetryCount: 30

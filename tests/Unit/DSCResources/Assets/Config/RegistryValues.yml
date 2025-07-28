@@ -7,19 +7,19 @@ Values:
     Force: True
   - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames
     ValueName:
-    ValueData:  
+    ValueData:
     ValueType: String
   - Key: HKLM:\Software\Policies\Microsoft\Cryptography\Configuration\SSL\00010002
     ValueName: EccCurves
-    ValueData: 
+    ValueData:
       - curve25519
       - NistP256
       - NistP384
     ValueType: MultiString
   - Key: HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames(Test)
     Ensure: Absent
-  - Key:       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}
+  - Key: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}
     ValueName: IsInstalled
     ValueType: DWORD
     ValueData: 0
-    Force:     True
+    Force: True

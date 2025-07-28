@@ -61,7 +61,7 @@ configuration DscPullServerSql
 
     $regKeyPath = "$env:ProgramFiles\WindowsPowerShell\DscService\RegistrationKeys.txt"
 
-    File RegistrationKeyFile
+    file RegistrationKeyFile
     {
         Ensure          = 'Present'
         Type            = 'File'
@@ -103,7 +103,7 @@ configuration DscPullServerSql
     WebConfigProperty CorrectDBProvider
     {
         WebsitePath  = "IIS:\sites\$EndpointName"
-        Filter       = '/appSettings/add[@key="dbprovider"]'
+        filter = '/appSettings/add[@key="dbprovider"]'
         PropertyName = 'value'
         Value        = 'System.Data.OleDb'
         Ensure       = 'Present'
@@ -196,7 +196,7 @@ configuration DscPullServerSql
 
             $webConfigXml.Save($webConfigPath)
 
-            Write-Verbose "Restart IIS..."
+            Write-Verbose 'Restart IIS...'
             iisreset.exe
         }
         GetScript  = { return `

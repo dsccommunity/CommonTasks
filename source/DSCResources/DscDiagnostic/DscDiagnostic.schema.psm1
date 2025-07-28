@@ -69,7 +69,7 @@ function Update-DscConfiguration
 
 function Get-DscLocalConfigurationManager
 {
-    PSDesiredStateConfiguration\Get-DscLocalConfigurationManager
+    Get-DscLocalConfigurationManager
 }
 function Get-DscLcmControllerLog
 {
@@ -124,7 +124,7 @@ function Start-DscConfiguration
 
 function Get-DscOperationalEventLog
 {
-    Get-WinEvent -LogName "Microsoft-Windows-Dsc/Operational"
+    Get-WinEvent -LogName 'Microsoft-Windows-Dsc/Operational'
 }
 
 function Get-DscTraceInformation
@@ -157,7 +157,7 @@ function Get-DscTraceInformation
 
 #-------------------------------------------------------------------------------------------
 
-Configuration DscDiagnostic {
+configuration DscDiagnostic {
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName JeaDsc

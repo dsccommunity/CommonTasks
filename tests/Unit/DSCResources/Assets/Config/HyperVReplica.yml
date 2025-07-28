@@ -3,17 +3,17 @@ CertificateAuthenticationPort: 8000
 CertificateThumbprint: c81b94933420221a7ac004a90242d8b1d3e5070d
 DefaultStorageLocation: D:\VServer
 KerberosAuthenticationPort: 8080
-MonitoringInterval: '1.00:00:00' # for 1 day
-MonitoringStartTime: '00:00:00'  # start at 00:00
+MonitoringInterval: 1.00:00:00 # for 1 day
+MonitoringStartTime: 00:00:00 # start at 00:00
 ReplicationAllowedFromAnyServer: True
 VMMachines:
-  - Name:               TESTS01
-    ReplicaServerName:  ReplicaHost2
-    ReplicaServerPort:  443
+  - Name: TESTS01
+    ReplicaServerName: ReplicaHost2
+    ReplicaServerPort: 443
     AuthenticationType: Certificate
-  - Name:               TESTS02
-    ReplicaServerName:  ReplicaHost3
-    ReplicaServerPort:  443
+  - Name: TESTS02
+    ReplicaServerName: ReplicaHost3
+    ReplicaServerPort: 443
     AuthenticationType: Kerberos
     CompressionEnabled: True
     ReplicateHostKvpItems: True
@@ -22,6 +22,6 @@ VMMachines:
     RecoveryHistory: 4
     ReplicationFrequencySec: 180
     AutoResynchronizeEnabled: True
-    AutoResynchronizeIntervalStart: '01:00:00'   # Start at 01:00 am
-    AutoResynchronizeIntervalEnd:   '06:00:00'   # Stop  at 06:00 am
+    AutoResynchronizeIntervalStart: 01:00:00 # Start at 01:00 am
+    AutoResynchronizeIntervalEnd: 06:00:00 # Stop  at 06:00 am
     EnableWriteOrderPreservationAcrossDisks: True

@@ -5,7 +5,7 @@ Items:
     RetryCount: 30
   - ResourceName: '[Service]StartSQLService'
     NodeName:
-    - SQLServer1
-    - SQLServer2
+      - SQLServer1
+      - SQLServer2
     RetryIntervalSec: 60
     RetryCount: 60

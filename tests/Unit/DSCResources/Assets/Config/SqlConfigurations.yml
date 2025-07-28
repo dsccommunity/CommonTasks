@@ -1,10 +1,10 @@
-  DefaultInstanceName: MSSQLSERVER
-  Options:
-  - InstanceName:   SecondInstance
-    OptionName:     max degree of parallelism
-    OptionValue:    1
+DefaultInstanceName: MSSQLSERVER
+Options:
+  - InstanceName: SecondInstance
+    OptionName: max degree of parallelism
+    OptionValue: 1
     RestartService: true
-  - OptionName:     max degree of parallelism
-    OptionValue:    2
-  - OptionName:     backup compression default
-    OptionValue:    1
+  - OptionName: max degree of parallelism
+    OptionValue: 2
+  - OptionName: backup compression default
+    OptionValue: 1
