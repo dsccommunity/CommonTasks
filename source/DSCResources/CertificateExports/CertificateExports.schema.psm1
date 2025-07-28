@@ -5,7 +5,7 @@ configuration CertificateExports {
         [Hashtable[]]
         $Certificates
     )
-    
+
     Import-DscResource -Module PSDesiredStateConfiguration
     Import-DscResource -Module CertificateDsc
 

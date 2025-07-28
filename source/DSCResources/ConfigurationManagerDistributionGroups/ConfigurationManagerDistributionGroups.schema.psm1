@@ -1,5 +1,5 @@
 
-Configuration ConfigurationManagerDistributionGroups
+configuration ConfigurationManagerDistributionGroups
 {
     [CmdletBinding()]
     param

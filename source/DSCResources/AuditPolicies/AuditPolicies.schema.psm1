@@ -27,7 +27,7 @@ configuration AuditPolicies
     {
         foreach ($option in $Options)
         {
-            $executionName = "auditPolOpt_" + ($option.Name -replace '\(|\)|\.|:| ', '')
+            $executionName = 'auditPolOpt_' + ($option.Name -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName AuditPolicyOption -ExecutionName $executionName -Properties $option -NoInvoke).Invoke( $option )
         }
     }
@@ -36,7 +36,7 @@ configuration AuditPolicies
     {
         foreach ($subcat in $Subcategories)
         {
-            $executionName = "auditPolSubcat_" + ($subcat.Name -replace '\(|\)|\.|:| ', '') + "_" + ($subcat.AuditFlag -replace '\(|\)|\.|:| ', '')
+            $executionName = 'auditPolSubcat_' + ($subcat.Name -replace '\(|\)|\.|:| ', '') + '_' + ($subcat.AuditFlag -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName AuditPolicySubcategory -ExecutionName $executionName -Properties $subcat -NoInvoke).Invoke( $subcat )
         }
     }
@@ -45,7 +45,7 @@ configuration AuditPolicies
     {
         foreach ($guid in $Guids)
         {
-            $executionName = "auditPolGuid_" + ($guid.Name -replace '\(|\)|\.|:| ', '') + "_" + ($guid.AuditFlag -replace '\(|\)|\.|:| ', '')
+            $executionName = 'auditPolGuid_' + ($guid.Name -replace '\(|\)|\.|:| ', '') + '_' + ($guid.AuditFlag -replace '\(|\)|\.|:| ', '')
             (Get-DscSplattedResource -ResourceName AuditPolicySubcategory -ExecutionName $executionName -Properties $guid -NoInvoke).Invoke( $guid )
         }
     }
@@ -56,6 +56,6 @@ configuration AuditPolicies
             CsvPath          = $CsvPath
             IsSingleInstance = 'Yes'
         }
-        (Get-DscSplattedResource -ResourceName AuditPolicyCsv -ExecutionName "auditPolicyCsv" -Properties $auditPolicyCsv -NoInvoke).Invoke( $auditPolicyCsv )
+        (Get-DscSplattedResource -ResourceName AuditPolicyCsv -ExecutionName 'auditPolicyCsv' -Properties $auditPolicyCsv -NoInvoke).Invoke( $auditPolicyCsv )
     }
 }

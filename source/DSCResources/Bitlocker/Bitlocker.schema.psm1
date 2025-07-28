@@ -49,7 +49,7 @@ configuration Bitlocker
 
     if ($null -ne $Disks)
     {
-        foreach ($disk in $Disks) 
+        foreach ($disk in $Disks)
         {
             $disk.DependsOn = $nextDepends
 
@@ -73,7 +73,7 @@ configuration Bitlocker
             throw "ERROR: Before using 'Bitlocker - AutoDisks' the system drive encryption must be specified in the 'Bitlocker - Disks' section."
         }
 
-        foreach ($autoDisk in $AutoDisks) 
+        foreach ($autoDisk in $AutoDisks)
         {
             $autoDisk.DependsOn = $nextDepends
 

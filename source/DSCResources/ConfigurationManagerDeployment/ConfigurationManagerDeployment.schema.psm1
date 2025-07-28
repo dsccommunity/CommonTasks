@@ -1,5 +1,5 @@
 
-Configuration ConfigurationManagerDeployment
+configuration ConfigurationManagerDeployment
 {
     [CmdletBinding()]
     param
