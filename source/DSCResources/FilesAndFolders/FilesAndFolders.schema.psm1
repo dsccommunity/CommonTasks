@@ -10,7 +10,7 @@ configuration FilesAndFolders
 
     foreach ($item in $Items)
     {
-        [string]$fileHash      = $null
+        [string]$fileHash = $null
         [string]$base64Content = $null
 
         $permissions = $null
@@ -45,8 +45,8 @@ configuration FilesAndFolders
                 }
                 elseif ( $item.Type -eq 'BinaryFile' )
                 {
-                    $filePath      = Resolve-Path $item.ContentFromFile
-                    $fileHash      = (Get-FileHash -Path $filePath -Algorithm SHA256).Hash
+                    $filePath = Resolve-Path $item.ContentFromFile
+                    $fileHash = (Get-FileHash -Path $filePath -Algorithm SHA256).Hash
                     $base64Content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($filePath))
                 }
                 else
@@ -71,7 +71,7 @@ configuration FilesAndFolders
             }
 
             [string]$destPath = $item.DestinationPath
-            [string]$ensure   = $item.Ensure
+            [string]$ensure = $item.Ensure
 
             Script $executionName
             {
@@ -79,19 +79,19 @@ configuration FilesAndFolders
                     Write-Verbose "Testing file '$using:destPath'..."
                     if ( (Test-Path -Path $using:destPath) )
                     {
-                        Write-Verbose "Verifying file content..."
+                        Write-Verbose 'Verifying file content...'
                         if ( $using:fileHash -eq (Get-FileHash -Path $using:destPath -Algorithm SHA256).Hash )
                         {
-                            Write-Verbose "OK"
+                            Write-Verbose 'OK'
                             return $true
                         }
                     }
                     elseif ( $using:ensure -eq 'Absent' )
                     {
-                        Write-Verbose "OK (absent)"
+                        Write-Verbose 'OK (absent)'
                         return $true
                     }
-                    Write-Verbose "Not OK"
+                    Write-Verbose 'Not OK'
                     return $false
                 }
                 SetScript  = {

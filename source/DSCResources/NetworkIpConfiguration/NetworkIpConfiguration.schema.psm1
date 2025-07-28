@@ -145,9 +145,8 @@ configuration NetworkIpConfiguration {
         {
             Script "InterfaceMetric_$InterfaceAlias"
             {
-                TestScript =
-                {
-                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias -ErrorAction SilentlyContinue
+                TestScript = {
+                    $netIf = Get-NetIPInterface -InterfaceAlias $using:InterfaceAlias -ErrorAction SilentlyContinue
                     if ( $null -eq $netIf )
                     {
                         Write-Verbose "NetIpInterface '$using:InterfaceAlias' not found."
@@ -164,12 +163,11 @@ configuration NetworkIpConfiguration {
                     Write-Verbose "Expected Interface Metric: $using:InterfaceMetric"
                     return $result
                 }
-                SetScript  =
-                {
-                    $netIf = Get-NetIpInterface -InterfaceAlias $using:InterfaceAlias
+                SetScript  = {
+                    $netIf = Get-NetIPInterface -InterfaceAlias $using:InterfaceAlias
 
                     $netIf | ForEach-Object { Write-Verbose "Set $($_.AddressFamily) InterfaceMetric to $using:InterfaceMetric";
-                        $_ | Set-NetIpInterface -InterfaceMetric $using:InterfaceMetric }
+                        $_ | Set-NetIPInterface -InterfaceMetric $using:InterfaceMetric }
                 }
                 GetScript  = { return `
                     @{
@@ -232,7 +230,7 @@ configuration NetworkIpConfiguration {
 
                         # Workaround if the computer is domain joined -> Restart NLA service to restart the network location check
                         # see https://newsignature.com/articles/network-location-awareness-service-can-ruin-day-fix/
-                        Write-Verbose "Restarting NLA service to reinitialize the network location check..."
+                        Write-Verbose 'Restarting NLA service to reinitialize the network location check...'
                         Restart-Service nlasvc -Force
                         Start-Sleep 5
 
@@ -278,7 +276,7 @@ configuration NetworkIpConfiguration {
             throw "ERROR: Invalid IPv6 configuration value $ConfigureIPv6 (expected value: 0-255)."
         }
 
-        $configIPv6KeyName = "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
+        $configIPv6KeyName = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters'
         $configIPv6VarName = 'DisabledComponents'
 
         Script ConfigureIPv6_System

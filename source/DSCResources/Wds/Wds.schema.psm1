@@ -108,7 +108,7 @@ configuration Wds
     if ($null -ne $RunAsUser)
     {
         # the RunAs user requires local administrator rights
-        Group addRunAsUserToLocalAdminsGroup
+        group addRunAsUserToLocalAdminsGroup
         {
             GroupName        = 'Administrators'
             Ensure           = 'Present'
@@ -155,7 +155,7 @@ configuration Wds
                 if ($null -eq $matchAnswerClients.Groups -or
                     $null -eq $matchAnswerKnownClients.Groups)
                 {
-                    Write-Warning "Output of wdsutil has not the expected content."
+                    Write-Warning 'Output of wdsutil has not the expected content.'
                     return $false
                 }
 

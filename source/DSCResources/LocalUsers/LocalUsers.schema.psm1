@@ -32,8 +32,7 @@ configuration LocalUsers {
         {
             Script "$($ExecutionName)_MemberOf"
             {
-                TestScript =
-                {
+                TestScript = {
                     # get current member groups of the local user
                     $currentGroups = Get-LocalGroup | Where-Object { (Get-LocalGroupMember $_ -Member $using:AccountName -ErrorAction SilentlyContinue).Count -eq 1 } | Select-Object -ExpandProperty Name
 
@@ -49,8 +48,7 @@ configuration LocalUsers {
                     Write-Verbose "Principal '$using:AccountName' is not member of required local groups: $($missingGroups -join ', ')"
                     return $false
                 }
-                SetScript  =
-                {
+                SetScript  = {
                     $missingGroups = $using:MemberOf | Where-Object { (Get-LocalGroupMember $_ -Member $using:AccountName -ErrorAction SilentlyContinue).Count -eq 0 }
 
                     Write-Verbose "Adding principal '$using:AccountName' to local groups: $($missingGroups -join ', ')"

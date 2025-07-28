@@ -16,11 +16,11 @@ configuration HyperVState
 
     foreach ($vmmachine in $VMMachines)
     {
-        $vmName               = $vmmachine.Name
-        $vmState              = $vmmachine.State
+        $vmName = $vmmachine.Name
+        $vmState = $vmmachine.State
         $automaticStartAction = $vmmachine.AutomaticStartAction
-        $automaticStartDelay  = $vmmachine.AutomaticStartDelay
-        $automaticStopAction  = $vmmachine.AutomaticStopAction
+        $automaticStartDelay = $vmmachine.AutomaticStartDelay
+        $automaticStopAction = $vmmachine.AutomaticStopAction
 
         $execName = "HyperVState_$vmName" -replace '[\s(){}/\\:-]', '_'
 

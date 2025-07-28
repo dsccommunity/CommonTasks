@@ -37,7 +37,7 @@ configuration SqlServer
         $fileStreamAccessLevel = $Setup.FileStreamAccessLevel
         $Setup.Remove( 'FileStreamAccessLevel' )
 
-        (Get-DscSplattedResource -ResourceName SqlSetup -ExecutionName "sqlSetup" -Properties $Setup -NoInvoke).Invoke($Setup)
+        (Get-DscSplattedResource -ResourceName SqlSetup -ExecutionName 'sqlSetup' -Properties $Setup -NoInvoke).Invoke($Setup)
 
         # enable/disable FileStream
         if ($null -ne $fileStreamAccessLevel)
@@ -46,10 +46,9 @@ configuration SqlServer
 
             Script sqlFileStreamAccess
             {
-                TestScript =
-                {
+                TestScript = {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class "__NAMESPACE" | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -Namespace 'ROOT\Microsoft\SQLServer' -Class '__NAMESPACE' | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
                     $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 
@@ -74,10 +73,9 @@ configuration SqlServer
 
                     return $false
                 }
-                SetScript  =
-                {
+                SetScript  = {
                     # get installed SQL Server version
-                    [string]$cmgmt = (Get-CimInstance -NameSpace 'ROOT\Microsoft\SQLServer' -Class "__NAMESPACE" | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
+                    [string]$cmgmt = (Get-CimInstance -Namespace 'ROOT\Microsoft\SQLServer' -Class '__NAMESPACE' | Where-Object { $_.Name.StartsWith( 'ComputerManagement' ) }).Name
 
                     $cim = Get-CimInstance -Namespace "ROOT\Microsoft\SqlServer\$cmgmt" -Class FilestreamSettings | Where-Object { $_.InstanceName -eq $using:instanceName }
 
@@ -93,7 +91,7 @@ configuration SqlServer
                     $sqlServer = "localhost$( if($using:instanceName -ne 'MSSQLSERVER') { "\$using:instanceName" })"
 
                     Invoke-Sqlcmd -Query "EXEC sp_configure filestream_access_level, $((2,$using:fileStreamAccessLevel | Measure-Object -Min).Minimum)" -ServerInstance $sqlServer
-                    Invoke-Sqlcmd -Query "RECONFIGURE" -ServerInstance $sqlServer
+                    Invoke-Sqlcmd -Query 'RECONFIGURE' -ServerInstance $sqlServer
                 }
                 GetScript  = { return 'NA' }
                 DependsOn  = '[SqlSetup]sqlSetup'

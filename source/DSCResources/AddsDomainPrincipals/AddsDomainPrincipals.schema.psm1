@@ -50,8 +50,7 @@ configuration AddsDomainPrincipals
         {
             Script "$($ExecutionName)_MemberOf"
             {
-                TestScript =
-                {
+                TestScript = {
                     # get current member groups in MemberOf
                     $currentGroups = Get-ADPrincipalGroupMembership -Identity $using:AccountName | `
                             Where-Object { $using:MemberOf -contains $_.SamAccountName } | `
@@ -69,8 +68,7 @@ configuration AddsDomainPrincipals
                     Write-Verbose "ADPrincipal '$using:AccountName' is not member of required groups: $($missingGroups -join ', ')"
                     return $false
                 }
-                SetScript  =
-                {
+                SetScript  = {
                     Add-ADPrincipalGroupMembership -Identity $using:AccountName -MemberOf $using:MemberOf
                 }
                 GetScript  = { return 'NA' }
@@ -166,8 +164,7 @@ configuration AddsDomainPrincipals
 
                     Script "$($executionName)_Computer"
                     {
-                        TestScript =
-                        {
+                        TestScript = {
                             Write-Verbose "Get managed service accounts hosted by AD computer '$using:computer'..."
                             $result = Get-ADComputerServiceAccount -Identity $using:computer -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq $using:svcAccountName }
 
@@ -180,8 +177,7 @@ configuration AddsDomainPrincipals
                             Write-Verbose "Managed service account '$using:svcAccountName' is NOT assigned to AD computer '$using:computer'."
                             return $false
                         }
-                        SetScript  =
-                        {
+                        SetScript  = {
                             Write-Verbose "Assign managed service account '$using:svcAccountName' to AD computer '$using:computer'"
                             Add-ADComputerServiceAccount -Computer $using:computer -ServiceAccount $using:svcAccountName
                         }
@@ -191,7 +187,7 @@ configuration AddsDomainPrincipals
                 }
                 else
                 {
-                    throw "ERROR: Only a standalone managed service account can be assigned to an AD computer account."
+                    throw 'ERROR: Only a standalone managed service account can be assigned to an AD computer account.'
                 }
             }
 

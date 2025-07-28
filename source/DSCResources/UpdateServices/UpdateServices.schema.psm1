@@ -98,10 +98,10 @@ configuration UpdateServices
         # create a specified content directory
         if (-not [string]::IsNullOrWhiteSpace($Server.ContentDir))
         {
-            File wsusContentDir
+            file wsusContentDir
             {
-                Ensure          = "Present"
-                Type            = "Directory"
+                Ensure          = 'Present'
+                Type            = 'Directory'
                 Recurse         = $false
                 SourcePath      = $null
                 Force           = $true
@@ -135,7 +135,7 @@ configuration UpdateServices
                     {
                         New-Item -Path $using:rebootKeyName -Force
                     }
-                    Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -value 1
+                    Set-ItemProperty -Path $rebootKeyName -Name $using:rebootVarName -Value 1
                     $global:DSCMachineStatus = 1
                 }
                 GetScript  = { return `
@@ -188,6 +188,6 @@ configuration UpdateServices
             $CleanUp.Ensure = 'Present'
         }
 
-        (Get-DscSplattedResource -ResourceName UpdateServicesCleanup  -ExecutionName wsusCleanup -Properties $CleanUp -NoInvoke).Invoke($CleanUp)
+        (Get-DscSplattedResource -ResourceName UpdateServicesCleanup -ExecutionName wsusCleanup -Properties $CleanUp -NoInvoke).Invoke($CleanUp)
     }
 }

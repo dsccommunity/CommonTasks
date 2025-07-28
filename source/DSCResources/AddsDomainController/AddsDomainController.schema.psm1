@@ -83,8 +83,7 @@ configuration AddsDomainController
     {
         Script RemoveProtectFromAccidentalDeletionBeforeDcPromo
         {
-            TestScript =
-            {
+            TestScript = {
                 try
                 {
                     Get-ADDomainController -Identity $env:ComputerName
@@ -97,8 +96,7 @@ configuration AddsDomainController
                     return $false
                 }
             }
-            SetScript  =
-            {
+            SetScript  = {
                 Write-Verbose "Reset flag 'Protect from Accidental Deletion' from computer account '$env:ComputerName'."
                 Get-ADComputer $env:ComputerName | Set-ADObject -ProtectedFromAccidentalDeletion $false
             }

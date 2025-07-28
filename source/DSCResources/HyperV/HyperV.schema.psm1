@@ -131,8 +131,8 @@ configuration HyperV
                 $vmswitch.Type = 'Internal'
             }
             elseif ($vmswitch.Type -eq 'Private' -and
-                    $vmswitch.Ensure -ne 'Absent' -and
-                    (-not [string]::IsNullOrWhiteSpace($netAddressSpace) -or
+                $vmswitch.Ensure -ne 'Absent' -and
+                (-not [string]::IsNullOrWhiteSpace($netAddressSpace) -or
                 -not [string]::IsNullOrWhiteSpace($netIpAddress) -or
                 -not [string]::IsNullOrWhiteSpace($netGateway) -or
                 -not [string]::IsNullOrWhiteSpace($netCategory) -or
@@ -182,8 +182,7 @@ configuration HyperV
 
                     Script "vmnet_$executionName"
                     {
-                        TestScript =
-                        {
+                        TestScript = {
                             [boolean]$result = $true
                             $netAdapter = Get-NetAdapter -ErrorAction SilentlyContinue | Where-Object { $_.Name -match $using:netName }
 
@@ -243,8 +242,7 @@ configuration HyperV
                             $result
                             return $result
                         }
-                        SetScript  =
-                        {
+                        SetScript  = {
                             $netAdapter = Get-NetAdapter | Where-Object { $_.Name -match $using:netName }
 
                             if ($null -eq $netAdapter)
@@ -324,8 +322,7 @@ configuration HyperV
                 {
                     Script "vmnetInterfaceMetric_$executionName"
                     {
-                        TestScript =
-                        {
+                        TestScript = {
                             #the rule 'PSUseDeclaredVarsMoreThanAssignments' is triggered by the result variable even if it is used.
                             [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
                             $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
@@ -347,8 +344,7 @@ configuration HyperV
                             Write-Verbose "Expected Interface Metric: $using:netInterfaceMetric"
                             return $result
                         }
-                        SetScript  =
-                        {
+                        SetScript  = {
                             $netIf = Get-NetIPInterface | Where-Object { $_.InterfaceAlias -match $using:netName }
                             if ($null -eq $netIf)
                             {
@@ -431,7 +427,7 @@ configuration HyperV
             $strVHDFile = "$($disk.Path)\$strVHDName"
             $folderVHD = "$($vmName)_DiskPath_$($disk.Name)"
             $strVHD = "$($vmName)_Disk_$($disk.Name)"
-            File $folderVHD
+            file $folderVHD
             {
                 Ensure          = 'Present'
                 Type            = 'Directory'
@@ -442,7 +438,7 @@ configuration HyperV
             if ($disk.Contains('CopyFrom'))
             {
                 $strVHDDepend = "[FILE]$strVHD"
-                File $strVHD
+                file $strVHD
                 {
                     Ensure          = 'Present'
                     Type            = 'File'
@@ -461,7 +457,7 @@ configuration HyperV
                     Path             = $strVHDPath
                     MaximumSizeBytes = $iDiskSize
                     Generation       = 'Vhdx'
-                    Type             = 'Dynamic'
+                    type             = 'Dynamic'
                     DependsOn        = "[File]$folderVHD"
                 }
             }
@@ -491,8 +487,7 @@ configuration HyperV
 
                     Script $scriptCopyOnce
                     {
-                        TestScript =
-                        {
+                        TestScript = {
                             # run only before creation of VM
                             if ($null -eq (Get-VM -Name $using:vmName -ErrorAction SilentlyContinue))
                             {
@@ -503,8 +498,7 @@ configuration HyperV
                             Write-Verbose "The destination VM '$using:vmName' was found and no action is required."
                             return $true
                         }
-                        SetScript  =
-                        {
+                        SetScript  = {
                             # reset readonly flags of VHDX file
                             Write-Verbose "Reset readonly file attribute of VHDX '$using:strVHDFile'..."
                             Set-ItemProperty -Path $using:strVHDFile -Name IsReadOnly -Value $false -ErrorAction Stop
@@ -1050,7 +1044,7 @@ configuration HyperV
                 $folderVHD = "$($vmName)_DiskPath_$($disk.Name)"
                 $strVHD = "$($vmName)_Disk_$($disk.Name)"
 
-                File $folderVHD
+                file $folderVHD
                 {
                     Ensure          = 'Present'
                     Type            = 'Directory'
@@ -1060,7 +1054,7 @@ configuration HyperV
                 if ($disk.Contains('CopyFrom'))
                 {
                     $strVHDDepend = "[FILE]$strVHD"
-                    File $strVHD
+                    file $strVHD
                     {
                         Ensure          = 'Present'
                         Type            = 'File'
@@ -1079,7 +1073,7 @@ configuration HyperV
                         Path             = $disk.Path
                         MaximumSizeBytes = $iDiskSize
                         Generation       = 'Vhdx'
-                        Type             = 'Dynamic'
+                        type             = 'Dynamic'
                         DependsOn        = "[File]$folderVHD"
                     }
                 }

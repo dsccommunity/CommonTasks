@@ -49,7 +49,7 @@ configuration DnsServerResponseRateLimiting
                 return $true
             }
 
-            Write-Verbose "Differences found."
+            Write-Verbose 'Differences found.'
             return $false
         }
         SetScript  = {
@@ -92,7 +92,7 @@ configuration DnsServerResponseRateLimiting
                         }
                     }
 
-                    Write-Verbose "Differences found."
+                    Write-Verbose 'Differences found.'
                     return $false
                 }
                 SetScript  = {

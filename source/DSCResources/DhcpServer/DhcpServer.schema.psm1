@@ -43,8 +43,8 @@ configuration DhcpServer
 
     WindowsFeature DHCPServer
     {
-        Name      = 'DHCP'
-        Ensure    = 'Present'
+        Name   = 'DHCP'
+        Ensure = 'Present'
     }
 
     if ($EnableSecurityGroups -eq $true)
