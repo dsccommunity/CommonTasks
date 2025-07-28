@@ -150,7 +150,7 @@ configuration OfficeOnlineServerSetup
 
     OfficeOnlineServerInstall InstallBinaries
     {
-        Ensure    = "Present"
+        Ensure    = 'Present'
         Path      = $Path
         DependsOn = $softwareDependsOn
     }

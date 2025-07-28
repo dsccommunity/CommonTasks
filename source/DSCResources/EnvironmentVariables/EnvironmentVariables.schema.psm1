@@ -5,18 +5,18 @@ configuration EnvironmentVariables {
         $Variables
     )
 
-<#
-xEnvironment [String] #ResourceName
-{
-    Name = [string]
-    [DependsOn = [string[]]]
-    [Ensure = [string]{ Absent | Present }]
-    [Path = [bool]]
-    [PsDscRunAsCredential = [PSCredential]]
-    [Target = [string[]]{ Machine | Process }]
-    [Value = [string]]
-}
-#>
+    <#
+    xEnvironment [String] #ResourceName
+    {
+        Name = [string]
+        [DependsOn = [string[]]]
+        [Ensure = [string]{ Absent | Present }]
+        [Path = [bool]]
+        [PsDscRunAsCredential = [PSCredential]]
+        [Target = [string[]]{ Machine | Process }]
+        [Value = [string]]
+    }
+    #>
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName xPSDesiredStateConfiguration
