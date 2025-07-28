@@ -1,8 +1,8 @@
 Names:
-- +XPS-Viewer
-- -Web-Server
-- Hyper-V
-- '*RSAT'
+  - +XPS-Viewer
+  - -Web-Server
+  - Hyper-V
+  - '*RSAT'
 Features:
   - Name: NET-Framework-Core
     Source: \\contoso.com\InstallationSources\WinSxs
