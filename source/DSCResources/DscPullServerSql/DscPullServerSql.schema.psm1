@@ -43,6 +43,10 @@ configuration DscPullServerSql
 
         [Parameter()]
         [bool]
+        $AcceptSelfSignedCertificates = $false,
+
+        [Parameter()]
+        [bool]
         $ConfigureFirewall = $false
     )
 
@@ -53,7 +57,7 @@ configuration DscPullServerSql
 
     [string]$applicationPoolName = 'DscPullSrvSqlPool'
 
-    WindowsFeature DSCServiceFeature
+    windowsfeature DSCServiceFeature
     {
         Ensure = 'Present'
         Name   = 'DSC-Service'
@@ -90,7 +94,7 @@ configuration DscPullServerSql
         ConfigurationPath            = $ConfigurationPath
         State                        = 'Started'
         UseSecurityBestPractices     = $UseSecurityBestPractices
-        AcceptSelfSignedCertificates = $true
+        AcceptSelfSignedCertificates = $AcceptSelfSignedCertificates
         SqlProvider                  = $true
         SqlConnectionString          = $sqlConnectionString
         ConfigureFirewall            = $false
@@ -103,7 +107,7 @@ configuration DscPullServerSql
     WebConfigProperty CorrectDBProvider
     {
         WebsitePath  = "IIS:\sites\$EndpointName"
-        filter = '/appSettings/add[@key="dbprovider"]'
+        Filter       = '/appSettings/add[@key="dbprovider"]'
         PropertyName = 'value'
         Value        = 'System.Data.OleDb'
         Ensure       = 'Present'
@@ -116,7 +120,7 @@ configuration DscPullServerSql
 
     [string]$bufferSize = 256MB
 
-    Script WebConfigBindingMessageSize
+    script WebConfigBindingMessageSize
     {
         TestScript = {
             $webConfigPath = "$using:PhysicalPath\web.config"

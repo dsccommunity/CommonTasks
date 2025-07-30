@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- DscPullServer:
+  - Added `AcceptSelfSignedCertificates` parameter support
+  - Added required Windows Features (DSC-Service and Web-Mgmt-Console)
+- DscPullServerSql:
+  - Added `AcceptSelfSignedCertificates` parameter support
 - Migrated from legacy DSC modules to community-supported modules:
   - `xDhcpServer` to `DhcpServerDsc` (v4.0.0)
   - `xExchange` to `ExchangeDsc` (v2.0.0)
