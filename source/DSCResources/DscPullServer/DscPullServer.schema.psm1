@@ -19,22 +19,39 @@ configuration DscPullServer
 
         [Parameter()]
         [bool]
-        $UseSecurityBestPractices = $false
+        $UseSecurityBestPractices = $false,
+
+        [Parameter()]
+        [bool]
+        $AcceptSelfSignedCertificates = $false
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DSCResource -ModuleName xPSDesiredStateConfiguration
 
+    WindowsFeature DSCServiceFeature
+    {
+        Ensure = 'Present'
+        Name   = 'DSC-Service'
+    }
+
+    WindowsFeature WebMgmtConsole
+    {
+        Ensure = 'Present'
+        Name   = 'Web-Mgmt-Console'
+    }
+
     xDscWebService PSDSCPullServer
     {
-        Ensure                   = 'Present'
-        EndpointName             = $EndpointName
-        Port                     = $Port
-        PhysicalPath             = $PhysicalPath
-        CertificateThumbPrint    = $CertificateThumbPrint
-        ModulePath               = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Modules"
-        ConfigurationPath        = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Configuration"
-        State                    = 'Started'
-        UseSecurityBestPractices = $UseSecurityBestPractices
+        Ensure                       = 'Present'
+        EndpointName                 = $EndpointName
+        Port                         = $Port
+        PhysicalPath                 = $PhysicalPath
+        CertificateThumbPrint        = $CertificateThumbPrint
+        ModulePath                   = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Modules"
+        ConfigurationPath            = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Configuration"
+        State                        = 'Started'
+        UseSecurityBestPractices     = $UseSecurityBestPractices
+        AcceptSelfSignedCertificates = $AcceptSelfSignedCertificates
     }
 }
