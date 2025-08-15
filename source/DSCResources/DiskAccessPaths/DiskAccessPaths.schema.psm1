@@ -10,7 +10,7 @@ configuration DiskAccessPaths
 
     foreach ($item in $Items)
     {
-        $executionName = $item.AccessPath
+        $executionName = "DiskAccessPath_$($item.AccessPath)" -replace '[\s(){}/\\:-]', '_'
         (Get-DscSplattedResource -ResourceName DiskAccessPath -ExecutionName $executionName -Properties $item -NoInvoke).Invoke($item)
     }
 }
