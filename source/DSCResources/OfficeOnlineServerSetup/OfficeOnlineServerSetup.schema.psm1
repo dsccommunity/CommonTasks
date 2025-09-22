@@ -33,7 +33,11 @@ configuration OfficeOnlineServerSetup
 
         [Parameter(Mandatory = $true)]
         [string]
-        $Path
+        $Path,
+
+        [Parameter()]
+        [string]
+        $WindowsFeatureSourcePath
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -48,6 +52,13 @@ configuration OfficeOnlineServerSetup
             DestinationPath = $LogLocation
             Type            = 'Directory'
         }
+    }
+
+    WindowsFeature NetFx35
+    {
+        Name   = 'Net-Framework-Core'
+        Ensure = 'Present'
+        Source = $WindowsFeatureSourcePath
     }
 
     xWindowsFeatureSet OfficeOnlineServer
@@ -74,7 +85,6 @@ configuration OfficeOnlineServerSetup
             'Web-ISAPI-Filter',
             'Web-Includes',
             'NET-Framework-Features',
-            'NET-Framework-Core',
             'NET-HTTP-Activation',
             'NET-Non-HTTP-Activ',
             'NET-WCF-HTTP-Activation45',
@@ -85,7 +95,7 @@ configuration OfficeOnlineServerSetup
 
     xService WMIPerformanceAdapter
     {
-        DependsOn   = '[xWindowsFeatureSet]OfficeOnlineServer'
+        DependsOn   = '[xWindowsFeatureSet]OfficeOnlineServer', '[WindowsFeature]NetFx35'
         Name        = 'wmiApSrv'
         State       = 'Running'
         StartupType = 'Automatic'

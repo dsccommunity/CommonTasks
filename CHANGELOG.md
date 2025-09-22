@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `SharePointDSC` to `5.6.1`.
   - `ConfigMgrCBDsc` to `4.0.0`.
 
+### Added
+
+- Added `WindowsFeatureSourcePath` parameter to `OfficeOnlineServerSetup` for
+  installing removed feature .net Framework 3.5.
+
 ### Fixed
 
 - Formatting.
