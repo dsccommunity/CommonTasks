@@ -37,7 +37,7 @@ configuration OfficeOnlineServerSetup
 
         [Parameter(Mandatory = $true)]
         [string]
-        $SourcePath
+        $WindowsFeatureSourcePath
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -58,7 +58,7 @@ configuration OfficeOnlineServerSetup
     {
         Name   = 'Net-Framework-Core'
         Ensure = 'Present'
-        Source = $SourcePath
+        Source = $WindowsFeatureSourcePath
     }
 
     xWindowsFeatureSet OfficeOnlineServer
