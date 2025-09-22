@@ -35,7 +35,7 @@ configuration OfficeOnlineServerSetup
         [string]
         $Path,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [string]
         $WindowsFeatureSourcePath
     )
