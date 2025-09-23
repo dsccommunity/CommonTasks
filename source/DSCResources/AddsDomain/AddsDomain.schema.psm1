@@ -46,7 +46,11 @@ configuration AddsDomain
 
         [Parameter()]
         [boolean]
-        $EnablePrivilegedAccessManagement = $false
+        $EnablePrivilegedAccessManagement = $false,
+
+        [Parameter()]
+        [boolean]
+        $Enable32KDatabasePages = $false
     )
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
@@ -139,6 +143,17 @@ configuration AddsDomain
             ForestFQDN                        = $DomainFQDN
             EnterpriseAdministratorCredential = $DomainAdministrator
             FeatureName                       = 'Privileged Access Management Feature'
+        }
+    }
+
+    if ( $Enable32KDatabasePages -eq $true )
+    {
+        ADOptionalFeature ADDatabase32KPagesFeature
+        {
+            DependsOn                         = "[ADGroup]EnterpriseAdmins_$DomainName"
+            ForestFQDN                        = $DomainFQDN
+            EnterpriseAdministratorCredential = $DomainAdministrator
+            FeatureName                       = 'Database 32k pages feature'
         }
     }
 

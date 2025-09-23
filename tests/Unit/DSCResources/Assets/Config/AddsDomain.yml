@@ -8,6 +8,7 @@ SysvolPath: C:\WindowsTest\SYSVOL
 ForestMode: Win2012R2
 ForceRebootBefore: true
 EnablePrivilegedAccessManagement: true
+Enable32KDatabasePages: true
 DomainTrusts:
   Fqdn: northwindtraders.com
   Name: northwindtraders
