@@ -42,6 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Formatting.
+- DiskAccessPaths:
+  - Replace illegal characters in executionName with underscore
 
 ## [0.10.0] - 2025-07-26
 
