@@ -76,7 +76,7 @@ try
     # loaded by Windows PowerShell 5.1, causing ConvertTo-SecureString and
     # other core cmdlets to become unavailable.
     $filteredParentPath = ($env:PSModulePath -split ';' |
-        Where-Object { $_ -and $_ -notlike '*\PowerShell\7\*' }) -join ';'
+            Where-Object { $_ -and $_ -notlike '*\PowerShell\7\*' }) -join ';'
 
     $env:PSModulePath = @(
         $ModulePath

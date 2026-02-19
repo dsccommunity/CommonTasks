@@ -91,7 +91,7 @@ f1
             $skipped = @('PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment')
             $resourceNames = Get-ChildItem -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" -Directory |
                 Where-Object { $_.BaseName -notin $skipped } |
-                ForEach-Object { $_.BaseName }
+                    ForEach-Object { $_.BaseName }
             $namesCsv = $resourceNames -join ','
 
             $batchScript = Join-Path -Path $PSScriptRoot -ChildPath 'CompileDscConfigurations.ps1'
@@ -117,12 +117,12 @@ f1
             ) -join ' '
 
             $psi = [System.Diagnostics.ProcessStartInfo]::new()
-            $psi.FileName               = 'powershell.exe'
-            $psi.Arguments              = $argString
-            $psi.UseShellExecute        = $false
+            $psi.FileName = 'powershell.exe'
+            $psi.Arguments = $argString
+            $psi.UseShellExecute = $false
             $psi.RedirectStandardOutput = $true
-            $psi.RedirectStandardError  = $true
-            $psi.CreateNoWindow         = $true
+            $psi.RedirectStandardError = $true
+            $psi.CreateNoWindow = $true
 
             $proc = [System.Diagnostics.Process]::new()
             $proc.StartInfo = $psi
