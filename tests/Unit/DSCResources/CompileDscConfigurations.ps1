@@ -78,11 +78,28 @@ try
     $filteredParentPath = ($env:PSModulePath -split ';' |
             Where-Object { $_ -and $_ -notlike '*\PowerShell\7\*' }) -join ';'
 
+    # Place the WinPS system module path ($PSHOME\Modules) BEFORE the
+    # RequiredModules path.  RequiredModules may contain a PS7-only
+    # PSDesiredStateConfiguration (v2.x / .NET Core) that cannot be loaded
+    # by Windows PowerShell 5.1.  If RequiredModules comes first, WinPS
+    # finds the incompatible version, fails to load it, and every
+    # Import-DscResource call reports "Could not find the module".
+    $winPSSystemModulePath = Join-Path -Path $PSHOME -ChildPath 'Modules'
+
     $env:PSModulePath = @(
         $ModulePath
+        $winPSSystemModulePath
         $RequiredModulesPath
         $filteredParentPath
     ) -join ';'
+
+    # Pre-load the WinPS-native PSDesiredStateConfiguration (v1.x) before
+    # any code triggers auto-import.  RequiredModules may contain the PS7-only
+    # PSDesiredStateConfiguration v2.x (.NET Core).  PowerShell auto-import
+    # prefers the highest version regardless of PSModulePath order, so it
+    # would pick 2.x, fail to load it, and break Import-DscResource.
+    # Loading v1.x explicitly first prevents this.
+    Import-Module -Name PSDesiredStateConfiguration -MaximumVersion 1.99 -ErrorAction Stop
 
     Import-Module -Name datum -ErrorAction Stop
     Import-Module -Name DscBuildHelpers -ErrorAction Stop
