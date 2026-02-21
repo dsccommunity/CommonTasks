@@ -5,6 +5,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- DSC compilation errors were silently swallowed. Get-DscResource simply excluded
+  broken resources without reporting why, so the Pester tests never ran for
+  them — the only symptom was an unhelpful "Expected 1, but got 2" count mismatch.
+  - `DscResources.Tests.ps1` — Changed test case discovery to enumerate DSCResources
+    folders instead of relying on Get-DscResource output. This ensures every resource
+    gets a test case even if it fails to load, and the actual compilation step in
+    PS 5.1 surfaces the real error.
+  - `CompileDscConfiguration.ps1` — Wrapped the Invoke-Expression (configuration
+    definition)in its own try/catch and collected all errors from $Error in chronological
+    order. If the configuration function isn't created, the full error chain is thrown —
+    root cause first. This generically reports any error (invalid properties, missing
+    modules, syntax errors, etc.) without needing error-type-specific detection.
+- Performance improvement
+  - The speedup comes from compiling all DSC resources in a single powershell.exe
+    process - instead of spawning a separate process per resource. The expensive
+    one-time initialization (module imports, New-DatumStructure,
+    Initialize-DscResourceMetaInfo) now runs only once. With more resources, the savings
+    scale linearly — each additional resource adds only its compilation time rather than
+    ~45s of setup overhead.
+- PowerShellGet 2.2.5 exists in both RequiredModules and
+  C:\Program Files\WindowsPowerShell\Modules\. When DSC scans all paths on PSModulePath,
+  it finds duplicate MOF schema definitions (MSFT_PSModule, MSFT_PSRepository) and emits
+  Write-Error for each — ugly but non-fatal.
+  - Wrapped Get-DscResource and Initialize-DscResourceMetaInfo calls in try/catch
+    with -ErrorAction SilentlyContinue 2>$null to suppress both terminating exceptions
+    (e.g. empty PSModulePath entries) and non-terminating Write-Error output from the
+    duplicate CIM class detections. This was done in both DscResources.Tests.ps1 and
+    CompileDscConfigurations.ps1.
+
 ## [0.11.0] - 2026-02-19
 
 ### Added

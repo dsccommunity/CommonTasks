@@ -42,7 +42,7 @@ stages:
             inputs:
               filePath: './build.ps1'
               arguments: '-ResolveDependency -tasks pack'
-              pwsh: false
+              pwsh: true
             env:
               ModuleVersion: $(NuGetVersionV2)
 
@@ -105,7 +105,7 @@ stages:
             inputs:
               filePath: './build.ps1'
               arguments: '-tasks test'
-              pwsh: false
+              pwsh: true
 
           - task: PublishTestResults@2
             displayName: 'Publish Test Results'
