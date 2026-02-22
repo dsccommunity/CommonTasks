@@ -3,13 +3,18 @@
 
 :YmlCategory: DhcpServer
 
-:abstract: {YmlCategory} is used for deployment and configuration of Microsoft DHCP Server.
+:abstract:    {YmlCategory} provides full deployment and configuration of a Microsoft DHCP Server, including scopes, exclusions, options, reservations, and server authorization.
 
 [#dscyml_dhcpserver]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpserver_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource for complete DHCP server provisioning from scratch. It combines server authorization, scope creation, exclusion ranges, option values, and IP reservations into a single resource. If you only need to manage individual aspects (scopes, options), consider using the more targeted DhcpScopes, DhcpScopeOptions, DhcpServerOptions, or DhcpServerAuthorization resources instead.
+****
 
 
 // reference links as variables for using more than once

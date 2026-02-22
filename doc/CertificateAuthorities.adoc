@@ -3,13 +3,18 @@
 
 :YmlCategory: CertificateAuthorities
 
-:abstract:   {YmlCategory} is used to install the ADCS Certificate Authority.
+:abstract:    {YmlCategory} installs and configures Active Directory Certificate Services (AD CS) Certification Authorities.
 
 [#dscyml_certificateauthorities]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateauthorities_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy an Enterprise or Standalone Certificate Authority for your organization's PKI infrastructure. This is required when you want to issue certificates internally for SSL/TLS, code signing, smart card authentication, or other PKI-dependent services.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

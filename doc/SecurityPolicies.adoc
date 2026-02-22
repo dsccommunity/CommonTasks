@@ -3,13 +3,18 @@
 
 :YmlCategory: SecurityPolicies
 
-:abstract:    {YmlCategory} is a wrapper around secedit.exe to allow you to configure local security policies. This resource requires a Windows OS with secedit.exe.
+:abstract:    {YmlCategory} configures Windows local security policies including account policies, security options, user rights assignments, and security templates.
 
 [#dscyml_securitypolicies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_securitypolicies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure specific local security policy settings. It manages password policies, account lockout policies, Kerberos policies, audit policies, user rights assignments (e.g., Log on as a service), and security options (e.g., interactive logon settings). For role-based baselines, consider SecurityBase instead.
+****
 
 
 // reference links as variables for using more than once

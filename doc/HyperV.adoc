@@ -3,13 +3,18 @@
 
 :YmlCategory: HyperV
 
-:abstract:    {YmlCategory} contains DSC resources for the management and configuration of Hyper-V.
+:abstract:    {YmlCategory} provides comprehensive management and configuration of Hyper-V hosts and virtual machines.
 
 [#dscyml_hyperv]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_hyperv_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure a Hyper-V host server and provision virtual machines. It handles the Hyper-V feature installation, virtual switch creation, VM creation and configuration, VHD management, and DVD drive attachments. This is the primary resource for Hyper-V infrastructure-as-code deployments.
+****
 
 
 // reference links as variables for using more than once

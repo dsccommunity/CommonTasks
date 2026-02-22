@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeConfiguration
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures Exchange Server virtual directories and client access settings, including ActiveSync, AutoDiscover, ECP, MAPI, OAB, OWA, EWS, Outlook Anywhere, and PowerShell endpoints.
 
 [#dscyml_exchangeconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangeconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure Exchange Server client access URLs and authentication settings after installation. It manages the internal and external URLs, authentication methods, and other settings for all Exchange virtual directories. Apply this after ExchangeProvisioning.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

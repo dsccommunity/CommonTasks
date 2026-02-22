@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGs
 
-:abstract:    {YmlCategory} is used to create, remove, and update an Always On Availability Group. It will also manage the Availability Group replica on the specified node.
+:abstract:    {YmlCategory} creates and configures SQL Server Always On Availability Groups.
 
 [#dscyml_sqlags]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlags_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create Availability Groups for SQL Server high availability and disaster recovery. AGs provide database-level failover with multiple readable secondary replicas. Enable Always On services first with SqlAlwaysOnServices, and ensure endpoints are configured with SqlEndpoints.
+****
 
 
 // reference links as variables for using more than once

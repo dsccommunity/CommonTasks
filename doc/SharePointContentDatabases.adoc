@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointContentDatabases
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} manages SharePoint content databases and their association with web applications.
 
 [#dscyml_sharepointcontentdatabases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointcontentdatabases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create, configure, or manage content databases for SharePoint web applications. Content databases store all site content, and their proper configuration (size limits, number of sites, database server) is important for SharePoint performance and scale planning.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

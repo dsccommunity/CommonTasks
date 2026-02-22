@@ -3,13 +3,18 @@
 
 :YmlCategory: WebBrowser
 
-:abstract:    {YmlCategory} is used setup global WebBrowser settings.
+:abstract:    {YmlCategory} configures web browser settings (Internet Explorer and Edge) via Group Policy registry entries.
 
 [#dscyml_webbrowser]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webbrowser_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enforce browser configuration policies such as proxy settings, trusted sites, security zones, home pages, or compatibility view settings. It applies settings through registry-based Group Policy, similar to what you would configure through Group Policy Management.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

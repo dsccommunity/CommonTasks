@@ -3,13 +3,18 @@
 
 :YmlCategory: PowerShellRepositories
 
-:abstract:    {YmlCategory} allows configuration of the PowerShell repositories.
+:abstract:    {YmlCategory} registers and configures PowerShell module repositories.
 
 [#dscyml_powershellrepositories]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_powershellrepositories_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to register internal or custom PowerShell repositories (e.g., a private NuGet feed or Azure Artifacts) as trusted sources for installing PowerShell modules. This is essential in enterprise environments that host internal modules or need to proxy the PowerShell Gallery.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

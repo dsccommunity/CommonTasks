@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlScriptQueries
 
-:abstract:    {YmlCategory} is used to to run a user generated T-SQL script on the SQL Server instance.
+:abstract:    {YmlCategory} executes custom T-SQL scripts against SQL Server instances using Get/Set/Test patterns.
 
 [#dscyml_sqlscriptqueries]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlscriptqueries_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to run custom T-SQL scripts as part of your DSC configuration, such as database schema deployments, data seeding, or custom configurations that lack dedicated DSC resources. It follows the DSC Get/Set/Test pattern to ensure idempotency.
+****
 
 Three scripts are required: Get T-SQL script, Set T-SQL script and the Test T-SQL script.
 

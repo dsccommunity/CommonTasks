@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointServiceAppPools
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and manages SharePoint service application pools.
 
 [#dscyml_sharepointserviceapppools]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointserviceapppools_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create IIS application pools for SharePoint service applications. Service application pools define the process identity and isolation for SharePoint services. Configure managed accounts first using SharePointManagedAccounts before creating service application pools.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: WaitForAnyNode
 
-:abstract:    {YmlCategory} can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+:abstract:    {YmlCategory} waits for any one of the specified nodes to reach a desired DSC configuration state before proceeding.
 
 [#dscyml_waitforanynode]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_waitforanynode_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when your DSC configuration needs at least one of several nodes to complete its configuration before proceeding. For example, wait for any one domain controller to be available before joining a machine to the domain. This resource blocks until at least one specified node reports the desired state.
+****
 
 This resource succeeds if the resource specified by the ResourceName property is in the desired state on any target nodes defined in the NodeName property.
 

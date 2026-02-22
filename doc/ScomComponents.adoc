@@ -3,13 +3,18 @@
 
 :YmlCategory: ScomComponents
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs and configures System Center Operations Manager (SCOM) components.
 
 [#dscyml_scomcomponents]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_scomcomponents_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install SCOM components such as the Management Server, Gateway Server, Web Console, or Operations Console. It automates the deployment of SCOM infrastructure roles as part of your monitoring solution.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

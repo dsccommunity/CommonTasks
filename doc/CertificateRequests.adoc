@@ -3,13 +3,18 @@
 
 :YmlCategory: CertificateRequests
 
-:abstract:   {YmlCategory} is used to request a new certificate from an certificate authority.
+:abstract:    {YmlCategory} requests new certificates from a Certificate Authority and waits for certificate services availability.
 
 [#dscyml_certificaterequests]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_certificaterequests_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to automatically request and enroll certificates from an internal Certificate Authority. This is ideal for automating SSL/TLS certificate provisioning on web servers, ensuring certificates are always present and valid without manual intervention.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

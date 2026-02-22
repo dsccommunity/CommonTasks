@@ -3,13 +3,18 @@
 
 :YmlCategory: FileContents
 
-:abstract:  {YmlCategory} contains DSC resources for managing file content as features by the underlying DSC resource.
+:abstract:    {YmlCategory} manages content within INI files, key-value pair files, and performs text replacements in files.
 
 [#dscyml_filecontents]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_filecontents_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to manage configuration files on target nodes. It supports modifying INI settings, updating key-value pair files (e.g., environment configs), and performing regex or literal text replacements in arbitrary files. This is useful for application configuration files that need specific values set.
+****
 
 
 // reference links as variables for using more than once

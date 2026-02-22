@@ -3,13 +3,18 @@
 
 :YmlCategory: DhcpServerAuthorization
 
-:abstract: {YmlCategory} manages the authorizations of a DHCP server in Active Directory.
+:abstract:    {YmlCategory} authorizes a DHCP server in Active Directory so it can serve IP addresses to clients.
 
 [#dscyml_dhcpserverauthorization]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpserverauthorization_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to authorize a DHCP server in an Active Directory environment. A DHCP server must be authorized in AD before it can begin serving IP leases. This is a prerequisite step that is separate from scope and option configuration.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

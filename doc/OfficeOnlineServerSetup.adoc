@@ -3,13 +3,18 @@
 
 :YmlCategory: OfficeOnlineServerSetup
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs Office Online Server prerequisites (Visual C++ Redistributable, .NET Framework, Identity Extensions) and language packs.
 
 [#dscyml_officeonlineserversetup]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_officeonlineserversetup_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install the prerequisites and language packs for Office Online Server. This is the first step in an OOS deployment and must be applied before OfficeOnlineServerMachineConfig and OfficeOnlineServerFarmConfig.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsTrusts
 
-:abstract:    {YmlCategory} creates new forest or external trust.
+:abstract:    {YmlCategory} creates new forest or external domain trusts.
 
 [#dscyml_addstrusts]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addstrusts_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to establish trust relationships between Active Directory domains or forests. This is necessary when users in one domain need to access resources in another domain, such as during mergers, cross-forest collaboration, or multi-domain architectures.
+****
 
 A trust is a relationship, which you establish between domains or forests. 
 To understand more about trusts in Active Directory, please see the article https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/forest-design-models[Forest Design Models] for more information.

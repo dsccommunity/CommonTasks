@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopLicensing
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures RDS licensing server settings and license mode (Per User or Per Device).
 
 [#dscyml_remotedesktoplicensing]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktoplicensing_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure Remote Desktop licensing for your RDS deployment. It specifies the licensing server and the licensing mode (Per User or Per Device). RDS licensing is required for production deployments and must comply with Microsoft licensing terms.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

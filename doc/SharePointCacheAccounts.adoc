@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointCacheAccounts
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures SharePoint object cache portal super user and super reader accounts for web applications.
 
 [#dscyml_sharepointcacheaccounts]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointcacheaccounts_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the SharePoint object cache accounts (Portal Super User and Portal Super Reader) for web applications. Proper cache account configuration is critical for SharePoint performance and avoiding access denied errors in the publishing cache.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

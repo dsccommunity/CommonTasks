@@ -3,13 +3,18 @@
 
 :YmlCategory: HyperVReplica
 
-:abstract:    {YmlCategory} contains DSC resources to configure replication of Hyper-V virtual machines.
+:abstract:    {YmlCategory} configures Hyper-V Replica settings for virtual machine replication to a secondary host.
 
 [#dscyml_hypervreplica]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_hypervreplica_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up Hyper-V Replica for disaster recovery. Hyper-V Replica asynchronously replicates virtual machines to a replica server, providing business continuity in case of primary host failure.
+****
 
 [IMPORTANT]
 ====

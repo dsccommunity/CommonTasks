@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAgentAlerts
 
-:abstract:    {YmlCategory} is used to add/remove SQL Agent Alerts.
+:abstract:    {YmlCategory} creates and configures SQL Server Agent alerts.
 
 [#dscyml_sqlagentalerts]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlagentalerts_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define SQL Server Agent alerts that respond to SQL Server errors, performance conditions, or WMI events. Alerts can notify operators (configured via SqlAgentOperators) or execute jobs when triggered, enabling proactive database monitoring.
+****
 
 The resource can also update the severity or message id.
 

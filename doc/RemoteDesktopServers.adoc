@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopServers
 
-:abstract:    {YmlCategory} configures Remote Desktop Session Host server roles.
+:abstract:    {YmlCategory} manages Remote Desktop servers within an RDS deployment by adding or removing session hosts, gateway servers, and web access servers.
 
 [#dscyml_remotedesktopservers, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopservers_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add or remove servers from an existing RDS deployment. It manages which servers serve in which RDS roles (Session Host, Gateway, Web Access). Use this for scaling your RDS environment by adding new session hosts or replacing failed servers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

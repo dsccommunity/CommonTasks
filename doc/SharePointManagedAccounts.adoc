@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointManagedAccounts
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} registers Active Directory accounts as SharePoint managed accounts.
 
 [#dscyml_sharepointmanagedaccounts]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointmanagedaccounts_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to register domain accounts that SharePoint will manage, including automatic password changes. Managed accounts are used as service accounts for application pools, service applications, and other SharePoint services. Register them before configuring service application pools.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

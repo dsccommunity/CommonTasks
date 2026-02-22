@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeMailboxDatabaseCopies
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates mailbox database copies across Exchange DAG members for high availability.
 
 [#dscyml_exchangemailboxdatabasecopies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangemailboxdatabasecopies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to replicate mailbox databases to other servers within a Database Availability Group. Database copies provide high availability and site resilience. Apply this after the DAG is created with ExchangeDagProvisioning and databases are created with ExchangeMailboxDatabases.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

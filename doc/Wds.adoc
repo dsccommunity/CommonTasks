@@ -3,13 +3,18 @@
 
 :YmlCategory: Wds
 
-:abstract:    {YmlCategory} contains the Windows Deployment Services DSC Resource Module.
+:abstract:    {YmlCategory} configures Windows Deployment Services (WDS) for PXE-based network OS deployment.
 
 [#dscyml_wds]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_wds_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up a WDS server for deploying operating systems to bare-metal machines via PXE network boot. It handles WDS initialization, boot and install image configuration, and optionally creates DHCP reservations for PXE clients.
+****
 
 Fully administration of a Windows Deployment Services server requires the following permissions:
 

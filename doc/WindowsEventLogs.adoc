@@ -3,13 +3,18 @@
 
 :YmlCategory: WindowsEventLogs
 
-:abstract:    {YmlCategory} allows configuration of a specified Windows Event Log.
+:abstract:    {YmlCategory} configures Windows event log properties such as log size, retention, and security.
 
 [#dscyml_windowseventlogs]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_windowseventlogs_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure event log settings like maximum log size, retention policy (overwrite/archive), log file paths, or access permissions. This is important for ensuring sufficient log capacity for troubleshooting and meeting compliance requirements for log retention.
+****
 
 
 // reference links as variables for using more than once

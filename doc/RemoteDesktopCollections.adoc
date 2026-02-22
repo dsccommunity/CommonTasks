@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopCollections
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and configures Remote Desktop Session Collections with user experience and security settings.
 
 [#dscyml_remotedesktopcollections]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopcollections_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create RDS session collections that group session hosts and define connection settings. Session collections control which servers host user sessions and the user experience settings (e.g., client device redirection, timeouts, and security). Apply this after RemoteDesktopDeployment.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

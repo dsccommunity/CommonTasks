@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlConfigurations
 
-:abstract:    {YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+:abstract:    {YmlCategory} manages SQL Server instance configuration options (sp_configure settings).
 
 [#dscyml_sqlconfigurations]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlconfigurations_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure SQL Server instance-level settings such as max memory, cost threshold for parallelism, max degree of parallelism, or any other sp_configure option. These settings affect the overall behavior and performance of the SQL Server instance.
+****
 
 
 // reference links as variables for using more than once

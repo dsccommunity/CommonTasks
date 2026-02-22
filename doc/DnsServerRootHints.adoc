@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerRootHints
 
-:abstract:  {YmlCategory} manages root hints on a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages root hints on a DNS server.
 
 [#dscyml_dnsserverroothints]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverroothints_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure or update the root hints (root DNS server addresses) on a DNS server. Root hints are used for recursive name resolution when forwarders are not configured or unavailable. You may need to update them to match your organization's internal root DNS servers in isolated networks.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

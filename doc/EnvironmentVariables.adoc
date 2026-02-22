@@ -3,13 +3,18 @@
 
 :YmlCategory: EnvironmentVariables
 
-:abstract: {YmlCategory} is used to configure and manage environment variables for a machine or process.
+:abstract:    {YmlCategory} manages system and user environment variables.
 
 [#dscyml_environmentvariables]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_environmentvariables_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create, modify, or remove environment variables at the machine or user level. This is commonly needed for applications that rely on environment variables for configuration, such as Java (JAVA_HOME), build tools (PATH modifications), or custom application settings.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

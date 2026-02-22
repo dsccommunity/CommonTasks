@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGReplicas
 
-:abstract:    {YmlCategory} is used to create, remove, and update an Always On Availability Group Replica.
+:abstract:    {YmlCategory} manages SQL Server Always On Availability Group replicas.
 
 [#dscyml_sqlagreplicas]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlagreplicas_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add or configure replicas (secondary servers) in a SQL Server Availability Group. Replicas receive copies of databases for high availability and can serve read-only workloads. The AG must be created first with SqlAGs.
+****
 
 
 // reference links as variables for using more than once

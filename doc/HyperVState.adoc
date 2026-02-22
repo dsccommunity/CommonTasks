@@ -3,13 +3,18 @@
 
 :YmlCategory: HyperVState
 
-:abstract:    {YmlCategory} contains DSC resources to control state parameters of Hyper-V virtual machines.
+:abstract:    {YmlCategory} manages the runtime state (start, stop, save) of Hyper-V virtual machines.
 
 [#dscyml_hypervstate]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_hypervstate_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to ensure Hyper-V virtual machines are in a specific running state. Unlike the HyperV resource which creates and configures VMs, this resource controls whether VMs are running, stopped, or saved. Use it to enforce desired VM states after initial provisioning.
+****
 
 It can be used to switch the default parameters of the <<dscyml_hyperv, HyperV>> configuration at the end of the DSC configuration.
 So you can create all VM definitions at the beginning, install Windows Updates, make some necessary reboots and safely start these VMs at last step in the DSC configuration after all critical actions are done.

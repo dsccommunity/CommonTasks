@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointProvisioning
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates or joins a SharePoint farm and configures Central Administration.
 
 [#dscyml_sharepointprovisioning]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointprovisioning_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to provision a new SharePoint farm or add a server to an existing farm. It handles farm creation (or joining), database configuration, and Central Administration port and authentication settings. Apply this after SharePointSetup has installed the binaries.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: ScomSettings
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures SCOM operational settings including alert resolution, heartbeat, database grooming, data warehouse, error reporting, and web addresses.
 
 [#dscyml_scomsettings]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_scomsettings_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the operational behavior of your SCOM management group. It manages settings for approval policies, alert resolution timing, database grooming schedules, data warehouse configuration, error reporting, heartbeat intervals, reporting server URLs, and web console addresses.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

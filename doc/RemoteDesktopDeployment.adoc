@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopDeployment
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} deploys the Remote Desktop Services infrastructure including Connection Broker, Web Access, Session Hosts, and Gateway servers.
 
 [#dscyml_remotedesktopdeployment]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopdeployment_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy a new Remote Desktop Services environment. It installs and configures the RDS deployment with Connection Broker, Web Access, Session Host, and Gateway roles distributed across servers. This is the foundational RDS resource; apply it before RemoteDesktopCollections, RemoteDesktopLicensing, and RemoteDesktopCertificates.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

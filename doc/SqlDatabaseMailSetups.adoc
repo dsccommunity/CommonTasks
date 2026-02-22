@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlDatabaseMailSetups
 
-:abstract:    {YmlCategory} is used to manage SQL Server Database Mail.
+:abstract:    {YmlCategory} configures SQL Server Database Mail accounts and profiles for sending email notifications.
 
 [#dscyml_sqldatabasemailsetups]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqldatabasemailsetups_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable Database Mail on SQL Server for sending email from T-SQL code, SQL Server Agent alerts, or maintenance plan notifications. It configures SMTP accounts, mail profiles, and security principals. This is a prerequisite for SQL Agent alert email notifications.
+****
 
 [NOTE]
 ====

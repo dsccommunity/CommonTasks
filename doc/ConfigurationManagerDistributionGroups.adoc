@@ -3,13 +3,18 @@
 
 :YmlCategory: ConfigurationManagerDistributionGroups
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} manages Configuration Manager distribution point groups for content distribution.
 
 [#dscyml_configurationmanagerdistributiongroups]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_configurationmanagerdistributiongroups_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and manage distribution point groups in your SCCM/MECM environment. Distribution point groups simplify content distribution by allowing you to target groups of distribution points rather than individual servers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

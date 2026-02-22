@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointWebApplications
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates SharePoint web applications with configured authentication and hosting settings.
 
 [#dscyml_sharepointwebapplications]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointwebapplications_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create SharePoint web applications that host site collections. Web applications define the IIS site, authentication method, URL, and application pool for SharePoint content. Create service application pools first using SharePointServiceAppPools.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -11,6 +11,11 @@
 [[dscyml_addsdomain_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up a brand-new Active Directory forest or add a child domain to an existing forest. It handles domain creation, optional features such as the Privileged Access Management (PAM) feature or 32K database pages, initial group creation, and domain trust configuration. This is typically the first resource applied when bootstrapping an AD environment from scratch.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===

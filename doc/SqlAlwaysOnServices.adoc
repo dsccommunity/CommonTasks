@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAlwaysOnServices
 
-:abstract:    {YmlCategory} enables or disables SQL Server Always On high availability and disaster recovery (Always On HADR) for a SQL Server instance.
+:abstract:    {YmlCategory} enables or disables SQL Server Always On HADR (High Availability and Disaster Recovery) services on an instance.
 
 [#dscyml_sqlalwaysonservices]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlalwaysonservices_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable Always On as a feature on a SQL Server instance. This is a prerequisite step before creating Availability Groups with SqlAGs. It requires a Windows Failover Cluster (configured via FailoverCluster) and a SQL Server restart.
+****
 
 
 // reference links as variables for using more than once

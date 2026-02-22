@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerQueryResolutionPolicies
 
-:abstract:  {YmlCategory} manages settings of policies for query resolution on a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages query resolution policies on a DNS server.
 
 [#dscyml_dnsserverqueryresolutionpolicies]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverqueryresolutionpolicies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to control how a DNS server responds to queries based on criteria such as client subnet, query type, or time of day. DNS policies enable scenarios like split-brain DNS, geo-location-based responses, traffic management, and query filtering.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

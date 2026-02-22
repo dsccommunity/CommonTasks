@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGListeners
 
-:abstract:    {YmlCategory} is used to configure the listener for an Always On Availability Group.
+:abstract:    {YmlCategory} configures listeners for SQL Server Always On Availability Groups, providing client connection endpoints.
 
 [#dscyml_sqlaglisteners]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlaglisteners_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create the client-facing network endpoint for an Availability Group. The listener provides a virtual network name and IP address that clients use to connect to the AG, enabling transparent failover. The AG must be created first with SqlAGs.
+****
 
 
 // reference links as variables for using more than once

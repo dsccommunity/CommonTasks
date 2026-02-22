@@ -3,13 +3,18 @@
 
 :YmlCategory: SmbShares
 
-:abstract:    {YmlCategory} is used to manage SMB Server Settings, SMB shares and access permissions to SMB shares.
+:abstract:    {YmlCategory} manages SMB server settings, file shares, and share-level access permissions.
 
 [#dscyml_smbshares]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_smbshares_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create file shares, configure share permissions (full access, change, read, no access for specific users/groups), and manage SMB server configuration settings. It can also ensure the shared folders exist on disk before creating the shares.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

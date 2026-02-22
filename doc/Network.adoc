@@ -3,13 +3,18 @@
 
 :YmlCategory: Network
 
-:abstract:    {YmlCategory} specifies the network layer Maximum Transmission Unit (MTU) value, in bytes, for an IP interface.
+:abstract:    {YmlCategory} configures network interface settings including MTU size, adapter bindings, DNS, WINS, and NetBIOS.
 
 [#dscyml_network]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_network_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure network-level settings on interfaces categorized by network zone. It manages MTU size, protocol bindings, DNS server addresses, WINS settings, and NetBIOS configuration. For IP address assignment and routing, use IpConfiguration or NetworkIpConfiguration instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

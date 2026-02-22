@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointSites
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates SharePoint site collections.
 
 [#dscyml_sharepointsites]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointsites_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create site collections within SharePoint web applications. Site collections are the top-level organizational unit for SharePoint content. Configure managed paths, content databases, and web applications before creating site collections.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

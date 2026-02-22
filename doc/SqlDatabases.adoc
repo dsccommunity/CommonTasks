@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlDatabases
 
-:abstract:    {YmlCategory} is used to create or delete a database.
+:abstract:    {YmlCategory} creates and manages SQL Server databases.
 
 [#dscyml_sqldatabases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqldatabases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create databases on a SQL Server instance. It handles database creation with configurable collation and recovery model. Use this for provisioning application databases as part of your infrastructure deployment.
+****
 For more information about SQL Server databases, please read the following articles https://docs.microsoft.com/en-us/sql/relational-databases/databases/create-a-database[Create a Database] and https://docs.microsoft.com/en-us/sql/relational-databases/databases/delete-a-database[Delete a Database].
 
 This resource sets the recovery model for a database.

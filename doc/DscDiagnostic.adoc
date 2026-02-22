@@ -3,13 +3,18 @@
 
 :YmlCategory: DscDiagnostic
 
-:abstract:    {YmlCategory} is used to ###TBD###.
+:abstract:    {YmlCategory} configures Just Enough Administration (JEA) endpoints for DSC diagnostic operations such as auto-correct, refresh, and monitoring.
 
 [#dscyml_dscdiagnostic, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dscdiagnostic_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up restricted, secure JEA endpoints for managing DSC operations remotely. It creates role capabilities and session configurations that allow operators to perform DSC diagnostics (triggering auto-correct, refresh, or monitoring) without requiring full administrative access.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

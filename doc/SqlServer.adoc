@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlServer
 
-:abstract:    {YmlCategory} is used for deployment and configuration of Microsoft SQL Server.
+:abstract:    {YmlCategory} installs SQL Server instances and configures initial logins.
 
 [#dscyml_sqlserver]
 = DSC Resource '{YmlCategory}' 
 
 [[dscyml_sqlserver_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to perform a fresh installation of a SQL Server instance. It handles the SQL Server setup process and creates initial logins during installation. This is typically the first SQL resource applied, before SqlConfigurations, SqlDatabases, or Always On setup.
+****
 
 
 // reference links as variables for using more than once

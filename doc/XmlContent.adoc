@@ -3,13 +3,18 @@
 
 :YmlCategory: XmlContent
 
-:abstract:    {YmlCategory} manages content in XML files.
+:abstract:    {YmlCategory} manages content in XML files using XPath-based modifications.
 
 [#dscyml_xmlcontent]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_xmlcontent_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to modify XML configuration files on target nodes. It uses XPath expressions to precisely target and modify elements, attributes, or text within XML files. This is useful for application configuration files like app.config, web.config, or any custom XML configuration that needs specific values set.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: OpticalDiskDrives
 
-:abstract:    {YmlCategory} is used to set the drive letter of an optical disk drive (e.g. a CDROM or DVD drive).
+:abstract:    {YmlCategory} manages the drive letter assignment for optical disk drives (CD-ROM, DVD).
 
 [#dscyml_opticaldiskdrives]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_opticaldiskdrives_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to change or remove the drive letter of an optical disk drive. This is commonly done on servers to free up a specific drive letter (e.g., D:) for data disk use, or to standardize drive letter assignments across servers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,7 +3,7 @@
 
 :YmlCategory: DscPullServer
 
-:abstract:  {YmlCategory} is used to ###TBD###.
+:abstract:    {YmlCategory} sets up a DSC Pull Server with a web service endpoint for nodes to pull configurations from.
 
 [#dscyml_dscpullserver]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dscpullserver_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy a DSC Pull Server that serves as a central distribution point for DSC configurations and modules. Nodes configured in Pull mode will contact this server to download their configurations. For a Pull Server with SQL backend, use DscPullServerSql instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

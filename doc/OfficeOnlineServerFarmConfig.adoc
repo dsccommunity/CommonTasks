@@ -3,13 +3,18 @@
 
 :YmlCategory: OfficeOnlineServerFarmConfig
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures Office Online Server (OOS) farm settings including URLs, Excel services, translation, and caching.
 
 [#dscyml_officeonlineserverfarmconfig]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_officeonlineserverfarmconfig_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure an Office Online Server farm after creating it. It manages the farm-wide settings such as internal and external URLs, SSL/TLS configuration, Excel calculation services, language settings, and cache configuration. Apply this after the farm is created with OfficeOnlineServerMachineConfig.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

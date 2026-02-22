@@ -11,6 +11,11 @@
 [[dscyml_dnssuffixes_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure DNS suffixes on individual network adapters. DNS suffixes enable short-name resolution by appending domain names to unqualified queries, which is important for proper name resolution in multi-domain environments.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===

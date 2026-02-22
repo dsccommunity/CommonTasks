@@ -3,13 +3,18 @@
 
 :YmlCategory: JeaRoles
 
-:abstract:    {YmlCategory} configures Just Enough Administration (JEA) Roles.
+:abstract:    {YmlCategory} defines Just Enough Administration (JEA) role capabilities specifying allowed commands and functions.
 
 [#dscyml_jearoles]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_jearoles_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define what PowerShell cmdlets, functions, and scripts a JEA role can execute. Role capabilities are the building blocks of JEA, defining the precise set of commands available to users connecting through JEA endpoints configured by JeaEndpoints.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

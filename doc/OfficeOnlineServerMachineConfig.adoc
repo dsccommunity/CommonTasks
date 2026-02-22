@@ -3,13 +3,18 @@
 
 :YmlCategory: OfficeOnlineServerMachineConfig
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} manages Office Online Server membership in a farm (join or leave), and configures server roles.
 
 [#dscyml_officeonlineservermachineconfig]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_officeonlineservermachineconfig_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add a server to an Office Online Server farm or create a new single-server farm. It controls the machine-level OOS configuration and farm membership. Use it together with OfficeOnlineServerSetup for installation and OfficeOnlineServerFarmConfig for farm-wide settings.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

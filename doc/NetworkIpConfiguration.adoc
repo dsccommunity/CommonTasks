@@ -3,13 +3,18 @@
 
 :YmlCategory: NetworkIpConfiguration
 
-:abstract:    {YmlCategory} sets the IP configuration and network routes.
+:abstract:    {YmlCategory} provides comprehensive network IP configuration including interfaces, DNS, IP addresses, gateways, WINS, NetBIOS, routes, and IPv6 settings.
 
 [#dscyml_networkipconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_networkipconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need complete network configuration on a node, including static IP addresses, default gateways, DNS servers, WINS settings, NetBIOS configuration, static routes, IPv6 settings, and adapter bindings. This is the most comprehensive network configuration resource, combining capabilities from IpConfiguration and Network into a single resource.
+****
 
 // reference links as variables for using more than once
 :ref_networkingdsc_ipaddress:             https://github.com/dsccommunity/NetworkingDsc/wiki/IPAddress[IPAddress]

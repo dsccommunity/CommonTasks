@@ -3,13 +3,18 @@
 
 :YmlCategory: RenameNetworkAdapters
 
-:abstract:    {YmlCategory} renames network adapters.
+:abstract:    {YmlCategory} renames network adapters based on MAC address or other identification criteria.
 
 [#dscyml_RenameNetworkAdapters]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_RenameNetworkAdapters_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to assign consistent, meaningful names to network adapters (e.g., 'LAN', 'Management', 'Backup'). Default adapter names like 'Ethernet0' vary by system and are hard to reference reliably. Renaming adapters based on MAC address ensures consistent naming across configurations.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

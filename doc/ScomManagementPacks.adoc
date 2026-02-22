@@ -3,13 +3,18 @@
 
 :YmlCategory: ScomManagementPacks
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} imports and manages SCOM management packs for monitoring solution definitions.
 
 [#dscyml_scommanagementpacks]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_scommanagementpacks_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to import management packs into your SCOM management group. Management packs define what SCOM monitors, including rules, monitors, views, and knowledge articles for specific technologies like Active Directory, SQL Server, or custom applications.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

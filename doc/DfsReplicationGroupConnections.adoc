@@ -3,13 +3,18 @@
 
 :YmlCategory: DfsReplicationGroupConnections
 
-:abstract:    {YmlCategory} configures DFS Replication Group connections between computers.
+:abstract:    {YmlCategory} configures DFS Replication Group connections between member servers.
 
 [#dscyml_dfsreplicationgroupconnections, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dfsreplicationgroupconnections_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define the replication connections between servers in a DFS Replication Group. These connections control which servers replicate data with each other and the replication topology (hub-spoke, full mesh, etc.).
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

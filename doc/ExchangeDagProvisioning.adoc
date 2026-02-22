@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeDagProvisioning
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} provisions Exchange Database Availability Groups (DAGs) including DAG members and network configuration.
 
 [#dscyml_exchangedagprovisioning]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangedagprovisioning_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and configure an Exchange DAG for high availability. It sets up the DAG, adds member servers, and configures DAG networks. A DAG provides automatic database-level failover when a server, database, or network failure occurs.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

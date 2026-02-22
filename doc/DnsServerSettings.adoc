@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerSettings
 
-:abstract:  {YmlCategory} manages the Domain Name System (DNS) server settings and properties.
+:abstract:    {YmlCategory} manages comprehensive DNS server settings and properties.
 
 [#dscyml_dnsserversettings]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserversettings_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure detailed DNS server operational settings such as round robin, BIND secondaries, DNSSEC, IPv6, XFR connect timeout, recursion, and dozens of other server-level parameters. This is the primary resource for tuning DNS server behavior.
+****
 
 
 // reference links as variables for using more than once

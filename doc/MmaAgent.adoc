@@ -3,13 +3,18 @@
 
 :YmlCategory: MmaAgent
 
-:abstract: {YmlCategory} is used to manage settings of the Microsoft Monitoring Agent.
+:abstract:    {YmlCategory} configures the Microsoft Monitoring Agent (MMA/OMS agent) and its workspace connections.
 
 [#dscyml_mmaagent]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_mmaagent_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the Microsoft Monitoring Agent on target nodes to connect to Log Analytics workspaces. The MMA agent collects monitoring data, logs, and performance counters from Windows machines and forwards them to Azure Monitor / Log Analytics for analysis and alerting.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

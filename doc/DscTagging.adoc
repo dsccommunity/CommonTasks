@@ -3,7 +3,7 @@
 
 :YmlCategory: DscTagging
 
-:abstract:  {YmlCategory} contains information about the current DSC configuration (version, envrionment, modules, ...).
+:abstract:    {YmlCategory} tags DSC nodes with metadata about the current configuration, including version, environment, and module information.
 
 [#dscyml_dsctagging]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dsctagging_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to track which DSC configuration version, environment, and role is applied to each node. It stores metadata in registry entries and environment variables, enabling reporting, inventory, and troubleshooting across your managed infrastructure.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

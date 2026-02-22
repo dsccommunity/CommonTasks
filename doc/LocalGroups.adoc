@@ -3,13 +3,18 @@
 
 :YmlCategory: LocalGroups
 
-:abstract:    {YmlCategory} is used to manage local groups.
+:abstract:    {YmlCategory} manages local groups and their membership.
 
 [#dscyml_localgroups]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_localgroups_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create local groups or manage local group membership on target nodes. This is commonly used to add domain users or groups to the local Administrators group, or to create application-specific local groups for access control on standalone or domain-joined machines.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

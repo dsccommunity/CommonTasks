@@ -3,13 +3,18 @@
 
 :YmlCategory: Robocopies
 
-:abstract:  {YmlCategory} is used to facilitate large file copies with complex requirements such as multithreading, restarts, and exclusions when recursing content.
+:abstract:    {YmlCategory} performs large file copy operations with advanced options like multithreading, restarts, and content exclusions using Robocopy.
 
 [#dscyml_robocopies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_robocopies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to synchronize files or folders between locations with enterprise-grade reliability. Robocopy supports multithreaded copying, resume on failure, mirroring, and complex exclusion rules. It is ideal for content deployment, file server migrations, or maintaining synchronized folder structures.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

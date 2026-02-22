@@ -1,15 +1,20 @@
-﻿// CommonTasks YAML Reference: HostsFileEntries
+// CommonTasks YAML Reference: HostsFileEntries
 // ============================================
 
 :YmlCategory: HostsFileEntries
 
-:abstract:    {YmlCategory} is used to control entries on a the host file for a node.
+:abstract:    {YmlCategory} manages entries in the Windows hosts file.
 
 [#dscyml_hostsfileentries]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_hostsfileentries_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add, modify, or remove entries in the hosts file (C:\Windows\System32\drivers\etc\hosts). This is useful for local name resolution overrides such as pointing hostnames to specific IPs during migrations, testing, or when DNS is not available.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

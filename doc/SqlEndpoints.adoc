@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlEndpoints
 
-:abstract:    {YmlCategory} is used to create an SQL endpoint.
+:abstract:    {YmlCategory} creates SQL Server endpoints for database mirroring or service broker communication.
 
 [#dscyml_sqlendpoints]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlendpoints_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create database mirroring endpoints (required for Always On Availability Groups) or service broker endpoints. Mirroring endpoints must be configured on all replicas before creating Availability Groups with SqlAGs.
+****
 Currently it only supports creating a database mirror and a service broker endpoint.
 A database mirror endpoint can be used by AlwaysOn.
 

@@ -3,13 +3,18 @@
 
 :YmlCategory: ComputerSettings
 
-:abstract:  {YmlCategory} configures a computer by changing its name and description and modifying its Active Directory domain or workgroup membership.
+:abstract:    {YmlCategory} configures basic computer settings including name, domain/workgroup membership, time zone, and Remote Desktop.
 
 [#dscyml_computersettings]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_computersettings_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set the computer name, join a machine to an Active Directory domain or workgroup, configure the time zone, or enable/disable Remote Desktop access. This is one of the most fundamental resources, typically applied early in a node's configuration to establish identity and connectivity.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: LocalUsers
 
-:abstract:    {YmlCategory} is used to manage local users.
+:abstract:    {YmlCategory} creates and manages local user accounts.
 
 [#dscyml_localusers]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_localusers_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create or configure local user accounts on target nodes. This is used for service accounts, application accounts, or administrator accounts that need to exist locally on the machine (as opposed to Active Directory domain accounts managed by AddsDomainPrincipals).
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

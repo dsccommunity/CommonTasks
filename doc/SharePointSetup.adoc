@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointSetup
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs SharePoint Server binaries, prerequisites, and language packs.
 
 [#dscyml_sharepointsetup]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointsetup_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install SharePoint Server on a machine. It handles the prerequisites installer, the main SharePoint binary installation, and any language packs. This must be applied before SharePointProvisioning can create or join the farm.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

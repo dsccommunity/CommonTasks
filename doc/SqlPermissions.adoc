@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlPermissions
 
-:abstract:    {YmlCategory} is used to grant, deny or revoke Server permissions for a login.
+:abstract:    {YmlCategory} grants, denies, or revokes server-level permissions for SQL Server logins.
 
 [#dscyml_sqlpermissions]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlpermissions_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to manage server-level permissions for SQL Server logins, such as granting CONNECT SQL, ALTER ANY DATABASE, VIEW SERVER STATE, or other server-scoped permissions. Create the logins first with SqlLogins.
+****
 For more information about permissions, please read the article https://docs.microsoft.com/en-us/sql/relational-databases/security/permissions-database-engine[Permissions (Database Engine)].
 
 [NOTE]

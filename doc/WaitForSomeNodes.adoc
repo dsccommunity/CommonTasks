@@ -3,13 +3,18 @@
 
 :YmlCategory: WaitForSomeNodes
 
-:abstract:    {YmlCategory} can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+:abstract:    {YmlCategory} waits for a specified number of nodes to reach a desired DSC configuration state before proceeding.
 
 [#dscyml_waitforsomenodes]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_waitforsomenodes_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when your DSC configuration requires a minimum number (but not necessarily all) of other nodes to complete their configuration first. For example, wait for at least 2 out of 3 cluster nodes to be configured before proceeding with cluster formation. This provides a middle ground between WaitForAllNodes and WaitForAnyNode.
+****
 
 This resource succeeds if the resource specified by the ResourceName property is in the desired state on a minimum number of nodes (specified by NodeCount) defined by the NodeName property.
 

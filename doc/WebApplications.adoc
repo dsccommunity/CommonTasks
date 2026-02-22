@@ -3,13 +3,18 @@
 
 :YmlCategory: WebApplications
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates IIS web applications within existing websites.
 
 [#dscyml_webapplications]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webapplications_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create web applications under an IIS website (e.g., https://server/myapp). Web applications run in their own application pool and can have separate authentication, authorization, and .NET settings. Create the parent website first using WebSites and the application pool using WebApplicationPools.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

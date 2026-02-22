@@ -3,13 +3,18 @@
 
 :YmlCategory: WindowsEventForwarding
 
-:abstract:    {YmlCategory} enables you to configure a server to become an Event Collector role and create complex Subscriptions.
+:abstract:    {YmlCategory} configures Windows Event Forwarding (WEF) collectors and subscriptions for centralized event log collection.
 
 [#dscyml_windowseventforwarding]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_windowseventforwarding_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up centralized Windows event log collection. It configures a server as a WEF collector and creates subscriptions that pull specific events from source computers. This is essential for security monitoring, SIEM integration, and compliance logging across your infrastructure.
+****
 
 
 :ref_xWindowsEventForwarding:   https://github.com/dsccommunity/xWindowsEventForwarding[xWindowsEventForwarding]

@@ -3,7 +3,7 @@
 
 :YmlCategory: FirewallProfiles
 
-:abstract:  {YmlCategory} configures a node's private, public or domain firewall profile.
+:abstract:    {YmlCategory} configures Windows Firewall profiles (Domain, Private, Public).
 
 [#dscyml_firewallprofiles]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_firewallprofiles_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the overall state of Windows Firewall profiles rather than individual rules. It allows you to enable/disable profiles, set default inbound/outbound actions, configure logging, and control notification settings for each network profile type. For managing individual firewall rules, use FirewallRules instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

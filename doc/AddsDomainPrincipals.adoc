@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsDomainPrincipals
 
-:abstract:  {YmlCategory} manages Users and Managed Service Accounts within Active Directory.
+:abstract:    {YmlCategory} manages Users, Computers, and Managed Service Accounts within Active Directory.
 
 [#dscyml_addsdomainprincipals]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsdomainprincipals_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create or manage AD user accounts, computer accounts, KDS root keys, or group/standalone Managed Service Accounts (gMSA/sMSA). This is the right choice for provisioning service identities and machine accounts in bulk as part of your infrastructure-as-code pipeline.
+****
 
 
 :ref_ADUser: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/ADUser[ADUser]

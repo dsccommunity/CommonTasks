@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsProtectFromAccidentalDeletion
 
-:abstract:  {YmlCategory} prevents AD objects from being deleted.
+:abstract:    {YmlCategory} prevents AD objects from being deleted.
 
 [#dscyml_addsprotectfromaccidentaldeletion]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsprotectfromaccidentaldeletion_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable or disable the 'Protect object from accidental deletion' flag on AD objects such as OUs, users, groups, computers, fine-grained password policies, or replication sites. This is a safety measure for critical AD objects in production environments.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

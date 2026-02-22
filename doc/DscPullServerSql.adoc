@@ -3,7 +3,7 @@
 
 :YmlCategory: DscPullServerSql
 
-:abstract:  {YmlCategory} configures an OData endpoint for DSC service to make a node a DSC pull server.
+:abstract:    {YmlCategory} sets up a DSC Pull Server with a SQL Server backend and firewall configuration.
 
 [#dscyml_dscpullserversql]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dscpullserversql_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need a DSC Pull Server that uses SQL Server for its backend database instead of the default EDB/MDB file. The SQL backend provides better performance and scalability for large environments with many managed nodes. It also configures necessary firewall rules.
+****
 
 
 :ref_xDscWebService:  https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService]

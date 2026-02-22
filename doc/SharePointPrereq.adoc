@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointPrereq
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs SharePoint Server prerequisites from ISO installation media.
 
 [#dscyml_sharepointprereq]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointprereq_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install the SharePoint prerequisite software automatically. It mounts the installation ISO and runs the prerequisite installer. This must be applied before SharePointSetup. If prerequisites are already handled separately or included in the SharePointSetup resource, you may not need this resource.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

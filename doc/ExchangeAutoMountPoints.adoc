@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeAutoMountPoints
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures Exchange Server automatic mount points for database and log storage volumes.
 
 [#dscyml_exchangeautomountpoints]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangeautomountpoints_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up the disk mount point structure for Exchange Server mailbox database and transaction log volumes. Exchange best practices recommend dedicated volumes for databases and logs, and this resource automates the mount point configuration following those practices.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

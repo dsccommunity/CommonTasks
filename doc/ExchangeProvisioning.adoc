@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeProvisioning
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs Microsoft Exchange Server from ISO media, handling prerequisites and required reboots.
 
 [#dscyml_exchangeprovisioning]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangeprovisioning_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to perform a fresh installation of Exchange Server. It mounts the installation ISO, runs the setup with the specified roles, and handles pending reboots. This is the first Exchange resource to apply before ExchangeConfiguration, ExchangeMailboxDatabases, or ExchangeDagProvisioning.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

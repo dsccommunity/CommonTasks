@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsServicePrincipalNames
 
-:abstract:    {YmlCategory} will manage service principal names.
+:abstract:    {YmlCategory} manages Service Principal Names within Active Directory.
 
 [#dscyml_addsserviceprincipalnames]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsserviceprincipalnames_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to register or manage Kerberos Service Principal Names (SPNs) on AD objects. SPNs are required for Kerberos authentication to work correctly with services like SQL Server, IIS, or custom applications running under domain accounts.
+****
 
 A service principal name (SPN) is a unique identifier of a service instance.
 SPNs are used by Kerberos authentication to associate a service instance with a service logon account.

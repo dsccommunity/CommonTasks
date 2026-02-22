@@ -3,7 +3,7 @@
 
 :YmlCategory: ConfigurationBase
 
-:abstract:    {YmlCategory} enables RDP.
+:abstract:    {YmlCategory} configures the base DSC web service endpoint by system type.
 
 [#dscyml_configurationbase, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_configurationbase_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up the foundational DSC configuration web service on a node. It provides the base configuration that other DSC resources build upon, and its behavior adapts based on the system type (e.g. server vs. client).
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

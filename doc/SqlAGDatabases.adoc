@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGDatabases
 
-:abstract:    {YmlCategory} is used to add databases or remove databases from a specified availability group.
+:abstract:    {YmlCategory} adds or removes databases from SQL Server Always On Availability Groups.
 
 [#dscyml_sqlagdatabases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlagdatabases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to protect databases with Always On by adding them to an Availability Group, or to remove them. The Availability Group must already be configured using SqlAGs. Databases must meet AG prerequisites (full recovery model, full backup taken).
+****
 
 When a replica has Automatic seeding on Automatic, no restore is use for that replica.
 When all replicas are on automatic seeding, no backup is made, unless the database has never been backuped.

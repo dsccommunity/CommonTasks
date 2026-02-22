@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlRoles
 
-:abstract:    {YmlCategory} is used to manage the SQL Server Configuration Options on a SQL Server instance.
+:abstract:    {YmlCategory} manages SQL Server roles and their membership.
 
 [#dscyml_sqlroles]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlroles_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create custom SQL Server roles or manage membership of built-in server roles (sysadmin, dbcreator, securityadmin, etc.). Use this for implementing role-based access control at the SQL Server level.
+****
 
 The SqlRole DSC resource is used to create a server role, when Ensure is set to `Present`, or remove a server role, when Ensure is set to `Absent`.
 The resource also manages members in both built-in and user created server roles.

@@ -3,13 +3,18 @@
 
 :YmlCategory: UpdateServices
 
-:abstract:    {YmlCategory} configures the Windows Server Update Services (WSUS).
+:abstract:    {YmlCategory} configures Windows Server Update Services (WSUS), including server setup, cleanup tasks, and approval rules.
 
 [#dscyml_updateservices]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_updateservices_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up and configure a WSUS server for centralized Windows update management. It handles WSUS server initialization, product and classification selection, update languages, cleanup schedules, and automatic approval rules for your patch management strategy.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

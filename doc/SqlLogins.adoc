@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlLogins
 
-:abstract:    {YmlCategory} is used to manage SQL Server logins for a SQL Server instance.
+:abstract:    {YmlCategory} creates SQL Server logins (Windows or SQL authentication).
 
 [#dscyml_sqllogins]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqllogins_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create SQL Server logins for users, service accounts, or applications that need to connect to the SQL Server instance. It supports both Windows-integrated logins and SQL Server authentication logins.
+****
 
 
 // reference links as variables for using more than once

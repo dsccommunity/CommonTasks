@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerResponseRateLimiting
 
-:abstract:  {YmlCategory} manages Response Rate Limiting (RRL) on a Windows DNS server.
+:abstract:    {YmlCategory} configures Response Rate Limiting (RRL) on a Windows DNS server.
 
 [#dscyml_dnsserverresponseratelimiting]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverresponseratelimiting_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to protect your DNS server from denial-of-service attacks via DNS amplification. Response Rate Limiting throttles repetitive responses to the same client, mitigating DNS reflection/amplification attacks while maintaining service for legitimate clients.
+****
 
 
 :ref_SetDnsServerResponseRateLimitingExceptionlist: https://docs.microsoft.com/en-us/powershell/module/dnsserver/set-dnsserverresponseratelimitingexceptionlist?view=win10-ps[Set-DnsServerResponseRateLimitingExceptionlist]

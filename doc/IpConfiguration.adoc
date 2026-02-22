@@ -3,13 +3,18 @@
 
 :YmlCategory: IpConfiguration
 
-:abstract:    {YmlCategory} sets the IP configuration.
+:abstract:    {YmlCategory} configures network adapter IP addresses, gateways, DNS servers, and adapter settings.
 
 [#dscyml_ipconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_ipconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set static IP configurations on network adapters, including IP address, subnet mask, default gateway, and DNS server addresses. This is fundamental for server configurations where static IP addressing is required. For more comprehensive network settings including routes and WINS, consider NetworkIpConfiguration instead.
+****
 
 
 // reference links as variables for using more than once

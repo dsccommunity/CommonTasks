@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopHAMode
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures the Remote Desktop Connection Broker for high availability mode with a SQL Server backend.
 
 [#dscyml_remotedesktophamode]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktophamode_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure RDS Connection Broker high availability for fault-tolerant session brokering. HA mode requires a shared SQL Server database and allows multiple Connection Brokers to share the load. This is necessary for production RDS deployments that require resilience.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

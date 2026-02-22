@@ -1,15 +1,20 @@
-﻿// CommonTasks YAML Reference: ScheduledTasks
+// CommonTasks YAML Reference: ScheduledTasks
 // ==========================================
 
 :YmlCategory: ScheduledTasks
 
-:abstract:    {YmlCategory} is used to define basic run once or recurring scheduled tasks on the local computer and can also be used to delete or disable built-in scheduled tasks.
+:abstract:    {YmlCategory} manages Windows scheduled tasks, including creating, deleting, or disabling tasks on the local computer.
 
 [#dscyml_scheduledtasks]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_scheduledtasks_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create automated scheduled tasks (e.g., maintenance scripts, backup jobs, cleanup routines) or disable/delete unnecessary built-in scheduled tasks for security hardening. It supports one-time, recurring, and complex trigger-based task scheduling.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerForwarders
 
-:abstract:  {YmlCategory} manages the DNS forwarder list of a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages the DNS forwarder list on a DNS server.
 
 [#dscyml_dnsserverforwarders]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverforwarders_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure which upstream DNS servers your DNS server forwards unresolvable queries to. Forwarders are typically set to your ISP's DNS servers, public DNS (e.g., 8.8.8.8), or internal upstream DNS servers for recursive resolution.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: SecurityBase
 
-:abstract:    {YmlCategory} configures base settings depending on the role.
+:abstract:    {YmlCategory} applies security baseline configurations based on server role (member server, domain controller).
 
 [#dscyml_securitybase]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_securitybase_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to apply a standardized security baseline to your servers. It configures security options, user rights assignments, and account policies based on whether the server is a member server or domain controller. This provides CIS/STIG-aligned security hardening appropriate to the server role.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

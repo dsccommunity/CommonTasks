@@ -3,13 +3,18 @@
 
 :YmlCategory: Scripts
 
-:abstract:    {YmlCategory} provides a mechanism to run PowerShell script blocks on a target node.
+:abstract:    {YmlCategory} runs custom PowerShell script blocks on target nodes using Get/Set/Test patterns.
 
 [#dscyml_scripts]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_scripts_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource as a last resort when no dedicated DSC resource exists for what you need to configure. It allows you to run arbitrary PowerShell code with Get, Set, and Test script blocks, following the DSC resource pattern. Prefer purpose-built DSC resources when available, as they provide better idempotency and error handling.
+****
 
 // reference links as variables for using more than once
 :ref_xpsdesiredstateconfiguration_xscript:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xscript[xScript]

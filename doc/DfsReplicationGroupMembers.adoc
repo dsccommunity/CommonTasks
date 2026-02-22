@@ -3,13 +3,18 @@
 
 :YmlCategory: DfsReplicationGroupMembers
 
-:abstract:    {YmlCategory} configures DFS Replication Group members.
+:abstract:    {YmlCategory} configures membership in DFS Replication Groups.
 
 [#dscyml_dfsreplicationgroupmembers, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dfsreplicationgroupmembers_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add or remove servers as members of a DFS Replication Group. Members are the servers that participate in replicating folder content within the group.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

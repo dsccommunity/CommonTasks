@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsOrgUnitsAndGroups
 
-:abstract:  {YmlCategory} adds Groups and Organizational Units to an existing domain.
+:abstract:    {YmlCategory} adds Groups and Organizational Units to an existing domain.
 
 [#dscyml_addsorgunitsandgroups]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsorgunitsandgroups_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create the OU hierarchy and security/distribution groups within your Active Directory domain. This is essential for structuring your AD directory with a well-defined OU tree and group layout before placing objects like users or computers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsWaitForDomains
 
-:abstract:  {YmlCategory} waits for a domain to be available.
+:abstract:    {YmlCategory} waits for one or more domains to become available.
 
 [#dscyml_addswaitfordomains]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addswaitfordomains_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when your DSC configuration depends on an Active Directory domain being online before proceeding. This is commonly used before promoting a domain controller or joining a machine to a domain, ensuring the domain is reachable and responsive first.
+****
 
 
 :ref_WaitForADDomain: https://github.com/dsccommunity/ActiveDirectoryDsc/wiki/WaitForADDomain[WaitForADDomain]

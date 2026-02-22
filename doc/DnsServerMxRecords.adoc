@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerMxRecords
 
-:abstract:  {YmlCategory} manages MX DNS records against a specific zone on a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages MX (mail exchanger) DNS records on a DNS server.
 
 [#dscyml_dnsservermxrecords]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsservermxrecords_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create DNS MX records that define which mail servers handle email for your domain. MX records are essential for email routing and are required for any domain that receives email.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

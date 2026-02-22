@@ -3,7 +3,7 @@
 
 :YmlCategory: FilesAndFolders
 
-:abstract:  {YmlCategory} provides a mechanism to manage files and folders on the target node.
+:abstract:    {YmlCategory} manages files, folders, and their NTFS access permissions on the target node.
 
 [#dscyml_filesandfolders]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_filesandfolders_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to ensure specific files or folders exist with the correct content and NTFS permissions. It handles creating directory structures, copying files, and setting fine-grained NTFS ACLs including inheritance and propagation rules.
+****
 
 [NOTE]
 ====

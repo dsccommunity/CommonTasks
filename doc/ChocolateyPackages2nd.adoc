@@ -3,13 +3,18 @@
 
 :YmlCategory: ChocolateyPackages2nd
 
-:abstract:  {YmlCategory} is aimed to install additional packages using Chocolatey.
+:abstract:    {YmlCategory} installs a second set of software packages using Chocolatey.
 
 [#dscyml_chocolateypackages2nd]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_chocolateypackages2nd_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you have Chocolatey packages that depend on packages installed by the ChocolateyPackages resource. DSC composite resources are applied in alphabetical order, so this resource runs after ChocolateyPackages, allowing you to express installation order dependencies between packages.
+****
 
 Now you can configure additional configuration steps between installation of two Chocolatey packages in the YAML configuration.
 

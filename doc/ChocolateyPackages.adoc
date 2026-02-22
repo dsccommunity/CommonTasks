@@ -3,13 +3,18 @@
 
 :YmlCategory: ChocolateyPackages
 
-:abstract:  {YmlCategory} is aimed to install packages using Chocolatey.
+:abstract:    {YmlCategory} installs and configures Chocolatey and manages software packages through the Chocolatey package manager.
 
 [#dscyml_chocolateypackages]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_chocolateypackages_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to automate software installation via Chocolatey. It handles the full lifecycle: installing the Chocolatey client itself, configuring package sources and features, and installing software packages. Use this as the primary Chocolatey resource; use ChocolateyPackages2nd and ChocolateyPackages3rd for packages that have dependencies on packages installed in this resource.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
