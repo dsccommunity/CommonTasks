@@ -3,13 +3,18 @@
 
 :YmlCategory: DhcpScopeOptions
 
-:abstract: {YmlCategory} is used to manage option values on scope level.
+:abstract:    {YmlCategory} manages DHCP option values at the scope level.
 
 [#dscyml_dhcpscopeoptions]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpscopeoptions_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set DHCP options (such as DNS servers, domain name, or router addresses) for a specific DHCP scope. Scope-level options override server-level options and apply only to clients within that scope's IP address range. Use DhcpServerOptions for server-wide settings instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -140,3 +145,11 @@ DhcpScopeOptions:
       VendorClass: ''
       UserClass: ''
 ----
+
+.See also
+****
+* xref:dhcpserver.adoc[DhcpServer]
+* xref:dhcpscopes.adoc[DhcpScopes]
+* xref:dhcpserveroptions.adoc[DhcpServerOptions]
+* xref:dhcpserveroptiondefinitions.adoc[DhcpServerOptionDefinitions]
+****

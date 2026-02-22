@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeProvisioning
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs Microsoft Exchange Server from ISO media, handling prerequisites and required reboots.
 
 [#dscyml_exchangeprovisioning]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangeprovisioning_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to perform a fresh installation of Exchange Server. It mounts the installation ISO, runs the setup with the specified roles, and handles pending reboots. This is the first Exchange resource to apply before ExchangeConfiguration, ExchangeMailboxDatabases, or ExchangeDagProvisioning.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -18,7 +23,7 @@
 | DSC Resource   | - https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc]
                    - https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
                    - https://github.com/dsccommunity/StorageDsc[StorageDSC]
-| Documentation  |
+| Documentation  | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc Wiki]
 |===
 
 
@@ -31,10 +36,62 @@
 | Description
 | Allowed Values
 
+| Role
 |
+| String
+| Exchange server role to install
+| - *Mailbox* (default)
+  - EdgeTransport
+  - ManagementTools
+
+| Mode
 |
+| String
+| Installation mode
+| - *Install* (default)
+  - Uninstall
+  - Upgrade
+
+| TargetDir
 |
+| String
+| Target installation directory
 |
+
+| OrganizationName
+| Mandatory
+| String
+| The Exchange organization name
+|
+
+| InstallCreds
+| Mandatory
+| PSCredential
+| Credentials for Exchange installation
+|
+
+| DomainController
+|
+| String
+| The domain controller to use
+|
+
+| ProductKey
+|
+| String
+| The Exchange product key
+|
+
+| IsoFilePath
+| Mandatory
+| String
+| Path to the Exchange installation ISO file
+|
+
+| IsoDriveLetter
+| Mandatory
+| String
+| Drive letter to mount the ISO to
 |
 
 |===
@@ -51,3 +108,12 @@ ExchangeProvisioning:
     IsoFilePath: C:\Install\ExchangeServer2016-x64-CU19.ISO
     IsoDriveLetter: 'Z:'
 ----
+
+.See also
+****
+* xref:exchangeconfiguration.adoc[ExchangeConfiguration]
+* xref:exchangeautomountpoints.adoc[ExchangeAutoMountPoints]
+* xref:exchangemailboxdatabases.adoc[ExchangeMailboxDatabases]
+* xref:exchangemailboxdatabasecopies.adoc[ExchangeMailboxDatabaseCopies]
+* xref:exchangedagprovisioning.adoc[ExchangeDagProvisioning]
+****

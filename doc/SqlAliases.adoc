@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAliases
 
-:abstract:    {YmlCategory} manages the SQL Server Configuration Options on a SQL Server instance.
+:abstract:    {YmlCategory} creates SQL Server connection aliases for client connectivity.
 
 [#dscyml_sqlaliases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlaliases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create SQL Server connection aliases on client machines. Aliases allow applications to connect using a friendly name that maps to a specific server, instance, port, or protocol, simplifying connection string management and enabling transparent server migrations.
+****
 
 
 // reference links as variables for using more than once
@@ -23,7 +28,7 @@
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlalias}
-                   
+
 |===
 
 
@@ -101,7 +106,7 @@ The port number specified in *Port* will be ignored.
 | - True
   - *False* (default)
 
-| Enure
+| Ensure
 |
 | String
 | Determines whether the alias should be added (`Present`) or removed (`Absent`).
@@ -128,3 +133,9 @@ SqlConfiguration:
       UseDynamicTcpPort : true
       TcpPort           : false
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlconfigurations.adoc[SqlConfigurations]
+****

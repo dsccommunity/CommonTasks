@@ -3,13 +3,18 @@
 
 :YmlCategory: Bitlocker
 
-:abstract:    {YmlCategory} allows you to configure Bitlocker on a single disk, configure a TPM chip, or automatically enable Bitlocker on multiple disks.
+:abstract:    {YmlCategory} allows you to configure BitLocker on a single disk, configure a TPM chip, or automatically enable BitLocker on multiple disks.
 
 [#dscyml_bitlocker]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_bitlocker_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable and configure BitLocker Drive Encryption on Windows machines. This is essential for data-at-rest encryption compliance requirements and protects against data theft from lost or stolen devices. It supports TPM initialization and automatic encryption of multiple drives.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

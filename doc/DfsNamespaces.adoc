@@ -3,13 +3,18 @@
 
 :YmlCategory: DfsNamespaces
 
-:abstract:    {YmlCategory} configures Distributed File System Replication and Namespaces.
+:abstract:    {YmlCategory} configures Distributed File System (DFS) namespace roots and folders.
 
 [#dscyml_dfsnamespaces, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dfsnamespaces_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up a DFS namespace for unified file share access across your organization. DFS namespaces provide a virtual view of shared folders from multiple servers under a single path, simplifying user access and enabling transparent failover between file servers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -37,9 +42,9 @@
 |
 
 | NamespaceConfig
-|
+| Mandatory
 | Hashtable[]
-|
+| List of DFS namespace configurations to manage
 |
 
 |===
@@ -60,3 +65,10 @@ DfsNamespaces:
         - DscFile01
         - DscFile02
 ----
+
+.See also
+****
+* xref:dfsreplicationgroupconnections.adoc[DfsReplicationGroupConnections]
+* xref:dfsreplicationgroupmembers.adoc[DfsReplicationGroupMembers]
+* xref:dfsreplicationgroupmemberships.adoc[DfsReplicationGroupMemberships]
+****

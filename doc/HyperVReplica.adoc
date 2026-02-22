@@ -3,13 +3,18 @@
 
 :YmlCategory: HyperVReplica
 
-:abstract:    {YmlCategory} contains DSC resources to configure replication of Hyper-V virtual machines.
+:abstract:    {YmlCategory} configures Hyper-V Replica settings for virtual machine replication to a secondary host.
 
 [#dscyml_hypervreplica]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_hypervreplica_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up Hyper-V Replica for disaster recovery. Hyper-V Replica asynchronously replicates virtual machines to a replica server, providing business continuity in case of primary host failure.
+****
 
 [IMPORTANT]
 ====
@@ -39,7 +44,7 @@ Start and control of the replication process is currently *not supported*.
 | Allowed Values
 
 | AllowedAuthenticationType
-| Mandatory
+|
 | String
 | Specifies which authentication types the Replica server will use.
 | - Kerberos
@@ -115,9 +120,7 @@ The default storage location and DEFAULT trust group tag are used for virtual ma
 | [[dscyml_hyperveplica_vmmachines, {YmlCategory}/VMMachines]]<<dscyml_hyperveplica_vmmachines_details, VMMachines>>
 |
 | Hashtable[]
-| Set of virtual machines
-
-*Only Generation 2 machines are supported!*
+| Set of virtual machines to configure for replication.
 |
 
 |===
@@ -296,3 +299,9 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:hyperv.adoc[HyperV]
+* xref:hypervstate.adoc[HyperVState]
+****

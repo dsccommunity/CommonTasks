@@ -3,7 +3,7 @@
 
 :YmlCategory: FirewallProfiles
 
-:abstract:  {YmlCategory} configures a node's private, public or domain firewall profile.
+:abstract:    {YmlCategory} configures Windows Firewall profiles (Domain, Private, Public).
 
 [#dscyml_firewallprofiles]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_firewallprofiles_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the overall state of Windows Firewall profiles rather than individual rules. It allows you to enable/disable profiles, set default inbound/outbound actions, configure logging, and control notification settings for each network profile type. For managing individual firewall rules, use FirewallRules instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -32,7 +37,7 @@
 
 | [[dscyml_firewallprofiles_profile, {YmlCategory}/Profile]]<<dscyml_firewallprofiles_profile_details, Profile>>
 | Mandatory
-| hashtable
+| hashtable[]
 |
 |
 
@@ -123,7 +128,7 @@
 | DisabledInterfaceAliases
 |
 | String[]
-| Specifies a list of interfaces on which firewall settings are excluded.	
+| Specifies a list of interfaces on which firewall settings are excluded.
 |
 
 | Enabled
@@ -161,7 +166,7 @@
 | LogFileName
 |
 | String
-| Specifies the path and filename of the file to which Windows Server writes log entries.	
+| Specifies the path and filename of the file to which Windows Server writes log entries.
 |
 
 | LogIgnored
@@ -176,7 +181,7 @@
 |
 | UInt64
 | Specifies the maximum file size of the log, in kilobytes.
-| 1 - 32767	
+| 1 - 32767
 
 | NotifyOnListen
 |
@@ -203,3 +208,8 @@ FirewallProfiles:
     - Name: Domain
       Enabled: false
 ----
+
+.See also
+****
+* xref:firewallrules.adoc[FirewallRules]
+****

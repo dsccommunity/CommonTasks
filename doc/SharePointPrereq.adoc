@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointPrereq
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs SharePoint Server prerequisites from ISO installation media.
 
 [#dscyml_sharepointprereq]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointprereq_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install the SharePoint prerequisite software automatically. It mounts the installation ISO and runs the prerequisite installer. This must be applied before SharePointSetup. If prerequisites are already handled separately or included in the SharePointSetup resource, you may not need this resource.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -32,10 +37,88 @@
 | Description
 | Allowed Values
 
+| InstallerPath
+| Mandatory
+| string
+| Path to the SharePoint prerequisite installer executable.
 |
+
+| SQLNCli
+| Mandatory
+| string
+| Path to the SQL Server Native Client installer.
 |
+
+| Sync
+| Mandatory
+| string
+| Path to the Microsoft Sync Framework installer.
 |
+
+| AppFabric
+| Mandatory
+| string
+| Path to the Windows Server AppFabric installer.
 |
+
+| IDFX11
+| Mandatory
+| string
+| Path to the Microsoft Identity Extensions installer.
+|
+
+| MSIPCClient
+| Mandatory
+| string
+| Path to the Microsoft Information Protection and Control Client installer.
+|
+
+| WCFDataServices56
+| Mandatory
+| string
+| Path to the WCF Data Services 5.6 installer.
+|
+
+| MSVCRT11
+| Mandatory
+| string
+| Path to the Visual C++ 2012 Redistributable installer.
+|
+
+| MSVCRT141
+| Mandatory
+| string
+| Path to the Visual C++ 2017 Redistributable installer.
+|
+
+| KB3092423
+| Mandatory
+| string
+| Path to the AppFabric cumulative update KB3092423 installer.
+|
+
+| DotNet472
+| Mandatory
+| string
+| Path to the .NET Framework 4.7.2 installer.
+|
+
+| IsoFilePath
+| Mandatory
+| string
+| Path to the SharePoint Server ISO file.
+|
+
+| IsoDriveLetter
+| Mandatory
+| string
+| Drive letter to mount the SharePoint ISO to.
+|
+
+| ProductKey
+| Mandatory
+| string
+| SharePoint Server product key.
 |
 
 |===
@@ -60,3 +143,9 @@ SharePointPrereq:
   IsoDriveLetter: 'Z:'
   ProductKey: YourProductKey
 ----
+
+.See also
+****
+* xref:sharepointsetup.adoc[SharePointSetup]
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+****

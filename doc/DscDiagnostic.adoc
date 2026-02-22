@@ -3,13 +3,18 @@
 
 :YmlCategory: DscDiagnostic
 
-:abstract:    {YmlCategory} is used to ###TBD###.
+:abstract:    {YmlCategory} configures Just Enough Administration (JEA) endpoints for DSC diagnostic operations such as auto-correct, refresh, and monitoring.
 
 [#dscyml_dscdiagnostic, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dscdiagnostic_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up restricted, secure JEA endpoints for managing DSC operations remotely. It creates role capabilities and session configurations that allow operators to perform DSC diagnostics (triggering auto-correct, refresh, or monitoring) without requiring full administrative access.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -21,7 +26,7 @@
 | Documentation  | ##TBD##
 |===
 
-.Attributes of category '{YmlCategory}' Get-DscLcmControllerLog
+.Attributes of category '{YmlCategory}'
 [cols="1,1,1,2a,1a" options="header"]
 |===
 | Parameter
@@ -30,29 +35,7 @@
 | Description
 | Allowed Values
 
-| AutoCorrect
-|
-| switch
-|
-|
-
-| Refresh
-|
-| switch
-|
-|
-
-| Monitor
-|
-| switch
-|
-|
-
-| Last
-|
-| int
-|
-| Default: 1000
+5+| _This resource has no configurable parameters._
 
 |===
 
@@ -61,3 +44,9 @@
 ----
 
 ----
+
+.See also
+****
+* xref:dsclcmcontroller.adoc[DscLcmController]
+* xref:dsctagging.adoc[DscTagging]
+****

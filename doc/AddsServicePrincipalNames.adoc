@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsServicePrincipalNames
 
-:abstract:    {YmlCategory} will manage service principal names.
+:abstract:    {YmlCategory} manages Service Principal Names within Active Directory.
 
 [#dscyml_addsserviceprincipalnames]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsserviceprincipalnames_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to register or manage Kerberos Service Principal Names (SPNs) on AD objects. SPNs are required for Kerberos authentication to work correctly with services like SQL Server, IIS, or custom applications running under domain accounts.
+****
 
 A service principal name (SPN) is a unique identifier of a service instance.
 SPNs are used by Kerberos authentication to associate a service instance with a service logon account.
@@ -34,7 +39,7 @@ This allows a client application to request that the service authenticate an acc
 | Allowed Values
 
 | [[dscyml_addsserviceprincipalnames_serviceprincipalnames, {YmlCategory}/ServicePrincipalNames]]<<dscyml_addsserviceprincipalnames_serviceprincipalnames_details, ServicePrincipalNames>>
-| Mandatory
+|
 | Hashtable[]
 | The list of service principal name to configure.
 |
@@ -67,7 +72,7 @@ If `Ensure` is set to `Present`, a value must be specified.
 | Default: ''
 
 | Ensure
-| 
+|
 | String
 | Specifies if the service principal name should be added or removed.
 | - *Present* (default)
@@ -86,3 +91,10 @@ AddsServicePrincipalNames:
     - Account: nyanhp
       ServicePrincipalName: WINRM/JHP
 ----
+
+.See also
+****
+* xref:addsdomain.adoc[AddsDomain]
+* xref:addsdomaincontroller.adoc[AddsDomainController]
+* xref:addsdomainprincipals.adoc[AddsDomainPrincipals]
+****

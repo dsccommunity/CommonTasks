@@ -3,13 +3,18 @@
 
 :YmlCategory: CertificateAuthorities
 
-:abstract:   {YmlCategory} is used to install the ADCS Certificate Authority.
+:abstract:    {YmlCategory} installs and configures Active Directory Certificate Services (AD CS) Certification Authorities.
 
 [#dscyml_certificateauthorities]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateauthorities_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy an Enterprise or Standalone Certificate Authority for your organization's PKI infrastructure. This is required when you want to issue certificates internally for SSL/TLS, code signing, smart card authentication, or other PKI-dependent services.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -55,7 +60,7 @@
 |
 
 | Ensure
-| 
+|
 | String
 | Specifies whether the Certificate Authority should be installed or uninstalled.
 | - *Present* (default)
@@ -88,7 +93,7 @@
 | CertificateID
 |
 | String
-| Specifies the password for certification authority certificate file.
+| Specifies the thumbprint or serial number of certification authority certificate.
 |
 
 | CryptoProviderName
@@ -119,7 +124,7 @@
 | KeyContainerName
 |
 | String
-| Specifies the name of an existing private key container.	
+| Specifies the name of an existing private key container.
 |
 
 | KeyLength
@@ -168,7 +173,7 @@
 | ValidityPeriod
 |
 | String
-| Specifies the validity period of the certification authority certificate in hours, days, weeks, months or years.
+| Specifies the validity period of the certification authority certificate in hours, days, months or years.
   If this is a subordinate CA, do not use this parameter, because the validity period is determined by the parent CA.
 | - Hours
   - Days
@@ -194,3 +199,10 @@ CertificateAuthorities:
   CAType: EnterpriseSubordinateCA
   CACommonName: Contoso Issuing CA
 ----
+
+.See also
+****
+* xref:certificaterequests.adoc[CertificateRequests]
+* xref:certificateimports.adoc[CertificateImports]
+* xref:certificateexports.adoc[CertificateExports]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: DscLcmMaintenanceWindows
 
-:abstract:  {YmlCategory} defines maintenance windows in which DSC is running in the `ApplyAndAutoCorrect` mode.
+:abstract:    {YmlCategory} defines maintenance windows during which DSC operates in ApplyAndAutoCorrect mode.
 
 [#dscyml_dsclcmmaintenancewindows]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dsclcmmaintenancewindows_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you want to restrict DSC auto-correction to specific time windows (e.g., nights or weekends). Outside these windows, DSC will only monitor for drift but not auto-correct, reducing the risk of unexpected configuration changes during business hours.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -30,7 +35,7 @@
 | Description
 | Allowed Values
 
-| [[dscyml_dsclcmmaintenancewindows_maintenancewindow, {YmlCategory}/MaintenanceWindow]]<<dscyml_dsclcmmaintenancewindows_maintenancewindow_details, MaintenanceWindow>>
+| [[dscyml_dsclcmmaintenancewindows_maintenancewindow, {YmlCategory}/MaintenanceWindows]]<<dscyml_dsclcmmaintenancewindows_maintenancewindow_details, MaintenanceWindows>>
 | Mandatory
 | Hashtable[]
 | List of maintenance windows
@@ -73,6 +78,7 @@
 | - monday
   - tuesday
   - wednesday
+  - thursday
   - friday
   - saturday
   - sunday
@@ -109,3 +115,9 @@ DscLcmMaintenanceWindows:
       StartTime: 04:00:00
       Timespan:  01:00:00
 ----
+
+.See also
+****
+* xref:dsclcmcontroller.adoc[DscLcmController]
+* xref:dsctagging.adoc[DscTagging]
+****

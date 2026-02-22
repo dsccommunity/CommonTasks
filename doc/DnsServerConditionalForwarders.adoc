@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerConditionalForwarders
 
-:abstract:  {YmlCategory} manages a conditional forwarder on a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages conditional forwarders on a DNS server.
 
 [#dscyml_dnsserverconditionalforwarders]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverconditionalforwarders_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to forward DNS queries for specific domains to designated DNS servers. Conditional forwarders are essential in environments with multiple DNS namespaces, domain trusts, or split-brain DNS configurations where queries for certain domains must go to specific servers.
+****
 
 You can manage the master servers, forwarder time-out, recursion, recursion scope, and directory partition name for a conditional forwarder zone.
 
@@ -34,7 +39,7 @@ You can manage the master servers, forwarder time-out, recursion, recursion scop
 | Allowed Values
 
 | [[dscyml_dnsserverconditionalforwarders_conditionalforwarders, {YmlCategory}/ConditionalForwarders]]<<dscyml_dnsserverconditionalforwarders_conditionalforwarders_details, ConditionalForwarders>>
-| Mandatory
+|
 | Hashtable[]
 | List of conditional forwarders
 |
@@ -109,3 +114,9 @@ DnsServerConditionalForwarders:
         - 10.0.3.10
       ReplicationScope: Forest
 ----
+
+.See also
+****
+* xref:dnsserverforwarders.adoc[DnsServerForwarders]
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

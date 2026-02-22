@@ -3,13 +3,18 @@
 
 :YmlCategory: WindowsFeatures
 
-:abstract:    {YmlCategory} installs Windows Features on a Windows Server OS.
+:abstract:    {YmlCategory} installs or removes Windows Server roles and features.
 
 [#dscyml_windowsfeatures]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_windowsfeatures_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install roles and features on a Windows Server (e.g., Web-Server, DNS, AD-Domain-Services, Failover-Clustering). This is one of the most commonly used resources and is typically applied early in a server configuration to enable the platform capabilities required by other resources. For Windows client, use WindowsOptionalFeatures instead.
+****
 
 // reference links as variables for using more than once
 :ref_xpsdesiredstateconfiguration_xwindowsfeature:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xwindowsfeature[xwindowsfeature]
@@ -52,6 +57,13 @@ This is the same as the Name property from the `Get-WindowsFeature` cmdlet, and 
 | Hashtable[]
 | List windows features with additional properties
 |
+
+| UseLegacyResource
+|
+| Boolean
+| Indicates if the resource `WindowsFeature` should be used instead of the `xWindowsFeature` resource for all features specified in `Names`.
+| - *false* (default)
+  - true
 
 |===
 
@@ -157,3 +169,8 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:windowsoptionalfeatures.adoc[WindowsOptionalFeatures]
+****

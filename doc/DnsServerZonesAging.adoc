@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerZonesAging
 
-:abstract:  {YmlCategory} manages aging settings for a Domain Name System (DNS) server zone.
+:abstract:    {YmlCategory} manages aging and scavenging settings for DNS zones.
 
 [#dscyml_dnsserverzonesaging]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverzonesaging_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable and configure DNS scavenging to automatically clean up stale (outdated) DNS records. This is important in dynamic DNS environments (especially with DHCP) to prevent accumulation of records for decommissioned or moved machines.
+****
 
 A resource record can remain on a DNS server after the resource is no longer part of the network.
 Aging settings determine when a record can be removed, or scavenged, as a stale record.
@@ -96,3 +101,10 @@ DnsServerZonesAging:
     - Name:    east.contoso.com
       Enabled: False
 ----
+
+.See also
+****
+* xref:dnsserversettings.adoc[DnsServerSettings]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+****

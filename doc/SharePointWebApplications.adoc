@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointWebApplications
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates SharePoint web applications with configured authentication and hosting settings.
 
 [#dscyml_sharepointwebapplications]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointwebapplications_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create SharePoint web applications that host site collections. Web applications define the IIS site, authentication method, URL, and application pool for SharePoint content. Create service application pools first using SharePointServiceAppPools.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointWebApplications
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPWebApplication[SPWebApplication]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointwebapplications_webapplications, {YmlCategory}/WebApplications]]<<dscyml_sharepointwebapplications_webapplications_details, WebApplications>>
-| Mandatory
+|
 | Hashtable[]
 | set of web applications
 |
@@ -82,3 +87,12 @@ SharePointWebApplications:
       DatabaseServer: SqlServer001
       Port: 443
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointsites.adoc[SharePointSites]
+* xref:sharepointcontentdatabases.adoc[SharePointContentDatabases]
+* xref:sharepointmanagedpaths.adoc[SharePointManagedPaths]
+* xref:sharepointcacheaccounts.adoc[SharePointCacheAccounts]
+****

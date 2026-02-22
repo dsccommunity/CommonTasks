@@ -3,13 +3,18 @@
 
 :YmlCategory: MountImages
 
-:abstract:    {YmlCategory} is used to mount or unmount an ISO/VHD disk image.
+:abstract:    {YmlCategory} mounts or unmounts ISO and VHD disk images and waits for their volumes to become available.
 
 [#dscyml_mountimages]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_mountimages_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to mount ISO or VHD files during a DSC configuration, for example to access installation media for software deployments. It ensures the mounted volume is available before dependent resources attempt to access the files on it.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -104,3 +109,8 @@ MountImages:
       Access: ReadWrite
     - ImagePath: C:\ISO\Test2.iso
 ----
+
+.See also
+****
+* xref:opticaldiskdrives.adoc[OpticalDiskDrives]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointManagedPaths
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures SharePoint managed paths (explicit and wildcard inclusions) for web applications.
 
 [#dscyml_sharepointmanagedpaths]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointmanagedpaths_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define the URL paths available for site collections within SharePoint web applications. Managed paths control where site collections can be created (e.g., /sites/, /teams/) and are required before creating site collections at those paths.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedPaths
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedPath[SPManagedPath]
-                   
+
 |===
 
 
@@ -31,9 +36,9 @@
 | Allowed Values
 
 | [[dscyml_sharepointmanagedpaths_managedpaths, {YmlCategory}/ManagedPaths]]<<dscyml_sharepointmanagedpaths_managedpaths_details, ManagedPaths>>
-| Mandatory
+|
 | Hashtable[]
-| set of managed accounts
+| set of managed paths
 |
 
 |===
@@ -76,3 +81,10 @@ SharePointManagedPaths:
       Explicit: false
       HostHeader: false
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointwebapplications.adoc[SharePointWebApplications]
+* xref:sharepointsites.adoc[SharePointSites]
+****

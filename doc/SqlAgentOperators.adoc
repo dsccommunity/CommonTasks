@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAgentOperators
 
-:abstract:    {YmlCategory} is used to add/remove SQL Agent Operators.
+:abstract:    {YmlCategory} creates and configures SQL Server Agent operator contacts for alert notifications.
 
 [#dscyml_sqlagentoperators]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlagentoperators_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define operators (contacts) that receive SQL Server Agent alert notifications via email, pager, or net send. Operators must be configured before alerts can be assigned to notify them. Configure Database Mail first using SqlDatabaseMailSetups.
+****
 
 The resource can also update the operators email address.
 
@@ -115,3 +120,9 @@ SqlAgentOperators:
       InstanceName: 'MSSQLServer'
       EmailAddress: 'appteam@company.com'
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlagentalerts.adoc[SqlAgentAlerts]
+****

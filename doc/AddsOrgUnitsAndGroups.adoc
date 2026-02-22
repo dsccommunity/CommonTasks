@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsOrgUnitsAndGroups
 
-:abstract:  {YmlCategory} adds Groups and Organizational Units to an existing domain.
+:abstract:    {YmlCategory} adds Groups and Organizational Units to an existing domain.
 
 [#dscyml_addsorgunitsandgroups]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addsorgunitsandgroups_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create the OU hierarchy and security/distribution groups within your Active Directory domain. This is essential for structuring your AD directory with a well-defined OU tree and group layout before placing objects like users or computers.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_addsorgunitsandgroups_domaindn, DomainDn]]DomainDn
-|
+| Mandatory
 | String
 | Distinguished Name (DN) of the domain.
 |
@@ -70,7 +75,7 @@
 | Path
 | Key
 | String
-| The name of the Organizational Unit (OU).
+| The Distinguished Name (DN) of the parent container for the Organizational Unit (OU).
 | Default: <<dscyml_addsorgunitsandgroups_domaindn>>
 
 | ChildOu
@@ -251,3 +256,11 @@ lookup_options:
       tuple_keys:
         - GroupName
 ----
+
+.See also
+****
+* xref:addsdomain.adoc[AddsDomain]
+* xref:addsdomaincontroller.adoc[AddsDomainController]
+* xref:addsdomainprincipals.adoc[AddsDomainPrincipals]
+* xref:addsprotectfromaccidentaldeletion.adoc[AddsProtectFromAccidentalDeletion]
+****

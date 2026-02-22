@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointProvisioning
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates or joins a SharePoint farm and configures Central Administration.
 
 [#dscyml_sharepointprovisioning]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointprovisioning_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to provision a new SharePoint farm or add a server to an existing farm. It handles farm creation (or joining), database configuration, and Central Administration port and authentication settings. Apply this after SharePointSetup has installed the binaries.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -29,10 +34,110 @@
 | Description
 | Allowed Values
 
+| FarmConfigDatabaseName
+| Mandatory
+| String
+| Name of the SharePoint farm configuration database.
 |
+
+| DatabaseServer
+| Mandatory
+| String
+| Name of the database server for the farm.
 |
+
+| useSQLAuthentication
 |
+| Boolean
+| Whether to use SQL authentication instead of Windows authentication.
 |
+
+| DatabaseCredentials
+|
+| PSCredential
+| Credentials for SQL authentication to the database server.
+|
+
+| FarmAccount
+| Mandatory
+| PSCredential
+| Farm account credentials used to run SharePoint services.
+|
+
+| Passphrase
+| Mandatory
+| PSCredential
+| Farm passphrase for joining servers to the farm.
+|
+
+| AdminContentDatabaseName
+| Mandatory
+| String
+| Name of the Central Administration content database.
+|
+
+| RunCentralAdmin
+| Mandatory
+| Boolean
+| Whether to run Central Administration on this server.
+|
+
+| CentralAdministrationUrl
+|
+| String
+| URL for Central Administration.
+|
+
+| CentralAdministrationPort
+|
+| UInt32
+| Port number for Central Administration (1-65535).
+|
+
+| CentralAdministrationAuth
+|
+| String
+| Authentication method for Central Administration.
+| - NTLM
+- Kerberos
+
+| ServerRole
+|
+| String
+| SharePoint MinRole server role assignment.
+| - Application
+- ApplicationWithSearch
+- Custom
+- DistributedCache
+- Search
+- SingleServerFarm
+- WebFrontEnd
+- WebFrontEndWithDistributedCache
+
+| DeveloperDashboard
+|
+| String
+| Controls the Developer Dashboard display mode.
+| - Off
+- On
+- OnDemand
+
+| ApplicationCredentialKey
+|
+| PSCredential
+| Application credential key for the farm.
+|
+
+| InstallAccount
+|
+| PSCredential
+| Account credentials used for running the installation.
+|
+
+| CentralAdminServerName
+|
+| string
+| Name of the server running Central Administration (used when joining a farm).
 |
 
 |===
@@ -49,3 +154,14 @@ SharePointProvisioning:
   Passphrase: '[ENC=PE9ianMgVmVyc...=]'
   RunCentralAdmin: true
 ----
+
+.See also
+****
+* xref:sharepointprereq.adoc[SharePointPrereq]
+* xref:sharepointsetup.adoc[SharePointSetup]
+* xref:sharepointmanagedaccounts.adoc[SharePointManagedAccounts]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+* xref:sharepointsites.adoc[SharePointSites]
+* xref:sharepointwebapplications.adoc[SharePointWebApplications]
+* xref:sharepointcontentdatabases.adoc[SharePointContentDatabases]
+****

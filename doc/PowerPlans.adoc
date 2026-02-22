@@ -1,15 +1,20 @@
-﻿// CommonTasks YAML Reference: PowerPlans
+// CommonTasks YAML Reference: PowerPlans
 // ======================================
 
 :YmlCategory: PowerPlans
 
-:abstract:    {YmlCategory} is used to manage Power Plan configuration.
+:abstract:    {YmlCategory} manages Windows power plan configuration, plan settings, and hibernate state.
 
 [#dscyml_powerplans]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_powerplans_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set the active power plan (e.g., High Performance for servers), adjust individual power plan settings, or enable/disable hibernate. Server best practices typically require the High Performance power plan to ensure consistent CPU performance.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

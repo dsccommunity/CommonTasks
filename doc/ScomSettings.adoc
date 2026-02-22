@@ -3,7 +3,7 @@
 
 :YmlCategory: ScomSettings
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures SCOM operational settings including alert resolution, heartbeat, database grooming, data warehouse, error reporting, and web addresses.
 
 [#dscyml_scomsettings]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_scomsettings_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the operational behavior of your SCOM management group. It manages settings for approval policies, alert resolution timing, database grooming schedules, data warehouse configuration, error reporting, heartbeat intervals, reporting server URLs, and web console addresses.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomSettings
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
 | Documentation  |
-                   
+
 |===
 
 
@@ -30,10 +35,56 @@
 | Description
 | Allowed Values
 
+| ApprovalSetting
 |
+| string
+| SCOM agent approval policy setting.
+| - Pending
+- AutoReject
+- AutoApprove
+
+| AlertResolutionSetting
 |
+| Hashtable
+| SCOM alert resolution timing configuration.
 |
+
+| DatabaseGroomingSetting
 |
+| Hashtable
+| SCOM database grooming schedule configuration.
+|
+
+| DataWarehouseSetting
+|
+| Hashtable
+| SCOM data warehouse configuration.
+|
+
+| ErrorReportSetting
+|
+| string
+| SCOM error reporting behavior setting.
+| - AutomaticallySend
+- OptOut
+- PromptBeforeSending
+
+| HeartbeatSetting
+|
+| Hashtable
+| SCOM heartbeat interval configuration.
+|
+
+| ReportingServerUrl
+|
+| string
+| URL of the SCOM reporting server.
+|
+
+| WebAddressSetting
+|
+| Hashtable
+| SCOM web console address configuration.
 |
 
 |===
@@ -69,3 +120,9 @@ ScomSettings:
     WebConsoleUrl: http://OM01.contoso.com/OperationsManager
     OnlineProductKnowledgeUrl: http://OM01.contoso.com/Knowledge
 ----
+
+.See also
+****
+* xref:scomcomponents.adoc[ScomComponents]
+* xref:scommanagementpacks.adoc[ScomManagementPacks]
+****

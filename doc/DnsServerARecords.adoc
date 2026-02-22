@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerARecords
 
-:abstract:  {YmlCategory} manages A DNS records against a specific zone on a Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages A (host) DNS records on a DNS server.
 
 [#dscyml_dnsserverarecords]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverarecords_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create or manage DNS A records that map hostnames to IPv4 addresses. This is used for registering server names, service endpoints, or any hostname-to-IP mappings in your DNS infrastructure.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_dnsserverarecords_records, {YmlCategory}/Records]]<<dscyml_dnsserverarecords_records_details, Records>>
-| Mandatory
+|
 | Hashtable[]
 | List of A DNS records
 |
@@ -63,7 +68,7 @@
 
 | IPv4Address
 | Key
-|
+| String
 | Specifies the IPv4 address of a host.
 |
 
@@ -120,3 +125,11 @@ lookup_options:
         - ZoneName
         - IPv4Address
 ----
+
+.See also
+****
+* xref:dnsservercnamerecords.adoc[DnsServerCNameRecords]
+* xref:dnsservermxrecords.adoc[DnsServerMxRecords]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+****

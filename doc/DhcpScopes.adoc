@@ -3,13 +3,18 @@
 
 :YmlCategory: DhcpScopes
 
-:abstract: {YmlCategory} is used to manage IP address scopes.
+:abstract:    {YmlCategory} manages DHCP IP address scopes including exclusion ranges, option values, and reservations.
 
 [#dscyml_dhcpscopes]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpscopes_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and manage DHCP scopes that define the IP address ranges available for dynamic allocation. It provides a comprehensive scope configuration including IP exclusion ranges, scope-level options, server-level options, and IP reservations for specific devices. For a full DHCP server setup from scratch, consider using DhcpServer instead.
+****
 
 An IP-address scope is a consecutive range of possible IP addresses that the DHCP server can lease to clients on a subnet.
 
@@ -151,3 +156,10 @@ DhcpScopes:
       AddressFamily: IPv4
   DomainCredential: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:dhcpserver.adoc[DhcpServer]
+* xref:dhcpscopeoptions.adoc[DhcpScopeOptions]
+* xref:dhcpserverauthorization.adoc[DhcpServerAuthorization]
+****

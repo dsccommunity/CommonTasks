@@ -3,13 +3,18 @@
 
 :YmlCategory: ChocolateyPackages
 
-:abstract:  {YmlCategory} is aimed to install packages using Chocolatey.
+:abstract:    {YmlCategory} installs and configures Chocolatey and manages software packages through the Chocolatey package manager.
 
 [#dscyml_chocolateypackages]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_chocolateypackages_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to automate software installation via Chocolatey. It handles the full lifecycle: installing the Chocolatey client itself, configuring package sources and features, and installing software packages. Use this as the primary Chocolatey resource; use ChocolateyPackages2nd and ChocolateyPackages3rd for packages that have dependencies on packages installed in this resource.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -18,7 +23,7 @@
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware]
                    - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource]
-                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage] 
+                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage]
                    - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
@@ -162,13 +167,13 @@ In this case the `Test-DscConfiguration` command returns `False`.
 | Name
 | Key
 | String
-| Folder path where the Chocolatey Software should be installed.
+| The name of the Chocolatey source to manage.
 |
 
 | Ensure
 |
 | String
-| Specifies whether the Chocolatey Software should be installed on the machine or not.
+| Specifies whether the Chocolatey source should be present or absent.
 | - *Present* (default)
   - Absent
 
@@ -383,3 +388,9 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:chocolateypackages2nd.adoc[ChocolateyPackages2nd]
+* xref:chocolateypackages3rd.adoc[ChocolateyPackages3rd]
+****

@@ -3,13 +3,18 @@
 
 :YmlCategory: DhcpServerOptionDefinitions
 
-:abstract: {YmlCategory} is used to manage DHCP option definitions.
+:abstract:    {YmlCategory} manages custom DHCP server option definitions.
 
 [#dscyml_dhcpserveroptiondefinitions]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_dhcpserveroptiondefinitions_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define custom DHCP options beyond the standard ones (e.g., vendor-specific options for IP phones, PXE boot, or custom applications). Option definitions must be created before the option values can be set via DhcpServerOptions or DhcpScopeOptions.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -50,7 +55,7 @@
 
 | OptionId
 | Key
-| Number
+| UInt32
 | Option ID, specify an integer between 1 and 255.
 | [1, 255]
 
@@ -102,12 +107,6 @@ Currently only IPv4 is supported.
 | Option description.
 |
 
-| DefaultValue
-|
-| String
-| Default value for the option.
-|
-
 | Ensure
 |
 | String
@@ -131,3 +130,10 @@ DhcpServerOptionDefinitions:
       Description: PXE Support
 
 ----
+
+.See also
+****
+* xref:dhcpserver.adoc[DhcpServer]
+* xref:dhcpserveroptions.adoc[DhcpServerOptions]
+* xref:dhcpscopeoptions.adoc[DhcpScopeOptions]
+****

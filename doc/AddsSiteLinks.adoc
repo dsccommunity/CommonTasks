@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsSiteLinks
 
-:abstract:    {YmlCategory} will manage Replication Site Links within Active Directory.
+:abstract:    {YmlCategory} manages Replication Site Links within Active Directory.
 
 [#dscyml_addssitelinks]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addssitelinks_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define or modify the AD replication topology by configuring site links. Site links control how domain controllers in different AD sites replicate directory data, including replication cost, frequency, and schedule. This is essential in multi-site AD deployments.
+****
 
  A site link connects two or more sites.
  Site links reflect the administrative policy for how sites are to be interconnected and the methods used to transfer replication traffic.
@@ -34,7 +39,7 @@
 | Allowed Values
 
 | [[dscyml_addssitelinks_sitelinks, {YmlCategory}/SiteLinks]]<<dscyml_addssitelinks_sitelinks_details, SiteLinks>>
-| Mandatory
+|
 | Hashtable[]
 | The list of site links to configure.
 |
@@ -110,7 +115,7 @@
   - *False* (default)
 
 | Ensure
-| 
+|
 | String
 | Specifies if the site link should be present or absent.
 | - *Present* (default)
@@ -134,3 +139,9 @@ AddsSiteLinks:
     - Name: DEFAULTIPSITELINK
       Ensure: Absent
 ----
+
+.See also
+****
+* xref:addssitessubnets.adoc[AddsSitesSubnets]
+* xref:addsdomain.adoc[AddsDomain]
+****

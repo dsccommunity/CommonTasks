@@ -1,0 +1,142 @@
+// CommonTasks YAML Reference: DfsReplicationGroupConnections
+// ===========================================================
+
+:YmlCategory: DfsReplicationGroupConnections
+
+:abstract:    {YmlCategory} configures DFS Replication Group connections between member servers.
+
+[#dscyml_dfsreplicationgroupconnections, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dfsreplicationgroupconnections_abstract, {abstract}]]
+{abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to define the replication connections between servers in a DFS Replication Group. These connections control which servers replicate data with each other and the replication topology (hub-spoke, full mesh, etc.).
+****
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DfsReplicationGroupConnections
+| DSC Resource   | https://github.com/dsccommunity/DFSDsc[DFSDsc]
+| Documentation  | https://github.com/dsccommunity/DFSDsc/wiki/DFSReplicationGroupConnection[DFSReplicationGroupConnection]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| Hashtable[]
+| List of DFS Replication Group connection items.
+|
+
+|===
+
+
+.Attributes of category '{YmlCategory}' - Items
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GroupName
+| Mandatory
+| String
+| The name of the DFS Replication Group.
+|
+
+| SourceComputerName
+| Mandatory
+| String
+| The name of the replication group source computer.
+|
+
+| DestinationComputerName
+| Mandatory
+| String
+| The name of the replication group destination computer.
+|
+
+| DomainName
+|
+| String
+| The FQDN of the AD domain.
+|
+
+| Description
+|
+| String
+| A description for the connection.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the connection should exist.
+| - Absent
+  - Present
+
+| EnsureEnabled
+|
+| String
+| Specifies whether the connection is enabled.
+| - Disabled
+  - Enabled
+
+| EnsureRDCEnabled
+|
+| String
+| Specifies whether RDC is enabled.
+| - Disabled
+  - Enabled
+
+| EnsureCrossFileRDCEnabled
+|
+| String
+| Specifies whether cross-file RDC is enabled.
+| - Disabled
+  - Enabled
+
+| MinimumRDCFileSizeInKB
+|
+| UInt32
+| The minimum file size for which RDC will be used.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DfsReplicationGroupConnections:
+  Items:
+    - GroupName: Public
+      DomainName: contoso.com
+      SourceComputerName: server1.contoso.com
+      DestinationComputerName: server2.contoso.com
+    - GroupName: Public
+      DomainName: contoso.com
+      SourceComputerName: server1.contoso.com
+      DestinationComputerName: server3.contoso.com
+----
+
+.See also
+****
+* xref:dfsnamespaces.adoc[DfsNamespaces]
+* xref:dfsreplicationgroupmembers.adoc[DfsReplicationGroupMembers]
+* xref:dfsreplicationgroupmemberships.adoc[DfsReplicationGroupMemberships]
+****

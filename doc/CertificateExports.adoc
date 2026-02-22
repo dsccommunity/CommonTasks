@@ -3,13 +3,18 @@
 
 :YmlCategory: CertificateExports
 
-:abstract:   {YmlCategory} is used to export a certificate from the Windows certificate store.
+:abstract:    {YmlCategory} exports certificates from the Windows certificate store to files.
 
 [#dscyml_certificateexports]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateexports_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to export certificates (public keys, full certificate chains, or PFX files) from a Windows certificate store to the file system. This is useful for sharing certificates between servers, creating backups, or distributing trust anchors.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -213,3 +218,10 @@ lookup_options:
         - Location
         - Store
 ----
+
+.See also
+****
+* xref:certificateauthorities.adoc[CertificateAuthorities]
+* xref:certificaterequests.adoc[CertificateRequests]
+* xref:certificateimports.adoc[CertificateImports]
+****

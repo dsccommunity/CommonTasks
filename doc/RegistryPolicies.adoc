@@ -3,13 +3,18 @@
 
 :YmlCategory: RegistryPolicies
 
-:abstract:    {YmlCategory} is used to apply and manage local group policies by modifying the respective .pol file.
+:abstract:    {YmlCategory} applies and manages local group policies by modifying the registry.pol file.
 
 [#dscyml_registrypolicies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_registrypolicies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to apply registry-based Group Policy settings locally on machines. It directly modifies the machine or user policy .pol files and refreshes Group Policy. This is an alternative to domain-based GPOs for standalone machines or for policies that must be enforced locally.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -156,3 +161,8 @@ lookup_options:
         - ValueName
         - TargetType
 ----
+
+.See also
+****
+* xref:registryvalues.adoc[RegistryValues]
+****

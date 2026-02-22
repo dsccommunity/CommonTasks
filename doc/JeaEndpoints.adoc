@@ -3,13 +3,18 @@
 
 :YmlCategory: JeaEndpoints
 
-:abstract:    {YmlCategory} configures Just Enough Administration (JEA) Endpoints.
+:abstract:    {YmlCategory} configures Just Enough Administration (JEA) session endpoints for constrained PowerShell remoting.
 
 [#dscyml_jeaendpoints]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_jeaendpoints_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create JEA endpoints that restrict what users can do in remote PowerShell sessions. JEA provides role-based access control for PowerShell administration, allowing users to perform specific administrative tasks without granting full administrator privileges. Define the role capabilities first with JeaRoles.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -69,3 +74,8 @@ JeaEndpoints:
           RoleCapabilities: Test1
       SessionType: RestrictedRemoteServer
 ----
+
+.See also
+****
+* xref:jearoles.adoc[JeaRoles]
+****

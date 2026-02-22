@@ -3,13 +3,18 @@
 
 :YmlCategory: WindowsServices
 
-:abstract:    {YmlCategory} installs Windows Optional Features on a Windows Client OS.
+:abstract:    {YmlCategory} manages Windows services including startup type, service credentials, and delayed auto-start.
 
 [#dscyml_windowsservices]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_windowsservices_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure Windows services on target nodes. It handles service startup type (Automatic, Manual, Disabled), service account credentials, delayed auto-start settings, and service descriptions. Common uses include configuring service accounts for application services and disabling unnecessary services for security hardening.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -69,7 +74,7 @@
 |
 | String
 | The display name of the service.
-| 
+|
 
 | Path
 |
@@ -103,7 +108,7 @@
 | String
 | Indicates the state you want to ensure for the service.
 
-If no value is specified a default value is set with the following conditions: 
+If no value is specified a default value is set with the following conditions:
 
 - `StartupType` is empty       -> `Running`
 - `StartupType` is `Automatic` -> `Running`
@@ -117,7 +122,7 @@ If no value is specified a default value is set with the following conditions:
 |
 | String
 | The description of the service.
-| 
+|
 
 | StartupTimeout
 |
@@ -147,9 +152,9 @@ If no value is specified a default value is set with the following conditions:
 
 | Ensure
 |
-| Boolean
+| String
 | Indicates whether the target service exists on the system. +
-  Set this property to `Absent` to ensure that the target service does not exist. 
+  Set this property to `Absent` to ensure that the target service does not exist.
   Setting it to `Present` ensures that target service exists.
 | - *Present* (default)
   - Absent

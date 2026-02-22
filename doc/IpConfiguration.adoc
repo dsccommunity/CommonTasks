@@ -3,13 +3,18 @@
 
 :YmlCategory: IpConfiguration
 
-:abstract:    {YmlCategory} sets the IP configuration.
+:abstract:    {YmlCategory} configures network adapter IP addresses, gateways, DNS servers, and adapter settings.
 
 [#dscyml_ipconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_ipconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set static IP configurations on network adapters, including IP address, subnet mask, default gateway, and DNS server addresses. This is fundamental for server configurations where static IP addressing is required. For more comprehensive network settings including routes and WINS, consider NetworkIpConfiguration instead.
+****
 
 
 // reference links as variables for using more than once
@@ -24,10 +29,10 @@
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/IpConfiguration
 | DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
-| Documentation  | {ref_networkingdsc_netadaptername}, 
-                   {ref_networkingdsc_netadapterstate}, 
-                   {ref_networkingdsc_ipaddress}, 
-                   {ref_networkingdsc_defaultgatewayaddress}, 
+| Documentation  | {ref_networkingdsc_netadaptername},
+                   {ref_networkingdsc_netadapterstate},
+                   {ref_networkingdsc_ipaddress},
+                   {ref_networkingdsc_defaultgatewayaddress},
                    {ref_networkingdsc_dnsserveraddress}
 |===
 
@@ -43,7 +48,7 @@
 
 | [[dscyml_ipconfiguration_adapter, {YmlCategory}/Adapter]]<<dscyml_ipconfiguration_adapter_details, Adapter>>
 |
-| hashtable
+| Hashtable[]
 | List of network adapters
 |
 
@@ -76,7 +81,7 @@
 |
 
 | [[ref_ipconfiguration_ipaddress, IPAddress]]IPAddress
-| 
+|
 | String
 | The desired IP address, optionally including prefix length using CIDR notation. +
   See {ref_networkingdsc_ipaddress}
@@ -98,12 +103,12 @@
 |
 
 | [[ref_ipconfiguration_dnsserveraddress, DnsServerAddress]]DnsServerAddress
-| 
+|
 | StringArray
 | The desired DNS Server address(es).
   Exclude to enable DHCP. +
   See {ref_networkingdsc_dnsserveraddress}
-| 
+|
 
 |===
 
@@ -129,3 +134,11 @@ IpConfiguration:
       AddressFamily: IPv4
       DisableIpv6: true
 ----
+
+.See also
+****
+* xref:networkipconfiguration.adoc[NetworkIpConfiguration]
+* xref:network.adoc[Network]
+* xref:dnssuffixes.adoc[DnsSuffixes]
+* xref:renamenetworkadapters.adoc[RenameNetworkAdapters]
+****

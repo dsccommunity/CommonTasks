@@ -11,6 +11,11 @@
 [[dscyml_addsdomaincontroller_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to promote a Windows Server to a domain controller (DC) in an existing Active Directory domain. It supports both full (writable) DCs and Read-Only Domain Controllers (RODCs), global catalog configuration, and site assignment. Apply this after the domain has been created with the AddsDomain resource.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
@@ -66,7 +71,7 @@
 | Default: `C:\Windows\SYSVOL`
 
 | SiteName
-| Mandatory
+|
 | String
 | The name of the site this Domain Controller will be added to.
 
@@ -112,8 +117,6 @@ If the computer acts as domain controller the 'Protect from accidental deletion'
 |
 | String
 | The path of the media you want to use install the Domain Controller.
-
-##(not used inside)##
 |
 
 |===
@@ -151,3 +154,11 @@ AddsDomainController:
   UnprotectFromAccidentalDeletion: true
   InstallationMediaPath: \\Server\Share
 ----
+
+.See also
+****
+* xref:addsdomain.adoc[AddsDomain]
+* xref:addsdomainprincipals.adoc[AddsDomainPrincipals]
+* xref:addsorgunitsandgroups.adoc[AddsOrgUnitsAndGroups]
+* xref:addswaitfordomains.adoc[AddsWaitForDomains]
+****

@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlPermissions
 
-:abstract:    {YmlCategory} is used to grant, deny or revoke Server permissions for a login.
+:abstract:    {YmlCategory} grants, denies, or revokes server-level permissions for SQL Server logins.
 
 [#dscyml_sqlpermissions]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlpermissions_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to manage server-level permissions for SQL Server logins, such as granting CONNECT SQL, ALTER ANY DATABASE, VIEW SERVER STATE, or other server-scoped permissions. Create the logins first with SqlLogins.
+****
 For more information about permissions, please read the article https://docs.microsoft.com/en-us/sql/relational-databases/security/permissions-database-engine[Permissions (Database Engine)].
 
 [NOTE]
@@ -29,7 +34,7 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlpermission}
-                   
+
 |===
 
 
@@ -48,6 +53,13 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlpermissions_values, {YmlCategory}/Values]]<<dscyml_sqlpermissions_values_details, Values>>
 | Mandatory
@@ -82,14 +94,14 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 Default value is the current computer name.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the permission should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
-| Principal
+| Name
 | Key
 | String
 | The login to which permission will be set.
@@ -198,3 +210,11 @@ SqlPermissions:
         Deny:
           - AlterAnyAvailabilityGroup
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlroles.adoc[SqlRoles]
+* xref:sqldatabases.adoc[SqlDatabases]
+****

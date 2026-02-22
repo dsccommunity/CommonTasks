@@ -3,13 +3,18 @@
 
 :YmlCategory: WebConfigProperties
 
-:abstract:    {YmlCategory} is used to ensure the value of an identified property in the web.config file.
+:abstract:    {YmlCategory} manages individual property values in IIS web.config configuration files.
 
 [#dscyml_webconfigproperties]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webconfigproperties_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set specific configuration properties in IIS web.config files at any level (server, site, application). This is useful for configuring IIS settings like authentication modes, request filtering, custom headers, or module settings that are stored in the web.config configuration hierarchy.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -97,3 +102,10 @@ WebConfigProperties:
       PropertyName: allowDoubleEscaping
       Value: true
 ----
+
+.See also
+****
+* xref:websites.adoc[WebSites]
+* xref:webapplications.adoc[WebApplications]
+* xref:webconfigpropertycollections.adoc[WebConfigPropertyCollections]
+****

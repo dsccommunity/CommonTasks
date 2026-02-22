@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlRoles
 
-:abstract:    {YmlCategory} is used to manage the SQL Server Configuration Options on a SQL Server instance.
+:abstract:    {YmlCategory} manages SQL Server roles and their membership.
 
 [#dscyml_sqlroles]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlroles_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create custom SQL Server roles or manage membership of built-in server roles (sysadmin, dbcreator, securityadmin, etc.). Use this for implementing role-based access control at the SQL Server level.
+****
 
 The SqlRole DSC resource is used to create a server role, when Ensure is set to `Present`, or remove a server role, when Ensure is set to `Absent`.
 The resource also manages members in both built-in and user created server roles.
@@ -29,7 +34,7 @@ This is done to keep the DSC resource from throwing an error since SQL Server do
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlrole}
-                   
+
 |===
 
 
@@ -47,6 +52,13 @@ This is done to keep the DSC resource from throwing an error since SQL Server do
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlroles_values, {YmlCategory}/Values]]<<dscyml_sqlroles_values_details, Values>>
 | Mandatory
@@ -114,10 +126,10 @@ Can only be used when parameter *Ensure* is set to `Present`.
 Can not be used at the same time as parameter Members.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the role should be added (`Present`) or removed (`Absent`).
 | - *Present*
   - Absent
 
@@ -139,3 +151,11 @@ SqlRoles:
       ServerName: sqltest.company.local
       InstanceName: DSC
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlpermissions.adoc[SqlPermissions]
+* xref:sqldatabases.adoc[SqlDatabases]
+****

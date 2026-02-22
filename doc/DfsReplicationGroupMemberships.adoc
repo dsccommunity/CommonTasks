@@ -1,0 +1,165 @@
+// CommonTasks YAML Reference: DfsReplicationGroupMemberships
+// ============================================================
+
+:YmlCategory: DfsReplicationGroupMemberships
+
+:abstract:    {YmlCategory} configures DFS Replication Group folder memberships for member servers.
+
+[#dscyml_dfsreplicationgroupmemberships, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dfsreplicationgroupmemberships_abstract, {abstract}]]
+{abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure which replicated folders each member server hosts within a DFS Replication Group, including content paths, staging quotas, and read-only settings. This defines the per-member folder-level replication configuration.
+****
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DfsReplicationGroupMemberships
+| DSC Resource   | https://github.com/dsccommunity/DFSDsc[DFSDsc]
+| Documentation  | https://github.com/dsccommunity/DFSDsc/wiki/DFSReplicationGroupMembership[DFSReplicationGroupMembership]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| Hashtable[]
+| List of DFS Replication Group membership items.
+|
+
+|===
+
+
+.Attributes of category '{YmlCategory}' - Items
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GroupName
+| Mandatory
+| String
+| The name of the DFS Replication Group.
+|
+
+| FolderName
+| Mandatory
+| String
+| The name of the DFS Replication Group folder.
+|
+
+| ComputerName
+| Mandatory
+| String
+| The computer name of the replication group member.
+|
+
+| ContentPath
+|
+| String
+| The local content path for the DFS Replication Group folder.
+|
+
+| DomainName
+|
+| String
+| The FQDN of the AD domain.
+|
+
+| DfsnPath
+|
+| String
+| The DFS Namespace path of the DFS Replication Group folder.
+|
+
+| EnsureEnabled
+|
+| String
+| Specifies whether the membership is enabled.
+| - Disabled
+  - Enabled
+
+| PrimaryMember
+|
+| Bool
+| Specifies whether this member is the primary member.
+|
+
+| ReadOnly
+|
+| Bool
+| Specifies whether the content path is read only.
+|
+
+| RemoveDeletedFiles
+|
+| Bool
+| Specifies whether to remove deleted files.
+|
+
+| StagingPath
+|
+| String
+| The staging folder path for the DFS Replication Group folder.
+|
+
+| StagingPathQuotaInMB
+|
+| UInt32
+| The staging path quota size in MB.
+|
+
+| ConflictAndDeletedQuotaInMB
+|
+| UInt32
+| The conflict and deleted folder quota size in MB.
+|
+
+| MinimumFileStagingSize
+|
+| String
+| The minimum file size for which staging is used.
+| Size256KB, Size512KB, Size1MB, Size2MB, Size4MB, Size8MB, Size16MB, Size32MB, Size64MB, Size128MB, Size256MB, Size512MB, Size1GB, Size2GB, Size4GB, Size8GB, Size16GB, Size32GB, Size64GB, Size128GB, Size256GB, Size512GB, Size1TB, Size2TB, Size4TB, Size8TB, Size16TB, Size32TB, Size64TB, Size128TB, Size256TB, Size512TB
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DfsReplicationGroupMemberships:
+  Items:
+    - GroupName: Public
+      FolderName: Test1
+      ContentPath: C:\Data\Test1
+      DomainName: contoso.com
+      ComputerName: server1.contoso.com
+    - GroupName: Public
+      FolderName: Test1
+      ContentPath: C:\Data\Test1
+      DomainName: contoso.com
+      ComputerName: server2.contoso.com
+----
+
+.See also
+****
+* xref:dfsnamespaces.adoc[DfsNamespaces]
+* xref:dfsreplicationgroupconnections.adoc[DfsReplicationGroupConnections]
+* xref:dfsreplicationgroupmembers.adoc[DfsReplicationGroupMembers]
+****

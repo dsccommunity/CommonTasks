@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlServer
 
-:abstract:    {YmlCategory} is used for deployment and configuration of Microsoft SQL Server.
+:abstract:    {YmlCategory} installs SQL Server instances and configures initial logins.
 
 [#dscyml_sqlserver]
-= DSC Resource '{YmlCategory}' 
+= DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlserver_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to perform a fresh installation of a SQL Server instance. It handles the SQL Server setup process and creates initial logins during installation. This is typically the first SQL resource applied, before SqlConfigurations, SqlDatabases, or Always On setup.
+****
 
 
 // reference links as variables for using more than once
@@ -26,13 +31,13 @@
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlsetup}
                    - {ref_sqlserverdsc_sqllogin}
-                   
+
 |===
 
 
 [NOTE]
 ====
-It is possible to use https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#group-managed-service-account[Group Managed Service Accounts] and 
+It is possible to use https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#group-managed-service-account[Group Managed Service Accounts] and
 https://github.com/dsccommunity/SqlServerDsc/wiki/CredentialOverview#built-in-account[Built-In Accounts] in the YAML configuration.
 ====
 
@@ -146,7 +151,7 @@ See {ref_sqlserverdsc_sourcecredential_considerations}.
 | Specifies the name of the instance to be installed.
 
 Use `MSSQLSERVER` if you want to install a default clustered instance.
-    
+
 If not specified the value of `DefaultInstanceName` is used as default.
 |
 
@@ -581,7 +586,7 @@ The login types `Certificate`, `AsymmetricKey`, `ExternalUser` and `ExternalGrou
 | LoginCredential
 |
 | PSCredential
-| Specifies the password. 
+| Specifies the password.
 
 Only applies to _SQL Logins_.
 |
@@ -606,7 +611,7 @@ Only applies to _SQL Logins_.
 
 | LoginPasswordPolicyEnforced
 |
-| Booelan
+| Boolean
 | Specifies if the login password is required to conform to the password policy specified in the system security policy.
 
 Only applies to _SQL Logins_.
@@ -619,7 +624,7 @@ Only applies to _SQL Logins_.
 | Specifies if the login is disabled.
 | - True
   - *False* (default)
-  
+
 | DefaultDatabase
 |
 | String
@@ -652,7 +657,7 @@ SqlServer:
     InstanceDir:
     SQLSvcAccount: '[ENC=...=]'
     AgtSvcAccount: '[ENC=...=]'
-    SQLCollation: 
+    SQLCollation:
     SQLSysAdminAccounts:
     SecurityMode: SQL
     SAPwd: '[ENC=...=]'
@@ -662,8 +667,8 @@ SqlServer:
     SQLTempDBDir:
     SQLTempDBLogDir:
     SQLBackupDir:
-    FTSvcAccount: 
-    RSSvcAccount: 
+    FTSvcAccount:
+    RSSvcAccount:
     RSInstallMode: DefaultNativeMode
     ASSvcAccount: '[ENC=...=]'
     ASCollation:
@@ -713,3 +718,14 @@ SqlServer:
       LoginPasswordPolicyEnforced: false
       Disabled: true
 ----
+
+.See also
+****
+* xref:sqldatabases.adoc[SqlDatabases]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlroles.adoc[SqlRoles]
+* xref:sqlpermissions.adoc[SqlPermissions]
+* xref:sqlconfigurations.adoc[SqlConfigurations]
+* xref:sqlalwaysonservices.adoc[SqlAlwaysOnServices]
+* xref:sqlaliases.adoc[SqlAliases]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: VSTSAgents
 
-:abstract:    {YmlCategory} is used to manage and automate Visual Studio Team Services Agents.
+:abstract:    {YmlCategory} installs, configures, and manages Azure DevOps (VSTS) build and release agents.
 
 [#dscyml_vstsagents]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_vstsagents_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy Azure DevOps pipeline agents on machines for running CI/CD build and release pipelines. It handles agent download, installation, configuration with the Azure DevOps organization, and service registration.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VSTSAgents
 | DSC Resource   | https://github.com/microsoft/VSTSAgent.PowerShell[VSTSAgent]
 | Documentation  | https://github.com/microsoft/VSTSAgent.PowerShell/tree/develop/VSTSAgent/DSCResources/xVSTSAgent[xVSTSAgent]
-                   
+
 |===
 
 
@@ -33,7 +38,7 @@
 | [[dscyml_vstsagents_agents, {YmlCategory}/Agents]]<<dscyml_vstsagents_agents_details, Agents>>
 | Mandatory
 | Hashtable[]
-| set of web applications
+| List of Azure DevOps (VSTS) build and release agent configurations
 |
 
 |===

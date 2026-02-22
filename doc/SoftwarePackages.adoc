@@ -3,13 +3,18 @@
 
 :YmlCategory: SoftwarePackages
 
-:abstract:    {YmlCategory} installs software packages.
+:abstract:    {YmlCategory} installs software packages (MSI or EXE) from local or network paths.
 
 [#dscyml_softwarepackages]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_softwarepackages_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install software from MSI or EXE installer packages on target nodes. It ensures software is installed by checking product codes and supports arguments, credentials, and return code validation. For Chocolatey-based installations, use ChocolateyPackages instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

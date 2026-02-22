@@ -3,13 +3,18 @@
 
 :YmlCategory: WebApplicationPools
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and configures IIS application pools with process model, recycling, and performance settings.
 
 [#dscyml_webapplicationpools]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webapplicationpools_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and configure application pools for IIS websites and web applications. Application pools provide process isolation, identity configuration, and recycling settings. Create them before deploying websites (WebSites) or web applications (WebApplications) that will use them.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -65,3 +70,10 @@ WebApplicationPools:
     - Name: TestAppPool1
     - Name: TestAppPool2
 ----
+
+.See also
+****
+* xref:websites.adoc[WebSites]
+* xref:webapplications.adoc[WebApplications]
+* xref:webvirtualdirectories.adoc[WebVirtualDirectories]
+****

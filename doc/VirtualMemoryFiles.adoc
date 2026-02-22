@@ -3,7 +3,7 @@
 
 :YmlCategory: VirtualMemoryFiles
 
-:abstract:    {YmlCategory} allows configuration of properties of the paging file on the local computer.
+:abstract:    {YmlCategory} configures Windows virtual memory (page file) settings.
 
 [#dscyml_virtualmemoryfiles]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_virtualmemoryfiles_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure the Windows page file location and size. This is important for servers where the page file should be on a dedicated drive or sized according to application requirements (e.g., SQL Server, Exchange). It can set custom initial and maximum page file sizes or enable automatic management.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VirtualMemoryFiles
 | DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
 | Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/VirtualMemory[VirtualMemory]
-                   
+
 |===
 
 
@@ -33,7 +38,7 @@
 | [[dscyml_virtualmemoryfiles_files, {YmlCategory}/Files]]<<dscyml_virtualmemoryfiles_files_details, Files>>
 | Mandatory
 | Hashtable[]
-| set of web applications
+| List of virtual memory (page file) settings per drive
 |
 
 |===

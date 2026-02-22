@@ -3,13 +3,18 @@
 
 :YmlCategory: CertificateImports
 
-:abstract:   {YmlCategory} is used to import a certificate into a Windows certificate store.
+:abstract:    {YmlCategory} imports certificates and PFX files into Windows certificate stores.
 
 [#dscyml_certificateimports]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_certificateimports_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy certificates to machines, such as importing SSL/TLS certificates for web servers, trusted root CA certificates, or intermediate CA certificates. Supports both standard certificate files and password-protected PFX files.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -239,3 +244,10 @@ lookup_options:
         - Location
         - Store
 ----
+
+.See also
+****
+* xref:certificateauthorities.adoc[CertificateAuthorities]
+* xref:certificaterequests.adoc[CertificateRequests]
+* xref:certificateexports.adoc[CertificateExports]
+****

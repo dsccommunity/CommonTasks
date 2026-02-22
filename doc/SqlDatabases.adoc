@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlDatabases
 
-:abstract:    {YmlCategory} is used to create or delete a database.
+:abstract:    {YmlCategory} creates and manages SQL Server databases.
 
 [#dscyml_sqldatabases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqldatabases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create databases on a SQL Server instance. It handles database creation with configurable collation and recovery model. Use this for provisioning application databases as part of your infrastructure deployment.
+****
 For more information about SQL Server databases, please read the following articles https://docs.microsoft.com/en-us/sql/relational-databases/databases/create-a-database[Create a Database] and https://docs.microsoft.com/en-us/sql/relational-databases/databases/delete-a-database[Delete a Database].
 
 This resource sets the recovery model for a database.
@@ -27,7 +32,7 @@ Three recovery models exist: full, simple, and bulk-logged. Read more about reco
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqldatabase}
-                   
+
 |===
 
 
@@ -46,6 +51,13 @@ Three recovery models exist: full, simple, and bulk-logged. Read more about reco
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_SqlDatabases_Values, {YmlCategory}/Values]]<<dscyml_SqlDatabases_Values_Details, Values>>
 | Mandatory
@@ -77,10 +89,10 @@ Three recovery models exist: full, simple, and bulk-logged. Read more about reco
 | The name of the SQL Server instance to be configured.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
+| Determines whether the database should be added (`'Present'`) or removed (`'Absent'`). Default value is `'Present'`.
 | `Present`, `Absent`
 
 | ServerName
@@ -96,13 +108,13 @@ Three recovery models exist: full, simple, and bulk-logged. Read more about reco
 |
 
 | CompatibilityLevel
-| 
+|
 | String
 | Specifies the version of the SQL Database Compatibility Level to use for the specified database.
 | `Version80, Version90, Version100, Version110, Version120, Version130, Version140, Version150`
 
 | RecoveryModel
-| 
+|
 | String
 | The recovery model for the specified database.
 | `Simple, Full, BulkLogged`
@@ -115,14 +127,21 @@ Three recovery models exist: full, simple, and bulk-logged. Read more about reco
 ----
 SqlDatabases:
   Values:
-    - EndpointName: HADR
-      EndpointType: DatabaseMirroring
-      Port: 5022
+    - Name: MyDatabase1
+      InstanceName: MSSQLSERVER
       ServerName: SQL1
+    - Name: MyDatabase2
       InstanceName: MSSQLSERVER
-    - EndpointName: HADR
-      EndpointType: DatabaseMirroring
-      Port: 5023
-      ServerName: SQL2
-      InstanceName: MSSQLSERVER
+      ServerName: SQL1
+      Collation: SQL_Latin1_General_CP1_CI_AS
+      RecoveryModel: Full
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlpermissions.adoc[SqlPermissions]
+* xref:sqlroles.adoc[SqlRoles]
+* xref:sqlagdatabases.adoc[SqlAGDatabases]
+****

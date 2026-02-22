@@ -3,13 +3,18 @@
 
 :YmlCategory: ConfigurationManagerConfiguration
 
-:abstract:   {YmlCategory} is used to ###TBD###.
+:abstract:    {YmlCategory} configures Microsoft Endpoint Configuration Manager (SCCM/MECM) site settings, including discovery methods, accounts, maintenance tasks, distribution groups, and software update points.
 
 [#dscyml_configurationmanagerconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_configurationmanagerconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure an existing Configuration Manager site server. It manages accounts, administrative users, boundary groups, client status settings, discovery methods (forest, heartbeat, network, system, user), distribution point groups, email notifications, management points, software update points, maintenance tasks, and status reporting. Apply this after ConfigurationManagerDeployment has installed the site.
+****
 
 
 :CMAccounts:                                    https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMAccounts]
@@ -145,13 +150,13 @@
 
 | SiteMaintenanceConfigurations
 |
-| Hashtable
+| Hashtable[]
 |
 |
 
 | BoundaryGroups
 |
-| Hashtable
+| Hashtable[]
 | see {CMBoundaryGroups}
 |
 
@@ -163,8 +168,8 @@
 
 | CollectionSettings
 |
-|
 | Hashtable
+|
 |
 
 | StatusReportingSettings
@@ -367,3 +372,10 @@ ConfigurationManagerConfiguration:
     FeatureUpdateMaxRuntimeMins: 300
     NonFeatureUpdateMaxRuntimeMins: 300
 ----
+
+.See also
+****
+* xref:configurationbase.adoc[ConfigurationBase]
+* xref:configurationmanagerdeployment.adoc[ConfigurationManagerDeployment]
+* xref:configurationmanagerdistributiongroups.adoc[ConfigurationManagerDistributionGroups]
+****

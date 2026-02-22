@@ -3,13 +3,18 @@
 
 :YmlCategory: AddsSitesSubnets
 
-:abstract:    {YmlCategory} manages Replication Sites and Replication Subnets within Active Directory
+:abstract:    {YmlCategory} manages Replication Sites and Replication Subnets within Active Directory.
 
 [#dscyml_addssitessubnets, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_addssitessubnets_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create AD replication sites and assign IP subnets to those sites. Proper site and subnet configuration ensures clients authenticate against the nearest domain controller and that replication traffic flows efficiently across your network.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -152,3 +157,9 @@ AddsSitesSubnets:
       Site: Athens
       Location: Sparta
 ----
+
+.See also
+****
+* xref:addssitelinks.adoc[AddsSiteLinks]
+* xref:addsdomain.adoc[AddsDomain]
+****

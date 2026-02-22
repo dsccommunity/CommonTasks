@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopCertificates
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures SSL/TLS certificate settings for Remote Desktop Services roles.
 
 [#dscyml_remotedesktopcertificates]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopcertificates_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to assign SSL/TLS certificates to RDS roles (Connection Broker, Web Access, Gateway, RD Virtualization Host). Proper certificate configuration is essential for secure RDS deployments and eliminating certificate warnings for connecting users.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -68,3 +73,10 @@ Certificates:
     ImportPath: C:\RDSFARM.pfx
     Credential: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:remotedesktopdeployment.adoc[RemoteDesktopDeployment]
+* xref:remotedesktopcollections.adoc[RemoteDesktopCollections]
+* xref:remotedesktoplicensing.adoc[RemoteDesktopLicensing]
+****

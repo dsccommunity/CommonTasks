@@ -3,13 +3,18 @@
 
 :YmlCategory: WebVirtualDirectories
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates IIS virtual directories that map URL paths to physical directories.
 
 [#dscyml_webvirtualdirectories]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webvirtualdirectories_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create virtual directories within an IIS website or web application. Virtual directories map a URL path to a physical folder on disk (or a network share), allowing content to be served from locations outside the website's root directory.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -71,3 +76,10 @@ WebVirtualDirectories:
       WebApplication: TestApp1
       WebSite: TestSite1
 ----
+
+.See also
+****
+* xref:websites.adoc[WebSites]
+* xref:webapplications.adoc[WebApplications]
+* xref:webapplicationpools.adoc[WebApplicationPools]
+****

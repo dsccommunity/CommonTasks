@@ -3,13 +3,18 @@
 
 :YmlCategory: PowershellExecutionPolicies
 
-:abstract:    {YmlCategory} allows configuration of the PowerShell execution policy for different execution scopes.
+:abstract:    {YmlCategory} configures PowerShell execution policies for different execution scopes.
 
 [#dscyml_powershellexecutionpolicies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_powershellexecutionpolicies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set the PowerShell script execution policy at the machine, user, or process scope. Proper execution policy configuration is essential for allowing DSC and automation scripts to run while maintaining security. Common settings include RemoteSigned for servers or Unrestricted for automation environments.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]

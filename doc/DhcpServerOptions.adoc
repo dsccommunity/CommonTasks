@@ -3,7 +3,7 @@
 
 :YmlCategory: DhcpServerOptions
 
-:abstract: {YmlCategory} is used to manage option values at server level.
+:abstract:    {YmlCategory} manages DHCP option values at the server level.
 
 [#dscyml_dhcpserveroptions]
 = DSC Resource '{YmlCategory}'
@@ -11,10 +11,15 @@
 [[dscyml_dhcpserveroptions_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set DHCP options that apply to all scopes on the server by default (e.g., DNS servers, domain name). Server-level options serve as defaults that can be overridden at the scope level using DhcpScopeOptions.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServerOptions
 | DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
 | Documentation  | https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
 |===
@@ -50,7 +55,7 @@
 
 | OptionId
 | Key
-| Number
+| UInt32
 | Option ID, specify an integer between 1 and 255.
 | [1, 255]
 
@@ -107,3 +112,10 @@ DhcpServerOptions:
       VendorClass: ''
       Value: contoso.com
 ----
+
+.See also
+****
+* xref:dhcpserver.adoc[DhcpServer]
+* xref:dhcpscopeoptions.adoc[DhcpScopeOptions]
+* xref:dhcpserveroptiondefinitions.adoc[DhcpServerOptionDefinitions]
+****

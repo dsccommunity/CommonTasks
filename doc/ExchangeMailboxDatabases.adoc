@@ -3,13 +3,18 @@
 
 :YmlCategory: ExchangeMailboxDatabases
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and configures Exchange Server mailbox databases.
 
 [#dscyml_exchangemailboxdatabases]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_exchangemailboxdatabases_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and configure mailbox databases on Exchange Server. Mailbox databases store user mailbox data and must be created before users can be provisioned. Configure database paths, quotas, and maintenance schedules as needed.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -29,10 +34,10 @@
 | Description
 | Allowed Values
 
-|
-|
-|
-|
+| Items
+| Mandatory
+| Hashtable[]
+| List of mailbox database configurations
 |
 
 |===
@@ -64,3 +69,12 @@ ExchangeMailboxDatabases:
         ProhibitSendReceiveQuota: 52224MB
         AllowServiceRestart: true
 ----
+
+.See also
+****
+* xref:exchangeprovisioning.adoc[ExchangeProvisioning]
+* xref:exchangeconfiguration.adoc[ExchangeConfiguration]
+* xref:exchangeautomountpoints.adoc[ExchangeAutoMountPoints]
+* xref:exchangemailboxdatabasecopies.adoc[ExchangeMailboxDatabaseCopies]
+* xref:exchangedagprovisioning.adoc[ExchangeDagProvisioning]
+****

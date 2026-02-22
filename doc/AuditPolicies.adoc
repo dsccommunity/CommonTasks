@@ -3,13 +3,18 @@
 
 :YmlCategory: AuditPolicies
 
-:abstract:  {YmlCategory} contains DSC resources for the management and configuration of the advanced audit policy on all currently supported versions of Windows.
+:abstract:    {YmlCategory} configures the advanced Windows audit policy, including audit options, subcategories, and CSV-based policies.
 
 [#dscyml_auditpolicies]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_auditpolicies_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure Windows security auditing to meet compliance requirements (e.g. CIS, STIG, PCI-DSS). It allows fine-grained control over which security events are audited, such as logon events, privilege use, object access, and policy changes.
+****
 
 
 // reference links as variables for using more than once
@@ -47,7 +52,7 @@
 
 | [[dscyml_auditpolicies_guids, {YmlCategory}/Guids]]<<dscyml_auditpolicies_guids_details, Guids>>
 | hashtable[]
-| Set of advanced audit policy subcategory audit flags that works around localization issues with auditpol (see {ref_AuditPolicyDsc_AuditPolicyGUID})
+| Set of advanced audit policy subcategory audit flags (see {ref_AuditPolicyDsc_AuditPolicySubcategory})
 
 | CsvPath
 | String

@@ -3,7 +3,7 @@
 
 :YmlCategory: Disks
 
-:abstract:  {YmlCategory} module is used to initialize, format and mount the partition/volume as a drive letter.
+:abstract:    {YmlCategory} initializes, formats, and mounts disk partitions as drive letters.
 
 [#dscyml_disks]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_disks_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to prepare raw disks for use by initializing them, creating partitions, formatting volumes, and assigning drive letters. This is essential for any server with additional data disks that need to be brought online and made available to the operating system.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -142,3 +147,8 @@ Disks:
       FSLabel:     Data
       AllocationUnitSize: 2KB
 ----
+
+.See also
+****
+* xref:diskaccesspaths.adoc[DiskAccessPaths]
+****

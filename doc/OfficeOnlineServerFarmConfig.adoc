@@ -3,13 +3,18 @@
 
 :YmlCategory: OfficeOnlineServerFarmConfig
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures Office Online Server (OOS) farm settings including URLs, Excel services, translation, and caching.
 
 [#dscyml_officeonlineserverfarmconfig]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_officeonlineserverfarmconfig_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure an Office Online Server farm after creating it. It manages the farm-wide settings such as internal and external URLs, SSL/TLS configuration, Excel calculation services, language settings, and cache configuration. Apply this after the farm is created with OfficeOnlineServerMachineConfig.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -29,11 +34,325 @@
 | Description
 | Allowed Values
 
+| AllowCEIP
 |
+| Boolean
+| Enables Customer Experience Improvement Program (CEIP) reporting on all servers in the Office Online Server farm.
+| - True
+  - False
+
+| AllowHttp
 |
+| Boolean
+| Indicates that IIS sites should be provisioned on port 80 for HTTP access.
+| - True
+  - False
+
+| AllowHttpSecureStoreConnections
 |
+| Boolean
+| Indicates that secure store connections can be made by using non-SSL connections (such as HTTP).
+| - True
+  - False
+
+| CacheLocation
 |
+| String
+| Specifies the location of the global disk cache that is used to store files.
 |
+
+| CacheSizeInGB
+|
+| Int32
+| Specifies the maximum size of the global disk cache in gigabytes.
+|
+
+| CertificateName
+|
+| String
+| Specifies the friendly name of the certificate that Office Online Server uses to create HTTPS bindings.
+|
+
+| ClipartEnabled
+|
+| Boolean
+| Enables support for inserting Bing images into Office documents.
+| - True
+  - False
+
+| DocumentInfoCacheSize
+|
+| Int32
+| Specifies the maximum number of document conversion records that are stored in a memory cache.
+|
+
+| EditingEnabled
+|
+| Boolean
+| Enables support for editing in the browser.
+| - True
+  - False
+
+| ExcelAllowExternalData
+|
+| Boolean
+| Enables the refresh of supported external data in Excel Online workbooks.
+| - True
+  - False
+
+| ExcelConnectionLifetime
+|
+| Int32
+| Specifies the duration in seconds of external data connections for Excel Online.
+|
+
+| ExcelExternalDataCacheLifetime
+|
+| Int32
+| Specifies the duration in seconds of the external data cache lifetime in Excel Online.
+|
+
+| ExcelPrivateBytesMax
+|
+| Int32
+| Specifies the maximum private bytes in megabytes used by Excel Online.
+|
+
+| ExcelRequestDurationMax
+|
+| Int32
+| Specifies the maximum duration in seconds of a single request in an Excel Online session.
+|
+
+| ExcelSessionTimeout
+|
+| Int32
+| Specifies the time in seconds that a session remains active in Excel Online when there is no user activity.
+|
+
+| ExcelUdfsAllowed
+|
+| Boolean
+| Specifies whether User Defined Functions are enabled for use with Excel Online.
+| - True
+  - False
+
+| ExcelWarnOnDataRefresh
+|
+| Boolean
+| Turns off or on the warning dialog displayed when data refreshes in Excel Online.
+| - True
+  - False
+
+| ExcelWorkbookSizeMax
+|
+| Int32
+| Specifies the maximum size in megabytes of a workbook that can be loaded.
+|
+
+| ExcelMemoryCacheThreshold
+|
+| Int32
+| Specifies the percentage of the Maximum Private Bytes that can be allocated to inactive objects.
+|
+
+| ExcelUnusedObjectAgeMax
+|
+| Int32
+| Specifies the maximum time in minutes that inactive objects remain in the memory cache.
+|
+
+| ExcelCachingUnusedFiles
+|
+| Boolean
+| Specifies that caching of files that are no longer in use is enabled.
+| - True
+  - False
+
+| ExcelAbortOnRefreshOnOpenFail
+|
+| Boolean
+| Specifies that the loading of a workbook is aborted if a refresh on open data connection fails.
+| - True
+  - False
+
+| ExcelAutomaticVolatileFunctionCacheLifetime
+|
+| Int32
+| Specifies the maximum time in seconds that a computed value for a volatile function is cached.
+|
+
+| ExcelConcurrentDataRequestsPerSessionMax
+|
+| Int32
+| Specifies the maximum number of concurrent external data requests allowed per session.
+|
+
+| ExcelDefaultWorkbookCalcMode
+|
+| String
+| Specifies the default workbook calculation mode.
+|
+
+| ExcelRestExternalDataEnabled
+|
+| Boolean
+| Specifies whether requests from the Excel REST API are allowed to refresh external data connections.
+| - True
+  - False
+
+| ExcelChartAndImageSizeMax
+|
+| Int32
+| Specifies the maximum size in megabytes of a chart or image that can be opened.
+|
+
+| ExternalURL
+|
+| String
+| Specifies the URL root that clients use to access the Office Online Server farm from the Internet or outside network.
+|
+
+| FarmOU
+|
+| String
+| Specifies the name of the Active Directory organizational unit that a server must be a member of to join the farm.
+|
+
+| InternalURL
+| Mandatory
+| String
+| Specifies the URL root that clients use to access the Office Online Server farm from the intranet.
+|
+
+| LogLocation
+|
+| String
+| Specifies the location on the local computer where activity logs are stored.
+|
+
+| LogRetentionInDays
+|
+| Int32
+| Specifies the number of days that log entries are stored.
+|
+
+| LogVerbosity
+|
+| String
+| Specifies the level of detail stored in the activity log files.
+|
+
+| MaxMemoryCacheSizeInMB
+|
+| Int32
+| Specifies the maximum amount of memory in megabytes that the rendering cache can use.
+|
+
+| MaxTranslationCharacterCount
+|
+| Int32
+| Specifies the maximum amount of characters a document can have in order to be translated.
+|
+
+| OpenFromUncEnabled
+|
+| Boolean
+| Turns on or off the ability to use Online Viewers to view Office files from a UNC path.
+| - True
+  - False
+
+| OpenFromUrlEnabled
+|
+| Boolean
+| Turns on or off the ability to use Online Viewers to view Office files from a URL or UNC path.
+| - True
+  - False
+
+| OpenFromUrlThrottlingEnabled
+|
+| Boolean
+| Throttles the number of open from URL requests from any given server in a time period.
+| - True
+  - False
+
+| Proxy
+|
+| String
+| Specifies the URL of the proxy server that is configured to allow HTTP requests to external sites.
+|
+
+| RecycleActiveProcessCount
+|
+| Int32
+| Specifies the number of files that a single Word or PowerPoint process can render before the process is recycled.
+|
+
+| RenderingLocalCacheLocation
+|
+| String
+| Specifies the location for the temporary cache used by the Word and PowerPoint viewing services.
+|
+
+| SSLOffloaded
+|
+| Boolean
+| Indicates that SSL is offloaded to a load balancer.
+| - True
+  - False
+
+| TranslationEnabled
+|
+| Boolean
+| Enables support for automatic document translation using Microsoft Translator.
+| - True
+  - False
+
+| TranslationServiceAddress
+|
+| String
+| Specifies the URL of the translation server that translation requests are sent to.
+|
+
+| TranslationServiceAppId
+|
+| String
+| Specifies the application ID for the translation service.
+|
+
+| AllowOutboundHttp
+|
+| Boolean
+| Allows outbound HTTP connections from Office Online Server.
+| - True
+  - False
+
+| ExcelUseEffectiveUserName
+|
+| Boolean
+| Enables the use of the Analysis Services Effective User Name feature in Excel Online.
+| - True
+  - False
+
+| S2SCertificateName
+|
+| String
+| Specifies the friendly name of the certificate used for server-to-server token authentication.
+|
+
+| RemovePersonalInformationFromLogs
+|
+| Boolean
+| Provides a best effort scrub of personal information from Office Online Server logs.
+| - True
+  - False
+
+| PicturePasteDisabled
+|
+| Boolean
+| Turns off the ability for users to paste images from a web page into Office Online.
+| - True
+  - False
 
 |===
 
@@ -42,6 +361,22 @@
 [source, yaml]
 ----
 OfficeOnlineServerFarmConfig:
-  AllowHttp: true
-  InternalUrl: http://contoso.com
+  InternalURL: https://oos.contoso.com
+  ExternalURL: https://oos-external.contoso.com
+  CertificateName: OfficeOnlineServer
+  AllowHttp: false
+  EditingEnabled: true
+  SSLOffloaded: false
+  ExcelAllowExternalData: true
+  OpenFromUrlEnabled: true
+  OpenFromUncEnabled: true
+  LogLocation: C:\OOSLogs
+  LogRetentionInDays: 7
+  CacheSizeInGB: 15
 ----
+
+.See also
+****
+* xref:officeonlineserversetup.adoc[OfficeOnlineServerSetup]
+* xref:officeonlineservermachineconfig.adoc[OfficeOnlineServerMachineConfig]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointManagedAccounts
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} registers Active Directory accounts as SharePoint managed accounts.
 
 [#dscyml_sharepointmanagedaccounts]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointmanagedaccounts_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to register domain accounts that SharePoint will manage, including automatic password changes. Managed accounts are used as service accounts for application pools, service applications, and other SharePoint services. Register them before configuring service application pools.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedAccounts
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedAccount[SPManagedAccount]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointmanagedaccounts_managedaccounts, {YmlCategory}/ManagedAccounts]]<<dscyml_sharepointmanagedaccounts_managedaccounts_details, ManagedAccounts>>
-| Mandatory
+|
 | Hashtable[]
 | set of managed accounts
 |
@@ -68,3 +73,9 @@ SharePointManagedAccounts:
     - AccountName: contoso\sp_contentAppPool
       Account: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerAdZones
 
-:abstract:  {YmlCategory} sets AD integrated zones on a given DNS server.
+:abstract:    {YmlCategory} manages Active Directory-integrated DNS zones on a DNS server.
 
 [#dscyml_dnsserveradzones]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserveradzones_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create or configure AD-integrated DNS zones. AD-integrated zones store DNS data in Active Directory and benefit from AD replication, multi-master updates, and integrated security. This is the standard choice for DNS zones in an Active Directory environment.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_dnsserveradzones_adzones, {YmlCategory}/AdZones]]<<dscyml_dnsserveradzones_adzones_details, AdZones>>
-| Mandatory
+|
 | Hashtable[]
 | List of AD integrated zones
 |
@@ -66,7 +71,7 @@ This parameter can only be used when you also are passing a value for the Comput
 | DynamicUpdate
 |
 | String
-| AD zone dynamic DNS update option. 
+| AD zone dynamic DNS update option.
 | - None
   - NonSecureAndSecure
   - *Secure* (default)
@@ -127,3 +132,10 @@ DnsServerAdZones:
     ReplicationScope: Forest
   DomainCredential: '[ENC=PE9ianMgVmVyc2lvbj...=]'
 ----
+
+.See also
+****
+* xref:dnsserversettings.adoc[DnsServerSettings]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserverzonesaging.adoc[DnsServerZonesAging]
+****

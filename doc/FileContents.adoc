@@ -3,13 +3,18 @@
 
 :YmlCategory: FileContents
 
-:abstract:  {YmlCategory} contains DSC resources for managing file content as features by the underlying DSC resource.
+:abstract:    {YmlCategory} manages content within INI files, key-value pair files, and performs text replacements in files.
 
 [#dscyml_filecontents]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_filecontents_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to manage configuration files on target nodes. It supports modifying INI settings, updating key-value pair files (e.g., environment configs), and performing regex or literal text replacements in arbitrary files. This is useful for application configuration files that need specific values set.
+****
 
 
 // reference links as variables for using more than once
@@ -40,11 +45,11 @@
 | hashtable[]
 | This parameter is used to add, set or clear entries in Windows INI settings files (see {ref_FileContentDsc_IniSettingsFile})
 
-| [[dscyml_filecontents_keyvaluepairfile, {YmlCategory}/KeyValuePairFile]]<<dscyml_filecontents_keyvaluepairfile_details, KeyValuePairFile>>
+| [[dscyml_filecontents_keyvaluepairfile, {YmlCategory}/KeyValuePairFiles]]<<dscyml_filecontents_keyvaluepairfile_details, KeyValuePairFiles>>
 | hashtable[]
 | The parameter is used to add, remove or set key/value pairs in a text file containing key/value pair entries (see {ref_FileContentDsc_KeyValuePairFile})
 
-| [[dscyml_filecontents_replacetext, {YmlCategory}/ReplaceText]]<<dscyml_filecontents_replacetext_details, ReplaceText>>
+| [[dscyml_filecontents_replacetext, {YmlCategory}/ReplaceTexts]]<<dscyml_filecontents_replacetext_details, ReplaceTexts>>
 | hashtable[]
 | This parameter is used to replace strings matching a regular expression in a text file (see {ref_FileContentDsc_ReplaceText})
 
@@ -308,3 +313,8 @@ lookup_options:
         - Path
         - Search
 ----
+
+.See also
+****
+* xref:filesandfolders.adoc[FilesAndFolders]
+****

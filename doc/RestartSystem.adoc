@@ -3,13 +3,18 @@
 
 :YmlCategory: RestartSystem
 
-:abstract:    {YmlCategory} manages forced or pending system reboots.
+:abstract:    {YmlCategory} forces a system reboot or triggers reboots based on pending reboot conditions (Windows Update, CBS, file rename, computer rename).
 
 [#dscyml_restartsystem]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_restartsystem_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when your DSC configuration requires a reboot between steps, such as after installing Windows features, renaming the computer, or applying updates. It can also detect and act on pending reboot conditions from Component-Based Servicing, Windows Update, or pending file renames.
+****
 
 The DSC resource supports only one system reboot inside the DSC configuartion of a node.
 You can control the system reboot time by ordering the activated configurations in the YAML files (e.g. RestartSystem at last if you want a restart at the end of your configuration). 

@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointServiceInstances
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} starts or stops SharePoint service instances on individual servers.
 
 [#dscyml_sharepointserviceinstances]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointserviceinstances_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to control which SharePoint services run on which servers in your farm. In multi-server farms, you distribute services across servers by starting specific service instances on designated machines (e.g., search on one server, Excel Services on another).
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointServiceInstances
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPServiceInstance[SPServiceInstance]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointserviceinstances_serviceinstances, {YmlCategory}/ServiceInstances]]<<dscyml_sharepointserviceinstances_serviceinstances_details, ServiceInstances>>
-| Mandatory
+|
 | Hashtable[]
 | set of service instances
 |
@@ -67,3 +72,9 @@ SharePointServiceInstances:
     - Name: User Profile Service
     - Name: SharePoint Server Search
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

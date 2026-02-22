@@ -3,7 +3,7 @@
 
 :YmlCategory: FailoverCluster
 
-:abstract:    {YmlCategory} is used for the management and configuration of Windows Server Failover Cluster..
+:abstract:    {YmlCategory} configures Windows Server Failover Clustering including cluster creation, quorum, shared disks, and network settings.
 
 [#dscyml_failovercluster, {YmlCategory}]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_failovercluster_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to set up a Windows Server Failover Cluster for high-availability workloads such as SQL Server Always On, Hyper-V, file servers, or other clustered roles. It handles cluster creation or joining, quorum configuration, cluster disks, network settings, and AD computer object prestaging.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -37,7 +42,7 @@
 | Allowed Values
 
 | Name
-| Key
+| Mandatory
 | String
 | Name of the cluster
 |
@@ -219,7 +224,7 @@ The cluster network role can be set to either the value 0, 1 or 3.
 | String
 | The metric number for the cluster network.
 
-If the cluster network metric number is not in desired state it will be changed to match this metric number.	
+If the cluster network metric number is not in desired state it will be changed to match this metric number.
 |
 
 |===

@@ -3,13 +3,18 @@
 
 :YmlCategory: SwitchLcmMode
 
-:abstract:    {YmlCategory} is used to download a new MetaMOF and switch the LCM to Pull-Mode.
+:abstract:    {YmlCategory} switches the DSC Local Configuration Manager between Push and Pull modes by updating meta-configuration.
 
 [#dscyml_switchlcmmode]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_switchlcmmode_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to transition a node from Push mode to Pull mode (or vice versa) by downloading and applying a new MetaMOF. This is used in scenarios where nodes start in Push mode for initial configuration and then switch to Pull mode for ongoing management.
+****
 
 The `{YmlCategory}` resource shall be the last step in the DSC configuration otherwise the following steps are not executed.
 
@@ -34,11 +39,11 @@ The `{YmlCategory}` resource shall be the last step in the DSC configuration oth
 | SourceMetaMofDir
 | Mandatory
 | String
-| Folder with the MetaMOF files 
+| Folder with the MetaMOF files
 |
 
 | ConfigurationName
-| 
+|
 | String
 | Name of the new configuration
 
@@ -49,7 +54,7 @@ A file named `<ConfigurationName>.meta.mof` must exist at `SourceMetaMofDir`.
 |
 | String
 | Target folder for the new MetaMOF file and helper scripts
-| Default: `C:\DSC_Config`
+| Default: `$env:TEMP\DSC_Config`
 
 |===
 

@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopCollections
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and configures Remote Desktop Session Collections with user experience and security settings.
 
 [#dscyml_remotedesktopcollections]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopcollections_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create RDS session collections that group session hosts and define connection settings. Session collections control which servers host user sessions and the user experience settings (e.g., client device redirection, timeouts, and security). Apply this after RemoteDesktopDeployment.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -49,10 +54,34 @@
 | Description
 | Allowed Values
 
+| CollectionName
+| Key
+| String
+| Specifies the name of the RD session collection.
 |
+
+| SessionHost
+| Mandatory
+| String[]
+| Specifies the RD Session Host servers for this collection.
 |
+
+| CollectionDescription
 |
+| String
+| Specifies the description of the RD session collection.
 |
+
+| ConnectionBroker
+|
+| String
+| Specifies the RD Connection Broker server for this collection.
+|
+
+| Settings
+|
+| Hashtable
+| Optional collection configuration settings (splatted to xRDSessionCollectionConfiguration). Supported keys: ActiveSessionLimitMin, AuthenticateUsingNLA, AutomaticReconnectionEnabled, BrokenConnectionAction, ClientDeviceRedirectionOptions, ClientPrinterAsDefault, ClientPrinterRedirected, CollectionDescription, CustomRdpProperty, DisconnectedSessionLimitMin, EncryptionLevel, IdleSessionLimitMin, MaxRedirectedMonitors, RDEasyPrintDriverEnabled, SecurityLayer, TemporaryFoldersDeletedOnExit, UserGroup, DiskPath, EnableUserProfileDisk, MaxUserProfileDiskSizeGB, IncludeFolderPath, ExcludeFolderPath, IncludeFilePath, ExcludeFilePath.
 |
 
 |===
@@ -80,3 +109,11 @@ RemoteDesktopCollections:
         AuthenticateUsingNLA: true
         AutomaticReconnectionEnabled: true
 ----
+
+.See also
+****
+* xref:remotedesktopdeployment.adoc[RemoteDesktopDeployment]
+* xref:remotedesktoplicensing.adoc[RemoteDesktopLicensing]
+* xref:remotedesktopcertificates.adoc[RemoteDesktopCertificates]
+* xref:remotedesktopservers.adoc[RemoteDesktopServers]
+****

@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointServiceAppPools
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates and manages SharePoint service application pools.
 
 [#dscyml_sharepointserviceapppools]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointserviceapppools_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create IIS application pools for SharePoint service applications. Service application pools define the process identity and isolation for SharePoint services. Configure managed accounts first using SharePointManagedAccounts before creating service application pools.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointServiceAppPools
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPServiceAppPool[SPServiceAppPool]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointserviceapppools_serviceapppools, {YmlCategory}/ServiceAppPools]]<<dscyml_sharepointserviceapppools_serviceapppools_details, ServiceAppPools>>
-| Mandatory
+|
 | Hashtable[]
 | set of service app pools
 |
@@ -68,3 +73,10 @@ SharePointServiceAppPools:
   - Name: SP2019-Search
     ServiceAccount: contoso\sp_searchService
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointmanagedaccounts.adoc[SharePointManagedAccounts]
+* xref:sharepointserviceinstances.adoc[SharePointServiceInstances]
+****

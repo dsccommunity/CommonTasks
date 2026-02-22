@@ -3,13 +3,18 @@
 
 :YmlCategory: NetworkIpConfiguration
 
-:abstract:    {YmlCategory} sets the IP configuration and network routes.
+:abstract:    {YmlCategory} provides comprehensive network IP configuration including interfaces, DNS, IP addresses, gateways, WINS, NetBIOS, routes, and IPv6 settings.
 
 [#dscyml_networkipconfiguration]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_networkipconfiguration_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need complete network configuration on a node, including static IP addresses, default gateways, DNS servers, WINS settings, NetBIOS configuration, static routes, IPv6 settings, and adapter bindings. This is the most comprehensive network configuration resource, combining capabilities from IpConfiguration and Network into a single resource.
+****
 
 // reference links as variables for using more than once
 :ref_networkingdsc_ipaddress:             https://github.com/dsccommunity/NetworkingDsc/wiki/IPAddress[IPAddress]
@@ -33,7 +38,7 @@
                    - {ref_networkingdsc_netbios}
                    - {ref_networkingdsc_netadapterbinding}
                    - {ref_networkingdsc_route}
-                   
+
 |===
 
 
@@ -46,7 +51,7 @@
 | Description
 | Allowed Values
 
-| DisableNetbios
+| DisableNetBios
 |
 | Boolean
 | Disable NetBios on all network interfaces. +
@@ -97,7 +102,7 @@ If you define settings in different YAML layer files the `InterfaceAlias` must b
 | Default: Ethernet
 
 | IpAddress
-| 
+|
 | String
 | The desired IP address, optionally including prefix length using CIDR notation.
 
@@ -105,7 +110,7 @@ See {ref_networkingdsc_ipaddress}
 |
 
 | Prefix
-| 
+|
 | Int
 | IP address prefix.
 
@@ -146,7 +151,7 @@ Typically, the interface metric gives preference to a particular interface, such
 The default (empty) value is automatic.
 |
 
-| DisableNetbios
+| DisableNetBios
 |
 | Boolean
 | Disable the NetBios on the network interface.
@@ -193,7 +198,7 @@ The server automatically sets the value of `DomainAuthenticated` when the networ
 The acceptable values for this parameter are:
 
 - `Public`
-  ** Networks in a public place such as an airport or coffee shop. 
+  ** Networks in a public place such as an airport or coffee shop.
   ** Your PC is hidden from other devices on the network and can't be used for printer and file sharing.
 
 - `Private`
@@ -256,7 +261,7 @@ A destination prefix consists of an IP address prefix and a prefix length, separ
   - Absent
 
 | RouteMetric
-| 
+|
 | UInt16
 | Specifies an integer route metric for an IP route.
 | Default: `256`
@@ -332,3 +337,11 @@ lookup_options:
         - DestinationPrefix
         - NextHop
 ----
+
+.See also
+****
+* xref:ipconfiguration.adoc[IpConfiguration]
+* xref:network.adoc[Network]
+* xref:dnssuffixes.adoc[DnsSuffixes]
+* xref:renamenetworkadapters.adoc[RenameNetworkAdapters]
+****

@@ -3,13 +3,18 @@
 
 :YmlCategory: WaitForAllNodes
 
-:abstract:    {YmlCategory} can be used within a node block in a DSC configuration to specify dependencies on configurations on other nodes.
+:abstract:    {YmlCategory} waits for all specified nodes to reach a desired DSC configuration state before proceeding.
 
 [#dscyml_waitforallnodes]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_waitforallnodes_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when your DSC configuration has dependencies on ALL other nodes completing their configuration first. For example, wait for all domain controllers to be configured before configuring replication settings. This resource blocks until every specified node reports the desired state.
+****
 
 This resource succeeds if the resource specified by the ResourceName property is in the desired state on all target nodes defined in the NodeName property.
 
@@ -32,9 +37,9 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Allowed Values
 
 | [[dscyml_waitforallnodes_items, {YmlCategory}/Items]]<<dscyml_waitforallnodes_items_details, Items>>
-| Mandatory
+|
 | Hashtable[]
-| files and folders on the target node
+| List of cross-node dependency configurations specifying nodes and resources to wait for
 |
 
 |===
@@ -53,7 +58,7 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Required
 | String[]
 | The name of the target nodes the resource must be in the desired state.
-| 
+|
 
 | ResourceName
 | Key
@@ -103,3 +108,9 @@ WaitForAllNodes:
     RetryIntervalSec: 60
     RetryCount: 60
 ----
+
+.See also
+****
+* xref:waitforanynode.adoc[WaitForAnyNode]
+* xref:waitforsomenodes.adoc[WaitForSomeNodes]
+****

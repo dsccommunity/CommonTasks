@@ -3,13 +3,18 @@
 
 :YmlCategory: RegistryValues
 
-:abstract:    {YmlCategory} provides a mechanism to manage registry keys and values on a target node.
+:abstract:    {YmlCategory} manages Windows registry keys and values.
 
 [#dscyml_registryvalues]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_registryvalues_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create, modify, or remove Windows registry values. Many Windows and application settings are controlled through the registry, making this resource essential for application configuration, system tuning, and enforcing organizational settings that lack dedicated DSC resources.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -151,3 +156,8 @@ lookup_options:
         - Key
         - ValueName
 ----
+
+.See also
+****
+* xref:registrypolicies.adoc[RegistryPolicies]
+****

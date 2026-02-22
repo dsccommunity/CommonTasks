@@ -3,13 +3,18 @@
 
 :YmlCategory: WebConfigPropertyCollections
 
-:abstract:    {YmlCategory} is used to ensure the value of an identified property collection item's property in the web.config file.
+:abstract:    {YmlCategory} manages collection-based properties in IIS web.config configuration files.
 
 [#dscyml_webconfigpropertycollections]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_webconfigpropertycollections_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to manage items within IIS configuration collections (arrays of elements in web.config). This is used for settings that are defined as collections, such as adding custom HTTP headers, MIME types, handler mappings, or module entries.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -145,3 +150,10 @@ WebConfigPropertyCollections:
       ItemPropertyName: groupId
       ItemPropertyValue: ASP.NET v2.0.50727
 ----
+
+.See also
+****
+* xref:websites.adoc[WebSites]
+* xref:webapplications.adoc[WebApplications]
+* xref:webconfigproperties.adoc[WebConfigProperties]
+****

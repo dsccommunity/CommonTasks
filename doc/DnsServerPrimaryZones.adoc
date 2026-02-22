@@ -3,7 +3,7 @@
 
 :YmlCategory: DnsServerPrimaryZones
 
-:abstract:  {YmlCategory} manages a standalone file-backed Primary zone on a given Domain Name System (DNS) server.
+:abstract:    {YmlCategory} manages standalone file-backed primary DNS zones.
 
 [#dscyml_dnsserverprimaryzones]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dnsserverprimaryzones_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create file-backed (non-AD-integrated) primary DNS zones. These are used on standalone DNS servers not joined to Active Directory, or for zones that should not be stored in AD. For AD-integrated zones, use DnsServerAdZones instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -90,3 +95,11 @@ DnsServerPrimaryZones:
 
     - Name:          PrimaryZone2
 ----
+
+.See also
+****
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+* xref:dnsserversettings.adoc[DnsServerSettings]
+* xref:dnsserverzonesaging.adoc[DnsServerZonesAging]
+* xref:dnsserverarecords.adoc[DnsServerARecords]
+****

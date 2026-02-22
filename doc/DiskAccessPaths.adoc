@@ -3,13 +3,18 @@
 
 :YmlCategory: DiskAccessPaths
 
-:abstract:  {YmlCategory} configuration is used to initialize, format and mount the partition to a folder access path.
+:abstract:    {YmlCategory} initializes, formats, and mounts disk partitions to folder access paths (mount points).
 
 [#dscyml_diskaccesspaths]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_diskaccesspaths_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to mount disk volumes to folder paths instead of drive letters. This is common on servers with many disks (e.g., SQL Server, Exchange) where drive letters are insufficient, or when you need to mount volumes under specific directory trees for application requirements.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -130,3 +135,8 @@ DiskAccessPaths:
     FSLabel: TempDB
     NoDefaultDriveLetter: true
 ----
+
+.See also
+****
+* xref:disks.adoc[Disks]
+****

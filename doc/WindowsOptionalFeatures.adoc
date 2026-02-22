@@ -1,15 +1,20 @@
-﻿// CommonTasks YAML Reference: WindowsOptionalFeatures
+// CommonTasks YAML Reference: WindowsOptionalFeatures
 // ===================================================
 
 :YmlCategory: WindowsOptionalFeatures
 
-:abstract:    {YmlCategory} installs Windows Optional Features on a Windows Client OS.
+:abstract:    {YmlCategory} enables or disables Windows optional features on a Windows client OS.
 
 [#dscyml_windowsoptionalfeatures]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_windowsoptionalfeature_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable or disable optional features on Windows client operating systems (e.g., Hyper-V, Windows Subsystem for Linux, .NET Framework 3.5). For Windows Server roles and features, use WindowsFeatures instead.
+****
 
 // reference links as variables for using more than once
 :ref_xpsdesiredstateconfiguration_xwindowsoptionalfeature:    https://github.com/dsccommunity/xPSDesiredStateConfiguration#xWindowsOptionalFeature[xWindowsOptionalFeature]
@@ -34,7 +39,7 @@
 
 | Names
 | Mandatory
-| string
+| String[]
 | Indicates the name of the feature that you want to ensure is added or removed.
   This is the same as the Name property from the `Get-WindowsOptionalFeature` cmdlet, and not the display name of the feature.
 | [+ \| -]<name>
@@ -82,3 +87,8 @@ lookup_options:
   WindowsOptionalFeatures\Names:
     merge_basetype_array: Unique
 ----
+
+.See also
+****
+* xref:windowsfeatures.adoc[WindowsFeatures]
+****

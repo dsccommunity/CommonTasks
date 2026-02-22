@@ -3,7 +3,7 @@
 
 :YmlCategory: FirewallRules
 
-:abstract:  {YmlCategory} sets a node's firewall rules.
+:abstract:    {YmlCategory} manages Windows Firewall rules on a node.
 
 [#dscyml_firewallrules]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_firewallrules_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create, modify, or remove individual Windows Firewall rules. It supports configuring inbound and outbound rules with specific ports, protocols, programs, services, remote addresses, and profiles. For configuring overall firewall profile settings (enable/disable, default actions), use FirewallProfiles instead.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -305,3 +310,8 @@ FirewallRules:
       Program:     C:\Windows\System32\notepad.exe
       Service:     WinRM
 ----
+
+.See also
+****
+* xref:firewallprofiles.adoc[FirewallProfiles]
+****

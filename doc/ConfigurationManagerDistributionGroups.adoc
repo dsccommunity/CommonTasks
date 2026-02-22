@@ -3,7 +3,7 @@
 
 :YmlCategory: ConfigurationManagerDistributionGroups
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} manages Configuration Manager distribution point groups for content distribution.
 
 [#dscyml_configurationmanagerdistributiongroups]
 = DSC Resource '{YmlCategory}'
@@ -11,12 +11,17 @@
 [[dscyml_configurationmanagerdistributiongroups_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create and manage distribution point groups in your SCCM/MECM environment. Distribution point groups simplify content distribution by allowing you to target groups of distribution points rather than individual servers.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationManagerDistributionGroups
 | DSC Resource   | https://github.com/dsccommunity/ConfigMgrCBDsc[ConfigMgrCBDsc]
-| Documentation  | https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]           
+| Documentation  | https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]
 |===
 
 
@@ -36,7 +41,7 @@
 |
 
 | [[dscyml_configurationmanagerdistributiongroups_distributiongroups, {YmlCategory}/DistributionGroups]]<<dscyml_configurationmanagerdistributiongroups_distributiongroups_details, DistributionGroups>>
-| 
+|
 | Hashtable[]
 | set of distribution groups
 |
@@ -54,10 +59,53 @@
 | Description
 | Allowed Values
 
+| DistributionGroup
+| Key
+| String
+| The name of the distribution point group.
 |
+
+| Ensure
 |
+| String
+| Specifies whether the distribution point group should be present or absent.
+| - *Present* (default)
+  - Absent
+
+| DistributionPoints
 |
+| String[]
+| An array of distribution points to match to the distribution point group. (1:1 match)
 |
+
+| DistributionPointsToInclude
+|
+| String[]
+| An array of distribution points to add to the distribution point group.
+|
+
+| DistributionPointsToExclude
+|
+| String[]
+| An array of distribution points to remove from the distribution point group.
+|
+
+| SecurityScopes
+|
+| String[]
+| An array of security scopes to match to the distribution point group. (1:1 match)
+|
+
+| SecurityScopesToInclude
+|
+| String[]
+| An array of security scopes to add to the distribution point group.
+|
+
+| SecurityScopesToExclude
+|
+| String[]
+| An array of security scopes to remove from the distribution point group.
 |
 
 |===
@@ -103,3 +151,10 @@ ConfigurationManagerDistributionGroups:
       SecurityScopesToInclude:
         - Scope2
 ----
+
+.See also
+****
+* xref:configurationbase.adoc[ConfigurationBase]
+* xref:configurationmanagerconfiguration.adoc[ConfigurationManagerConfiguration]
+* xref:configurationmanagerdeployment.adoc[ConfigurationManagerDeployment]
+****

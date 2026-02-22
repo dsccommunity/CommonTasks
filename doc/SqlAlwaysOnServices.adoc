@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAlwaysOnServices
 
-:abstract:    {YmlCategory} enables or disables SQL Server Always On high availability and disaster recovery (Always On HADR) for a SQL Server instance.
+:abstract:    {YmlCategory} enables or disables SQL Server Always On HADR (High Availability and Disaster Recovery) services on an instance.
 
 [#dscyml_sqlalwaysonservices]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlalwaysonservices_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to enable Always On as a feature on a SQL Server instance. This is a prerequisite step before creating Availability Groups with SqlAGs. It requires a Windows Failover Cluster (configured via FailoverCluster) and a SQL Server restart.
+****
 
 
 // reference links as variables for using more than once
@@ -23,7 +28,7 @@
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlalwaysonservice}
-                   
+
 |===
 
 
@@ -43,16 +48,16 @@
 | Description
 | Allowed Values
 
-| InstanceName
-| Key
+| SqlInstanceName
+|
 | String
 | The name of the SQL Server instance to be configured.
 |
 
-| Enure
-| Required
+| Ensure
+|
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the Always On service should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
@@ -66,29 +71,9 @@ Default value is the current computer name.
 
 | RestartTimeout
 |
-| UInt32
+| Int
 | The length of time, in seconds, to wait for the service to restart.
 | Default: `120`
-
-| CompatibilityLevel
-| 
-| String
-| Specifies the version of the SQL Database Compatibility Level to use for the specified database.
-| - Version80
-  - Version90
-  - Version100
-  - Version110
-  - Version120
-  - Version130
-  - Version140
-  - Version150
-
-| IsHadrEnabled
-| 
-| Bool
-| Returns the status of AlwaysOn High Availability and Disaster Recovery (HADR).
-| - True
-  - False
 
 |===
 
@@ -101,3 +86,10 @@ SqlAlwaysOnServices:
   SqlInstanceName: MSSQLSERVER
   RestartTimeout: 120
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlendpoints.adoc[SqlEndpoints]
+* xref:sqlags.adoc[SqlAGs]
+****

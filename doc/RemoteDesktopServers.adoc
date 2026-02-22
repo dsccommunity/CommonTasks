@@ -1,0 +1,111 @@
+// CommonTasks YAML Reference: RemoteDesktopServers
+// ==================================================
+
+:YmlCategory: RemoteDesktopServers
+
+:abstract:    {YmlCategory} manages Remote Desktop servers within an RDS deployment by adding or removing session hosts, gateway servers, and web access servers.
+
+[#dscyml_remotedesktopservers, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_remotedesktopservers_abstract, {abstract}]]
+{abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add or remove servers from an existing RDS deployment. It manages which servers serve in which RDS roles (Session Host, Gateway, Web Access). Use this for scaling your RDS environment by adding new session hosts or replacing failed servers.
+****
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopServers
+| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
+| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDServer[xRDServer]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Servers
+| Mandatory
+| Hashtable[]
+| List of Remote Desktop server role configurations.
+|
+
+|===
+
+
+.Attributes of category '{YmlCategory}' - Servers
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Role
+| Mandatory
+| String
+| The Remote Desktop role to configure.
+| - RDS-Connection-Broker
+  - RDS-Gateway
+  - RDS-Licensing
+  - RDS-RD-Server
+  - RDS-Virtualization
+  - RDS-Web-Access
+
+| Server
+| Mandatory
+| String
+| The FQDN of the server to assign the role.
+|
+
+| ConnectionBroker
+|
+| String
+| The FQDN of the RD Connection Broker.
+|
+
+| GatewayExternalFqdn
+|
+| String
+| The external FQDN of the RD Gateway.
+|
+
+|===
+
+
+.Example
+[source, yaml]
+----
+RemoteDesktopServers:
+  Servers:
+    - Role: RDS-Licensing
+      Server: RDSLIC001.contoso.com
+      ConnectionBroker: RDSCB001.contoso.com
+    - Role: RDS-Connection-Broker
+      Server: RDSCB002.contoso.com
+      ConnectionBroker: RDSCB001.contoso.com
+    - Role: RDS-Gateway
+      Server: RDSGW001.contoso.com
+      ConnectionBroker: RDSCB001.contoso.com
+    - Role: RDS-Web-Access
+      Server: RDSWEB001.contoso.com
+      ConnectionBroker: RDSCB001.contoso.com
+----
+
+.See also
+****
+* xref:remotedesktopdeployment.adoc[RemoteDesktopDeployment]
+* xref:remotedesktopcollections.adoc[RemoteDesktopCollections]
+* xref:remotedesktophamode.adoc[RemoteDesktopHAMode]
+****

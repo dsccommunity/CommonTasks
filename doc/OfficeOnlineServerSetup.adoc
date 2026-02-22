@@ -3,13 +3,18 @@
 
 :YmlCategory: OfficeOnlineServerSetup
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs Office Online Server prerequisites (Visual C++ Redistributable, .NET Framework, Identity Extensions) and language packs.
 
 [#dscyml_officeonlineserversetup]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_officeonlineserversetup_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install the prerequisites and language packs for Office Online Server. This is the first step in an OOS deployment and must be applied before OfficeOnlineServerMachineConfig and OfficeOnlineServerFarmConfig.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -30,10 +35,83 @@
 | Description
 | Allowed Values
 
+| MicrosoftIdentityExtensionsPath
 |
+| String
+| Specifies the path to the Microsoft Identity Extensions installer.
 |
+
+| DotNet48FrameworkPath
 |
+| String
+| Specifies the path to the .NET Framework 4.8 installer.
 |
+
+| VcRedistributable2013Path
+|
+| String
+| Specifies the path to the Visual C++ Redistributable 2013 installer.
+|
+
+| VcRedistributable2013ProductId
+|
+| String
+| Specifies the product ID of the Visual C++ Redistributable 2013.
+|
+
+| VcRedistributable20152019Path
+|
+| String
+| Specifies the path to the Visual C++ Redistributable 2015-2019 installer.
+|
+
+| VcRedistributable20152019ProductId
+|
+| String
+| Specifies the product ID of the Visual C++ Redistributable 2015-2019.
+|
+
+| [[dscyml_officeonlineserversetup_languagepacks, {YmlCategory}/LanguagePacks]]<<dscyml_officeonlineserversetup_languagepacks_details, LanguagePacks>>
+|
+| Hashtable[]
+| Specifies the language packs to install for Office Online Server.
+|
+
+| Path
+| Mandatory
+| String
+| Specifies the path to the Office Online Server setup executable.
+|
+
+| WindowsFeatureSourcePath
+|
+| String
+| Specifies an alternate source path for Windows Feature files.
+|
+
+|===
+
+
+[[dscyml_officeonlineserversetup_languagepacks_details]]
+.Attributes of category '<<dscyml_officeonlineserversetup_languagepacks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Language
+| Key
+| String
+| Specifies the language identifier for the language pack (e.g., de-de, en-us).
+|
+
+| BinaryDir
+| Mandatory
+| String
+| Specifies the path to the language pack binary files.
 |
 
 |===
@@ -50,3 +128,9 @@ OfficeOnlineServerSetup:
   - Language: en-us
     BinaryDir: C:\en-us
 ----
+
+.See also
+****
+* xref:officeonlineservermachineconfig.adoc[OfficeOnlineServerMachineConfig]
+* xref:officeonlineserverfarmconfig.adoc[OfficeOnlineServerFarmConfig]
+****

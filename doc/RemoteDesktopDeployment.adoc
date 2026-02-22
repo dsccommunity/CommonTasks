@@ -3,13 +3,18 @@
 
 :YmlCategory: RemoteDesktopDeployment
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} deploys the Remote Desktop Services infrastructure including Connection Broker, Web Access, Session Hosts, and Gateway servers.
 
 [#dscyml_remotedesktopdeployment]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_remotedesktopdeployment_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to deploy a new Remote Desktop Services environment. It installs and configures the RDS deployment with Connection Broker, Web Access, Session Host, and Gateway roles distributed across servers. This is the foundational RDS resource; apply it before RemoteDesktopCollections, RemoteDesktopLicensing, and RemoteDesktopCertificates.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -29,10 +34,65 @@
 | Description
 | Allowed Values
 
+| ConnectionBroker
+| Mandatory
+| String
+| Specifies the RD Connection Broker server for the Remote Desktop deployment.
 |
+
+| WebAccess
 |
+| String
+| Specifies the RD Web Access server.
 |
+
+| SessionHosts
 |
+| String[]
+| Specifies the RD Session Host servers.
+|
+
+| [[dscyml_remotedesktopdeployment_gateways, {YmlCategory}/Gateways]]<<dscyml_remotedesktopdeployment_gateways_details, Gateways>>
+|
+| Hashtable[]
+| Specifies the RD Gateway server configurations.
+|
+
+|===
+
+
+[[dscyml_remotedesktopdeployment_gateways_details]]
+.Attributes of category '<<dscyml_remotedesktopdeployment_gateways>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GatewayServer
+|
+| String
+| Specifies the RD Gateway server name. Used as identifier for the deployment resource instance.
+|
+
+| SessionHost
+| Key
+| String
+| Specifies the RD Session Host server for this deployment.
+|
+
+| ConnectionBroker
+| Mandatory
+| String
+| Specifies the RD Connection Broker server.
+|
+
+| WebAccessServer
+| Mandatory
+| String
+| Specifies the RD Web Access server.
 |
 
 |===
@@ -48,3 +108,12 @@ RemoteDesktopDeployment:
     - SH2
   WebAccess: WA1
 ----
+
+.See also
+****
+* xref:remotedesktopcollections.adoc[RemoteDesktopCollections]
+* xref:remotedesktoplicensing.adoc[RemoteDesktopLicensing]
+* xref:remotedesktopcertificates.adoc[RemoteDesktopCertificates]
+* xref:remotedesktophamode.adoc[RemoteDesktopHAMode]
+* xref:remotedesktopservers.adoc[RemoteDesktopServers]
+****

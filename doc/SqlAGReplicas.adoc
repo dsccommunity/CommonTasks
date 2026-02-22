@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGReplicas
 
-:abstract:    {YmlCategory} is used to create, remove, and update an Always On Availability Group Replica.
+:abstract:    {YmlCategory} manages SQL Server Always On Availability Group replicas.
 
 [#dscyml_sqlagreplicas]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlagreplicas_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to add or configure replicas (secondary servers) in a SQL Server Availability Group. Replicas receive copies of databases for high availability and can serve read-only workloads. The AG must be created first with SqlAGs.
+****
 
 
 // reference links as variables for using more than once
@@ -23,7 +28,7 @@
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlagreplica}
-                   
+
 |===
 
 
@@ -46,6 +51,13 @@
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlagreplicas_values, {YmlCategory}/Values]]<<dscyml_sqlagreplicas_values_details, Values>>
 | Mandatory
@@ -95,7 +107,7 @@ Default value is the current computer name.
 |
 
 | PrimaryReplicaServerName
-| 
+|
 | String
 | Hostname of the SQL Server where the primary replica is expected to be active.
 
@@ -108,15 +120,15 @@ If the primary replica is not found here, the resource will attempt to find the 
 | Name of the SQL Server Database Engine instance where the primary replica lives.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the availability group replica should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
 | AvailabilityMode
-| 
+|
 | String
 | Specifies the replica availability mode.
 
@@ -125,7 +137,7 @@ When creating a group the default is `AsynchronousCommit`.
   - SynchronousCommit
 
 | BackupPriority
-| 
+|
 | UInt32
 | Specifies the desired priority of the replicas in performing backups.
 
@@ -135,14 +147,14 @@ When creating a group the default is `50`.
 | Default: `50`
 
 | ConnectionModeInPrimaryRole
-| 
+|
 | String
 | Specifies how the availability replica handles connections when in the primary role.
 | - AllowAllConnections
   - AllowReadWriteConnections
 
 | ConnectionModeInSecondaryRole
-| 
+|
 | String
 | Specifies how the availability replica handles connections when in the secondary role.
 | - AllowNoConnections
@@ -150,7 +162,7 @@ When creating a group the default is `50`.
   - AllowAllConnections
 
 | EndpointHostName
-| 
+|
 | String
 | Specifies the hostname or IP address of the availability group replica endpoint.
 
@@ -158,47 +170,47 @@ When creating a group the default is the instance network name.
 |
 
 | FailoverMode
-| 
+|
 | String
 | Specifies the failover mode. When creating a group the default is `Manual`.
 | - Automatic
   - Manual
 
 | ReadOnlyRoutingConnectionUrl
-| 
+|
 | String
 | Specifies the fully qualified domain name (FQDN) and port to use when routing to the replica for read only connections.
-| 
+|
 
 | ReadOnlyRoutingList
-| 
+|
 | String[]
 | Specifies an ordered list of replica server names that represent the probe sequence for connection director to use when redirecting read-only connections through this availability replica.
 
 This parameter applies if the availability replica is the current primary replica of the availability group.
-| 
+|
 
 | ProcessOnlyOnActiveNode
-| 
+|
 | Bool
 | Specifies that the resource will only determine if a change is needed if the target node is the active host of the SQL Server instance.
 | - True
   - False
 
 | EndpointUrl
-| 
+|
 | String
 | Returns the URL of the availability group replica endpoint.
 |
 
 | EndpointPort
-| 
+|
 | UInt32
 | Returns the port the database mirroring endpoint is listening on.
 |
 
 | IsActiveNode
-| 
+|
 | Bool
 | Returns if the current node is actively hosting the SQL Server instance.
 | - True
@@ -223,3 +235,11 @@ SqlAGReplicas:
     FailoverMode: Automatic
 
 ----
+
+.See also
+****
+* xref:sqlags.adoc[SqlAGs]
+* xref:sqlalwaysonservices.adoc[SqlAlwaysOnServices]
+* xref:sqlagdatabases.adoc[SqlAGDatabases]
+* xref:sqlaglisteners.adoc[SqlAGListeners]
+****

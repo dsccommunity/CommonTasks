@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointSites
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} creates SharePoint site collections.
 
 [#dscyml_sharepointsites]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointsites_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create site collections within SharePoint web applications. Site collections are the top-level organizational unit for SharePoint content. Configure managed paths, content databases, and web applications before creating site collections.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointSites
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPSite[SPSite]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointsites_sites, {YmlCategory}/Sites]]<<dscyml_sharepointsites_sites_details, Sites>>
-| Mandatory
+|
 | Hashtable[]
 | set of sites
 |
@@ -62,7 +67,7 @@
 [source, yaml]
 ----
 SharePointSites:
-  Sites:    
+  Sites:
     - Name: Contoso Content
       Url: https://content.contoso.com
       OwnerAlias: contoso\sp_setup
@@ -78,3 +83,11 @@ SharePointSites:
       Language: 1033
       Template: APPCATELOG#0
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointwebapplications.adoc[SharePointWebApplications]
+* xref:sharepointcontentdatabases.adoc[SharePointContentDatabases]
+* xref:sharepointmanagedpaths.adoc[SharePointManagedPaths]
+****

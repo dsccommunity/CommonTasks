@@ -3,13 +3,18 @@
 
 :YmlCategory: ConfigurationManagerDeployment
 
-:abstract:   {YmlCategory} is used to ###TBD###.
+:abstract:    {YmlCategory} deploys and installs Microsoft Endpoint Configuration Manager (SCCM/MECM) infrastructure including prerequisites, ADK, MDT, SQL, and the CM site server.
 
 [#dscyml_configurationmanagerdeployment]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_configurationmanagerdeployment_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to perform a fresh installation of a Configuration Manager site server. It handles prerequisite Windows features, installs the Windows Assessment and Deployment Kit (ADK), Microsoft Deployment Toolkit (MDT), SQL Server, and the Configuration Manager setup itself. This is typically used for greenfield SCCM deployments.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -167,3 +172,10 @@ ConfigurationManagerDeployment:
   MdtMsiPath: C:\temp\mdt.msi
   ConfigManagerSetupPath: C:\temp\confmgr
 ----
+
+.See also
+****
+* xref:configurationbase.adoc[ConfigurationBase]
+* xref:configurationmanagerconfiguration.adoc[ConfigurationManagerConfiguration]
+* xref:configurationmanagerdistributiongroups.adoc[ConfigurationManagerDistributionGroups]
+****

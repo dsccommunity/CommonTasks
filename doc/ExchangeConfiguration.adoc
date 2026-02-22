@@ -3,7 +3,7 @@
 
 :YmlCategory: ExchangeConfiguration
 
-:abstract: {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} configures Exchange Server virtual directories and client access settings, including ActiveSync, AutoDiscover, ECP, MAPI, OAB, OWA, EWS, Outlook Anywhere, and PowerShell endpoints.
 
 [#dscyml_exchangeconfiguration]
 = DSC Resource '{YmlCategory}'
@@ -11,12 +11,17 @@
 [[dscyml_exchangeconfiguration_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to configure Exchange Server client access URLs and authentication settings after installation. It manages the internal and external URLs, authentication methods, and other settings for all Exchange virtual directories. Apply this after ExchangeProvisioning.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeConfiguration
 | DSC Resource   | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc]
-| Documentation  |
+| Documentation  | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc Wiki]
 |===
 
 
@@ -29,10 +34,40 @@
 | Description
 | Allowed Values
 
+| ShellCreds
 |
+| PSCredential
+| Exchange Management Shell credentials
 |
+
+| CertCreds
 |
+| PSCredential
+| Certificate credentials
 |
+
+| FileCopyCreds
+|
+| PSCredential
+| File copy credentials
+|
+
+| ExternalNamespace
+| Mandatory
+| String
+| The external namespace for Exchange
+|
+
+| InternalNamespace
+| Mandatory
+| String
+| The internal namespace for Exchange
+|
+
+| AutoDiscoverSiteScope
+| Mandatory
+| String
+| The AutoDiscover site scope
 |
 
 |===
@@ -49,3 +84,10 @@ ExchangeConfiguration:
     InternalNamespace: contoso.com
     AutoDiscoverSiteScope: Site1
 ----
+
+.See also
+****
+* xref:exchangeprovisioning.adoc[ExchangeProvisioning]
+* xref:exchangemailboxdatabases.adoc[ExchangeMailboxDatabases]
+* xref:exchangedagprovisioning.adoc[ExchangeDagProvisioning]
+****

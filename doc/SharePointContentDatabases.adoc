@@ -3,7 +3,7 @@
 
 :YmlCategory: SharePointContentDatabases
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} manages SharePoint content databases and their association with web applications.
 
 [#dscyml_sharepointcontentdatabases]
 = DSC Resource '{YmlCategory}'
@@ -11,13 +11,18 @@
 [[dscyml_sharepointcontentdatabases_abstract, {abstract}]]
 {abstract}
 
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create, configure, or manage content databases for SharePoint web applications. Content databases store all site content, and their proper configuration (size limits, number of sites, database server) is important for SharePoint performance and scale planning.
+****
+
 
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointContentDatabases
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPContentDatabase[SPContentDatabase]
-                   
+
 |===
 
 
@@ -31,7 +36,7 @@
 | Allowed Values
 
 | [[dscyml_sharepointcontentdatabases_contentdatabases, {YmlCategory}/ContentDatabases]]<<dscyml_sharepointcontentdatabases_contentdatabases_details, ContentDatabases>>
-| Mandatory
+|
 | Hashtable[]
 | set of content databases
 |
@@ -76,3 +81,10 @@ SharePointContentDatabases:
       WarningSiteCount: 2000
       MaximumSiteCount: 5000
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointwebapplications.adoc[SharePointWebApplications]
+* xref:sharepointsites.adoc[SharePointSites]
+****

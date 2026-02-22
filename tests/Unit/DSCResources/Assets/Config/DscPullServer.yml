@@ -1,0 +1,6 @@
+CertificateThumbPrint: AllowUnencryptedTraffic
+Port: 8080
+EndpointName: PSDSCPullServer
+PhysicalPath: C:\inetpub\PSDSCPullServer
+UseSecurityBestPractices: false
+AcceptSelfSignedCertificates: false

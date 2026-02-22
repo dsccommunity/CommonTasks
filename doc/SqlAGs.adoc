@@ -3,13 +3,18 @@
 
 :YmlCategory: SqlAGs
 
-:abstract:    {YmlCategory} is used to create, remove, and update an Always On Availability Group. It will also manage the Availability Group replica on the specified node.
+:abstract:    {YmlCategory} creates and configures SQL Server Always On Availability Groups.
 
 [#dscyml_sqlags]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sqlags_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to create Availability Groups for SQL Server high availability and disaster recovery. AGs provide database-level failover with multiple readable secondary replicas. Enable Always On services first with SqlAlwaysOnServices, and ensure endpoints are configured with SqlEndpoints.
+****
 
 
 // reference links as variables for using more than once
@@ -23,7 +28,7 @@
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlag}
-                   
+
 |===
 
 
@@ -42,6 +47,13 @@
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlags_values, {YmlCategory}/Values]]<<dscyml_sqlags_values_details, Values>>
 | Mandatory
@@ -82,12 +94,12 @@
 Default value is the current computer name.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the availability group should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
-  - Absent`
+  - Absent
 
 | AutomatedBackupPreference
 |
@@ -101,7 +113,7 @@ When creating a group the default is `None`.
   - *None* (default)
 
 | AvailabilityMode
-| 
+|
 | String
 | Specifies the replica availability mode.
 
@@ -110,7 +122,7 @@ When creating a group the default is `AsynchronousCommit`.
   - SynchronousCommit
 
 | BackupPriority
-| 
+|
 | UInt32
 | Specifies the desired priority of the replicas in performing backups.
 
@@ -120,7 +132,7 @@ When creating a group the default is `50`.
 | Default: `50`
 
 | BasicAvailabilityGroup
-| 
+|
 | Bool
 | Specifies the type of availability group is Basic.
 
@@ -129,7 +141,7 @@ This is only available is SQL Server 2016 and later and is ignored when applied 
   - False
 
 | DatabaseHealthTrigger
-| 
+|
 | Bool
 | Specifies if the option Database Level Health Detection is enabled.
 
@@ -138,7 +150,7 @@ This is only available is SQL Server 2016 and later and is ignored when applied 
   - False
 
 | DtcSupportEnabled
-| 
+|
 | Bool
 | Specifies if the option Database DTC Support is enabled.
 
@@ -148,14 +160,14 @@ This can not be altered once the availability group is created and is ignored if
   - False
 
 | ConnectionModeInPrimaryRole
-| 
+|
 | String
 | Specifies how the availability replica handles connections when in the primary role.
 | - AllowAllConnections
   - AllowReadWriteConnections
 
 | ConnectionModeInSecondaryRole
-| 
+|
 | String
 | Specifies how the availability replica handles connections when in the secondary role.
 | - AllowNoConnections
@@ -163,7 +175,7 @@ This can not be altered once the availability group is created and is ignored if
   - AllowAllConnections
 
 | EndpointHostName
-| 
+|
 | String
 | Specifies the hostname or IP address of the availability group replica endpoint.
 
@@ -171,7 +183,7 @@ When creating a group the default is the instance network name.
 |
 
 | FailureConditionLevel
-| 
+|
 | String
 | Specifies the automatic failover behavior of the availability group.
 | - OnServerDown
@@ -181,7 +193,7 @@ When creating a group the default is the instance network name.
   - OnAnyQualifiedFailureCondition
 
 | FailoverMode
-| 
+|
 | String
 | Specifies the failover mode.
 
@@ -190,7 +202,7 @@ When creating a group the default is `Manual`.
   - *Manual* (default)
 
 | HealthCheckTimeout
-| 
+|
 | UInt32
 | Specifies the length of time, in milliseconds, after which AlwaysOn Availability Groups declare an unresponsive server to be unhealthy.
 
@@ -198,32 +210,32 @@ When creating a group the default is `30000`.
 | Default: `30000`
 
 | ProcessOnlyOnActiveNode
-| 
+|
 | Bool
 | Specifies that the resource will only determine if a change is needed if the target node is the active host of the SQL Server instance.
 | - True
   - False
 
 | EndpointUrl
-| 
+|
 | String
 | Returns the URL of the availability group replica endpoint.
 |
 
 | EndpointPort
-| 
+|
 | UInt32
 | Returns the port the database mirroring endpoint is listening on.
 |
 
 | Version
-| 
+|
 | UInt32
 | Returns the major version of the SQL Server instance.
 |
 
 | IsActiveNode
-| 
+|
 | Bool
 | Returns if the current node is actively hosting the SQL Server instance.
 | - True
@@ -248,3 +260,12 @@ SqlAGs:
       AvailabilityMode: SynchronousCommit
       FailoverMode: Automatic
 ----
+
+.See also
+****
+* xref:sqlalwaysonservices.adoc[SqlAlwaysOnServices]
+* xref:sqlendpoints.adoc[SqlEndpoints]
+* xref:sqlagreplicas.adoc[SqlAGReplicas]
+* xref:sqlagdatabases.adoc[SqlAGDatabases]
+* xref:sqlaglisteners.adoc[SqlAGListeners]
+****

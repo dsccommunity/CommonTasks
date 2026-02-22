@@ -1,0 +1,3 @@
+# DscDiagnostic has no parameters.
+# It configures a JEA endpoint named 'DSC' with diagnostic functions
+# using JeaRoleCapabilities and JeaSessionConfiguration resources.

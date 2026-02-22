@@ -3,13 +3,18 @@
 
 :YmlCategory: SharePointSetup
 
-:abstract:    {YmlCategory} is used to ###TBD###
+:abstract:    {YmlCategory} installs SharePoint Server binaries, prerequisites, and language packs.
 
 [#dscyml_sharepointsetup]
 = DSC Resource '{YmlCategory}'
 
 [[dscyml_sharepointsetup_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need to install SharePoint Server on a machine. It handles the prerequisites installer, the main SharePoint binary installation, and any language packs. This must be applied before SharePointProvisioning can create or join the farm.
+****
 
 
 [cols="1,3a" options="autowidth" caption=]
@@ -31,11 +36,199 @@
 | Description
 | Allowed Values
 
+| InstallerPath
+| Mandatory
+| String
+| Path to the SharePoint prerequisite installer executable.
 |
+
+| OnlineMode
+| Mandatory
+| Boolean
+| Whether the prerequisite installer should use online mode.
 |
+
+| SXSpath
 |
+| String
+| Path to the Windows SXS folder for feature installation.
 |
+
+| SQLNCli
 |
+| String
+| Path to the SQL Server Native Client installer.
+|
+
+| PowerShell
+|
+| String
+| Path to the Windows Management Framework installer.
+|
+
+| NETFX
+|
+| String
+| Path to the .NET Framework installer.
+|
+
+| IDFX
+|
+| String
+| Path to the Windows Identity Foundation installer.
+|
+
+| Sync
+|
+| String
+| Path to the Microsoft Sync Framework installer.
+|
+
+| AppFabric
+|
+| String
+| Path to the Windows Server AppFabric installer.
+|
+
+| IDFX11
+|
+| String
+| Path to the Microsoft Identity Extensions installer.
+|
+
+| MSIPCClient
+|
+| String
+| Path to the Microsoft Information Protection and Control Client installer.
+|
+
+| WCFDataServices
+|
+| String
+| Path to the WCF Data Services installer.
+|
+
+| KB2671763
+|
+| String
+| Path to the KB2671763 hotfix installer.
+|
+
+| WCFDataServices56
+|
+| String
+| Path to the WCF Data Services 5.6 installer.
+|
+
+| MSVCRT11
+|
+| String
+| Path to the Visual C++ 2012 Redistributable installer.
+|
+
+| MSVCRT14
+|
+| String
+| Path to the Visual C++ 2015 Redistributable installer.
+|
+
+| MSVCRT141
+|
+| String
+| Path to the Visual C++ 2017 Redistributable installer.
+|
+
+| MSVCRT142
+|
+| String
+| Path to the Visual C++ 2019 Redistributable installer.
+|
+
+| KB3092423
+|
+| String
+| Path to the AppFabric cumulative update KB3092423 installer.
+|
+
+| ODBC
+|
+| String
+| Path to the ODBC driver installer.
+|
+
+| DotNetFx
+|
+| String
+| Path to the .NET Framework installer.
+|
+
+| DotNet472
+|
+| String
+| Path to the .NET Framework 4.7.2 installer.
+|
+
+| DotNet48
+|
+| String
+| Path to the .NET Framework 4.8 installer.
+|
+
+| BinaryDir
+| Mandatory
+| string
+| Path to the SharePoint Server installation binaries.
+|
+
+| ProductKey
+| Mandatory
+| string
+| SharePoint Server product key.
+|
+
+| InstallPath
+|
+| String
+| Custom installation path for SharePoint Server.
+|
+
+| DataPath
+|
+| String
+| Custom data path for SharePoint Server.
+|
+
+| [[dscyml_sharepointsetup_languagepacks, {YmlCategory}/LanguagePacks]]<<dscyml_sharepointsetup_languagepacks_details, LanguagePacks>>
+|
+| Hashtable[]
+| Array of language packs to install, each splatted to the SPInstallLanguagePack DSC resource.
+|
+
+|===
+
+
+[[dscyml_sharepointsetup_languagepacks_details]]
+.Attributes of category '<<dscyml_sharepointsetup_languagepacks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| BinaryDir
+| Key
+| String
+| Specifies the directory where the language pack binary files are located.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the language pack should be installed or removed.
+| - Present
+- Absent
 
 |===
 
@@ -63,3 +256,11 @@ SharePointSetup:
   LanguagePacks:
     - BinaryDir: 'C:\SharePoint Server 2019\Language Pack DE'
 ----
+
+.See also
+****
+* xref:sharepointprereq.adoc[SharePointPrereq]
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointmanagedaccounts.adoc[SharePointManagedAccounts]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

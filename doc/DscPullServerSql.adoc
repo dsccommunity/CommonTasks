@@ -3,7 +3,7 @@
 
 :YmlCategory: DscPullServerSql
 
-:abstract:  {YmlCategory} configures an OData endpoint for DSC service to make a node a DSC pull server.
+:abstract:    {YmlCategory} sets up a DSC Pull Server with a SQL Server backend and firewall configuration.
 
 [#dscyml_dscpullserversql]
 = DSC Resource '{YmlCategory}'
@@ -11,6 +11,11 @@
 
 [[dscyml_dscpullserversql_abstract, {abstract}]]
 {abstract}
+
+.When to use '{YmlCategory}'
+****
+Use this resource when you need a DSC Pull Server that uses SQL Server for its backend database instead of the default EDB/MDB file. The SQL backend provides better performance and scalability for large environments with many managed nodes. It also configures necessary firewall rules.
+****
 
 
 :ref_xDscWebService:  https://github.com/dsccommunity/xPSDesiredStateConfiguration#xdscwebservice[xDscWebService]
@@ -47,21 +52,21 @@ The IIS ApplicationPool `PSWS` to use for the Pull Server will be created.
 | Allowed Values
 
 | EndpointName
-| Key
+|
 | String
 | The desired web service name.
 
 *The `EndpointName` is the name of the IIS website.*
 
 The URL to access the Pullserver webservice is always `http(s)://<servername>:<port>/PSDSCPullServer.svc`.
-These values are currently hard coded in {ref_xDscWebService}. 
+These values are currently hard coded in {ref_xDscWebService}.
 | Default: `PSDSCPullServer`
 
 | Port
 |
 | Uint16
 | The port number of the DSC Pull Server IIS Endpoint.
-| Default: `8080` 
+| Default: `8080`
 
 | CertificateThumbPrint
 |
@@ -75,18 +80,18 @@ These values are currently hard coded in {ref_xDscWebService}.
 | String
 | DSC pull server registration key +
   The key is stored in key file `$env:PROGRAMFILES\WindowsPowerShell\DscService\RegistrationKeys.txt` +
-  This should be a string with enough entropy (randomness) to protect the registration of clients to the pull server. 
+  This should be a string with enough entropy (randomness) to protect the registration of clients to the pull server.
   Using a GUID is recommended.
 |
 
 | SqlServer
-|
+| Mandatory
 | String
 | Name of the SQL Server to host the DSC database
 | Default: `localhost`
 
 | DatabaseName
-|
+| Mandatory
 | String
 | Name of the SQL Database for the Pull Server
 | Default: `DSC`
@@ -95,14 +100,21 @@ These values are currently hard coded in {ref_xDscWebService}.
 |
 | Boolean
 | This property will ensure that the Pull Server is created with the most secure practices.
-| - *False* (default) 
+| - *False* (default)
   - True
 
 | ConfigureFirewall
 |
 | Boolean
 | This property will ensure that a Firewall rule is created for Pull Server TCP Port.
-| - *False* (default) 
+| - *False* (default)
+  - True
+
+| AcceptSelfSignedCertificates
+|
+| Boolean
+| Accept self-signed certificates for the Pull Server endpoint.
+| - *False* (default)
   - True
 
 | PhysicalPath
@@ -142,3 +154,9 @@ DscPullServerSql:
   UseSecurityBestPractices: True
   ConfigureFirewall: True
 ----
+
+.See also
+****
+* xref:dscpullserver.adoc[DscPullServer]
+* xref:dsclcmcontroller.adoc[DscLcmController]
+****
