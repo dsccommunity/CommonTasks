@@ -71,7 +71,7 @@ Use this resource when you need to install the prerequisites and language packs 
 | Specifies the product ID of the Visual C++ Redistributable 2015-2019.
 |
 
-| LanguagePacks
+| [[dscyml_officeonlineserversetup_languagepacks, {YmlCategory}/LanguagePacks]]<<dscyml_officeonlineserversetup_languagepacks_details, LanguagePacks>>
 |
 | Hashtable[]
 | Specifies the language packs to install for Office Online Server.
@@ -92,6 +92,31 @@ Use this resource when you need to install the prerequisites and language packs 
 |===
 
 
+[[dscyml_officeonlineserversetup_languagepacks_details]]
+.Attributes of category '<<dscyml_officeonlineserversetup_languagepacks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Language
+| Key
+| String
+| Specifies the language identifier for the language pack (e.g., de-de, en-us).
+|
+
+| BinaryDir
+| Mandatory
+| String
+| Specifies the path to the language pack binary files.
+|
+
+|===
+
+
 .Example
 [source, yaml]
 ----
@@ -103,3 +128,9 @@ OfficeOnlineServerSetup:
   - Language: en-us
     BinaryDir: C:\en-us
 ----
+
+.See also
+****
+* xref:officeonlineservermachineconfig.adoc[OfficeOnlineServerMachineConfig]
+* xref:officeonlineserverfarmconfig.adoc[OfficeOnlineServerFarmConfig]
+****

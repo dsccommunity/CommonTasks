@@ -88,3 +88,9 @@ ScomComponents:
       DwDatabaseName : DwOpsManagerDB
       UseMicrosoftUpdate : false
 ----
+
+.See also
+****
+* xref:scomsettings.adoc[ScomSettings]
+* xref:scommanagementpacks.adoc[ScomManagementPacks]
+****

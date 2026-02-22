@@ -313,3 +313,8 @@ lookup_options:
         - Path
         - Search
 ----
+
+.See also
+****
+* xref:filesandfolders.adoc[FilesAndFolders]
+****

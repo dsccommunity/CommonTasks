@@ -77,3 +77,9 @@ Use this resource when you need to deploy a DSC Pull Server that serves as a cen
 ----
 
 ----
+
+.See also
+****
+* xref:dscpullserversql.adoc[DscPullServerSql]
+* xref:dsclcmcontroller.adoc[DscLcmController]
+****

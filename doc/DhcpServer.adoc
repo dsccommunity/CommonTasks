@@ -449,3 +449,12 @@ lookup_options:
       tuple_keys:
         - OptionId
 ----
+
+.See also
+****
+* xref:dhcpscopes.adoc[DhcpScopes]
+* xref:dhcpscopeoptions.adoc[DhcpScopeOptions]
+* xref:dhcpserverauthorization.adoc[DhcpServerAuthorization]
+* xref:dhcpserveroptions.adoc[DhcpServerOptions]
+* xref:dhcpserveroptiondefinitions.adoc[DhcpServerOptionDefinitions]
+****

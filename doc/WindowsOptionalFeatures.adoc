@@ -87,3 +87,8 @@ lookup_options:
   WindowsOptionalFeatures\Names:
     merge_basetype_array: Unique
 ----
+
+.See also
+****
+* xref:windowsfeatures.adoc[WindowsFeatures]
+****

@@ -147,3 +147,8 @@ Disks:
       FSLabel:     Data
       AllocationUnitSize: 2KB
 ----
+
+.See also
+****
+* xref:diskaccesspaths.adoc[DiskAccessPaths]
+****

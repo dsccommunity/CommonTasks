@@ -114,3 +114,9 @@ DnsServerConditionalForwarders:
         - 10.0.3.10
       ReplicationScope: Forest
 ----
+
+.See also
+****
+* xref:dnsserverforwarders.adoc[DnsServerForwarders]
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

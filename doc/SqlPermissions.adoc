@@ -210,3 +210,11 @@ SqlPermissions:
         Deny:
           - AlterAnyAvailabilityGroup
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlroles.adoc[SqlRoles]
+* xref:sqldatabases.adoc[SqlDatabases]
+****

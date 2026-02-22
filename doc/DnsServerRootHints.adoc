@@ -55,3 +55,9 @@ DnsServerRootHints:
     A.ROOT-SERVERS.NET.: 2001:503:ba3e::2:30
     B.ROOT-SERVERS.NET.: 2001:500:84::b
 ----
+
+.See also
+****
+* xref:dnsserverforwarders.adoc[DnsServerForwarders]
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

@@ -156,3 +156,10 @@ DhcpScopes:
       AddressFamily: IPv4
   DomainCredential: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:dhcpserver.adoc[DhcpServer]
+* xref:dhcpscopeoptions.adoc[DhcpScopeOptions]
+* xref:dhcpserverauthorization.adoc[DhcpServerAuthorization]
+****

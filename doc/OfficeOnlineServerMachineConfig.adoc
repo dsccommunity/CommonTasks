@@ -62,3 +62,9 @@ Use this resource when you need to add a server to an Office Online Server farm 
 OfficeOnlineServerMachineConfig:
   MachineToJoin: Master
 ----
+
+.See also
+****
+* xref:officeonlineserversetup.adoc[OfficeOnlineServerSetup]
+* xref:officeonlineserverfarmconfig.adoc[OfficeOnlineServerFarmConfig]
+****

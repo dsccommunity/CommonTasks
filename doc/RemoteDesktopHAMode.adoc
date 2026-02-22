@@ -81,3 +81,10 @@ RemoteDesktopHAMode:
   ClientAccessName: CONTOSOFARM
   DatabaseConnectionString: "DRIVER=ODBC Driver 17 for SQL Server;Server=DB01;Trusted_Connection=Yes;APP=Remote Desktop Services Connection Broker;DATABASE=RDS"
 ----
+
+.See also
+****
+* xref:remotedesktopdeployment.adoc[RemoteDesktopDeployment]
+* xref:remotedesktopcollections.adoc[RemoteDesktopCollections]
+* xref:remotedesktopservers.adoc[RemoteDesktopServers]
+****

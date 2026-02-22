@@ -356,3 +356,8 @@ lookup_options:
       tuple_keys:
         - SubscriptionID
 ----
+
+.See also
+****
+* xref:windowseventlogs.adoc[WindowsEventLogs]
+****

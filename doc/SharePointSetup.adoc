@@ -198,11 +198,37 @@ Use this resource when you need to install SharePoint Server on a machine. It ha
 | Custom data path for SharePoint Server.
 |
 
-| LanguagePacks
+| [[dscyml_sharepointsetup_languagepacks, {YmlCategory}/LanguagePacks]]<<dscyml_sharepointsetup_languagepacks_details, LanguagePacks>>
 |
 | Hashtable[]
-| Array of language packs to install, each with a BinaryDir property.
+| Array of language packs to install, each splatted to the SPInstallLanguagePack DSC resource.
 |
+
+|===
+
+
+[[dscyml_sharepointsetup_languagepacks_details]]
+.Attributes of category '<<dscyml_sharepointsetup_languagepacks>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| BinaryDir
+| Key
+| String
+| Specifies the directory where the language pack binary files are located.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the language pack should be installed or removed.
+| - Present
+- Absent
 
 |===
 
@@ -230,3 +256,11 @@ SharePointSetup:
   LanguagePacks:
     - BinaryDir: 'C:\SharePoint Server 2019\Language Pack DE'
 ----
+
+.See also
+****
+* xref:sharepointprereq.adoc[SharePointPrereq]
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointmanagedaccounts.adoc[SharePointManagedAccounts]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

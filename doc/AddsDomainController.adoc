@@ -117,8 +117,6 @@ If the computer acts as domain controller the 'Protect from accidental deletion'
 |
 | String
 | The path of the media you want to use install the Domain Controller.
-
-##(not used inside)##
 |
 
 |===
@@ -156,3 +154,11 @@ AddsDomainController:
   UnprotectFromAccidentalDeletion: true
   InstallationMediaPath: \\Server\Share
 ----
+
+.See also
+****
+* xref:addsdomain.adoc[AddsDomain]
+* xref:addsdomainprincipals.adoc[AddsDomainPrincipals]
+* xref:addsorgunitsandgroups.adoc[AddsOrgUnitsAndGroups]
+* xref:addswaitfordomains.adoc[AddsWaitForDomains]
+****

@@ -361,6 +361,22 @@ Use this resource when you need to configure an Office Online Server farm after 
 [source, yaml]
 ----
 OfficeOnlineServerFarmConfig:
-  AllowHttp: true
-  InternalUrl: http://contoso.com
+  InternalURL: https://oos.contoso.com
+  ExternalURL: https://oos-external.contoso.com
+  CertificateName: OfficeOnlineServer
+  AllowHttp: false
+  EditingEnabled: true
+  SSLOffloaded: false
+  ExcelAllowExternalData: true
+  OpenFromUrlEnabled: true
+  OpenFromUncEnabled: true
+  LogLocation: C:\OOSLogs
+  LogRetentionInDays: 7
+  CacheSizeInGB: 15
 ----
+
+.See also
+****
+* xref:officeonlineserversetup.adoc[OfficeOnlineServerSetup]
+* xref:officeonlineservermachineconfig.adoc[OfficeOnlineServerMachineConfig]
+****

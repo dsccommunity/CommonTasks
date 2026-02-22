@@ -134,3 +134,9 @@ SqlAgentAlerts:
       InstanceName: 'MSSQLServer'
       MessageId: '123'
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlagentoperators.adoc[SqlAgentOperators]
+****

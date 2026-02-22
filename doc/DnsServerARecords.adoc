@@ -125,3 +125,11 @@ lookup_options:
         - ZoneName
         - IPv4Address
 ----
+
+.See also
+****
+* xref:dnsservercnamerecords.adoc[DnsServerCNameRecords]
+* xref:dnsservermxrecords.adoc[DnsServerMxRecords]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+****

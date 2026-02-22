@@ -51,3 +51,10 @@ Use this resource when you need to set up the foundational DSC configuration web
 ConfigurationBase:
   SystemType: Baseline
 ----
+
+.See also
+****
+* xref:configurationmanagerconfiguration.adoc[ConfigurationManagerConfiguration]
+* xref:configurationmanagerdeployment.adoc[ConfigurationManagerDeployment]
+* xref:configurationmanagerdistributiongroups.adoc[ConfigurationManagerDistributionGroups]
+****

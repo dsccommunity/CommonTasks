@@ -161,3 +161,8 @@ lookup_options:
         - ValueName
         - TargetType
 ----
+
+.See also
+****
+* xref:registryvalues.adoc[RegistryValues]
+****

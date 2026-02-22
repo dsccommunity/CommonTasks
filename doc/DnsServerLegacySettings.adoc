@@ -73,3 +73,8 @@ DnsServerLegacySettings:
   NoForwarderRecursion: false
   LogLevel:    50393905
 ----
+
+.See also
+****
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

@@ -111,3 +111,9 @@ WaitForAnyNode:
     RetryIntervalSec: 60
     RetryCount: 60
 ----
+
+.See also
+****
+* xref:waitforallnodes.adoc[WaitForAllNodes]
+* xref:waitforsomenodes.adoc[WaitForSomeNodes]
+****

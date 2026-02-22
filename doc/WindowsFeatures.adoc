@@ -169,3 +169,8 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:windowsoptionalfeatures.adoc[WindowsOptionalFeatures]
+****

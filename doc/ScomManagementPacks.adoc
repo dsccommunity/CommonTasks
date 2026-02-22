@@ -77,3 +77,9 @@ ScomManagementPacks:
             <Abbreviated>...</Abbreviated>
           </ManagementPack>
 ----
+
+.See also
+****
+* xref:scomcomponents.adoc[ScomComponents]
+* xref:scomsettings.adoc[ScomSettings]
+****

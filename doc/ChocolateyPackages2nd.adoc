@@ -177,3 +177,9 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:chocolateypackages.adoc[ChocolateyPackages]
+* xref:chocolateypackages3rd.adoc[ChocolateyPackages3rd]
+****

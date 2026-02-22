@@ -310,3 +310,8 @@ FirewallRules:
       Program:     C:\Windows\System32\notepad.exe
       Service:     WinRM
 ----
+
+.See also
+****
+* xref:firewallprofiles.adoc[FirewallProfiles]
+****

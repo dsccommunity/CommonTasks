@@ -133,3 +133,9 @@ SqlConfiguration:
       UseDynamicTcpPort : true
       TcpPort           : false
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlconfigurations.adoc[SqlConfigurations]
+****

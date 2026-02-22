@@ -21,7 +21,7 @@ Use this resource when you need to configure Exchange Server client access URLs 
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeConfiguration
 | DSC Resource   | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc]
-| Documentation  |
+| Documentation  | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc Wiki]
 |===
 
 
@@ -84,3 +84,10 @@ ExchangeConfiguration:
     InternalNamespace: contoso.com
     AutoDiscoverSiteScope: Site1
 ----
+
+.See also
+****
+* xref:exchangeprovisioning.adoc[ExchangeProvisioning]
+* xref:exchangemailboxdatabases.adoc[ExchangeMailboxDatabases]
+* xref:exchangedagprovisioning.adoc[ExchangeDagProvisioning]
+****

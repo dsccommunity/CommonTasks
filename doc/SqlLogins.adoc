@@ -185,3 +185,11 @@ SqlLogins:
     LoginType: WindowsUser
     InstanceName: MSSQLSERVER
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqldatabases.adoc[SqlDatabases]
+* xref:sqlpermissions.adoc[SqlPermissions]
+* xref:sqlroles.adoc[SqlRoles]
+****

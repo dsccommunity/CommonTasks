@@ -280,3 +280,8 @@ FilesAndFolders:
             - Write
             - ExecuteFile
 ----
+
+.See also
+****
+* xref:filecontents.adoc[FileContents]
+****

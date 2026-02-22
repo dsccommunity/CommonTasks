@@ -811,3 +811,9 @@ lookup_options:
       tuple_keys:
         - Name
 ----
+
+.See also
+****
+* xref:hypervstate.adoc[HyperVState]
+* xref:hypervreplica.adoc[HyperVReplica]
+****

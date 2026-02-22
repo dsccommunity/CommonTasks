@@ -73,3 +73,10 @@ Certificates:
     ImportPath: C:\RDSFARM.pfx
     Credential: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:remotedesktopdeployment.adoc[RemoteDesktopDeployment]
+* xref:remotedesktopcollections.adoc[RemoteDesktopCollections]
+* xref:remotedesktoplicensing.adoc[RemoteDesktopLicensing]
+****

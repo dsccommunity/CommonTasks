@@ -121,3 +121,8 @@ WindowsEventLogs:
       MaximumSizeInBytes: 2048KB
       LogRetentionDays: 30
 ----
+
+.See also
+****
+* xref:windowseventforwarding.adoc[WindowsEventForwarding]
+****

@@ -102,3 +102,8 @@ JeaRoles:
             Get-Date
             Write-Host Hello World
 ----
+
+.See also
+****
+* xref:jeaendpoints.adoc[JeaEndpoints]
+****

@@ -166,3 +166,9 @@ SqlScriptQueries:
       SetQuery: '--Set Query 2'
       QueryTimeout: 60
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqldatabases.adoc[SqlDatabases]
+****

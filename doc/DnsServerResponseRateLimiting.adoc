@@ -122,3 +122,8 @@ DnsServerResponseRateLimiting:
     - Name: ExceptionListSafe
       Fqdn: EQ,*.contoso.com
 ----
+
+.See also
+****
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

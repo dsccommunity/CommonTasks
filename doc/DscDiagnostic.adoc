@@ -44,3 +44,9 @@ Use this resource when you need to set up restricted, secure JEA endpoints for m
 ----
 
 ----
+
+.See also
+****
+* xref:dsclcmcontroller.adoc[DscLcmController]
+* xref:dsctagging.adoc[DscTagging]
+****

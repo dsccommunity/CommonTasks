@@ -151,3 +151,10 @@ ConfigurationManagerDistributionGroups:
       SecurityScopesToInclude:
         - Scope2
 ----
+
+.See also
+****
+* xref:configurationbase.adoc[ConfigurationBase]
+* xref:configurationmanagerconfiguration.adoc[ConfigurationManagerConfiguration]
+* xref:configurationmanagerdeployment.adoc[ConfigurationManagerDeployment]
+****

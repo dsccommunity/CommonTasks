@@ -120,3 +120,9 @@ ScomSettings:
     WebConsoleUrl: http://OM01.contoso.com/OperationsManager
     OnlineProductKnowledgeUrl: http://OM01.contoso.com/Knowledge
 ----
+
+.See also
+****
+* xref:scomcomponents.adoc[ScomComponents]
+* xref:scommanagementpacks.adoc[ScomManagementPacks]
+****

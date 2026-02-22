@@ -190,3 +190,9 @@ SqlDatabaseMailSetups:
       LoggingLevel: 'Normal'
       TcpPort: 25
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqlconfigurations.adoc[SqlConfigurations]
+****

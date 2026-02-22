@@ -122,3 +122,9 @@ Items:
     RetryIntervalSec: 15
     RetryCount: 30
 ----
+
+.See also
+****
+* xref:waitforallnodes.adoc[WaitForAllNodes]
+* xref:waitforanynode.adoc[WaitForAnyNode]
+****

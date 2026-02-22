@@ -154,3 +154,9 @@ DscPullServerSql:
   UseSecurityBestPractices: True
   ConfigureFirewall: True
 ----
+
+.See also
+****
+* xref:dscpullserver.adoc[DscPullServer]
+* xref:dsclcmcontroller.adoc[DscLcmController]
+****

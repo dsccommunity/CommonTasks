@@ -72,3 +72,9 @@ SharePointServiceInstances:
     - Name: User Profile Service
     - Name: SharePoint Server Search
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

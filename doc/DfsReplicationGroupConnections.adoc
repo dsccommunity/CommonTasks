@@ -133,3 +133,10 @@ DfsReplicationGroupConnections:
       SourceComputerName: server1.contoso.com
       DestinationComputerName: server3.contoso.com
 ----
+
+.See also
+****
+* xref:dfsnamespaces.adoc[DfsNamespaces]
+* xref:dfsreplicationgroupmembers.adoc[DfsReplicationGroupMembers]
+* xref:dfsreplicationgroupmemberships.adoc[DfsReplicationGroupMemberships]
+****

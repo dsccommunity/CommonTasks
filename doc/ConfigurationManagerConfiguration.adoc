@@ -372,3 +372,10 @@ ConfigurationManagerConfiguration:
     FeatureUpdateMaxRuntimeMins: 300
     NonFeatureUpdateMaxRuntimeMins: 300
 ----
+
+.See also
+****
+* xref:configurationbase.adoc[ConfigurationBase]
+* xref:configurationmanagerdeployment.adoc[ConfigurationManagerDeployment]
+* xref:configurationmanagerdistributiongroups.adoc[ConfigurationManagerDistributionGroups]
+****

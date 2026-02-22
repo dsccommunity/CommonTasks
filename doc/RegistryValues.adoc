@@ -156,3 +156,8 @@ lookup_options:
         - Key
         - ValueName
 ----
+
+.See also
+****
+* xref:registrypolicies.adoc[RegistryPolicies]
+****

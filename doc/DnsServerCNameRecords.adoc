@@ -122,3 +122,11 @@ lookup_options:
         - ZoneName
         - HostNameAlias
 ----
+
+.See also
+****
+* xref:dnsserverarecords.adoc[DnsServerARecords]
+* xref:dnsservermxrecords.adoc[DnsServerMxRecords]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+****

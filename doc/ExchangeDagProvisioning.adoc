@@ -21,7 +21,7 @@ Use this resource when you need to create and configure an Exchange DAG for high
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ExchangeDagProvisioning
 | DSC Resource   | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc]
-| Documentation  |
+| Documentation  | https://github.com/dsccommunity/ExchangeDsc[ExchangeDsc Wiki]
 |===
 
 
@@ -127,3 +127,11 @@ ExchangeDagProvisioning:
   SkipDagValidation: true
   FirstDagMemberName: Exchange01
 ----
+
+.See also
+****
+* xref:exchangeprovisioning.adoc[ExchangeProvisioning]
+* xref:exchangeconfiguration.adoc[ExchangeConfiguration]
+* xref:exchangemailboxdatabases.adoc[ExchangeMailboxDatabases]
+* xref:exchangemailboxdatabasecopies.adoc[ExchangeMailboxDatabaseCopies]
+****

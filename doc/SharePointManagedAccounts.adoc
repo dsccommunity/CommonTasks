@@ -73,3 +73,9 @@ SharePointManagedAccounts:
     - AccountName: contoso\sp_contentAppPool
       Account: '[ENC=PE9ianMgVmVy...=]'
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointserviceapppools.adoc[SharePointServiceAppPools]
+****

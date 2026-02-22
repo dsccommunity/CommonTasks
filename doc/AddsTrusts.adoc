@@ -127,3 +127,9 @@ AddsTrusts:
       TrustType: External
       SourceDomainName: contoso.com
 ----
+
+.See also
+****
+* xref:addsdomain.adoc[AddsDomain]
+* xref:addswaitfordomains.adoc[AddsWaitForDomains]
+****

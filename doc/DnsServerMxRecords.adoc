@@ -138,3 +138,11 @@ lookup_options:
         - EmailDomain
         - MailExchange
 ----
+
+.See also
+****
+* xref:dnsserverarecords.adoc[DnsServerARecords]
+* xref:dnsservercnamerecords.adoc[DnsServerCNameRecords]
+* xref:dnsserverprimaryzones.adoc[DnsServerPrimaryZones]
+* xref:dnsserveradzones.adoc[DnsServerAdZones]
+****

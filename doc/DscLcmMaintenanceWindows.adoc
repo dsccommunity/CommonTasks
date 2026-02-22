@@ -115,3 +115,9 @@ DscLcmMaintenanceWindows:
       StartTime: 04:00:00
       Timespan:  01:00:00
 ----
+
+.See also
+****
+* xref:dsclcmcontroller.adoc[DscLcmController]
+* xref:dsctagging.adoc[DscTagging]
+****

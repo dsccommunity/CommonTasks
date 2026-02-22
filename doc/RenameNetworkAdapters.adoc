@@ -80,3 +80,10 @@ RenameNetworkAdapters:
   - Name: InterfaceIndex
     NewName: en-2
 ----
+
+.See also
+****
+* xref:ipconfiguration.adoc[IpConfiguration]
+* xref:network.adoc[Network]
+* xref:networkipconfiguration.adoc[NetworkIpConfiguration]
+****

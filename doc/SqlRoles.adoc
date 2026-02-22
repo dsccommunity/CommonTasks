@@ -151,3 +151,11 @@ SqlRoles:
       ServerName: sqltest.company.local
       InstanceName: DSC
 ----
+
+.See also
+****
+* xref:sqlserver.adoc[SqlServer]
+* xref:sqllogins.adoc[SqlLogins]
+* xref:sqlpermissions.adoc[SqlPermissions]
+* xref:sqldatabases.adoc[SqlDatabases]
+****

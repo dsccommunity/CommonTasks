@@ -82,3 +82,8 @@ DnsSuffixes:
     - InterfaceAlias: en0
       ConnectionSpecificSuffix: contoso.com
 ----
+
+.See also
+****
+* xref:dnsserversettings.adoc[DnsServerSettings]
+****

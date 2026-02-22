@@ -143,3 +143,9 @@ SharePointPrereq:
   IsoDriveLetter: 'Z:'
   ProductKey: YourProductKey
 ----
+
+.See also
+****
+* xref:sharepointsetup.adoc[SharePointSetup]
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+****

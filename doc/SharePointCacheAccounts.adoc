@@ -72,3 +72,9 @@ SharePointCacheAccounts:
       SuperUserAlias: contoso\SP_SuperUser
       WebAppUrl: https://content.contoso.com/
 ----
+
+.See also
+****
+* xref:sharepointprovisioning.adoc[SharePointProvisioning]
+* xref:sharepointwebapplications.adoc[SharePointWebApplications]
+****
