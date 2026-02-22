@@ -52,7 +52,7 @@ Use this resource when you need to configure Windows security auditing to meet c
 
 | [[dscyml_auditpolicies_guids, {YmlCategory}/Guids]]<<dscyml_auditpolicies_guids_details, Guids>>
 | hashtable[]
-| Set of advanced audit policy subcategory audit flags that works around localization issues with auditpol (see {ref_AuditPolicyDsc_AuditPolicyGUID})
+| Set of advanced audit policy subcategory audit flags (see {ref_AuditPolicyDsc_AuditPolicySubcategory})
 
 | CsvPath
 | String

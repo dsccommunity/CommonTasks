@@ -22,7 +22,7 @@ Use this resource when you need to deploy Azure DevOps pipeline agents on machin
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VSTSAgents
 | DSC Resource   | https://github.com/microsoft/VSTSAgent.PowerShell[VSTSAgent]
 | Documentation  | https://github.com/microsoft/VSTSAgent.PowerShell/tree/develop/VSTSAgent/DSCResources/xVSTSAgent[xVSTSAgent]
-                   
+
 |===
 
 
@@ -38,7 +38,7 @@ Use this resource when you need to deploy Azure DevOps pipeline agents on machin
 | [[dscyml_vstsagents_agents, {YmlCategory}/Agents]]<<dscyml_vstsagents_agents_details, Agents>>
 | Mandatory
 | Hashtable[]
-| set of web applications
+| List of Azure DevOps (VSTS) build and release agent configurations
 |
 
 |===

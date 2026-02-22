@@ -22,7 +22,7 @@ Use this resource when you need to control which SharePoint services run on whic
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointServiceInstances
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPServiceInstance[SPServiceInstance]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to control which SharePoint services run on whic
 | Allowed Values
 
 | [[dscyml_sharepointserviceinstances_serviceinstances, {YmlCategory}/ServiceInstances]]<<dscyml_sharepointserviceinstances_serviceinstances_details, ServiceInstances>>
-| Mandatory
+|
 | Hashtable[]
 | set of service instances
 |

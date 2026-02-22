@@ -34,10 +34,28 @@ Use this resource when you need to deploy a new Remote Desktop Services environm
 | Description
 | Allowed Values
 
+| ConnectionBroker
+| Mandatory
+| String
+| Specifies the RD Connection Broker server for the Remote Desktop deployment.
 |
+
+| WebAccess
 |
+| String
+| Specifies the RD Web Access server.
 |
+
+| SessionHosts
 |
+| String[]
+| Specifies the RD Session Host servers.
+|
+
+| Gateways
+|
+| Hashtable[]
+| Specifies the RD Gateway server configurations.
 |
 
 |===

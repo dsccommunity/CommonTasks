@@ -71,7 +71,7 @@ Use this resource when you need to promote a Windows Server to a domain controll
 | Default: `C:\Windows\SYSVOL`
 
 | SiteName
-| Mandatory
+|
 | String
 | The name of the site this Domain Controller will be added to.
 

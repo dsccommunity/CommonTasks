@@ -37,7 +37,7 @@ Use this resource when you need to set the computer name, join a machine to an A
 | Allowed Values
 
 | Name
-| Key
+| Mandatory
 | String
 | The desired computer name.
 |
@@ -89,7 +89,7 @@ Use this resource when you need to set the computer name, join a machine to an A
 | String
 | Configures the authentication for remote desktop.
 | - Secure
-  - Unsecure
+  - NonSecure
 
 |===
 

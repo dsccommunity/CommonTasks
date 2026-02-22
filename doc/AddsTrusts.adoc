@@ -16,7 +16,7 @@
 Use this resource when you need to establish trust relationships between Active Directory domains or forests. This is necessary when users in one domain need to access resources in another domain, such as during mergers, cross-forest collaboration, or multi-domain architectures.
 ****
 
-A trust is a relationship, which you establish between domains or forests. 
+A trust is a relationship, which you establish between domains or forests.
 To understand more about trusts in Active Directory, please see the article https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/forest-design-models[Forest Design Models] for more information.
 
 
@@ -95,16 +95,16 @@ The value `External` means the context _Domain_, while the value `Forest` means 
   - Outbound
 
 | AllowTrustRecreation
-| Mandatory
+|
 | Boolean
-| Specifies if the is allowed to be recreated if required.
+| Specifies if the trust is allowed to be recreated if required.
 | - True
   - *False* (default)
 
 | Ensure
-| 
+|
 | String
-| Specifies whether the computer account is present or absent.
+| Specifies whether the trust is present or absent.
 | - *Present* (default)
   - Absent
 

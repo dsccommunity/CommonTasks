@@ -22,7 +22,7 @@ Use this resource when you need to configure the Windows page file location and 
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/VirtualMemoryFiles
 | DSC Resource   | https://github.com/dsccommunity/ComputerManagementDsc[ComputerManagementDsc]
 | Documentation  | https://github.com/dsccommunity/ComputerManagementDsc/wiki/VirtualMemory[VirtualMemory]
-                   
+
 |===
 
 
@@ -38,7 +38,7 @@ Use this resource when you need to configure the Windows page file location and 
 | [[dscyml_virtualmemoryfiles_files, {YmlCategory}/Files]]<<dscyml_virtualmemoryfiles_files_details, Files>>
 | Mandatory
 | Hashtable[]
-| set of web applications
+| List of virtual memory (page file) settings per drive
 |
 
 |===

@@ -35,10 +35,58 @@ Use this resource when you need to install the prerequisites and language packs 
 | Description
 | Allowed Values
 
+| MicrosoftIdentityExtensionsPath
 |
+| String
+| Specifies the path to the Microsoft Identity Extensions installer.
 |
+
+| DotNet48FrameworkPath
 |
+| String
+| Specifies the path to the .NET Framework 4.8 installer.
 |
+
+| VcRedistributable2013Path
+|
+| String
+| Specifies the path to the Visual C++ Redistributable 2013 installer.
+|
+
+| VcRedistributable2013ProductId
+|
+| String
+| Specifies the product ID of the Visual C++ Redistributable 2013.
+|
+
+| VcRedistributable20152019Path
+|
+| String
+| Specifies the path to the Visual C++ Redistributable 2015-2019 installer.
+|
+
+| VcRedistributable20152019ProductId
+|
+| String
+| Specifies the product ID of the Visual C++ Redistributable 2015-2019.
+|
+
+| LanguagePacks
+|
+| Hashtable[]
+| Specifies the language packs to install for Office Online Server.
+|
+
+| Path
+| Mandatory
+| String
+| Specifies the path to the Office Online Server setup executable.
+|
+
+| WindowsFeatureSourcePath
+|
+| String
+| Specifies an alternate source path for Windows Feature files.
 |
 
 |===

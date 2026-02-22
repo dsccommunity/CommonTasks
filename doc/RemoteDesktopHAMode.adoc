@@ -35,7 +35,7 @@ Use this resource when you need to configure RDS Connection Broker high availabi
 | Allowed Values
 
 | ConnectionBroker
-|
+| Mandatory
 | string
 | Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment.
 |

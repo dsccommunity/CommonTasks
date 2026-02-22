@@ -35,7 +35,7 @@ Use this resource when you need to automatically request and enroll certificates
 | Allowed Values
 
 | [[dscyml_certificaterequests_requests, {YmlCategory}/Requests]]<<dscyml_certificaterequests_requests_details, Requests>>
-|
+| Mandatory
 | Hashtable[]
 | List of certificate requests.
 |

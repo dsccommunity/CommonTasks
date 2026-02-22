@@ -22,7 +22,7 @@ Use this resource when you need to configure the operational behavior of your SC
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomSettings
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
 | Documentation  |
-                   
+
 |===
 
 
@@ -35,10 +35,56 @@ Use this resource when you need to configure the operational behavior of your SC
 | Description
 | Allowed Values
 
+| ApprovalSetting
 |
+| string
+| SCOM agent approval policy setting.
+| - Pending
+- AutoReject
+- AutoApprove
+
+| AlertResolutionSetting
 |
+| Hashtable
+| SCOM alert resolution timing configuration.
 |
+
+| DatabaseGroomingSetting
 |
+| Hashtable
+| SCOM database grooming schedule configuration.
+|
+
+| DataWarehouseSetting
+|
+| Hashtable
+| SCOM data warehouse configuration.
+|
+
+| ErrorReportSetting
+|
+| string
+| SCOM error reporting behavior setting.
+| - AutomaticallySend
+- OptOut
+- PromptBeforeSending
+
+| HeartbeatSetting
+|
+| Hashtable
+| SCOM heartbeat interval configuration.
+|
+
+| ReportingServerUrl
+|
+| string
+| URL of the SCOM reporting server.
+|
+
+| WebAddressSetting
+|
+| Hashtable
+| SCOM web console address configuration.
 |
 
 |===

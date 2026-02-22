@@ -34,7 +34,7 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlpermission}
-                   
+
 |===
 
 
@@ -53,6 +53,13 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlpermissions_values, {YmlCategory}/Values]]<<dscyml_sqlpermissions_values_details, Values>>
 | Mandatory
@@ -87,14 +94,14 @@ When revoking permission with PermissionState `GrantWithGrant`, both the grantee
 Default value is the current computer name.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the permission should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
-| Principal
+| Name
 | Key
 | String
 | The login to which permission will be set.

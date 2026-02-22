@@ -74,7 +74,7 @@ Use this resource when you need to configure Windows services on target nodes. I
 |
 | String
 | The display name of the service.
-| 
+|
 
 | Path
 |
@@ -108,7 +108,7 @@ Use this resource when you need to configure Windows services on target nodes. I
 | String
 | Indicates the state you want to ensure for the service.
 
-If no value is specified a default value is set with the following conditions: 
+If no value is specified a default value is set with the following conditions:
 
 - `StartupType` is empty       -> `Running`
 - `StartupType` is `Automatic` -> `Running`
@@ -122,7 +122,7 @@ If no value is specified a default value is set with the following conditions:
 |
 | String
 | The description of the service.
-| 
+|
 
 | StartupTimeout
 |
@@ -152,9 +152,9 @@ If no value is specified a default value is set with the following conditions:
 
 | Ensure
 |
-| Boolean
+| String
 | Indicates whether the target service exists on the system. +
-  Set this property to `Absent` to ensure that the target service does not exist. 
+  Set this property to `Absent` to ensure that the target service does not exist.
   Setting it to `Present` ensures that target service exists.
 | - *Present* (default)
   - Absent

@@ -37,10 +37,88 @@ Use this resource when you need to install the SharePoint prerequisite software 
 | Description
 | Allowed Values
 
+| InstallerPath
+| Mandatory
+| string
+| Path to the SharePoint prerequisite installer executable.
 |
+
+| SQLNCli
+| Mandatory
+| string
+| Path to the SQL Server Native Client installer.
 |
+
+| Sync
+| Mandatory
+| string
+| Path to the Microsoft Sync Framework installer.
 |
+
+| AppFabric
+| Mandatory
+| string
+| Path to the Windows Server AppFabric installer.
 |
+
+| IDFX11
+| Mandatory
+| string
+| Path to the Microsoft Identity Extensions installer.
+|
+
+| MSIPCClient
+| Mandatory
+| string
+| Path to the Microsoft Information Protection and Control Client installer.
+|
+
+| WCFDataServices56
+| Mandatory
+| string
+| Path to the WCF Data Services 5.6 installer.
+|
+
+| MSVCRT11
+| Mandatory
+| string
+| Path to the Visual C++ 2012 Redistributable installer.
+|
+
+| MSVCRT141
+| Mandatory
+| string
+| Path to the Visual C++ 2017 Redistributable installer.
+|
+
+| KB3092423
+| Mandatory
+| string
+| Path to the AppFabric cumulative update KB3092423 installer.
+|
+
+| DotNet472
+| Mandatory
+| string
+| Path to the .NET Framework 4.7.2 installer.
+|
+
+| IsoFilePath
+| Mandatory
+| string
+| Path to the SharePoint Server ISO file.
+|
+
+| IsoDriveLetter
+| Mandatory
+| string
+| Drive letter to mount the SharePoint ISO to.
+|
+
+| ProductKey
+| Mandatory
+| string
+| SharePoint Server product key.
 |
 
 |===

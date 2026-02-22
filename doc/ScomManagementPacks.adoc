@@ -22,7 +22,7 @@ Use this resource when you need to import management packs into your SCOM manage
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomManagementPacks
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
 | Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/resources/JHP_ScomManagementPack.ps1[ScomManagementPack]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to import management packs into your SCOM manage
 | Allowed Values
 
 | [[dscyml_scommanagementpacks_managementpacks, {YmlCategory}/ManagementPacks]]<<dscyml_scommanagementpacks_managementpacks_details, ManagementPacks>>
-| Mandatory
+|
 | Hashtable[]
 | set of SCOM management packs
 |

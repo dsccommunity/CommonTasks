@@ -23,7 +23,7 @@ Use this resource when you need to automate software installation via Chocolatey
 | DSC Resource   | https://github.com/chocolatey-community/Chocolatey[Chocolatey]
 | Documentation  | - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySoftware[ChocolateySoftware]
                    - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateySource[ChocolateySource]
-                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage] 
+                   - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyPackage[ChocolateyPackage]
                    - https://github.com/chocolatey-community/Chocolatey/tree/main/source/DscResources/ChocolateyFeature[ChocolateyFeature]
 |===
 
@@ -167,13 +167,13 @@ In this case the `Test-DscConfiguration` command returns `False`.
 | Name
 | Key
 | String
-| Folder path where the Chocolatey Software should be installed.
+| The name of the Chocolatey source to manage.
 |
 
 | Ensure
 |
 | String
-| Specifies whether the Chocolatey Software should be installed on the machine or not.
+| Specifies whether the Chocolatey source should be present or absent.
 | - *Present* (default)
   - Absent
 

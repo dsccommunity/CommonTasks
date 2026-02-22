@@ -150,13 +150,13 @@ Use this resource when you need to configure an existing Configuration Manager s
 
 | SiteMaintenanceConfigurations
 |
-| Hashtable
+| Hashtable[]
 |
 |
 
 | BoundaryGroups
 |
-| Hashtable
+| Hashtable[]
 | see {CMBoundaryGroups}
 |
 
@@ -168,8 +168,8 @@ Use this resource when you need to configure an existing Configuration Manager s
 
 | CollectionSettings
 |
-|
 | Hashtable
+|
 |
 
 | StatusReportingSettings

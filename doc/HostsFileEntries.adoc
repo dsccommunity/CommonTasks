@@ -35,7 +35,7 @@ Use this resource when you need to add, modify, or remove entries in the hosts f
 | Allowed Values
 
 | [[dscyml_hostsfileentries_entries, {YmlCategory}/Entries]]<<dscyml_hostsfileentries_entries_details, Entries>>
-| 
+| Mandatory
 | hashtable[]
 | Hosts File Entries
 |
@@ -60,7 +60,7 @@ Use this resource when you need to add, modify, or remove entries in the hosts f
 |
 
 | IPAddress
-| 
+|
 | String
 | Specifies the IP Address that should be mapped to the host name.
 |

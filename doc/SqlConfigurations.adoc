@@ -28,7 +28,7 @@ Use this resource when you need to configure SQL Server instance-level settings 
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlconfiguration}
-                   
+
 |===
 
 
@@ -55,7 +55,7 @@ Use this resource when you need to configure SQL Server instance-level settings 
 | Default: `MSSQLSERVER`
 
 | [[dscyml_sqlserver_options, {YmlCategory}/Options]]<<dscyml_sqlserver_options_details, Options>>
-| 
+| Mandatory
 | Hashtable[]
 | List of SQL Server Configuration Options on a SQL Server instance.
 |
@@ -76,7 +76,7 @@ Use this resource when you need to configure SQL Server instance-level settings 
 | Key
 | String
 | Name of the SQL Server instance to be configured.
-  
+
 If not specified the value of `DefaultInstanceName` is used as default.
 |
 
@@ -85,19 +85,19 @@ If not specified the value of `DefaultInstanceName` is used as default.
 | String
 | The name of the SQL Server Database Engine instance configuration option.
 
-For all possible values reference the article https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/server-configuration-options-sql-server[Server Configuration Options (SQL Server)] or run `sp_configure`.	
+For all possible values reference the article https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/server-configuration-options-sql-server[Server Configuration Options (SQL Server)] or run `sp_configure`.
 |
 
 | OptionValue
 | Mandatory
 | SInt32
-| The desired value of the configuration option.	
+| The desired value of the configuration option.
 |
 
 | ServerName
 |
 | String
-| The hostname of the SQL Server to be configured. 
+| The hostname of the SQL Server to be configured.
 | Default: current computer name.
 
 | RestartService

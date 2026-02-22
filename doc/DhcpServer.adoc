@@ -54,7 +54,7 @@ Use this resource for complete DHCP server provisioning from scratch. It combine
 
 | [[dscyml_dhcpserver_exclusionranges, {YmlCategory}/ExclusionRanges]]<<dscyml_dhcpserver_exclusionranges_details, ExclusionRanges>>
 |
-| Hashtable[]
+| Object[]
 | Set of {ref_DhcpServerExclusionRange} DSC resources
 |
 

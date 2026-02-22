@@ -37,9 +37,9 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Allowed Values
 
 | [[dscyml_waitforsomenodes_items, {YmlCategory}/Items]]<<dscyml_waitforsomenodes_items_details, Items>>
-| Mandatory
+|
 | Hashtable[]
-| files and folders on the target node
+| List of cross-node dependency configurations specifying nodes and resources to wait for
 |
 
 |===
@@ -59,13 +59,13 @@ This resource succeeds if the resource specified by the ResourceName property is
 | Required
 | String[]
 | The name of the target nodes the resource must be in the desired state.
-| 
+|
 
 | NodeCount
 | Required
 | UInt32
 | The minimum number of nodes that must be in the desired state for this resource to succeed.
-| 
+|
 
 | ResourceName
 | Key

@@ -37,10 +37,12 @@ Use this resource when you need to apply a standardized security baseline to you
 | Allowed Values
 
 | Role
-| ValidateSet('Baseline', 'WebServer', 'FileServer')
+|
 | string
-|
-|
+| Specifies the server role for applying the appropriate security baseline configuration.
+| - Baseline
+- WebServer
+- FileServer
 
 |===
 

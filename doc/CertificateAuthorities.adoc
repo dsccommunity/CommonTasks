@@ -60,7 +60,7 @@ Use this resource when you need to deploy an Enterprise or Standalone Certificat
 |
 
 | Ensure
-| 
+|
 | String
 | Specifies whether the Certificate Authority should be installed or uninstalled.
 | - *Present* (default)
@@ -93,7 +93,7 @@ Use this resource when you need to deploy an Enterprise or Standalone Certificat
 | CertificateID
 |
 | String
-| Specifies the password for certification authority certificate file.
+| Specifies the thumbprint or serial number of certification authority certificate.
 |
 
 | CryptoProviderName
@@ -124,7 +124,7 @@ Use this resource when you need to deploy an Enterprise or Standalone Certificat
 | KeyContainerName
 |
 | String
-| Specifies the name of an existing private key container.	
+| Specifies the name of an existing private key container.
 |
 
 | KeyLength
@@ -173,7 +173,7 @@ Use this resource when you need to deploy an Enterprise or Standalone Certificat
 | ValidityPeriod
 |
 | String
-| Specifies the validity period of the certification authority certificate in hours, days, weeks, months or years.
+| Specifies the validity period of the certification authority certificate in hours, days, months or years.
   If this is a subordinate CA, do not use this parameter, because the validity period is determined by the parent CA.
 | - Hours
   - Days

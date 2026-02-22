@@ -34,10 +34,10 @@ Use this resource when you need to replicate mailbox databases to other servers 
 | Description
 | Allowed Values
 
-|
-|
-|
-|
+| Items
+| Mandatory
+| Hashtable[]
+| List of mailbox database copy configurations
 |
 
 |===

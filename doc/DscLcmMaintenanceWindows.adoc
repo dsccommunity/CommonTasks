@@ -35,7 +35,7 @@ Use this resource when you want to restrict DSC auto-correction to specific time
 | Description
 | Allowed Values
 
-| [[dscyml_dsclcmmaintenancewindows_maintenancewindow, {YmlCategory}/MaintenanceWindow]]<<dscyml_dsclcmmaintenancewindows_maintenancewindow_details, MaintenanceWindow>>
+| [[dscyml_dsclcmmaintenancewindows_maintenancewindow, {YmlCategory}/MaintenanceWindows]]<<dscyml_dsclcmmaintenancewindows_maintenancewindow_details, MaintenanceWindows>>
 | Mandatory
 | Hashtable[]
 | List of maintenance windows
@@ -78,6 +78,7 @@ Use this resource when you want to restrict DSC auto-correction to specific time
 | - monday
   - tuesday
   - wednesday
+  - thursday
   - friday
   - saturday
   - sunday

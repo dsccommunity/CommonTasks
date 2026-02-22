@@ -55,7 +55,7 @@ Use this resource when you need to define custom DHCP options beyond the standar
 
 | OptionId
 | Key
-| Number
+| UInt32
 | Option ID, specify an integer between 1 and 255.
 | [1, 255]
 
@@ -105,12 +105,6 @@ Currently only IPv4 is supported.
 |
 | String
 | Option description.
-|
-
-| DefaultValue
-|
-| String
-| Default value for the option.
 |
 
 | Ensure

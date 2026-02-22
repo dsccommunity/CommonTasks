@@ -31,7 +31,7 @@ When all replicas are on automatic seeding, no backup is made, unless the databa
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlagdatabase}
-                   
+
 |===
 
 
@@ -50,6 +50,13 @@ When all replicas are on automatic seeding, no backup is made, unless the databa
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlagdatabases_values, {YmlCategory}/Values]]<<dscyml_sqlagdatabases_values_details, Values>>
 | Mandatory
@@ -108,24 +115,24 @@ If the availability group is not currently on this server, the resource will att
 This should be a path that is accessible by all of the replicas.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the availability group database membership should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
 | Force
-| 
+|
 | Bool
-| When parameter *Ensure* is set to `Present` it ensures the specified database(s) are the only databases that are a member of the specified Availability Group. 
+| When parameter *Ensure* is set to `Present` it ensures the specified database(s) are the only databases that are a member of the specified Availability Group.
 
 This parameter is ignored when parameter *Ensure* is set to `Absent`.
 | - True
   - False
 
 | MatchDatabaseOwner
-| 
+|
 | Bool
 | If set to `True`, this ensures the database owner of the database on the primary replica is the owner of the database on all secondary replicas.
 This requires the database owner is available as a login on all replicas and that the *PsDscRunAsCredential* has impersonate any login, control server, impersonate login, or control login permissions.
@@ -135,7 +142,7 @@ If set to `False`, the owner of the database will be the username specified in *
   - *False* (default)
 
 | ReplaceExisting
-| 
+|
 | Bool
 | If set to `True`, this adds the restore option `WITH REPLACE`.
 
@@ -144,14 +151,14 @@ If set to `False`, existing databases and files will block the restore and throw
   - *False* (default)
 
 | ProcessOnlyOnActiveNode
-| 
+|
 | Bool
 | Specifies that the resource will only determine if a change is needed if the target node is the active host of the SQL Server instance.
 | - True
   - False
 
 | IsActiveNode
-| 
+|
 | Bool
 | Returns if the current node is actively hosting the SQL Server instance.
 | - True

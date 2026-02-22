@@ -36,7 +36,7 @@ Use this resource when you need to create DNS MX records that define which mail 
 | Allowed Values
 
 | [[dscyml_dnsservermxrecords_records, {YmlCategory}/Records]]<<dscyml_dnsservermxrecords_records_details, Records>>
-| Mandatory
+|
 | Hashtable[]
 | List of Mx DNS records
 |

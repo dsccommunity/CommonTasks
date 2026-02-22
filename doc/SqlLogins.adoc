@@ -28,7 +28,7 @@ Use this resource when you need to create SQL Server logins for users, service a
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqllogin}
-                   
+
 |===
 
 
@@ -51,6 +51,13 @@ Use this resource when you need to create SQL Server logins for users, service a
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqllogins_values, {YmlCategory}/Values]]<<dscyml_sqllogins_values_details, Values>>
 | Mandatory
@@ -99,10 +106,10 @@ The login types `Certificate`, `AsymmetricKey`, `ExternalUser`, and `ExternalGro
   - ExternalUser
   - ExternalGroup
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the login should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
@@ -123,17 +130,17 @@ Only applies to SQL Logins.
 |
 
 | LoginMustChangePassword
-| 
+|
 | Bool
 | Specifies if the login is required to have its password change on the next login.
 
-Only applies to SQL Logins. 
+Only applies to SQL Logins.
 This cannot be updated on a pre-existing SQL Login and any attempt to do this will throw an exception.
 | - *True* (default)
   - False
 
 | LoginPasswordExpirationEnabled
-| 
+|
 | Bool
 | Specifies if the login password is required to expire in accordance to the operating system security policy.
 
@@ -142,7 +149,7 @@ Only applies to SQL Logins.
   - False
 
 | LoginPasswordPolicyEnforced
-| 
+|
 | Bool
 | Specifies if the login password is required to conform to the password policy specified in the system security policy.
 
@@ -151,17 +158,17 @@ Only applies to SQL Logins.
   - False
 
 | Disabled
-| 
+|
 | Bool
 | Specifies if the login is disabled.
 | - True
   - *False* (default)
 
 | DefaultDatabase
-| 
+|
 | String
 | Specifies the default database name.
-| 
+|
 
 |===
 

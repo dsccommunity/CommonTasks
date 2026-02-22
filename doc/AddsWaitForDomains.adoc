@@ -77,7 +77,7 @@ Use this resource when your DSC configuration depends on an Active Directory dom
 | WaitTimeout
 |
 | UInt64
-| SpecifSpecifies the timeout in seconds that the resource will wait for the domain to be accessible.
+| Specifies the timeout in seconds that the resource will wait for the domain to be accessible.
 | Default: `300`
 
 | RestartCount

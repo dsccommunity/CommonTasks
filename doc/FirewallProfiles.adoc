@@ -37,7 +37,7 @@ Use this resource when you need to configure the overall state of Windows Firewa
 
 | [[dscyml_firewallprofiles_profile, {YmlCategory}/Profile]]<<dscyml_firewallprofiles_profile_details, Profile>>
 | Mandatory
-| hashtable
+| hashtable[]
 |
 |
 
@@ -128,7 +128,7 @@ Use this resource when you need to configure the overall state of Windows Firewa
 | DisabledInterfaceAliases
 |
 | String[]
-| Specifies a list of interfaces on which firewall settings are excluded.	
+| Specifies a list of interfaces on which firewall settings are excluded.
 |
 
 | Enabled
@@ -166,7 +166,7 @@ Use this resource when you need to configure the overall state of Windows Firewa
 | LogFileName
 |
 | String
-| Specifies the path and filename of the file to which Windows Server writes log entries.	
+| Specifies the path and filename of the file to which Windows Server writes log entries.
 |
 
 | LogIgnored
@@ -181,7 +181,7 @@ Use this resource when you need to configure the overall state of Windows Firewa
 |
 | UInt64
 | Specifies the maximum file size of the log, in kilobytes.
-| 1 - 32767	
+| 1 - 32767
 
 | NotifyOnListen
 |

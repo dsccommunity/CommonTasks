@@ -37,20 +37,20 @@ Use this resource when you need to set up and configure a WSUS server for centra
 | Allowed Values
 
 | [[dscyml_updateservices_server, {YmlCategory}/Server]]<<dscyml_updateservices_server_details, Server>>
-| 
+|
 | Hashtable
 | DSC resource to initialize and configure WSUS Server.
 |
 
 | [[dscyml_updateservices_cleanup, {YmlCategory}/Cleanup]]<<dscyml_updateservices_cleanup_details, Cleanup>>
-| 
+|
 | Hashtable
 | DSC resource to manage WSUS Cleanup task.
 |
 
 | [[dscyml_updateservices_approvalrules, {YmlCategory}/ApprovalRules]]<<dscyml_updateservices_approvalrules_details, ApprovalRules>>
-| 
-| Hashtable
+|
+| Hashtable[]
 | DSC resource to manage WSUS Approval Rules.
 |
 
@@ -88,7 +88,7 @@ Use this resource when you need to set up and configure a WSUS server for centra
 
 | ContentDir
 |
-| String 
+| String
 | Folder for WSUS update files.
 
 If specified the resource ensures that the path exists.
@@ -103,7 +103,7 @@ If specified the resource ensures that the path exists.
 
 | UpstreamServerName
 |
-| String 
+| String
 | Upstream WSUS server, omit for Microsoft Update.
 |
 
@@ -409,7 +409,7 @@ UpdateServices:
     CleanupLocalPublishedContentFiles: true
     TimeOfDay: 4
 
-  ApprovaleRules:
+  ApprovalRules:
     - Ensure: Present
       Name: Definition Updates
       Classifications:

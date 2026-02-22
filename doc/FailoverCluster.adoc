@@ -42,7 +42,7 @@ Use this resource when you need to set up a Windows Server Failover Cluster for 
 | Allowed Values
 
 | Name
-| Key
+| Mandatory
 | String
 | Name of the cluster
 |
@@ -224,7 +224,7 @@ The cluster network role can be set to either the value 0, 1 or 3.
 | String
 | The metric number for the cluster network.
 
-If the cluster network metric number is not in desired state it will be changed to match this metric number.	
+If the cluster network metric number is not in desired state it will be changed to match this metric number.
 |
 
 |===

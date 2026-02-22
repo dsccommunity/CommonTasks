@@ -39,7 +39,7 @@ You can manage the master servers, forwarder time-out, recursion, recursion scop
 | Allowed Values
 
 | [[dscyml_dnsserverconditionalforwarders_conditionalforwarders, {YmlCategory}/ConditionalForwarders]]<<dscyml_dnsserverconditionalforwarders_conditionalforwarders_details, ConditionalForwarders>>
-| Mandatory
+|
 | Hashtable[]
 | List of conditional forwarders
 |

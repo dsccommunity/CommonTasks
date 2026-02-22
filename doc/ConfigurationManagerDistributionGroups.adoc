@@ -21,7 +21,7 @@ Use this resource when you need to create and manage distribution point groups i
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ConfigurationManagerDistributionGroups
 | DSC Resource   | https://github.com/dsccommunity/ConfigMgrCBDsc[ConfigMgrCBDsc]
-| Documentation  | https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]           
+| Documentation  | https://github.com/dsccommunity/ConfigMgrCBDsc#resources[CMDistributionGroup]
 |===
 
 
@@ -41,7 +41,7 @@ Use this resource when you need to create and manage distribution point groups i
 |
 
 | [[dscyml_configurationmanagerdistributiongroups_distributiongroups, {YmlCategory}/DistributionGroups]]<<dscyml_configurationmanagerdistributiongroups_distributiongroups_details, DistributionGroups>>
-| 
+|
 | Hashtable[]
 | set of distribution groups
 |
@@ -59,10 +59,53 @@ Use this resource when you need to create and manage distribution point groups i
 | Description
 | Allowed Values
 
+| DistributionGroup
+| Key
+| String
+| The name of the distribution point group.
 |
+
+| Ensure
 |
+| String
+| Specifies whether the distribution point group should be present or absent.
+| - *Present* (default)
+  - Absent
+
+| DistributionPoints
 |
+| String[]
+| An array of distribution points to match to the distribution point group. (1:1 match)
 |
+
+| DistributionPointsToInclude
+|
+| String[]
+| An array of distribution points to add to the distribution point group.
+|
+
+| DistributionPointsToExclude
+|
+| String[]
+| An array of distribution points to remove from the distribution point group.
+|
+
+| SecurityScopes
+|
+| String[]
+| An array of security scopes to match to the distribution point group. (1:1 match)
+|
+
+| SecurityScopesToInclude
+|
+| String[]
+| An array of security scopes to add to the distribution point group.
+|
+
+| SecurityScopesToExclude
+|
+| String[]
+| An array of security scopes to remove from the distribution point group.
 |
 
 |===

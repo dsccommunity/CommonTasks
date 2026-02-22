@@ -22,7 +22,7 @@ Use this resource when you need to create site collections within SharePoint web
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointSites
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPSite[SPSite]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to create site collections within SharePoint web
 | Allowed Values
 
 | [[dscyml_sharepointsites_sites, {YmlCategory}/Sites]]<<dscyml_sharepointsites_sites_details, Sites>>
-| Mandatory
+|
 | Hashtable[]
 | set of sites
 |
@@ -67,7 +67,7 @@ Use this resource when you need to create site collections within SharePoint web
 [source, yaml]
 ----
 SharePointSites:
-  Sites:    
+  Sites:
     - Name: Contoso Content
       Url: https://content.contoso.com
       OwnerAlias: contoso\sp_setup

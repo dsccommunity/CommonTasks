@@ -34,10 +34,28 @@ Use this resource when you need to configure the Microsoft Monitoring Agent on t
 | Description
 | Allowed Values
 
+| WorkspaceId
+| Mandatory
+| String
+| Specifies the Workspace ID of the Log Analytics workspace to connect to.
 |
+
+| WorkspaceKey
+| Mandatory
+| PSCredential
+| Specifies the primary key of the Log Analytics workspace as a credential.
 |
+
+| ProxyUri
 |
+| String
+| Specifies the URI of a proxy server to use for the MMA agent connection.
 |
+
+| ProxyCredential
+|
+| PSCredential
+| Specifies the credentials to authenticate with the proxy server.
 |
 
 |===

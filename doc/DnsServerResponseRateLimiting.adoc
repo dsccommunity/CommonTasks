@@ -72,7 +72,7 @@ The error responses include: REFUSED, FORMERR and SERVFAIL
 | Specifies the maximum number of times that the server sends a client the same response within a one-second interval.
 |
 
-| [[dscyml_dnsserverresponseratelimiting_exceptions, {YmlCategory}/Records]]<<dscyml_dnsserverresponseratelimiting_exceptions_details, Records>>
+| [[dscyml_dnsserverresponseratelimiting_exceptions, {YmlCategory}/Exceptions]]<<dscyml_dnsserverresponseratelimiting_exceptions_details, Exceptions>>
 |
 | Hashtable[]
 | RRL exception lists on a DNS Server.
@@ -106,7 +106,7 @@ The value must have the following format: COMPARATOR, value1, value2,..., COMPAR
 There can be only one EQ and one NE in a value.
 
 See {ref_SetDnsServerResponseRateLimitingExceptionlist} for more details.
-| 
+|
 
 |===
 

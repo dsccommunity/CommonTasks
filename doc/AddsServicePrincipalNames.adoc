@@ -39,7 +39,7 @@ This allows a client application to request that the service authenticate an acc
 | Allowed Values
 
 | [[dscyml_addsserviceprincipalnames_serviceprincipalnames, {YmlCategory}/ServicePrincipalNames]]<<dscyml_addsserviceprincipalnames_serviceprincipalnames_details, ServicePrincipalNames>>
-| Mandatory
+|
 | Hashtable[]
 | The list of service principal name to configure.
 |
@@ -72,7 +72,7 @@ If `Ensure` is set to `Present`, a value must be specified.
 | Default: ''
 
 | Ensure
-| 
+|
 | String
 | Specifies if the service principal name should be added or removed.
 | - *Present* (default)

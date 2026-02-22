@@ -36,9 +36,9 @@ Use this resource when you need to create DNS alias records that point one hostn
 | Allowed Values
 
 | [[dscyml_dnsservercnamerecords_records, {YmlCategory}/Records]]<<dscyml_dnsservercnamerecords_records_details, Records>>
-| Mandatory
+|
 | Hashtable[]
-| List of A DNS records
+| List of CNAME DNS records
 |
 
 |===

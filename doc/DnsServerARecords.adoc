@@ -36,7 +36,7 @@ Use this resource when you need to create or manage DNS A records that map hostn
 | Allowed Values
 
 | [[dscyml_dnsserverarecords_records, {YmlCategory}/Records]]<<dscyml_dnsserverarecords_records_details, Records>>
-| Mandatory
+|
 | Hashtable[]
 | List of A DNS records
 |
@@ -68,7 +68,7 @@ Use this resource when you need to create or manage DNS A records that map hostn
 
 | IPv4Address
 | Key
-|
+| String
 | Specifies the IPv4 address of a host.
 |
 

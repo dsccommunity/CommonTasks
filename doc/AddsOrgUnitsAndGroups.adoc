@@ -36,7 +36,7 @@ Use this resource when you need to create the OU hierarchy and security/distribu
 | Allowed Values
 
 | [[dscyml_addsorgunitsandgroups_domaindn, DomainDn]]DomainDn
-|
+| Mandatory
 | String
 | Distinguished Name (DN) of the domain.
 |
@@ -75,7 +75,7 @@ Use this resource when you need to create the OU hierarchy and security/distribu
 | Path
 | Key
 | String
-| The name of the Organizational Unit (OU).
+| The Distinguished Name (DN) of the parent container for the Organizational Unit (OU).
 | Default: <<dscyml_addsorgunitsandgroups_domaindn>>
 
 | ChildOu

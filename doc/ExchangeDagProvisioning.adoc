@@ -34,10 +34,77 @@ Use this resource when you need to create and configure an Exchange DAG for high
 | Description
 | Allowed Values
 
+| ShellCreds
+| Mandatory
+| PSCredential
+| Exchange Management Shell credentials
 |
+
+| DagName
+| Mandatory
+| String
+| Name of the Database Availability Group
 |
+
+| AutoDagTotalNumberOfServers
+| Mandatory
+| Int
+| Total number of servers in the DAG
 |
+
+| AutoDagDatabaseCopiesPerVolume
+| Mandatory
+| Int
+| Number of database copies per volume
 |
+
+| AutoDagDatabasesRootFolderPath
+| Mandatory
+| String
+| Root folder path for databases
+|
+
+| AutoDagVolumesRootFolderPath
+| Mandatory
+| String
+| Root folder path for volumes
+|
+
+| DatacenterActivationMode
+| Mandatory
+| String
+| The datacenter activation mode
+| - Off
+  - DagOnly
+
+| WitnessServer
+| Mandatory
+| String
+| The witness server for the DAG
+|
+
+| WitnessDirectory
+| Mandatory
+| String
+| The witness directory path
+|
+
+| ReplayLagManagerEnabled
+|
+| Boolean
+| Whether Replay Lag Manager is enabled
+|
+
+| SkipDagValidation
+|
+| Boolean
+| Whether to skip DAG validation
+|
+
+| FirstDagMemberName
+| Mandatory
+| String
+| Name of the first DAG member server
 |
 
 |===

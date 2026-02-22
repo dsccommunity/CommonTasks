@@ -64,6 +64,12 @@ Use this resource when you need to deploy a DSC Pull Server that serves as a cen
 |
 | Default: $false
 
+| AcceptSelfSignedCertificates
+|
+| bool
+|
+| Default: $false
+
 |===
 
 .Example

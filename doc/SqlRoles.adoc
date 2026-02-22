@@ -34,7 +34,7 @@ This is done to keep the DSC resource from throwing an error since SQL Server do
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlrole}
-                   
+
 |===
 
 
@@ -52,6 +52,13 @@ This is done to keep the DSC resource from throwing an error since SQL Server do
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlroles_values, {YmlCategory}/Values]]<<dscyml_sqlroles_values_details, Values>>
 | Mandatory
@@ -119,10 +126,10 @@ Can only be used when parameter *Ensure* is set to `Present`.
 Can not be used at the same time as parameter Members.
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the role should be added (`Present`) or removed (`Absent`).
 | - *Present*
   - Absent
 

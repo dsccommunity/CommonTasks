@@ -35,11 +35,25 @@ Use this resource when you need to configure Remote Desktop licensing for your R
 | Description
 | Allowed Values
 
+| ConnectionBroker
+| Mandatory
+| String
+| Specifies the RD Connection Broker server for the Remote Desktop deployment.
 |
+
+| LicenseServer
 |
+| String
+| Specifies the RDS license server. Defaults to the current node name.
 |
-|
-|
+
+| LicenseMode
+| Mandatory
+| String
+| Specifies the licensing mode for the RDS deployment.
+| - PerUser
+  - PerDevice
+  - NotConfigured
 
 |===
 

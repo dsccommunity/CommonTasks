@@ -21,7 +21,7 @@ Use this resource when you need to track which DSC configuration version, enviro
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DscTagging
-| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration], 
+| DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration],
                    https://docs.microsoft.com/en-us/powershell/module/psdesiredstateconfiguration/?view=powershell-7[PSDesiredStateConfiguration]
 | Documentation  | https://github.com/dsccommunity/xPSDesiredStateConfiguration#xregistry[xRegistry]
 |===
@@ -41,6 +41,12 @@ Use this resource when you need to track which DSC configuration version, enviro
 | DSC configuration version
 |
 
+| BuildNumber
+|
+| Int
+| Build number of the DSC configuration
+|
+
 | Environment
 | Mandatory
 | String
@@ -48,26 +54,26 @@ Use this resource when you need to track which DSC configuration version, enviro
 |
 
 | NodeVersion
-| 
-| System.Version
+|
+| String
 | Optional node specific DSC configuration version
 |
 
 | NodeRole
-| 
+|
 | String
 | Role of the node
 |
 
 | DisableGitCommitId
-| 
+|
 | Boolean
 | Disable export of git commit id
 | - True
   - *False* (default)
 
 | Layers
-| 
+|
 | String[]
 | List of used layers (YAML files) for each node
 |
@@ -138,7 +144,7 @@ DscTagging:
 ----
 Configurations:
   - DscTagging
-  
+
 DscTagging:
   Version: 0.3.0
   Layers:
@@ -151,7 +157,7 @@ DscTagging:
 ----
 Configurations:
   - DscTagging
-  
+
 DscTagging:
   Version:     0.3.0
   Environment: Dev

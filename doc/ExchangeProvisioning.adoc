@@ -36,10 +36,62 @@ Use this resource when you need to perform a fresh installation of Exchange Serv
 | Description
 | Allowed Values
 
+| Role
 |
+| String
+| Exchange server role to install
+| - *Mailbox* (default)
+  - EdgeTransport
+  - ManagementTools
+
+| Mode
 |
+| String
+| Installation mode
+| - *Install* (default)
+  - Uninstall
+  - Upgrade
+
+| TargetDir
 |
+| String
+| Target installation directory
 |
+
+| OrganizationName
+| Mandatory
+| String
+| The Exchange organization name
+|
+
+| InstallCreds
+| Mandatory
+| PSCredential
+| Credentials for Exchange installation
+|
+
+| DomainController
+|
+| String
+| The domain controller to use
+|
+
+| ProductKey
+|
+| String
+| The Exchange product key
+|
+
+| IsoFilePath
+| Mandatory
+| String
+| Path to the Exchange installation ISO file
+|
+
+| IsoDriveLetter
+| Mandatory
+| String
+| Drive letter to mount the ISO to
 |
 
 |===

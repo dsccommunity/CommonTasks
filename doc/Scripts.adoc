@@ -24,8 +24,8 @@ Use this resource as a last resort when no dedicated DSC resource exists for wha
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/Scripts
 | DSC Resource   | https://github.com/dsccommunity/xPSDesiredStateConfiguration[xPSDesiredStateConfiguration]
-| Documentation  | {ref_xpsdesiredstateconfiguration_xscript} 
-                   
+| Documentation  | {ref_xpsdesiredstateconfiguration_xscript}
+
 |===
 
 
@@ -39,7 +39,7 @@ Use this resource as a last resort when no dedicated DSC resource exists for wha
 | Allowed Values
 
 | [[dscyml_scripts_items, {YmlCategory}/Items]]<<dscyml_scripts_items_details, Items>>
-| 
+| Mandatory
 | hashtable[]
 | The {ref_xpsdesiredstateconfiguration_xscript} DSC resource provides a mechanism to run PowerShell script blocks on a target node..
 |
@@ -74,7 +74,7 @@ You can access these parameters with the variable `$params` in your script block
 |
 | String
 | A string that can be used to create a PowerShell script block that retrieves the current state of the resource.
-  This script block runs when the Get-DscConfiguration cmdlet is called. 
+  This script block runs when the Get-DscConfiguration cmdlet is called.
   This script block should return a hash table containing one key named Result with a string value.
 
 If the `GetScript` attribute is empty or missing a default script `@{ Result = 'N/A' }` is generated.
@@ -85,7 +85,7 @@ If the `GetScript` attribute is empty or missing a default script `@{ Result = '
 | String
 | A string that can be used to create a PowerShell script block that sets the resource to the desired state.
   This script block runs conditionally when the Start-DscConfiguration cmdlet is called.
-  The TestScript script block will run first. 
+  The TestScript script block will run first.
   If the TestScript block returns False, this script block will run.
   If the TestScript block returns True, this script block will not run.
   This script block should not return.

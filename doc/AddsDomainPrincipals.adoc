@@ -41,7 +41,7 @@ Use this resource when you need to create or manage AD user accounts, computer a
 | Allowed Values
 
 | [[dscyml_addsdomainprincipals_domaindn, DomainDn]]DomainDn
-|
+| Mandatory
 | String
 | Distinguished Name (DN) of the domain.
 |

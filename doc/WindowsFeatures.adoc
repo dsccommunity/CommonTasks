@@ -58,6 +58,13 @@ This is the same as the Name property from the `Get-WindowsFeature` cmdlet, and 
 | List windows features with additional properties
 |
 
+| UseLegacyResource
+|
+| Boolean
+| Indicates if the resource `WindowsFeature` should be used instead of the `xWindowsFeature` resource for all features specified in `Names`.
+| - *false* (default)
+  - true
+
 |===
 
 

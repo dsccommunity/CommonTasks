@@ -28,7 +28,7 @@ Use this resource when you need to create the client-facing network endpoint for
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlaglistener}
-                   
+
 |===
 
 
@@ -48,6 +48,13 @@ Use this resource when you need to create the client-facing network endpoint for
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_SqlAGListeners_Values, {YmlCategory}/Values]]<<dscyml_SqlAGListeners_Values_Details, Values>>
 | Mandatory
@@ -88,10 +95,10 @@ Use this resource when you need to create the client-facing network endpoint for
 This name will be used as the Virtual Computer Object (VCO).
 |
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the availability group listener should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
@@ -102,8 +109,8 @@ This name will be used as the Virtual Computer Object (VCO).
 |
 
 | IpAddress
-| 
-| Stringp[]
+|
+| String[]
 | The IP address used for the availability group listener, in the format `192.168.10.45/255.255.252.0`.
 
 If using DHCP, set to the first IP-address of the DHCP subnet, in the format `192.168.8.1/255.255.252.0`.
@@ -111,13 +118,13 @@ Must be valid in the cluster-allowed IP range.
 |
 
 | Port
-| 
+|
 | UInt16
 | The port used for the availability group listener.
-| 
+|
 
 | DHCP
-| 
+|
 | Bool
 | If DHCP should be used for the availability group listener instead of static IP address.
 | - True

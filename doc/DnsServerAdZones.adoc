@@ -36,7 +36,7 @@ Use this resource when you need to create or configure AD-integrated DNS zones. 
 | Allowed Values
 
 | [[dscyml_dnsserveradzones_adzones, {YmlCategory}/AdZones]]<<dscyml_dnsserveradzones_adzones_details, AdZones>>
-| Mandatory
+|
 | Hashtable[]
 | List of AD integrated zones
 |
@@ -71,7 +71,7 @@ This parameter can only be used when you also are passing a value for the Comput
 | DynamicUpdate
 |
 | String
-| AD zone dynamic DNS update option. 
+| AD zone dynamic DNS update option.
 | - None
   - NonSecureAndSecure
   - *Secure* (default)

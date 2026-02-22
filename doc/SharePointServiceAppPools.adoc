@@ -22,7 +22,7 @@ Use this resource when you need to create IIS application pools for SharePoint s
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointServiceAppPools
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPServiceAppPool[SPServiceAppPool]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to create IIS application pools for SharePoint s
 | Allowed Values
 
 | [[dscyml_sharepointserviceapppools_serviceapppools, {YmlCategory}/ServiceAppPools]]<<dscyml_sharepointserviceapppools_serviceapppools_details, ServiceAppPools>>
-| Mandatory
+|
 | Hashtable[]
 | set of service app pools
 |

@@ -34,10 +34,10 @@ Use this resource when you need to create and configure mailbox databases on Exc
 | Description
 | Allowed Values
 
-|
-|
-|
-|
+| Items
+| Mandatory
+| Hashtable[]
+| List of mailbox database configurations
 |
 
 |===

@@ -22,7 +22,7 @@ Use this resource when you need to register domain accounts that SharePoint will
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedAccounts
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedAccount[SPManagedAccount]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to register domain accounts that SharePoint will
 | Allowed Values
 
 | [[dscyml_sharepointmanagedaccounts_managedaccounts, {YmlCategory}/ManagedAccounts]]<<dscyml_sharepointmanagedaccounts_managedaccounts_details, ManagedAccounts>>
-| Mandatory
+|
 | Hashtable[]
 | set of managed accounts
 |

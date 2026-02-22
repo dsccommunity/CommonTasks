@@ -22,7 +22,7 @@ Use this resource when you need to define the URL paths available for site colle
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointManagedPaths
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPManagedPath[SPManagedPath]
-                   
+
 |===
 
 
@@ -36,9 +36,9 @@ Use this resource when you need to define the URL paths available for site colle
 | Allowed Values
 
 | [[dscyml_sharepointmanagedpaths_managedpaths, {YmlCategory}/ManagedPaths]]<<dscyml_sharepointmanagedpaths_managedpaths_details, ManagedPaths>>
-| Mandatory
+|
 | Hashtable[]
-| set of managed accounts
+| set of managed paths
 |
 
 |===

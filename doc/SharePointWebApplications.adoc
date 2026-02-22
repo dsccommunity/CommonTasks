@@ -22,7 +22,7 @@ Use this resource when you need to create SharePoint web applications that host 
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointWebApplications
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPWebApplication[SPWebApplication]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to create SharePoint web applications that host 
 | Allowed Values
 
 | [[dscyml_sharepointwebapplications_webapplications, {YmlCategory}/WebApplications]]<<dscyml_sharepointwebapplications_webapplications_details, WebApplications>>
-| Mandatory
+|
 | Hashtable[]
 | set of web applications
 |

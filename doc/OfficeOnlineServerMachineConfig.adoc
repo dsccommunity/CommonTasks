@@ -34,10 +34,23 @@ Use this resource when you need to add a server to an Office Online Server farm 
 | Description
 | Allowed Values
 
+| Ensure
 |
+| String
+| Specifies whether the server should be joined to or removed from the farm.
+| - *Present* (default)
+  - Absent
+
+| Roles
 |
+| String[]
+| Specifies one or more server roles to assign to the server.
 |
-|
+
+| MachineToJoin
+| Mandatory
+| String
+| Specifies the name of an existing server that is already a member of the Office Online Server farm.
 |
 
 |===

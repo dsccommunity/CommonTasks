@@ -39,7 +39,7 @@ Use this resource when you need to define or modify the AD replication topology 
 | Allowed Values
 
 | [[dscyml_addssitelinks_sitelinks, {YmlCategory}/SiteLinks]]<<dscyml_addssitelinks_sitelinks_details, SiteLinks>>
-| Mandatory
+|
 | Hashtable[]
 | The list of site links to configure.
 |
@@ -115,7 +115,7 @@ Use this resource when you need to define or modify the AD replication topology 
   - *False* (default)
 
 | Ensure
-| 
+|
 | String
 | Specifies if the site link should be present or absent.
 | - *Present* (default)

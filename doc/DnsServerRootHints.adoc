@@ -36,11 +36,11 @@ Use this resource when you need to configure or update the root hints (root DNS 
 | Allowed Values
 
 | RootHints
-| Mandatory
-| Hashtable[]
+|
+| Hashtable
 | Set of root hints.
 
-- Each hashtable defines a name server. 
+- Each hashtable defines a name server.
 - Key and value must be strings.
 |
 

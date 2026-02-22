@@ -39,7 +39,7 @@ Use this resource when you need to configure event log settings like maximum log
 | Allowed Values
 
 | [[dscyml_windowseventlogs_logs, {YmlCategory}/Logs]]<<dscyml_windowseventlogs_logs_details, Logs>>
-|
+| Mandatory
 | Hashtable[]
 | Set of {ref_WindowsEventLogs}
 |
@@ -71,7 +71,7 @@ Use this resource when you need to configure event log settings like maximum log
   - False
 
 | MaximumSizeInBytes
-| 
+|
 | System.Int64
 | Specifies the given maximum size in bytes for a specified Windows Event Log
 | >= 1028KB

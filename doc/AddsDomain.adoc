@@ -44,7 +44,7 @@ Use this resource when you need to set up a brand-new Active Directory forest or
 |
 
 | [[dscyml_addsdomain_domainname, AddsDomain/DomainName]]DomainName
-| Key
+| Mandatory
 | String
 | NetBIOS name for the new domain.
 |
@@ -99,6 +99,13 @@ Use this resource when you need to set up a brand-new Active Directory forest or
 |
 | Boolean
 | https://docs.microsoft.com/de-de/microsoft-identity-manager/pam/privileged-identity-management-for-active-directory-domain-services[MIM Privileged Access Management (PAM)] is a solution that helps organizations restrict privileged access within an existing and isolated Active Directory environment.
+| - True
+  - *False* (default)
+
+| Enable32KDatabasePages
+|
+| Boolean
+| Enables or disables the 32K database pages optional feature for the Active Directory forest.
 | - True
   - *False* (default)
 

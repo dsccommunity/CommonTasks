@@ -142,12 +142,6 @@ If you set this value to Known, a computer must be prestaged in active directory
 | Subnet mask for the scope specified in IP address format
 |
 
-| SubnetMask
-|
-| String
-| Subnet mask for the scope specified in IP address format
-|
-
 | DomainName
 |
 | String

@@ -22,7 +22,7 @@ Use this resource when you need to install SCOM components such as the Managemen
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/ScomComponents
 | DSC Resource   | https://github.com/nyanhp/cScom[cScom]
 | Documentation  | https://github.com/nyanhp/cScom/blob/main/cScom/resources/JHP_ScomComponent.ps1[ScomComponent]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to install SCOM components such as the Managemen
 | Allowed Values
 
 | [[dscyml_scomcomponents_components, {YmlCategory}/Components]]<<dscyml_scomcomponents_components_details, Components>>
-| Mandatory
+|
 | Hashtable[]
 | set of SCOM components
 |

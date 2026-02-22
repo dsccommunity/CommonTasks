@@ -35,7 +35,7 @@ Use this resource when you need to create IIS websites with specific bindings (p
 | Allowed Values
 
 | [[dscyml_websites_items, {YmlCategory}/Items]]<<dscyml_websites_items_details, Items>>
-|
+| Mandatory
 | Hashtable[]
 | IIS Web Sites
 |
@@ -61,7 +61,7 @@ Use this resource when you need to create IIS websites with specific bindings (p
 
 | SiteId
 |
-| UInt32 
+| UInt32
 | Optional. The desired IIS site Id for the website.
 |
 
@@ -86,7 +86,7 @@ Use this resource when you need to create IIS websites with specific bindings (p
   - *Protocol*: The protocol of the binding. This property is required. The acceptable values for this property are: http, https, msmq.formatname, net.msmq, net.pipe, net.tcp.
 
   - *BindingInformation*: The binding information in the form a colon-delimited string that includes the IP address, port, and host name of the binding. This property is ignored for http and https bindings if at least one of the following properties is specified: IPAddress, Port, HostName.
-  
+
   - *IPAddress*: The IP address of the binding. This property is only applicable for http and https bindings. The default value is *.
 
   - *Port*: The port of the binding. The value must be a positive integer between 1 and 65535. This property is only applicable for http (the default value is 80) and https (the default value is 443) bindings.
@@ -100,7 +100,7 @@ Use this resource when you need to create IIS websites with specific bindings (p
   - *CertificateStoreName*: The name of the certificate store where the certificate is located. This property is only applicable for https bindings. The acceptable values for this property are: My, WebHosting. The default value is My.
 
   - *SslFlags*: The type of binding used for Secure Sockets Layer (SSL) certificates. This property is supported in IIS 8.0 or later, and is only applicable for https bindings. The acceptable values for this property are:
-    
+
     * 0: The default value. The secure connection be made using an IP/Port combination. Only one certificate can be bound to a combination of IP address and the port.
     * 1: The secure connection be made using the port number and the host name obtained by using Server Name Indication (SNI). It allows multiple secure websites with different certificates to use the same IP address.
     * 2: The secure connection be made using the Centralized Certificate Store without requiring a Server Name Indication.
@@ -212,7 +212,7 @@ The values that are allowed for this property are: Hourly,Daily,Weekly,Monthly,M
 |
 | How large the file should be before it is truncated.
 
-If this is set then LogPeriod will be ignored if passed in and set to MaxSize. 
+If this is set then LogPeriod will be ignored if passed in and set to MaxSize.
 The value must be a valid integer between 1048576 (1MB) and 4294967295 (4GB).
 | 1MB - 4GB
 

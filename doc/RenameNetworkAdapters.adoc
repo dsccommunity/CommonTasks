@@ -35,16 +35,35 @@ Use this resource when you need to assign consistent, meaningful names to networ
 | Description
 | Allowed Values
 
+| [[dscyml_renamenetworkadapters_adapters, {YmlCategory}/Adapters]]<<dscyml_renamenetworkadapters_adapters_details, Adapters>>
+| Mandatory
+| Hashtable[]
+| Set of network adapters to rename.
+|
+
+|===
+
+
+[[dscyml_renamenetworkadapters_adapters_details]]
+.Attributes of category '<<dscyml_renamenetworkadapters_adapters>>'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
 | Name
 |
 | String
-| Old name of the network adapter
+| Old name of the network adapter.
 |
 
 | NewName
 |
 | String
-| New name of the network adapter
+| New name of the network adapter.
 |
 
 |===

@@ -41,11 +41,9 @@ So you can create all VM definitions at the beginning, install Windows Updates, 
 | Allowed Values
 
 | [[dscyml_hypervstate_vmmachines, {YmlCategory}/VMMachines]]<<dscyml_hypervstate_vmmachines_details, VMMachines>>
-|
+| Mandatory
 | Hashtable[]
 | Set of virtual machines
-
-*Only Generation 2 machines are supported!*
 |
 
 |===

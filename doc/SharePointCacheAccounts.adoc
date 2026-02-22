@@ -22,7 +22,7 @@ Use this resource when you need to configure the SharePoint object cache account
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointCacheAccounts
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPCacheAccounts[SPCacheAccounts]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to configure the SharePoint object cache account
 | Allowed Values
 
 | [[dscyml_sharepointcacheaccounts_cacheaccounts, {YmlCategory}/CacheAccounts]]<<dscyml_sharepointcacheaccounts_cacheaccounts_details, CacheAccounts>>
-| Mandatory
+|
 | Hashtable[]
 | set of cache accounts
 |

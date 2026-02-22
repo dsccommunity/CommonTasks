@@ -22,7 +22,7 @@ Use this resource when you need to create, configure, or manage content database
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/SharePointContentDatabases
 | DSC Resource   | https://github.com/dsccommunity/SharePointDsc[SharePointDsc]
 | Documentation  | https://github.com/dsccommunity/SharePointDsc/tree/master/SharePointDsc/DSCResources/MSFT_SPContentDatabase[SPContentDatabase]
-                   
+
 |===
 
 
@@ -36,7 +36,7 @@ Use this resource when you need to create, configure, or manage content database
 | Allowed Values
 
 | [[dscyml_sharepointcontentdatabases_contentdatabases, {YmlCategory}/ContentDatabases]]<<dscyml_sharepointcontentdatabases_contentdatabases_details, ContentDatabases>>
-| Mandatory
+|
 | Hashtable[]
 | set of content databases
 |

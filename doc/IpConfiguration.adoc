@@ -29,10 +29,10 @@ Use this resource when you need to set static IP configurations on network adapt
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/IpConfiguration
 | DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
-| Documentation  | {ref_networkingdsc_netadaptername}, 
-                   {ref_networkingdsc_netadapterstate}, 
-                   {ref_networkingdsc_ipaddress}, 
-                   {ref_networkingdsc_defaultgatewayaddress}, 
+| Documentation  | {ref_networkingdsc_netadaptername},
+                   {ref_networkingdsc_netadapterstate},
+                   {ref_networkingdsc_ipaddress},
+                   {ref_networkingdsc_defaultgatewayaddress},
                    {ref_networkingdsc_dnsserveraddress}
 |===
 
@@ -48,7 +48,7 @@ Use this resource when you need to set static IP configurations on network adapt
 
 | [[dscyml_ipconfiguration_adapter, {YmlCategory}/Adapter]]<<dscyml_ipconfiguration_adapter_details, Adapter>>
 |
-| hashtable
+| Hashtable[]
 | List of network adapters
 |
 
@@ -81,7 +81,7 @@ Use this resource when you need to set static IP configurations on network adapt
 |
 
 | [[ref_ipconfiguration_ipaddress, IPAddress]]IPAddress
-| 
+|
 | String
 | The desired IP address, optionally including prefix length using CIDR notation. +
   See {ref_networkingdsc_ipaddress}
@@ -103,12 +103,12 @@ Use this resource when you need to set static IP configurations on network adapt
 |
 
 | [[ref_ipconfiguration_dnsserveraddress, DnsServerAddress]]DnsServerAddress
-| 
+|
 | StringArray
 | The desired DNS Server address(es).
   Exclude to enable DHCP. +
   See {ref_networkingdsc_dnsserveraddress}
-| 
+|
 
 |===
 

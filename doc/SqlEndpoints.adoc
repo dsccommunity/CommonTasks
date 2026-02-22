@@ -33,7 +33,7 @@ To set connect permission to the endpoint, please use the resource `SqlEndpointP
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlendpoint}
-                   
+
 |===
 
 
@@ -51,6 +51,13 @@ To set connect permission to the endpoint, please use the resource `SqlEndpointP
 | DataType
 | Description
 | Allowed Values
+
+| DefaultInstanceName
+|
+| String
+| Default SQL InstanceName +
+  If the `InstanceName` of a value is not explicitly set, the `DefaultInstanceName` will be used.
+| Default: `MSSQLSERVER`
 
 | [[dscyml_sqlendpoints_values, {YmlCategory}/Values]]<<dscyml_sqlendpoints_values_details, Values>>
 | Mandatory
@@ -92,15 +99,15 @@ Currently the only types that are supported are the Database Mirroring and the S
 | - DatabaseMirroring
   - ServiceBroker
 
-| Enure
+| Ensure
 |
 | String
-| Determines whether the alias should be added (`Present`) or removed (`Absent`).
+| Determines whether the endpoint should be added (`Present`) or removed (`Absent`).
 | - *Present* (default)
   - Absent
 
 | Port
-| 
+|
 | UInt16
 | The network port the endpoint is listening on.
 
@@ -125,28 +132,28 @@ The default value is only used during endpoint creation, it is not enforce.
 | Default: `0.0.0.0`
 
 | Owner
-| 
+|
 | String
 | The owner of the endpoint.
 
 Default is the login used for the creation.
-| 
+|
 
 | IsMessageForwardingEnabled
-| 
+|
 | Bool
 | Specifies whether messages received by this endpoint that are for services located elsewhere will be forwarded.
 | - True
   - False
 
 | MessageForwardingSize
-| 
+|
 | UInt32
 | Specifies the maximum amount of storage in megabytes to allocate for the endpoint to use when storing messages that are to be forwarded.
-| 
+|
 
 | State
-| 
+|
 | String
 | Specifies the state of the endpoint.
 

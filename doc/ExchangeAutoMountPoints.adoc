@@ -34,11 +34,79 @@ Use this resource when you need to set up the disk mount point structure for Exc
 | Description
 | Allowed Values
 
+| Identity
 |
+| String
+| The server identity (defaults to node name)
 |
+
+| AutoDagDatabasesRootFolderPath
+| Mandatory
+| String
+| The root folder path for Exchange databases
 |
+
+| AutoDagVolumesRootFolderPath
+| Mandatory
+| String
+| The root folder path for Exchange volumes
 |
+
+| DiskToDBMap
+| Mandatory
+| String[]
+| The disk to database mapping
 |
+
+| SpareVolumeCount
+| Mandatory
+| UInt32
+| The number of spare volumes to keep available
+|
+
+| EnsureExchangeVolumeMountPointIsLast
+|
+| Boolean
+| Ensure Exchange volume mount point is last
+| Default: `$false`
+
+| CreateSubfolders
+|
+| Boolean
+| Whether to create subfolders
+| Default: `$false`
+
+| FileSystem
+|
+| String
+| The file system to use
+| - *NTFS* (default)
+  - REFS
+
+| MinDiskSize
+|
+| String
+| Minimum disk size
+|
+
+| PartitioningScheme
+|
+| String
+| The partitioning scheme to use
+| - MBR
+  - *GPT* (default)
+
+| UnitSize
+|
+| String
+| The allocation unit size
+| Default: `64K`
+
+| VolumePrefix
+|
+| String
+| The volume prefix
+| Default: `EXVOL`
 
 |===
 

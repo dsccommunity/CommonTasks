@@ -35,7 +35,7 @@ Use this resource when you need to register internal or custom PowerShell reposi
 | Allowed Values
 
 | [[dscyml_powershellrepositories_repositories, {YmlCategory}/Repositories]]<<dscyml_powershellrepositories_repositories_details, Repositories>>
-| Mandatory
+|
 | Hashtable[]
 | set of Powershell repositories
 |

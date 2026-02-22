@@ -19,7 +19,7 @@ Use this resource when you need to change or remove the drive letter of an optic
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/MountImages
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/OpticalDiskDrives
 | DSC Resource   | https://github.com/dsccommunity/StorageDsc[StorageDSC]
 | Documentation  | https://github.com/dsccommunity/StorageDsc/wiki/OpticalDiskDriveLetter[OpticalDiskDriveLetter]
 |===

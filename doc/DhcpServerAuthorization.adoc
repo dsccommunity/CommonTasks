@@ -54,7 +54,7 @@ IMPORTANT: This resource must run on an Active Directory domain controller.
 | String
 | Whether the DHCP server should be authorized within Active Directory
 | - *Present* (default)
-  - Removed
+  - Absent
 
 |===
 

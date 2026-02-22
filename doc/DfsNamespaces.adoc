@@ -42,9 +42,9 @@ Use this resource when you need to set up a DFS namespace for unified file share
 |
 
 | NamespaceConfig
-|
+| Mandatory
 | Hashtable[]
-|
+| List of DFS namespace configurations to manage
 |
 
 |===

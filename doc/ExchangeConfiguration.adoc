@@ -34,10 +34,40 @@ Use this resource when you need to configure Exchange Server client access URLs 
 | Description
 | Allowed Values
 
+| ShellCreds
 |
+| PSCredential
+| Exchange Management Shell credentials
 |
+
+| CertCreds
 |
+| PSCredential
+| Certificate credentials
 |
+
+| FileCopyCreds
+|
+| PSCredential
+| File copy credentials
+|
+
+| ExternalNamespace
+| Mandatory
+| String
+| The external namespace for Exchange
+|
+
+| InternalNamespace
+| Mandatory
+| String
+| The internal namespace for Exchange
+|
+
+| AutoDiscoverSiteScope
+| Mandatory
+| String
+| The AutoDiscover site scope
 |
 
 |===

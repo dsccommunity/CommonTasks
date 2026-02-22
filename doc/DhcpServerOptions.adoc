@@ -19,7 +19,7 @@ Use this resource when you need to set DHCP options that apply to all scopes on 
 
 [cols="1,3a" options="autowidth" caption=]
 |===
-| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpScopeOptions
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DhcpServerOptions
 | DSC Resource   | https://github.com/dsccommunity/DhcpServerDsc[DhcpServerDsc]
 | Documentation  | https://github.com/dsccommunity/DhcpServerDsc/wiki/DhcpServerOptionValue[DhcpServerOptionValue]
 |===
@@ -55,7 +55,7 @@ Use this resource when you need to set DHCP options that apply to all scopes on 
 
 | OptionId
 | Key
-| Number
+| UInt32
 | Option ID, specify an integer between 1 and 255.
 | [1, 255]
 

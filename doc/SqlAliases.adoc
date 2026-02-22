@@ -28,7 +28,7 @@ Use this resource when you need to create SQL Server connection aliases on clien
 | DSC Resource   | https://github.com/dsccommunity/SqlServerDsc[SqlServerDsc]
 | Documentation  | - {ref_sqlserverdsc_wiki}
                    - {ref_sqlserverdsc_sqlalias}
-                   
+
 |===
 
 
@@ -106,7 +106,7 @@ The port number specified in *Port* will be ignored.
 | - True
   - *False* (default)
 
-| Enure
+| Ensure
 |
 | String
 | Determines whether the alias should be added (`Present`) or removed (`Absent`).

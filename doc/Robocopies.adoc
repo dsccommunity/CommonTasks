@@ -99,7 +99,7 @@ Use this resource when you need to synchronize files or folders between location
 
 | MultiThreaded
 |
-|
+| Boolean
 | Do multi-threaded copies with n threads (default 8).
 
 N must be at least 1 and not greater than 128.

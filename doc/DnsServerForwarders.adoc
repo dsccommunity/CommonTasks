@@ -52,23 +52,6 @@ If you set UseRootHint to `False`, the DNS server forwards unresolved queries on
 | - True
   - False
 
-| EnableReordering
-|
-| Boolean
-| Specifies whether to enable the DNS server to reorder forwarders dynamically.
-
-If the parameter EnableReordering is set to `False` then the preferred forwarder can be put in the series of forwarder IP addresses.
-| - True
-  - False
-
-| Timeout
-|
-| UInt32
-| Specifies the number of seconds that the DNS server waits for a response from the forwarder.
-
-The minimum value is 0, and the maximum value is 15.
-| 0 ... 15
-
 |===
 
 
