@@ -1,0 +1,95 @@
+// CommonTasks YAML Reference: DfsReplicationGroupMembers
+// =======================================================
+
+:YmlCategory: DfsReplicationGroupMembers
+
+:abstract:    {YmlCategory} configures DFS Replication Group members.
+
+[#dscyml_dfsreplicationgroupmembers, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dfsreplicationgroupmembers_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DfsReplicationGroupMembers
+| DSC Resource   | https://github.com/dsccommunity/DFSDsc[DFSDsc]
+| Documentation  | https://github.com/dsccommunity/DFSDsc/wiki/DFSReplicationGroupMember[DFSReplicationGroupMember]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Items
+| Mandatory
+| Hashtable[]
+| List of DFS Replication Group member items.
+|
+
+|===
+
+
+.Attributes of category '{YmlCategory}' - Items
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| GroupName
+| Mandatory
+| String
+| The name of the DFS Replication Group.
+|
+
+| ComputerName
+| Mandatory
+| String
+| The computer name of the replication group member.
+|
+
+| DomainName
+|
+| String
+| The FQDN of the AD domain.
+|
+
+| Description
+|
+| String
+| A description for the member.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the member should exist.
+| - Absent
+  - Present
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DfsReplicationGroupMembers:
+  Items:
+    - GroupName: Public
+      DomainName: contoso.com
+      ComputerName: server1.contoso.com
+    - GroupName: Public
+      DomainName: contoso.com
+      ComputerName: server2.contoso.com
+----

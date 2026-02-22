@@ -1,0 +1,79 @@
+// CommonTasks YAML Reference: DnsSuffixes
+// =========================================
+
+:YmlCategory: DnsSuffixes
+
+:abstract:    {YmlCategory} configures DNS connection-specific suffixes on network interfaces.
+
+[#dscyml_dnssuffixes, {YmlCategory}]
+= DSC Resource '{YmlCategory}'
+
+[[dscyml_dnssuffixes_abstract, {abstract}]]
+{abstract}
+
+
+[cols="1,3a" options="autowidth" caption=]
+|===
+| Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/DnsSuffixes
+| DSC Resource   | https://github.com/dsccommunity/NetworkingDsc[NetworkingDsc]
+| Documentation  | https://github.com/dsccommunity/NetworkingDsc/wiki/DnsConnectionSuffix[DnsConnectionSuffix]
+|===
+
+
+.Attributes of category '{YmlCategory}'
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| Suffixes
+| Mandatory
+| Hashtable[]
+| List of DNS connection suffix configurations.
+|
+
+|===
+
+
+.Attributes of category '{YmlCategory}' - Suffixes
+[cols="1,1,1,2a,1a" options="header"]
+|===
+| Parameter
+| Attribute
+| DataType
+| Description
+| Allowed Values
+
+| InterfaceAlias
+| Mandatory
+| String
+| Alias of the network interface for which the DNS suffix is set.
+|
+
+| ConnectionSpecificSuffix
+| Mandatory
+| String
+| DNS connection-specific suffix to assign to the network interface.
+|
+
+| Ensure
+|
+| String
+| Specifies whether the DNS suffix should exist.
+| - Absent
+  - Present
+
+|===
+
+
+.Example
+[source, yaml]
+----
+DnsSuffixes:
+  Suffixes:
+    - InterfaceAlias: en0
+      ConnectionSpecificSuffix: contoso.com
+----
