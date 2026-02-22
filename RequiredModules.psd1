@@ -59,7 +59,7 @@
     PackageManagement            = '1.4.8.1'
     PowerShellGet                = '2.2.5'
     ConfigMgrCBDsc               = '4.0.0'
-    MmaDsc                       = '1.3.0'
+    MmaDsc                       = '1.4.0'
     CertificateDsc               = '6.0.0'
     xRobocopy                    = '2.0.0.0'
     VSTSAgent                    = '2.0.14'
