@@ -5,6 +5,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation:
+  - Added meaningful abstracts and "When to use" guidance sections to all 157
+    composite resource documentation files, replacing placeholder (`###TBD###`)
+    and incorrect descriptions.
+  - Audited all parameter tables against the actual `.schema.psm1` files and
+    fixed ~103 issues across ~73 resources: wrong Mandatory/Key attributes,
+    wrong DataTypes, missing parameters, empty parameter tables, copy-paste
+    description errors, typos (`Enure`, `Booelan`, `Stringp[]`), and obsolete
+    parameters (e.g. `DnsServerSettings` — 39 added, 19 removed).
+  - Added "See also" cross-reference sections to 132 documentation files,
+    linking related resources within the same family (AD, DNS, SQL, Exchange,
+    SharePoint, DHCP, RemoteDesktop, etc.).
+  - Populated missing sub-parameter detail tables for `Hashtable[]` parameters
+    in `RemoteDesktopDeployment`, `RemoteDesktopCollections`, `SharePointSetup`,
+    and `OfficeOnlineServerSetup`.
+  - Added documentation links to `ExchangeProvisioning`,
+    `ExchangeConfiguration`, and `ExchangeDagProvisioning`.
+  - Expanded the YAML example in `OfficeOnlineServerFarmConfig` from 2 to 12
+    properties.
+  - Removed leftover developer note from `AddsDomainController`
+    (`InstallationMediaPath`).
+  - Added YAML references and examples for `DfsReplicationGroupConnections`,
+    `DfsReplicationGroupMembers`, `DfsReplicationGroupMemberships`,
+    `DnsSuffixes`, `RemoteDesktopServers`, and `RenameNetworkAdapters`.
+  - Updated test YAML assets for `DscDiagnostic` and `DscPullServer`.
+
 ### Fixed
 
 - DSC compilation errors were silently swallowed. Get-DscResource simply excluded
