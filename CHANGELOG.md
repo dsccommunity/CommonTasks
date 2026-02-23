@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     `DfsReplicationGroupMembers`, `DfsReplicationGroupMemberships`,
     `DnsSuffixes`, `RemoteDesktopServers`, and `RenameNetworkAdapters`.
   - Updated test YAML assets for `DscDiagnostic` and `DscPullServer`.
+- Updated `MmaDsc` from `1.3.0` to `1.4.1`.
 
 ### Fixed
 
