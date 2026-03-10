@@ -105,7 +105,7 @@ f1
             # inheritance (including PSModulePath).  Results are read from a
             # JSON file written by the batch script.
             $argString = @(
-                '-NoProfile', '-NonInteractive',
+                '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
                 '-File', "`"$batchScript`"",
                 '-DscResourceNames', "`"$namesCsv`"",
                 '-ModuleName', $moduleUnderTest.Name,
