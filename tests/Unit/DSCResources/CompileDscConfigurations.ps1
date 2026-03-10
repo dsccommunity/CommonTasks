@@ -78,12 +78,21 @@ try
     $filteredParentPath = ($env:PSModulePath -split ';' |
             Where-Object { $_ -and $_ -notlike '*\PowerShell\7\*' }) -join ';'
 
-    # Place the WinPS system module path ($PSHOME\Modules) BEFORE the
-    # RequiredModules path.  RequiredModules may contain a PS7-only
-    # PSDesiredStateConfiguration (v2.x / .NET Core) that cannot be loaded
-    # by Windows PowerShell 5.1.  If RequiredModules comes first, WinPS
-    # finds the incompatible version, fails to load it, and every
-    # Import-DscResource call reports "Could not find the module".
+    # RequiredModules may contain a PS7-only PSDesiredStateConfiguration
+    # (v2.x / .NET Core) that cannot be loaded by Windows PowerShell 5.1.
+    # PowerShell auto-import prefers the highest version regardless of
+    # PSModulePath order, so it would pick 2.x, fail to load it, and break
+    # Import-DscResource.  Temporarily hide the folder so it is not
+    # discoverable during compilation.
+    $psDscModulePath = Join-Path -Path $RequiredModulesPath -ChildPath 'PSDesiredStateConfiguration'
+    $psDscHiddenPath = Join-Path -Path $RequiredModulesPath -ChildPath 'PSDesiredStateConfiguration.hidden'
+    $script:hidPsDsc = $false
+    if (Test-Path -Path $psDscModulePath)
+    {
+        Rename-Item -Path $psDscModulePath -NewName 'PSDesiredStateConfiguration.hidden' -Force
+        $script:hidPsDsc = $true
+    }
+
     $winPSSystemModulePath = Join-Path -Path $PSHOME -ChildPath 'Modules'
 
     $env:PSModulePath = @(
@@ -93,12 +102,7 @@ try
         $filteredParentPath
     ) -join ';'
 
-    # Pre-load the WinPS-native PSDesiredStateConfiguration (v1.x) before
-    # any code triggers auto-import.  RequiredModules may contain the PS7-only
-    # PSDesiredStateConfiguration v2.x (.NET Core).  PowerShell auto-import
-    # prefers the highest version regardless of PSModulePath order, so it
-    # would pick 2.x, fail to load it, and break Import-DscResource.
-    # Loading v1.x explicitly first prevents this.
+    # Pre-load the WinPS-native PSDesiredStateConfiguration (v1.x).
     Import-Module -Name PSDesiredStateConfiguration -MaximumVersion 1.99 -ErrorAction Stop
 
     Import-Module -Name datum -ErrorAction Stop
@@ -120,6 +124,11 @@ try
 catch
 {
     # Fatal – cannot continue with any resource.
+    # Restore hidden folder before exiting.
+    if ($script:hidPsDsc -and (Test-Path -Path $psDscHiddenPath))
+    {
+        Rename-Item -Path $psDscHiddenPath -NewName 'PSDesiredStateConfiguration' -Force
+    }
     Write-Error "Initialisation failed: $_"
     exit 1
 }
@@ -213,6 +222,12 @@ configuration "Config_$DscResourceName" {
 
 # Write compilation results to the JSON file so the caller can read them.
 $results | ConvertTo-Json -Depth 3 | Set-Content -Path $ResultPath -Encoding UTF8
+
+# Restore the hidden PSDesiredStateConfiguration folder.
+if ($script:hidPsDsc -and (Test-Path -Path $psDscHiddenPath))
+{
+    Rename-Item -Path $psDscHiddenPath -NewName 'PSDesiredStateConfiguration' -Force
+}
 
 # Exit with non-zero only if ALL resources failed (allows partial success).
 $anySuccess = $results | Where-Object { $_.Success }
