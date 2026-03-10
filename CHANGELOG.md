@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a Test
+  Checks if the ResourceId ends with the [<ResourceName>]<Resourcename to prevent `DependsOn` Issues with the DSCWorkshop Framework.
+
 ## [0.12.0] - 2026-02-24
 
 ### Changed
