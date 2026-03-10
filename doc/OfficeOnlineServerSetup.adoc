@@ -83,10 +83,10 @@ Use this resource when you need to install the prerequisites and language packs 
 | Specifies the path to the Office Online Server setup executable.
 |
 
-| WindowsFeatureSourcePath
-|
+| SourcePath
+| Mandatory
 | String
-| Specifies an alternate source path for Windows Feature files.
+| Specifies the source path for Windows Feature SxS files (e.g. mounted ISO `D:\sources\sxs`).
 |
 
 |===
@@ -122,6 +122,7 @@ Use this resource when you need to install the prerequisites and language packs 
 ----
 OfficeOnlineServerSetup:
   Path: C:\OfficeOnline\Setup.exe
+  SourcePath: D:\sources\sxs
   LanguagePacks:
   - Language: de-de
     BinaryDir: C:\de-de
