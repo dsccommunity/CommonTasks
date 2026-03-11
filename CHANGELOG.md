@@ -5,6 +5,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- OfficeOnlineServerSetup:
+  - **BREAKING**: Renamed parameter `WindowsFeatureSourcePath` to `SourcePath`
+    and made it mandatory.
+  - Replaced `xWindowsFeatureSet` composite resource with individual
+    `WindowsFeature` resources, each specifying the `Source` path for SxS
+    feature installation and an explicit `DependsOn` on `NetFx35`.
+
 ### Fixed
 
 - DfsNamespaces:
@@ -17,12 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- OfficeOnlineServerSetup:
-  - **BREAKING**: Renamed parameter `WindowsFeatureSourcePath` to `SourcePath`
-    and made it mandatory.
-  - Replaced `xWindowsFeatureSet` composite resource with individual
-    `WindowsFeature` resources, each specifying the `Source` path for SxS
-    feature installation and an explicit `DependsOn` on `NetFx35`.
 - Documentation:
   - Added meaningful abstracts and "When to use" guidance sections to all 157
     composite resource documentation files, replacing placeholder (`###TBD###`)
