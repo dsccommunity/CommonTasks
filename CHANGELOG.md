@@ -5,6 +5,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- DfsNamespaces:
+  - Added a `Service` resource to ensure the `Dfs` service is running before
+    configuring DFS namespace settings. `DFSNamespaceServerConfiguration` now
+    depends on the service resource to prevent configuration failures when the
+    DFS service has not started yet.
+
 ## [0.12.0] - 2026-02-24
 
 ### Changed

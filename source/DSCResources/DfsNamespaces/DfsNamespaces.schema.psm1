@@ -14,10 +14,17 @@ configuration DfsNamespaces
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -ModuleName DfsDsc
 
+    service DfsService
+    {
+        Name  = 'Dfs'
+        State = 'Running'
+    }
+
     DFSNamespaceServerConfiguration DFSNamespaceConfig
     {
         IsSingleInstance = 'Yes'
         UseFQDN          = $true
+        DependsOn        = '[Service]DfsService'
     }
 
     foreach ($namespace in $NamespaceConfig)
