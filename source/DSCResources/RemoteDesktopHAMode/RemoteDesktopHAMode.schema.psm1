@@ -28,7 +28,7 @@ configuration RemoteDesktopHAMode
         $Config
     )
 
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
     if ($DependsOn -and -not $Config)
     {
@@ -47,5 +47,5 @@ configuration RemoteDesktopHAMode
         $param.Remove('PsDscRunAsCredential')
     }
 
-    (Get-DscSplattedResource -ResourceName xRDConnectionBrokerHAMode -ExecutionName RDCBHAMode -Properties $param -NoInvoke).Invoke($param)
+    (Get-DscSplattedResource -ResourceName RDConnectionBrokerHAMode -ExecutionName RDCBHAMode -Properties $param -NoInvoke).Invoke($param)
 }

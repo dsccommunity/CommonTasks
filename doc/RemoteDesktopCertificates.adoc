@@ -20,9 +20,9 @@ Use this resource when you need to assign SSL/TLS certificates to RDS roles (Con
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopCertificates
-| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
-| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDCertificateConfiguration[xRDCertificateConfiguration]
-                   
+| DSC Resource   | https://github.com/dsccommunity/RemoteDesktopServicesDsc[RemoteDesktopServicesDsc]
+| Documentation  | https://github.com/dsccommunity/RemoteDesktopServicesDsc/tree/main/source/DSCResources/DSC_RDCertificateConfiguration[RDCertificateConfiguration]
+
 |===
 
 

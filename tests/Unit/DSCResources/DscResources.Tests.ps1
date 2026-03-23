@@ -15,7 +15,7 @@ BeforeDiscovery {
     $here = $PSScriptRoot
 
     # SqlPermissions are in conflict with the Scom* resources
-    $skippedDscResources = 'PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment'
+    $skippedDscResources = ''
 
     Import-Module -Name datum
 
@@ -88,7 +88,7 @@ f1
             # in a single Windows PowerShell 5.1 process.  This avoids the
             # expensive per-resource overhead of module imports and
             # Initialize-DscResourceMetaInfo.
-            $skipped = @('PowerShellRepositories', 'RemoteDesktopCollections', 'RemoteDesktopDeployment')
+            $skipped = @()
             $resourceNames = Get-ChildItem -Path "$($moduleUnderTest.ModuleBase)\DSCResources\*" -Directory |
                 Where-Object { $_.BaseName -notin $skipped } |
                     ForEach-Object { $_.BaseName }
