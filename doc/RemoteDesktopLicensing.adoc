@@ -20,9 +20,9 @@ Use this resource when you need to configure Remote Desktop licensing for your R
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopLicensing
-| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
-| Documentation  | - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDServer[xRDServer]
-                   - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDLicenseConfiguration[xRDLicenseConfiguration]
+| DSC Resource   | https://github.com/dsccommunity/RemoteDesktopServicesDsc[RemoteDesktopServicesDsc]
+| Documentation  | - https://github.com/dsccommunity/RemoteDesktopServicesDsc/tree/main/source/DSCResources/DSC_RDServer[RDServer]
+                   - https://github.com/dsccommunity/RemoteDesktopServicesDsc/tree/main/source/DSCResources/DSC_RDLicenseConfiguration[RDLicenseConfiguration]
 |===
 
 
