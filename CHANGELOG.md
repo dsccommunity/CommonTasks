@@ -13,6 +13,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaced `xWindowsFeatureSet` composite resource with individual
     `WindowsFeature` resources, each specifying the `Source` path for SxS
     feature installation and an explicit `DependsOn` on `NetFx35`.
+- `xRemoteDesktopSessionHost`
+  - Rename to `RemoteDesktopServicesDsc`.
+  - Update to version 4.1.0.
+  - Updated doc references.
+- Tests
+  - Re-enabled tests for:
+    - 'PowerShellRepositories'
+    - 'RemoteDesktopCollections'
+    - 'RemoteDesktopDeployment'
+- Module GUIDs:
+  - Regenerated unique GUIDs for:
+    - PowerShellRepositories
+    - RemoteDesktopCertificates
+    - RemoteDesktopCollections
+    - RemoteDesktopDeployment
+    - RemoteDesktopHAMode
+    - RemoteDesktopLicensing
+    - RenameNetworkAdapters
+    - RestartSystem
 
 ### Fixed
 
@@ -21,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     configuring DFS namespace settings. `DFSNamespaceServerConfiguration` now
     depends on the service resource to prevent configuration failures when the
     DFS service has not started yet.
+- README
+  - Fixed PSGallery PreRelease badge.
 
 ## [0.12.0] - 2026-02-24
 
