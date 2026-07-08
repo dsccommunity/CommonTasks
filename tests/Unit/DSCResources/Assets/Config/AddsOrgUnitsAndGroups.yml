@@ -15,6 +15,9 @@ Groups:
   - GroupName: App_123_Read
     Path: OU=Groups,OU=Admin
     GroupScope: DomainLocal
+  - GroupName: App_456_Read
+    Path: OU=Groups,OU=Autofill
+    GroupScope: DomainLocal
   - GroupName: App_123_Write
     Path: OU=Groups,OU=Admin
     GroupScope: Global

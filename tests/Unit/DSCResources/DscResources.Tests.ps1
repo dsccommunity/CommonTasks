@@ -231,6 +231,47 @@ configuration "Config_$dscResourceName" {
     }
 }
 
+Describe 'AddsOrgUnitsAndGroups DependsOn' -Tags FunctionalQuality {
+
+    It 'gives each DomainLocal group a single parent-OU dependency (no quadratic blow-up)' {
+
+        # Regression guard for the O(groups x OUs) DependsOn explosion: assigning the
+        # full OU dependency list to every DomainLocal group inflated the compiled MOF
+        # so that a large DC exceeded DSC's hard 50 MB ValidateInstanceText limit. Each
+        # DomainLocal group must depend on exactly one [ADOrganizationalUnit] - its own
+        # parent OU - not on every OU created by the composite.
+        $mofPath = Join-Path -Path $OutputDirectory -ChildPath 'localhost_AddsOrgUnitsAndGroups.mof'
+        Test-Path -Path $mofPath | Should -BeTrue -Because 'the AddsOrgUnitsAndGroups composite must have compiled'
+
+        $mofContent = Get-Content -Path $mofPath -Raw
+
+        # Split the MOF on instance boundaries so each block holds one complete
+        # resource (including its full DependsOn array) and cannot be truncated by the
+        # nested '};' that terminates a DependsOn list.
+        $adGroupBlocks = ($mofContent -split 'instance of ') |
+            Where-Object { $_ -match '^MSFT_ADGroup\b' }
+
+        $domainLocalBlocks = $adGroupBlocks |
+            Where-Object { $_ -match 'GroupScope\s*=\s*"DomainLocal"' }
+
+        $domainLocalBlocks | Should -Not -BeNullOrEmpty -Because 'the test asset defines DomainLocal groups'
+
+        foreach ($block in $domainLocalBlocks)
+        {
+            $groupName = [regex]::Match($block, 'GroupName\s*=\s*"([^"]+)"').Groups[1].Value
+            $ouRefCount = [regex]::Matches($block, '\[ADOrganizationalUnit\]').Count
+
+            $ouRefCount | Should -Be 1 -Because "DomainLocal group '$groupName' must depend only on its own parent OU, not the whole OU list"
+        }
+
+        # The single dependency must be the group's own parent OU, using the same
+        # -replace '\W' normalisation the composite applies to OU resource IDs.
+        $readGroupBlock = $domainLocalBlocks |
+            Where-Object { $_ -match 'GroupName\s*=\s*"App_123_Read"' }
+        $readGroupBlock | Should -Match '\[ADOrganizationalUnit\]OUGroupsOUAdminDCcontosoDCcom'
+    }
+}
+
 Describe 'Final tests' -Tags FunctionalQuality {
 
     It 'Every composite resource has compiled' -TestCases $finalTestCases {
