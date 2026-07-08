@@ -233,7 +233,7 @@ configuration "Config_$dscResourceName" {
 
 Describe 'AddsOrgUnitsAndGroups DependsOn' -Tags FunctionalQuality {
 
-    It 'gives each DomainLocal group a single parent-OU dependency (no quadratic blow-up)' {
+    It 'Should give each DomainLocal group a single parent-OU dependency (no quadratic blow-up)' {
 
         # Regression guard for the O(groups x OUs) DependsOn explosion: assigning the
         # full OU dependency list to every DomainLocal group inflated the compiled MOF
