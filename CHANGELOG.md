@@ -35,11 +35,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- AddsOrgUnitsAndGroups:
+  - Each `DomainLocal` group now depends only on its own parent OU instead of the
+    entire OU list. Assigning every OU as `DependsOn` to every `DomainLocal` group
+    produced an O(groups x OUs) dependency explosion that, once the composite is
+    expanded into a root configuration, could push a large domain controller's MOF
+    past DSC's hard 50 MB `ValidateInstanceText` limit (`serializedBufferLength must
+    be in the range of 4 and 52428800`). The parent OU is sufficient for correct
+    apply ordering; falls back to the full list when the parent OU is not managed by
+    the composite.
 - DfsNamespaces:
   - Added a `Service` resource to ensure the `Dfs` service is running before
     configuring DFS namespace settings. `DFSNamespaceServerConfiguration` now
     depends on the service resource to prevent configuration failures when the
     DFS service has not started yet.
+- DscPullServerSql:
+  - Removed the default values from the mandatory `SqlServer` and `DatabaseName`
+    parameters. A mandatory parameter never uses its default value, and the
+    combination triggered the required PS Script Analyzer rule
+    `PSAvoidDefaultValueForMandatoryParameter`, which failed the HQRM tests on
+    newer analyzer versions.
 - README
   - Fixed PSGallery PreRelease badge.
 

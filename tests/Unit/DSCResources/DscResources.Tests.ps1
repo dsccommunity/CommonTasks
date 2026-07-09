@@ -231,6 +231,82 @@ configuration "Config_$dscResourceName" {
     }
 }
 
+Describe 'AddsOrgUnitsAndGroups DependsOn' -Tags FunctionalQuality {
+
+    BeforeDiscovery {
+        # Enumerate the DomainLocal groups from the test asset so each one becomes its
+        # own It case (Pester -ForEach). The MOF is compiled at run time by the
+        # 'DSC Composite Resources compile' Describe, so it does not exist yet during
+        # discovery; the asset YAML is the correct discovery-time source. For each group
+        # the expected parent-OU resource ID is derived with the same '-replace \W'
+        # normalisation the composite applies, so the assertion is not hard-coded.
+        $assetPath = Join-Path -Path $PSScriptRoot -ChildPath 'Assets\Config\AddsOrgUnitsAndGroups.yml'
+        $asset = Get-Content -Path $assetPath -Raw | ConvertFrom-Yaml
+        $domainDn = $asset.DomainDN
+
+        $domainLocalGroupCases = foreach ($group in $asset.Groups)
+        {
+            if ($group.GroupScope -eq 'DomainLocal')
+            {
+                $parentPath = '{0},{1}' -f $group.Path, $domainDn
+
+                @{
+                    GroupName     = $group.GroupName
+                    ExpectedOuRef = "[ADOrganizationalUnit]$($parentPath -replace '\W')"
+                }
+            }
+        }
+    }
+
+    BeforeAll {
+        # Regression guard for the O(groups x OUs) DependsOn explosion: assigning the
+        # full OU dependency list to every DomainLocal group inflated the compiled MOF
+        # so that a large DC exceeded DSC's hard 50 MB ValidateInstanceText limit. Each
+        # DomainLocal group must depend on exactly one [ADOrganizationalUnit] - its own
+        # parent OU - not on every OU created by the composite.
+        $mofPath = Join-Path -Path $OutputDirectory -ChildPath 'localhost_AddsOrgUnitsAndGroups.mof'
+        $script:mofExists = Test-Path -Path $mofPath
+
+        # Split the MOF on instance boundaries so each block holds one complete
+        # resource (including its full DependsOn array) and cannot be truncated by the
+        # nested '};' that terminates a DependsOn list. DomainLocal ADGroup instances
+        # are identified by their GroupScope property rather than the MSFT_ class
+        # prefix, so a future resource-prefix change cannot silently break this test.
+        $script:domainLocalBlocks = if ($script:mofExists)
+        {
+            (Get-Content -Path $mofPath -Raw) -split 'instance of ' |
+                Where-Object { $_ -match 'GroupScope\s*=\s*"DomainLocal"' }
+        }
+        else
+        {
+            @()
+        }
+    }
+
+    It 'Should have compiled the AddsOrgUnitsAndGroups composite' {
+        $script:mofExists | Should -BeTrue -Because 'the AddsOrgUnitsAndGroups composite must have compiled'
+    }
+
+    It 'Should compile the DomainLocal groups defined in the test asset' {
+        $script:domainLocalBlocks | Should -Not -BeNullOrEmpty -Because 'the test asset defines DomainLocal groups'
+    }
+
+    It "DomainLocal group '<GroupName>' should depend only on its own parent OU (no quadratic blow-up)" -ForEach $domainLocalGroupCases {
+
+        $block = $script:domainLocalBlocks |
+            Where-Object { $_ -match "GroupName\s*=\s*""$([regex]::Escape($GroupName))""" }
+
+        $block | Should -Not -BeNullOrEmpty -Because "the compiled MOF must contain DomainLocal group '$GroupName'"
+
+        $ouRefCount = ([regex]::Matches($block, '\[ADOrganizationalUnit\]')).Count
+        $ouRefCount | Should -Be 1 -Because "DomainLocal group '$GroupName' must depend only on its own parent OU, not the whole OU list"
+
+        # The single dependency must be the group's own parent OU, using the same
+        # -replace '\W' normalisation the composite applies to OU resource IDs.
+        $block | Should -Match ([regex]::Escape($ExpectedOuRef)) -Because "DomainLocal group '$GroupName' must depend on its own parent OU '$ExpectedOuRef'"
+    }
+}
+
 Describe 'Final tests' -Tags FunctionalQuality {
 
     It 'Every composite resource has compiled' -TestCases $finalTestCases {
