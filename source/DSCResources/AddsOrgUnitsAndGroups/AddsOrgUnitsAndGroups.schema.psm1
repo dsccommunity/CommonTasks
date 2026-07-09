@@ -93,8 +93,6 @@ configuration AddsOrgUnitsAndGroups
         Get-OrgUnitSplat -Object $ou -ParentPath $ou.Path -SkipDepend
     }
 
-    $dependencies = @()
-
     foreach ($group in $Groups)
     {
         # remove case sensitivity from hashtables
@@ -102,7 +100,6 @@ configuration AddsOrgUnitsAndGroups
 
         if ($group.GroupScope -eq 'DomainLocal')
         {
-            $dependencies += "[ADGroup]'$($group.GroupName)'"
             $group.Path = '{0},{1}' -f $group.Path, $DomainDn
 
             $parentOuRef = "[ADOrganizationalUnit]$($group.Path -replace '\W')"
