@@ -113,4 +113,42 @@ configuration AddsOrgUnitsAndGroups
 
         (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
     }
+
+    # --- Completion anchor -------------------------------------------------
+    # A single, always-in-desired-state resource that depends on every OU and
+    # group this composite creates. Consumers that must run only AFTER all
+    # OUs/groups exist (e.g. AddsDomainPrincipals, which places users into OUs
+    # and adds group memberships) should depend on THIS ONE resource via a
+    # cross-composite reference:
+    #
+    #   [Script]AddsOrgUnitsAndGroupsComplete::[AddsOrgUnitsAndGroups]AddsOrgUnitsAndGroups
+    #
+    # instead of on the composite as a whole. A DependsOn on the whole composite
+    # reference expands to references to EVERY member resource (hundreds of
+    # OUs + groups); and when that DependsOn is placed on a *consuming composite*
+    # DSC propagates it to EVERY resource that composite emits. The two multiply
+    # into an O(consumers x members) explosion that bloats the node MOF by tens
+    # of MB and exceeds the hard ~10 MB LCM push limit (MI RESULT 27).
+    if ($OrgUnits -or $Groups)
+    {
+        # Group resources are created with ExecutionName = $group.GroupName, so
+        # their resource IDs are [ADGroup]<GroupName>; mirror that here. OU refs
+        # are already collected in $script:ouDependencies by Get-OrgUnitSplat.
+        $groupResourceRefs = foreach ($group in $Groups)
+        {
+            "[ADGroup]$($group.GroupName)"
+        }
+
+        # Filter empties so an absent OU or group set never injects a blank ref.
+        $anchorDependencies = @($script:ouDependencies) + @($groupResourceRefs) |
+            Where-Object { $_ }
+
+        Script AddsOrgUnitsAndGroupsComplete
+        {
+            TestScript = { $true }
+            SetScript  = { }
+            GetScript  = { return @{ Result = 'Complete' } }
+            DependsOn  = $anchorDependencies
+        }
+    }
 }
