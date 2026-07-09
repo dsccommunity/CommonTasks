@@ -132,7 +132,11 @@ configuration AddsOrgUnitsAndGroups
         {
             TestScript = { $true }
             SetScript  = { }
-            GetScript  = { return @{ Result = 'Complete' } }
+            GetScript  = {
+                return @{
+                    Result = 'Complete'
+                }
+            }
             DependsOn  = $anchorDependencies
         }
     }
