@@ -32,6 +32,6 @@ configuration RemoteDesktopDeployment
     {
         $executionName = "rdsgw_$($gateway.GatewayServer -replace '[().:\s]', '')"
 
-        (Get-DscSplattedResource -ResourceName xRDSessionDeployment -ExecutionName $executionName -Properties $gateway -NoInvoke).Invoke($gateway)
+        (Get-DscSplattedResource -ResourceName RDSessionDeployment -ExecutionName $executionName -Properties $gateway -NoInvoke).Invoke($gateway)
     }
 }
