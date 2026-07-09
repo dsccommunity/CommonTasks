@@ -15,11 +15,11 @@ configuration DscPullServerSql
 
         [Parameter(Mandatory = $true)]
         [string]
-        $SqlServer = 'localhost',
+        $SqlServer,
 
         [Parameter(Mandatory = $true)]
         [string]
-        $DatabaseName = 'DSC',
+        $DatabaseName,
 
         [Parameter()]
         [string]

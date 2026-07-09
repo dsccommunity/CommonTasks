@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     configuring DFS namespace settings. `DFSNamespaceServerConfiguration` now
     depends on the service resource to prevent configuration failures when the
     DFS service has not started yet.
+- DscPullServerSql:
+  - Removed the default values from the mandatory `SqlServer` and `DatabaseName`
+    parameters. A mandatory parameter never uses its default value, and the
+    combination triggered the required PS Script Analyzer rule
+    `PSAvoidDefaultValueForMandatoryParameter`, which failed the HQRM tests on
+    newer analyzer versions.
 
 ## [0.12.0] - 2026-02-24
 
