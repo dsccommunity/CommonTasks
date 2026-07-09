@@ -20,9 +20,9 @@ Use this resource when you need to create RDS session collections that group ses
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopCollections
-| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
-| Documentation  | - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDSessionCollection[xRDSessionCollection]
-                   - https://github.com/dsccommunity/xRemoteDesktopSessionHost/tree/master/source/DSCResources/MSFT_xRDSessionCollectionConfiguration[xRDSessionCollectionConfiguration]
+| DSC Resource   | https://github.com/dsccommunity/RemoteDesktopServicesDsc[RemoteDesktopServicesDsc]
+| Documentation  | - https://github.com/dsccommunity/RemoteDesktopServicesDsc/tree/main/source/DSCResources/DSC_RDSessionCollection[RDSessionCollection]
+                   - https://github.com/dsccommunity/RemoteDesktopServicesDsc/tree/main/source/DSCResources/DSC_RDSessionCollectionConfiguration[RDSessionCollectionConfiguration]
 |===
 
 
@@ -81,7 +81,7 @@ Use this resource when you need to create RDS session collections that group ses
 | Settings
 |
 | Hashtable
-| Optional collection configuration settings (splatted to xRDSessionCollectionConfiguration). Supported keys: ActiveSessionLimitMin, AuthenticateUsingNLA, AutomaticReconnectionEnabled, BrokenConnectionAction, ClientDeviceRedirectionOptions, ClientPrinterAsDefault, ClientPrinterRedirected, CollectionDescription, CustomRdpProperty, DisconnectedSessionLimitMin, EncryptionLevel, IdleSessionLimitMin, MaxRedirectedMonitors, RDEasyPrintDriverEnabled, SecurityLayer, TemporaryFoldersDeletedOnExit, UserGroup, DiskPath, EnableUserProfileDisk, MaxUserProfileDiskSizeGB, IncludeFolderPath, ExcludeFolderPath, IncludeFilePath, ExcludeFilePath.
+| Optional collection configuration settings (splatted to RDSessionCollectionConfiguration). Supported keys: ActiveSessionLimitMin, AuthenticateUsingNLA, AutomaticReconnectionEnabled, BrokenConnectionAction, ClientDeviceRedirectionOptions, ClientPrinterAsDefault, ClientPrinterRedirected, CollectionDescription, CustomRdpProperty, DisconnectedSessionLimitMin, EncryptionLevel, IdleSessionLimitMin, MaxRedirectedMonitors, RDEasyPrintDriverEnabled, SecurityLayer, TemporaryFoldersDeletedOnExit, UserGroup, DiskPath, EnableUserProfileDisk, MaxUserProfileDiskSizeGB, IncludeFolderPath, ExcludeFolderPath, IncludeFilePath, ExcludeFilePath.
 |
 
 |===

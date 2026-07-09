@@ -17,12 +17,12 @@ configuration RemoteDesktopCertificates
             [PsDscRunAsCredential = [PSCredential]]
         }
     #>
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
     foreach ($certificate in $Certificates)
     {
         $executionName = "rdscert_$($certificate.ConnectionBroker)_$($certificate.Role)_$($certificate.ImportPath -replace '\W', '')"
 
-        (Get-DscSplattedResource -ResourceName xRDCertificateConfiguration -ExecutionName $executionName -Properties $certificate -NoInvoke).Invoke($certificate)
+        (Get-DscSplattedResource -ResourceName RDCertificateConfiguration -ExecutionName $executionName -Properties $certificate -NoInvoke).Invoke($certificate)
     }
 }

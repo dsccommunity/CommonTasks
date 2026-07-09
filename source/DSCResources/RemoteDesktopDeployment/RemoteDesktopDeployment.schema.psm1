@@ -6,11 +6,11 @@ configuration RemoteDesktopDeployment
         [string]
         $ConnectionBroker,
 
-        [Parameter()]
+        [Parameter(Mandatory = $true)]
         [string]
         $WebAccess,
 
-        [Parameter()]
+        [Parameter(Mandatory = $true)]
         [string[]]
         $SessionHosts,
 
@@ -19,10 +19,9 @@ configuration RemoteDesktopDeployment
         $Gateways
     )
 
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
-
-    xRDSessionDeployment RDS
+    RDSessionDeployment RDS
     {
         ConnectionBroker = $ConnectionBroker
         WebAccessServer  = $WebAccess
@@ -33,6 +32,6 @@ configuration RemoteDesktopDeployment
     {
         $executionName = "rdsgw_$($gateway.GatewayServer -replace '[().:\s]', '')"
 
-        (Get-DscSplattedResource -ResourceName xRDSessionDeployment -ExecutionName $executionName -Properties $gateway -NoInvoke).Invoke($gateway)
+        (Get-DscSplattedResource -ResourceName RDSessionDeployment -ExecutionName $executionName -Properties $gateway -NoInvoke).Invoke($gateway)
     }
 }

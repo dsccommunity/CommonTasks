@@ -13,11 +13,11 @@ configuration DscPullServerSql
         [string]
         $RegistrationKey,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [string]
         $SqlServer,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [string]
         $DatabaseName,
 
