@@ -18,14 +18,13 @@ configuration RemoteDesktopServers
     }
     #>
 
-    Import-DscResource -ModuleName PSDesiredStateConfiguration
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
     foreach ($server in $Servers)
     {
         $server = @{} + $server
 
         $executionName = "RDSRole_$($server.Role)_on_$($server.Server)" -replace '[\s(){}/\\:-]', '_'
-        (Get-DscSplattedResource -ResourceName xRDServer -ExecutionName $executionName -Properties $server -NoInvoke).Invoke($server)
+        (Get-DscSplattedResource -ResourceName RDServer -ExecutionName $executionName -Properties $server -NoInvoke).Invoke($server)
     }
 }

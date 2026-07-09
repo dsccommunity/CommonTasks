@@ -3,7 +3,7 @@
 
     ModuleVersion        = '0.0.1'
 
-    GUID                 = 'b3e06a63-9425-4a23-ae66-ad5086e7fc2f'
+    GUID                 = '52ca151c-530f-4540-8597-b646895253b5'
 
     Author               = 'NA'
 

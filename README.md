@@ -1,7 +1,7 @@
 # CommonTasks
 Build | Status | Last Commit | Latest Release | Lastest Preview Release
 --- | --- | --- | --- | ---
-Main | [![Build status](https://dev.azure.com/dsccommunity/CommonTasks/_apis/build/status/dsccommunity.CommonTasks?branchName=main)](https://dev.azure.com/dsccommunity/CommonTasks/_build) | [![GitHub last commit](https://img.shields.io/github/last-commit/dsccommunity/commontasks/main.svg)](https://github.com/dsccommunity/commontasks/tree/master/) | [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/commontasks.svg)](https://www.powershellgallery.com/packages/CommonTasks/) | [![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/vpre/CommonTasks?label=CommonTasks%20Preview)](https://www.powershellgallery.com/packages/CommonTasks/)
+Main | [![Build status](https://dev.azure.com/dsccommunity/CommonTasks/_apis/build/status/dsccommunity.CommonTasks?branchName=main)](https://dev.azure.com/dsccommunity/CommonTasks/_build) | [![GitHub last commit](https://img.shields.io/github/last-commit/dsccommunity/commontasks/main.svg)](https://github.com/dsccommunity/commontasks/tree/master/) | [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/commontasks.svg)](https://www.powershellgallery.com/packages/CommonTasks/) | [![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/v/CommonTasks?label=CommonTasks%20Preview&include_prereleases)](https://www.powershellgallery.com/packages/CommonTasks/)
 
 [![GitHub issues](https://img.shields.io/github/issues/dsccommunity/commontasks.svg)](https://github.com/dsccommunity/commontasks/issues)
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/commontasks.svg)](https://www.powershellgallery.com/packages/commontasks/)

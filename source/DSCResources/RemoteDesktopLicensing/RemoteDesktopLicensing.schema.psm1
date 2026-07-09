@@ -15,19 +15,18 @@ configuration RemoteDesktopLicensing
         $LicenseMode
     )
 
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
-
-    xRDServer RDSLicense
+    RDServer RDSLicense
     {
         Role             = 'RDS-Licensing'
         Server           = $LicenseServer
         ConnectionBroker = $ConnectionBroker
     }
 
-    xRDLicenseConfiguration Licensing
+    RDLicenseConfiguration Licensing
     {
-        DependsOn        = '[xRDServer]RDSLicense'
+        DependsOn        = '[RDServer]RDSLicense'
         ConnectionBroker = $ConnectionBroker
         LicenseServer    = $LicenseServer
         LicenseMode      = $LicenseMode

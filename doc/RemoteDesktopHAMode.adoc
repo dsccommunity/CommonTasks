@@ -20,8 +20,8 @@ Use this resource when you need to configure RDS Connection Broker high availabi
 [cols="1,3a" options="autowidth" caption=]
 |===
 | Source         | https://github.com/dsccommunity/CommonTasks/tree/main/source/DSCResources/RemoteDesktopHAMode
-| DSC Resource   | https://github.com/dsccommunity/xRemoteDesktopSessionHost[xRemoteDesktopSessionHost]
-| Documentation  | https://github.com/dsccommunity/xRemoteDesktopSessionHost#xrdconnectionbrokerhamode[xRDConnectionBrokerHAMode]
+| DSC Resource   | https://github.com/dsccommunity/RemoteDesktopServicesDsc[RemoteDesktopServicesDsc]
+| Documentation  | https://github.com/dsccommunity/RemoteDesktopServicesDsc#rdconnectionbrokerhamode[RDConnectionBrokerHAMode]
 |===
 
 

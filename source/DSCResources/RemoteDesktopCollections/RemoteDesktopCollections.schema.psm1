@@ -41,7 +41,7 @@ configuration RemoteDesktopCollections
             }
         }
     #>
-    Import-DscResource -ModuleName xRemoteDesktopSessionHost
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
     foreach ($collection in $Collections)
     {
@@ -58,16 +58,16 @@ configuration RemoteDesktopCollections
                 $collectionSettings['CollectionName'] = $collection.CollectionName
             }
 
-            $collectionSettings['DependsOn'] = "[xRDSessionCollection]$executionName"
+            $collectionSettings['DependsOn'] = "[RDSessionCollection]$executionName"
             $collection.Remove('Settings')
         }
 
-        (Get-DscSplattedResource -ResourceName xRDSessionCollection -ExecutionName $executionName -Properties $collection -NoInvoke).Invoke($collection)
+        (Get-DscSplattedResource -ResourceName RDSessionCollection -ExecutionName $executionName -Properties $collection -NoInvoke).Invoke($collection)
 
         if ($null -ne $collectionSettings)
         {
             $executionName = "rdsc_settings_$($collection.CollectionName -replace '[().:\s]', '')"
-            (Get-DscSplattedResource -ResourceName xRDSessionCollectionConfiguration -ExecutionName $executionName -Properties $collectionSettings -NoInvoke).Invoke($collectionSettings)
+            (Get-DscSplattedResource -ResourceName RDSessionCollectionConfiguration -ExecutionName $executionName -Properties $collectionSettings -NoInvoke).Invoke($collectionSettings)
         }
     }
 }
