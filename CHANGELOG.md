@@ -5,6 +5,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- AddsOrgUnitsAndGroups:
+  - Added an always-in-desired-state `AddsOrgUnitsAndGroupsComplete`
+    completion anchor (a `Script` resource) that depends on every OU and
+    group this composite creates. Consuming composites (for example
+    `AddsDomainPrincipals`, which places users into OUs and adds group
+    memberships) can now order after the whole composite with a single
+    cross-composite reference to this one resource:
+    `[Script]AddsOrgUnitsAndGroupsComplete::[AddsOrgUnitsAndGroups]AddsOrgUnitsAndGroups`,
+    instead of depending on the composite as a whole. A `DependsOn` on the
+    whole composite reference expands to references to every member
+    resource; and when placed on a consuming composite it is propagated to
+    every resource that composite emits. The two multiply into an
+    O(consumers × members) explosion that bloated the node MOF past the
+    hard ~10 MB LCM push limit (`MI RESULT 27`, "MOF file size exceeded max
+    size limit"). The anchor is inert — it never performs work — and is
+    skipped when neither OUs nor groups are defined.
+
 ### Changed
 
 - OfficeOnlineServerSetup:

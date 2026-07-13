@@ -257,6 +257,35 @@ lookup_options:
         - GroupName
 ----
 
+.Ordering after all OUs and groups — the completion anchor
+[NOTE]
+====
+This composite emits a single always-in-desired-state resource,
+`[Script]AddsOrgUnitsAndGroupsComplete`, that depends on *every* organizational unit
+and group it creates. Composites that must be applied only *after* all OUs and groups
+exist — most notably <<dscyml_addsdomainprincipals>>, which places users into OUs and
+adds group memberships — should depend on this **single** resource with a
+cross-composite reference:
+
+[source, yaml]
+----
+AddsDomainPrincipals:
+  DependsOn:
+    - "[Script]AddsOrgUnitsAndGroupsComplete::[AddsOrgUnitsAndGroups]AddsOrgUnitsAndGroups"
+----
+
+Do *not* order against the composite as a whole
+(`- "[AddsOrgUnitsAndGroups]AddsOrgUnitsAndGroups"`). A `DependsOn` on a composite
+reference expands to a reference to every OU and group resource, and when it is placed
+on a consuming *composite* DSC propagates it to every resource that composite generates.
+The two multiply into an O(consumers × members) `DependsOn` explosion that can add tens
+of megabytes to the compiled node MOF and break DSC's hard limits — the 50 MB
+`ValidateInstanceText` compile limit and the ~10 MB LCM push limit
+(`MOF file size exceeded max size limit` / `MI RESULT 27`). Depending on the anchor
+collapses this to one dependency edge per consuming resource while preserving identical
+apply ordering.
+====
+
 .See also
 ****
 * xref:addsdomain.adoc[AddsDomain]

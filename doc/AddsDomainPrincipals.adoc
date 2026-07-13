@@ -508,6 +508,27 @@ lookup_options:
         - ServiceAccountName
 ----
 
+.Ordering: depend on AddsOrgUnitsAndGroups via its completion anchor
+[NOTE]
+====
+When this composite runs together with <<dscyml_addsorgunitsandgroups>> on the same
+node, order it *after* all OUs and groups by depending on the
+`AddsOrgUnitsAndGroupsComplete` anchor — not on the whole `AddsOrgUnitsAndGroups`
+composite:
+
+[source, yaml]
+----
+AddsDomainPrincipals:
+  DependsOn:
+    - "[Script]AddsOrgUnitsAndGroupsComplete::[AddsOrgUnitsAndGroups]AddsOrgUnitsAndGroups"
+----
+
+Depending on the whole composite reference causes an O(users × (OUs + groups))
+`DependsOn` explosion that can push the node MOF past the ~10 MB LCM limit
+(`MOF file size exceeded max size limit` / `MI RESULT 27`). See
+<<dscyml_addsorgunitsandgroups>> for details.
+====
+
 .See also
 ****
 * xref:addsdomain.adoc[AddsDomain]

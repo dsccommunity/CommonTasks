@@ -119,4 +119,31 @@ configuration AddsOrgUnitsAndGroups
 
         (Get-DscSplattedResource -ResourceName ADGroup -ExecutionName $group.GroupName -Properties $group -NoInvoke).Invoke($group)
     }
+
+    if ($OrgUnits -or $Groups)
+    {
+        # Group resources are created with ExecutionName = $group.GroupName, so
+        # their resource IDs are [ADGroup]<GroupName>; mirror that here. OU refs
+        # are already collected in $script:ouDependencies by Get-OrgUnitSplat.
+        $groupResourceRefs = foreach ($group in $Groups)
+        {
+            "[ADGroup]$($group.GroupName)"
+        }
+
+        # Filter empties so an absent OU or group set never injects a blank ref.
+        $anchorDependencies = @($script:ouDependencies) + @($groupResourceRefs) |
+            Where-Object { $_ }
+
+        Script AddsOrgUnitsAndGroupsComplete
+        {
+            TestScript = { $true }
+            SetScript  = { }
+            GetScript  = {
+                return @{
+                    Result = 'Complete'
+                }
+            }
+            DependsOn  = $anchorDependencies
+        }
+    }
 }
